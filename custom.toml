@@ -1,0 +1,9 @@
+[all]
+hostname = "raspberrypi"
+
+[all.user]
+name = "pi"
+password_encrypted = "$6$2o4tHtyDYpV/zMgW$OMGL.iocxPof4gqNE5/DHsjohIQ6OzIImWMDnH4ib0sbfmcuyweQiR5T8sF/iWbB8K0CEdSr3xzdREGJ8VfmJ."
+
+[all.ssh]
+enabled = true
