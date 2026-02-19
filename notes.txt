@@ -1,0 +1,1 @@
+ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no yacsclaw@192.168.0.28
