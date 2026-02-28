@@ -1,0 +1,19 @@
+# SSH into Raspberry Pi
+
+## Find the Pi on your network
+# 1. Check ARP table for Raspberry Pi MAC prefix (dc:a6:32)
+arp -a | grep -v incomplete
+
+# 2. Ping potential Pi IPs found above
+ping -c 3 <ip-address>
+
+## Or by IP (may change):
+ssh olive@192.168.0.205
+
+## Old Pi (butter):
+ssh yacsclaw@192.168.0.28
+
+## If SSH key issues, run:
+ssh-keygen -R 192.168.0.28
+ssh-keygen -R 192.168.0.205
+ssh-keygen -R olive.local

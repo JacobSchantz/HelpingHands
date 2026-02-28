@@ -1,5 +1,21 @@
 # SO-101 Robot Configuration
 
+## Setup Conda
+
+```bash
+# Install Miniforge (if not installed)
+curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
+bash Miniforge3-Linux-aarch64.sh
+
+# Add to PATH (run once)
+echo 'export PATH="$HOME/miniforge3/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+conda create -n lerobot python=3.10 -y
+conda activate lerobot
+pip install lerobot
+
 ## USB Port Assignments
 
 | Arm      | Side  | Port                           |
