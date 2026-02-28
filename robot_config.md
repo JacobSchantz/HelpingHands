@@ -73,3 +73,11 @@ lerobot-teleoperate \
   --teleop.port=/dev/tty.usbmodem5AAF2627031 \
   --teleop.id=leader_left
 ```
+
+lerobot-teleoperate \
+ --robot.type=so101_follower \
+ --robot.port=/dev/ttyACM0 \
+ --robot.id=follower_right \
+ --teleop.type=so101_leader \
+ --teleop.port=/dev/ttyACM1 \
+ --teleop.id=leader_left
