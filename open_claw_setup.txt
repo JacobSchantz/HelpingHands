@@ -7,13 +7,24 @@ arp -a | grep -v incomplete
 # 2. Ping potential Pi IPs found above
 ping -c 3 <ip-address>
 
-## Or by IP (may change):
-ssh olive@192.168.0.205
-
-## Old Pi (butter):
+## Butter
 ssh yacsclaw@192.168.0.28
 
-## If SSH key issues, run:
-ssh-keygen -R 192.168.0.28
-ssh-keygen -R 192.168.0.205
-ssh-keygen -R olive.local
+## Olive
+ssh olive@192.168.0.205
+
+## Peaches:
+ssh peaches@192.168.0.227
+
+# Install OpenClaw
+curl -fsSL https://openclaw.ai/install.sh | bash
+
+# Add npm-global to PATH
+export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Start gateway
+openclaw gateway
+
+# Pair with Telegram
+openclaw pairing list telegram
+openclaw pairing approve telegram <CODE>
