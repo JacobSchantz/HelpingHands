@@ -16,6 +16,9 @@ ssh olive@192.168.0.205
 ## Peaches:
 ssh peaches@192.168.0.227
 
+## youtiao
+ssh olive@192.168.0.188
+
 # Install OpenClaw
 curl -fsSL https://openclaw.ai/install.sh | bash
 
