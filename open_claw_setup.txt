@@ -19,11 +19,17 @@ ssh peaches@192.168.0.227
 ## youtiao
 ssh olive@192.168.0.188
 
+# peanut
+ssh peanut@192.168.0.242
+
 # Install OpenClaw
 curl -fsSL https://openclaw.ai/install.sh | bash
 
-# Add npm-global to PATH
+# Add npm to PATH (Pi)
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# Add npm to PATH (Mac)
+export PATH="/opt/homebrew/bin:$PATH"
 
 # Start gateway
 openclaw gateway
