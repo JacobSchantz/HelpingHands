@@ -33,7 +33,13 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 # Start gateway
 openclaw gateway
-
+     
 # Pair with Telegram
 openclaw pairing list telegram
 openclaw pairing approve telegram <CODE>
+
+
+useful commands:
+free -h
+ps aux --sort=-%mem | head -10
+
