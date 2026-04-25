@@ -14,25 +14,25 @@ import time, os
 from pathlib import Path
 from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 from lerobot.robots.so_follower.so_follower import SOFollower
-from lerobot.robots.so_leader.config_so_leader import SOLeaderRobotConfig
-from lerobot.robots.so_leader.so_leader import SOLeader
+from lerobot.teleoperators.so_leader.so_leader import SOLeader
+from lerobot.teleoperators.so_leader.config_so_leader import SOLeaderTeleopConfig
 
 JOINT_KEYS = ['shoulder_pan.pos', 'shoulder_lift.pos', 'elbow_flex.pos', 'wrist_flex.pos', 'wrist_roll.pos', 'gripper.pos']
 
 script_dir = os.environ.get('SCRIPT_DIR', '.')
 
 # Read leader position
-leader_config = SOLeaderRobotConfig(
+leader_config = SOLeaderTeleopConfig(
     port='/dev/tty.usbmodem5AAF2627031',
     id='leader_left',
     calibration_dir=Path(script_dir) / 'lerobot_calibration',
 )
 leader = SOLeader(leader_config)
 leader.connect()
-leader_state = leader.get_observation()
-target = {k: leader_state[k] for k in JOINT_KEYS}
+target = leader.get_action()
+target = {k: target[k] for k in JOINT_KEYS}
 leader.disconnect()
-print('Leader position: {}'.format({k: '{:.1f}'.format(v) for k, v in target.items()}))
+print('Leader: {}'.format({k: '{:.1f}'.format(v) for k, v in target.items()}))
 
 # Connect to follower and read current position
 follower_config = SOFollowerRobotConfig(
@@ -44,15 +44,15 @@ follower = SOFollower(follower_config)
 follower.connect()
 state = follower.get_observation()
 current = {k: state[k] for k in JOINT_KEYS}
-print('Follower position: {}'.format({k: '{:.1f}'.format(v) for k, v in current.items()}))
+print('Follower: {}'.format({k: '{:.1f}'.format(v) for k, v in current.items()}))
 
 # Calculate sync time
 max_travel = max(abs(target[k] - current[k]) for k in JOINT_KEYS)
 speed = float(os.environ.get('SPEED', '10'))
 total_time = max(max_travel / speed, 0.5)
-print('Syncing over {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
+print('Syncing {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
 
-# Interpolate slowly from current to target
+# Interpolate slowly
 steps = int(total_time / 0.05)
 for step in range(steps + 1):
     t = step / max(steps, 1)
@@ -60,14 +60,10 @@ for step in range(steps + 1):
     follower.send_action(action)
     time.sleep(0.05)
 
-# Verify we arrived
-final = follower.get_observation()
-print('Final position: {}'.format({k: '{:.1f}'.format(final[k]) for k in JOINT_KEYS}))
-
-# Disable torque so arm goes limp — ready for teleop
+# Disable torque — arm goes limp, ready for teleop
 for key in follower.bus.motors.keys():
     follower.bus.write('Torque_Enable', key, 0)
-print('Torque disabled — arm is limp, ready for teleop')
+print('Torque disabled — ready for teleop')
 
 follower.disconnect()
 " 2>&1
