@@ -1,16 +1,16 @@
 #!/bin/bash
-# Syncs the follower arm to the leader arm's current position slowly
-# Then disables torque so teleop can start smoothly from that position
-# Usage: bash sync_arm.sh [speed_deg_per_sec]
+# Syncs the follower arm to the leader arm's current position smoothly
+# Uses servo internal acceleration for smooth motion, then disables torque
+# Usage: bash sync_arm.sh [acceleration] (lower = smoother, default 5)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate lerobot
 
-SPEED=${1:-10}  # degrees per second, default 10
+ACCEL=${1:-5}
 
 python3 -c "
-import time, os
+import os
 from pathlib import Path
 from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 from lerobot.robots.so_follower.so_follower import SOFollower
@@ -18,8 +18,10 @@ from lerobot.teleoperators.so_leader.so_leader import SOLeader
 from lerobot.teleoperators.so_leader.config_so_leader import SOLeaderTeleopConfig
 
 JOINT_KEYS = ['shoulder_pan.pos', 'shoulder_lift.pos', 'elbow_flex.pos', 'wrist_flex.pos', 'wrist_roll.pos', 'gripper.pos']
+HOME_NAMES = ['shoulder_pan', 'shoulder_lift', 'elbow_flex', 'wrist_flex', 'wrist_roll', 'gripper']
 
 script_dir = os.environ.get('SCRIPT_DIR', '.')
+accel = int(os.environ.get('ACCEL', '5'))
 
 # Read leader position
 leader_config = SOLeaderTeleopConfig(
@@ -29,12 +31,12 @@ leader_config = SOLeaderTeleopConfig(
 )
 leader = SOLeader(leader_config)
 leader.connect()
-target = leader.get_action()
-target = {k: target[k] for k in JOINT_KEYS}
+leader_action = leader.get_action()
+target = {JOINT_KEYS[i]: leader_action[JOINT_KEYS[i]] for i in range(6)}
 leader.disconnect()
 print('Leader: {}'.format({k: '{:.1f}'.format(v) for k, v in target.items()}))
 
-# Connect to follower and read current position
+# Connect to follower
 follower_config = SOFollowerRobotConfig(
     port='/dev/tty.usbmodem5AA90242401',
     id='follower_right',
@@ -42,27 +44,34 @@ follower_config = SOFollowerRobotConfig(
 )
 follower = SOFollower(follower_config)
 follower.connect()
-state = follower.get_observation()
-current = {k: state[k] for k in JOINT_KEYS}
-print('Follower: {}'.format({k: '{:.1f}'.format(v) for k, v in current.items()}))
+bus = follower.bus
 
-# Calculate sync time
-max_travel = max(abs(target[k] - current[k]) for k in JOINT_KEYS)
-speed = float(os.environ.get('SPEED', '10'))
-total_time = max(max_travel / speed, 0.5)
-print('Syncing {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
+# Set low acceleration on all motors for smooth motion
+for key in bus.motors.keys():
+    bus.write('Maximum_Acceleration', key, accel * 2)
+    bus.write('Acceleration', key, accel)
 
-# Interpolate slowly
-steps = int(total_time / 0.05)
-for step in range(steps + 1):
-    t = step / max(steps, 1)
-    action = {k: current[k] + (target[k] - current[k]) * t for k in JOINT_KEYS}
-    follower.send_action(action)
-    time.sleep(0.05)
+# Write goal positions — servos handle smooth interpolation internally
+for i, name in enumerate(HOME_NAMES):
+    bus.write('Goal_Position', name, target[JOINT_KEYS[i]])
+    print('{} -> {:.1f}'.format(name, target[JOINT_KEYS[i]]))
+
+print('Syncing (accel={})...'.format(accel))
+
+# Wait for motion to complete — poll until positions settle
+import time
+time.sleep(1)
+for _ in range(50):
+    state = follower.get_observation()
+    current = [state[k] for k in JOINT_KEYS]
+    goals = [target[k] for k in JOINT_KEYS]
+    if all(abs(current[i] - goals[i]) < 1.0 for i in range(6)):
+        break
+    time.sleep(0.2)
 
 # Disable torque — arm goes limp, ready for teleop
-for key in follower.bus.motors.keys():
-    follower.bus.write('Torque_Enable', key, 0)
+for key in bus.motors.keys():
+    bus.write('Torque_Enable', key, 0)
 print('Torque disabled — ready for teleop')
 
 follower.disconnect()
