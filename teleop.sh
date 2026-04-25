@@ -47,3 +47,11 @@ lerobot-teleoperate \
   --teleop.port=/dev/tty.usbmodem5AAF2627031 \
   --teleop.id=leader_left \
   --teleop.calibration_dir="$SCRIPT_DIR/lerobot_calibration"
+
+EXIT_CODE=$?
+
+# If teleop crashed (non-zero exit), slowly home the arm
+if [ $EXIT_CODE -ne 0 ]; then
+  echo "Teleop exited with code $EXIT_CODE — homing arm slowly..."
+  bash "$SCRIPT_DIR/home_arm.sh" 10
+fi
