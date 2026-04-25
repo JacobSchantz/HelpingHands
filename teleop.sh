@@ -2,8 +2,8 @@
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate lerobot
 
-# Play backhoe dig sound when teleop starts
-afplay "$(dirname "$0")/backhoe_dig.wav"
+# Play lobster click when teleop starts
+afplay "$(dirname "$0")/lobster_click.wav"
 
 lerobot-teleoperate \
   --robot.type=so101_follower \
