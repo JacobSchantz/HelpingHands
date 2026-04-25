@@ -15,8 +15,8 @@ from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 from lerobot.robots.so_follower.so_follower import SOFollower
 
 # Home position (degrees) — captured from arm's resting pose
-HOME = [-6.5, -103.9, 94.6, 67.7, 0.3, 0.5]
-JOINT_NAMES = ['shoulder_pan', 'shoulder_lift', 'elbow_flex', 'wrist_flex', 'wrist_roll', 'gripper']
+HOME = {'shoulder_pan.pos': -6.5, 'shoulder_lift.pos': -103.9, 'elbow_flex.pos': 94.6, 'wrist_flex.pos': 67.7, 'wrist_roll.pos': 0.3, 'gripper.pos': 0.5}
+JOINT_KEYS = list(HOME.keys())
 
 script_dir = os.environ.get('SCRIPT_DIR', '.')
 config = SOFollowerRobotConfig(
@@ -30,11 +30,11 @@ robot.connect()
 
 # Read current positions
 state = robot.get_observation()
-current = [state[name + '.pos'] for name in JOINT_NAMES]
-print('Current: {}'.format(['{:.1f}'.format(v) for v in current]))
+current = {k: state[k] for k in JOINT_KEYS}
+print('Current: {}'.format({k: '{:.1f}'.format(v) for k, v in current.items()}))
 
 # Calculate homing time
-max_travel = max(abs(HOME[i] - current[i]) for i in range(6))
+max_travel = max(abs(HOME[k] - current[k]) for k in JOINT_KEYS)
 speed = float(os.environ.get('SPEED', '10'))
 total_time = max(max_travel / speed, 1.0)
 print('Homing over {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
@@ -43,7 +43,7 @@ print('Homing over {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_trav
 steps = int(total_time / 0.05)
 for step in range(steps + 1):
     t = step / max(steps, 1)
-    target = {JOINT_NAMES[i]: current[i] + (HOME[i] - current[i]) * t for i in range(6)}
+    target = {k: current[k] + (HOME[k] - current[k]) * t for k in JOINT_KEYS}
     robot.send_action(target)
     time.sleep(0.05)
 
