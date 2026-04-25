@@ -8,54 +8,47 @@ conda activate lerobot
 
 SPEED=${1:-10}  # degrees per second, default 10
 
-python3 << 'PYEOF'
-import time
-import math
-from lerobot.common.robot_devices.motors.feetech import FeetechMotorsBus
+python3 -c "
+import time, os
+from pathlib import Path
+from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
+from lerobot.robots.so_follower.so_follower import SOFollower
 
-# Home position (degrees) — adjust these to your safe position
-HOME = [0.0, -90.0, 90.0, 0.0, 0.0, 0.0]
+# Home position (degrees) — captured from arm's resting pose
+HOME = [-6.5, -103.9, 94.6, 67.7, 0.3, 0.5]
+JOINT_NAMES = ['shoulder_pan', 'shoulder_lift', 'elbow_flex', 'wrist_flex', 'wrist_roll', 'gripper']
 
-# Motor IDs for SO-101 follower
-MOTOR_IDS = [1, 2, 3, 4, 5, 6]
-MOTOR_NAMES = {1: "shoulder_pan", 2: "shoulder_lift", 3: "elbow_flex",
-               4: "wrist_flex", 5: "wrist_roll", 6: "gripper"}
-
-bus = FeetechMotorsBus(
-    port="/dev/tty.usbmodem5AA90242401",
-    motors={i: (i, 777) for i in MOTOR_IDS},
+script_dir = os.environ.get('SCRIPT_DIR', '.')
+config = SOFollowerRobotConfig(
+    port='/dev/tty.usbmodem5AA90242401',
+    id='follower_right',
+    calibration_dir=Path(script_dir) / 'lerobot_calibration',
 )
 
-try:
-    bus.connect()
-    print("Connected to follower arm")
+robot = SOFollower(config)
+robot.connect()
 
-    # Read current positions
-    current = bus.read("Present_Position", MOTOR_IDS)
-    print(f"Current positions: {current}")
+# Read current positions
+state = robot.get_observation()
+current = [state[name + '.pos'] for name in JOINT_NAMES]
+print('Current: {}'.format(['{:.1f}'.format(v) for v in current]))
 
-    # Calculate max travel distance to determine total time
-    max_travel = max(abs(HOME[i] - current[i]) for i in range(len(MOTOR_IDS)))
-    total_time = max_travel / float("${SPEED}") if max_travel > 0 else 1.0
-    total_time = max(total_time, 1.0)  # at least 1 second
+# Calculate homing time
+max_travel = max(abs(HOME[i] - current[i]) for i in range(6))
+speed = float(os.environ.get('SPEED', '10'))
+total_time = max(max_travel / speed, 1.0)
+print('Homing over {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
 
-    print(f"Homing over {total_time:.1f}s (max travel: {max_travel:.1f}°)")
+# Interpolate slowly
+steps = int(total_time / 0.05)
+for step in range(steps + 1):
+    t = step / max(steps, 1)
+    target = {JOINT_NAMES[i]: current[i] + (HOME[i] - current[i]) * t for i in range(6)}
+    robot.send_action(target)
+    time.sleep(0.05)
 
-    # Interpolate slowly
-    steps = int(total_time / 0.05)  # 50ms per step
-    for step in range(steps + 1):
-        t = step / max(steps, 1)
-        positions = [current[i] + (HOME[i] - current[i]) * t for i in range(len(MOTOR_IDS))]
-        bus.write("Goal_Position", {mid: positions[i] for i, mid in enumerate(MOTOR_IDS)})
-        time.sleep(0.05)
+print('Home position reached')
+robot.disconnect()
+" 2>&1
 
-    print("Home position reached ✓")
-
-except Exception as e:
-    print(f"Homing failed: {e}")
-finally:
-    try:
-        bus.disconnect()
-    except:
-        pass
-PYEOF
+echo "Arm homed."
