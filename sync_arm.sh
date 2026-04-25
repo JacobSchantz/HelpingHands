@@ -69,10 +69,8 @@ for _ in range(50):
         break
     time.sleep(0.2)
 
-# Disable torque — arm goes limp, ready for teleop
-for key in bus.motors.keys():
-    bus.write('Torque_Enable', key, 0)
-print('Torque disabled — ready for teleop')
+# Leave torque enabled — arm stays at leader position, ready for teleop
+print('Synced — ready for teleop')
 
 follower.disconnect()
 " 2>&1
