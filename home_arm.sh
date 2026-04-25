@@ -1,26 +1,24 @@
 #!/bin/bash
 # Homes the follower arm to a safe position slowly
-# Uses servo internal acceleration control for smooth motion
-# Usage: bash home_arm.sh [acceleration] (default: 5, lower = smoother)
+# Usage: bash home_arm.sh [speed_deg_per_sec]
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate lerobot
 
-ACCEL=${1:-5}
+SPEED=${1:-10}  # degrees per second, default 10
 
 python3 -c "
-import os
+import time, os
 from pathlib import Path
 from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 from lerobot.robots.so_follower.so_follower import SOFollower
 
 # Home position (degrees) — captured from arm's resting pose
-HOME = {'shoulder_pan': -6.5, 'shoulder_lift': -103.9, 'elbow_flex': 94.6, 'wrist_flex': 67.7, 'wrist_roll': 0.3, 'gripper': 0.5}
+HOME = {'shoulder_pan.pos': -6.5, 'shoulder_lift.pos': -103.9, 'elbow_flex.pos': 94.6, 'wrist_flex.pos': 67.7, 'wrist_roll.pos': 0.3, 'gripper.pos': 0.5}
+JOINT_KEYS = list(HOME.keys())
 
 script_dir = os.environ.get('SCRIPT_DIR', '.')
-accel = int(os.environ.get('ACCEL', '5'))
-
 config = SOFollowerRobotConfig(
     port='/dev/tty.usbmodem5AA90242401',
     id='follower_right',
@@ -30,23 +28,27 @@ config = SOFollowerRobotConfig(
 robot = SOFollower(config)
 robot.connect()
 
-bus = robot.bus
-motor_keys = list(bus.motors.keys())
+# Read current positions
+state = robot.get_observation()
+current = {k: state[k] for k in JOINT_KEYS}
+print('Current: {}'.format({k: '{:.1f}'.format(v) for k, v in current.items()}))
 
-# Enable torque, set low acceleration, then write goal positions
-for key in motor_keys:
-    try:
-        bus.write('Torque_Enable', key, 1)  # enable torque first
-        bus.write('Maximum_Acceleration', key, accel * 2)
-        bus.write('Acceleration', key, accel)
-    except Exception as e:
-        print('{} setup error: {}'.format(key, e))
+# Calculate homing time
+max_travel = max(abs(HOME[k] - current[k]) for k in JOINT_KEYS)
+speed = float(os.environ.get('SPEED', '10'))
+total_time = max(max_travel / speed, 1.0)
+print('Homing over {:.1f}s (max travel: {:.1f} deg)'.format(total_time, max_travel))
 
-# Write goal positions — servos handle smooth interpolation
-for key, pos in HOME.items():
-    bus.write('Goal_Position', key, pos)
-    print('{} -> {:.1f}'.format(key, pos))
+# Interpolate slowly
+steps = int(total_time / 0.05)
+for step in range(steps + 1):
+    t = step / max(steps, 1)
+    target = {k: current[k] + (HOME[k] - current[k]) * t for k in JOINT_KEYS}
+    robot.send_action(target)
+    time.sleep(0.05)
 
-print('Homing (accel={})...'.format(accel))
+print('Home position reached')
 robot.disconnect()
 " 2>&1
+
+echo "Arm homed."
