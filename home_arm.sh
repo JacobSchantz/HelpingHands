@@ -33,13 +33,14 @@ robot.connect()
 bus = robot.bus
 motor_keys = list(bus.motors.keys())
 
-# Set low acceleration for smooth homing
+# Enable torque, set low acceleration, then write goal positions
 for key in motor_keys:
     try:
+        bus.write('Torque_Enable', key, 1)  # enable torque first
         bus.write('Maximum_Acceleration', key, accel * 2)
         bus.write('Acceleration', key, accel)
     except Exception as e:
-        print('{} acceleration error: {}'.format(key, e))
+        print('{} setup error: {}'.format(key, e))
 
 # Write goal positions — servos handle smooth interpolation
 for key, pos in HOME.items():
