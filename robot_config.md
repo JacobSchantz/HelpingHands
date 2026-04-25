@@ -1,83 +1,65 @@
-# SO-101 Robot Configuration
+# SO-101 Robot Config
 
-## Setup Conda
+## Arms
 
-```bash
-# Install Miniforge (if not installed)
-curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh
-bash Miniforge3-Linux-aarch64.sh
+| Role    | ID             | Type           | Port                           |
+|---------|----------------|----------------|--------------------------------|
+| Leader  | leader_left    | so101_leader   | /dev/tty.usbmodem5AAF2627031  |
+| Follower | follower_right | so101_follower | /dev/tty.usbmodem5AA90242401  |
 
-# Add to PATH (run once)
-echo 'export PATH="$HOME/miniforge3/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
+## Calibration
 
-conda create -n lerobot python=3.10 -y
-conda activate lerobot
-pip install lerobot
+Calibration files: `lerobot_calibration/`
+- `leader_left.json`
+- `follower_right.json`
 
-## USB Port Assignments
-
-| Arm      | Side  | Port                           |
-| -------- | ----- | ------------------------------ |
-| Leader   | Left  | `/dev/tty.usbmodem5AAF2627031` |
-| Follower | Right | `/dev/tty.usbmodem5AA90242401` |
-
-## Useful Commands
-
-### Find ports
+## Find Ports
 
 ```bash
 source ~/miniforge3/etc/profile.d/conda.sh && conda activate lerobot
 lerobot-find-port
 ```
 
-### Setup motors (run once per arm)
+## Setup Motors (run once per arm)
 
 ```bash
-# Follower (right arm)
-lerobot-setup-motors \
-  --robot.type=so101_follower \
-  --robot.port=/dev/tty.usbmodem5AA90242401
+# Follower
+lerobot-setup-motors --robot.type=so101_follower --robot.port=/dev/tty.usbmodem5AA90242401
 
-# Leader (left arm)
-lerobot-setup-motors \
-  --teleop.type=so101_leader \
-  --teleop.port=/dev/tty.usbmodem5AAF2627031
+# Leader
+lerobot-setup-motors --teleop.type=so101_leader --teleop.port=/dev/tty.usbmodem5AAF2627031
 ```
 
-### Calibrate (run once per arm)
+## Calibrate (run once per arm)
 
 ```bash
-# Follower (right arm)
-lerobot-calibrate \
-  --robot.type=so101_follower \
-  --robot.port=/dev/tty.usbmodem5AA90242401 \
-  --robot.id=follower_right
+# Follower
+lerobot-calibrate --robot.type=so101_follower --robot.port=/dev/tty.usbmodem5AA90242401 --robot.id=follower_right
 
-# Leader (left arm)
-lerobot-calibrate \
-  --teleop.type=so101_leader \
-  --teleop.port=/dev/tty.usbmodem5AAF2627031 \
-  --teleop.id=leader_left
+# Leader
+lerobot-calibrate --teleop.type=so101_leader --teleop.port=/dev/tty.usbmodem5AAF2627031 --teleop.id=leader_left
 ```
 
-### Teleoperate
+## Teleoperate
+
+```bash
+bash teleop.sh
+```
+
+⚠️ Always run in native Terminal.app — see jitter warning in readme.txt
+
+## Raspberry Pi Setup
+
+The arms can also run on a Pi with ports `/dev/ttyACM0` and `/dev/ttyACM1`:
 
 ```bash
 lerobot-teleoperate \
   --robot.type=so101_follower \
-  --robot.port=/dev/tty.usbmodem5AA90242401 \
+  --robot.port=/dev/ttyACM0 \
   --robot.id=follower_right \
   --teleop.type=so101_leader \
-  --teleop.port=/dev/tty.usbmodem5AAF2627031 \
+  --teleop.port=/dev/ttyACM1 \
   --teleop.id=leader_left
 ```
 
-lerobot-teleoperate \
- --robot.type=so101_follower \
- --robot.port=/dev/ttyACM0 \
- --robot.id=follower_right \
- --teleop.type=so101_leader \
- --teleop.port=/dev/ttyACM1 \
- --teleop.id=leader_left
+SSH into Pi: `ssh yacsclaw@192.168.0.28`
