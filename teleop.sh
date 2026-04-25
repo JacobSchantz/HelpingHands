@@ -38,6 +38,9 @@ conda activate lerobot
 # Play startup sound
 afplay "$SCRIPT_DIR/sounds/lobster_click.wav"
 
+# Sync follower to leader before starting teleop (prevents violent snap)
+bash "$SCRIPT_DIR/sync_arm.sh" 5
+
 lerobot-teleoperate \
   --robot.type=so101_follower \
   --robot.port=/dev/tty.usbmodem5AA90242401 \
