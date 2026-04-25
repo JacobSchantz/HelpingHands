@@ -51,9 +51,31 @@ lerobot-teleoperate \
   --teleop.id=leader_left \
   --teleop.calibration_dir="$SCRIPT_DIR/lerobot_calibration"
 
-# NOTE: Auto-home on crash removed — run home_arm.sh manually if needed
-# EXIT_CODE=$?
-# if [ $EXIT_CODE -ne 0 ]; then
-#   echo "Teleop exited with code $EXIT_CODE — homing arm slowly..."
-#   bash "$SCRIPT_DIR/home_arm.sh" 10
-# fi
+# Disable torque on both arms after teleop stops
+python3 -c "
+from pathlib import Path
+from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
+from lerobot.robots.so_follower.so_follower import SOFollower
+from lerobot.teleoperators.so_leader.so_leader import SOLeader
+from lerobot.teleoperators.so_leader.config_so_leader import SOLeaderTeleopConfig
+
+cal_dir = Path('$SCRIPT_DIR/lerobot_calibration')
+
+try:
+    f = SOFollower(SOFollowerRobotConfig(port='/dev/tty.usbmodem5AA90242401', id='follower_right', calibration_dir=cal_dir))
+    f.connect()
+    for k in f.bus.motors.keys():
+        f.bus.write('Torque_Enable', k, 0)
+    f.disconnect()
+    print('Follower torque off')
+except: pass
+
+try:
+    l = SOLeader(SOLeaderTeleopConfig(port='/dev/tty.usbmodem5AAF2627031', id='leader_left', calibration_dir=cal_dir))
+    l.connect()
+    for k in l.bus.motors.keys():
+        l.bus.write('Torque_Enable', k, 0)
+    l.disconnect()
+    print('Leader torque off')
+except: pass
+"
