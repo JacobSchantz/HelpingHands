@@ -2,6 +2,12 @@
 source ~/miniforge3/etc/profile.d/conda.sh
 conda activate lerobot
 
+# Play T-Rex roar when teleop starts
+afplay "$(dirname "$0")/trex_roar.mp3" &
+
+# Play a second roar after teleop connects (3s delay)
+(sleep 3 && afplay "$(dirname "$0")/trex_roar.mp3") &
+
 lerobot-teleoperate \
   --robot.type=so101_follower \
   --robot.port=/dev/tty.usbmodem5AA90242401 \
