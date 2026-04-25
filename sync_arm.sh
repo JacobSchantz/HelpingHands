@@ -1,6 +1,6 @@
 #!/bin/bash
 # Syncs the follower arm to the leader arm's current position smoothly
-# Uses servo internal acceleration for smooth motion, then disables torque
+# Waits until follower confirms it reached the target before exiting
 # Usage: bash sync_arm.sh [acceleration] (lower = smoother, default 5)
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -10,7 +10,7 @@ conda activate lerobot
 ACCEL=${1:-5}
 
 python3 -c "
-import os
+import os, time
 from pathlib import Path
 from lerobot.robots.so_follower.config_so_follower import SOFollowerRobotConfig
 from lerobot.robots.so_follower.so_follower import SOFollower
@@ -58,21 +58,30 @@ for i, name in enumerate(HOME_NAMES):
 
 print('Syncing (accel={})...'.format(accel))
 
-# Wait for motion to complete — poll until positions settle
-import time
-time.sleep(1)
-for _ in range(50):
+# Wait for motion to complete — poll until positions are within 0.5° for 3 consecutive reads
+settled_count = 0
+for attempt in range(200):
+    time.sleep(0.1)
     state = follower.get_observation()
     current = [state[k] for k in JOINT_KEYS]
     goals = [target[k] for k in JOINT_KEYS]
-    if all(abs(current[i] - goals[i]) < 1.0 for i in range(6)):
-        break
-    time.sleep(0.2)
+    errors = [abs(current[i] - goals[i]) for i in range(6)]
+    max_error = max(errors)
+    if max_error < 0.5:
+        settled_count += 1
+        if settled_count >= 3:
+            print('Synced! Max error: {:.2f}'.format(max_error))
+            break
+    else:
+        settled_count = 0
+        if attempt % 10 == 0:
+            print('  Waiting... max error: {:.1f}'.format(max_error))
+else:
+    print('Warning: did not fully settle (max error: {:.1f})'.format(max_error))
 
 # Leave torque enabled — arm stays at leader position, ready for teleop
-print('Synced — ready for teleop')
-
 follower.disconnect()
+print('Ready for teleop')
 " 2>&1
 
-echo "Arm synced and relaxed."
+echo "Arm synced."
