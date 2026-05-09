@@ -34,6 +34,9 @@ export PATH="/opt/homebrew/bin:$PATH"
 # Start gateway
 openclaw gateway
      
+# Add Telegram bot (example: youtiao bot)
+openclaw channels add --channel telegram --account youtiao --token 8383255667:AAF54N1pgyQZ_fUnUmDWearM7c4qP-gXEfg
+
 # Pair with Telegram
 openclaw pairing list telegram
 openclaw pairing approve telegram <CODE>
