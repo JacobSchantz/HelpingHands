@@ -13,15 +13,12 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-09-13T18:32:05.000Z",
-  "updated_at": "2026-09-13T18:35:09Z",
+  "updated_at": "2026-09-13T18:55:57Z",
   "work_kind": "one_shot",
   "worktree": {
     "branch": "pebble/voice-d09b2ee3",
     "path": "/Users/jakeschantz/HelpingHands.worktrees/pebble/voice-d09b2ee3",
     "base": "main",
     "created_at": "2026-09-13T18:34:51.000Z"
-  },
-  "working_on": "inapp:20260913-143451-74559-pebble-voice-d09b2ee3",
-  "agent_id": "vigil:claude:inapp:20260913-143451-74559-pebble-voice-d09b2ee3",
-  "claimed_at": "2026-09-13T18:34:51.000Z"
+  }
 }
