@@ -246,6 +246,40 @@ Everything on that list is a stock part, nothing is custom-machined, and the
 printed parts carry the geometry. That is the bar "fully printable" should be
 held to for 1.0.
 
+## 6. CAD toolchain
+
+**Decision: OpenSCAD is the source of truth for every printable part. Blender is
+for visualization only.** Both are open source, which was the requirement.
+
+**Why OpenSCAD for parts.** It is plain text, so it lives in git the way code
+does — real diffs, real history, reviewable changes. That matters here more than
+usual, because every part in this design is parametric and will be iterated many
+times against **measurements that do not exist yet**. Each of the seven wrist
+measurements becomes a named constant; when one lands, that constant changes and
+the parts regenerate. It is also directly authorable by an agent, so the geometry
+can be iterated by voice alongside this document.
+
+**Why Blender stays, and where the line is.** Blender already holds the Tool
+Caddy scene (`plans/tool-caddy.blend`) and is the right tool for renders, layout
+and showing how the gripper sits on the arm. **Nothing printable should originate
+there.** A mesh edited by hand in Blender does not survive the next parameter
+change upstream, and the moment part geometry lives in two places the OpenSCAD
+source stops being true.
+
+**The honest caveat.** OpenSCAD outputs meshes, not B-rep solids: no real
+fillets, no STEP export. For a gripper with bearing seats, servo mounts and
+fastener fits, that is a real limitation, not a stylistic one. The open-source
+alternative is **build123d** (or CadQuery) — Python, parametric, proper B-rep,
+exports STEP. Start in OpenSCAD because Jake knows it and the loop is faster;
+treat build123d as the escape hatch if fillets or precise fits become the
+blocker. A note for later, not a reason to delay.
+
+**Repo layout.** Put sources in `cad/` (e.g. `cad/adapter_plate.scad`,
+`cad/finger.scad`), with shared dimensions in one `cad/params.scad` that the
+parts include — that file is where the wrist measurements land. Generated STLs
+are **build artifacts**: regenerate them from source, never hand-edit them, and
+keep them out of the way of the sources.
+
 ## Open questions and the decisions Jake has to make
 
 **Decisions only Jake can make:**
