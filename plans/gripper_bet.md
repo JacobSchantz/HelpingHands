@@ -1,6 +1,7 @@
 # The Gripper Bet — humans drive the hardware, and the hand is the glove
 
 Status: THESIS (Jake's, spoken 2026-09-13; the last requirement is cut off).
+Roadmap: **Hand 1.0** (SO-101-like, near-term) → **Hand 2.0** (human hand = glove).
 
 ## The claim being reacted to
 
@@ -68,7 +69,37 @@ So his bet: **we do need a human hand.** Not a better two-finger gripper — an
 actual multi-finger hand, because that is the capability level the tasks
 worth doing require.
 
-## 5. The identity constraint — hand and glove must be identical
+## The roadmap — Hand 1.0 and Hand 2.0
+
+The bet ships in two named stages. Later documents should just say **Hand
+1.0** and **Hand 2.0** and be understood.
+
+| | **Hand 1.0** | **Hand 2.0** |
+|---|---|---|
+| what | closely modeled on the SO-101 arms | a human hand, identical to the glove |
+| fingers | conventional gripper | multi-finger |
+| made how | as the SO-101 is made | fully 3D printed, both halves |
+| role | the foundation | the bet |
+
+**Hand 1.0** is deliberately conventional — *"something super similar to"* the
+SO-101 arms already on the bench. It is the near-term, buildable step, and its
+whole job is to get the teleop-and-record loop working end to end on hardware
+Jake already understands and already has tooling for: `teleop.sh`,
+`record_actions.sh`, and the calibration files in `lerobot_calibration/`. This
+is the foundation, not a throwaway prototype. Nothing about it is a placeholder
+to be embarrassed by; it is the working system everything else is measured on.
+
+**Hand 2.0** is the human hand with the identical-to-the-glove constraint,
+fully 3D printable — the bet described in the two sections below.
+
+**Why 1.0 has to exist first:** with it running, the identity constraint of 2.0
+can be tested against a working baseline instead of argued in the abstract.
+Hand 1.0 yields a conventional-gripper data pipeline — demos, action spaces,
+success rates — and Hand 2.0's claim is precisely that removing the retargeting
+layer does better than that. Without the baseline there is nothing to be better
+*than*, and the hypothesis in section 5 stays unfalsifiable.
+
+## 5. Hand 2.0: the identity constraint — hand and glove must be identical
 
 This is the sharp idea, and it is the one to test.
 
@@ -98,7 +129,7 @@ no retargeting error baked into the dataset.
 an unusually clean idea, which is exactly why it should be checked rather
 than assumed.
 
-## 6. Fully 3D printable — both halves
+## 6. Hand 2.0: fully 3D printable — both halves
 
 Hard requirement on the glove *and* the hand: **fully 3D printable.**
 
@@ -121,7 +152,8 @@ reproducible, iterable, and anyone can reproduce the pair.
   under claim 5 the leader/follower pairing is the closest thing here to the
   identity idea already — a leader arm the human drives and a follower that
   mirrors it. The hand/glove proposal is that same relationship taken to the
-  end effector and made exact.
+  end effector and made exact. Hand 1.0 is this hardware, kept close on
+  purpose.
 - **`plans/simulated_training.md`** assumes demos recorded through the
   existing gripper. If the hand changes, that pipeline's action space changes
   with it — worth knowing before investing in augmentation built around the
@@ -147,4 +179,8 @@ reproducible, iterable, and anyone can reproduce the pair.
 - Does the glove need force feedback, or is position-only enough given that
   the hard part is contact?
 - What would actually falsify the identity hypothesis? Worth naming a test
-  before building the hand.
+  before building the hand — and the comparison should be against Hand 1.0's
+  own numbers.
+- How close is "super similar" for Hand 1.0 — the SO-101 gripper as-is, or a
+  variant? The closer it stays, the more of the existing calibration and
+  scripts carry over unchanged.
