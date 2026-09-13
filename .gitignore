@@ -36,3 +36,6 @@ pebbles/.watch_build_attempts
 pebbles/.watch_device_offline
 pebbles/.watch_drop_note
 pebbles/.trash/
+cad/*/.venv/
+__pycache__/
+*.stl
