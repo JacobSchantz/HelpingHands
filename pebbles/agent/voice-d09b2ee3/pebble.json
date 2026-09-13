@@ -1,0 +1,18 @@
+{
+  "id": "voice-d09b2ee3",
+  "commit_id": "",
+  "description": "CAD bake-off 2 of 3 -- BUILD123D: build the SO-101 gripper assembly parametrically in cad/build123d/. SHARED CONTEXT (same task, three tools, one pebble each so they can run in separate git worktrees): recreate the SO-101 gripper assembly -- the fixed jaw (gripper body) and the moving jaw -- as a baseline for comparing three CAD tools. Jake verbatim: \"I want to be able to modify them in the future, so you will have to do it in a way that supports that.\" That means parametric, editable source. Importing a mesh and calling it done FAILS the test. Use named variables for every dimension that might plausibly change: jaw length, jaw opening, fingertip thickness, servo horn bore, fastener sizes, wall thickness. DIMENSIONAL SOURCE OF TRUTH -- two real SO-101 STEP files are already committed at cad/build123d/reference/: Moving_Jaw_SO101.step and Wrist_Roll_Follower_SO101.step. STEP carries exact analytic geometry, so measure from these. Do NOT re-download them and do NOT invent or eyeball dimensions from tessellated meshes. WHY THIS PART: it is what Jake will modify for the Hand 1.0 paper gripper -- cross-reference plans/hand_1_0.md and plans/gripper_bet.md as reading, and cite them in your notes. DELIVERABLE BESIDES THE MODEL: a NOTES.md in your own tool directory covering time taken, what was easy, what was painful, whether the tool known weakness actually mattered in practice, and how it would feel to modify this part six months from now. State plainly if the geometry ends up approximate and list what still needs verifying. BOUNDARIES: stay inside your own cad/<tool>/ directory and touch nothing else. Do NOT edit plans/hand_1_0.md or plans/gripper_bet.md -- a later pass writes the comparison across all three tools. The other two tool pebbles are running in parallel in their own worktrees, so do not touch cad/openscad/, cad/build123d/, or cad/blender/ other than your own. TOOL SPECIFICS: a Python venv already exists at cad/build123d/.venv (gitignored) -- REUSE it, do not reinstall or recreate it. build123d is Python, parametric, and real B-rep, so exercise exactly what it is supposed to be better at: import the reference STEP as B-rep (cad/build123d/reference/Moving_Jaw_SO101.step and Wrist_Roll_Follower_SO101.step, already in this directory) and take real measurements off the analytic geometry; put genuine fillets on edges; export BOTH a STEP and an STL. Commit the script, the exports, and a render if you make one. Leave the reference/ STEP files themselves unmodified. KNOWN DOWNSIDE TO EVALUATE HONESTLY IN NOTES.md: dependency footprint -- a venv plus OCCT versus a single self-contained file. Was that a real cost here, and does it change over six months of edits?",
+  "test_instructions": [
+    "cad/build123d/ contains a parametric Python model with named parameters for jaw length, jaw opening, fingertip thickness, servo horn bore, fastener sizes and wall thickness",
+    "The script imports the reference STEP as B-rep and dimensions are measured from it rather than invented",
+    "Real fillets are applied, and both a STEP and an STL export are committed",
+    "The existing cad/build123d/.venv was reused, not recreated, and reference/*.step are unmodified",
+    "cad/build123d/NOTES.md covers time, easy, painful, whether the dependency-footprint downside mattered, six-month modifiability, and what still needs verifying",
+    "Nothing outside cad/build123d/ is modified -- in particular plans/hand_1_0.md and plans/gripper_bet.md are untouched"
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-13T18:32:05.000Z",
+  "updated_at": "2026-09-13T18:32:05.000Z",
+  "work_kind": "one_shot"
+}
