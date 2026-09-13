@@ -1,0 +1,4 @@
+# Global .gitignore excludes *.stl; these are the deliverable, keep them.
+!*.stl
+# Blender's save-as backup
+*.blend1
