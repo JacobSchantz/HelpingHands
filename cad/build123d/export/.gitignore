@@ -1,0 +1,2 @@
+# the bake-off's STL exports are deliverables, not build litter
+!*.stl
