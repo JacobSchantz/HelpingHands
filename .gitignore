@@ -1,11 +1,20 @@
+# Xcode / build artifacts
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+HelpingHands.xcodeproj/
+
 # Pebbles runtime — never commit (Vigil writes these per-machine; a committed
 # .last_build gets reverted by git reset --hard and loops rebuilds forever)
 pebbles/.dispatch.lock
+pebbles/.autofix_tried
 pebbles/.workers/
 pebbles/.vigil.lock
 pebbles/.vigil.log
 pebbles/.iterate.lock
 pebbles/.last_build
+pebbles/.last_build_ipad
 pebbles/.built_commit
 pebbles/.build_running
 pebbles/.build_result

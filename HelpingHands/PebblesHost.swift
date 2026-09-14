@@ -9,7 +9,9 @@ extension PebblesViewModel {
         patKey: "github_pat_for_helpinghands_pebbles",
         pebblesPath: "pebbles",
         currentCommitHash: GitInfo.fullHash,
-        commitCount: GitInfo.commitCount
+        currentCommitMessage: GitInfo.lastCommitMessage,
+        commitCount: GitInfo.commitCount,
+        defaultIcon: "hand.raised.fill"
     ))
 }
 
