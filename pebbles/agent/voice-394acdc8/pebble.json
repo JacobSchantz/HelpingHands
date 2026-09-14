@@ -9,10 +9,36 @@
     "Dimensions trace back to the reference STEP files rather than being invented, and cad/build123d/reference/ is unmodified",
     "Nothing outside cad/blender/ is modified -- in particular plans/hand_1_0.md and plans/gripper_bet.md are untouched"
   ],
-  "results": [],
+  "results": [
+    {
+      "kind": "agent_action",
+      "at": "2026-09-13T18:48:44Z",
+      "commit_id": "PENDING",
+      "model": "claude-opus-5",
+      "model_display": "Claude Opus 5",
+      "identified_issue": "APPROACH. Blender has no STEP importer and no OCCT binding. Rather than invent dimensions, I installed cadquery-ocp into cad/blender/.venv (gitignored by the repo's existing cad/*/.venv rule) and used it strictly as a measuring instrument: no geometry was authored with it, and cad/build123d/reference/ was only ever opened for reading (verified with git status). I also wrote measure_step.py, a dependency-free ISO-10303-21 parser, so a future agent can re-read the references without the venv. Both readers agree.\n\nWHAT I VERIFIED. fixed_jaw 65.20 x 52.00 x 105.35 vs reference 65.200 x 52.000 x 105.425; moving_jaw 22.36 x 92.00 x 48.00 vs 22.300 x 92.000 x 48.000. Hole diameters (3.2 / 2.0 / 1.5 / 5.4 / 6.0 / 5.4 / 10.0 / 20.0 / 24.0), the 4x M3 on a 14.0 mm PCD at +/-4.95 shared by both parts, the 45-degree chamfers, the 0.75 edge break, the 20.0-degree fin lean and the 6.03-degree moving-jaw face tilt are all read out of CYLINDRICAL_SURFACE / PLANE / CONICAL_SURFACE / TOROIDAL_SURFACE entities.\n\nTHE BIG UNRESOLVED THING, and the most likely place I am wrong. The two STEP files are isolated part files in unrelated poses; there is no assembly transform to recover. Worse, each part carries TWO candidate gripping faces: (a) a large flat face -- 642 mm^2 on the fin, normal (0.94,0,-0.342), offset -48.162; 656 mm^2 on the moving jaw, normal (-0.994,0.105,0), offset -10.0 -- with a line of five 1.5 mm holes exactly 5.0 mm in from it; and (b) on the opposite side, a staircase of +/-45-degree planes at exactly 10.0 mm pitch along the finger, the SAME pitch as those holes.\n\nI chose (a). Evidence for (a): a large flat contact patch plus a 5 mm inset hole line is what pad retention looks like. Evidence for (b): serrations facing the workpiece is the classic gripper jaw, and the pitch match means each hole sits at a step. A future agent should know that (b) is live, because it changes which SIDE of the fin the moving jaw swings on.\n\nCONSEQUENCE OF CHOOSING (a). The flat face sits 10.06 mm from the moving jaw's pivot and about 26 mm from the fixed jaw's at the same height. Those cannot both hold for a jaw that closes flush, so at jaw_open_deg=0 the fingers overlap near the root (visible in out/so101_gripper_closed.png). I tried the alternatives before settling: flat-close on the -X side puts the pivot at x=-51.8, outside the part; flat-close on the +X side puts it at x=-22.4, inside the fin. Neither works, which is itself evidence that one of my two face readings is wrong. I also tried a boolean interference sweep over pivot_x and pivot_z (fit2.py approach): interference never approached zero on the -X side, 6800-13600 mm^3 across the whole range, because the moving jaw's 33.4 mm fork gap cannot straddle the 48 mm-wide cradle.\n\nWHAT I FITTED RATHER THAN MEASURED. pivot_z=24.35 and wrist_centre_y=-0.218 ARE measured (midplane of the servo's own M2 holes at z=14.100/34.600, and the wrist-roll horn centre). pivot_x=-25.54 is chosen so the fingertips meet: 82.01 mm from the fixed tip at (-12.9, 105.375). mj_closed_lean_deg=8.84, fin_pivot_to_face=15.82 and fin_tip_s=80.44 all fall out of that choice. They are frozen constants, NOT expressions -- change mj_finger_length and they are silently wrong. First job for whoever picks this up is to turn them into expressions.\n\nDELIBERATE OMISSIONS. The 26 + 34 B-spline faces (organic hub-to-finger blends) are replaced by straight tapers between measured stations, so the silhouette is right and the surface is faceted. The 10 mm staircases are measured but not modelled. The servo cradle is a plain U with the measured wall positions and M2 pattern, no internal ribs. The gripper servo itself is not modelled, so nothing checks that it fits or that the fork clears it. fin_width_table was sampled by ray-casting the tessellated reference in 5 mm Z bands -- good to a few tenths, no better.\n\nBPY GOTCHA worth recording: object.matrix_world is stale until the depsgraph updates, so composing a transform from a freshly-set .location/.rotation_euler silently discards the placement. That produced a plausible-looking wrong assembly early on. Build the matrix explicitly.",
+      "summary": "Built the SO-101 gripper in Blender as a bpy script with a parameter block, so re-running it regenerates the model, render, STL and .blend.",
+      "changes": [
+        "cad/blender/so101_gripper.py",
+        "cad/blender/NOTES.md",
+        "cad/blender/MEASUREMENTS.md",
+        "cad/blender/measure_step.py",
+        "cad/blender/measure_step_ocp.py",
+        "cad/blender/build.sh",
+        "cad/blender/out/so101_gripper.png",
+        "cad/blender/out/so101_gripper.blend",
+        "cad/blender/out/moving_jaw.stl",
+        "cad/blender/out/fixed_jaw.stl"
+      ],
+      "detailed_description": "cad/blender/so101_gripper.py is the source. A ~60-entry parameter block at the top holds jaw length, jaw opening, fingertip thickness, servo horn bore, M3/M2 sizes and wall thickness; the code below lofts and booleans both jaws from those numbers. ./cad/blender/build.sh rebuilds out/ headlessly, and you can sweep a value without editing the file: --set jaw_open_deg=0 --set mj_finger_length=110.\n\nBlender can't open STEP, so I measured the references outside it two ways -- a dependency-free parser of the STEP text, and OCCT in a throwaway venv used purely as a ruler. MEASUREMENTS.md maps every parameter to the entity it came from. Both parts now match the reference bounding boxes to about 0.1 mm. cad/build123d/reference/ is untouched.\n\nOne thing I could not settle from the two files alone: which face of each finger is the gripping face. Each part has a big flat face with insert holes 5 mm in from it, and a 10 mm-pitch staircase on the opposite side. I went with the flat faces. The cost shows in the closed render -- the fingertips meet but the fingers overlap near the root, which means either my pivot is a few mm off or the staircases are the grip faces.\n\nRead NOTES.md for the full verdict. Short version: about 2.5 hours, and well over half of it was reverse-engineering the assembly rather than modelling. Blender genuinely wins at rendering and at understanding a part you did not author -- I recovered the assembly pose by rendering guesses and looking -- but there are no fillets, no constraints, no STEP out, and the derived constants are frozen numbers that will rot.\n\nThe measurement that would settle it is already on your list: where the gripper servo's output axis sits relative to the fixed jaw's face, on the real arm.",
+      "image_urls": [
+        "cad/blender/out/so101_gripper.png"
+      ]
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-09-13T18:32:05.000Z",
-  "updated_at": "2026-09-13T18:34:57Z",
+  "updated_at": "2026-09-13T18:48:44Z",
   "work_kind": "one_shot",
   "worktree": {
     "branch": "pebble/voice-394acdc8",
