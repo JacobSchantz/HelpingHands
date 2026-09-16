@@ -1,0 +1,10 @@
+{
+  "id": "voice-8b1fb04b",
+  "commit_id": "",
+  "description": "Add a 3D file viewer to the HelpingHands iOS and macOS apps so the SO-101 gripper designs (Blender/OpenSCAD/Build123d outputs in cad/) can be viewed in-app. Support viewing any 3D file the bake-off produces (e.g. STL/OBJ/STEP/USDC as applicable); simple viewer screen reachable from the app, loading files from the repo bundle or imported files.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-16T17:37:50.000Z",
+  "updated_at": "2026-09-16T17:37:50.000Z"
+}
