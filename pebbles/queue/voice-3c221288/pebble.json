@@ -1,0 +1,11 @@
+{
+  "id": "voice-3c221288",
+  "commit_id": "",
+  "description": "PLAN -- collapsible humanoid rig mounting two SO-101 arms. PLAN ONLY, parked. This is a physical build, not codeable; record as-is.\n\nJAKE'S IDEA: tentpole-like collapsible structures connecting the arms in a humanoid configuration -- two arms joined at the shoulder, on a central column that is a tripod.\n\nTHE CRUX, record this prominently: COLLAPSIBLE AND REPEATABLE ARE IN TENSION, AND REPEATABILITY IS WHAT THE POLICIES DEPEND ON. A learned policy encodes the geometry it was trained in -- arm base positions and camera pose relative to the arms. If the rig reassembles a few millimetres or degrees differently, the training data is silently invalidated. So the requirement is not \"it folds\", it is \"it folds and returns to the same geometry within a millimetre or two\": indexed kinematic joints (pins in reamed holes, cone-and-groove seats, hard stops), NOT friction clamps or twist-locks. Tentpoles are compliant by design, which is the wrong precedent. FALLBACK: a fiducial-based recalibration routine run at every setup to re-estimate camera-to-base extrinsics -- cheaper mechanically, more software, and it must run before every session.\n\nOTHER DESIGN NOTES:\n- Start at 46cm shoulder spacing to match the LeHome rig, so their published datasets stay a valid reference.\n- Column stiffness dominates; target first resonance well above control bandwidth.\n- Tripod footprint must exceed the arms' reach envelope (~413mm reach, 0.5kg payload each), because the moment at shoulder height is the tipping risk.\n- Mount the overhead camera to the SAME structure as the arms so it cannot drift independently.\n\nSEQUENCE: build it rigid and bolted first to prove workspace and spacing; measure fold/unfold repeatability over 20 cycles on a candidate joint; only then design the collapsible version against that measured number.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-17T23:17:02.000Z",
+  "updated_at": "2026-09-17T23:17:02.000Z",
+  "work_kind": "plan"
+}

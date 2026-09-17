@@ -1,0 +1,11 @@
+{
+  "id": "voice-c7737295",
+  "commit_id": "",
+  "description": "PLAN -- which open model to run on the SO-101 arms. PLAN ONLY, parked for a human decision. Record as-is; this is a written plan, not code to implement.\n\nHARD REQUIREMENT Jake stated: it should learn from one shot. FINDING: no open-weights model does one-shot physical in-context learning today. GEN-1.5 (Generalist AI), Skild AI and Reward AI (OM-1) are all closed. kyegomez/Open-Gen is NOT a viable option -- 4 commits, 11 stars, no weights, no dataset, no results, and its own TODO list has the flow-matching action expert (the part that actually generates motion) unimplemented.\n\nOPEN ONE-SHOT RESEARCH EXISTS, but on expensive hardware and narrow task classes: IMOP (arXiv 2405.13178, May 2024, 22 novel tasks from one demo, no fine-tuning); DemoDiffusion (2506.20668, Jun 2025, imitates a single human hand demo); One-Shot Imitation as Pose Estimation (2310.12077, Oct 2023); Learning a Thousand Tasks in a Day (2511.10110, Nov 2025). These run on Franka-class arms (~$20-30k), not SO-101, and none has been published on SO-101.\n\nOPEN MODELS THAT DO WORK ON SO-101, all of which adapt by fine-tuning rather than from one demo:\n- SmolVLA (450M) -- LeRobot-native, trains on one GPU, runs on the M4, no NVIDIA needed. Weakest but cheapest.\n- pi-0 / pi-0.5 (openpi) -- validated competitively on SO-101 by the LeHome solution. Best evidence base.\n- NVIDIA GR00T N1.5 (3B) -- open weights, cross-embodiment adapters, published guide for post-training on SO-101. Needs NVIDIA; System 2 runs ~10Hz on an L40-class GPU.\n\nRECOMMENDATION: pi-0.5 via the LeHome route, because it is proven on this exact hardware for this exact task class. Treat one-shot as a research direction to revisit, NOT a near-term requirement -- the winning teams on this hardware are using data plus human corrections, not in-context learning.\n\nHARDWARE: training needs rented NVIDIA (their training used an H200, rollouts an RTX PRO 6000, 500GB+ storage). Inference needs a modest NVIDIA box (Jetson-class) OR the Mac mini M4 if we go the SmolVLA route. BUY NOTHING until the sim reproduction tells us what is actually short.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-17T23:17:02.000Z",
+  "updated_at": "2026-09-17T23:17:02.000Z",
+  "work_kind": "plan"
+}

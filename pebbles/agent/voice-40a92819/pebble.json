@@ -1,0 +1,17 @@
+{
+  "id": "voice-40a92819",
+  "commit_id": "",
+  "description": "Reproduce the LeHome bimanual folding solution on our SO-101 rig. GOAL Jake stated verbatim: \"the key thing for me would just be seeing it do something useful, like folding clothes -- we need to drive hard to get that working. In this case I want them to be folding a pillowcase.\" The fastest credible route is NOT building from scratch -- it is reproducing an existing prize-winning solution that already does bimanual garment folding on these exact arms.\n\nREFERENCE: https://github.com/IliaLarchenko/lehome_solution -- LeHome Challenge 2026 (ICRA 2026), bimanual garment folding on two SO-ARM101 arms. 1st place in simulation, 2nd in the real-world finals out of 62 teams. Apache 2.0, ~113 stars. Tech report arXiv:2606.27163. Two trained policies (lehome_sim, lehome_real) and both behavioural-cloning datasets are published on Hugging Face.\n\nTHEIR METHOD: pi-0.5 (openpi codebase) + behavioural-cloning warmup from organizer data + distributed RL with async rollout workers + DAgger human-in-the-loop corrections, in sim and on hardware. 80%+ success on seen garments in simulation.\n\nTHEIR RIG, which we must match or adapt: two SO-ARM101 followers 46cm apart, two leaders for teleop, one overhead RealSense ~65cm above the table, two wrist cameras. Hardware mapping lives in configs/real_robot.yaml. The policy runs as a separate policy server talking to the robot runner over WebSocket, so the GPU need not be the machine driving the arms.\n\nWHAT JAKE HAS: LeRobot SO-101 arms and a Mac mini M4. He is willing to buy hardware if needed, but nothing is bought yet.\n\nFIRST TASKS, IN ORDER:\n1. Read the repo and the tech report. Report back CONCRETELY: (a) what hardware is needed to RUN their released policy, not train it -- GPU and VRAM, and whether a Jetson suffices; (b) how many arms and cameras are strictly required for inference versus for data collection; (c) their control rate and latency tolerance.\n2. Assess the gap between their rig and what Jake has. Be explicit about what must be bought.\n3. Get their SIMULATION running first -- it needs no hardware and validates the whole toolchain end to end.\n4. Only then plan the real-robot bring-up.\n\nBOUNDARIES: Do NOT buy anything and do NOT assume purchases have been made. Do NOT touch signing keys or the developer account. THE DELIVERABLE for this pebble is a concrete, costed bring-up plan plus a working simulation -- not a folded pillowcase yet.",
+  "test_instructions": [
+    "A written report answers concretely: what GPU/VRAM is needed to RUN the released lehome policy (not train it), whether a Jetson suffices, how many arms and cameras are strictly required for inference vs data collection, and the control rate and latency tolerance",
+    "An explicit gap analysis lists what hardware must be bought to go from Jake's SO-101 arms + Mac mini M4 to a rig that can run this, with costs",
+    "The LeHome simulation runs locally end to end with no robot hardware attached, and the run is reproducible from committed setup steps",
+    "A real-robot bring-up plan exists and is sequenced after the sim result",
+    "Nothing was purchased, no purchase was assumed, and no signing keys or developer account were touched"
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-17T23:17:02.000Z",
+  "updated_at": "2026-09-17T23:17:02.000Z",
+  "work_kind": "one_shot"
+}
