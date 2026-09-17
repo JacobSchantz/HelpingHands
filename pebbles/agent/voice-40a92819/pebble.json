@@ -12,6 +12,9 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-09-17T23:17:02.000Z",
-  "updated_at": "2026-09-17T23:17:02.000Z",
-  "work_kind": "one_shot"
+  "updated_at": "2026-09-17T23:17:14Z",
+  "work_kind": "one_shot",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-40a92819",
+  "agent_id": "vigil:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-40a92819",
+  "claimed_at": "2026-09-17T23:17:14.000Z"
 }
