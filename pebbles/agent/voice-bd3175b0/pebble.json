@@ -1,10 +1,13 @@
 {
   "id": "voice-bd3175b0",
   "commit_id": "",
-  "description": "Add a plan to HelpingHands. We should be able to throw a plan in there and then you can read it, or I can basically listen to it in the app — fully audio based.\n\nA user can add a plan to the app (drop in / paste / import a plan document). The app can then read that plan aloud, so it can be consumed entirely by listening — no reading the screen required. Fully audio based means the whole experience of going through a plan should work hands-free and eyes-free, not just a play button bolted onto a text view.\n\nOpen questions for the claiming agent:\n- What a \"plan\" is here — freeform text, a structured list of steps, or both\n- Whether playback is step-by-step with pauses between items, or continuous narration\n- Whether the listener can navigate by voice (next step, repeat that, go back) since it's meant to be eyes-free\n- Which voice/TTS the app already has available — check what HelpingHands already uses before introducing anything new\n\nAcceptance: a plan can be added to the app and then listened to start to finish without looking at the screen.",
+  "description": "Add a plan to HelpingHands. We should be able to throw a plan in there and then you can read it, or I can basically listen to it in the app \u2014 fully audio based.\n\nA user can add a plan to the app (drop in / paste / import a plan document). The app can then read that plan aloud, so it can be consumed entirely by listening \u2014 no reading the screen required. Fully audio based means the whole experience of going through a plan should work hands-free and eyes-free, not just a play button bolted onto a text view.\n\nOpen questions for the claiming agent:\n- What a \"plan\" is here \u2014 freeform text, a structured list of steps, or both\n- Whether playback is step-by-step with pauses between items, or continuous narration\n- Whether the listener can navigate by voice (next step, repeat that, go back) since it's meant to be eyes-free\n- Which voice/TTS the app already has available \u2014 check what HelpingHands already uses before introducing anything new\n\nAcceptance: a plan can be added to the app and then listened to start to finish without looking at the screen.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
   "created_at": "2026-09-17T22:54:35.000Z",
-  "updated_at": "2026-09-17T22:54:35.000Z"
+  "updated_at": "2026-09-17T22:59:06Z",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-bd3175b0",
+  "agent_id": "vigil:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-bd3175b0",
+  "claimed_at": "2026-09-17T22:59:06.000Z"
 }
