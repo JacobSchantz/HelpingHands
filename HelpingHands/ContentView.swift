@@ -20,12 +20,14 @@ struct ContentView: View {
                         port: "/dev/tty.usbmodem5AA90242401",
                         icon: "hand.point.right.fill"
                     )
+                    cadCard
                     teleopNote
                 }
                 .padding(20)
             }
             .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
             .navigationTitle("Helping Hands")
+            .navigationDestination(for: CADModel.self) { ModelDetailView(model: $0) }
         }
     }
 
@@ -57,6 +59,34 @@ struct ContentView: View {
         }
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private var cadCard: some View {
+        NavigationLink {
+            ModelViewerScreen()
+        } label: {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 10) {
+                    Image(systemName: "cube.transparent")
+                        .font(.title3)
+                        .foregroundStyle(Color.accentColor)
+                    Text("Gripper CAD")
+                        .font(.headline)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Text("View the SO-101 gripper meshes from the OpenSCAD, Blender and build123d bake-off, or import your own 3D file.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     private func labeled(_ title: String, _ value: String) -> some View {
