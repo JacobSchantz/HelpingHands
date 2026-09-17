@@ -20,6 +20,7 @@ struct ContentView: View {
                         port: "/dev/tty.usbmodem5AA90242401",
                         icon: "hand.point.right.fill"
                     )
+                    plansCard
                     cadCard
                     teleopNote
                 }
@@ -59,6 +60,34 @@ struct ContentView: View {
         }
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private var plansCard: some View {
+        NavigationLink {
+            PlansScreen()
+        } label: {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 10) {
+                    Image(systemName: "waveform")
+                        .font(.title3)
+                        .foregroundStyle(Color.accentColor)
+                    Text("Listen to a plan")
+                        .font(.headline)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                Text("Every plan in plans/, read aloud start to finish — or paste one in. Hands-free: AirPods and lock-screen controls, swipe gestures, and spoken commands.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     private var cadCard: some View {

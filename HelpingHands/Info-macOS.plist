@@ -27,6 +27,8 @@
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Records voice notes for test feedback.</string>
+	<string>Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free.</string>
 </dict>
 </plist>

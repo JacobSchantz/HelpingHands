@@ -35,6 +35,10 @@ targets:
         # Copies cad/'s meshes + a manifest into the bundle. Runs last so the
         # resources folder exists, but still before codesign.
         script: "python3 ${SRCROOT}/Scripts/stage_cad_models.py"
+      - name: Stage Plans
+        # Copies plans/'s markdown + a manifest into the bundle so a new plan
+        # is listenable on the next build without touching Swift.
+        script: "python3 ${SRCROOT}/Scripts/stage_plans.py"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.helpinghands.app
@@ -56,10 +60,13 @@ targets:
         CFBundleShortVersionString: "1.0"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         ITSAppUsesNonExemptEncryption: false
-        NSMicrophoneUsageDescription: "Records voice notes for test feedback."
+        NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
+        NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
         UIUserInterfaceStyle: Dark
         UILaunchScreen:
           UIColorName: AccentColor
+        UIBackgroundModes:
+          - audio
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UISupportedInterfaceOrientations~ipad:
@@ -82,6 +89,8 @@ targets:
     postBuildScripts:
       - name: Stage CAD Models
         script: "python3 ${SRCROOT}/Scripts/stage_cad_models.py"
+      - name: Stage Plans
+        script: "python3 ${SRCROOT}/Scripts/stage_plans.py"
     settings:
       base:
         PRODUCT_NAME: HelpingHands
@@ -104,6 +113,7 @@ targets:
         CFBundleShortVersionString: "1.0"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         ITSAppUsesNonExemptEncryption: false
-        NSMicrophoneUsageDescription: "Records voice notes for test feedback."
+        NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
+        NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
         LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
         NSHighResolutionCapable: true
