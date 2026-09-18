@@ -28,7 +28,13 @@ targets:
     type: application
     platform: iOS
     sources:
-      - HelpingHands
+      # `excludes` is the key XcodeGen honours per source dir. Without it the
+      # macOS target's INFOPLIST_FILE is copied into the iOS .app as a resource,
+      # shipping unexpanded $(PRODUCT_BUNDLE_IDENTIFIER) and failing install.
+      - path: HelpingHands
+        excludes:
+          - "Info.plist"
+          - "Info-macOS.plist"
       - Generated
     dependencies:
       - package: PebblesKit
