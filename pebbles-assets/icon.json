@@ -1,0 +1,17 @@
+{
+  "cohesion": 1.0,
+  "found_by": "appiconset",
+  "generator": "project_icon.py 3",
+  "icon": "icon.png",
+  "method": "flood",
+  "name": "HelpingHands",
+  "recovered": 0.129,
+  "removed": 0.5165,
+  "size": 512,
+  "slug": "JacobSchantz/HelpingHands",
+  "smoothness": 0.617,
+  "source": "HelpingHands/Assets.xcassets/AppIcon.appiconset/AppIcon.png",
+  "source_sha256": "40b80c2f658e734543c6bb61bbb8974a88a0bd22ebc76cb79c1a2ec07b8f1177",
+  "symbol": "rhombus",
+  "version": 1
+}
