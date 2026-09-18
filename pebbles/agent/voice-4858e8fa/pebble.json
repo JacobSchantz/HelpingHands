@@ -1,0 +1,10 @@
+{
+  "id": "voice-4858e8fa",
+  "commit_id": "",
+  "description": "New north star for Helping Hands: this video \u2014 https://www.youtube.com/watch?v=itGeItWc2rw \u2014 'Can this VLA Work with no Dataset? I Put MolmoAct2 to Test'. Jake says this is the direction. Watch/read up on it: MolmoAct2 and vision-language-action models doing real manipulation with no task-specific dataset, zero-shot from a camera and a natural-language instruction. Work out what it means for Helping Hands \u2014 what the app's job becomes if a VLA does the perception and action planning, what we capture and send, what UI and hardware assumptions change, and what concretely should change in this codebase. Do the digging yourself and report back with findings and a recommendation before writing code.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-18T03:12:53.000Z",
+  "updated_at": "2026-09-18T03:12:53.000Z"
+}
