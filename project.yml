@@ -5,6 +5,11 @@ options:
     iOS: "17.0"
     macOS: "14.0"
   xcodeVersion: "16.0"
+  # INFOPLIST_FILE is processed by Xcode. Copying these as resources ships
+  # unexpanded $(PRODUCT_BUNDLE_IDENTIFIER) into the .app and install fails.
+  excludedSourceFileNames:
+    - Info.plist
+    - Info-macOS.plist
 
 packages:
   PebblesKit:
