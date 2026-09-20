@@ -1,0 +1,10 @@
+{
+  "id": "voice-805d4970",
+  "commit_id": "",
+  "description": "Design the Caledonian crow gripper for the SO-101 arms. Jake asked for this to exist as a pebble and for Vigil to start here once it does. The name points at the New Caledonian crow, which makes and uses hooked tools \u2014 so the idea is a hook-led end effector rather than a parallel jaw: fewer actuated parts, grip by shape and leverage instead of pinch force. Work out what that actually means for the SO-101's wrist mount and payload before designing anything, and say what you decided and why. Two existing plans in the queue are the surrounding context and should be read first: voice-3c221288 (a collapsible humanoid rig mounting two SO-101 arms) and voice-c7737295 (which open model to run on those arms). The north star is the MolmoAct2 VLA video (voice-4858e8fa) \u2014 zero-shot manipulation rather than hand-built task logic \u2014 so a gripper that only works with bespoke scripted motions is the wrong answer. This repo has a CAD loop at Scripts/cadloop for iterating on geometry by voice; use it rather than building a second one.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-20T03:57:51.000Z",
+  "updated_at": "2026-09-20T03:57:51.000Z"
+}
