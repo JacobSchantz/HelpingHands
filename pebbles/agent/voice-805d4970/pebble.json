@@ -6,5 +6,10 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-09-20T03:57:51.000Z",
-  "updated_at": "2026-09-20T03:57:51.000Z"
+  "updated_at": "2026-09-20T04:10:41Z",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-805d4970",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-805d4970",
+  "claimed_at": "2026-09-20T04:10:41.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
