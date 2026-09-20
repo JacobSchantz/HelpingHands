@@ -106,7 +106,13 @@ const SUBJECTS = [
   [/\b(?:cable bore|cable hole|cable channel|cable)\b/, 'cable'],
   [/\b(?:corners?|edges?|fille?ts?)\b/, 'corner'],
   [/\b(?:both jaws|the jaws|the fingers|the gripper)\b/, 'both'],
-  [/\b(?:jaw|finger|blade)\b/, 'mj'],
+  // The crow beak is the same mechanism under different words: a gape is an
+  // opening and a mandible is a jaw. Without these, "open the beak" misses the
+  // grammar entirely and pays the model's second and a half for a sentence
+  // that is one number. See plans/crow_gripper.md §8.
+  [/\b(?:gape|commissure)\b/, 'opening'],
+  [/\b(?:beak|bill|mandibles)\b/, 'both'],
+  [/\b(?:jaw|finger|blade|mandible)\b/, 'mj'],
 ]
 
 /**
@@ -178,6 +184,9 @@ function num(model, name) {
   const p = model.params.get(name)
   return p && p.scalar !== null ? p.scalar : null
 }
+
+/** The opening parameter, whichever model this params file belongs to. */
+const OPENING_NAMES = ['jaw_opening', 'crow_opening']
 
 /** Last value in column 0 of a station table — the tip's coordinate. */
 function tableEnd(model, name) {
@@ -274,9 +283,13 @@ const LEVERS = {
 
   // ---- the opening --------------------------------------------------------
   'opening/opening': (model, q) => {
-    const cur = num(model, 'jaw_opening')
-    const max = num(model, 'jaw_opening_max') ?? 55
-    if (cur === null) return null
+    // Two models share this lever and spell the same number differently:
+    // `jaw_opening` on the stock gripper, `crow_opening` on the beak. Whichever
+    // params file the loop was pointed at declares exactly one of them.
+    const name = OPENING_NAMES.find(n => num(model, n) !== null)
+    if (!name) return null
+    const cur = num(model, name)
+    const max = num(model, `${name}_max`) ?? 55
     let next = q.mode === 'abs' ? q.value
       // A proportional change to a closed jaw is a proportion of nothing, and
       // "open it a bit" from 0mm would silently stay shut. Measure the
@@ -286,8 +299,8 @@ const LEVERS = {
     next = Math.max(0, Math.min(max, next))
     if (next === cur) return null
     return {
-      ops: [{ kind: 'scalar', param: 'jaw_opening', value: next }],
-      what: `jaw opening ${cur}mm -> ${Math.round(next * 100) / 100}mm at the fingertip`,
+      ops: [{ kind: 'scalar', param: name, value: next }],
+      what: `${name.replace('_', ' ')} ${cur}mm -> ${Math.round(next * 100) / 100}mm at the fingertip`,
     }
   },
 

@@ -31,6 +31,15 @@ openscad -D 'part="tool"'     crow_beak.scad      # with a Ø6 rod chucked
 | `build.sh` | regenerates every STL and PNG below |
 | `render/`, `export/` | build outputs. never hand-edit, just re-run `build.sh` |
 
+**Where this is going:** [`plans/crow_gripper.md`](../../../plans/crow_gripper.md)
+is the decision about making this hook-led — load carried by the shape of a
+gated throat near the commissure rather than by pinch force at the tip — and why
+the throat goes at the *back* of the beak. To iterate this model by voice:
+
+```bash
+CADLOOP_TARGET=crow node Scripts/cadloop/cadloop.mjs
+```
+
 ## What was borrowed from the bird
 
 The NC crow's bill is odd for a corvid in three specific ways, and all three are

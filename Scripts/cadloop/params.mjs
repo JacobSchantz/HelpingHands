@@ -21,9 +21,21 @@ import path from 'node:path'
 
 const GEOM = ['moving_jaw.scad', 'fixed_jaw.scad', 'gripper.scad', 'common.scad']
 
-/** Every top-level `name = value;` in params.scad, with where its number lives. */
-export function readParams(scadDir) {
-  const file = path.join(scadDir, 'params.scad')
+/**
+ * Every top-level `name = value;` in the target's params file, with where its
+ * number lives.
+ *
+ * `opts` names the target when it is not the stock gripper: `{ params, geom }`.
+ * The crow beak (cad/openscad/crow) is a second model on the same mount, with
+ * its own params file and its own geometry files, and liveness has to be
+ * computed against *those* — a crow parameter read only by crow_lower.scad is
+ * live, and reads of the stock params.scad it includes are not this loop's to
+ * offer. That last part is the point: the beak's params file declares none of
+ * the mount dimensions, so pointing the loop at it makes the arm interface
+ * unreachable by construction rather than by care. See plans/crow_gripper.md D1.
+ */
+export function readParams(scadDir, opts = {}) {
+  const file = path.join(scadDir, opts.params || 'params.scad')
   const src = fs.readFileSync(file, 'utf8')
   const lines = src.split('\n')
   const params = new Map()
@@ -65,19 +77,60 @@ export function readParams(scadDir) {
     })
   })
 
-  const geom = GEOM.map(f => {
+  const geom = (opts.geom || GEOM).map(f => {
     try { return fs.readFileSync(path.join(scadDir, f), 'utf8') } catch { return '' }
   }).join('\n')
 
+  // A parameter is also live when the geometry reaches it through one of the
+  // params file's OWN functions. On the stock gripper every station table is
+  // named directly by moving_jaw.scad, so this never came up. On the crow beak
+  // it is the normal case and the omission was fatal: crow_tomium, crow_culmen
+  // and crow_gonys — the three lists that ARE the beak's shape — are read only
+  // by crow_tomium_x() and friends inside crow_params.scad, and a name-in-
+  // geometry test scores them `indirect`, which the loop never offers the edit
+  // engine. The loop would have rendered the beak and refused to reshape it.
+  const reached = reachedFunctions(src, geom)
+
   for (const p of params.values()) {
     const re = new RegExp(`\\b${p.name}\\b`)
-    if (re.test(geom)) { p.liveness = 'live'; continue }
+    if (re.test(geom) || reached.some(body => re.test(body))) { p.liveness = 'live'; continue }
     // Not read by the geometry — but it may feed another parameter that is.
     const uses = src.match(new RegExp(`\\b${p.name}\\b`, 'g'))?.length ?? 0
     p.liveness = uses > 1 ? 'indirect' : 'dead'
   }
 
   return { file, src, lines, params }
+}
+
+/**
+ * The bodies of the params file's own `function` definitions that the geometry
+ * can actually reach — directly, or through another reached function.
+ *
+ * Deliberately functions only, not modules: a module in a params file emits
+ * geometry, and there are none in either model. Comments are stripped first so
+ * a parameter named only in a `// [STEP] ...` note is not mistaken for a read.
+ */
+function reachedFunctions(src, geom) {
+  const bare = src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/.*$/gm, ' ')
+  const fns = new Map()
+  // `function name(args) = <expression>;` — the body runs to the first `;`,
+  // which is unambiguous because OpenSCAD function bodies are single expressions.
+  for (const m of bare.matchAll(/\bfunction\s+([a-zA-Z_]\w*)\s*\(/g)) {
+    const semi = bare.indexOf(';', m.index)
+    if (semi > 0) fns.set(m[1], bare.slice(m.index, semi))
+  }
+  const live = new Set()
+  for (;;) {
+    const before = live.size
+    for (const [name, body] of fns) {
+      if (live.has(name)) continue
+      const re = new RegExp(`\\b${name}\\s*\\(`)
+      const inLive = [...live].some(n => re.test(fns.get(n)))
+      if (re.test(geom) || inLive) live.add(name)
+    }
+    if (live.size === before) break
+  }
+  return [...live].map(n => fns.get(n))
 }
 
 /** Rewrite one scalar in place, touching only the number. Comments survive. */

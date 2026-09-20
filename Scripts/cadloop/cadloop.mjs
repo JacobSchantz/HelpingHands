@@ -34,7 +34,8 @@
  * render so that a no-op is reported as a no-op rather than as success.
  *
  *   CADLOOP_REPO    the checkout (default ~/HelpingHands)
- *   CADLOOP_PART    assembly | fixed_jaw | moving_jaw | open   (default assembly)
+ *   CADLOOP_TARGET  gripper | crow                             (default gripper)
+ *   CADLOOP_PART    a part name from the target's main file    (default assembly)
  *   CADLOOP_PORT    preview server port (default 7333)
  *   CADLOOP_TRIGGER the word that claims a note (default "design")
  *   CADLOOP_MODEL   the fallback edit engine (default haiku)
@@ -54,8 +55,43 @@ import { fastEdit, DEAD_TRAPS } from './grammar.mjs'
 
 const HOME = os.homedir()
 const REPO = process.env.CADLOOP_REPO || path.join(HOME, 'HelpingHands')
-const SCAD = path.join(REPO, 'cad', 'openscad')
-const PARAMS = path.join(SCAD, 'params.scad')
+
+/**
+ * WHICH MODEL THE LOOP IS POINTED AT.
+ *
+ * There are two end effectors on the same SO-101 mount, and they are separate
+ * source trees on purpose: the stock gripper rebuild, and the New Caledonian
+ * crow beak that replaces only the jaws (cad/openscad/crow). Everything the
+ * loop needs to know about one is four things — where it lives, which file
+ * holds its numbers, which file to render, and which files count as geometry
+ * for the liveness test in params.mjs.
+ *
+ * The beak's params file declares none of the mount dimensions (it `include`s
+ * the stock params.scad for those), so pointing the loop at `crow` leaves the
+ * horn pocket, the cradle and the pivot outside the edit engine's reach. That
+ * is the D1 freeze in plans/crow_gripper.md enforced by the file layout rather
+ * than by a rule someone has to remember.
+ */
+const TARGETS = {
+  gripper: {
+    dir: ['cad', 'openscad'], params: 'params.scad', main: 'gripper.scad',
+    geom: ['moving_jaw.scad', 'fixed_jaw.scad', 'gripper.scad', 'common.scad'],
+    what: 'the SO-101 gripper', example: 'make the jaw 2mm longer',
+  },
+  crow: {
+    dir: ['cad', 'openscad', 'crow'], params: 'crow_params.scad', main: 'crow_beak.scad',
+    geom: ['crow_upper.scad', 'crow_lower.scad', 'crow_beak.scad', 'crow_common.scad'],
+    what: "the crow beak on the SO-101 mount", example: 'open the beak 10mm',
+  },
+}
+const TARGET_NAME = (process.env.CADLOOP_TARGET || 'gripper').toLowerCase()
+const TARGET = TARGETS[TARGET_NAME]
+if (!TARGET) {
+  console.error(`cadloop: no target "${TARGET_NAME}" — one of ${Object.keys(TARGETS).join(', ')}`)
+  process.exit(2)
+}
+const SCAD = path.join(REPO, ...TARGET.dir)
+const PARAMS = path.join(SCAD, TARGET.params)
 const PART = process.env.CADLOOP_PART || 'assembly'
 const PORT = Number(process.env.CADLOOP_PORT || 7333)
 const TRIGGER = (process.env.CADLOOP_TRIGGER || 'design').toLowerCase()
@@ -73,7 +109,7 @@ const log = (...a) => console.log(new Date().toISOString().slice(11, 23), ...a)
 const stamp = (r) => { try { fs.appendFileSync(TIMING, JSON.stringify({ at: new Date().toISOString(), ...r }) + '\n') } catch {} }
 const say = (l) => { if (!process.env.CADLOOP_NO_VOICE) { try { fs.appendFileSync(path.join(PEB, 'say.log'), l + '\n') } catch {} } }
 
-if (!fs.existsSync(PARAMS)) { console.error(`cadloop: no params.scad at ${PARAMS}`); process.exit(2) }
+if (!fs.existsSync(PARAMS)) { console.error(`cadloop: no ${TARGET.params} at ${PARAMS}`); process.exit(2) }
 if (!fs.existsSync(OPENSCAD)) { console.error(`cadloop: no OpenSCAD at ${OPENSCAD}`); process.exit(2) }
 
 // ── the model of the source ────────────────────────────────────────────────
@@ -81,7 +117,7 @@ if (!fs.existsSync(OPENSCAD)) { console.error(`cadloop: no OpenSCAD at ${OPENSCA
 // Re-read before every instruction. The numbers move under us on every edit,
 // and a lever that computes "82 + 2" off a stale 82 walks backwards.
 
-let model = readParams(SCAD)
+let model = readParams(SCAD, TARGET)
 const liveNames = [...model.params.values()].filter(p => p.liveness === 'live').map(p => p.name)
 const deadNames = [...model.params.values()].filter(p => p.liveness === 'dead').map(p => p.name)
 
@@ -124,7 +160,7 @@ function renderOne(view, part) {
   return new Promise((res) => {
     const out = path.join(STATE, `${view}.png`)
     const args = ['--render', '-D', `part="${part}"`, ...FAST, ...VIEWS[view],
-      '--colorscheme=Tomorrow', '-o', out, 'gripper.scad']
+      '--colorscheme=Tomorrow', '-o', out, TARGET.main]
     execFile(OPENSCAD, args, { cwd: SCAD, timeout: 30000 }, (err, _so, se) => {
       if (err) return res({ view, ok: false, err: String(se || err).slice(0, 400) })
       // OpenSCAD reports a failed assert on stderr and still exits 0 in some
@@ -243,8 +279,8 @@ function tell(line) { for (const c of clients) { try { c.write(`event: what\ndat
 // thing being changed already has a name, so the model does not have to
 // describe a location, only pick a name and a number.
 
-const SYS = `You are an edit engine for a live voice-driven CAD loop on an OpenSCAD model of the
-SO-101 robot gripper. Every dimension is a named variable in params.scad.
+const SYS = `You are an edit engine for a live voice-driven CAD loop on an OpenSCAD model of
+${TARGET.what}. Every dimension is a named variable in ${TARGET.params}.
 
 You get the current parameter values, then short spoken instructions.
 Reply with ONE line and nothing else. No prose, no backticks, no explanation.
@@ -258,8 +294,8 @@ ${liveNames.join(' ')}
 These names appear in the file but are read by NO geometry. Never SET them; reply SKIP:
 ${deadNames.join(' ')}
 
-All lengths are millimetres, angles degrees. jaw_opening is the fingertip gap.
-Reply SKIP if the instruction names nothing in that list.`
+All lengths are millimetres, angles degrees. The opening parameter is the gap at
+the fingertip. Reply SKIP if the instruction names nothing in that list.`
 
 const ENGINE_CWD = path.join(os.tmpdir(), 'cadloop-engine')
 fs.mkdirSync(ENGINE_CWD, { recursive: true })
@@ -346,7 +382,7 @@ async function onNote(rawText, heardAt) {
   busy = true
   const t0 = Date.now()
   try {
-    model = readParams(SCAD)
+    model = readParams(SCAD, TARGET)
     const src = model.src
     const backup = path.join(BACKUPS, `${Date.now()}-params.scad`)
     fs.writeFileSync(backup, src)
@@ -523,7 +559,7 @@ function openPage() {
 // ── go ─────────────────────────────────────────────────────────────────────
 
 log('cadloop starting')
-log(`source ${path.relative(REPO, PARAMS)}  part "${PART}"  trigger "${TRIGGER}"  model ${MODEL}`)
+log(`target "${TARGET_NAME}"  source ${path.relative(REPO, PARAMS)}  part "${PART}"  trigger "${TRIGGER}"  model ${MODEL}`)
 log(`${liveNames.length} live parameters, ${deadNames.length} dead (refused): ${deadNames.join(' ')}`)
 
 startEngine()
@@ -535,7 +571,7 @@ const first = await render()
 log(first.ok ? `first render ${first.ms}ms` : `first render FAILED: ${first.err}`)
 openPage()
 askEngine('Reply exactly: SKIP').then(() => log('engine first turn done'))
-log(`ready — say: "pebbles, ${TRIGGER}, make the jaw 2mm longer"`)
+log(`ready — say: "pebbles, ${TRIGGER}, ${TARGET.example}"`)
 
 const bye = () => { dropClaim(); tailProc?.kill(); engine?.kill(); process.exit(0) }
 process.on('SIGTERM', bye); process.on('SIGINT', bye); process.on('exit', dropClaim)
