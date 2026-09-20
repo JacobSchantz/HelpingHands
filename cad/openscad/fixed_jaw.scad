@@ -125,6 +125,35 @@ module fj_servo_screws() {
 
 // --- the part ----------------------------------------------------------------
 
+// Everything below the blade: the flange, the servo cradle, the cable tab and
+// the horn rim.  Split out from fixed_jaw() so a different blade can be bolted
+// onto the same arm interface -- see crow/ for one that is.
+module fj_body_solid() {
+    translate([0, 0, fj_flange_z0]) fj_flange();
+    translate([0, 0, fj_floor_z])   fj_cradle();
+    fj_cable_tab();
+    fj_horn_rim();
+}
+
+// The pockets and holes that make the body an interface rather than a lump.
+module fj_body_cuts() {
+    fj_servo_pocket();
+    fj_fork_clearance();
+    fj_horn_mount();
+    fj_servo_screws();
+    // Ø10 cable bore through the back tower
+    translate([fj_x_min - 1, fj_cable_bore_y, fj_cable_bore_z])
+        rotate([0, 90, 0]) cylinder(d = fj_cable_bore_d, h = fj_x_min * -1 + fj_pocket_x_min + 1);
+}
+
+// The stock blade, on its own.
+module fj_blade() { loft_z(fj_stations); }
+
+// Left spelled out rather than written as fj_body_solid() + fj_blade().  The
+// extra grouping level does not change the solid -- the volume is the same to
+// four decimals -- but it does change how the union is tessellated (5966
+// facets becomes 5964), and there is no reason to churn export/*.stl.  The
+// modules above exist for crow/ to build a different blade on the same body.
 module fixed_jaw() {
     difference() {
         union() {

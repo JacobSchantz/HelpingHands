@@ -82,6 +82,27 @@ module mj_horn_bolts() {
 
 // --- the part ----------------------------------------------------------------
 
+// The two plates that straddle the gripper servo.  Split out from
+// moving_jaw() so a different blade can hang off the same horn -- see crow/.
+module mj_fork() {
+    translate([0, 0,  mj_fork_gap / 2])
+        linear_extrude(mj_plate_t_top) mj_plate_2d();
+    translate([0, 0, -mj_fork_outer_w / 2])
+        linear_extrude(mj_plate_t_bottom) mj_plate_2d();
+}
+
+module mj_fork_cuts() {
+    // the slot between the plates, open toward +Y and both X faces
+    translate([-40, mj_neck_y_end, -mj_fork_outer_w / 2 + mj_plate_t_bottom])
+        cube([80, 60, mj_fork_gap]);
+    mj_horn_bolts();
+}
+
+// The stock blade, on its own.
+module mj_blade() { loft_y(mj_stations); }
+
+// Spelled out on purpose -- see the note on fixed_jaw().  Same solid either
+// way; grouping it just re-tessellates export/*.stl.
 module moving_jaw() {
     difference() {
         union() {

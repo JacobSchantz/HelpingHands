@@ -26,6 +26,7 @@ something else entirely, and it is in §3.
 | `tools/measure_step.py` | reads dimensions out of a STEP file. stdlib only, no deps |
 | `tools/compare_to_step.py` | overlays the rebuild on the reference (needs `cadquery-ocp`) |
 | `render/`, `export/` | build outputs. never hand-edit, just re-run `build.sh` |
+| `crow/` | a different pair of jaws on this same body and fork: a New Caledonian crow's beak. See [`crow/README.md`](crow/README.md) |
 
 ```bash
 ./build.sh                       # STLs + PNGs
@@ -186,6 +187,11 @@ reporting itself on every build rather than sitting in a document.
 out of each other through the stroke. `intersection()` of the two parts at
 several openings should be empty and isn't asserted — and at `jaw_opening_max`
 it currently isn't empty (see §6, item 5). That is the next thing to write.
+
+*(Written since: `crow/` — a crow-beak jaw pair on this same body and fork — has
+both halves of that test. `crow/crow_params.scad` asserts it in closed form, and
+`crow/check_interference.sh` sweeps the stroke and reports the overlap volume.
+Neither has been back-ported to these jaws.)*
 
 ## 6. State plainly: what is approximate, and what still needs verifying
 
