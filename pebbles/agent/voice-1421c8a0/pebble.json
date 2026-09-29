@@ -1,0 +1,11 @@
+{
+  "id": "voice-1421c8a0",
+  "commit_id": "",
+  "description": "Switch Helping Hands' north-star model from a plain VLA to a WORLD ACTION MODEL (a model that jointly predicts future world state \u2014 video/frames \u2014 and robot actions). This updates the north star in voice-4858e8fa (MolmoAct2-style zero-shot manipulation from a camera plus a plain-language instruction): the goal stays the same, only the model family changes. Research current open world action models (late 2026), pick one that fits the project (open weights, runs on our hardware, camera + language in, actions out), and write a plan for the switch: what replaces the MolmoAct2 path, integration steps, and what we lose/gain. Ref: voice-4858e8fa.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-09-29T12:12:43.000Z",
+  "updated_at": "2026-09-29T12:12:43.000Z",
+  "work_kind": "plan"
+}
