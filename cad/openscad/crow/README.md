@@ -27,7 +27,11 @@ openscad -D 'part="tool"'     crow_beak.scad      # with a Ø6 rod chucked
 | `crow_upper.scad` | upper mandible on the stock wrist-roll follower body |
 | `crow_lower.scad` | lower mandible on the stock gripper-servo fork |
 | `crow_beak.scad` | **open this one.** the assembly, with `crow_opening` in mm |
+| `crow_dock.scad` | the dovetail dock, and the wrist puck that bolts it to the SO-101's horn |
+| `crow_camera.scad` | the wrist camera mount: lateral, where a crow's eye is |
+| `crow_handle.scad` | the handheld host: pistol grip, leader-servo trigger, phone cradle |
 | `check_interference.sh` | sweeps the stroke and proves the mandibles never touch |
+| `check_budget.py` | wrist mass and moment off the STLs, against the 250 g budget |
 | `build.sh` | regenerates every STL and PNG below |
 | `render/`, `export/` | build outputs. never hand-edit, just re-run `build.sh` |
 
@@ -39,6 +43,27 @@ the throat goes at the *back* of the beak. To iterate this model by voice:
 ```bash
 CADLOOP_TARGET=crow node Scripts/cadloop/cadloop.mjs
 ```
+
+## One cartridge, two hosts
+
+![handheld](render/handheld_iso.png) ![on the arm](render/armed_iso.png)
+
+The cartridge is the upper mandible body, the gripper servo (ID 6), the lower
+mandible and the wrist camera. It slides onto a dovetail, and both the
+**wrist puck** (`part="puck"`, which bolts to wrist_roll with the stock horn
+pattern) and the **handle** (`part="handle"`) carry the same rail. So the beak,
+the throat and the camera are in the same place relative to the dock whether a
+person or the arm is holding it. Why, and the capture plan built on it, are in
+[`plans/crow_gripper.md`](../../../plans/crow_gripper.md) §9–12.
+
+```bash
+openscad -D 'part="handheld"' crow_beak.scad    # or "armed"
+python3 check_budget.py                          # after ./build.sh
+```
+
+The **throat** (`crow_throat_*`) is the hook: a U cut into the upper mandible
+behind the tomial line, which the lower mandible closes like a gate. It is
+Ø9 mm at z = 67.5 and opens with 17.8 mm of gape.
 
 ## What was borrowed from the bird
 

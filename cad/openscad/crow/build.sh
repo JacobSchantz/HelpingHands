@@ -14,7 +14,7 @@ COLOR="--colorscheme=Tomorrow"
 mkdir -p export render
 
 echo "--- STL ---"
-for p in assembly upper lower; do
+for p in assembly upper lower puck camera_mount handle trigger; do
     "$OPENSCAD" --render --export-format binstl -D "part=\"$p\"" -o "export/$p.stl" crow_beak.scad
 done
 "$OPENSCAD" --render --export-format binstl -D 'part="assembly"' -D 'crow_opening=25' \
@@ -29,10 +29,21 @@ echo "--- PNG ---"
 "$OPENSCAD" --render -D 'part="tool"' --camera=-9,0,80,90,0,0,210 --imgsize=900,820 $COLOR \
     -o render/tool_in_notch.png crow_beak.scad
 "$OPENSCAD" --render -D 'part="upper"' $ISO $COLOR -o render/upper.png crow_beak.scad
+"$OPENSCAD" --render -D 'part="assembly"' -D 'crow_opening=18' \
+    --camera=-11,0,72,90,0,0,150 --imgsize=900,780 $COLOR -o render/throat_open.png crow_beak.scad
+"$OPENSCAD" --render -D 'part="armed"'    --camera=0,0,0,65,0,35,0 $FIT --imgsize=900,1000 $COLOR \
+    -o render/armed_iso.png crow_beak.scad
+"$OPENSCAD" --render -D 'part="handheld"' --camera=0,0,0,70,0,50,0 $FIT --imgsize=1000,1000 $COLOR \
+    -o render/handheld_iso.png crow_beak.scad
+"$OPENSCAD" --render -D 'part="handheld"' --camera=0,0,0,90,0,0,0  $FIT --projection=o --imgsize=900,1000 $COLOR \
+    -o render/handheld_side.png crow_beak.scad
 "$OPENSCAD" --render -D 'part="lower"' --camera=0,0,0,68,0,22,0 $FIT --imgsize=900,900 $COLOR \
     -o render/lower.png crow_beak.scad
 
 echo "--- interference ---"
 ./check_interference.sh
+
+echo "--- wrist budget ---"
+python3 check_budget.py
 
 ls -la export render

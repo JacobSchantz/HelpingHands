@@ -80,7 +80,8 @@ const TARGETS = {
   },
   crow: {
     dir: ['cad', 'openscad', 'crow'], params: 'crow_params.scad', main: 'crow_beak.scad',
-    geom: ['crow_upper.scad', 'crow_lower.scad', 'crow_beak.scad', 'crow_common.scad'],
+    geom: ['crow_upper.scad', 'crow_lower.scad', 'crow_beak.scad', 'crow_common.scad',
+           'crow_dock.scad', 'crow_camera.scad', 'crow_handle.scad'],
     what: "the crow beak on the SO-101 mount", example: 'open the beak 10mm',
   },
 }

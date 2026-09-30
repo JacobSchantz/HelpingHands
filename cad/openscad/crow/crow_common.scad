@@ -55,3 +55,20 @@ module crow_tool_notch_jaw_frame() {
         translate([-jaw_pivot_x, 0, -jaw_pivot_z])
             crow_tool_notch();
 }
+
+
+// --- the throat (the hook) ---------------------------------------------------
+// A U cut square to the tomium, into the upper mandible only: a half-circle of
+// crow_throat_d at the bottom, straight walls out through the tomial line.
+// Shut, the lower mandible's tomium is the fourth wall.  Follower frame.
+module crow_throat() {
+    r = crow_throat_d / 2;
+    translate([crow_tomium_x(crow_throat_z), 0, crow_throat_z])
+        rotate([0, crow_tomium_lean(crow_throat_z), 0])
+            rotate([-90, 0, 0])
+                linear_extrude(crow_notch_len, center = true)
+                    hull() {
+                        translate([-(crow_throat_depth - r), 0]) circle(r = r);
+                        translate([0, -r]) square([2, 2 * r]);  // out past the tomium
+                    }
+}

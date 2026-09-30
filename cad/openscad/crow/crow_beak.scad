@@ -6,6 +6,11 @@
 //      openscad -D 'crow_opening=25'                       crow_beak.scad
 //
 //  part = "assembly" | "open" | "tool" | "upper" | "lower" | "interference"
+//       | "puck" | "camera_mount" | "handle" | "trigger"      (printable parts)
+//       | "armed" | "handheld"                                (the two hosts)
+//
+//  The same cartridge (upper + lower + camera) docks on the wrist puck or on
+//  the handle -- plans/crow_gripper.md sections 9-11.
 //
 //  "interference" renders the overlap between the two mandibles at the current
 //  crow_opening.  It must come out EMPTY at every opening — that is the test
@@ -15,6 +20,9 @@
 include <crow_common.scad>
 use <crow_upper.scad>
 use <crow_lower.scad>
+use <crow_dock.scad>
+use <crow_camera.scad>
+use <crow_handle.scad>
 
 part = "assembly";
 
@@ -57,9 +65,38 @@ module crow_with_tool(d = crow_rod_d) {
                     rotate([90, 0, 0]) cylinder(d = d, h = 90, center = true);
 }
 
+// The cartridge: the thing that moves between hosts.
+module crow_cartridge(angle = crow_angle) {
+    crow_beak(angle);
+    color("#5b6770") crow_camera_mount();
+    color("#1d2226") crow_camera_ghost();
+}
+
+// On the arm: cartridge on the puck, puck on a stand-in for the wrist_roll horn.
+module crow_armed(angle = crow_angle) {
+    crow_cartridge(angle);
+    color("#c8813a") crow_wrist_puck();
+    color("#444a50") translate([0, dock_y, dock_z - dock_puck_h - 12])
+        cylinder(d = 24, h = 12);
+}
+
+// In the hand: the same cartridge on the handle, trigger and phone.
+module crow_handheld(angle = crow_angle) {
+    crow_cartridge(angle);
+    color("#c8813a") crow_handle();
+    color("#e0a458") crow_trigger();
+    color("#26303a", 0.55) crow_phone_ghost();
+}
+
 if      (part == "assembly")     crow_beak();
 else if (part == "tool")         crow_with_tool();
 else if (part == "open")         crow_beak(crow_angle_for(crow_opening_max));
 else if (part == "upper")        crow_upper();
 else if (part == "lower")        crow_lower();
 else if (part == "interference") crow_interference();
+else if (part == "puck")         crow_wrist_puck();
+else if (part == "camera_mount") crow_camera_mount();
+else if (part == "handle")       crow_handle();
+else if (part == "trigger")      crow_trigger();
+else if (part == "armed")        crow_armed();
+else if (part == "handheld")     crow_handheld();

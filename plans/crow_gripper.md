@@ -1,9 +1,12 @@
 # The crow gripper — hook-led, and what that costs at the wrist
 
-Status: **DECISION, no geometry cut yet.** The ask was to work out what a
-hook-led end effector means for the SO-101's wrist mount and payload *before*
-designing anything, and to say what was decided and why. This is that. The
-parameters the hook would add are named in §8 and nothing has been drawn.
+Status: **DESIGN + CAD, nothing printed (2026-09-30, voice-805d4970).** §1–8 are
+the first pass: what hook-led costs at the wrist, and the decision to put the
+hook at the back of the beak. §9–12 are the second pass, after Jake made
+human-held demonstration a core requirement: **one crow cartridge that docks
+on the SO-101 wrist or on a handle**, the throat cut, the capture plan, and a
+test ladder that keeps "the geometry works" apart from "it grasps" and from
+"the data transfers". Nothing in this document has touched hardware.
 
 Reading order: [`gripper_bet.md`](gripper_bet.md) for why the end effector is
 the argument at all, [`molmoact2.md`](molmoact2.md) for the north star,
@@ -254,3 +257,219 @@ shuts) and `crow_throat_r` (the root radius, which is where it will crack).
 **Say the word and I'll cut it in the loop.** The one thing to react to first is
 D4 — the hook at the back of the beak rather than the front of it — because
 everything else follows from it.
+
+
+---
+
+# Part 2 — one beak, two hosts (voice-805d4970, 2026-09-30)
+
+The requirement that changes things: the **same** end effector has to be held
+by a person collecting demonstrations on everyday objects *and* mounted on the
+SO-101, with the contact geometry and the action/state representation kept the
+same across the two wherever practical. Handheld collection is core, not an
+accessory. `plans/handheld_gripper.md` (voice-b4fbc4ee) already chose the
+capture method; this part uses it rather than inventing a second one, and
+swaps the crow in where it said "Hand 1.0".
+
+CAD for everything below is in `cad/openscad/crow/` and rebuilds with
+`./build.sh`, which also runs the interference sweep and the wrist budget.
+
+![the handheld host](../cad/openscad/crow/render/handheld_iso.png)
+
+## 9. The decision: a cartridge and a dock
+
+**D8 — what moves between hosts is a cartridge, and it is everything that
+touches the object or sees it.** Upper mandible + body, the gripper servo
+(ID 6), lower mandible, and the wrist camera on its mount. Nothing about the
+contact geometry, the actuator, or the camera's view of the beak can differ
+between modes, because they are one physical object. Hand 1.0 argued for this
+(`hand_1_0.md`, "the identity thesis"); here it is enforced by construction.
+
+**D9 — the cartridge sits on a dovetail dock, and both hosts carry the same
+rail.** `crow_dock.scad`: a 60° dovetail along X, open toward +X, one M3
+cross-pin to lock it. The **wrist puck** carries the rail and bolts to the
+wrist_roll horn with the SO-101's own pattern. The **handle** carries the
+rail from the same module. Swapping is: pull the pin, slide off, slide on, pin.
+
+Why D1 had to bend: the stock body bolts to the horn with four screws that sit
+*under the gripper servo*. Taking it off the arm means taking the servo out.
+The arm interface itself still does not move. The horn pattern, the recess and
+the centre bore are all in the puck, untouched. What changed is that the
+cartridge no longer bolts straight to the horn. `crow_mount = "horn"` still
+builds the original direct-bolt body.
+
+**What the dock costs, measured** (`check_budget.py`, off the STLs):
+- The puck adds **9.05 mm** between the horn face and the cartridge, so the tip
+  is 114.4 mm out instead of 105.4. On a full 0.5 kg tip load that is
+  +0.044 N·m, **8.6 %**.
+- Arm-side mass is **140 g** with the camera, against 104 g for the stock
+  gripper without one (printed at ~40 % infill; servo and camera masses are
+  *guesses*). That is under the 250 g the handheld plan budgets, which is
+  itself unverified.
+- The throat undoes it: 0.5 kg held in the throat is 76.5 mm out instead of
+  114.4, which is **33 % less** wrist moment than the same load at the tip.
+
+**D10 — `gripper.pos` is always read from ID 6, in both modes.** In the hand,
+the trigger is a second, back-driven STS3215 read as a *leader*. The
+cartridge's ID 6 follows it, exactly as the follower follows the leader arm in
+teleop. So:
+- the recorded gripper channel is the **measured position of the same servo on
+  the same jaw**, in both modes. No trigger-to-jaw mapping appears in the
+  data, only in the live control loop, where a mapping can be wrong without
+  corrupting anything recorded;
+- grip force is capped by **ID 6's own torque limit** in both modes, so a
+  human cannot demonstrate a squeeze the robot cannot produce;
+- the calibration travels with the cartridge. The homing offset lives in the
+  servo *(LeRobot writes it to the motor; check this on the bench)*.
+
+The trigger has 28° of travel over a ~39 mm lever (about 19 mm at the pad),
+mapped linearly onto ID 6's calibrated range. It is a leader, not a lever, so
+the ratio is free. The cost to state plainly: **the human gets no feel from
+the jaw.** The grip is by-wire. The leader servo can be torque-enabled softly
+as a return spring, and later it could push back in proportion to ID 6's
+present load. That is not built.
+
+**D11 — the camera sits where a crow's eye is.** NC crows have unusually wide
+binocular overlap, and their straight bill keeps the tip inside the visual
+field while they work a tool (Troscianko et al. 2012, *Nature
+Communications*). The camera goes lateral on the cartridge (`cam_pos`,
+y = 36 mm), toed in 43° to aim at the tomial line. It is outside
+|y| = 24, so the lower mandible's fork can never sweep it. The model checks
+the framing on every compile (`crow_params.scad` check 7): the tip is 13.3° off
+axis, the throat 13.5°, and the fully open tip 35.8°, against 55° available
+at a 110° lens. In the hand the camera looks forward and away from the grip,
+so the human arm stays mostly out of frame. `handheld_gripper.md` §2 names
+that as the main visual gap. It has to be measured, not assumed.
+
+**D12 — the phone rides on the handle only.** Landscape, screen to the user,
+rear camera forward past the beak, on the culmen side (up, in the bird
+posture). ARKit gives `T_world←phone`. The CAD gives `T_phone←dock` (§11
+checks it). The arm never carries it.
+
+## 10. The hook: the throat, cut
+
+![the throat, gate open](../cad/openscad/crow/render/throat_open.png)
+
+D3/D4 said: a gated throat between the mandibles at z 62–78. It exists now
+(`crow_throat()`, parameters `crow_throat_*`):
+
+- A **U pocket cut into the upper mandible only**, Ø9 at z = 67.5 and 9 mm
+  deep, opening onto the tomial line. It is sized for mug handles, bag straps,
+  cables and drawer pulls (~6–10 mm; the Ø9 is a *guess*, and a parameter).
+- **The gate is the lower mandible's own tomium, unchanged.** Shut, it runs
+  straight across the mouth and the bar is enclosed. Loads toward the culmen
+  and along the beak go into the upper mandible's walls. **Only a load straight
+  out of the mouth reaches the servo.** That is "shut the gate" instead of
+  "squeeze".
+- It opens with **17.8 mm of gape** at the tip (`crow_opening_for_throat`),
+  and holds with **1.78× the tip's force** from the same torque.
+
+**The §7 blocker went away rather than being solved.** §7 said a throat is a
+dip in the tomium and would break the closed-form interference proof. Cutting
+the pocket *behind* the tomial line instead of into it removes material from
+the fixed jaw only. The lower mandible is untouched, the proof holds unchanged,
+and the sweep still comes back clear at every opening from 0.05 to 50 mm.
+
+New self-checks: the mouth must sit above the commissure, so the gate actually
+closes it. There must be ≥1.5 mm of web to the tool notch, ≥3 mm of wall behind
+the U, and the pocket must be at least a half-circle deep, or it is a notch
+and not a hook.
+
+**Grip modes on one channel.** Tip forceps for small things and paper (D5),
+the V notch for rods and tools (D6), and the throat for handles and straps.
+The policy never selects a mode. It chooses where the object sits in the beak,
+as a crow does, and then closes.
+
+## 11. Capture plan — `handheld_gripper.md` §4, with the crow in it
+
+Unchanged from voice-b4fbc4ee, and deliberately so: the iPhone ARKit tracker,
+`lerobot-record` on the laptop, retargeting through LeRobot `RobotKinematics`
+into SO-101 joint space, LeRobot v3 episodes with the same schema as teleop,
+the automated QC, and the 30/15+15/30/15+45 experiment. What the crow changes:
+
+**The frame both modes agree on is the dock.** Each host supplies its own
+transform to the dock, and everything past it is shared:
+
+```
+arm:   T_base←dock  = FK(q1..q5) · T_wristroll←dock   (puck: CAD, 9.05 mm)
+hand:  T_base←dock  = T_base←world · T_world←phone(ARKit) · T_phone←dock (handle: CAD)
+both:  T_dock←tcp, T_dock←camera                     (the cartridge: identical)
+```
+
+Retargeting solves IK for **`T_base←dock`**. The tip, the throat and the
+camera then come along for free, because they are one rigid part in both
+modes.
+
+**Actuation:** `gripper.pos` = ID 6's present position (D10), 30 Hz, the same
+channel name and units as teleop. The trigger's position is logged too, as a
+diagnostic, but it is never the action.
+
+**Registration and sync** reuse the ArUco board from b4fbc4ee, with one
+addition that is only possible because the camera is on the cartridge. At
+the start of each episode, **tap the beak tip on a marked point of the
+board.** That one gesture gives:
+- **sync**: the phone's accelerometer spike, ID 6's `present_load` spike and
+  the wrist-camera frame of contact line up in time. That gives one offset per
+  episode, with the residual checked against ≤ 1 frame;
+- **registration**: the wrist camera solves its own pose from the board
+  (PnP), which is `T_base←dock` directly through `T_dock←camera`;
+- **a check on the CAD**: the same pose predicted by ARKit · `T_phone←dock` must
+  agree with the PnP pose. The disagreement is logged per episode. If it drifts
+  across a session, the phone has moved in its cradle, or the CAD transform is
+  wrong.
+
+It replaces b4fbc4ee's QR-code flash, which needs the wrist camera to see the
+phone screen. On this handle, it can't.
+
+**Added QC** (on top of b4fbc4ee's tracking / IK / sync / range / replay checks):
+- tap-registration residual ≤ 5 mm and ≤ 3°, **measured and reported**. This
+  threshold is a starting guess;
+- `gripper.pos` never exceeds ID 6's calibrated range, and in-throat grasps
+  close past `crow_opening_for_throat`;
+- the out-of-reach fraction per episode. The operator stands at the robot's
+  table with its reach marked on the board. A live out-of-reach tone from the
+  phone (FeasibleCap-style) is a follow-up, not built.
+
+## 12. Tests — geometry, grasping and data, kept apart
+
+Each level has to pass before the next one means anything. **Only G0 has been
+run.** Everything from G1 on is a plan. No claim of reliable transfer is made
+until G5 has a number.
+
+| level | what it shows | how | pass | status |
+|---|---|---|---|---|
+| **G0 geometric concept** | the parts are self-consistent | `./build.sh`: compile asserts (1)–(7), interference sweep, `check_budget.py` | all asserts hold; overlap clear 0.05–50 mm; ≤ 250 g arm-side | **passing** |
+| G1 fit | the printed parts assemble and dock | print cartridge + puck + handle; calipers on `jaw_pivot_x/z` (§7); dock both hosts 20× each | repeatability ≤ 0.2 mm at the tip across re-docks (dial gauge); pin never needs tools | not started |
+| G2 mechanism | it holds what it claims, on the bench | ID 6 at its working torque limit; 10 objects each mode: pencil (tip), Ø6 rod (notch), mug by the handle (throat), a sheet of paper (tip) | throat holds a 0.5 kg mug handle with ID 6 **torque off**, shaken; tip/notch hold rate per object | not started |
+| G3 handheld capture | the demos are clean | 50 handheld episodes on b4fbc4ee task 1 + one throat task (mug by the handle) | b4fbc4ee QC ≥ 80 % kept; tap residual reported; throughput vs teleop measured | not started |
+| G4 embodiment | the arm can do its own demos | open-loop replay of 5 random retargeted episodes on the SO-101 with the same cartridge | ≥ 4/5 | not started |
+| G5 transfer | the data helps a policy | b4fbc4ee §4's arms, 20 trials each, **plus the stock-jaw cartridge as a control** (D7) | handheld-heavy beats 30 teleop by ≥ 10 points at equal human time | not started |
+
+G2's torque-off throat test is the one that separates "hook" from "pinch". If
+the mug stays on with the servo limp, holding is geometric. If it falls, the
+throat is only a pinch with a picture of a hook on it.
+
+## 13. What this part does not settle
+
+- **Every bought-part mass, the STS3215 envelope, the camera board size and the
+  phone dimensions are guesses** (tagged `[GUESS]` in `crow_params.scad` and
+  `check_budget.py`). Weigh them and swap in the real numbers.
+- **The grip ergonomics are drawn, not fitted.** Trigger reach is 58 mm, the
+  grip is 100 × 32 × 30 mm and raked 15°. Print the handle alone first and
+  hold it. The numbers are parameters, and the loop can change them by voice.
+- **No stock-jaw cartridge yet.** D7's control needs the stock fixed jaw rebuilt
+  on the dock groove. It is the same change `crow_upper` made, applied to
+  `fixed_jaw.scad`.
+- **The umbilical is not designed.** The dock is mechanical only. The servo bus
+  and the camera USB still need a connector at the cartridge, and
+  `hand_1_0.md`'s wrist_roll cable wind-up decision is now live, because a
+  camera cable runs through it.
+- **The handheld software is not written.** That means the ID 6 follower loop in
+  the hand, the tap detector, and the ARKit logger. b4fbc4ee's pipeline covers
+  the rest.
+- **The dovetail's printed fit is untested.** A 0.2 mm clearance per side is a
+  normal FDM slide fit, but it may need a shim or a tweak to `dock_clear`.
+
+**Next, in order:** weigh the bought parts. Then print the puck, the handle and
+the cartridge upper and run G1. The stock-jaw cartridge can be built in the
+same CAD pass.
