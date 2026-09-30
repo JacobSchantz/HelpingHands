@@ -9,35 +9,33 @@ inference endpoint is running. Compute balance has not been verified.
 This is the current first milestone, superseding the fixed top/side camera
 purchase and Mac-port experiment. Preserve those as comparison options.
 
-## Camera to order
+## Camera to order — budget corrected to under $100
 
-**Stereolabs ZED Mini USB stereo camera**, listed at **US $399**, with dispatch
-in 1–2 weeks when checked. Purchase link:
-https://www.stereolabs.com/store/products/zed-mini
+Jake set a hard camera budget below $100. The previous $399 ZED Mini choice
+is withdrawn. Current trial choice: **Waveshare OS02G10 Stereo USB Camera (A),
+SKU 32639**, listed at **$56.99 before shipping/tax** when checked.
+https://www.waveshare.com/product/raspberry-pi/cameras/os02g10-stereo-usb-camera-a.htm
 
-Two color views, 63 mm baseline, USB capture, and a 60 g body make it our
-preferred head-camera experiment. This is an engineering selection, not a
-measured claim that it produces better MolmoAct2 task success. OAK-D Lite/S2
-offer useful onboard depth, but their stereo pair is monochrome plus a
-separate central RGB sensor. ZED Mini gives the desired pair of color eyes.
+Vendor specifies synchronized stereo output, USB 2.0 Type-C, 62 mm baseline,
+fixed-focus lenses, rolling shutter, and MJPEG 2560×720 at 30 fps. Capture
+and verify the side-by-side color frames on the actual Mac before relying on
+that mode; this is a purchase recommendation, not a tested camera/model pair.
+The camera does not provide a turnkey calibrated depth/tracking SDK. Preserve
+raw pairs and perform stereo calibration if we later need metric depth.
 
-Body envelope: **124.5 × 30.5 × 26.5 mm**, excluding cable clearance and mount.
-Use an adjustable, rigid, removable head bracket tilted down so both grippers
-and the entire manipulation region remain visible. Leave USB cable clearance
-and strain relief. Keep the head fixed during the first dataset/trial so its
-pose does not vary unpredictably. Final fastener locations must come from the
-manufacturer drawing/CAD, not inferred from the envelope:
-https://www.stereolabs.com/3dmodels
+**Updated body envelope: 100 × 22 × 17.72 mm**, plus USB cable clearance and
+mounting hardware. Do not build to the earlier ZED dimensions. Use a rigid,
+adjustable, removable head bracket pointing toward the manipulation area.
+Keep the head fixed for the first trial, provide strain relief and a protective
+housing for the exposed board. Verify the vendor mechanical drawing before
+placing mounting holes. Confirm shipping/tax keep the delivered total below
+$100 before ordering; no purchase has been made here.
 
-Capture the side-by-side color stream on the Mac through UVC/OpenCV, then
-split it into left and right RGB frames. Vendor confirms basic capture works
-on macOS without CUDA. The full vendor depth/tracking SDK has separate
-platform requirements; this plan does not promise that SDK runs on the Mac.
-https://support.stereolabs.com/articles/7166665108-can-i-use-the-zed-without-cuda
-
-Do not substitute a ZED X Mini: it has a different host interface. This is an
-indoor prototype camera choice, not a weatherproof outdoor deployment choice.
-Keep lens protection/weatherproofing as later work.
+Test exposure, focus at gripper distance, simultaneous left/right visibility,
+frame synchronization and motion artifacts on receipt. Rolling shutter makes
+fast head movement a particular limitation. Camera/head placement remains a
+new distribution for MolmoAct2, requiring measured evaluation and possibly
+fine-tuning. This is an indoor prototype, not a weatherproof camera.
 
 ## Cloud trial prepared
 
