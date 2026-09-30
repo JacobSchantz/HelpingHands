@@ -6,7 +6,12 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-09-29T21:25:56.000Z",
-  "updated_at": "2026-09-30T18:36:33.000Z",
+  "updated_at": "2026-09-30T18:38:24Z",
   "promoted_by": "human",
-  "promoted_at": "2026-09-30T18:36:33.000Z"
+  "promoted_at": "2026-09-30T18:36:33.000Z",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-b4fbc4ee",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-b4fbc4ee",
+  "claimed_at": "2026-09-30T18:38:24.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
