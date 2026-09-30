@@ -5,6 +5,9 @@ Status: DESIGN, on paper only (2026-09-13). No CAD, no code, nothing ordered.
 See `plans/gripper_bet.md` for why this exists. Hand 1.0 is the conventional,
 buildable foundation named there.
 
+For handheld demo collection (pose tracking, retargeting to SO-101 joints, the
+pilot), see `plans/handheld_gripper.md`.
+
 ## What it is
 
 One gripper unit with a camera on it, usable two ways:

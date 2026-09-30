@@ -12,6 +12,10 @@ ChatGPT found that the transformer is true for language models.
 > **Unverified.** This is a recollection of industry chatter, not a checked
 > fact. The company name, the claim, and the framing are recorded as heard.
 > No paper or release has been read, deliberately.
+>
+> **Update 2026-09-30:** it is **Generalist AI** (GEN-0/GEN-1/GEN-1.5), and
+> their data comes from low-cost wearable devices on humans. All proprietary.
+> See `plans/handheld_gripper.md` §0.
 
 Their own read on it may be that the breakthrough is the **grippers** —
 simple two-finger pinchers, cheap to build and easy to articulate. Jake's
