@@ -188,3 +188,38 @@ reproducible, iterable, and anyone can reproduce the pair.
 - How close is "super similar" for Hand 1.0 — the SO-101 gripper as-is, or a
   variant? The closer it stays, the more of the existing calibration and
   scripts carry over unchanged.
+
+
+## Shared sensing roadmap — Jake's direction, 2026-09-30
+
+The first milestone is the existing SO-101, stock gripper, ordinary RGB
+cameras and MolmoAct2; see `molmoact2.md`. The following longer-term design
+must not hold up that working baseline.
+
+The eventual wearable capture system should use binocular/stereo cameras in
+lightweight glasses and instrumented gloves. Aim to mount the same sensing
+hardware on a person or the robot and record comparable observations. Require
+accessible timestamped camera streams, calibration and synchronized hand/tool
+measurements; consumer “AI glasses” branding alone does not establish these
+capabilities. Choose hardware after verifying access to these data.
+
+In parallel, develop the New Caledonian crow-shaped gripper as a device both a
+human can hold to manipulate objects and an SO-101 can carry. Preserve the
+same contact geometry between demonstration and deployment. Start collecting
+human demonstrations with the actual gripper before relying on bare-hand or
+glove demonstrations. Track tool pose, grip opening/state and, when available,
+contact/force alongside video. Glove data must be mapped to the gripper's
+available actions; shared cameras alone do not solve that mapping. Human
+reach and motion also need checking against the robot's kinematic limits.
+
+Evaluate task success and the quantity of demonstrations actually needed;
+do not assume that this eliminates embodiment differences or guarantees
+medium-data learning. Retain open-source model/post-training options and
+portable recordings so the cameras and demonstrations outlast one model.
+
+The later outdoor mobile platform may combine batteries, solar panels, a Mac
+mini, mounted iPad and connectivity. The separate first mobility milestone is
+battery-continuous unplugging, driving and reconnecting to a normal wall
+outlet, with cord management. Neither mobility nor solar is a prerequisite
+for the tabletop model trial. Existing gripper and mobility pebbles retain
+those workstreams.

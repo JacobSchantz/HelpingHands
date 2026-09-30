@@ -2,7 +2,11 @@
 
 Status: PLAN (2026-09-30). No code yet — this is for sign-off.
 
-Supersedes the *model choice* in `plans/molmoact2.md` (voice-4858e8fa). The
+**Priority update (2026-09-30):** Jake subsequently chose MolmoAct2 with minimal
+hardware changes as the first working milestone. See `molmoact2.md`. This WAM
+proposal is retained for a later comparison; it does not supersede that milestone.
+
+The original proposal below would change the model choice. The
 goal is unchanged: a camera plus a plain-language instruction drives the SO-101
 without us recording a dataset from scratch. What changes is the family: from a
 plain VLA (observation → actions) to a **world action model (WAM)** — one

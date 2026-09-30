@@ -2,9 +2,56 @@
 
 Status: FINDINGS + RECOMMENDATION (2026-09-20). No code written yet, by request.
 
-> **2026-09-30:** the model choice here is superseded by
-> `plans/world_action_model.md` (FLUX 3 Action). The camera, GPU and app
-> sections below still apply.
+## Current priority — simplest working model first (2026-09-30)
+
+Jake's latest direction: first run **MolmoAct2 on the existing SO-101 with
+minimal hardware changes**. This takes priority over the proposed FLUX switch
+in `world_action_model.md`. Keep that comparison for later. This update is a
+plan, not a claim that inference or hardware rollout has been implemented.
+
+Use the existing arm and stock gripper. Start with available USB webcams;
+if purchasing, the practical recommendation is **Logitech C920s**, on fixed
+mounts above and beside the workspace. The official SO-101 example feeds two
+RGB images (top and side). These are two viewpoints, not a calibrated stereo
+depth rig. Start capture at 640×480/30 fps and verify negotiated modes and
+stable simultaneous capture on the actual host. One camera can validate the
+capture pipeline; it is not our validated two-view robot deployment.
+
+The C920s is a recommendation based on ordinary USB/OpenCV capture and its
+published specifications, not a camera/model pairing already tested here.
+Do not buy smart glasses, gloves, depth cameras, or redesign the gripper as
+prerequisites for this first milestone.
+
+Implementation sequence:
+
+1. Enumerate available cameras and record both views with timestamps. Verify
+   that the object and gripper remain visible throughout the working area.
+2. Run the published SO-101 checkpoint on recorded images and measured joint
+   state, without commanding motors. Pin dependencies and checkpoint revision.
+3. Use the documented NVIDIA/Linux inference path first. Mac-native inference
+   is unverified, not proven impossible. If using a remote GPU, keep the motor
+   controller local and measure round-trip delay before enabling motion.
+4. Validate joint units, signs, offsets and limits against the selected
+   checkpoint/processor; do not apply convention corrections twice. Reject
+   stale camera/state input and stop on inference loss, rather than replaying
+   old action chunks.
+5. Run a supervised, bounded pick-and-place trial with an accessible stop.
+   Record successes and failures over repeated attempts, end-to-end latency,
+   and reconnect/stop behavior. Loading weights alone is not completion.
+6. Only then decide whether task-specific demonstrations or different camera
+   placements are needed. Keep the initial app changes minimal.
+
+Longer-term sensing and human demonstrations remain in
+`gripper_bet.md` under “Shared sensing roadmap.”
+
+Sources checked for this update:
+- https://huggingface.co/allenai/MolmoAct2-SO100_101
+- https://huggingface.co/docs/lerobot/main/en/molmoact2
+- https://huggingface.co/docs/lerobot/cameras
+- https://support.logi.com/hc/en-za/articles/360023303514-C920s-HD-Pro-Webcam-Technical-Specifications
+
+The findings below are historical research; the priority and validation
+sequence above govern the next milestone.
 
 Prompted by Jake's note: "this video is the direction" —
 https://www.youtube.com/watch?v=itGeItWc2rw, *"Can this VLA Work with no
@@ -72,7 +119,7 @@ wants and the Hand 1.0 cam are plausibly the same camera.
 LeRobot's page is blunt: *"To run the models in this repository, you need an
 NVIDIA GPU."* It's a 4B-parameter Molmo2-ER backbone plus a 36-layer
 flow-matching action expert; the port's own training note quotes 55 GiB peak.
-There is no Apple Silicon path — the same wall already documented in
+The documented path requires NVIDIA; an Apple Silicon port is unverified. See also
 `Scripts/lehome_sim_bootstrap.sh` and `plans/lehome_pillowcase.md`.
 
 The mitigating detail: **we only need inference**, and MolmoAct2 emits action
