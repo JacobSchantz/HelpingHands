@@ -1,5 +1,10 @@
 # MolmoAct2 — the VLA north star, checked against this repo
 
+> Latest direction (2026-09-30): rent compute and use a binocular camera on
+> the robot's head. See `molmoact2_cloud_head_camera.md` for the camera order,
+> mounting envelope, cloud smoke test and current access blocker. This
+> supersedes the fixed-camera purchase recommendation below.
+
 Status: FINDINGS + RECOMMENDATION (2026-09-20). No code written yet, by request.
 
 ## Current priority — simplest working model first (2026-09-30)
