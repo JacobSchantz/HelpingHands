@@ -9,7 +9,7 @@
 # ///
 """GPU-only inference check on public sample images. Never controls a robot.
 
-Launch with a bounded HF Job; see plans/molmoact2_cloud_head_camera.md.
+Launch with a bounded HF Job; see plans/molmoact2_deployment.md.
 """
 import json
 import time

@@ -3,7 +3,7 @@
 Status: PLAN (2026-09-30). No code yet — this is for sign-off.
 
 **Priority update (2026-09-30):** Jake subsequently chose MolmoAct2 with minimal
-hardware changes as the first working milestone. See `molmoact2.md`. This WAM
+hardware changes as the first working milestone. See `molmoact2_deployment.md`. This WAM
 proposal is retained for a later comparison; it does not supersede that milestone.
 
 The original proposal below would change the model choice. The

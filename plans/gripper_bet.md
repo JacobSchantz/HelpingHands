@@ -193,7 +193,7 @@ reproducible, iterable, and anyone can reproduce the pair.
 ## Shared sensing roadmap — Jake's direction, 2026-09-30
 
 The first milestone is the existing SO-101, stock gripper, ordinary RGB
-cameras and MolmoAct2; see `molmoact2.md`. The following longer-term design
+cameras and MolmoAct2; see `molmoact2_deployment.md`. The following longer-term design
 must not hold up that working baseline.
 
 The eventual wearable capture system should use binocular/stereo cameras in
