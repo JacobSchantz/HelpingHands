@@ -2,6 +2,10 @@
 
 Status: FINDINGS + RECOMMENDATION (2026-09-20). No code written yet, by request.
 
+> **2026-09-30:** the model choice here is superseded by
+> `plans/world_action_model.md` (FLUX 3 Action). The camera, GPU and app
+> sections below still apply.
+
 Prompted by Jake's note: "this video is the direction" —
 https://www.youtube.com/watch?v=itGeItWc2rw, *"Can this VLA Work with no
 Dataset? I Put MolmoAct2 to Test"*.
