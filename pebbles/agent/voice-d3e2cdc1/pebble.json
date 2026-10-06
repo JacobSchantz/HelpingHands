@@ -1,0 +1,23 @@
+{
+  "id": "voice-d3e2cdc1",
+  "commit_id": "",
+  "description": "PLAN ONLY: research using the SAME affordable camera glasses as both a human-worn BuyAHabit recording device and a wearable vision system for a HelpingHands robot. Coordinate with BuyAHabit pebble voice-71659c51 (Find sub-$100 camera glasses for automatic habit verification) in /Users/jakeschantz/buyahabit/pebbles. Jake wants to buy one pair of glasses that either he or the robot can wear, not two separate camera systems. Prefer binocular/stereo vision with TWO outward-facing cameras, while preserving the BuyAHabit target price under USD 100. Two cameras are strongly preferred, not permission to pretend an unsuitable product meets the requirement. Distinguish two actual scene cameras from binocular displays, interchangeable lenses, or camera-plus-sensor marketing. Confirm independent access to both camera streams, frame timestamps and synchronization, baseline and overlap, resolution/frame rate, low-light performance, SDK/protocol access, calibration/stereo rectification and depth-estimation feasibility. Merely having two cameras does not establish usable stereo depth. Assess continuous video/recording runtime, external power/recording while charging, thermal limits and operation mounted on a robot rather than a human head (wear sensors or app pairing must not block capture). Explain how the same capture interface and calibration could serve BuyAHabit evidence recording and robot perception, with compute on a phone or robot host where needed. Include mounting, repeatable alignment, cable/network latency and reconnection, and a prototype test for stereo depth on known distances and moving objects. Identify exact purchasable models with current price links and primary technical evidence; cross-reference the BuyAHabit shortlist and recommend a single shared purchase if feasible. Explicitly report if sub-$100 glasses with accessible stereo cameras cannot be found. In that case compare the closest affordable dual-camera module mounted in a glasses-like frame versus supported monocular glasses, explaining compromises without silently raising the budget or requiring a second pair. This is a research/architecture plan only, not a purchase, camera activation, robot control or implementation task. Coordinate findings through the existing pebbles/plans so the two projects do not choose incompatible hardware. Preserve the distinction between basic robot visual perception and validated safe navigation/manipulation; do not claim a camera prototype alone is a complete robot vision solution.",
+  "test_instructions": [
+    "Verify two outward-facing camera sensors and access to both feeds, distinguishing stereo capture from binocular displays or lens marketing.",
+    "Check synchronization, calibration, robot mounting and continuous/external-power operation; propose known-distance and motion tests for stereo depth.",
+    "Cross-reference BuyAHabit voice-71659c51 and produce one shared hardware recommendation, honestly reporting any budget or SDK limitations."
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-06T13:31:42.000Z",
+  "updated_at": "2026-10-06T13:31:42.000Z",
+  "work_kind": "plan",
+  "title": "Shared stereo camera glasses for robot and BuyAHabit",
+  "summary": "Find one sub-$100 glasses device for human recording and robot vision, preferably with two accessible synchronized cameras; coordinate with BuyAHabit.",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
