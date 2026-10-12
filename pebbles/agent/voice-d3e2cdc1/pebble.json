@@ -13,11 +13,12 @@
   "updated_at": "2026-10-06T13:31:42.000Z",
   "work_kind": "plan",
   "title": "Shared stereo camera glasses for robot and BuyAHabit",
-  "summary": "Find one sub-$100 glasses device for human recording and robot vision, preferably with two accessible synchronized cameras; coordinate with BuyAHabit.",
+  "summary": "Research whether one sub-$100 pair of stereo camera glasses can serve both BuyAHabit recording and HelpingHands robot vision. If none exists, compare a dual-camera frame against monocular glasses, without exceeding budget or implying validated robot navigation.",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary_sha": "d3e2cdc17598509b"
 }
