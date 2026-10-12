@@ -7,5 +7,7 @@
   "image_urls": [],
   "created_at": "2026-09-17T23:17:02.000Z",
   "updated_at": "2026-09-17T23:17:02.000Z",
-  "work_kind": "plan"
+  "work_kind": "plan",
+  "summary": "A parked plan for a collapsible humanoid rig holding two SO-101 arms on a tripod column. Folding must return to the same geometry within a millimetre or two, since trained policies depend on it.",
+  "summary_sha": "3c22128820eb6ad7"
 }
