@@ -10,7 +10,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-06T13:31:42.000Z",
-  "updated_at": "2026-10-06T13:31:42.000Z",
+  "updated_at": "2026-10-12T17:51:39Z",
   "work_kind": "plan",
   "title": "Shared stereo camera glasses for robot and BuyAHabit",
   "summary": "Research whether one sub-$100 pair of stereo camera glasses can serve both BuyAHabit recording and HelpingHands robot vision. If none exists, compare a dual-camera frame against monocular glasses, without exceeding budget or implying validated robot navigation.",
@@ -20,5 +20,10 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary_sha": "d3e2cdc17598509b"
+  "summary_sha": "d3e2cdc17598509b",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-d3e2cdc1",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-d3e2cdc1",
+  "claimed_at": "2026-10-12T17:51:39.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
