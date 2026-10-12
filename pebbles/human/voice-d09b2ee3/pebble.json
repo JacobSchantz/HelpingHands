@@ -37,16 +37,25 @@
       ],
       "detailed_description": "Both parts are built in cad/build123d/ from dimensions measured off the reference STEP as real B-rep — exact cylinder radii and plane normals, never off a mesh. The blades are lofted through measured cross-sections, so the station tables in params.py are the silhouette: edit a row and the shape follows. STEP and STL exports, drawings and an assembly are committed.\n\nI also scored it, because both shapes live in the same kernel: the moving jaw is 2.4% under the original by volume with a worst silhouette error of 0.27 mm, the follower 2.9% over, every bounding box within 0.2 mm. FIDELITY.md has the table.\n\nNOTES.md is the real deliverable and it is not a puff piece. build123d earned its dependency — it is the only tool here that could measure the reference and export STEP — but OCCT is a hostile runtime: a fillet that does not fit segfaulted the process with no traceback, and is_valid returned True on a solid whose volume was negative. My recommendation is build123d for the printable parts, on the condition that every model keeps a numeric check that runs on each build. A wrong-direction extrude silently cut nothing and still rendered fine; only the cross-section table caught it.\n\nTwo things to look at. The assembly mate is a guess and it cannot be right as drawn — the moving jaw's fork gap is 36.4 mm and the follower is 48 mm wide there, so the fork cannot straddle the body; something is missing from my reading. And one disclosure: partway through I read part of the OpenSCAD pass's params file to calibrate scope, after taking my own measurements, so my side of the bake-off is not perfectly blind.",
       "commit_count": 65
+    },
+    {
+      "at": "2026-09-18T01:02:25.000Z",
+      "result": "failed",
+      "kind": "test_result",
+      "image_urls": [],
+      "notes": "None of the three bake-off results worked. The MOVING gripper came out fine in all three. The FIXED gripper is broken in all three — specifically the motor mount is not correct. Keep iterating until the motor mount is right. It must look exactly like the current gripper/claw. Priority: get the OPENSCAD route working — investigate whether an OpenSCAD MCP or similar tooling is needed to drive it properly, rather than abandoning it."
     }
   ],
   "image_urls": [],
   "created_at": "2026-09-13T18:32:05.000Z",
-  "updated_at": "2026-09-14T13:21:27Z",
+  "updated_at": "2026-09-18T01:02:25.000Z",
   "work_kind": "one_shot",
   "worktree": {
     "branch": "pebble/voice-d09b2ee3",
     "path": "/Users/jakeschantz/HelpingHands.worktrees/pebble/voice-d09b2ee3",
     "base": "main",
     "created_at": "2026-09-13T18:34:51.000Z"
-  }
+  },
+  "summary": "The fixed jaw's motor mount in the SO-101 gripper bake-off is wrong in all three tools' builds, though the moving jaw came out fine. The motor mount must look exactly like the current gripper/claw, and the OpenSCAD route should be fixed rather than abandoned, possibly with MCP tooling.",
+  "summary_sha": "77718933a55fe995"
 }
