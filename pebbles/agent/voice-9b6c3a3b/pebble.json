@@ -1,0 +1,19 @@
+{
+  "id": "voice-9b6c3a3b",
+  "commit_id": "",
+  "description": "Gather and organize the house and short-term-rental operational information in HelpingHands, incorporating the saved turnover workflow at docs/rental-turnover-cleaning.md. Jake requests this as an agent task and wants Caleb to have access to the project. Known facts: two rental units, one two-bedroom/one-bath and one one-bedroom/one-bath; small kitchens/bathrooms and lots of glass. Audit existing repo/app storage and authorized available property materials first, avoid inventing house details. Organize useful confirmed information such as unit/room layout, surfaces and cleaning methods, appliances and manuals, linen/consumable inventory and restock levels, trash/laundry workflow, maintenance needs, turnover checklist and checklist verification. Track sources and unknowns; ask concise grouped questions only for missing essentials. Reuse existing HelpingHands UI/data architecture and expose the information usefully rather than dumping unrelated documents. Repo is PUBLIC: do not commit access codes, passwords, private guest/owner data, exact private location details or booking records; use existing private storage where authorized or leave sensitive fields unfilled. Do not publish private source materials into GitHub. Do not message guests/third parties or change bookings. Keep general operational documentation shareable with Caleb. Deliver organized confirmed data/workflow and list unresolved questions; implement modest app integration where supported by existing project design. Default agent lane.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-12T17:31:40.000Z",
+  "updated_at": "2026-10-12T17:31:40.000Z",
+  "title": "Organize house and rental information in Helping Hands",
+  "summary": "Gather confirmed property details and turn them into useful rental operations and cleaning guidance.",
+  "summary_sha": "9b6c3a3b901c1ca0",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
