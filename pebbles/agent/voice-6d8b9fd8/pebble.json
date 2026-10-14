@@ -1,7 +1,7 @@
 {
   "id": "voice-6d8b9fd8",
   "commit_id": "",
-  "description": "Design a 3D-printable handheld gripper (CAD agent task).\n\nJake (voice, verbatim; first words garbled by transcription \u2014 possibly \"have a CAD agent work on\"): \"Can you have a [CAD agent] work on a Helping Hands 3D model? The gripper should be something that I can easily get \u2014 thumb on one side, four fingers into the other side of the gripper \u2014 so that it easily follows the contours of my hand, and I can squeeze it open and close it.\"\n\nSpec:\n- Parametric CAD source (OpenSCAD, CadQuery or similar) plus STL export, 3D-printable.\n- Thumb goes into a pocket on one jaw; the four fingers go into a contoured slot on the opposite jaw, shaped to follow the hand.\n- Squeezing closes the jaws, relaxing opens them (spring return, or a hinge/parallel linkage \u2014 propose the mechanism).\n- Comfortable, parametric for hand size.\n- Likely use: handheld demonstration-capture gripper (UMI-style) whose jaws match the robot gripper; include camera mounting points if that fits the project.\n- Put renders/screenshots in the pebble reply so Jake can see the design.",
+  "description": "Design a 3D-printable handheld gripper (CAD agent task).\n\nJake (voice, verbatim; first words garbled by transcription — possibly \"have a CAD agent work on\"): \"Can you have a [CAD agent] work on a Helping Hands 3D model? The gripper should be something that I can easily get — thumb on one side, four fingers into the other side of the gripper — so that it easily follows the contours of my hand, and I can squeeze it open and close it.\"\n\nSpec:\n- Parametric CAD source (OpenSCAD, CadQuery or similar) plus STL export, 3D-printable.\n- Thumb goes into a pocket on one jaw; the four fingers go into a contoured slot on the opposite jaw, shaped to follow the hand.\n- Squeezing closes the jaws, relaxing opens them (spring return, or a hinge/parallel linkage — propose the mechanism).\n- Comfortable, parametric for hand size.\n- Likely use: handheld demonstration-capture gripper (UMI-style) whose jaws match the robot gripper; include camera mounting points if that fits the project.\n- Put renders/screenshots in the pebble reply so Jake can see the design.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants a 3D-printable Helping Hands handheld gripper, with parametric CAD source and STL, where the thumb sits in one jaw's pocket and four fingers in a contoured slot on the other. Squeezing should close the jaws and relaxing should open them, with a proposed mechanism (spring or linkage) and renders shown, ideally sized to hand and with camera mounts for UMI-style demo capture.",
+  "summary_sha": "6d8b9fd8fab3d606"
 }
