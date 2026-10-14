@@ -5,6 +5,17 @@
   "test_instructions": [],
   "results": [
     {
+      "kind": "test_result",
+      "at": "2026-10-14T04:00:23.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): \"Can you update the crow beak one too, to have just an easy way for me to grab onto it, but also be attachable to the SO-101? If we need a custom attachment piece, that's okay too. And remember, if any pieces move, they should be separate pieces. So it should be the Caledonian crow gripper, but it should have a little indent for my thumb, and then the ability to attach a strap or something so we can get the loop, and then the same for the other side.\"\n\nSpec:\n(a) Handheld grip: a thumb indent on one jaw, plus a strap attachment point (slots for a hook-and-loop or elastic strap loop) on each side/jaw so fingers are held in place.\n(b) SO-101 arm mount: attachable to the SO-101, via a separate custom adapter piece if needed (match the SO-101 / LeRobot gripper wrist interface).\n(c) Every moving part is a separate printable piece. Show them in the single 3D view with an assembled/exploded toggle.\nKeep it consistent with the simplified gripper direction in voice-6d8b9fd8 (camera mount only, no extra attachments).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
       "kind": "agent_action",
       "at": "2026-09-30T18:57:44Z",
       "commit_id": "1fb53caf26d478eb3eb4946fe05a624a7755fbc4",
@@ -64,7 +75,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-09-20T03:57:51.000Z",
-  "updated_at": "2026-09-30T18:57:44Z",
+  "updated_at": "2026-10-14T04:00:23.000Z",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-09-30T18:57:44Z",
@@ -104,5 +115,12 @@
     "total_usd": 55.515
   },
   "summary": "Design a New Caledonian crow-style hooked gripper that works both handheld for human demonstration collection and mounted on SO-101 arms, within wrist and payload limits. Keep contact geometry and action/state representation consistent across both uses, reusing voice-b4fbc4ee's capture research, and don't claim data transfer works without a measured pilot.",
-  "summary_sha": "edeb7d65fd1067aa"
+  "summary_sha": "edeb7d65fd1067aa",
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-14T04:00:23.000Z"
+  }
 }
