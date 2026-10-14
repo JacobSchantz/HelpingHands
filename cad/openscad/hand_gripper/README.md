@@ -1,88 +1,78 @@
-# Hand gripper — a wearable pincer, after Generalist AI's data-collection gripper
+# Hand gripper: two Generalist-style jaws and a camera
 
-You wear it on the back of your hand. Index and middle finger ride in a loop
-on the front jaw, your thumb in a loop on the rear jaw. Pinch to close it and
-spread to open it; both directions are driven, so there's no spring
-(voice-6d8b9fd8). It's for capturing demonstrations UMI-style, and the layout
-copies Generalist's human gripper.
+Two yellow jaws on a small hub, plus a camera bracket. Your fingertips go in
+sleeves on the **outer faces of the jaws**, right behind the gripping faces, so
+closing the jaws is the same motion as pinching a sheet of paper. The same jaws,
+hub and camera bolt onto an SO-101 through one extra part. That means the camera
+sees the jaws from the same place in your hand and on the robot
+(voice-6d8b9fd8, third pass).
 
-![pulled apart](render/exploded.png)
+![in the hand](render/in_hand.png)
+![on the arm](render/on_arm.png)
 
-## What it copies from Generalist
+## Pieces
 
-Generalist hasn't published drawings. Everything here was read off a photo of a
-data collector wearing two of them
-([x.com/DominiqueCAPaul/status/2040765175779778585](https://x.com/DominiqueCAPaul/status/2040765175779778585))
-and off their robot-side twins in the GEN-1 "box folding, handheld" videos
-(generalistai.com/blog/gen-1):
+| piece | file | notes |
+|---|---|---|
+| hub | `export/hub.stl` | two cheeks and a bridge. Two M3 pivots, 24 mm apart. A Ø24.5 horn hole in the -Y cheek and screwdriver holes in the +Y cheek, used on the arm |
+| finger jaw | `export/jaw_finger.stl` | index + middle sleeve, gear sector, SO-101 horn pattern (4 × M3 on a 9.9 mm square) |
+| thumb jaw | `export/jaw_thumb.stl` | thumb sleeve, gear sector half a tooth round |
+| camera bracket | `export/camera.stl` | plate on the +Y cheek, held by the two bridge bolts; a 32 mm UVC board (M2, 28 mm square) aimed at the middle of the gripping faces |
+| SO-101 mount (arm only) | `export/so101_mount.stl` | cradle for the STS3215 gripper servo on the -Y side, plus the stock wrist_roll horn pattern (Ø24 × 6 recess, 4 × M3, centre bore) on a puck underneath |
 
-- a black **bar** strapped along the back of the hand,
-- a **hub** under its front end that both fingers pivot from, with a fiducial
-  marker on it,
-- two rigid **links** hanging down with a strap or loop for the digits, so the
-  hand drives the jaws directly,
-- swappable **yellow lattice tips** that curve inward to a point.
+**In the hand:** hub, both jaws and the camera. An M3 bolt through each pivot
+holds it together, and the gears keep the jaws mirrored.
 
-Not copied, because we couldn't see it: their sensors, their electronics, and
-where their camera sits. The camera clip and the gear sync here are our own
-choices.
+**On the arm:** add the mount and the servo. The servo horn bolts to the finger
+jaw through the hub's horn hole, and the gears drive the thumb jaw. The mount
+bolts to the hub with the -X bridge bolt and the thumb pivot bolt. Its puck
+bolts to wrist_roll (ID 5) with the stock pattern, so the arm side doesn't
+change.
 
-## Seven pieces, each its own print
+Every STL is exported in its assembled position, so loading them all into one
+scene rebuilds the gripper. That's how the app's single 3D view with the
+Explode / Assemble toggle works. `export/parts.json` comes from the `PARTS`
+table. Print the jaws in PETG on their sides. If you want grippier faces, print
+them in TPU.
 
-| piece | file | what it does on its own | joins with |
-|---|---|---|---|
-| spine + strap pad | `export/spine.stl` | a bar you strap on; a camera handle | hub (dovetail + M3 lock pin), camera clip (snaps on the bar) |
-| hub | `export/hub.stl` | holds the two pivots; fiducial pocket on the camera side | spine (dovetail), links (2 × M3 × 25 pivot bolts) |
-| finger link | `export/link_front.stl` | loop for index + middle, gear sector, tip socket | hub, finger tip |
-| thumb link | `export/link_thumb.stl` | loop for the thumb, gear sector, tip socket | hub, thumb tip |
-| finger tip, thumb tip | `export/tip_*.stl` | TPU lattice tips; swap in other shapes | link socket (tongue + M3 cross-pin) |
-| camera clip | `export/camera.stl` | C-clip on the bar with a plate for a 32 mm UVC board (M2, 28 mm square) | spine (snaps anywhere along the bar) |
+## Numbers
 
-Pull the hub off the spine and the hub, links and tips make a plain hand pincer.
-
-Every STL is exported **in its assembled position**, so dropping them all into
-one scene rebuilds the gripper. The app does exactly that: it draws every piece
-in one viewport with an Explode / Assemble toggle. `export/parts.json` (written
-by `build.sh` from the `PARTS` table in the .scad) holds each piece's label,
-colour and explode offset. In the slicer, lay each piece flat on its largest
-face. Print the tips in TPU 95A and everything else in PETG.
-
-## How it works
-
-- **The pivots are under the bar**, 20 mm apart, axis across the hand. The jaws
-  open and close front-to-back, the same as a pinch.
-- **A gear sector on each link** (module 1.25, straight flanks) meshes with the
-  other link's, so the two jaws always mirror each other, like a parallel robot
-  gripper. You can't open one jaw without the other.
-- **Stop tabs** above the pivots meet at **22° per jaw**, which gives a
-  **96 mm gape** at the tips. The closed stop is the tips touching.
-- **The camera looks from the thumb side**, so it sees both tips in profile.
-  You read the gape off the image, and the hub's fiducial gives the pose.
+- Jaws swing 30° each before the stop tabs meet, which gives **56 mm** between
+  the gripping faces. Closed, the faces touch.
+- Gripping face: 32 mm long. The finger jaw's face is 45 mm wide and the thumb
+  jaw's is 29 mm wide. It has 0.8 mm ribs and narrows to a point above the
+  sleeves.
+- Sleeves are 28 mm deep (fingertip to past the last joint), open at the back
+  and capped at the front. They're sized from `hand = S | M | L`.
 
 ```bash
 ./build.sh                                        # STLs + parts.json + PNGs + checks
 openscad hand_gripper.scad                        # assembled, 40 mm gape
-openscad -D 'part="exploded"' hand_gripper.scad   # the pieces pulled apart
 openscad -D 'part="in_hand"' hand_gripper.scad    # with a ghost hand
-openscad -D 'hand="L"' hand_gripper.scad          # S / M / L
-openscad -D 'handed="left"' hand_gripper.scad     # mirrored
+openscad -D 'part="on_arm"' hand_gripper.scad     # with the mount and servo
+openscad -D 'hand="L"' hand_gripper.scad          # S / M / L sleeves
 ```
 
 ## Checks `build.sh` runs
 
-- **Jaws vs jaws and jaws vs hub.** The intersection must be empty at 0–21.5°
-  for S, M and L. Gears are excluded from this check.
-- **The stop catches.** At 23° the tabs must collide.
-- **The gears mesh.** The full links, teeth included, must clear each other at
-  0–21.5°. Turning one jaw 3° past the other must jam them, which proves the
-  teeth are engaged and the backlash is under 3°.
+- The jaws (without their teeth) never touch each other, the hub, the camera,
+  the mount or the servo, for 0–29.5° at S, M and L.
+- The hub, camera, mount and servo don't overlap.
+- The stop tabs collide past 30°.
+- The full jaws, teeth included, clear at 0–29.5°. They jam if one is turned
+  3° past the other, so the gears are engaged.
 
-## Not verified yet — nothing has been printed
+## Not verified — nothing has been printed
 
-- **Fit.** The hand numbers are generic M. The loops ride 22 mm either side of
-  the pivot midline, and the pivots are about 25 mm above your knuckles. That
-  offset means your fingers slide a little in the loop as the jaws swing.
-- **The gear teeth are straight-sided**, not involute. That's fine for a hand
-  tool, but expect a little backlash and some roughness.
-- **No sensors.** A jaw-angle encoder (an AS5600 magnet on a pivot) and an IMU
-  in the bar are the obvious next pieces.
+- **STS3215 dimensions are a guess:** 45.2 × 24.7 × 35, shaft 11 mm from the
+  end, horn 5.6 mm proud of the case. Measure your servo before printing the
+  mount. The two servo-retaining screw holes are placeholders.
+- **The wrist_roll axis sits 8 mm off the pinch line**, toward the servo. The
+  stock gripper is also off-axis, but the calibration will differ.
+- **Hand fit is a guess.** The hub sits in the web between thumb and index
+  finger. With a small hand or a wide grip, the bottom of the hub may press
+  on the web.
+- **In the hand, the finger jaw's pivot is held from one side only.** The other
+  cheek has the horn hole. The gears keep it in line, but expect some wobble.
+- Gear teeth are straight-sided, not involute.
+- There's no encoder in the hand version. The gape comes from the camera image.
