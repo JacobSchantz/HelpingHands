@@ -8,6 +8,7 @@
 // =============================================================================
 
 include <crow_common.scad>
+include <crow_hand.scad>
 use <../moving_jaw.scad>
 
 module crow_lower() {
@@ -15,6 +16,8 @@ module crow_lower() {
         union() {
             mj_fork();                             // the servo interface, as-is
             loft_y(crow_lower_stations, crow_corner_r);
+            rotate([90, 0, 0]) translate([-jaw_pivot_x, 0, -jaw_pivot_z])
+                crow_lower_strap_loops();          // follower frame -> jaw frame
         }
         mj_fork_cuts();                            // slot + horn bolts
         crow_tool_notch_jaw_frame();

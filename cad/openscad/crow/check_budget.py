@@ -71,7 +71,7 @@ BOUGHT = {
 def main():
     arm = {
         "upper mandible + body": printed("upper"),
-        "lower mandible":        printed("lower", frame="jaw"),
+        "lower mandible":        printed("lower"),
         "camera mount":          printed("camera_mount"),
         "wrist puck":            printed("puck"),
     }
@@ -104,15 +104,13 @@ def main():
           f" ({100 * DOCK_LIFT / (TIP_Z + 0.05):.1f} % on a tip load)")
 
     hand = {
-        "cartridge (as above, no puck)": (tot - arm["wrist puck"][0], None, ""),
-        "handle": printed("handle"),
-        "trigger lever": printed("trigger"),
-        "trigger servo STS3215": (55.0, None, "[GUESS]"),
-        "iPhone": (200.0, None, "[GUESS] 170-230 g by model"),
-        "screws": (6.0, None, "[GUESS]"),
+        "beak (upper + lower + camera)": (tot - arm["wrist puck"][0]
+                                          - BOUGHT["gripper servo STS3215 (ID 6)"][0], None, ""),
+        "pivot plug": printed("pivot_plug"),
+        "M3 x 55 pivot bolt + 2 straps": (12.0, None, "[GUESS]"),
     }
     h_tot = sum(v[0] for v in hand.values())
-    print(f"\nHANDHELD (what the demonstrator holds, battery pack on the belt): {h_tot:.0f} g"
+    print(f"\nHANDHELD (beak + pivot plug + straps, held by the mandibles): {h_tot:.0f} g"
           f"  -- UMI's is 780 g")
 
     if tot > BUDGET_G:

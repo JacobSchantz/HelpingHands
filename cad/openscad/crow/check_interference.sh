@@ -36,4 +36,18 @@ PY
     fi
 done
 
+# The pivot plug (handheld) against the swinging lower mandible, and the fixed
+# pieces against each other.  Here "no file" is the only pass at every opening.
+for o in 0 10 20 30 40 50; do
+    out="$TMP/p_$o.stl"
+    "$OPENSCAD" --render -D 'part="plugclash"' -D "crow_opening=$o" \
+        --export-format asciistl -o "$out" crow_beak.scad >/dev/null 2>&1
+    if [ -f "$out" ]; then printf '  plug vs lower @ %-3s  OVERLAP\n' "$o"; fail=1
+    else printf '  plug vs lower @ %-3s  clear\n' "$o"; fi
+done
+out="$TMP/fit.stl"
+"$OPENSCAD" --render -D 'part="fitclash"' --export-format asciistl -o "$out" crow_beak.scad >/dev/null 2>&1
+if [ -f "$out" ]; then echo "  upper, plug, camera mount, puck: OVERLAP"; fail=1
+else echo "  upper, plug, camera mount, puck: no overlap"; fi
+
 [ "$fail" -eq 0 ] && echo "interference: clear" || { echo "interference: FAILED"; exit 1; }

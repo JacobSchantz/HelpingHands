@@ -1,0 +1,54 @@
+{
+ "parts": [
+  {
+   "file": "upper.stl",
+   "name": "Upper mandible + body (thumb dimple, strap loops)",
+   "color": "#8d9aa6",
+   "explode": [
+    -45.0,
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "file": "lower.stl",
+   "name": "Lower mandible (finger strap loops) - moves",
+   "color": "#2f3336",
+   "explode": [
+    55.0,
+    0.0,
+    20.0
+   ]
+  },
+  {
+   "file": "pivot_plug.stl",
+   "name": "Pivot plug (handheld - stands in for the servo)",
+   "color": "#e0a458",
+   "explode": [
+    10.0,
+    -75.0,
+    -10.0
+   ]
+  },
+  {
+   "file": "camera_mount.stl",
+   "name": "Camera mount",
+   "color": "#5b6770",
+   "explode": [
+    -20.0,
+    80.0,
+    10.0
+   ]
+  },
+  {
+   "file": "puck.stl",
+   "name": "SO-101 wrist puck (arm only)",
+   "color": "#c8813a",
+   "explode": [
+    0.0,
+    0.0,
+    -50.0
+   ]
+  }
+ ]
+}

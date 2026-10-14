@@ -9,10 +9,11 @@
 
 include <crow_common.scad>
 include <crow_dock.scad>
+include <crow_hand.scad>
 use <../fixed_jaw.scad>
 
 // crow_mount = "dock" (default): the base is a dovetail groove that slides onto
-// the wrist puck or the handle -- crow_dock.scad.  "horn": the stock body's
+// the wrist puck (the SO-101 adapter) -- crow_dock.scad.  "horn": the stock body's
 // base, bolted straight to wrist_roll, as the beak was first drawn.
 module crow_upper() {
     difference() {
@@ -24,6 +25,7 @@ module crow_upper() {
                 fj_cable_tab();
             }
             loft_z(crow_upper_stations, crow_corner_r);
+            crow_upper_strap_loops();
         }
         if (crow_mount == "horn") fj_body_cuts();  // pockets, bores, horn, screws
         else {
@@ -35,7 +37,9 @@ module crow_upper() {
             crow_dock_groove();
             crow_dock_pin();
             crow_cam_mount_inserts();
+            crow_pivot_bore();                     // the hand's pivot bolt
         }
+        crow_thumb_dimple();
         crow_tool_notch();
         crow_throat();
     }

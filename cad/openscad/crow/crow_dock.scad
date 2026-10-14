@@ -1,12 +1,10 @@
 // =============================================================================
-//  crow_dock.scad — the one interface both hosts share.
+//  crow_dock.scad — how the beak goes onto the SO-101.
 // =============================================================================
 //  A 60-degree dovetail along X, open toward +X, locked by one M3 cross-pin
-//  along Y.  The WRIST PUCK and the HANDLE both carry crow_dock_rail(); the
-//  cartridge carries crow_dock_groove().  Because it is literally the same
-//  module on both hosts, the cartridge -- and so the tip, the throat and the
-//  camera -- sits in the same place relative to the dock in both modes.  That
-//  frame is what the capture pipeline agrees on (plans/crow_gripper.md 10).
+//  along Y.  The WRIST PUCK carries crow_dock_rail() and is the SO-101 adapter;
+//  the beak carries crow_dock_groove().  (The handheld pistol grip that used to
+//  carry the same rail is gone -- plans/crow_gripper.md 14.)
 //
 //  Frame: the cartridge's (the follower frame).  The dock plane is z = dock_z.
 // =============================================================================

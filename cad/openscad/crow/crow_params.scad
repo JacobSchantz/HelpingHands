@@ -204,10 +204,10 @@ function crow_opening_for_throat(d) = (d + 1.0) * crow_tip_arm / crow_throat_r;
 // =============================================================================
 //  THE DOCK: one interface, two hosts  (plans/crow_gripper.md section 10)
 // =============================================================================
-//  The crow is used two ways with the SAME cartridge -- upper mandible body,
-//  gripper servo (ID 6), lower mandible, wrist camera:
-//      on the arm:  cartridge -> dock -> wrist PUCK -> wrist_roll horn (ID 5)
-//      in the hand: cartridge -> dock -> HANDLE (trigger + phone tracker)
+//  The crow is used two ways with the SAME beak -- upper mandible body,
+//  lower mandible, wrist camera:
+//      on the arm:  beak + gripper servo (ID 6) -> dock -> wrist PUCK -> horn
+//      in the hand: beak + pivot plug, held by the mandibles themselves
 //  The puck carries the SO-101's own horn pattern, untouched, so the arm
 //  interface still does not move (D1).  What changed is that the cartridge no
 //  longer bolts straight to the horn: those four screws sit UNDER the gripper
@@ -267,35 +267,39 @@ function cam_off_axis(p) =
 
 
 // =============================================================================
-//  THE HANDLE -- handheld host
+//  IN THE HAND -- the beak itself is the handle  (plans/crow_gripper.md 14)
 // =============================================================================
-//  Pistol grip under the dock.  With the culmen up (-X up, bird posture) the
-//  grip hangs toward +X and rakes back toward the user (-Z).  The trigger is a
-//  back-driven STS3215 read as a LEADER; the cartridge's own ID 6 follows it,
-//  so the jaw that touches the object is driven by the same servo, at the
-//  same torque limit, as on the arm -- and gripper.pos is recorded from ID 6
-//  itself, not from the trigger.  The phone (ARKit pose) clips on the handle
-//  only: it never rides on the arm.
-handle_head    = [[-20, 20], [-21, 21], [-64, 0]];   // x, y, z, relative to the dock plane
-sts_body       = [24.7, 35.0, 45.2];   // [GUESS] STS3215 w x h(shaft) x l, no ears
-sts_shaft_from_end = 11.0;             // [GUESS] shaft centre from the body's end
-handle_servo_c = [2.35, 0, -26.0];     // pocket centre, relative to the dock plane
-grip_len       = 100.0;                // along its axis; adult palm is ~75-95
-grip_depth     = 32.0;                 // front to back (Z)
-grip_width     = 30.0;                 // side to side (Y)
-grip_rake      = 15.0;                 // deg back from +X
-grip_front_z   = -30.0;                // front face at the top of the grip
-trigger_reach  = 58.0;                 // [GUESS] backstrap -> trigger pad; tune
-                                       //         by printing, 55-70 fits most
-trigger_travel = 28.0;                 // deg of lever for full open -> shut
+//  Jake, 2026-10-14: "an easy way for me to grab onto it ... a little indent
+//  for my thumb, and then the ability to attach a strap ... the same for the
+//  other side."  So there is no pistol grip, trigger or phone any more.  The
+//  thumb lies in a dimple on the upper mandible's culmen (-X); the index and
+//  middle fingers lie along the lower mandible's gonys (+X).  Each mandible has
+//  two belt loops on its flanks for a hook-and-loop strap, so the hand can pull
+//  the beak OPEN as well as squeeze it shut.  The palm takes the cartridge base.
+//
+//  Every moving part is its own piece.  In the hand the gripper servo is
+//  replaced by the PIVOT PLUG: a printed spacer that fills the servo pocket,
+//  with one M3 bolt along the pivot axis through the fork, both pocket walls
+//  and the plug.  (The real servo, torque off, fits the same pocket instead if
+//  gripper.pos should come from the same encoder in both modes.)
+thumb_z     = 56.0;                    // dimple centre on the culmen
+thumb_len   = 24.0;                    // [GUESS] along the beak, at the surface
+thumb_w     = 15.0;                    // [GUESS] across, at the surface
+thumb_depth = 2.5;                     // deepest point
 
-phone          = [71.6, 147.6, 7.8];   // [GUESS] short x long x thick, landscape
-phone_gap      = 4.0;                  // head top -> phone edge
-phone_z        = -44.0;                // phone back (camera side), rel. dock plane
-phone_cam      = [14.0, 18.0];         // [GUESS] rear lens centre from the
-                                       //  phone's top edge / +Y end
-phone_window   = 40.0;                 // square window for the camera bump
+strap_w     = 20.0;                    // hook-and-loop strap width
+strap_gap   = 2.5;                     // slot the strap threads through (Y)
+strap_bar_t = 2.5;                     // loop bar thickness (Y)
+strap_bar_x = 5.0;                     // loop bar depth (X)
+strap_post  = 3.0;                     // end posts, along Z
+strap_inset = 1.5;                     // loop's outer edge, in from the face
+strap_upper_z = thumb_z;               // the thumb strap crosses the dimple
+strap_lower_z = 70.0;                  // the finger strap, mid-gonys
 
+plug_clear  = 0.2;                     // per side, in the servo pocket
+plug_x1     = fj_cradle_x_max;         // the plug stops where the cradle does
+plug_chamfer = 7.5;                    // off its top +X edge, for the neck's swing
+pivot_bolt_d = m3_clear_d;             // M3 x 55 + nylock, along Y
 
 // =============================================================================
 //  SELF-CHECKS
@@ -380,6 +384,32 @@ assert(max(cam_tip_deg, cam_throat_deg, cam_open_deg) < cam_fov / 2 - 5,
 assert(abs(cam_pos[1]) - cam_board / 2 * cos(cam_toe) > mj_fork_outer_w / 2,
        "camera board is inside the lower mandible fork's sweep");
 
+// (8) The hand features: the dimple and the strap loops must leave the throat
+// its wall, fit on the faces they sit on, and clear the tool notch.
+thumb_lo = thumb_z - thumb_len / 2;
+thumb_hi = thumb_z + thumb_len / 2;
+thumb_a = 8.0;                         // the dimple ellipsoid's normal semi-axis
+thumb_k = sqrt(1 - pow((thumb_a - thumb_depth) / thumb_a, 2));
+function thumb_depth_at(z) =
+    let(u = (z - thumb_z) / (thumb_len / 2 / thumb_k))
+    abs(u) >= 1 ? 0 : max(0, thumb_a * sqrt(1 - u * u) - (thumb_a - thumb_depth));
+crow_throat_wall = [for (z = [crow_throat_lo : 0.5 : crow_throat_hi])
+    let(r = crow_throat_d / 2, dz = abs(z - crow_throat_z),
+        bottom = crow_throat_depth - r + sqrt(max(0, r * r - dz * dz)))
+    (crow_tomium_x(z) - bottom) - (crow_culmen_x(z) + thumb_depth_at(z))];
+assert(min(crow_throat_wall) >= crow_throat_wall_min,
+       "thumb dimple leaves the wall behind the throat too thin");
+assert(thumb_w < 2 * crow_half_y(thumb_hi) - 2,
+       "thumb dimple is wider than the culmen it sits on");
+assert(crow_gonys_x(crow_notch_z) - strap_inset - strap_bar_x
+           > crow_tomium_x(crow_notch_z) + crow_notch_depth,
+       "lower strap loop runs into the tool notch");
+assert(crow_gonys_x(strap_lower_z + strap_w / 2 + strap_post) - strap_inset - strap_bar_x
+           > crow_tomium_x(strap_lower_z + strap_w / 2 + strap_post) + 1,
+       "lower mandible is too thin for its strap loop");
+assert(fj_pocket_z1 - fj_pocket_z0 - 2 * plug_clear > 20,
+       "pivot plug is too thin to print");
+
 echo(str("crow beak: reach ", crow_tip_z, " mm, tip arm ", crow_tip_arm,
          " mm, gape at max = ", crow_angle_for(crow_opening_max), " deg"));
 echo(str("upper tip thickness ", crow_upper_tip_t,
@@ -391,5 +421,7 @@ echo(str("throat: encloses Ø", crow_throat_d, " mm at z ", crow_throat_z,
          crow_opening_for_throat(crow_throat_d), " mm of gape"));
 echo(str("dock: tip is ", crow_tip_z + dock_lift, " mm from the wrist_roll horn face (",
          crow_tip_z, " + ", dock_lift, " mm of puck)"));
+echo(str("hand: thinnest wall behind the throat ", min(crow_throat_wall),
+         " mm with the thumb dimple; straps ", strap_w, " mm through ", strap_gap, " mm slots"));
 echo(str("camera: off-axis tip ", cam_tip_deg, " deg, throat ", cam_throat_deg,
          " deg, open tip ", cam_open_deg, " deg, of ", cam_fov / 2, " available"));

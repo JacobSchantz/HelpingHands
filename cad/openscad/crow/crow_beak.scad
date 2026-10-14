@@ -5,12 +5,16 @@
 //      openscad -D 'part="assembly"' -o crow_assembly.stl crow_beak.scad
 //      openscad -D 'crow_opening=25'                       crow_beak.scad
 //
-//  part = "assembly" | "open" | "tool" | "upper" | "lower" | "interference"
-//       | "puck" | "camera_mount" | "handle" | "trigger"      (printable parts)
-//       | "armed" | "handheld"                                (the two hosts)
+//  part = "assembly" | "open" | "tool" | "interference"
+//       | "upper" | "lower" | "pivot_plug" | "camera_mount" | "puck"
+//                       (the printable pieces, each in its assembled position)
+//       | "handheld" | "armed" | "exploded"       (the two uses, and pulled apart)
+//       | "parts"       (echoes the piece list build.sh turns into parts.json)
+//       | "plugclash" | "fitclash"       (overlap tests, must come out EMPTY)
 //
-//  The same cartridge (upper + lower + camera) docks on the wrist puck or on
-//  the handle -- plans/crow_gripper.md sections 9-11.
+//  The same beak (upper + lower + camera) is held by hand -- thumb dimple and
+//  strap loops, pivot plug in the servo pocket -- or carries the gripper servo
+//  and slides onto the wrist puck.  plans/crow_gripper.md section 14.
 //
 //  "interference" renders the overlap between the two mandibles at the current
 //  crow_opening.  It must come out EMPTY at every opening — that is the test
@@ -22,7 +26,7 @@ use <crow_upper.scad>
 use <crow_lower.scad>
 use <crow_dock.scad>
 use <crow_camera.scad>
-use <crow_handle.scad>
+use <crow_hand.scad>
 
 part = "assembly";
 
@@ -65,38 +69,91 @@ module crow_with_tool(d = crow_rod_d) {
                     rotate([90, 0, 0]) cylinder(d = d, h = 90, center = true);
 }
 
-// The cartridge: the thing that moves between hosts.
-module crow_cartridge(angle = crow_angle) {
-    crow_beak(angle);
-    color("#5b6770") crow_camera_mount();
-    color("#1d2226") crow_camera_ghost();
+// Every printed piece, each in its assembled position: [part, label, colour,
+// explode offset].  build.sh exports one STL per row and turns the echo into
+// export/parts.json, which the app's 3D view reads for its explode toggle.
+PIECES = [
+    ["upper",        "Upper mandible + body (thumb dimple, strap loops)", "#8d9aa6", [-45,   0,   0]],
+    ["lower",        "Lower mandible (finger strap loops) - moves",      "#2f3336", [ 55,   0,  20]],
+    ["pivot_plug",   "Pivot plug (handheld - stands in for the servo)",  "#e0a458", [ 10, -75, -10]],
+    ["camera_mount", "Camera mount",                                     "#5b6770", [-20,  80,  10]],
+    ["puck",         "SO-101 wrist puck (arm only)",                     "#c8813a", [  0,   0, -50]],
+];
+
+module crow_piece(name, angle = crow_angle) {
+    if      (name == "upper")        crow_upper();
+    else if (name == "lower")        crow_place(angle) crow_lower();
+    else if (name == "pivot_plug")   crow_pivot_plug();
+    else if (name == "camera_mount") crow_camera_mount();
+    else if (name == "puck")         crow_wrist_puck();
 }
 
-// On the arm: cartridge on the puck, puck on a stand-in for the wrist_roll horn.
+function crow_has(names, n) = len([for (m = names) if (m == n) 1]) > 0;
+
+module crow_pieces(names, explode = 0, angle = crow_angle) {
+    for (p = PIECES) if (crow_has(names, p[0]))
+        color(p[2]) translate(explode * p[3]) crow_piece(p[0], angle);
+}
+
+// In the hand: the beak, the pivot plug in the servo pocket, the camera.  The
+// thumb goes in the dimple on the culmen, index and middle along the gonys, a
+// strap through each pair of loops.
+module crow_handheld(angle = crow_angle) {
+    crow_pieces(["upper", "lower", "pivot_plug", "camera_mount"], 0, angle);
+    color("#1d2226") crow_camera_ghost();
+    color("#3b6ea5", 0.45) crow_strap_ghosts(angle);
+}
+
+// On the arm: the same beak with the gripper servo in the pocket, on the puck,
+// the puck on a stand-in for the wrist_roll horn.
 module crow_armed(angle = crow_angle) {
-    crow_cartridge(angle);
-    color("#c8813a") crow_wrist_puck();
+    crow_pieces(["upper", "lower", "camera_mount", "puck"], 0, angle);
+    color("#1d2226") crow_camera_ghost();
+    color("#202428", 0.6) crow_servo_ghost();
     color("#444a50") translate([0, dock_y, dock_z - dock_puck_h - 12])
         cylinder(d = 24, h = 12);
 }
 
-// In the hand: the same cartridge on the handle, trigger and phone.
-module crow_handheld(angle = crow_angle) {
-    crow_cartridge(angle);
-    color("#c8813a") crow_handle();
-    color("#e0a458") crow_trigger();
-    color("#26303a", 0.55) crow_phone_ghost();
+// The straps, for renders only: a band through each loop pair, around the digit.
+module crow_strap_ghosts(angle = crow_angle) {
+    module band(z, x_out, x_in, hy) {
+        translate([0, 0, z - strap_w / 2]) linear_extrude(strap_w)
+            difference() {
+                hull() for (x = [x_out, x_in]) for (y = [-1, 1])
+                    translate([x, y * (hy + strap_gap / 2)]) circle(r = 1.0, $fn = 12);
+                hull() for (x = [x_out, x_in]) for (y = [-1, 1])
+                    translate([x, y * (hy + strap_gap / 2)]) circle(r = 0.01, $fn = 4);
+            }
+    }
+    zu = strap_upper_z;
+    band(zu, crow_culmen_x(zu) - 18, crow_culmen_x(zu) + strap_inset + strap_bar_x / 2, crow_half_y(zu));
+    zl = strap_lower_z;
+    crow_place(angle) rotate([90, 0, 0]) translate([-jaw_pivot_x, 0, -jaw_pivot_z])
+        band(zl, crow_gonys_x(zl) + 18, crow_gonys_x(zl) - strap_inset - strap_bar_x / 2, crow_half_y(zl));
+}
+
+// Overlap tests: the plug against the swinging lower mandible, and the fixed
+// pieces against each other.
+module crow_plugclash(angle = crow_angle) {
+    intersection() { crow_pivot_plug(); crow_place(angle) crow_lower(); }
+}
+module crow_fitclash() {
+    intersection() { crow_upper(); crow_pivot_plug(); }
+    intersection() { crow_upper(); crow_camera_mount(); }
+    intersection() { crow_upper(); crow_wrist_puck(); }
+    intersection() { crow_pivot_plug(); crow_wrist_puck(); }
 }
 
 if      (part == "assembly")     crow_beak();
 else if (part == "tool")         crow_with_tool();
 else if (part == "open")         crow_beak(crow_angle_for(crow_opening_max));
-else if (part == "upper")        crow_upper();
-else if (part == "lower")        crow_lower();
 else if (part == "interference") crow_interference();
-else if (part == "puck")         crow_wrist_puck();
-else if (part == "camera_mount") crow_camera_mount();
-else if (part == "handle")       crow_handle();
-else if (part == "trigger")      crow_trigger();
+else if (part == "plugclash")    crow_plugclash();
+else if (part == "fitclash")     crow_fitclash();
 else if (part == "armed")        crow_armed();
 else if (part == "handheld")     crow_handheld();
+else if (part == "exploded")     crow_pieces([for (p = PIECES) p[0]], 1);
+else if (part == "parts")
+    for (p = PIECES) echo(str("PART|", p[0], "|", p[1], "|", p[2], "|",
+                              p[3][0], ",", p[3][1], ",", p[3][2]));
+else                             crow_piece(part);

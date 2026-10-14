@@ -473,3 +473,66 @@ throat is only a pinch with a picture of a hook on it.
 **Next, in order:** weigh the bought parts. Then print the puck, the handle and
 the cartridge upper and run G1. The stock-jaw cartridge can be built in the
 same CAD pass.
+
+---
+
+# Part 3 — held by the beak itself (voice-805d4970, 2026-10-14)
+
+Jake: an easy way to grab it, a thumb indent, a strap loop on each side,
+attachable to the SO-101 (a custom adapter piece is fine), and every moving
+part a separate piece. Same direction as the simplified hand gripper
+(voice-6d8b9fd8): the camera stays, the other attachments go.
+
+![held by the beak](../cad/openscad/crow/render/thumb_side.png)
+
+## 14. What changed, and what it costs the capture plan
+
+**D11 — the handle, trigger and phone cradle are gone; the mandibles are the
+handle.** Thumb in a dimple on the culmen, index + middle along the gonys,
+a 20 mm hook-and-loop strap through a pair of belt loops on each mandible.
+The straps are what let the hand open the beak, not just squeeze it.
+`crow_handle.scad` is deleted (it is at `1fb53ca` if it is wanted back).
+
+**D12 — in the hand, a printed pivot plug replaces the servo.** The lower
+mandible's fork hangs on the servo horn, so without the servo there is no
+pivot. The plug fills the servo pocket and one M3 × 55 bolt runs along the
+pivot axis through the fork plates, both pocket walls and the plug. Its top
++X edge is chamfered 7.5 mm because the lower mandible's neck swings down
+over it when the beak opens. `check_interference.sh` sweeps that to 50 mm of
+gape. The arm takes the servo back and docks on the puck, which is unchanged
+and is the SO-101 adapter piece. Swapping hand ↔ arm is now a servo swap
+(two M2 screws, the horn screws, the pivot bolt), not a pin pull.
+
+**What this breaks in §9–11, honestly:**
+- **D8 (one cartridge) is weaker.** The beak and camera are still the same
+  parts in both modes. The actuator is not, unless the real servo stays in
+  the pocket in the hand, torque off.
+- **D10 (`gripper.pos` from ID 6 in both modes) only holds if the servo stays
+  in.** With the plug there is no jaw-angle sensor. The options are the servo
+  torque-off on a bus adapter (same encoder, same units, back-drive effort
+  through a 1:345 gearbox **not measured**), or reading the gape from the
+  wrist camera, which sees both tips (UMI does it with fiducials on the
+  fingers). Recommendation: keep the servo in for data runs and use the plug
+  for trying the grip.
+- **§11's pose source is gone.** With no phone, `T_world←phone · T_phone←dock`
+  has no first factor. The wrist camera has to give the pose itself (visual
+  SLAM, plus the existing ArUco tap for registration). That is UMI's approach,
+  and it is not the ARKit pipeline voice-b4fbc4ee chose. This needs a
+  decision in b4fbc4ee before any capture. It is not designed here.
+- **The hand is in frame in the hand and not on the arm.** Fingers on the
+  gonys sit behind the lower mandible from the camera's side. They will still
+  show up in the wrist-camera image. This is an embodiment gap to measure (G3/G5).
+
+**G0 for this part (run):** asserts (1)–(8). (8) is new and checks that the
+thumb dimple leaves ≥ 3 mm behind the throat (6.1 mm actual), that the lower
+loops clear the tool notch, and that the plug is printable. The beak's
+interference sweep is clear from 0.05 to 50 mm. The plug vs the lower jaw is
+clear from 0 to 50 mm. Upper, plug, camera mount and puck are pairwise clear,
+and the test fails as it should if the plug's clearance is made negative.
+Arm-side mass is unchanged at 141 g. Handheld is ~104 g (beak + plug +
+bolt/straps, guesses included).
+
+**Not settled:** the dimple and loop positions are drawn, not fitted to a
+hand. Print `upper` + `lower` + `pivot_plug` first and hold it. A printed
+fork on an M3 bolt will wear, so a brass sleeve may be needed. Strap
+thickness above 2 mm will not go through the 2.5 mm slot.

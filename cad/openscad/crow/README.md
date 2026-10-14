@@ -29,8 +29,8 @@ openscad -D 'part="tool"'     crow_beak.scad      # with a Ø6 rod chucked
 | `crow_beak.scad` | **open this one.** the assembly, with `crow_opening` in mm |
 | `crow_dock.scad` | the dovetail dock, and the wrist puck that bolts it to the SO-101's horn |
 | `crow_camera.scad` | the wrist camera mount: lateral, where a crow's eye is |
-| `crow_handle.scad` | the handheld host: pistol grip, leader-servo trigger, phone cradle |
-| `check_interference.sh` | sweeps the stroke and proves the mandibles never touch |
+| `crow_hand.scad` | what a hand holds it by: thumb dimple, strap loops, and the pivot plug |
+| `check_interference.sh` | sweeps the stroke: the mandibles never touch, the plug never hits the swinging jaw, the fixed pieces never overlap |
 | `check_budget.py` | wrist mass and moment off the STLs, against the 250 g budget |
 | `build.sh` | regenerates every STL and PNG below |
 | `render/`, `export/` | build outputs. never hand-edit, just re-run `build.sh` |
@@ -44,20 +44,39 @@ the throat goes at the *back* of the beak. To iterate this model by voice:
 CADLOOP_TARGET=crow node Scripts/cadloop/cadloop.mjs
 ```
 
-## One cartridge, two hosts
+## In the hand, or on the arm — five separate pieces
 
-![handheld](render/handheld_iso.png) ![on the arm](render/armed_iso.png)
+![handheld](render/handheld_iso.png) ![thumb side](render/thumb_side.png)
+![pulled apart](render/exploded.png)
 
-The cartridge is the upper mandible body, the gripper servo (ID 6), the lower
-mandible and the wrist camera. It slides onto a dovetail, and both the
-**wrist puck** (`part="puck"`, which bolts to wrist_roll with the stock horn
-pattern) and the **handle** (`part="handle"`) carry the same rail. So the beak,
-the throat and the camera are in the same place relative to the dock whether a
-person or the arm is holding it. Why, and the capture plan built on it, are in
-[`plans/crow_gripper.md`](../../../plans/crow_gripper.md) §9–12.
+You hold the beak itself. Your **thumb** lies in a dimple on the upper
+mandible's culmen (24 × 15 mm, 2.5 mm deep, centred at z = 56). Your **index
+and middle fingers** lie along the lower mandible's gonys. Each mandible has
+a pair of **belt loops** on its flanks for a 20 mm hook-and-loop strap, so the
+strap holds the digit to the jaw and you can pull the beak *open* as well as
+squeeze it shut. The palm takes the base block.
+
+Every piece that moves relative to another is its own print
+(`export/*.stl`, each in its assembled position, listed in `export/parts.json`
+for the app's assemble/explode toggle):
+
+| piece | use | notes |
+|---|---|---|
+| `upper` | both | body + upper mandible, thumb dimple, thumb-strap loops, dovetail groove |
+| `lower` | both | the moving jaw, finger-strap loops, the stock fork |
+| `pivot_plug` | hand | fills the servo pocket; one M3 × 55 bolt + nylock along the pivot axis through the fork, both pocket walls and the plug; held by the servo's own two M2 screws |
+| `camera_mount` | both | unchanged, on the +Y flange face |
+| `puck` | arm | the SO-101 adapter: bolts to wrist_roll with the stock horn pattern, the beak slides on its dovetail and takes one M3 cross-pin |
+
+On the arm, the gripper servo (ID 6) goes back in the pocket in place of the
+plug, its horn bolts to the fork, and the beak docks on the puck. The real
+servo, torque off, also fits the pocket in the hand if `gripper.pos` should
+come off the same encoder in both modes. The pistol grip, trigger and phone
+cradle are gone (voice-805d4970, 2026-10-14). Why, and what that does to the
+capture plan: [`plans/crow_gripper.md`](../../../plans/crow_gripper.md) §14.
 
 ```bash
-openscad -D 'part="handheld"' crow_beak.scad    # or "armed"
+openscad -D 'part="handheld"' crow_beak.scad    # or "armed", "exploded"
 python3 check_budget.py                          # after ./build.sh
 ```
 
