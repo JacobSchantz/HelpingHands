@@ -141,5 +141,7 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-14T03:59:08.000Z"
-  }
+  },
+  "promoted_by": "human",
+  "promoted_at": "2026-10-12T00:00:00.000Z"
 }
