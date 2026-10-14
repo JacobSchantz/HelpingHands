@@ -1,0 +1,84 @@
+{
+  "parts": [
+    {
+      "file": "a_left.stl",
+      "name": "A \u00b7 left / thumb",
+      "color": "#efb739",
+      "explode": [
+        -38,
+        0,
+        22
+      ]
+    },
+    {
+      "file": "a_right.stl",
+      "name": "A \u00b7 right / fingers",
+      "color": "#efb739",
+      "explode": [
+        38,
+        0,
+        22
+      ]
+    },
+    {
+      "file": "b_left.stl",
+      "name": "B \u00b7 left / thumb (swap pair)",
+      "color": "#36b2b0",
+      "explode": [
+        -24,
+        0,
+        22
+      ]
+    },
+    {
+      "file": "b_right.stl",
+      "name": "B \u00b7 right / fingers (swap pair)",
+      "color": "#36b2b0",
+      "explode": [
+        24,
+        0,
+        22
+      ]
+    },
+    {
+      "file": "hub.stl",
+      "name": "Shared pivot hub",
+      "color": "#454e60",
+      "explode": [
+        0,
+        0,
+        -35
+      ]
+    },
+    {
+      "file": "camera.stl",
+      "name": "Shared camera bracket",
+      "color": "#79869b",
+      "explode": [
+        0,
+        45,
+        -20
+      ]
+    },
+    {
+      "file": "pivot_insert.stl",
+      "name": "Handheld pivot insert \u00b7 remove for servo",
+      "color": "#bdc6d4",
+      "explode": [
+        0,
+        -25,
+        0
+      ]
+    },
+    {
+      "file": "so101_mount.stl",
+      "name": "Shared SO-101 cradle \u00b7 arm only",
+      "color": "#454e60",
+      "explode": [
+        0,
+        -50,
+        -45
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "watertight_single_solid_meshes": 8,
+  "bed_oriented_jaws": 4,
+  "collision_and_positive_control_cases": 70,
+  "viewer_parts": 8,
+  "solid_volume_cm3": {
+    "a_left.stl": 19.01,
+    "a_right.stl": 23.12,
+    "b_left.stl": 19.41,
+    "b_right.stl": 24.54,
+    "hub.stl": 17.47,
+    "camera.stl": 11.06,
+    "pivot_insert.stl": 4.07,
+    "so101_mount.stl": 29.58
+  }
+}
