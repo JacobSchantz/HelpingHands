@@ -95,8 +95,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The Helping Hands gripper view should become one design in a single 3D view, split into separate parts that print and work independently yet connect. Rework it to copy Generalist AI's human-worn data-collection gripper, researching their videos and images for geometry, hand actuation, part split, and camera mounting.",
-  "summary_sha": "75e3484f137120c5",
+  "summary": "Simplify the 3D-printable Helping Hands gripper into two Generalist-style jaws plus a camera mount, in one separable 3D view. Finger and thumb pockets must sit on the jaws' outer faces, in line with the grip, so squeezing feels like pinching paper, and the same unit should mount on an SO-101 arm.",
+  "summary_sha": "c2fa6787fa1c774f",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-14T01:55:47Z",
