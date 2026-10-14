@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Helping Hands should open straight to the newest design, such as the 3D gripper STL viewer with rotate and zoom, instead of menus. New designs dropped into the repo should appear first on next open, with older designs reachable by swiping or a simple list.",
+  "summary_sha": "965bab932c144967"
 }
