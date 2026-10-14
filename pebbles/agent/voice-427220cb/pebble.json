@@ -1,0 +1,23 @@
+{
+  "id": "voice-427220cb",
+  "commit_id": "",
+  "description": "Combine the two latest gripper designs into one 3D project with four printable pieces.\n\nJake (voice): \"Can you make sure GPT-6 [transcribed 'gpt six astro'] is working on this. And then I want you to try to combine those most recent pebbles into a single 3D project that has all four pieces: the left and right of one gripper, and the left and right of the other. Take good ideas from each one and come up with something that's easy to 3D print and will work really well for collecting demonstration data that we can then give to the robot. And we should also be able to adapt it to the SO-101 arms. Combine from those two ideas and come up with something that's really simple, does what we need, has easy ways to grip, and feels really natural in the human hand.\"\n\nSources (read both, including their latest agent results):\n- voice-6d8b9fd8 (pebbles/human): simplified Generalist-style handheld gripper. Latest build (2026-10-14, commit after 466c992): hub + two yellow geared jaws (mirror via gear sectors, 56 mm gape) + camera bracket on the hub looking down the jaws; finger sleeve (index+middle) and thumb sleeve on the OUTER faces of the jaws, behind the gripping face (\"pinching paper\"); one extra arm-only cradle for the SO-101 gripper servo on the stock wrist mount. CAD: cad/openscad/hand_gripper/ (hand_gripper.scad, build.sh, export/parts.json, render/). Open guesses: servo size, hub pressing the thumb web on small hands.\n- voice-805d4970 (pebbles/human): New Caledonian crow beak gripper. Latest build (2026-10-14): you hold the beak directly; thumb dent on top jaw (24x15x2.5 mm), index+middle along the bottom jaw, two strap loops per jaw for a 20 mm velcro strap so you can pull it open as well as squeeze; five prints: top jaw/body, bottom (moving) jaw, pivot plug (M3 hinge in place of the servo for handheld), camera mount, wrist puck (SO-101 adapter on the stock horn pattern, dovetail dock). CAD: cad/openscad/crow/ (crow_hand.scad, crow_upper/lower/beak/dock.scad, check_interference.sh, check_budget.py, export/parts.json), plan in plans/crow_gripper.md. Capture plan defers to voice-b4fbc4ee.\n\nSpec:\n- ONE 3D project/view (same app viewer, assembled/exploded toggle) showing four printable jaw pieces: left + right jaw of design A (Generalist-style) and left + right jaw of design B (crow beak), plus whatever shared parts they need (hub/pivot, camera mount, SO-101 adapter).\n- Merge the best ideas: natural handheld grip with finger and thumb on the outside of the jaws, thumb indent, strap loops so the jaws can be pulled open; camera mount that sees the jaw tips from the same spot in hand and on the arm (UMI-style demo collection).\n- One shared SO-101 mount/adapter so the same jaws go on the arm.\n- Simple and easy to print: few parts, no supports where possible, every moving part a separate piece.\n- Attach renders (assembled, exploded, in-hand) to the reply. Don't claim it grips well or transfers data until printed and tested.\n\nModel: Jake asked for GPT-6 to work this; dispatch_target is set to codex / gpt-6-astra.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-14T04:28:57.000Z",
+  "updated_at": "2026-10-14T04:28:57.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "promoted_by": "human",
+  "promoted_at": "2026-10-11T00:00:00.000Z",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "effort": ""
+  }
+}
