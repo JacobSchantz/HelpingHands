@@ -5,7 +5,7 @@ import PebblesKit
 struct HelpingHandsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DesignViewerScreen()
                 .preferredColorScheme(.dark)
                 .pebblesOverlay()
         }

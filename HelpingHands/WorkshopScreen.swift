@@ -1,35 +1,35 @@
 import SwiftUI
 
-struct ContentView: View {
+/// The arms, plans and 3D-file browser — what used to be the home screen. The
+/// app now opens on the newest design (`DesignViewerScreen`) and this sits
+/// behind its toolbar.
+struct WorkshopScreen: View {
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    header
-                    armCard(
-                        role: "Leader",
-                        id: "leader_left",
-                        type: "so101_leader",
-                        port: "/dev/tty.usbmodem5AAF2627031",
-                        icon: "hand.raised.fill"
-                    )
-                    armCard(
-                        role: "Follower",
-                        id: "follower_right",
-                        type: "so101_follower",
-                        port: "/dev/tty.usbmodem5AA90242401",
-                        icon: "hand.point.right.fill"
-                    )
-                    plansCard
-                    cadCard
-                    teleopNote
-                }
-                .padding(20)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                header
+                armCard(
+                    role: "Leader",
+                    id: "leader_left",
+                    type: "so101_leader",
+                    port: "/dev/tty.usbmodem5AAF2627031",
+                    icon: "hand.raised.fill"
+                )
+                armCard(
+                    role: "Follower",
+                    id: "follower_right",
+                    type: "so101_follower",
+                    port: "/dev/tty.usbmodem5AA90242401",
+                    icon: "hand.point.right.fill"
+                )
+                plansCard
+                cadCard
+                teleopNote
             }
-            .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
-            .navigationTitle("Helping Hands")
-            .navigationDestination(for: CADModel.self) { ModelDetailView(model: $0) }
+            .padding(20)
         }
+        .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
+        .navigationTitle("Workshop")
     }
 
     private var header: some View {
@@ -99,14 +99,14 @@ struct ContentView: View {
                     Image(systemName: "cube.transparent")
                         .font(.title3)
                         .foregroundStyle(Color.accentColor)
-                    Text("Gripper CAD")
+                    Text("All 3D files")
                         .font(.headline)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                Text("View the SO-101 gripper meshes from the OpenSCAD, Blender and build123d bake-off, or import your own 3D file.")
+                Text("Every 3D file under cad/, grouped by design, or import your own.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.leading)

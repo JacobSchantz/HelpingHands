@@ -1,8 +1,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The browse screen: every 3D file the CAD bake-off produced, grouped by the
-/// tool that produced it, plus anything the user imported.
+/// The browse screen: every 3D file under cad/, grouped by the design that
+/// produced it, plus anything the user imported.
 struct ModelViewerScreen: View {
     @StateObject private var catalog = CADModelCatalog()
     @State private var importing = false

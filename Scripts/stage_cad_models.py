@@ -1,32 +1,32 @@
 #!/usr/bin/env python3
-"""Stage the CAD bake-off's 3D exports into the built app bundle.
+"""Stage every CAD design under cad/ into the built app bundle.
 
-Run as a build phase. Copies every renderable mesh under cad/ into
-<bundle>/CADModels/<engine>/ and writes a manifest the app reads at launch.
-STEP files are catalogued but not copied: nothing on iOS or macOS can tessellate
-a B-rep, so only their ISO-10303-21 header is carried over (a few hundred bytes
-instead of several megabytes).
+Run as a build phase. A "design" is any folder under cad/ holding 3D exports —
+either directly, or in an export/ or out/ subfolder — plus the PNG renders next
+to them (render/, or loose in the export folder). Nothing is registered by
+hand: an agent that drops a new design into cad/ makes it the app's first
+screen on the next build, because designs are ordered newest-first by the last
+commit that touched their exports or renders.
 
-The exports are kept out of the source tree on purpose — they live in cad/ as
-build outputs of the bake-off, and staging them here means a rebuilt gripper
-ships without anyone copying files around.
+Every renderable mesh is copied into <bundle>/CADModels/<design>/, renders into
+<bundle>/CADModels/<design>/images/, and a manifest the app reads at launch is
+written alongside. STEP files are catalogued but not copied: nothing on iOS or
+macOS can tessellate a B-rep, so only their ISO-10303-21 header is carried over
+(a few hundred bytes instead of several megabytes).
 """
 import json
 import os
 import shutil
+import subprocess
 import sys
 
-# (display name, directory under the repo root). Order is cosmetic; the app
-# sorts engines by name.
-SOURCES = [
-    ("OpenSCAD", "cad/openscad/export"),
-    ("Blender", "cad/blender/out"),
-    ("build123d", "cad/build123d/export"),
-    ("SO-101 reference", "cad/build123d/reference"),
-]
+# A folder with these names holds a design's exports; the design is its parent.
+EXPORT_DIRS = {"export", "out"}
+SKIP_DIRS = {"__pycache__", "node_modules", "render", "tools"}
 
 RENDERABLE = {"stl", "obj", "ply", "usd", "usda", "usdc", "usdz", "abc"}
 DESCRIBABLE = {"step", "stp"}
+IMAGES = {"png", "jpg", "jpeg"}
 
 
 def repo_root():
@@ -48,7 +48,76 @@ def destination():
 
 
 def slug(name):
-    return name.lower().replace(" ", "-")
+    return name.lower().replace(" ", "-").replace("/", "-")
+
+
+def extension(entry):
+    stem, dot, ext = entry.rpartition(".")
+    return (stem, ext.lower()) if dot else (entry, "")
+
+
+def files_in(directory, kinds):
+    if not os.path.isdir(directory):
+        return []
+    return [entry for entry in sorted(os.listdir(directory))
+            if not entry.startswith(".")
+            and os.path.isfile(os.path.join(directory, entry))
+            and extension(entry)[1] in kinds]
+
+
+def find_designs(cad):
+    """Map each design folder to the folders its exports live in."""
+    designs = {}
+    for directory, subdirs, _ in os.walk(cad):
+        subdirs[:] = sorted(d for d in subdirs
+                            if not d.startswith(".") and d not in SKIP_DIRS)
+        if not files_in(directory, RENDERABLE | DESCRIBABLE):
+            continue
+        design = directory
+        if os.path.basename(directory) in EXPORT_DIRS:
+            design = os.path.dirname(directory)
+        designs.setdefault(design, []).append(directory)
+    return designs
+
+
+def title(design, root):
+    """The design's README (or NOTES) heading, else its path under cad/."""
+    for doc in ("README.md", "NOTES.md"):
+        try:
+            with open(os.path.join(design, doc), encoding="utf-8") as handle:
+                for line in handle:
+                    if line.startswith("# "):
+                        return line[2:].strip(), doc
+        except OSError:
+            continue
+    return os.path.relpath(design, os.path.join(root, "cad")).replace("/", " "), None
+
+
+def updated_at(root, paths):
+    """Unix time of the last commit touching any of `paths`; files that were
+    never committed (a design dropped but not pushed yet) count by mtime."""
+    newest = 0
+    try:
+        out = subprocess.run(
+            ["git", "-C", root, "log", "-1", "--format=%ct", "--"] + paths,
+            capture_output=True, text=True, timeout=20).stdout.strip()
+        newest = int(out) if out else 0
+    except (OSError, ValueError, subprocess.SubprocessError):
+        pass
+    if newest == 0:
+        for path in paths:
+            for entry in os.listdir(path):
+                newest = max(newest, int(os.path.getmtime(os.path.join(path, entry))))
+    return newest
+
+
+def primary(meshes):
+    """The file to open first: a closed assembly if there is one, else the
+    biggest mesh (the whole part beats a single pad)."""
+    def rank(item):
+        name = item["name"].lower()
+        return ("assembly" in name and "open" not in name, item["bytes"])
+    return max(meshes, key=rank)["id"] if meshes else None
 
 
 def step_header(path):
@@ -97,40 +166,62 @@ def main():
     os.makedirs(dest, exist_ok=True)
 
     models = []
-    for engine, relative in SOURCES:
-        directory = os.path.join(root, relative)
-        if not os.path.isdir(directory):
-            continue
-        for entry in sorted(os.listdir(directory)):
-            source = os.path.join(directory, entry)
-            if not os.path.isfile(source) or entry.startswith("."):
-                continue
-            stem, dot, ext = entry.rpartition(".")
-            ext = ext.lower()
-            if not dot or (ext not in RENDERABLE and ext not in DESCRIBABLE):
-                continue
+    designs = []
+    for design_dir, export_dirs in sorted(find_designs(os.path.join(root, "cad")).items()):
+        name, doc = title(design_dir, root)
+        key = slug(os.path.relpath(design_dir, os.path.join(root, "cad")))
+        target_dir = os.path.join(dest, key)
 
-            model = {
-                "id": "%s/%s" % (slug(engine), entry),
-                "name": stem,
-                "engine": engine,
-                "ext": ext,
-                "bytes": os.path.getsize(source),
-            }
-            if ext in RENDERABLE:
-                target_dir = os.path.join(dest, slug(engine))
-                os.makedirs(target_dir, exist_ok=True)
-                shutil.copy2(source, os.path.join(target_dir, entry))
-                model["path"] = "%s/%s" % (slug(engine), entry)
-            else:
-                header = step_header(source)
-                if header:
-                    model["header"] = header
-            models.append(model)
+        design_models = []
+        for directory in export_dirs:
+            for entry in files_in(directory, RENDERABLE | DESCRIBABLE):
+                source = os.path.join(directory, entry)
+                stem, ext = extension(entry)
+                model = {
+                    "id": "%s/%s" % (key, entry),
+                    "name": stem,
+                    "engine": name,
+                    "ext": ext,
+                    "bytes": os.path.getsize(source),
+                }
+                if ext in RENDERABLE:
+                    os.makedirs(target_dir, exist_ok=True)
+                    shutil.copy2(source, os.path.join(target_dir, entry))
+                    model["path"] = "%s/%s" % (key, entry)
+                else:
+                    header = step_header(source)
+                    if header:
+                        model["header"] = header
+                design_models.append(model)
 
+        image_dirs = [d for d in [os.path.join(design_dir, "render")] + export_dirs
+                      if os.path.isdir(d)]
+        images = []
+        for directory in image_dirs:
+            for entry in files_in(directory, IMAGES):
+                os.makedirs(os.path.join(target_dir, "images"), exist_ok=True)
+                shutil.copy2(os.path.join(directory, entry),
+                             os.path.join(target_dir, "images", entry))
+                images.append("%s/images/%s" % (key, entry))
+
+        renderable = [m for m in design_models if "path" in m]
+        designs.append({
+            "id": key,
+            "name": name,
+            "folder": os.path.relpath(design_dir, root),
+            "doc": doc,
+            "updated": updated_at(root, image_dirs),
+            "primary": primary(renderable) or (design_models[0]["id"] if design_models else None),
+            "models": [m["id"] for m in design_models],
+            "images": images,
+        })
+        models.extend(design_models)
+
+    designs.sort(key=lambda d: d["updated"], reverse=True)
     with open(os.path.join(dest, "manifest.json"), "w") as handle:
-        json.dump({"models": models}, handle, indent=1)
-    print("stage_cad_models: staged %d model(s) into %s" % (len(models), dest))
+        json.dump({"designs": designs, "models": models}, handle, indent=1)
+    print("stage_cad_models: staged %d design(s), %d model(s) into %s"
+          % (len(designs), len(models), dest))
 
 
 if __name__ == "__main__":

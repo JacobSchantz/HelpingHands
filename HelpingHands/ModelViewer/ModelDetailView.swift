@@ -147,12 +147,7 @@ struct ModelDetailView: View {
                             + "\n\nOnly this file's header shipped with the app.")
             return
         }
-        let outcome: Result<LoadedModel, Error> = await withCheckedContinuation { continuation in
-            DispatchQueue.global(qos: .userInitiated).async {
-                do { continuation.resume(returning: .success(try MeshLoader.load(url: url))) }
-                catch { continuation.resume(returning: .failure(error)) }
-            }
-        }
+        let outcome = await model.loadMesh()
         switch outcome {
         case .success(let loaded): state = .loaded(loaded)
         case .failure(let error): state = .failed(error.localizedDescription)

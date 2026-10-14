@@ -29,12 +29,51 @@ struct CADModel: Identifiable, Hashable {
     }
 }
 
+/// One design an agent dropped into `cad/`: its meshes, the renders that came
+/// with it, and when it last changed — the app opens on the newest one.
+struct CADDesign: Identifiable, Hashable {
+    var id: String
+    /// The README heading, e.g. "Hand gripper — a handheld gripper you wear".
+    var name: String
+    var folder: String
+    var updated: Date
+    var models: [CADModel]
+    /// The model shown first: a closed assembly when there is one.
+    var primary: CADModel?
+    var images: [URL]
+
+    /// "Hand gripper" out of "Hand gripper — a handheld gripper you wear".
+    var title: String { String(name.split(separator: "—", maxSplits: 1).first ?? Substring(name)).trimmingCharacters(in: .whitespaces) }
+
+    var subtitle: String? {
+        let parts = name.split(separator: "—", maxSplits: 1)
+        return parts.count > 1 ? parts[1].trimmingCharacters(in: .whitespaces) : nil
+    }
+}
+
+extension CADModel {
+    /// Tessellates off the main thread; STLs of a few MB take a moment.
+    func loadMesh() async -> Result<LoadedModel, Error> {
+        guard let url else {
+            return .failure(MeshLoaderError.unsupported(ext: fileExtension))
+        }
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.global(qos: .userInitiated).async {
+                do { continuation.resume(returning: .success(try MeshLoader.load(url: url))) }
+                catch { continuation.resume(returning: .failure(error)) }
+            }
+        }
+    }
+}
+
 /// Reads `CADModels/manifest.json` — written into the app bundle by
 /// `Scripts/stage_cad_models.py` during the build — and the user's imported
 /// files in Application Support.
 @MainActor
 final class CADModelCatalog: ObservableObject {
     @Published private(set) var bundled: [CADModel] = []
+    /// Newest first — the order the manifest was written in.
+    @Published private(set) var designs: [CADDesign] = []
     @Published private(set) var imported: [CADModel] = []
     @Published private(set) var lastImportError: String?
 
@@ -60,7 +99,7 @@ final class CADModelCatalog: ObservableObject {
     }
 
     func reload() {
-        bundled = Self.loadManifest()
+        (designs, bundled) = Self.loadManifest()
         imported = Self.loadImported()
     }
 
@@ -95,14 +134,14 @@ final class CADModelCatalog: ObservableObject {
 
     // MARK: - Loading
 
-    private static func loadManifest() -> [CADModel] {
-        guard let resources = Bundle.main.resourceURL else { return [] }
+    private static func loadManifest() -> ([CADDesign], [CADModel]) {
+        guard let resources = Bundle.main.resourceURL else { return ([], []) }
         let root = resources.appendingPathComponent("CADModels", isDirectory: true)
         guard let data = try? Data(contentsOf: root.appendingPathComponent("manifest.json")),
               let raw = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let entries = raw["models"] as? [[String: Any]] else { return [] }
+              let entries = raw["models"] as? [[String: Any]] else { return ([], []) }
 
-        return entries.compactMap { entry in
+        let models = entries.compactMap { entry -> CADModel? in
             guard let id = entry["id"] as? String,
                   let name = entry["name"] as? String,
                   let engine = entry["engine"] as? String else { return nil }
@@ -117,6 +156,22 @@ final class CADModelCatalog: ObservableObject {
                 origin: .bundled,
                 headerFields: entry["header"] as? [String: String] ?? [:])
         }
+        let byID = Dictionary(models.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+
+        let designs = (raw["designs"] as? [[String: Any]] ?? []).compactMap { entry -> CADDesign? in
+            guard let id = entry["id"] as? String,
+                  let name = entry["name"] as? String else { return nil }
+            let members = (entry["models"] as? [String] ?? []).compactMap { byID[$0] }
+            return CADDesign(
+                id: id,
+                name: name,
+                folder: entry["folder"] as? String ?? id,
+                updated: Date(timeIntervalSince1970: entry["updated"] as? TimeInterval ?? 0),
+                models: members,
+                primary: (entry["primary"] as? String).flatMap { byID[$0] } ?? members.first,
+                images: (entry["images"] as? [String] ?? []).map { root.appendingPathComponent($0) })
+        }
+        return (designs, models)
     }
 
     private static func loadImported() -> [CADModel] {
