@@ -114,8 +114,8 @@
     "cache_write_tokens": 609625,
     "total_usd": 55.515
   },
-  "summary": "Design a New Caledonian crow-style hooked gripper that works both handheld for human demonstration collection and mounted on SO-101 arms, within wrist and payload limits. Keep contact geometry and action/state representation consistent across both uses, reusing voice-b4fbc4ee's capture research, and don't claim data transfer works without a measured pilot.",
-  "summary_sha": "edeb7d65fd1067aa",
+  "summary": "The crow-beak gripper needs a thumb indent and strap slots on each side for handheld use, plus a custom SO-101 adapter. Every moving part should be a separate printable piece, shown in one 3D view with an assembled/exploded toggle.",
+  "summary_sha": "2a647da21aef4782",
   "moved_by": {
     "github_login": "JacobSchantz",
     "name": "Jacob Schantz",
