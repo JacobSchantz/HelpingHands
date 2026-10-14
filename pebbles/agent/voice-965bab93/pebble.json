@@ -1,0 +1,16 @@
+{
+  "id": "voice-965bab93",
+  "commit_id": "",
+  "description": "Helping Hands app becomes a design viewer first: on launch, open straight to the newest design with no menus to get through first.\n\nJake's words: \"Also update Helping Hands too. When we drop a new design on there, when we first land in the app, we should be able to see that design directly. Helping Hands right now should just be a design viewer platform. So we should see the first item right there.\"\n\nSpec:\n- On launch the app opens directly to the newest design (e.g. the 3D gripper model from pebble voice-6d8b9fd8: rendered 3D model/STL viewer with rotate/zoom, plus its images). No menus first.\n- When an agent drops a new design into the repo, it shows up as the first item the next time the app opens (or live).\n- Other designs are reachable by swiping or a simple list.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-14T01:16:47.000Z",
+  "updated_at": "2026-10-14T01:16:47.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
