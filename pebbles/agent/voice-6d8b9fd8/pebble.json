@@ -53,8 +53,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Jake wants a 3D-printable Helping Hands handheld gripper, with parametric CAD source and STL, where the thumb sits in one jaw's pocket and four fingers in a contoured slot on the other. Squeezing should close the jaws and relaxing should open them, with a proposed mechanism (spring or linkage) and renders shown, ideally sized to hand and with camera mounts for UMI-style demo capture.",
-  "summary_sha": "6d8b9fd8fab3d606",
+  "summary": "The Helping Hands gripper view should become one design in a single 3D view, split into separate parts that print and work independently yet connect. Rework it to copy Generalist AI's human-worn data-collection gripper, researching their videos and images for geometry, hand actuation, part split, and camera mounting.",
+  "summary_sha": "75e3484f137120c5",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-14T00:22:18Z",
