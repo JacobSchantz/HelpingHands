@@ -1,4 +1,5 @@
 import SwiftUI
+import SceneKit
 #if canImport(UIKit)
 import UIKit
 #elseif canImport(AppKit)
@@ -123,7 +124,9 @@ struct DesignViewerScreen: View {
 }
 
 /// One design: the viewport on top (drag inside it to orbit, pinch to zoom),
-/// and below it the title, a part picker and every render, full width. A
+/// and below it the title, a part picker and every render, full width. An
+/// assembly design (one with a parts.json) instead draws every piece in the
+/// one viewport, pulled apart, with a toggle that snaps them together. A
 /// sideways swipe on the lower half changes design — the viewport keeps its
 /// drags for the camera.
 private struct DesignPage: View {
@@ -135,6 +138,7 @@ private struct DesignPage: View {
     private enum LoadState {
         case loading
         case loaded(LoadedModel)
+        case assembly(AssemblyScene)
         case failed(String)
     }
 
@@ -142,6 +146,7 @@ private struct DesignPage: View {
     @State private var state: LoadState = .loading
     @State private var cameraGeneration = 0
     @State private var zoomed: Zoom?
+    @State private var exploded = true
 
     private struct Zoom: Identifiable {
         let url: URL
@@ -161,6 +166,9 @@ private struct DesignPage: View {
                 .simultaneousGesture(swipe)
         }
         .task(id: current?.id) { await load() }
+        .onChange(of: exploded) { _, apart in
+            if case .assembly(let assembly) = state { assembly.setExploded(apart, animated: true) }
+        }
         .sheet(item: $zoomed) { zoom in
             DesignImage(url: zoom.url, fit: true)
                 .padding()
@@ -185,7 +193,8 @@ private struct DesignPage: View {
         case .loading:
             ZStack {
                 Color.black.opacity(0.3)
-                ProgressView("Loading \(current?.name ?? "model")…")
+                ProgressView(design.parts.isEmpty ? "Loading \(current?.name ?? "model")…"
+                                                  : "Loading \(design.parts.count) pieces…")
             }
         case .loaded(let loaded):
             ModelSceneView(model: loaded, wireframe: false, spinning: false,
@@ -200,6 +209,39 @@ private struct DesignPage: View {
                     }
                     .buttonStyle(.plain)
                     .help("Reset view")
+                    .padding(12)
+                }
+        case .assembly(let assembly):
+            SceneView(scene: assembly.scene, pointOfView: assembly.camera,
+                      options: [.allowsCameraControl, .autoenablesDefaultLighting],
+                      antialiasingMode: .multisampling2X)
+                .id(cameraGeneration)
+                .overlay(alignment: .bottom) {
+                    HStack {
+                        Button {
+                            exploded.toggle()
+                        } label: {
+                            Label(exploded ? "Assemble" : "Explode",
+                                  systemImage: exploded ? "arrow.down.right.and.arrow.up.left"
+                                                        : "arrow.up.left.and.arrow.down.right")
+                                .font(.footnote.weight(.semibold))
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 8)
+                                .background(.ultraThinMaterial, in: Capsule())
+                        }
+                        .buttonStyle(.plain)
+                        Spacer()
+                        Button {
+                            assembly.resetCamera()
+                            cameraGeneration += 1
+                        } label: {
+                            Image(systemName: "scope")
+                                .padding(10)
+                                .background(.ultraThinMaterial, in: Circle())
+                        }
+                        .buttonStyle(.plain)
+                        .help("Reset view")
+                    }
                     .padding(12)
                 }
         case .failed(let message):
@@ -239,7 +281,9 @@ private struct DesignPage: View {
                 }
             }
 
-            if design.models.count > 1 {
+            if !design.parts.isEmpty {
+                partsLegend
+            } else if design.models.count > 1 {
                 partPicker
             }
 
@@ -254,7 +298,7 @@ private struct DesignPage: View {
                 }
             }
 
-            if let current {
+            if design.parts.isEmpty, let current {
                 NavigationLink(value: current) {
                     Label("Details for \(current.name)", systemImage: "info.circle")
                         .font(.footnote)
@@ -262,6 +306,36 @@ private struct DesignPage: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// One row per printed piece, in its viewport colour; tap for that STL alone.
+    private var partsLegend: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("\(design.parts.count) pieces — each prints on its own")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            ForEach(design.parts) { part in
+                NavigationLink(value: part.model) {
+                    HStack(spacing: 10) {
+                        Circle()
+                            .fill(Color(red: Double(part.color.x), green: Double(part.color.y), blue: Double(part.color.z)))
+                            .overlay(Circle().stroke(.white.opacity(0.3)))
+                            .frame(width: 14, height: 14)
+                        Text(part.name)
+                            .font(.subheadline)
+                        Spacer()
+                        Text(part.model.formattedSize)
+                            .font(.caption.monospaced())
+                            .foregroundStyle(.secondary)
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            }
+        }
     }
 
     private var partPicker: some View {
@@ -278,6 +352,19 @@ private struct DesignPage: View {
 
     private func load() async {
         state = .loading
+        if !design.parts.isEmpty {
+            var meshes: [(CADPart, LoadedModel)] = []
+            for part in design.parts {
+                switch await part.model.loadMesh() {
+                case .success(let loaded): meshes.append((part, loaded))
+                case .failure(let error):
+                    state = .failed("\(part.name): \(error.localizedDescription)")
+                    return
+                }
+            }
+            state = .assembly(AssemblyScene(parts: meshes, exploded: exploded))
+            return
+        }
         guard let current else {
             state = .failed("This design has no 3D files.")
             return
@@ -286,6 +373,99 @@ private struct DesignPage: View {
         case .success(let loaded): state = .loaded(loaded)
         case .failure(let error): state = .failed(error.localizedDescription)
         }
+    }
+}
+
+/// Every piece of an assembly design in one SceneKit scene. The meshes are
+/// exported in their assembled positions, so a piece sits at the origin when
+/// assembled and at its `explode` offset when pulled apart. The scene and the
+/// camera are kept here, not rebuilt per SwiftUI update, so the explode
+/// animation and the user's orbit both survive re-renders.
+final class AssemblyScene {
+    let scene = SCNScene()
+    private(set) var camera = SCNNode()
+    private var pieces: [(node: SCNNode, offset: SIMD3<Float>)] = []
+    private let radius: Float
+
+    init(parts: [(CADPart, LoadedModel)], exploded: Bool) {
+        scene.background.contents = PlatformColor(red: 0.05, green: 0.10, blue: 0.14, alpha: 1)
+
+        // Frame the union of every piece, assembled and pulled apart, so
+        // toggling never pushes anything out of shot.
+        var lo = SIMD3<Float>(repeating: .greatestFiniteMagnitude)
+        var hi = -lo
+        for (part, mesh) in parts {
+            for shift in [SIMD3<Float>.zero, part.explode] {
+                lo = simd_min(lo, mesh.center - mesh.sizeMillimeters / 2 + shift)
+                hi = simd_max(hi, mesh.center + mesh.sizeMillimeters / 2 + shift)
+            }
+        }
+        let center = (lo + hi) / 2
+        radius = max(simd_length(hi - lo) / 2, 0.001)
+
+        let content = SCNNode()
+        content.simdPosition = -center
+        for (part, mesh) in parts {
+            let material = SCNMaterial()
+            material.lightingModel = .physicallyBased
+            material.diffuse.contents = PlatformColor(red: CGFloat(part.color.x), green: CGFloat(part.color.y),
+                                                      blue: CGFloat(part.color.z), alpha: 1)
+            material.metalness.contents = 0.15
+            material.roughness.contents = 0.5
+            material.isDoubleSided = true
+            let node = mesh.node.clone()
+            node.name = part.name
+            Self.apply(material, to: node)
+            node.simdPosition = exploded ? part.explode : .zero
+            content.addChildNode(node)
+            pieces.append((node, part.explode))
+        }
+
+        let pivot = SCNNode()
+        pivot.addChildNode(content)
+        // CAD exports are Z-up, SceneKit is Y-up.
+        pivot.simdEulerAngles = SIMD3<Float>(-.pi / 2, 0, 0)
+        scene.rootNode.addChildNode(pivot)
+
+        let ambient = SCNNode()
+        ambient.light = SCNLight()
+        ambient.light?.type = .ambient
+        ambient.light?.intensity = 400
+        scene.rootNode.addChildNode(ambient)
+        let key = SCNNode()
+        key.light = SCNLight()
+        key.light?.type = .directional
+        key.light?.intensity = 750
+        key.simdEulerAngles = SIMD3<Float>(-0.9, 0.6, 0)
+        scene.rootNode.addChildNode(key)
+
+        resetCamera()
+    }
+
+    func setExploded(_ apart: Bool, animated: Bool) {
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = animated ? 0.6 : 0
+        for piece in pieces { piece.node.simdPosition = apart ? piece.offset : .zero }
+        SCNTransaction.commit()
+    }
+
+    /// A fresh camera node: `allowsCameraControl` moves the old one in place.
+    func resetCamera() {
+        let lens = SCNCamera()
+        lens.fieldOfView = 45
+        let distance = radius / tan(Float(lens.fieldOfView / 2) * .pi / 180) * 1.3
+        lens.zNear = Double(max(radius * 0.01, 0.01))
+        lens.zFar = Double(distance * 10)
+        let node = SCNNode()
+        node.camera = lens
+        node.simdPosition = SIMD3<Float>(distance * 0.55, distance * 0.35, distance * 0.75)
+        node.simdLook(at: .zero, up: SIMD3<Float>(0, 1, 0), localFront: SIMD3<Float>(0, 0, -1))
+        camera = node
+    }
+
+    private static func apply(_ material: SCNMaterial, to node: SCNNode) {
+        node.geometry?.materials = [material]
+        node.childNodes.forEach { apply(material, to: $0) }
     }
 }
 

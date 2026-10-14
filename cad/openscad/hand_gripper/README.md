@@ -1,74 +1,88 @@
-# Hand gripper — a handheld gripper you wear
+# Hand gripper — a wearable pincer, after Generalist AI's data-collection gripper
 
-Four fingers go into one jaw, your thumb into the other, and you pinch to close
-it (voice-6d8b9fd8). It's for capturing demonstrations UMI-style: the jaws stick
-out past your fingertips, a camera sits on the back of your hand looking at the
-tips, and a band springs it open when you relax.
+You wear it on the back of your hand. Index and middle finger ride in a loop
+on the front jaw, your thumb in a loop on the rear jaw. Pinch to close it and
+spread to open it; both directions are driven, so there's no spring
+(voice-6d8b9fd8). It's for capturing demonstrations UMI-style, and the layout
+copies Generalist's human gripper.
 
-![in the hand](render/in_hand_thumb_side.png)
+![pulled apart](render/exploded.png)
 
-```bash
-./build.sh                                     # STLs + PNGs + the interference sweep
-openscad hand_gripper.scad                     # the assembly, closed
-openscad -D 'opening=40' hand_gripper.scad     # 40 mm between the tip pads
-openscad -D 'hand="L"' hand_gripper.scad       # S / M / L presets
-openscad -D 'handed="left"' hand_gripper.scad  # mirrors everything
-```
+## What it copies from Generalist
+
+Generalist hasn't published drawings. Everything here was read off a photo of a
+data collector wearing two of them
+([x.com/DominiqueCAPaul/status/2040765175779778585](https://x.com/DominiqueCAPaul/status/2040765175779778585))
+and off their robot-side twins in the GEN-1 "box folding, handheld" videos
+(generalistai.com/blog/gen-1):
+
+- a black **bar** strapped along the back of the hand,
+- a **hub** under its front end that both fingers pivot from, with a fiducial
+  marker on it,
+- two rigid **links** hanging down with a strap or loop for the digits, so the
+  hand drives the jaws directly,
+- swappable **yellow lattice tips** that curve inward to a point.
+
+Not copied, because we couldn't see it: their sensors, their electronics, and
+where their camera sits. The camera clip and the gear sync here are our own
+choices.
+
+## Seven pieces, each its own print
+
+| piece | file | what it does on its own | joins with |
+|---|---|---|---|
+| spine + strap pad | `export/spine.stl` | a bar you strap on; a camera handle | hub (dovetail + M3 lock pin), camera clip (snaps on the bar) |
+| hub | `export/hub.stl` | holds the two pivots; fiducial pocket on the camera side | spine (dovetail), links (2 × M3 × 25 pivot bolts) |
+| finger link | `export/link_front.stl` | loop for index + middle, gear sector, tip socket | hub, finger tip |
+| thumb link | `export/link_thumb.stl` | loop for the thumb, gear sector, tip socket | hub, thumb tip |
+| finger tip, thumb tip | `export/tip_*.stl` | TPU lattice tips; swap in other shapes | link socket (tongue + M3 cross-pin) |
+| camera clip | `export/camera.stl` | C-clip on the bar with a plate for a 32 mm UVC board (M2, 28 mm square) | spine (snaps anywhere along the bar) |
+
+Pull the hub off the spine and the hub, links and tips make a plain hand pincer.
+
+Every STL is exported **in its assembled position**, so dropping them all into
+one scene rebuilds the gripper. The app does exactly that: it draws every piece
+in one viewport with an Explode / Assemble toggle. `export/parts.json` (written
+by `build.sh` from the `PARTS` table in the .scad) holds each piece's label,
+colour and explode offset. In the slicer, lay each piece flat on its largest
+face. Print the tips in TPU 95A and everything else in PETG.
 
 ## How it works
 
-- **Upper jaw = finger sleeve (fixed).** Your four fingers lie flat, palm down,
-  in a tunnel with one channel per finger. Neighbouring channels overlap by
-  `web`, which leaves a low ridge between fingers, so the sleeve follows the
-  shape of your hand and doesn't let it roll. The channels are capped, so your
-  fingertips bottom out in them.
-- **Lower jaw = thumb cup (moving).** Your thumb sits in a capped tube under
-  the index/middle fingers, like a sock puppet. It swings on one M4 pivot that
-  is outboard of the index knuckle.
-- **Squeeze to close, relax to open.** A rubber band runs between two posts
-  behind the pivot and holds the jaw open. A pin on the upper ear stops the
-  thumb jaw at **28°**, which gives a **61 mm gape** at the tips (M hand). Your
-  thumb travels 23 mm. The closed stop is the two TPU tip pads meeting. The
-  blades are relieved 1 mm behind the pads, so only the pads touch.
-- **Same topology as the SO-101 gripper:** one fixed jaw plus one jaw on a single
-  pivot. The tip radius is different (126 mm here vs ~84 mm on the arm), so
-  record **gape** rather than angle. Seeing both pads in the camera, as UMI does,
-  gives you gape directly.
-- **Camera:** there's a wedge on the back of the hand, tilted so it aims at the
-  tips. It has a captive 1/4"-20 nut for a standard camera screw and two M3 holes
-  24 mm apart.
+- **The pivots are under the bar**, 20 mm apart, axis across the hand. The jaws
+  open and close front-to-back, the same as a pinch.
+- **A gear sector on each link** (module 1.25, straight flanks) meshes with the
+  other link's, so the two jaws always mirror each other, like a parallel robot
+  gripper. You can't open one jaw without the other.
+- **Stop tabs** above the pivots meet at **22° per jaw**, which gives a
+  **96 mm gape** at the tips. The closed stop is the tips touching.
+- **The camera looks from the thumb side**, so it sees both tips in profile.
+  You read the gape off the image, and the hub's fiducial gives the pose.
 
-| part | file | print |
-|---|---|---|
-| finger sleeve + upper jaw + camera wedge | `export/upper.stl` | PETG, stand it on its open rear face, supports outside only |
-| thumb cup + lower jaw | `export/lower.stl` | PETG, stand it on the cup's open rear, supports under the ear |
-| tip pads ×2 | `export/pads.stl` | TPU 95A, glue into the pockets |
-| hardware | | M4×20 bolt + nyloc (or an M4 shoulder bolt), one #32 rubber band, 1/4"-20 nut |
-
-## Hand size
-
-Measure your own hand. The numbers you need are at the top of
-`hand_gripper.scad`: finger diameters across the middle knuckle, finger lengths
-from the knuckle line, thumb diameter, and where your thumb tip lands under your
-fingers (`thumb_x`). `S`/`L` just scale `M` by 0.9/1.1. Every finger and thumb
-diameter gets `clear` (1.6 mm) added.
+```bash
+./build.sh                                        # STLs + parts.json + PNGs + checks
+openscad hand_gripper.scad                        # assembled, 40 mm gape
+openscad -D 'part="exploded"' hand_gripper.scad   # the pieces pulled apart
+openscad -D 'part="in_hand"' hand_gripper.scad    # with a ghost hand
+openscad -D 'hand="L"' hand_gripper.scad          # S / M / L
+openscad -D 'handed="left"' hand_gripper.scad     # mirrored
+```
 
 ## Checks `build.sh` runs
 
-- **Interference.** The two arms are intersected at 0.1–27° for S, M and L, and
-  the result must be empty.
-- **The open stop catches.** One degree past the stop (29°), the arms must
-  collide.
+- **Jaws vs jaws and jaws vs hub.** The intersection must be empty at 0–21.5°
+  for S, M and L. Gears are excluded from this check.
+- **The stop catches.** At 23° the tabs must collide.
+- **The gears mesh.** The full links, teeth included, must clear each other at
+  0–21.5°. Turning one jaw 3° past the other must jam them, which proves the
+  teeth are engaged and the backlash is under 3°.
 
-## Not verified yet — it hasn't been printed
+## Not verified yet — nothing has been printed
 
-- **Fit.** The default hand is generic. The worst risk is the thumb's path from
-  the cup back to the palm, near the pivot ear. Print `lower.stl` first at 30%
-  infill and try it on.
-- **Fingers are modelled straight.** A slight curl might be more comfortable
-  over a long session. A `finger_curl` parameter is the obvious next knob.
-- **The camera is a placeholder.** The 1/4"-20 nut suits a GoPro-style or USB
-  camera on a mini ball head. Measure the actual camera and reposition `cam_x`
-  until both pads are in frame.
-- **Band preload is a guess.** Try a #32 band first and double it if the jaw
-  doesn't spring open briskly.
+- **Fit.** The hand numbers are generic M. The loops ride 22 mm either side of
+  the pivot midline, and the pivots are about 25 mm above your knuckles. That
+  offset means your fingers slide a little in the loop as the jaws swing.
+- **The gear teeth are straight-sided**, not involute. That's fine for a hand
+  tool, but expect a little backlash and some roughness.
+- **No sensors.** A jaw-angle encoder (an AS5600 magnet on a pivot) and an IMU
+  in the bar are the obvious next pieces.

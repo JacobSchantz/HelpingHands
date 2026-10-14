@@ -29,6 +29,17 @@ struct CADModel: Identifiable, Hashable {
     }
 }
 
+/// One printed piece of an assembly design. Its mesh is exported in the
+/// assembled position, so drawing every piece at the origin rebuilds the
+/// whole thing; `explode` (mm, CAD Z-up) is where it moves when pulled apart.
+struct CADPart: Identifiable, Hashable {
+    var model: CADModel
+    var name: String
+    var color: SIMD3<Float>
+    var explode: SIMD3<Float>
+    var id: String { model.id }
+}
+
 /// One design an agent dropped into `cad/`: its meshes, the renders that came
 /// with it, and when it last changed — the app opens on the newest one.
 struct CADDesign: Identifiable, Hashable {
@@ -41,6 +52,9 @@ struct CADDesign: Identifiable, Hashable {
     /// The model shown first: a closed assembly when there is one.
     var primary: CADModel?
     var images: [URL]
+    /// Non-empty when the export folder has a parts.json: then the viewer
+    /// shows every piece in one scene instead of one file at a time.
+    var parts: [CADPart] = []
 
     /// "Hand gripper" out of "Hand gripper — a handheld gripper you wear".
     var title: String { String(name.split(separator: "—", maxSplits: 1).first ?? Substring(name)).trimmingCharacters(in: .whitespaces) }
@@ -162,6 +176,14 @@ final class CADModelCatalog: ObservableObject {
             guard let id = entry["id"] as? String,
                   let name = entry["name"] as? String else { return nil }
             let members = (entry["models"] as? [String] ?? []).compactMap { byID[$0] }
+            let parts = (entry["parts"] as? [[String: Any]] ?? []).compactMap { part -> CADPart? in
+                guard let model = (part["model"] as? String).flatMap({ byID[$0] }) else { return nil }
+                let offset = (part["explode"] as? [Double] ?? []).map(Float.init) + [0, 0, 0]
+                return CADPart(model: model,
+                               name: part["name"] as? String ?? model.name,
+                               color: Self.rgb(part["color"] as? String),
+                               explode: SIMD3(offset[0], offset[1], offset[2]))
+            }
             return CADDesign(
                 id: id,
                 name: name,
@@ -169,9 +191,17 @@ final class CADModelCatalog: ObservableObject {
                 updated: Date(timeIntervalSince1970: entry["updated"] as? TimeInterval ?? 0),
                 models: members,
                 primary: (entry["primary"] as? String).flatMap { byID[$0] } ?? members.first,
-                images: (entry["images"] as? [String] ?? []).map { root.appendingPathComponent($0) })
+                images: (entry["images"] as? [String] ?? []).map { root.appendingPathComponent($0) },
+                parts: parts)
         }
         return (designs, models)
+    }
+
+    /// "#rrggbb" -> 0...1 components; the viewer's default grey otherwise.
+    private static func rgb(_ hex: String?) -> SIMD3<Float> {
+        guard let hex, hex.hasPrefix("#"), hex.count == 7,
+              let value = UInt32(hex.dropFirst(), radix: 16) else { return SIMD3(0.62, 0.68, 0.74) }
+        return SIMD3(Float((value >> 16) & 0xFF), Float((value >> 8) & 0xFF), Float(value & 0xFF)) / 255
     }
 
     private static func loadImported() -> [CADModel] {

@@ -1,0 +1,74 @@
+{
+ "parts": [
+  {
+   "file": "spine.stl",
+   "name": "Spine + strap pad",
+   "color": "#2b2f36",
+   "explode": [
+    0.0,
+    0.0,
+    55.0
+   ]
+  },
+  {
+   "file": "camera.stl",
+   "name": "Camera clip",
+   "color": "#5d6670",
+   "explode": [
+    25.0,
+    45.0,
+    55.0
+   ]
+  },
+  {
+   "file": "hub.stl",
+   "name": "Hub (pivots + fiducial)",
+   "color": "#1d2024",
+   "explode": [
+    0.0,
+    0.0,
+    20.0
+   ]
+  },
+  {
+   "file": "link_front.stl",
+   "name": "Finger link",
+   "color": "#3a4048",
+   "explode": [
+    40.0,
+    0.0,
+    -5.0
+   ]
+  },
+  {
+   "file": "link_thumb.stl",
+   "name": "Thumb link",
+   "color": "#3a4048",
+   "explode": [
+    -40.0,
+    0.0,
+    -5.0
+   ]
+  },
+  {
+   "file": "tip_front.stl",
+   "name": "Finger tip (TPU)",
+   "color": "#f2b705",
+   "explode": [
+    60.0,
+    0.0,
+    -35.0
+   ]
+  },
+  {
+   "file": "tip_thumb.stl",
+   "name": "Thumb tip (TPU)",
+   "color": "#f2b705",
+   "explode": [
+    -60.0,
+    0.0,
+    -35.0
+   ]
+  }
+ ]
+}

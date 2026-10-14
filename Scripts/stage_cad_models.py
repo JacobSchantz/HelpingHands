@@ -120,6 +120,30 @@ def primary(meshes):
     return max(meshes, key=rank)["id"] if meshes else None
 
 
+def assembly_parts(export_dirs, key, renderable):
+    """A design whose export folder has a parts.json is an assembly: every
+    listed STL is one piece, exported in its assembled position, and the app
+    draws them all in one viewport with an explode toggle. Each entry is
+    {"file", "name", "color" ("#rrggbb"), "explode" ([x, y, z] mm, CAD Z-up)}."""
+    staged = {m["id"] for m in renderable}
+    for directory in export_dirs:
+        try:
+            with open(os.path.join(directory, "parts.json"), encoding="utf-8") as handle:
+                listed = json.load(handle).get("parts", [])
+        except (OSError, ValueError):
+            continue
+        parts = []
+        for entry in listed:
+            model = "%s/%s" % (key, entry.get("file", ""))
+            if model in staged:
+                parts.append({"model": model,
+                              "name": entry.get("name") or entry["file"],
+                              "color": entry.get("color", "#9eadbd"),
+                              "explode": entry.get("explode", [0, 0, 0])})
+        return parts
+    return []
+
+
 def step_header(path):
     """Pull the readable fields out of a STEP file's HEADER section."""
     try:
@@ -205,6 +229,7 @@ def main():
                 images.append("%s/images/%s" % (key, entry))
 
         renderable = [m for m in design_models if "path" in m]
+        parts = assembly_parts(export_dirs, key, renderable)
         designs.append({
             "id": key,
             "name": name,
@@ -214,6 +239,7 @@ def main():
             "primary": primary(renderable) or (design_models[0]["id"] if design_models else None),
             "models": [m["id"] for m in design_models],
             "images": images,
+            "parts": parts,
         })
         models.extend(design_models)
 
