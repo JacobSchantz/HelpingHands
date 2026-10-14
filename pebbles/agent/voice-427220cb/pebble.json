@@ -19,5 +19,7 @@
     "harness": "codex",
     "model": "gpt-6-astra",
     "effort": ""
-  }
+  },
+  "summary": "Merge the Generalist-style hand gripper and the crow beak gripper into one 3D project with four printable jaw pieces, left and right of each, plus shared hub, camera mount, and SO-101 adapter. Keep outside finger and thumb grips, thumb indent, and strap loops, with one camera view and one arm mount, simple supportless prints, and assembled, exploded, and in-hand renders without claiming it grips well until tested.",
+  "summary_sha": "427220cb6139db16"
 }
