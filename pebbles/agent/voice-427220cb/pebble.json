@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-14T04:28:57.000Z",
-  "updated_at": "2026-10-14T05:14:15Z",
+  "updated_at": "2026-10-14T12:51:08Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -21,5 +21,10 @@
     "effort": ""
   },
   "summary": "Merge the Generalist-style hand gripper and the crow beak gripper into one 3D project with four printable jaw pieces, left and right of each, plus shared hub, camera mount, and SO-101 adapter. Keep outside finger and thumb grips, thumb indent, and strap loops, with one camera view and one arm mount, simple supportless prints, and assembled, exploded, and in-hand renders without claiming it grips well until tested.",
-  "summary_sha": "427220cb6139db16"
+  "summary_sha": "427220cb6139db16",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-427220cb",
+  "agent_id": "vigil:jarvis:codex:tmux:pebbles-HelpingHands-f7b9e72b:voice-427220cb",
+  "claimed_at": "2026-10-14T12:51:08.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
