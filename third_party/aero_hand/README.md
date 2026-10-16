@@ -52,3 +52,6 @@ TP1), pad 12 3V3, pad 13 GND. The XIAO 5V pad is unconnected and servo V+ comes 
 - Round 2 (after Jake reflowed pad 2 and plugged in the 6 V supply): all pin tests HIGH, so
   **pad 2 is fixed**. The servo answered at 1 Mbps: id=1, fw 3.43, model 2570, 6.3 V, 28 °C,
   pos 3114. That proves RX, TX, GND, 3V3 and the 6 V path. Official v0.2.0 restored.
+- Servo IDs set 2026-10-16 with `setid_check.py PORT <id> 1023`, one servo at a time. All seven came
+  from the factory as ID 1. Now 0 thumb_abduction, 1 thumb_flex, 2 thumb_tendon, 3 index, 4 middle,
+  5 ring, 6 pinky, each with current limit 1023 (the docs' recommendation). Jake's labels match the IDs.
