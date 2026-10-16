@@ -1,0 +1,19 @@
+{
+  "id": "voice-feeaa556",
+  "commit_id": "",
+  "description": "Research + record: Aero Hand on the reBot Arm B601. Context to save in plans/: we own the open-source Aero Hand from Chestnut Robotics (formerly Tether AI / TetherIA; docs https://docs.tetheria.ai/docs/GUI). Jake wants to mount it on the Seeed reBot Arm B601-DM (https://www.seeedstudio.com/reBot-Arm-B601-DM-Body-Motor-Kit-p-6752.html; 6+1 DoF, Damiao motors, ~US$1,899 assembled, rated around 2.5 kg payload, to be confirmed). Answer, with sources: (1) Would it work: mechanical mount and flange, wiring, power, control/SDK integration (ROS2/LeRobot), and how the hand's mass cuts into the arm's payload. (2) Usable payload at the hand: arm-rated payload minus hand mass, at what reach, and the hand's own grip force and finger payload limits. (3) What tasks it would do well and badly, focused on automated kitchen food prep (picking produce, holding a knife, stirring, pouring, opening containers, plating), plus what would need a second arm or a different end effector. (4) Which open models (MolmoAct2, pi0/GR00T, etc.) support a dexterous hand on this arm, and how much data would be needed. Write plans/aero_hand_on_b601.md and give Jake a short spoken-style verdict.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-16T16:57:36.000Z",
+  "updated_at": "2026-10-16T16:57:36.000Z",
+  "user_request": {
+    "name": "Add to Helping Hands: Chestnut Robotics, called Tether AI at the time, makes an open source Aero Hand, we have that. I'm interested in attaching it to the reBot arm B601. How would that work, would it work well, what payload could it carry attached to that arm, and what tasks would it do? I'm specifically interested in automated kitchen food prep."
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
