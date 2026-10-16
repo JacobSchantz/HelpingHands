@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-16T14:42:33.000Z",
-  "updated_at": "2026-10-16T14:42:33.000Z",
+  "updated_at": "2026-10-16T14:44:57Z",
   "user_request": {
     "name": "Is there such a thing as Artificial Analysis for robot models? There's a lot of robot models out there and I can't find what I'm looking for. I want to be able to try different ones on rented GPUs and run them with our hand or our SO-101 arms."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "No \"Artificial Analysis for robot models\" exists, so we need a living plans/ table comparing open-weight manipulation models (license, size, VRAM, latency, SO-101/LeRobot checkpoints, published results) plus a harness to test them. The harness needs a common policy-server interface, a cheapest-GPU rental script, and a fixed task suite with scoring sheet for SO-101 arms and our hand, using the two eye-height stereo cameras.",
-  "summary_sha": "b797bcf2c4d46281"
+  "summary_sha": "b797bcf2c4d46281",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-b797bcf2",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-b797bcf2",
+  "claimed_at": "2026-10-16T14:44:57.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
