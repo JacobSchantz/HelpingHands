@@ -1,0 +1,6 @@
+.venv/
+venv/
+.pio/
+__pycache__/
+*.pyc
+backup/
