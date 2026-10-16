@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The bulky OpenSCAD demo gripper (cad/openscad/demo_gripper) needs slimming into fewer, smaller parts with its interchangeable-jaw interface kept, and its camera bracket removed. Vision should come only from two head-mounted stereo cameras, with room left for four fingertip sensors (likely touch, to confirm with Jake), and plans/hand_1_0.md should record the mirror-a-human principle with before/after renders.",
+  "summary_sha": "a9595f6b01579ccb"
 }
