@@ -1,0 +1,19 @@
+{
+  "id": "voice-a9595f6b",
+  "commit_id": "",
+  "description": "Simplify the demo gripper (cad/openscad/demo_gripper) and align the hardware with the 'mirror a human' principle. (1) The current design looks bulky. Slim it down and simplify it: fewer, smaller parts, less material, with the same interchangeable-jaw interface. Stay in OpenSCAD (Jake prefers it: open source). (2) Remove the camera attachment/bracket from the gripper. (3) Vision: the only cameras are two binocular (stereo) cameras mounted roughly where a human's eyes are. No wrist or gripper cameras. (4) Any sensing on the gripper itself would be 'four sensors' (Jake's words; likely force sensors in the fingertips, i.e. touch, which fits the human analogy; confirm with Jake and leave room for them without designing them in yet). Record the principle in the plans (update plans/hand_1_0.md and any camera assumptions elsewhere): mirror how a human perceives and uses things. Render before/after views for Jake.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-16T14:21:05.000Z",
+  "updated_at": "2026-10-16T14:21:05.000Z",
+  "user_request": {
+    "name": "I definitely prefer OpenSCAD since it's open source. I don't know if I like the current design, it looks a little bulky. Could we simplify it? We don't need to worry about the camera attachment. The only cameras would be two binocular cameras near where humans' eyes are. I don't think we want extra cameras. If we need sensors on the device themselves, there'll be four sensors. We really want to mirror how a human would use things."
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
