@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-16T14:52:00.000Z",
-  "updated_at": "2026-10-16T14:52:00.000Z",
+  "updated_at": "2026-10-16T14:57:26Z",
   "user_request": {
     "name": "The AI is leading the research, with some of my input, and it can get whatever it needs: me or other humans running tons of demonstrations, or controlling the arm itself. The key is that it's verifiable that it's improving. It's just a plan for now. The fundamental thing is I don't care how it happens, but we need to end up with a model where we can set a task in front of it and it will just work on the task and get it done."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Jake wants a plan document, plans/agent_led_research.md, for an LLM-agent-led research loop on SO-101 arms starting from MolmoAct2, covering fixtures, data requests, compute, safety, and cameras. The scoreboard comes first: a held-out task suite with fixed resets, camera-judged pass/fail, and enough trials to separate real gains from noise, plus a narrow first milestone proving the loop climbs.",
-  "summary_sha": "8e72ea27e1e1b6a0"
+  "summary_sha": "8e72ea27e1e1b6a0",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-8e72ea27",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-8e72ea27",
+  "claimed_at": "2026-10-16T14:57:26.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
