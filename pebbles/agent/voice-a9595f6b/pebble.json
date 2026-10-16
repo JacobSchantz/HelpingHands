@@ -57,8 +57,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The bulky OpenSCAD demo gripper (cad/openscad/demo_gripper) needs slimming into fewer, smaller parts with its interchangeable-jaw interface kept, and its camera bracket removed. Vision should come only from two head-mounted stereo cameras, with room left for four fingertip sensors (likely touch, to confirm with Jake), and plans/hand_1_0.md should record the mirror-a-human principle with before/after renders.",
-  "summary_sha": "a9595f6b01579ccb",
+  "summary": "The demo gripper should look much more like Generalist Robotics' gripper, use TPU where it helps (compliant fingertips or flexures), and mark each part as TPU or PLA/PETG. Each design iteration must be a new labeled file (gen_00 is the current design, then gen_01_<label>.scad and so on), and the phone app's 3D view must show every generation side by side, labeled, with explode/assemble working on each.",
+  "summary_sha": "8062f6f2237e6fc8",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-16T14:27:11Z",
