@@ -81,7 +81,7 @@ static void scan() {
     Serial.println();
     if (r >= 0 && foundId < 0) { foundId = id; foundBaud = baud; }
   }
-  if (foundId < 0) {
+  {  // always list every ID on the bus
     Serial2.begin(1000000, SERIAL_8N1, PIN_RX, PIN_TX); delay(5);
     int hits = 0;
     for (int i = 0; i <= 253; i++) {
