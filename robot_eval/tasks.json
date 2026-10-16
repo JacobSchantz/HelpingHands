@@ -1,0 +1,48 @@
+{
+  "about": "Fixed mini-suite. Never edit a task's wording or rubric once scores exist; add a new id instead. Five trials per task, trial N uses mat spot N (A-E). One point per rubric line reached in order; success = all points.",
+  "mat": "A3 sheet taped to the table in front of the arm base, five spots A-E marked 10 cm apart on an arc 20 cm from the base. Head cameras fixed at eye height behind the arm, both seeing the whole mat. Room lights on, no sunlight on the mat.",
+  "tasks": [
+    {
+      "id": "touch_block",
+      "instruction": "Touch the red block.",
+      "setup": "One 3 cm red cube on the trial's spot.",
+      "seconds": 30,
+      "rubric": ["Arm moves toward the block", "Gripper touches the block", "Block stays on the mat"]
+    },
+    {
+      "id": "pick_block",
+      "instruction": "Pick up the red block.",
+      "setup": "One 3 cm red cube on the trial's spot.",
+      "seconds": 45,
+      "rubric": ["Gripper reaches the block", "Gripper closes on the block", "Block lifted 5 cm and held 3 s"]
+    },
+    {
+      "id": "block_in_bowl",
+      "instruction": "Put the red block in the bowl.",
+      "setup": "Red cube on the trial's spot, 15 cm bowl on the next spot clockwise (E wraps to A).",
+      "seconds": 60,
+      "rubric": ["Block grasped", "Block carried over the bowl", "Block released inside the bowl"]
+    },
+    {
+      "id": "choose_color",
+      "instruction": "Put the blue block in the bowl.",
+      "setup": "Red cube on the trial's spot, blue cube on the previous spot, bowl on the next spot clockwise.",
+      "seconds": 60,
+      "rubric": ["Goes for the blue block, not the red", "Blue block grasped", "Blue block in the bowl, red untouched"]
+    },
+    {
+      "id": "slide_paper",
+      "instruction": "Slide the sheet of paper to the left.",
+      "setup": "One A6 card (postcard) centred on the trial's spot, long edge facing the arm.",
+      "seconds": 45,
+      "rubric": ["Gripper contacts the card", "Card moves left 5 cm", "Card stays flat (not crumpled or flipped)"]
+    },
+    {
+      "id": "pick_paper",
+      "instruction": "Pick up the sheet of paper.",
+      "setup": "One A6 card flat on the trial's spot; the Hand 1.0 target task.",
+      "seconds": 60,
+      "rubric": ["Gripper reaches the card", "Card edge lifted off the mat", "Card held in the air 3 s"]
+    }
+  ]
+}

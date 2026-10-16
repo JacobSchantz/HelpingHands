@@ -1,0 +1,32 @@
+{
+  "about": "One row per model the harness can serve. Comparison and sources: plans/robot_model_scouting.md. Feature keys and pip lines marked unverified in that plan are checked on first launch: the server refuses to start if a policy image feature has no camera here. To try our own fine-tune, copy a row and point repo at it.",
+  "models": {
+    "mock": {"adapter": "mock", "chunk": 10, "min_vram_gb": 0},
+    "molmoact2_so101": {
+      "adapter": "lerobot", "policy_type": "molmoact2",
+      "repo": "lerobot/MolmoAct2-SO100_101-LeRobot",
+      "camera_map": {"observation.images.cam0": "left", "observation.images.cam1": "right"},
+      "pip": "'lerobot[molmoact2] @ git+https://github.com/huggingface/lerobot.git'",
+      "min_vram_gb": 16, "units": "degrees"
+    },
+    "flux3_so101": {
+      "adapter": "lerobot", "policy_type": "flux3",
+      "repo": "black-forest-labs/flux-3-action-so101",
+      "camera_map": {"observation.images.scene": "left", "observation.images.wrist": "right"},
+      "pip": "'lerobot[flux3] @ git+https://github.com/huggingface/lerobot.git'",
+      "min_vram_gb": 32, "disk_gb": 100
+    },
+    "smolvla_base": {
+      "adapter": "lerobot", "policy_type": "smolvla", "repo": "lerobot/smolvla_base",
+      "camera_map": {"observation.images.camera1": "left", "observation.images.camera2": "right",
+                     "observation.images.camera3": "blank"},
+      "pip": "'lerobot[smolvla]'", "min_vram_gb": 8
+    },
+    "pi05_base": {
+      "adapter": "lerobot", "policy_type": "pi05", "repo": "lerobot/pi05_base",
+      "camera_map": {"observation.images.base_0_rgb": "left", "observation.images.left_wrist_0_rgb": "right",
+                     "observation.images.right_wrist_0_rgb": "blank"},
+      "pip": "'lerobot[pi]'", "min_vram_gb": 16
+    }
+  }
+}

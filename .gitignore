@@ -48,3 +48,6 @@ pebbles/.trash/
 cad/*/.venv/
 __pycache__/
 *.stl
+
+# robot_eval: rented pod id + bearer token (secret, per machine)
+robot_eval/.pod.json
