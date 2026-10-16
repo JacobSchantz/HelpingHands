@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants a plan document, plans/agent_led_research.md, for an LLM-agent-led research loop on SO-101 arms starting from MolmoAct2, covering fixtures, data requests, compute, safety, and cameras. The scoreboard comes first: a held-out task suite with fixed resets, camera-judged pass/fail, and enough trials to separate real gains from noise, plus a narrow first milestone proving the loop climbs.",
+  "summary_sha": "8e72ea27e1e1b6a0"
 }
