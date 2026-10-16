@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "No \"Artificial Analysis for robot models\" exists, so we need a living plans/ table comparing open-weight manipulation models (license, size, VRAM, latency, SO-101/LeRobot checkpoints, published results) plus a harness to test them. The harness needs a common policy-server interface, a cheapest-GPU rental script, and a fixed task suite with scoring sheet for SO-101 arms and our hand, using the two eye-height stereo cameras.",
+  "summary_sha": "b797bcf2c4d46281"
 }
