@@ -1,15 +1,26 @@
 {
-  "watertight_single_solid_meshes": 7,
-  "bed_oriented_jaws": 4,
-  "collision_and_positive_control_cases": 70,
-  "viewer_parts": 7,
+  "generations": [
+    "gen_00 \u00b7 slim two pairs",
+    "gen_01 \u00b7 fin-ray TPU fingers"
+  ],
+  "watertight_single_solid_meshes": 14,
+  "bed_oriented_prints": 8,
+  "collision_and_positive_control_cases": 106,
+  "viewer_parts": 14,
   "solid_volume_cm3": {
-    "a_left.stl": 10.29,
-    "a_right.stl": 11.9,
-    "b_left.stl": 10.48,
-    "b_right.stl": 12.51,
-    "hub.stl": 16.88,
-    "pivot_insert.stl": 4.07,
-    "so101_mount.stl": 29.58
+    "gen_00_a_left.stl": 10.29,
+    "gen_00_a_right.stl": 11.9,
+    "gen_00_b_left.stl": 10.48,
+    "gen_00_b_right.stl": 12.51,
+    "gen_00_hub.stl": 16.88,
+    "gen_00_pivot_insert.stl": 4.07,
+    "gen_00_so101_mount.stl": 29.58,
+    "gen_01_left_finger.stl": 3.93,
+    "gen_01_right_finger.stl": 4.95,
+    "gen_01_left_root.stl": 8.67,
+    "gen_01_right_root.stl": 10.0,
+    "gen_01_hub.stl": 16.88,
+    "gen_01_pivot_insert.stl": 4.07,
+    "gen_01_so101_mount.stl": 29.58
   }
 }

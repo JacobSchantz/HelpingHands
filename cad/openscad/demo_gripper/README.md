@@ -1,6 +1,38 @@
-# Demo gripper · two jaw pairs, one interface
+# Demo gripper · every generation, side by side
 
-One CAD project for voice-427220cb, slimmed in voice-a9595f6b: four
+Every design pass is a **new file**: `gen_NN_<label>.scad`. To iterate, copy
+the newest generation to the next number and change the copy; never edit an
+earlier one. An optional `// label: ...` line names it in the app. `export.py`
+exports every generation into `export/` (pieces prefixed `gen_NN_`), writes one
+`export/parts.json` grouped by generation, a `gen_NN_print_ready.zip` of
+bed-oriented prints each, renders `render/gen_NN_*.png`, and
+`render/generations.png` (all generations in hand, side by side). The app lines
+the generations up left to right, each labelled, with a chip per generation to
+frame it; Assemble/Explode moves every generation's pieces at once.
+
+| Gen | File | What | Materials |
+|---|---|---|---|
+| 00 | `gen_00_slim_two_pairs.scad` | The slim pass below: rigid jaws A (broad) and B (crow), one hub | all PLA |
+| 01 | `gen_01_finray_tpu.scad` | Generalist / UMI look: long fin-ray fingers that curve in to a point | fingers **TPU 95A**; roots, hub, cradle **PETG**; pivot insert PLA |
+
+### gen_01 · fin-ray TPU fingers
+
+Each jaw is two prints. A stiff **PETG root** keeps gen_00's link, gear
+sector, pivot and horn holes, a short block the digit presses on (same 22 x 3
+mm strap slot) and a 6 x 10 mm tongue on top. A **TPU 95A fin-ray finger**
+slides over the tongue and is held by one M3 bolt: 1.6 mm walls joined by five
+slanted 1.2 mm ribs, so an object pressed into the gripping face makes the
+finger wrap around it. The TPU is the compliant pad; no grip tape needed.
+Tips reach Z=108 (gen_00 A: 72). Print the fingers on their flat side
+(Y=-5), no supports, slow (~25 mm/s) with 3+ walls; print the roots in PETG
+the same way. The finger and root have 0.2 mm pocket clearance, untested.
+Swap fingers to change grip; gen_00's jaws still fit the same hub. Sensor
+seats (`sensor_pockets=true`): one in each finger's solid tip and one low on
+each root face, four total, off by default. Not printed or hand-tested.
+
+## gen_00 · slim two pairs
+
+gen_00 is the voice-427220cb design, slimmed in voice-a9595f6b: four
 interchangeable printed jaws, one shared hub, a handheld pivot insert, and the
 SO-101 servo cradle. Seven pieces. There is **no camera on the gripper**: the
 robot sees the way a person does, through two stereo cameras at eye height
@@ -22,8 +54,7 @@ two 12 x 8 x 1.2 mm seats per gripping face (four total) and a lead channel.
 It is off by default and nothing is exported with it; the sensor type (most
 likely force / touch) is unconfirmed.
 
-The app discovers `export/parts.json` automatically and shows all seven pieces
-in its existing Assemble/Explode viewer. A is on the hub; B is parked to the
+In the app gen_00 shows its seven pieces. A is on the hub; B is parked to the
 right as the alternate pair; the arm cradle is parked behind. It is a parts kit,
 not two complete grippers. The prior two designs remain available as history.
 `part="pair"`, `variant="B"` in OpenSCAD shows B on the SAME hub.
@@ -32,7 +63,7 @@ its own STL. `render/` includes both hand poses and B on the arm.
 
 ## Print and assemble
 
-Use `jaws_print_ready.zip` for the four jaw STLs already laid on their flat
+Use `gen_00_print_ready.zip` for the four jaw STLs already laid on their flat
 Y=-5 side, at Z=0. The files in `export/` are positioned for the app assembly;
 do not print them all together. Jaw roots, gear sectors and through strap
 slots grow vertically in the print orientation; no designed supports or
@@ -97,12 +128,13 @@ positioning sketches only.
 
 ## Reproduce the CAD checks
 
-`python3 cad/openscad/demo_gripper/export.py` generates CAD assets only.
+`python3 cad/openscad/demo_gripper/export.py` generates CAD assets for every generation only.
 It never invokes an app build, install or deploy. OpenSCAD defaults to the
 macOS app executable; override `OPENSCAD` for another installation.
 `python3 cad/openscad/demo_gripper/validate.py` requires NumPy and checks
 watertight, consistently wound, single-solid meshes; flat jaw bed contact;
 both pairs' motion clearance; tooth engagement and stops as positive controls;
-fixed-part and insert clearance; and the existing app manifest's seven distinct parts.
+fixed-part and insert clearance (and, in gen_01, finger-on-root overlap) for
+every generation; and that the app stager reads every piece and generation.
 The underlying shared modules live in `../hand_gripper/hand_gripper.scad`.
 Changes to those modules require rerunning these checks and exports.

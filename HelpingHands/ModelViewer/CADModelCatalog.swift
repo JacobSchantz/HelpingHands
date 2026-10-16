@@ -37,6 +37,10 @@ struct CADPart: Identifiable, Hashable {
     var name: String
     var color: SIMD3<Float>
     var explode: SIMD3<Float>
+    /// "TPU 95A", "PETG"… empty when the design doesn't say.
+    var material: String = ""
+    /// Index into `CADDesign.groups`: which generation this piece belongs to.
+    var group: Int = 0
     var id: String { model.id }
 }
 
@@ -55,6 +59,9 @@ struct CADDesign: Identifiable, Hashable {
     /// Non-empty when the export folder has a parts.json: then the viewer
     /// shows every piece in one scene instead of one file at a time.
     var parts: [CADPart] = []
+    /// One label per generation when parts.json lists several iterations of
+    /// the design; the viewer lines them up side by side.
+    var groups: [String] = []
 
     /// "Hand gripper" out of "Hand gripper — a handheld gripper you wear".
     var title: String { String(name.split(separator: "—", maxSplits: 1).first ?? Substring(name)).trimmingCharacters(in: .whitespaces) }
@@ -182,7 +189,9 @@ final class CADModelCatalog: ObservableObject {
                 return CADPart(model: model,
                                name: part["name"] as? String ?? model.name,
                                color: Self.rgb(part["color"] as? String),
-                               explode: SIMD3(offset[0], offset[1], offset[2]))
+                               explode: SIMD3(offset[0], offset[1], offset[2]),
+                               material: part["material"] as? String ?? "",
+                               group: part["group"] as? Int ?? 0)
             }
             return CADDesign(
                 id: id,
@@ -192,7 +201,8 @@ final class CADModelCatalog: ObservableObject {
                 models: members,
                 primary: (entry["primary"] as? String).flatMap { byID[$0] } ?? members.first,
                 images: (entry["images"] as? [String] ?? []).map { root.appendingPathComponent($0) },
-                parts: parts)
+                parts: parts,
+                groups: entry["groups"] as? [String] ?? [])
         }
         return (designs, models)
     }

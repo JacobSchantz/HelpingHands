@@ -32,9 +32,13 @@ design choice comes up, the default answer is "what does a human have?"
 - **Hands: simple, slim fingers** that a person can wear or hold and that a
   servo can drive, not bulky instrumented tools.
 
-Current CAD: `cad/openscad/demo_gripper` (slimmed, camera removed); before /
-after in `plans/demo_gripper_before_after.png`. Older sections of this plan
-that put a camera on the gripper are superseded by this principle.
+Current CAD: `cad/openscad/demo_gripper`, kept as numbered generations
+(`gen_NN_<label>.scad`, each a copy of the last, never overwritten; the app
+shows them side by side). gen_00 is the slimmed rigid design (before / after in
+`plans/demo_gripper_before_after.png`); gen_01 has Generalist / UMI-style TPU
+fin-ray fingers on PETG roots. A soft fingertip that wraps the object is the
+human analogy for the jaw too. Older sections of this plan that put a camera
+on the gripper are superseded by this principle.
 
 ## Why the two modes matter (the identity thesis at 1.0)
 

@@ -124,7 +124,9 @@ def assembly_parts(export_dirs, key, renderable):
     """A design whose export folder has a parts.json is an assembly: every
     listed STL is one piece, exported in its assembled position, and the app
     draws them all in one viewport with an explode toggle. Each entry is
-    {"file", "name", "color" ("#rrggbb"), "explode" ([x, y, z] mm, CAD Z-up)}."""
+    {"file", "name", "color" ("#rrggbb"), "explode" ([x, y, z] mm, CAD Z-up)},
+    optionally "material" and "group" (an index into "generations", see
+    assembly_groups)."""
     staged = {m["id"] for m in renderable}
     for directory in export_dirs:
         try:
@@ -139,8 +141,23 @@ def assembly_parts(export_dirs, key, renderable):
                 parts.append({"model": model,
                               "name": entry.get("name") or entry["file"],
                               "color": entry.get("color", "#9eadbd"),
-                              "explode": entry.get("explode", [0, 0, 0])})
+                              "explode": entry.get("explode", [0, 0, 0]),
+                              "material": entry.get("material", ""),
+                              "group": entry.get("group", 0)})
         return parts
+    return []
+
+
+def assembly_groups(export_dirs):
+    """parts.json may list "generations": [{"label", ...}], one per iteration
+    of the design. The app lines them up side by side, each labelled."""
+    for directory in export_dirs:
+        try:
+            with open(os.path.join(directory, "parts.json"), encoding="utf-8") as handle:
+                return [g.get("label") or g.get("id", "")
+                        for g in json.load(handle).get("generations", [])]
+        except (OSError, ValueError):
+            continue
     return []
 
 
@@ -240,6 +257,7 @@ def main():
             "models": [m["id"] for m in design_models],
             "images": images,
             "parts": parts,
+            "groups": assembly_groups(export_dirs),
         })
         models.extend(design_models)
 

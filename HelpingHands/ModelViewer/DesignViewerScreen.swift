@@ -147,6 +147,8 @@ private struct DesignPage: View {
     @State private var cameraGeneration = 0
     @State private var zoomed: Zoom?
     @State private var exploded = true
+    /// The generation the camera is framing; nil frames them all.
+    @State private var focus: Int?
 
     private struct Zoom: Identifiable {
         let url: URL
@@ -216,6 +218,9 @@ private struct DesignPage: View {
                       options: [.allowsCameraControl, .autoenablesDefaultLighting],
                       antialiasingMode: .multisampling2X)
                 .id(cameraGeneration)
+                .overlay(alignment: .top) {
+                    if design.groups.count > 1 { generationBar(assembly) }
+                }
                 .overlay(alignment: .bottom) {
                     HStack {
                         Button {
@@ -232,7 +237,7 @@ private struct DesignPage: View {
                         .buttonStyle(.plain)
                         Spacer()
                         Button {
-                            assembly.resetCamera()
+                            assembly.resetCamera(group: focus)
                             cameraGeneration += 1
                         } label: {
                             Image(systemName: "scope")
@@ -260,6 +265,38 @@ private struct DesignPage: View {
                 }
             }
         }
+    }
+
+    /// One chip per generation, oldest first, plus "All": tap one and the
+    /// camera frames that generation. Explode keeps working on all of them.
+    private func generationBar(_ assembly: AssemblyScene) -> some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                chip("All", selected: focus == nil) { frame(nil, assembly) }
+                ForEach(Array(design.groups.enumerated()), id: \.offset) { g, label in
+                    chip(label, selected: focus == g) { frame(g, assembly) }
+                }
+            }
+            .padding(12)
+        }
+    }
+
+    private func chip(_ text: String, selected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(text)
+                .font(.footnote.weight(.semibold))
+                .padding(.horizontal, 12)
+                .padding(.vertical, 7)
+                .background(selected ? AnyShapeStyle(Color.accentColor.opacity(0.85))
+                                     : AnyShapeStyle(.ultraThinMaterial), in: Capsule())
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func frame(_ group: Int?, _ assembly: AssemblyScene) {
+        focus = group
+        assembly.resetCamera(group: group)
+        cameraGeneration += 1
     }
 
     private var details: some View {
@@ -311,10 +348,18 @@ private struct DesignPage: View {
     /// One row per printed piece, in its viewport colour; tap for that STL alone.
     private var partsLegend: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("\(design.parts.count) pieces — each prints on its own")
+            Text(design.groups.count > 1
+                 ? "\(design.groups.count) generations, \(design.parts.count) pieces — each prints on its own"
+                 : "\(design.parts.count) pieces — each prints on its own")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             ForEach(design.parts) { part in
+                if design.groups.count > 1, design.parts.first(where: { $0.group == part.group })?.id == part.id,
+                   design.groups.indices.contains(part.group) {
+                    Text(design.groups[part.group])
+                        .font(.footnote.weight(.semibold))
+                        .padding(.top, 6)
+                }
                 NavigationLink(value: part.model) {
                     HStack(spacing: 10) {
                         Circle()
@@ -324,6 +369,11 @@ private struct DesignPage: View {
                         Text(part.name)
                             .font(.subheadline)
                         Spacer()
+                        if !part.material.isEmpty, !part.name.contains(part.material) {
+                            Text(part.material)
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                         Text(part.model.formattedSize)
                             .font(.caption.monospaced())
                             .foregroundStyle(.secondary)
@@ -362,7 +412,7 @@ private struct DesignPage: View {
                     return
                 }
             }
-            state = .assembly(AssemblyScene(parts: meshes, exploded: exploded))
+            state = .assembly(AssemblyScene(parts: meshes, groups: design.groups, exploded: exploded))
             return
         }
         guard let current else {
@@ -377,31 +427,53 @@ private struct DesignPage: View {
 }
 
 /// Every piece of an assembly design in one SceneKit scene. The meshes are
-/// exported in their assembled positions, so a piece sits at the origin when
-/// assembled and at its `explode` offset when pulled apart. The scene and the
-/// camera are kept here, not rebuilt per SwiftUI update, so the explode
-/// animation and the user's orbit both survive re-renders.
+/// exported in their assembled positions, so a piece sits at its generation's
+/// slot when assembled and at its `explode` offset from there when pulled
+/// apart. A design with several generations lines them up left to right along
+/// X, oldest first, each with a floating label. The scene and the camera are
+/// kept here, not rebuilt per SwiftUI update, so the explode animation and the
+/// user's orbit both survive re-renders.
 final class AssemblyScene {
     let scene = SCNScene()
     private(set) var camera = SCNNode()
-    private var pieces: [(node: SCNNode, offset: SIMD3<Float>)] = []
+    private var pieces: [(node: SCNNode, base: SIMD3<Float>, offset: SIMD3<Float>)] = []
+    /// Per generation, its centre and radius in scene coordinates.
+    private var framings: [(center: SIMD3<Float>, radius: Float)] = []
     private let radius: Float
+    private static let gap: Float = 50
 
-    init(parts: [(CADPart, LoadedModel)], exploded: Bool) {
+    init(parts: [(CADPart, LoadedModel)], groups: [String], exploded: Bool) {
         scene.background.contents = PlatformColor(red: 0.05, green: 0.10, blue: 0.14, alpha: 1)
 
-        // Frame the union of every piece, assembled and pulled apart, so
-        // toggling never pushes anything out of shot.
-        var lo = SIMD3<Float>(repeating: .greatestFiniteMagnitude)
-        var hi = -lo
+        // Each generation's footprint, assembled and pulled apart, so toggling
+        // never pushes a piece into its neighbour or out of shot.
+        let count = max(groups.count, (parts.map(\.0.group).max() ?? 0) + 1)
+        var bounds = Array(repeating: (lo: SIMD3<Float>(repeating: .greatestFiniteMagnitude),
+                                       hi: SIMD3<Float>(repeating: -.greatestFiniteMagnitude)), count: count)
         for (part, mesh) in parts {
             for shift in [SIMD3<Float>.zero, part.explode] {
-                lo = simd_min(lo, mesh.center - mesh.sizeMillimeters / 2 + shift)
-                hi = simd_max(hi, mesh.center + mesh.sizeMillimeters / 2 + shift)
+                bounds[part.group].lo = simd_min(bounds[part.group].lo, mesh.center - mesh.sizeMillimeters / 2 + shift)
+                bounds[part.group].hi = simd_max(bounds[part.group].hi, mesh.center + mesh.sizeMillimeters / 2 + shift)
             }
+        }
+        var slots = [SIMD3<Float>](repeating: .zero, count: count)
+        var cursor: Float = 0
+        var lo = SIMD3<Float>(repeating: .greatestFiniteMagnitude)
+        var hi = -lo
+        for g in bounds.indices where bounds[g].lo.x <= bounds[g].hi.x {
+            slots[g] = SIMD3(cursor - bounds[g].lo.x, 0, 0)
+            cursor += bounds[g].hi.x - bounds[g].lo.x + Self.gap
+            lo = simd_min(lo, bounds[g].lo + slots[g])
+            hi = simd_max(hi, bounds[g].hi + slots[g])
         }
         let center = (lo + hi) / 2
         radius = max(simd_length(hi - lo) / 2, 0.001)
+        // CAD Z-up -> SceneKit Y-up, after the content is centred.
+        func toScene(_ p: SIMD3<Float>) -> SIMD3<Float> { let q = p - center; return SIMD3(q.x, q.z, -q.y) }
+        framings = bounds.indices.map { g in
+            let (a, b) = (bounds[g].lo + slots[g], bounds[g].hi + slots[g])
+            return (toScene((a + b) / 2), max(simd_length(b - a) / 2, 0.001))
+        }
 
         let content = SCNNode()
         content.simdPosition = -center
@@ -416,14 +488,22 @@ final class AssemblyScene {
             let node = mesh.node.clone()
             node.name = part.name
             Self.apply(material, to: node)
-            node.simdPosition = exploded ? part.explode : .zero
+            let base = slots[part.group]
+            node.simdPosition = base + (exploded ? part.explode : .zero)
             content.addChildNode(node)
-            pieces.append((node, part.explode))
+            pieces.append((node, base, part.explode))
+        }
+        if groups.count > 1 {
+            for (g, text) in groups.enumerated() where g < count {
+                let label = Self.label(text, height: max(radius * 0.06, 6))
+                let top = (bounds[g].lo + bounds[g].hi) / 2 + slots[g]
+                label.simdPosition = SIMD3(top.x, top.y, bounds[g].hi.z + radius * 0.08)
+                content.addChildNode(label)
+            }
         }
 
         let pivot = SCNNode()
         pivot.addChildNode(content)
-        // CAD exports are Z-up, SceneKit is Y-up.
         pivot.simdEulerAngles = SIMD3<Float>(-.pi / 2, 0, 0)
         scene.rootNode.addChildNode(pivot)
 
@@ -442,25 +522,54 @@ final class AssemblyScene {
         resetCamera()
     }
 
+    var groupCount: Int { framings.count }
+
     func setExploded(_ apart: Bool, animated: Bool) {
         SCNTransaction.begin()
         SCNTransaction.animationDuration = animated ? 0.6 : 0
-        for piece in pieces { piece.node.simdPosition = apart ? piece.offset : .zero }
+        for piece in pieces { piece.node.simdPosition = piece.base + (apart ? piece.offset : .zero) }
         SCNTransaction.commit()
     }
 
     /// A fresh camera node: `allowsCameraControl` moves the old one in place.
-    func resetCamera() {
+    /// `group` frames one generation; nil frames them all.
+    func resetCamera(group: Int? = nil) {
+        let framing = group.flatMap { framings.indices.contains($0) ? framings[$0] : nil }
+        let target = framing?.center ?? .zero
+        let reach = framing?.radius ?? radius
         let lens = SCNCamera()
         lens.fieldOfView = 45
-        let distance = radius / tan(Float(lens.fieldOfView / 2) * .pi / 180) * 1.3
-        lens.zNear = Double(max(radius * 0.01, 0.01))
-        lens.zFar = Double(distance * 10)
+        let distance = reach / tan(Float(lens.fieldOfView / 2) * .pi / 180) * 1.3
+        lens.zNear = Double(max(reach * 0.01, 0.01))
+        lens.zFar = Double(max(distance, radius * 3) * 10)
         let node = SCNNode()
         node.camera = lens
-        node.simdPosition = SIMD3<Float>(distance * 0.55, distance * 0.35, distance * 0.75)
-        node.simdLook(at: .zero, up: SIMD3<Float>(0, 1, 0), localFront: SIMD3<Float>(0, 0, -1))
+        // A lineup of generations reads best nearly head-on, oldest on the left.
+        let direction = group == nil && framings.count > 1 ? SIMD3<Float>(0.2, 0.4, 0.89)
+                                                             : SIMD3<Float>(0.55, 0.35, 0.75)
+        node.simdPosition = target + direction * distance
+        node.simdLook(at: target, up: SIMD3<Float>(0, 1, 0), localFront: SIMD3<Float>(0, 0, -1))
         camera = node
+    }
+
+    /// Flat text that always faces the camera, centred over its generation.
+    private static func label(_ text: String, height: Float) -> SCNNode {
+        let geometry = SCNText(string: text, extrusionDepth: 0)
+        geometry.font = .systemFont(ofSize: 10, weight: .semibold)
+        geometry.flatness = 0.2
+        let material = SCNMaterial()
+        material.lightingModel = .constant
+        material.diffuse.contents = PlatformColor.white
+        material.isDoubleSided = true
+        geometry.materials = [material]
+        let glyphs = SCNNode(geometry: geometry)
+        let (lo, hi) = glyphs.boundingBox
+        glyphs.pivot = SCNMatrix4MakeTranslation((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, 0)
+        glyphs.simdScale = SIMD3(repeating: height / max(Float(hi.y - lo.y), 0.001))
+        let holder = SCNNode()
+        holder.addChildNode(glyphs)
+        holder.constraints = [SCNBillboardConstraint()]
+        return holder
     }
 
     private static func apply(_ material: SCNMaterial, to node: SCNNode) {

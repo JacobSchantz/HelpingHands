@@ -1,74 +1,184 @@
 {
+  "generations": [
+    {
+      "id": "gen_00",
+      "label": "gen_00 \u00b7 slim two pairs",
+      "source": "gen_00_slim_two_pairs.scad"
+    },
+    {
+      "id": "gen_01",
+      "label": "gen_01 \u00b7 fin-ray TPU fingers",
+      "source": "gen_01_finray_tpu.scad"
+    }
+  ],
   "parts": [
     {
-      "file": "a_left.stl",
+      "file": "gen_00_a_left.stl",
       "name": "A \u00b7 left / thumb",
       "color": "#efb739",
       "explode": [
         -38,
         0,
         22
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "a_right.stl",
+      "file": "gen_00_a_right.stl",
       "name": "A \u00b7 right / fingers",
       "color": "#efb739",
       "explode": [
         38,
         0,
         22
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "b_left.stl",
+      "file": "gen_00_b_left.stl",
       "name": "B \u00b7 left / thumb (swap pair)",
       "color": "#36b2b0",
       "explode": [
         -24,
         0,
         22
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "b_right.stl",
+      "file": "gen_00_b_right.stl",
       "name": "B \u00b7 right / fingers (swap pair)",
       "color": "#36b2b0",
       "explode": [
         24,
         0,
         22
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "hub.stl",
+      "file": "gen_00_hub.stl",
       "name": "Shared pivot hub",
       "color": "#454e60",
       "explode": [
         0,
         0,
         -35
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "pivot_insert.stl",
+      "file": "gen_00_pivot_insert.stl",
       "name": "Handheld pivot insert \u00b7 remove for servo",
       "color": "#bdc6d4",
       "explode": [
         0,
         -25,
         0
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
     },
     {
-      "file": "so101_mount.stl",
+      "file": "gen_00_so101_mount.stl",
       "name": "Shared SO-101 cradle \u00b7 arm only",
       "color": "#454e60",
       "explode": [
         0,
         -50,
         -45
-      ]
+      ],
+      "material": "PLA",
+      "group": 0
+    },
+    {
+      "file": "gen_01_left_finger.stl",
+      "name": "Left fin-ray finger \u00b7 TPU 95A",
+      "color": "#f0a43a",
+      "explode": [
+        -42,
+        0,
+        60
+      ],
+      "material": "TPU 95A",
+      "group": 1
+    },
+    {
+      "file": "gen_01_right_finger.stl",
+      "name": "Right fin-ray finger \u00b7 TPU 95A",
+      "color": "#f0a43a",
+      "explode": [
+        42,
+        0,
+        60
+      ],
+      "material": "TPU 95A",
+      "group": 1
+    },
+    {
+      "file": "gen_01_left_root.stl",
+      "name": "Left root / thumb \u00b7 PETG",
+      "color": "#3f6fb5",
+      "explode": [
+        -34,
+        0,
+        20
+      ],
+      "material": "PETG",
+      "group": 1
+    },
+    {
+      "file": "gen_01_right_root.stl",
+      "name": "Right root / fingers \u00b7 PETG",
+      "color": "#3f6fb5",
+      "explode": [
+        34,
+        0,
+        20
+      ],
+      "material": "PETG",
+      "group": 1
+    },
+    {
+      "file": "gen_01_hub.stl",
+      "name": "Shared pivot hub \u00b7 PETG",
+      "color": "#454e60",
+      "explode": [
+        0,
+        0,
+        -35
+      ],
+      "material": "PETG",
+      "group": 1
+    },
+    {
+      "file": "gen_01_pivot_insert.stl",
+      "name": "Handheld pivot insert \u00b7 PLA",
+      "color": "#bdc6d4",
+      "explode": [
+        0,
+        -25,
+        0
+      ],
+      "material": "PLA",
+      "group": 1
+    },
+    {
+      "file": "gen_01_so101_mount.stl",
+      "name": "SO-101 cradle \u00b7 arm only \u00b7 PETG",
+      "color": "#454e60",
+      "explode": [
+        0,
+        -50,
+        -45
+      ],
+      "material": "PETG",
+      "group": 1
     }
   ]
 }

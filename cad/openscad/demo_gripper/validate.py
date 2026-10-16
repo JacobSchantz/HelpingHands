@@ -9,7 +9,7 @@ import subprocess
 import tempfile
 import zipfile
 import numpy as np
-from export import ROOT, SCAD, SOURCE
+from export import ROOT, SCAD, generations, tag
 
 def triangles(data):
     n = struct.unpack_from('<I', data, 80)[0]
@@ -41,11 +41,11 @@ def mesh_contract(t):
     return volume
 
 def collision(case):
-    variant, angle, part, skew, expected_empty = case
+    source, variant, angle, part, skew, expected_empty = case
     with tempfile.TemporaryDirectory(prefix='gripper-check-') as tmp:
         p=subprocess.run([SCAD,'--export-format','binstl','-o',tmp+'/clash.stl',
             '-D',f'variant="{variant}"','-D',f'angle={angle}',
-            '-D',f'part="{part}"','-D',f'skew={skew}',str(SOURCE)],capture_output=True,text=True)
+            '-D',f'part="{part}"','-D',f'skew={skew}',str(source)],capture_output=True,text=True)
         output=p.stdout+p.stderr
         assert 'WARNING:' not in output and 'ERROR:' not in output, output
         empty='top level object is empty' in output
@@ -54,29 +54,39 @@ def collision(case):
     return case
 
 def main():
-    parts=json.loads((ROOT/'export/parts.json').read_text())['parts']
-    assert len(parts)==7 and len({p['file'] for p in parts})==7
+    manifest=json.loads((ROOT/'export/parts.json').read_text())
+    parts, gens = manifest['parts'], manifest['generations']
+    sources = generations()
+    assert [g['source'] for g in gens]==[s.name for s in sources]
+    assert len({p['file'] for p in parts})==len(parts)
     volumes={}
     for p in parts:
+        assert 0 <= p['group'] < len(gens) and p['material'], p
         volumes[p['file']]=round(mesh_contract(triangles((ROOT/'export'/p['file']).read_bytes()))/1000,2)
-    with zipfile.ZipFile(ROOT/'jaws_print_ready.zip') as z:
-        assert set(z.namelist())=={'a_left.stl','a_right.stl','b_left.stl','b_right.stl'}
-        for name in z.namelist():
-            t=triangles(z.read(name))
-            mesh_contract(t)
-            assert abs(t[:,:,2].min())<1e-5, (name,'not on bed')
-            # At least half the X/Y footprint exists as real flat bed contact.
-            base=t[np.all(abs(t[:,:,2])<1e-5,axis=1)]
-            area=np.linalg.norm(np.cross(base[:,1]-base[:,0],base[:,2]-base[:,0]),axis=1).sum()/2
-            assert area>300, (name,'insufficient bed contact',area)
     cases=[]
-    for v in ['A','B']:
-        for a in range(0,30,2):
-            cases += [(v,a,'clash',0,True),(v,a,'gearclash',0,True)]
-        for a in [0,14,29.5]:
-            cases += [(v,a,'gearclash',3,False)] # engaged teeth, not vacuous clearance
-        cases += [(v,31.5,'gearclash',0,False)] # mechanical stop
-    cases += [('A',0,'insertclash',0,True),('A',0,'fitclash',0,True)]
+    bed_prints=0
+    for index, source in enumerate(sources):
+        g=tag(source)
+        with zipfile.ZipFile(ROOT/f'{g}_print_ready.zip') as z:
+            assert z.namelist(), g
+            for name in z.namelist():
+                t=triangles(z.read(name))
+                mesh_contract(t)
+                assert abs(t[:,:,2].min())<1e-5, (name,'not on bed')
+                # At least 300 mm2 of the footprint is real flat bed contact.
+                base=t[np.all(abs(t[:,:,2])<1e-5,axis=1)]
+                area=np.linalg.norm(np.cross(base[:,1]-base[:,0],base[:,2]-base[:,0]),axis=1).sum()/2
+                assert area>300, (name,'insufficient bed contact',area)
+                bed_prints+=1
+        files={p['file'] for p in parts if p['group']==index}
+        variants=['A','B'] if f'{g}_b_left.stl' in files else ['A']
+        for v in variants:
+            for a in range(0,30,2):
+                cases += [(source,v,a,'clash',0,True),(source,v,a,'gearclash',0,True)]
+            for a in [0,14,29.5]:
+                cases += [(source,v,a,'gearclash',3,False)] # engaged teeth, not vacuous clearance
+            cases += [(source,v,31.5,'gearclash',0,False)] # mechanical stop
+        cases += [(source,'A',0,'insertclash',0,True),(source,'A',0,'fitclash',0,True)]
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(collision,cases))
     repo=ROOT.parents[2]
@@ -86,9 +96,11 @@ def main():
     key='openscad-demo_gripper'
     models=[{'id':f'{key}/{p["file"]}'} for p in parts]
     staged=stage.assembly_parts([str(ROOT/'export')],key,models)
-    assert len(staged)==7
-    assert stage.title(str(ROOT),str(repo))[0]=='Demo gripper · two jaw pairs, one interface'
-    print(json.dumps({'watertight_single_solid_meshes':len(parts),'bed_oriented_jaws':4,
+    assert len(staged)==len(parts) and all('group' in s for s in staged)
+    assert len(stage.assembly_groups([str(ROOT/'export')]))==len(gens)
+    assert stage.title(str(ROOT),str(repo))[0]=='Demo gripper · every generation, side by side'
+    print(json.dumps({'generations':[g['label'] for g in gens],
+        'watertight_single_solid_meshes':len(parts),'bed_oriented_prints':bed_prints,
         'collision_and_positive_control_cases':len(cases),'viewer_parts':len(staged),
         'solid_volume_cm3':volumes},indent=2))
 
