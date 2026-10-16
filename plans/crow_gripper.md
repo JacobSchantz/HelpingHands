@@ -1,5 +1,10 @@
 # The crow gripper — hook-led, and what that costs at the wrist
 
+> **Superseded on cameras (2026-10-16, voice-a9595f6b):** no camera rides on
+> the gripper or wrist any more. Vision is two stereo cameras at eye height —
+> see "Principle: mirror a human" in `plans/hand_1_0.md`. The wrist / cartridge
+> camera decisions below (D7, D11) are history.
+
 Status: **DESIGN + CAD, nothing printed (2026-09-30, voice-805d4970).** §1–8 are
 the first pass: what hook-led costs at the wrist, and the decision to put the
 hook at the back of the beak. §9–12 are the second pass, after Jake made

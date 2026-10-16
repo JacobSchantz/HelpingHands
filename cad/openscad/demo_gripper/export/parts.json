@@ -51,16 +51,6 @@
       ]
     },
     {
-      "file": "camera.stl",
-      "name": "Shared camera bracket",
-      "color": "#79869b",
-      "explode": [
-        0,
-        45,
-        -20
-      ]
-    },
-    {
       "file": "pivot_insert.stl",
       "name": "Handheld pivot insert \u00b7 remove for servo",
       "color": "#bdc6d4",

@@ -1,4 +1,5 @@
-// Four interchangeable jaws, ONE common hub/camera/arm interface.
+// Four interchangeable jaws, ONE common hub/arm interface. No camera on the
+// gripper: vision is two stereo cameras at eye height (plans/hand_1_0.md §3).
 // Reuse the existing mechanism, rather than maintaining a second gear/mount.
 use <../hand_gripper/hand_gripper.scad>
 part = "assembly";
@@ -6,10 +7,15 @@ variant = "A";
 angle = 18;
 skew = 0;
 print_pose = false;
+sensor_pockets = false;  // reserve: four fingertip sensor seats, two per jaw (not designed yet)
 $fn = 48;
 // Interface contract inherited from hand_gripper: 24 mm pivot spacing,
 // 10 mm jaw root, M3 pin, 9.9 mm horn square, 30 degree opening stop.
 pivot = 12;
+// Slim jaw: 10 mm deep behind the gripping face (was 18), 16 / 22 mm wide
+// (was 24 / 32). The finger pad presses straight on the back of the jaw.
+pad_depth = 10;
+pad_w = [16, 22];  // thumb, fingers
 
 PARTS = [
  ["a_left", "A · left / thumb", "#efb739", [-38,0,22]],
@@ -17,26 +23,27 @@ PARTS = [
  ["b_left", "B · left / thumb (swap pair)", "#36b2b0", [-24,0,22]],
  ["b_right", "B · right / fingers (swap pair)", "#36b2b0", [24,0,22]],
  ["hub", "Shared pivot hub", "#454e60", [0,0,-35]],
- ["camera", "Shared camera bracket", "#79869b", [0,45,-20]],
  ["pivot_insert", "Handheld pivot insert · remove for servo", "#bdc6d4", [0,-25,0]],
  ["so101_mount", "Shared SO-101 cradle · arm only", "#454e60", [0,-50,-45]]
 ];
 
 // Flat bed side is Y=-5 for every jaw. Extra finger width grows only toward
 // +Y, avoiding the unsupported underside of a centred wide pad.
+function tip(v) = v == "A" ? 72 : 84;
 module pad2d(v) {
+ d = pad_depth;
  polygon(v == "A"
-   ? [[0.4,32],[18,28],[18,62],[9,72],[0.4,72]]
-   : [[0.4,32],[18,28],[18,56],[11,70],[3,84],[0.4,84]]);
+   ? [[0.4,32],[d,28],[d,64],[5,72],[0.4,72]]
+   : [[0.4,32],[d,28],[d,58],[6,72],[2,84],[0.4,84]]);
 }
 module pad(v, thumb) {
- width = thumb ? 24 : 32;
+ width = pad_w[thumb ? 0 : 1];
  intersection() {
   translate([0,width-5,0]) rotate([90,0,0]) linear_extrude(width) pad2d(v);
   // Taper in Y toward the beak tip. The flat printing face stays at -5.
   hull() {
-   translate([-1,-5,28]) cube([22,width,30]);
-   translate([-1,-5,v=="A" ? 72 : 84]) cube([22,10,0.1]);
+   translate([-1,-5,28]) cube([pad_depth+2,width,30]);
+   translate([-1,-5,tip(v)]) cube([pad_depth+2,8,0.1]);
   }
  }
 }
@@ -50,7 +57,15 @@ module connected_sector(thumb) {
   polygon([[0,0],for(a=[125:5:235]) 40*[cos(a),sin(a)]]);
  }
 }
+// Two 12 x 8 mm seats per jaw on the gripping face, 1.2 mm deep, with a
+// 2 mm lead channel down the face. Off by default: room is kept, nothing cut.
+module sensor_seats(v, thumb) {
+ w = pad_w[thumb ? 0 : 1];
+ for(z=[tip(v)-24, tip(v)-38]) translate([-0.6,(w-5)/2-6-1,z]) cube([1.8,12,8]);
+ translate([-0.6,(w-5)/2-6-1+5,30]) cube([1.8,2,tip(v)-22-30]);
+}
 module jaw(v, thumb, teeth=true) {
+ w = pad_w[thumb ? 0 : 1];
  difference() {
   union() {
    xz() jaw_link2d(!thumb);
@@ -62,23 +77,35 @@ module jaw(v, thumb, teeth=true) {
    along_y(12+dx*4.95,dz*4.95,1.6,-6,6);
    along_y(12+dx*4.95,dz*4.95,2.9,2,6);
   }
-  // A single through-slot forms a strong integral belt loop; 20 mm strap
-  // threads through the 22 x 3 mm slot and around the digit on the outside.
-  translate([9,-6,36]) cube([3,40,22]);
-  // Broad shallow thumb/finger saddle on the OUTER face, behind contact.
-  translate([23.5,thumb ? 7 : 11,47]) scale([8,thumb ? 12 : 18,16]) sphere(1);
+  // One through-slot is the strap loop: a 20 mm strap threads the
+  // 22 x 3 mm slot and wraps the digit on the outer face.
+  translate([pad_depth-5,-6,38]) cube([3,40,22]);
   if(v=="A") for(z=[34:4:66]) translate([-0.6,-6,z]) cube([1.6,40,1]);
   if(v=="B") {
    // Opposing V seats for a rod, plus a gated recess in the thumb jaw only.
    translate([0,35,66]) rotate([90,0,0]) linear_extrude(42)
      polygon([[-1,-4],[4,0],[-1,4]]);
-   if(thumb) along_y(0,40,4.5,-6,35);
+   if(thumb) along_y(0,44,3.5,-6,35);
   }
+  if(sensor_pockets) sensor_seats(v,thumb);
  }
 }
 module placed_jaw(v,thumb,a=0,teeth=true) {
  if(thumb) swing_thumb(a) mirror([1,0,0]) jaw(v,true,teeth);
  else swing_finger(a) jaw(v,false,teeth);
+}
+// Hub: the inherited cheek planes, pivots, horn port, bolts and nut trap, but
+// a rounded profile hugging the pivots and the two bridge bolts instead of
+// the old 42 mm square-cornered block. The SO-101 cradle still bolts on as-is.
+module slim_hub() {
+ intersection() {
+  hub();
+  rotate([90,0,0]) linear_extrude(30, center=true) hull() {
+   translate([-pivot,0]) circle(9);
+   translate([pivot,0]) circle(15.5);
+   for(x=[-15,15]) translate([x,-22]) circle(5);
+  }
+ }
 }
 // Small keyed flange supports the driven pivot in the hub's large horn port.
 // Its extra bridge screw prevents rotation. Remove insert + pivot bolt for arm.
@@ -93,31 +120,8 @@ module pivot_insert() {
   along_y(15,-22,1.65,-14,-5);
  }
 }
-// Raise the optical centre above the pivot: the old rearward camera could
-// see closed tips but the widening jaw faces hid them during opening.
-cam_center = [0,65,20];
-cam_target = [0,0,60];
-module shared_camera() {
- direction=(cam_target-cam_center)/norm(cam_target-cam_center);
- difference() {
-  union() {
-   translate([-21,10.4,-26]) cube([42,4,12]);
-   for(s=[-1,1]) hull() {
-    translate([s*7,14.4,-22]) sphere(4);
-    translate(cam_center+[s*12,0,0]-direction*4) sphere(3.5);
-   }
-   translate(cam_center) orient(direction) translate([-18,-18,-6]) cube([36,36,3]);
-  }
-  for(s=[-1,1]) along_y(s*15,-22,1.65,0,30);
-  translate(cam_center) orient(direction) {
-   translate([0,0,-12]) cylinder(d=14,h=12);
-   for(x=[-14,14],y=[-14,14]) translate([x,y,-12]) cylinder(d=2.2,h=12);
-  }
- }
-}
 module core(insert=true,arm=false) {
- color("#454e60") hub();
- color("#79869b") shared_camera();
+ color("#454e60") slim_hub();
  if(insert) color("#bdc6d4") pivot_insert();
  if(arm) color("#454e60") so101_mount();
 }
@@ -131,8 +135,7 @@ module raw_piece(q) {
  else if(q=="a_right") placed_jaw("A",false);
  else if(q=="b_left") placed_jaw("B",true);
  else if(q=="b_right") placed_jaw("B",false);
- else if(q=="hub") hub();
- else if(q=="camera") shared_camera();
+ else if(q=="hub") slim_hub();
  else if(q=="pivot_insert") pivot_insert();
  else if(q=="so101_mount") so101_mount();
 }
@@ -144,20 +147,20 @@ module project(explode=0) {
  for(r=PARTS) color(r[2]) translate(parked(r[0])+explode*r[3]) raw_piece(r[0]);
 }
 module hand_ghost() {
- // Schematic only; digit endpoints sit on the new outside saddles.
+ // Schematic only; digit pads rest on the back of each jaw, over the strap.
  color([0.86,0.65,0.49,0.55]) {
-  for(y=[3,20]) hull() {
-   swing_finger(angle) translate([26,y,47]) sphere(9);
-   translate([38,y,-12]) sphere(10);
+  for(y=[3,15]) hull() {
+   swing_finger(angle) translate([pad_depth+7,y,49]) sphere(8);
+   translate([30,y,-12]) sphere(9);
   }
   hull() {
-   swing_thumb(angle) translate([-27,7,47]) sphere(11);
-   translate([-35,-8,-20]) sphere(13);
+   swing_thumb(angle) translate([-pad_depth-9,3,49]) sphere(10);
+   translate([-30,-8,-20]) sphere(12);
   }
   hull() {
-   translate([-35,-8,-20]) sphere(13);
-   translate([38,12,-12]) sphere(14);
-   translate([5,-10,-68]) sphere(21);
+   translate([-30,-8,-20]) sphere(12);
+   translate([30,9,-12]) sphere(13);
+   translate([5,-10,-62]) sphere(19);
   }
  }
  // Strap schematic, actual fabric hardware is NOT a printable part.
@@ -167,9 +170,10 @@ module hand_ghost() {
  }
 }
 module strap(t) {
+ c = [pad_depth+3, t ? 3 : 8, 49];
  difference() {
-  translate([20,t?7:11,47]) scale([16,t?16:22,1]) cylinder(h=20,r=1,center=true);
-  translate([20,t?7:11,47]) scale([14,t?14:20,1]) cylinder(h=22,r=1,center=true);
+  translate(c) scale([10,t?11:16,1]) cylinder(h=20,r=1,center=true);
+  translate(c) scale([8.5,t?9.5:14.5,1]) cylinder(h=22,r=1,center=true);
  }
 }
 if(part=="assembly") project();
@@ -181,20 +185,17 @@ else if(part=="clash") {
  intersection() { placed_jaw(variant,true,angle,false); placed_jaw(variant,false,angle,false); }
  intersection() {
   union() { placed_jaw(variant,true,angle,false); placed_jaw(variant,false,angle,false); }
-  union() { hub(); shared_camera(); so101_mount(); servo_ghost(); pivot_insert(); }
+  union() { slim_hub(); so101_mount(); servo_ghost(); pivot_insert(); }
  }
 }
 else if(part=="gearclash") intersection() {
  placed_jaw(variant,false,angle); placed_jaw(variant,true,angle+skew);
 }
 else if(part=="fitclash") {
- intersection() { hub(); shared_camera(); }
- intersection() { so101_mount(); shared_camera(); }
- intersection() { servo_ghost(); shared_camera(); }
- intersection() { hub(); so101_mount(); }
+ intersection() { slim_hub(); so101_mount(); }
  intersection() { so101_mount(); servo_ghost(); }
 }
-else if(part=="insertclash") intersection() { pivot_insert(); union() { hub(); shared_camera(); } }
+else if(part=="insertclash") intersection() { pivot_insert(); slim_hub(); }
 else if(part=="parts") for(r=PARTS) echo(r);
 else if(print_pose) rotate([90,0,0]) translate([0,5,0]) raw_piece(part);
 else translate(parked(part)) raw_piece(part);

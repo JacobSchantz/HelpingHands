@@ -50,7 +50,7 @@ def main():
     ]:
         run(ROOT/'render'/(name+'.png'), '--render', '-D', f'part="{part}"', '-D', f'variant="{variant}"',
             '--viewall','--autocenter','--imgsize=1400,1050','--colorscheme=Tomorrow', '--camera='+camera)
-    print('Exported 8 distinct pieces, four bed-oriented jaws in ZIP, and five renders.')
+    print('Exported 7 distinct pieces, four bed-oriented jaws in ZIP, and five renders.')
 
 if __name__ == '__main__':
     main()

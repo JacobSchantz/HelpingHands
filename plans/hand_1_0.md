@@ -10,13 +10,31 @@ pilot), see `plans/handheld_gripper.md`.
 
 ## What it is
 
-One gripper unit with a camera on it, usable two ways:
+One gripper unit, usable two ways:
 
 1. **Arm-mounted** — bolted to the SO-101 follower's wrist, driven by the robot.
 2. **Handheld** — detached, held in your fist, squeezed by a trigger.
 
-Same body, same jaws, same camera, same servo, both modes. First target task:
-**handling paper.**
+Same body, same jaws, same servo, both modes. No camera on the gripper (see
+"Mirror a human" below). First target task: **handling paper.**
+
+## Principle: mirror a human (Jake, 2026-10-16, voice-a9595f6b)
+
+Build the hardware to perceive and use things the way a person does. When a
+design choice comes up, the default answer is "what does a human have?"
+
+- **Eyes: two stereo cameras at eye height.** These are the only cameras: worn
+  at eye height by the demonstrator, mounted at head height on the robot. No
+  wrist cameras, no gripper cameras, no fingertip cameras.
+- **Touch: at most four sensors on the gripper itself**, most likely force /
+  touch at the fingertips (to be confirmed with Jake). Room is reserved in the
+  demo gripper's jaws; nothing is designed in yet.
+- **Hands: simple, slim fingers** that a person can wear or hold and that a
+  servo can drive, not bulky instrumented tools.
+
+Current CAD: `cad/openscad/demo_gripper` (slimmed, camera removed); before /
+after in `plans/demo_gripper_before_after.png`. Older sections of this plan
+that put a camera on the gripper are superseded by this principle.
 
 ## Why the two modes matter (the identity thesis at 1.0)
 
@@ -25,9 +43,9 @@ hardware, and that the sharp idea is making the demonstration instrument and the
 execution instrument *the same object*. Hand 1.0 is the first cheap test of that
 at the end effector:
 
-- **No visual domain gap.** The camera that records your demonstration is the
-  camera that sees at execution — same lens, same mount, same viewpoint relative
-  to the fingertips. The policy never has to bridge two camera rigs.
+- **No visual domain gap.** The demonstrator and the robot both see through a
+  stereo pair at eye height — same lenses, same baseline, same viewpoint
+  relative to the body. The policy never has to bridge two camera rigs.
 - **No action retargeting.** If the handheld trigger is the *same servo part* as
   the gripper (see "Trigger" below), the recorded `gripper.pos` is already in the
   follower's units. Nothing is translated.
@@ -72,8 +90,9 @@ plate changes and the body does not. It is also what lets the identical body be
 held in a hand.
 
 **Flagged now:** `wrist_roll` turning freely through 4096 ticks will **wind up any
-cable** running to a tethered end effector. Today's gripper has no camera and no
-umbilical, so this has never bitten. With a USB camera on the wrist it will.
+cable** running to a tethered end effector. With no camera on the gripper the
+umbilical is only the servo bus (plus up to four fingertip sensor leads), but it
+can still wind up.
 Either software-limit wrist_roll's range, add a service loop with a hard stop, or
 accept a slip ring (not printable). This is a decision Jake has to make, not a
 detail.
@@ -178,41 +197,37 @@ a geometry problem, which is the right trade for a printed part.
 prototyped on its own — one sprung fingertip, by hand, on a real sheet — before
 any full gripper is built around it.
 
-## 3. Camera
+## 3. Vision — stereo cameras at eye height, none on the gripper
 
-**Reading of the ask (confirm this, Jake):** *"a camera on each one"* = **one
-camera per gripper unit**, so the handheld unit and the arm-mounted unit produce
-the same view. That is what makes the demonstration and execution images
-comparable, so it is the reading that serves the thesis. The alternative readings
-— one per *arm* (wrist cam), or one per *finger* (stereo at the tips) — are
-plausible from the words alone, and stereo at the fingertips in particular is
-interesting later. Not assumed here.
+**Decided (Jake, 2026-10-16):** the only cameras are **two binocular (stereo)
+cameras near where a human's eyes are**. No wrist camera, no gripper camera.
+This replaces the earlier "one camera per gripper unit" reading.
 
-- **Mounted rigidly to the gripper body, never to the wrist.** If it moves with
-  the arm instead of the gripper, the handheld view and the mounted view stop
-  matching and the whole point is lost.
-- **Position:** on the spine above the jaw pivot, looking down the jaw axis,
-  pitched roughly 20–30° so **both fingertips and the contact patch stay in
-  frame** through the full open-to-closed stroke. Offset slightly to the side so
-  a closing finger does not eclipse the contact point at the moment it matters.
-- **Verify by printing the camera arm first** and just looking at the picture
-  while working the jaws by hand. Framing is cheap to get wrong and cheap to
-  check.
-- **USB UVC module, not CSI.** A UVC camera enumerates identically off a laptop
-  in handheld mode and off the robot host when mounted. A CSI module ties you to
-  a Pi and breaks mode symmetry. Paper is low-contrast and often white-on-white,
-  so favour a sensor that behaves under fixed manual exposure over one with a
-  high megapixel count.
+- **Demonstration:** the person wears the stereo pair at eye height (head
+  strap or glasses-style mount) and works with the handheld gripper.
+- **Execution:** the robot carries the same stereo pair at head height above
+  the arm, looking down at the workspace the way a person looks at their hands.
+- **Same hardware both sides.** Same modules, same baseline, same mounting
+  relative to the "head", so demonstration and execution images match.
+- **Stereo gives depth**, which the old single gripper camera could not.
+- **USB UVC modules, not CSI**, for the reasons below still apply: they
+  enumerate the same off a laptop or the robot host. Paper is low-contrast, so
+  favour fixed manual exposure over megapixels.
+- **Occlusion is accepted as human.** A hand or jaw can hide the contact point
+  from the head; a person handles that by moving their head, and so can the
+  robot. Check this on the bench before recording.
 
 ## 4. Power, data and the trigger — how the two modes differ
 
 Keep **one umbilical** with **one connector**, carrying: servo bus (data + servo
-power) and the camera's USB. What it plugs into is the only thing that changes.
+power) and, later, up to four fingertip sensor leads. The stereo cameras are
+on the head, not in this umbilical. What it plugs into is the only thing that
+changes.
 
 | | Arm-mounted | Handheld |
 |---|---|---|
 | Servo power/data | arm's existing serial bus | belt-pack: battery + USB-serial adapter |
-| Camera | USB to the robot host | USB to the same host (or a laptop) |
+| Stereo cameras | head mount, USB to the robot host | worn at eye height, USB to the same host (or a laptop) |
 | Jaw commanded by | the policy / leader arm, as `gripper.pos` | the trigger, as `gripper.pos` |
 
 **Trigger, handheld — the recommendation:** make the trigger a **second bus servo
@@ -230,7 +245,7 @@ delete. Choose it only with that cost in mind.
 ## 5. 3D printability
 
 **Printable:** body/shell, adapter plate, both fingers, the parallelogram links,
-flexure fingers, pads (TPU), camera arm and housing, handle, trigger lever, cable
+flexure fingers, pads (TPU), stereo camera head mount, handle, trigger lever, cable
 strain reliefs, jaw pin bushings.
 
 **Must be bought:**
@@ -239,7 +254,7 @@ strain reliefs, jaw pin bushings.
 |---|---|
 | Bus servo(s) — jaw drive, and one more for the handheld trigger | same family as the arm's, so the bus and tooling stay uniform |
 | M3 fasteners + heat-set inserts | printed threads in load paths will not survive iteration |
-| Camera module + USB cable | see above |
+| Two matched camera modules (stereo pair) + USB | see §3; on the head, not the gripper |
 | Servo bus connector/pigtail | match whatever the arm's wrist actually uses (measurement 5) |
 | Battery pack + USB-serial adapter | handheld mode only |
 | Thin steel shim | *only* if the printed leading edge is too blunt |
@@ -287,8 +302,9 @@ keep them out of the way of the sources.
 
 **Decisions only Jake can make:**
 
-1. **Camera reading** — one per gripper unit, as assumed here? Or per arm, or per
-   fingertip?
+1. ~~Camera reading~~ — **decided:** two stereo cameras at eye height, none on
+   the gripper (§3). Still open: confirm the four on-gripper sensors are
+   fingertip force / touch.
 2. **wrist_roll cable wind-up** — software-limit the range, service loop with a
    hard stop, or buy a slip ring?
 3. **Reuse the arm's existing gripper servo (ID 6), or put our own servo in the
@@ -316,4 +332,4 @@ keep them out of the way of the sources.
   recording a dataset.
 
 **Next step:** take the seven measurements, then print one sprung fingertip and
-one camera arm. Nothing else until those two answer.
+check the head-height stereo view of the jaws. Nothing else until those answer.

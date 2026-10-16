@@ -55,7 +55,7 @@ def collision(case):
 
 def main():
     parts=json.loads((ROOT/'export/parts.json').read_text())['parts']
-    assert len(parts)==8 and len({p['file'] for p in parts})==8
+    assert len(parts)==7 and len({p['file'] for p in parts})==7
     volumes={}
     for p in parts:
         volumes[p['file']]=round(mesh_contract(triangles((ROOT/'export'/p['file']).read_bytes()))/1000,2)
@@ -86,9 +86,9 @@ def main():
     key='openscad-demo_gripper'
     models=[{'id':f'{key}/{p["file"]}'} for p in parts]
     staged=stage.assembly_parts([str(ROOT/'export')],key,models)
-    assert len(staged)==8
+    assert len(staged)==7
     assert stage.title(str(ROOT),str(repo))[0]=='Demo gripper · two jaw pairs, one interface'
-    print(json.dumps({'watertight_single_solid_meshes':8,'bed_oriented_jaws':4,
+    print(json.dumps({'watertight_single_solid_meshes':len(parts),'bed_oriented_jaws':4,
         'collision_and_positive_control_cases':len(cases),'viewer_parts':len(staged),
         'solid_volume_cm3':volumes},indent=2))
 

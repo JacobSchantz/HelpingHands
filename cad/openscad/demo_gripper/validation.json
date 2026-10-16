@@ -1,15 +1,14 @@
 {
-  "watertight_single_solid_meshes": 8,
+  "watertight_single_solid_meshes": 7,
   "bed_oriented_jaws": 4,
   "collision_and_positive_control_cases": 70,
-  "viewer_parts": 8,
+  "viewer_parts": 7,
   "solid_volume_cm3": {
-    "a_left.stl": 19.01,
-    "a_right.stl": 23.12,
-    "b_left.stl": 19.41,
-    "b_right.stl": 24.54,
-    "hub.stl": 17.47,
-    "camera.stl": 11.06,
+    "a_left.stl": 10.29,
+    "a_right.stl": 11.9,
+    "b_left.stl": 10.48,
+    "b_right.stl": 12.51,
+    "hub.stl": 16.88,
     "pivot_insert.stl": 4.07,
     "so101_mount.stl": 29.58
   }

@@ -1,5 +1,11 @@
 # Handheld gripper demos — which open system, and what we build
 
+> **Superseded on cameras (2026-10-16, voice-a9595f6b):** the gripper carries
+> no camera. Vision is two stereo cameras at eye height, worn by the
+> demonstrator and mounted at head height on the robot — see "Principle:
+> mirror a human" and §3 in `plans/hand_1_0.md`. Read every gripper / wrist
+> camera below as that head-mounted stereo pair.
+
 Status: RESEARCH + PLAN (2026-09-30, voice-b4fbc4ee). Nothing bought, nothing built.
 
 Question: what is the best open-source handheld robot-gripper system for
