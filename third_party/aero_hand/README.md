@@ -49,3 +49,6 @@ TP1), pad 12 3V3, pad 13 GND. The XIAO 5V pad is unconnected and servo V+ comes 
   or cold joint. The servo was silent at every baud rate from 38.4k to 1M.
 - Action: reflow XIAO pad 2 (D1, second pin from the USB end on the D0–D6 side), then rerun
   `setid_check.py` or bus_diag. Pad 13 (GND) and the 6 V path can't be checked until RX works.
+- Round 2 (after Jake reflowed pad 2 and plugged in the 6 V supply): all pin tests HIGH, so
+  **pad 2 is fixed**. The servo answered at 1 Mbps: id=1, fw 3.43, model 2570, 6.3 V, 28 °C,
+  pos 3114. That proves RX, TX, GND, 3V3 and the 6 V path. Official v0.2.0 restored.
