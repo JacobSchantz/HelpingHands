@@ -302,8 +302,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Add a \"thumbs up\" pose to pose.py and as a button in the Aero Hand window's Poses section. It should curl the fingers to 90 with the thumb straight up, and answer to \"thumb up\" and \"good job\".",
-  "summary_sha": "f14cb0d1b7dc12ec",
+  "summary": "The Aero Hand tab needs to be rebuilt around teaching: one big Record button with a red dot, timer and live finger positions while recording, plus a big Stop button. Recordings should be listed with Play, Rename and Delete, with playback that truly reproduces the motion, and all other commands should move into one dropdown beside the Speed and Hold dropdowns.",
+  "summary_sha": "3d01b6c1987353b9",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T18:55:16Z",
