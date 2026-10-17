@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:48:48.000Z",
+      "result": "failed",
+      "notes": "Jake: every recording should capture audio too, from the Mac mic (or the Pebbles input mic, the Mini Mic Pro) in sync with the servo samples, so Jake can narrate what he's doing. Save it next to the take (same timestamp base), transcribe it, and store the transcript with the take. Use the transcript for the auto-label when he narrates. Play the audio during 'Replay full'. The Helping Hands app owns the mic permission.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:38:05.000Z",
       "result": "failed",
       "notes": "Jake, replay feedback:\n1. BUG: during replay of take-20261017-163243 (only the index moved) the OTHER fingers shake and move a lot, and the hand looks like it's straining. Find out why (recorded sensor jitter replayed verbatim? low recording torque [10,30,30,40,40,25,25] vs replay torque? hold-auto fighting the trajectory?). Fix it: smooth the samples, apply a deadband so fingers that didn't really move stay still, and keep replay torque sensible.\n2. Add two replay modes:\n- 'Replay full': the exact recorded timing (today's).\n- 'Replay motion' (the default for the Play button): a simplified version. Extract the key poses (the extremes and holds per finger, e.g. 'index curl fully in, then extend fully out') and drive between them as clean smooth moves at the Speed dropdown setting (50% default), not following the human timing.\nShow both options on each recording (Play = motion, long-press or menu = full).",
@@ -55,8 +66,8 @@
         "HelpingHands/AeroHand/AeroHandRunner.swift",
         "HelpingHands/AeroHand/AeroHandPanel.swift"
       ],
-      "detailed_description": "The Aero Hand tab has a new Teach section with Record and Replay last. Record puts every servo in transparent mode with a small per-finger pull and logs all 7 positions at 100 Hz until you press Stop. Then the hand goes limp and the take is saved. Replay last plays the newest take back at the recorded timing, slowed only where a servo would go over the 50% speed cap. It holds the last frame on low power and relaxes at 60 \u00b0C. It's all in teach.py (record / replay) rather than two scripts.\n\nI tested it on the hand here, with nobody touching it. Recording ran at a true 100 Hz, and replay ended within a few degrees of the take. That test also turned up a bug: replay was flooding the servo bus, so the low-power hold read stale positions and stayed at full torque. Fixed. The starting torques are guesses from your bench test. Index and middle at 40 stay wherever you put them. Ring and pinky at 25 drift open slowly from a fist. The two thumb servos still creep closed, so those need lowering.\n\nGlove: I'd start with Velcro straps, one per finger around the middle segment plus one around both palms. They add no spring of their own, so the tuning stays put. A stretchy winter glove grips well, but it acts as a spring and will need re-tuning. XL nitrile probably won't fit over both hands and slips on the plastic. Next: press Record, move a finger by hand, then press Replay last once the app rebuilds.",
-      "user_reply_draft": "Hey Jake \u2014 Record and Replay last are in the Aero Hand tab now. Press Record, move the fingers by hand, hit Stop, then Replay last and the hand repeats the motion. For the glove, I'd try Velcro finger straps before a winter glove or nitrile.",
+      "detailed_description": "The Aero Hand tab has a new Teach section with Record and Replay last. Record puts every servo in transparent mode with a small per-finger pull and logs all 7 positions at 100 Hz until you press Stop. Then the hand goes limp and the take is saved. Replay last plays the newest take back at the recorded timing, slowed only where a servo would go over the 50% speed cap. It holds the last frame on low power and relaxes at 60 °C. It's all in teach.py (record / replay) rather than two scripts.\n\nI tested it on the hand here, with nobody touching it. Recording ran at a true 100 Hz, and replay ended within a few degrees of the take. That test also turned up a bug: replay was flooding the servo bus, so the low-power hold read stale positions and stayed at full torque. Fixed. The starting torques are guesses from your bench test. Index and middle at 40 stay wherever you put them. Ring and pinky at 25 drift open slowly from a fist. The two thumb servos still creep closed, so those need lowering.\n\nGlove: I'd start with Velcro straps, one per finger around the middle segment plus one around both palms. They add no spring of their own, so the tuning stays put. A stretchy winter glove grips well, but it acts as a spring and will need re-tuning. XL nitrile probably won't fit over both hands and slips on the plastic. Next: press Record, move a finger by hand, then press Replay last once the app rebuilds.",
+      "user_reply_draft": "Hey Jake — Record and Replay last are in the Aero Hand tab now. Press Record, move the fingers by hand, hit Stop, then Replay last and the hand repeats the motion. For the glove, I'd try Velcro finger straps before a winter glove or nitrile.",
       "solved_by_agent": "jarvis",
       "solved_by_device": "jakes-macbook-pro",
       "solved_at": "2026-10-17T19:46:27Z",
@@ -65,7 +76,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T20:46:50Z",
+  "updated_at": "2026-10-17T20:48:48.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
