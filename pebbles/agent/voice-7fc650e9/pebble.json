@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:36:29.000Z",
+      "result": "failed",
+      "notes": "Jake, revising the last message: instead of Record turning into Stop, put two big buttons across the bottom of the screen, Record on the left half and Stop on the right half. Stop ends any recording or replay or running command and relaxes the servos (the 'Relax' behavior), so no separate red Stop is needed up top. Recordings list stays above.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:35:44.000Z",
       "result": "failed",
       "notes": "Jake's Aero Hand tab tweaks:\n- Move the Commands, Speed and Hold dropdowns up into the top bar.\n- Remove the 'Idle' status label and its hand icon.\n- The big Record button itself becomes the Stop button while recording; there's no separate stop for recording.\n- The red top-right Stop becomes 'Relax': it stops any running command, recording or replay AND relaxes every servo (relax.sh).",
@@ -326,7 +337,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:54:14.000Z",
-  "updated_at": "2026-10-17T20:35:44.000Z",
+  "updated_at": "2026-10-17T20:36:29.000Z",
   "user_request": {
     "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
   },
