@@ -48,8 +48,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The Aero Hand should dance to the music playing, using beat, tempo and energy tracking to drive smooth finger waves, pinches and poses. Extend performance.py, which already starts a random playlist song, on the LEFT hand while keeping servo temperature safe across a full song.",
-  "summary_sha": "bf54e709076d3fc9",
+  "summary": "The Dance mode in the Helping Hands Mac app plays what looks like the same fixed move list every time, regardless of the song. The choreography should come from the audio (tempo, beat, loudness, sections, onsets) at the 50% speed cap, so two very different songs produce visibly different motion.",
+  "summary_sha": "6a13e6b44310ed72",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T14:49:52Z",
