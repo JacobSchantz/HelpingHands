@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Move the hand straight to a named pose.
 
-Usage: pose.py <name>     e.g. pose.py peace, pose.py "surf's up"   (port auto-detected)
+Usage: pose.py <name>     e.g. pose.py peace, pose.py "surf's up", pose.py seven   (port auto-detected)
+       pose.py count to ten   (Chinese one-hand counting 1..10, about a second on each)
        pose.py --list
 Run with the aero venv, or via pose.sh. To add a pose, add one line to POSES.
 """
@@ -22,11 +23,27 @@ POSES = {
     "i love you": (THUMB_OUT + [0.0, 90.0, 90.0, 0.0], ["ily", "love you"]),
     # half of a two-hand heart: four fingers bent together in a line, thumb all the way in
     "love":     ([100.0, 55.0, 90.0] + [40.0, 40.0, 40.0, 40.0], ["heart", "half heart"]),
+    # Chinese 666 (liù liù liù, "that's cool"): thumb and pinky up, same shape as shaka / six
+    "666":      (THUMB_OUT + [90.0, 90.0, 90.0, 0.0], ["six six six", "liu liu liu", "lululil", "lulu"]),
+    # Chinese one-hand counting (common mainland forms). Pinches use performance.py's thumb-to-fingertip values.
+    "one":      (THUMB_IN + [0.0, 90.0, 90.0, 90.0], ["1", "yi"]),
+    "two":      (THUMB_IN + [0.0, 0.0, 90.0, 90.0], ["2", "er"]),
+    "three":    ([75.0, 25.0, 30.0] + [50.0, 0.0, 0.0, 0.0], ["3", "san"]),  # OK-style: thumb on index tip
+    "four":     (THUMB_IN + [0.0, 0.0, 0.0, 0.0], ["4", "si"]),
+    "five":     (THUMB_OUT + [0.0, 0.0, 0.0, 0.0], ["5", "wu"]),
+    "six":      (THUMB_OUT + [90.0, 90.0, 90.0, 0.0], ["6", "liu"]),
+    "seven":    ([80.0, 33.0, 27.0] + [50.0, 50.0, 90.0, 90.0], ["7", "qi"]),  # thumb, index, middle tips pinched
+    "eight":    (THUMB_OUT + [0.0, 90.0, 90.0, 90.0], ["8", "ba", "pistol"]),
+    "nine":     (THUMB_IN + [50.0, 90.0, 90.0, 90.0], ["9", "jiu"]),  # index hooked
+    "ten":      (THUMB_IN + [90.0, 90.0, 90.0, 90.0], ["10", "shi"]),  # fist (crossed index fingers needs two hands)
 }
+COUNT = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"]
+COUNT_ALIASES = ["count to ten", "count to 10", "count", "count in chinese"]
+HOLD_S = 1.0  # Jake: pause about a second on each number
 
 
 def norm(s):
-    return re.sub(r"[^a-z ]", "", s.lower()).strip()
+    return " ".join(re.sub(r"[^a-z0-9 ]", "", s.lower()).split())
 
 
 def find(name):
@@ -41,8 +58,13 @@ if len(sys.argv) < 2 or sys.argv[1] == "--list":
     for key, (_, aliases) in POSES.items():
         print(f"{key}: {', '.join(aliases)}")
     sys.exit(0)
-key, joints = find(" ".join(sys.argv[1:]))
-if not joints:
+said = " ".join(sys.argv[1:])
+if norm(said) in COUNT_ALIASES:
+    steps = [(k, POSES[k][0]) for k in COUNT]
+else:
+    key, joints = find(said)
+    steps = [(key, joints)]
+if not steps[0][1]:
     sys.exit(f"unknown pose '{' '.join(sys.argv[1:])}'; known: {', '.join(POSES)}")
 ports = sorted(glob.glob("/dev/cu.usbmodem*"))
 if not ports:
@@ -52,10 +74,13 @@ hand_speed.limit(hand)  # 50% unless Jake asks for more
 hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
 # glide from where the hand is now instead of snapping at full servo speed
 MOVE_S = 0.7  # Jake: half speed (2026-10-17); full speed was too fast
-start = hand.get_joint_positions_compact() or joints
-hand.run_trajectory([(start, 0.0), (joints, MOVE_S)])
-for _ in range(2):  # resend the target so a stalled frame can't leave the hand short
-    hand.set_joint_positions(joints)
-    time.sleep(0.02)
+for i, (key, joints) in enumerate(steps):
+    start = hand.get_joint_positions_compact() or joints
+    hand.run_trajectory([(start, 0.0), (joints, MOVE_S)])
+    for _ in range(2):  # resend the target so a stalled frame can't leave the hand short
+        hand.set_joint_positions(joints)
+        time.sleep(0.02)
+    print("pose:", key, flush=True)
+    if i < len(steps) - 1:
+        time.sleep(HOLD_S)
 hand.close()
-print("pose:", key)

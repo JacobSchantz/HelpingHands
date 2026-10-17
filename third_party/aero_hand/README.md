@@ -30,7 +30,9 @@ in v0.2.0 (`firmware.ino` `setup()`).
   8 bars, smoothed and speed-limited, until the track ends. Shrinks above 50 °C, stops at 60 °C. `--dry-run`
   just listens and prints; `--routine` plays the old fixed routine. Needs Microphone access for the terminal.
 - `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
-  shaka ("surf's up"), i love you. `--list` shows aliases; add a pose with one line in `POSES` in `pose.py`.
+  shaka ("surf's up"), i love you, love, 666, and Chinese one-hand numbers one..ten (`pose.sh seven`).
+  `pose.sh count to ten` counts 1..10, about a second on each. `--list` shows aliases; add a pose with one
+  line in `POSES` in `pose.py`.
 - `scripts/teleop.sh` – webcam teleop: the hand copies your hand live (Esc quits, `--dry-run` only shows
   tracking, `--camera N`). Needs `pip install mediapipe opencv-python` in the venv; the model downloads to
   `~/HelpingHands-tools/aero/hand_landmarker.task` on first run. Port of upstream's ROS 2 webcam teleop
