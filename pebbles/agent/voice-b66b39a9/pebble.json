@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Aero Hand servos have no brake, so holding poses against springs or objects draws high current and overheats them. Lower each servo's torque once a pose is reached, backing off on stalls, and prove it with before-and-after benchmarks in the README.",
+  "summary_sha": "b66b39a9744bf02b"
 }
