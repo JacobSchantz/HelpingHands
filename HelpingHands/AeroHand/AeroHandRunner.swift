@@ -14,7 +14,7 @@ enum AeroCommand: Equatable {
     case relax                    // zero torque on every servo
 
     /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`.
-    /// `stop` and `fast` aren't commands; `AeroHandRunner.handle(url:)` takes those.
+    /// `stop` and `speed` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
         switch path.first?.lowercased() {
@@ -80,8 +80,10 @@ final class AeroHandRunner: ObservableObject {
     @Published private(set) var running: AeroCommand?
     @Published private(set) var log = ""
     @Published private(set) var poses: [String] = []
-    /// Off on every launch: the scripts' 50% cap (hand_speed.py) applies unless this is on.
-    @Published var fullSpeed = false
+    /// Servo speed as a percent of full, for every command (AERO_SPEED_PCT, read by
+    /// hand_speed.py). Back to 50% on every launch.
+    static let speeds = [25, 50, 60, 80, 100]
+    @Published var speedPct = 50
 
     private var process: Process?
     private var next: AeroCommand?
@@ -113,9 +115,14 @@ final class AeroHandRunner: ObservableObject {
         case "stop":
             next = nil
             stop()
-        case "fast":
-            fullSpeed = path.dropFirst().first?.lowercased() != "off"
-            append("speed: \(fullSpeed ? "full (100%)" : "capped at 50%")\n")
+        case "speed":
+            guard let pct = path.dropFirst().first.flatMap({ Int($0.trimmingCharacters(in: ["%"])) }),
+                  (1...100).contains(pct) else { append("unknown URL \(url.absoluteString)\n"); return }
+            speedPct = pct
+            append("speed: \(pct)%\n")
+        case "fast":  // old alias: on = 100%, off = 50%
+            speedPct = path.dropFirst().first?.lowercased() == "off" ? 50 : 100
+            append("speed: \(speedPct)%\n")
         default:
             if let command = AeroCommand(path: path) {
                 run(command)
@@ -128,7 +135,7 @@ final class AeroHandRunner: ObservableObject {
     /// Fills `poses` from `pose.sh --list`, so a pose added to POSES gets a button
     /// without touching Swift.
     func loadPoses() {
-        let process = makeProcess(script: "pose.sh", args: ["--list"], fullSpeed: false)
+        let process = makeProcess(script: "pose.sh", args: ["--list"], speedPct: 50)
         let pipe = Pipe()
         process.standardOutput = pipe
         process.terminationHandler = { _ in
@@ -143,7 +150,7 @@ final class AeroHandRunner: ObservableObject {
 
     private func start(_ command: AeroCommand) {
         let (script, args) = command.invocation
-        let process = makeProcess(script: script, args: args, fullSpeed: fullSpeed)
+        let process = makeProcess(script: script, args: args, speedPct: speedPct)
         let pipe = Pipe()
         process.standardOutput = pipe
         process.standardError = pipe
@@ -158,7 +165,7 @@ final class AeroHandRunner: ObservableObject {
             let status = finished.terminationStatus
             Task { @MainActor in self.finished(status: status) }
         }
-        append("▶︎ \(command.title)\(fullSpeed ? " (full speed)" : "")\n")
+        append("▶︎ \(command.title) (\(speedPct)%)\n")
         do {
             try process.run()
             self.process = process
@@ -178,14 +185,14 @@ final class AeroHandRunner: ObservableObject {
         }
     }
 
-    private func makeProcess(script: String, args: [String], fullSpeed: Bool) -> Process {
+    private func makeProcess(script: String, args: [String], speedPct: Int) -> Process {
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/bin/sh")
         process.arguments = [Self.scriptsDir.appendingPathComponent(script).path] + args
         process.currentDirectoryURL = Self.scriptsDir
         var env = ProcessInfo.processInfo.environment
         env["PYTHONUNBUFFERED"] = "1"
-        if fullSpeed { env["AERO_SPEED_PCT"] = "100" } else { env.removeValue(forKey: "AERO_SPEED_PCT") }
+        env["AERO_SPEED_PCT"] = String(speedPct)
         process.environment = env
         return process
     }

@@ -6,46 +6,58 @@ import SwiftUI
 struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
 
-    // Read from about four feet away: big type, big targets, generous spacing.
-    private let columns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
-    private let bodyFont = Font.system(size: 30, weight: .semibold)
+    // Read from about four feet away, and everything on one screen: the buttons
+    // share whatever height is left, so a bigger window means bigger buttons.
+    private let spacing: CGFloat = 16
+    private let titleHeight: CGFloat = 40
+    private let scripts: [(AeroCommand, String)] = [
+        (.test, "list.number"), (.dance(song: nil), "music.note"), (.count, "textformat.123"),
+        (.home, "house.fill"), (.relax, "hand.raised.slash"), (.teleop(dryRun: false), "camera"),
+    ]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            status  // pinned so Stop, Re-home and Relax stay on screen
-            rescue
-            ScrollView { controls.padding(.trailing, 12) }
+        VStack(alignment: .leading, spacing: 20) {
+            status
+            GeometryReader { geo in grid(in: geo.size) }
             log
         }
-        .padding(40)
-        .frame(minWidth: 1000, minHeight: 800)
+        .padding(32)
+        .frame(minWidth: 1000, minHeight: 700)
         .background(FillScreen())
         .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
         .navigationTitle("Aero Hand")
         .onAppear { if runner.poses.isEmpty { runner.loadPoses() } }
     }
 
-    private var controls: some View {
-        VStack(alignment: .leading, spacing: 32) {
-            VStack(alignment: .leading, spacing: 16) {
-                sectionTitle("Performance")
-                HStack(spacing: 20) {
-                    bigButton(.test, "list.number")
-                    bigButton(.dance(song: nil), "music.note")
-                }
-            }
-            section("Poses") {
-                button(.count, "textformat.123")
+    /// Poses on top, then Scripts and Games sharing the last row.
+    private func grid(in size: CGSize) -> some View {
+        let columns = max(1, min(runner.poses.count, Int(size.width / 210)))
+        let poseRows = Int((Double(runner.poses.count) / Double(columns)).rounded(.up))
+        let rows = CGFloat(poseRows + 1)
+        let rowHeight = max(60, (size.height - 2 * (titleHeight + spacing) - spacing * (rows - 1)) / rows)
+        let tileWidth = (size.width - spacing * CGFloat(scripts.count)) / CGFloat(scripts.count + 1)
+        return VStack(alignment: .leading, spacing: spacing) {
+            sectionTitle("Poses")
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns),
+                      spacing: spacing) {
                 ForEach(runner.poses, id: \.self) { name in
-                    button(.pose(name), nil, label: name)
+                    tile(.pose(name), nil, label: name, height: rowHeight)
                 }
             }
-            section("Games") {
-                button(.rps(dryRun: false), "hand.raised.fingers.spread")
-            }
-            section("Teleop") {
-                button(.teleop(dryRun: false), "camera")
-                button(.teleop(dryRun: true), "hand.raised")
+            HStack(alignment: .top, spacing: spacing) {
+                VStack(alignment: .leading, spacing: spacing) {
+                    sectionTitle("Scripts")
+                    HStack(spacing: spacing) {
+                        ForEach(scripts, id: \.0.title) { command, icon in
+                            tile(command, icon, height: rowHeight)
+                        }
+                    }
+                }
+                VStack(alignment: .leading, spacing: spacing) {
+                    sectionTitle("Games")
+                    tile(.rps(dryRun: false), "hand.raised.fingers.spread", height: rowHeight)
+                        .frame(width: tileWidth)
+                }
             }
         }
     }
@@ -54,48 +66,48 @@ struct AeroHandPanel: View {
         ScrollViewReader { proxy in
             ScrollView {
                 Text(runner.log.isEmpty ? "Output appears here." : runner.log)
-                    .font(.system(size: 20, design: .monospaced))
+                    .font(.system(size: 18, design: .monospaced))
                     .foregroundStyle(runner.log.isEmpty ? .secondary : .primary)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(16)
+                    .padding(12)
                 Color.clear.frame(height: 1).id("end")
             }
-            .frame(height: 160)
+            .frame(height: 90)
             .background(.black.opacity(0.4), in: RoundedRectangle(cornerRadius: 14))
             .onChange(of: runner.log) { _, _ in proxy.scrollTo("end") }
         }
     }
 
     private var status: some View {
-        HStack(spacing: 28) {
+        HStack(spacing: 24) {
             Image(systemName: runner.running == nil ? "hand.raised" : "hand.raised.fill")
-                .font(.system(size: 56))
+                .font(.system(size: 48))
                 .foregroundStyle(runner.running == nil ? .white : .green)
             Text(runner.running?.title ?? "Idle")
-                .font(.system(size: 48, weight: .bold))
+                .font(.system(size: 44, weight: .bold))
                 .foregroundStyle(runner.running == nil ? .white : .green)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
             Spacer()
-            Toggle(isOn: $runner.fullSpeed) {
-                Text("Full speed").font(bodyFont).foregroundStyle(runner.fullSpeed ? .orange : .white)
+            Menu {
+                ForEach(AeroHandRunner.speeds, id: \.self) { pct in
+                    Button("\(pct)%") { runner.speedPct = pct }
+                }
+            } label: {
+                Label("Speed \(runner.speedPct)%", systemImage: "speedometer")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundStyle(runner.speedPct > 50 ? .orange : .white)
+                    .frame(minHeight: 72)
             }
-            .toggleStyle(.switch)
-            .controlSize(.large)
-            .help("Off: servos capped at 50% (hand_speed.py). Resets every launch.")
-        }
-    }
-
-    /// The get-unstuck row: always visible, never scrolled away.
-    private var rescue: some View {
-        HStack(spacing: 20) {
-            bigButton(.home, "house.fill", height: 88, size: 34)
-            bigButton(.relax, "hand.raised.slash", height: 88, size: 34)
+            .menuStyle(.button)
+            .buttonStyle(.bordered)
+            .fixedSize()
+            .help("Servo speed for every command (hand_speed.py). Back to 50% every launch.")
             Button(role: .destructive) { runner.stop() } label: {
                 Label("Stop", systemImage: "stop.fill")
                     .font(.system(size: 34, weight: .bold))
-                    .frame(maxWidth: .infinity, minHeight: 88)
+                    .frame(minWidth: 200, minHeight: 72)
             }
             .buttonStyle(.borderedProminent)
             .tint(.red)
@@ -104,44 +116,25 @@ struct AeroHandPanel: View {
         }
     }
 
-    private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            sectionTitle(title)
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 20, content: content)
-        }
-    }
-
     private func sectionTitle(_ title: String) -> some View {
-        Text(title).font(.system(size: 38, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+        Text(title).font(.system(size: 32, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+            .frame(height: titleHeight)
     }
 
-    private func bigButton(_ command: AeroCommand, _ icon: String,
-                           height: CGFloat = 160, size: CGFloat = 48) -> some View {
-        Button { runner.run(command) } label: {
-            Label(command.title, systemImage: icon)
-                .font(.system(size: size, weight: .bold))
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
-                .frame(maxWidth: .infinity, minHeight: height)
-        }
-        .buttonStyle(.bordered)
-        .controlSize(.large)
-        .tint(runner.running == command ? Color.accentColor : nil)
-    }
-
-    private func button(_ command: AeroCommand, _ icon: String?, label: String? = nil) -> some View {
-        Button { runner.run(command) } label: {
-            Group {
-                if let icon {
-                    Label(label ?? command.title, systemImage: icon)
-                } else {
-                    Text(label ?? command.title)
-                }
+    /// Text scales with the row height (capped), and wraps to two lines before shrinking.
+    private func tile(_ command: AeroCommand, _ icon: String?, label: String? = nil,
+                      height: CGFloat) -> some View {
+        let size = min(44, max(22, height * 0.26))
+        return Button { runner.run(command) } label: {
+            VStack(spacing: 6) {
+                if let icon { Image(systemName: icon).font(.system(size: size * 0.9)) }
+                Text(label ?? command.title)
+                    .font(.system(size: size, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
             }
-            .font(bodyFont)
-            .lineLimit(1)
-            .minimumScaleFactor(0.6)
-            .frame(maxWidth: .infinity, minHeight: 96)
+            .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
         }
         .buttonStyle(.bordered)
         .controlSize(.large)
@@ -150,12 +143,14 @@ struct AeroHandPanel: View {
 }
 
 /// Grows the Aero Hand window to most of the screen the first time it opens
-/// (macOS 14 has no `defaultWindowPlacement`).
+/// (macOS 14 has no `defaultWindowPlacement`), and lets it go full screen.
 private struct FillScreen: NSViewRepresentable {
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
         DispatchQueue.main.async {
             guard let window = view.window, let screen = window.screen ?? NSScreen.main else { return }
+            window.collectionBehavior.insert(.fullScreenPrimary)
+            guard !window.styleMask.contains(.fullScreen) else { return }
             window.setFrame(screen.visibleFrame.insetBy(dx: screen.visibleFrame.width * 0.04,
                                                         dy: screen.visibleFrame.height * 0.04),
                             display: true)

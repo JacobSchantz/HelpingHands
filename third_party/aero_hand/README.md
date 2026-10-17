@@ -45,9 +45,10 @@ in v0.2.0 (`firmware.ino` `setup()`).
 
 - `scripts/home.sh` – firmware homing on all seven servos (port auto-detected).
 - **Helping Hands Mac app** (⇧⌘H, or Workshop › Aero Hand controls) – every command above as a button, with
-  a Full speed toggle (off each launch, so the 50% cap holds) and a Stop button (Esc). The app runs these
+  a Speed dropdown (25/50/60/80/100%, back to 50% each launch, applies to every command) and a Stop
+  button (Esc). The app runs these
   scripts as its children, so camera, mic and Music permissions belong to Helping Hands, not Terminal.
-  `scripts/app.sh dance|test|pose <name>|count|teleop|home|relax|stop|fast on|off` presses the same
+  `scripts/app.sh dance|test|pose <name>|count|teleop|home|relax|stop|speed <pct>` presses the same
   buttons from a shell or the voice session (it opens `helpinghands://aero/<command>/<arg>`). The app
   looks for scripts in `~/HelpingHands/third_party/aero_hand/scripts`
   (`defaults write com.helpinghands.app aeroScriptsDir <path>` to move it).
