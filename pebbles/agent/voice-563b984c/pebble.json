@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:38:05.000Z",
+      "result": "failed",
+      "notes": "Jake, replay feedback:\n1. BUG: during replay of take-20261017-163243 (only the index moved) the OTHER fingers shake and move a lot, and the hand looks like it's straining. Find out why (recorded sensor jitter replayed verbatim? low recording torque [10,30,30,40,40,25,25] vs replay torque? hold-auto fighting the trajectory?). Fix it: smooth the samples, apply a deadband so fingers that didn't really move stay still, and keep replay torque sensible.\n2. Add two replay modes:\n- 'Replay full': the exact recorded timing (today's).\n- 'Replay motion' (the default for the Play button): a simplified version. Extract the key poses (the extremes and holds per finger, e.g. 'index curl fully in, then extend fully out') and drive between them as clean smooth moves at the Speed dropdown setting (50% default), not following the human timing.\nShow both options on each recording (Play = motion, long-press or menu = full).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:34:13.000Z",
       "result": "failed",
       "notes": "Jake: renaming a recording should be by voice, not typing. Tapping rename opens a small overlay that's already listening (mic on, live transcript). Speak the name, and it saves after a short pause, or on Enter or tap. Saying 'rename the last recording to ...' to the voice session should work too (teach.py rename last <name>).",
@@ -54,7 +65,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T20:34:13.000Z",
+  "updated_at": "2026-10-17T20:38:05.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
