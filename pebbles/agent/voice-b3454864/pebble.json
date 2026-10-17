@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Plan (research + design, no build yet): an all-day wearable that collects hand-manipulation data, something Jake would be excited to wear every day, so he can match the big labs on data volume. Core idea: a watch or wristband with a wrist camera (plus hand pose from the camera, or a light glove) that keeps a rolling buffer recording locally and discards it unless Jake triggers a save with a gesture, e.g. the Spider-Man sign or pointing. On trigger, keep the last N seconds plus the next M seconds as a labeled episode. Cover:\n- Hardware options and cost: off-the-shelf wrist cams (Insta360/GoPro wrist mounts), smartwatch-based, a custom ESP32-S3/XIAO camera band, glove sensors.\n- Battery life for all-day wear, storage, and how the data syncs to the Mac.\n- Gesture detection on-device.\n- Privacy: nothing leaves the buffer untriggered; bystanders.\n- How the episodes become training data for the Aero Hand plus reBot (LeRobot format, retargeting to the hand), and whether to pair it with the human-mirror eye-height cameras (e.g. a head or glasses cam).\n- What makes it useful enough to wear daily beyond data.\n- Prior art: UMI gripper, DexCap, Generalist, Meta Aria, egocentric datasets.\nDeliver a plan doc in plans/ with a recommended first prototype.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-17T20:11:26.000Z",
+      "result": "failed",
+      "notes": "Jake: once the plan picks a first prototype, mock the wearable up in 3D (OpenSCAD, his preference) and add it as a project on the Helping Hands Designs page with its render.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-17T20:10:05.000Z",
-  "updated_at": "2026-10-17T20:10:40Z",
+  "updated_at": "2026-10-17T20:11:26.000Z",
   "user_request": {
     "name": "I want to wear a camera and something on my hands all day long, every day... a wrist camera. Maybe a watch with a wrist camera... activate it is by doing Spider-Man... Or I point and it records. Otherwise it's recording locally but not doing anything."
   },
