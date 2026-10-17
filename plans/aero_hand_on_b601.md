@@ -1,4 +1,9 @@
-# Aero Hand Open on the reBot Arm B601-DM
+# Aero Hand Open on the reBot Arm B601
+
+**2026-10-17 update: Jake is buying the B601-RS (48 V, 2.5 kg rated), not the
+DM.** The integration plan he set is in §A, just below. §0–§7 are the
+original 2026-10-16 desk research, written for the B601-DM. Where the RS
+changes a number there, §A says so.
 
 Status: desk research only, 2026-10-16. Nothing here has been mounted, wired or
 run. Prompted by Jake: "Chestnut Robotics (Tether AI at the time) makes an open
@@ -13,6 +18,157 @@ lids, light stirring and pouring from small containers, and plating. It's poor
 at knife work, heavy pots and anything wet or greasy for long. For real food
 prep, plan on a second arm, either with the stock parallel gripper or with a
 tool-changer.**
+
+---
+
+## A. Integration plan: Aero Hand (left) on the B601-RS
+
+Jake's six steps, in build order. Under each one: what to buy or write, and
+what I checked or still need to confirm. Nothing here has been built yet.
+
+### A1. 3D-printed adapter plate on the wrist flange, in place of the gripper
+
+- A printed plate (PETG or PLA+, ≥ 5 mm thick with ribs) bolts to the J6
+  output where the gripper connector would go. Its other face takes the
+  Aero's four M3 inserts. Keep the standoff as short as possible, because
+  every centimetre adds wrist torque.
+- **Open question for Seeed:** the **RS Body Structure Kit is sold "without
+  gripper"**, and its published parts list (17 metal parts, 19 prints,
+  bearings, screws) doesn't name a wrist plate or end flange
+  ([OpenELAB listing](https://openelab.io/products/seeed-studio-rebot-arm-b601-rs-body-structure-kit)).
+  Ask Seeed: *"Does the RS structure kit include the J6 output flange or wrist
+  plate the gripper bolts to? Can we get its STEP file and bolt pattern?"*
+  If it isn't included, we print it too, using the J6 motor's output bolt
+  pattern from the RobStride datasheet.
+- Get the M3 hole spacing from the Aero Onshape CAD. The docs' mechanical
+  page is still a placeholder.
+- **Payload on the RS:** 2.5 kg rated, minus ~0.4 kg for the hand and
+  ~0.05 kg for the plate and cables, leaves **≈ 2 kg** for the object within
+  ~70 % of reach. That's double the DM's ≈ 1 kg (§3). The wrist-torque check
+  in §3 assumed a DM4310, so re-run it against the RS's wrist RobStride
+  model. Even so, the hand's thermal limit (torque ≤ 500 for long holds)
+  doesn't change, and it is now the tighter limit for most kitchen tasks.
+
+### A2. 48 V → 6 V buck converter on the arm, fed from the arm's supply
+
+- The hand needs **6 V, 8 A max, 10 A to be safe**, which is about 60 W. Use a
+  48 V-input (≥ 60 V max input) → 6.0 V, **≥ 10 A** step-down module, mounted
+  on the forearm or upper arm close to the hand. The servos' EEPROM accepts
+  4–10 V (read from our servos 2026-10-17, `third_party/aero_hand/README.md`),
+  so 6.0 V leaves plenty of margin.
+- Then only the arm's 48 V pair runs along the arm. The 6 V run is just the
+  short hop from the converter to the hand, so it can use thin wire. At 48 V,
+  the hand draws only about 1.3 A from the arm's supply. **Check that the
+  48 V supply we buy has ~60 W of headroom** above what the arm itself uses.
+  Seeed doesn't bundle a supply with the RS.
+- Add a fuse (~3 A) on the 48 V input to the converter, and a bulk capacitor
+  on the 6 V side. A brownout makes the hand **re-home on power-up** (v0.2.0
+  firmware), so dips while the arm accelerates would make the hand spasm.
+- A non-isolated converter shares ground with the arm. That's fine, because
+  the hand's only other connection is USB to the same computer (A3).
+
+### A3. Small USB hub on the arm: the hand's USB plus the arm's USB-CAN
+
+- Use a 4-port USB 2.0 hub, bus-powered or fed with 5 V from a second small
+  buck off the 48 V. Zip-tie it at the arm's base or shoulder. Plug in the
+  Aero's ESP32 (921600-baud serial) and the arm's USB-CAN adapter. **One USB
+  cable goes to the computer.** Both devices are low-bandwidth, so they share
+  a USB 2.0 hub without trouble. Keep the run to the computer under ~3 m.
+- Put the hub at the base, not the wrist. Only the hand's USB cable and its
+  6 V pair then cross the J6 roll joint, so cap J6 to about ±180° in software
+  to stop them winding up (§2).
+- **Caveat: the computer.** Seeed's RS LeRobot path uses **SocketCAN
+  (`can0`)**, which is Linux-only. The plugin's `robstride` adapter option is
+  "registered but not yet supported" in its SDK, and the RS config is "still
+  being refined"
+  ([plugin](https://github.com/Seeed-Projects/lerobot-robot-seeed-b601),
+  [wiki](https://wiki.seeedstudio.com/rebot_arm_b601_rs_lerobot/)). Our
+  MacBook can't open `can0`. **Plan on a Linux host for the arm** (a Linux
+  box, a Pi 5 or a Jetson), or confirm with Seeed that there is a Mac-capable
+  serial-bridge adapter for the RS. The hub idea still works with either.
+
+### A4. LeRobot robot class: reBot RS + Aero Hand, two eye-height cameras
+
+- Seeed already ships the arm as a LeRobot plugin
+  (`lerobot-robot-seeed-b601`, type `seeed_b601_rs_follower`). Write one new
+  plugin, **`aero_b601_rs_follower`**, that **wraps** that class and the Aero
+  SDK (`aero_open_sdk`, vendored at `third_party/aero_hand/upstream/sdk`)
+  instead of forking them:
+  - `connect()` opens Seeed's follower and the Aero serial port, and auto-
+    detects the port the same way `teleop.py` does.
+  - Observation: 6 arm joints + 7 hand actuator positions (+ hand
+    temperature, logged but not given to the policy) + 2 camera images.
+  - Action: **13 numbers** (6 arm + 7 hand, in the hand's 0–1 normalized
+    units). The gripper channel is dropped. Optionally, a
+    `hand_mode=primitives` flag maps a single scalar to open / power / pinch
+    / tripod, for the cheap first policies (§6).
+  - `send_action()` writes the arm over CAN and the hand over serial in the
+    same tick, clamps the hand's torque (≤ 500 for holds, using the existing
+    low-power hold logic in `scripts/hold.py`), and releases the hand if any
+    servo goes above 60 °C.
+- **Cameras: two at eye height, no wrist camera** (the human-mirror principle,
+  `hand_1_0.md` and `agent_led_research.md` §7). The same stereo pair is
+  pinned on a mast behind the arm at head height, with the keys `left_eye` and
+  `right_eye`. A wrist camera would also add a third cable through J6.
+- Our hand is a **left** hand (flashed `lefthand` firmware, 2026-10-17). So
+  mount the arm as a left arm, to the demonstrator's left, which keeps the
+  mirror honest.
+
+### A5. Teleop: the Star Arm 102 drives the arm, the webcam (`teleop.py`) drives the hand
+
+- The Star Arm 102 is Seeed's leader for both the DM and the RS
+  ([RobotShop](https://www.robotshop.com/products/star-arm-102-rebot-b601-dmrs-leader-arm),
+  $258.90, 420 mm reach, USB-UART on `/dev/ttyUSB*`, needs its own 12 V
+  supply). It already has a LeRobot teleoperator (`rebot_arm_102_leader`,
+  `lerobot-teleoperator-rebot-arm-102`).
+- Write a matching **`aero_b601_leader`** teleoperator that combines the
+  Star Arm 102's 6 joints with `teleop.py`'s retargeted 7 hand values. To do
+  that, refactor `teleop.py` so the MediaPipe → joint-angle part is an
+  importable function and the CLI stays a thin wrapper.
+- **The catch: the hand that holds the leader arm can't also make finger
+  shapes for the webcam.** Two ways around it:
+  1. **(Recommended) Strap on, don't grip.** Swap the leader's gripper handle
+     for a printed forearm cuff, so the demonstrator's left forearm moves the
+     leader and the fingers stay free. The webcam (a third camera, used only
+     for teleop and never seen by the policy) watches that same left hand. One
+     human arm drives one robot arm and hand, so the demos look like human
+     motion.
+  2. Right hand on the leader, left hand in front of the webcam. It works
+     with no new hardware, but the arm and the fingers come from different
+     human arms, and coordinated grasps are harder to demonstrate.
+- Smooth the webcam signal, as `teleop.py` already does (EMA 0.7), and hold
+  the last value when tracking drops, so the hand doesn't fall open mid-grasp.
+
+### A6. Record demonstrations into LeRobot datasets, then train
+
+- Record with the stock `lerobot-record`, now taking the two new types:
+  ```
+  lerobot-record --robot.type=aero_b601_rs_follower --robot.port=can0 \
+    --robot.cameras='{left_eye: {...}, right_eye: {...}}' \
+    --teleop.type=aero_b601_leader --teleop.port=/dev/ttyUSB0 \
+    --dataset.repo_id=helpinghands/aero_b601_<task> \
+    --dataset.single_task="Pick the tomato into the bowl" \
+    --dataset.push_to_hub=false
+  ```
+- First task, unchanged from §7: **pick a vegetable into a bowl**, gloved,
+  ~50 demos, ACT on one GPU. After that: SmolVLA / pi0.5, then GR00T N1.7 on
+  a rented GPU at ~200 demos per task for full finger control (§6).
+- Score it with the same agent-led loop as the SO-101 work
+  (`agent_led_research.md`): the same judge camera, fixed start states and
+  ledger.
+
+### Shopping and questions list
+
+| Item | Status |
+|---|---|
+| B601-RS (+ 48 V supply, sized for arm + ~60 W) | Jake buying |
+| Star Arm 102 leader + its 12 V supply | buy |
+| 48 → 6 V ≥ 10 A buck, fuse, capacitor | buy (~$20) |
+| 4-port USB 2.0 hub | buy (~$10) |
+| Adapter plate, forearm cuff | print |
+| Linux host for SocketCAN, or Seeed's Mac answer | **confirm** |
+| Does the RS structure kit include the wrist plate / J6 flange (+ STEP)? | **ask Seeed** |
+| Aero M3 hole spacing | pull from Onshape |
 
 ---
 
