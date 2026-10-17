@@ -104,8 +104,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Jake wants one original tendon-driven index finger, fitted to jake_hand.scad, in OpenSCAD and an interactive JavaScript model in Designs. It must show the joints, tendon routing and return, with interference checks and honest untested limits, and the whole glove waits for his review.",
-  "summary_sha": "b128d8cb8b4a53cc",
+  "summary": "Gen03 index-finger prototype is rejected for colliding with the middle finger and thumb web, and for lacking an MCP stop. The next generation must fix these and deliver a first-test-print package, with no comfort or strength claimed unproven.",
+  "summary_sha": "2514b5b225196e1c",
   "artifacts": [
     {
       "kind": "file",
