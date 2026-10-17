@@ -10,8 +10,8 @@
 // outline is right and the glove shell (gen_01) can be built on it. It tests
 // width and finger angles only; thickness needs a side photo or measurements.
 //
-// The outline comes from hand_outline.scad, written by outline_from_photo.py.
-// Until Jake's photo arrives it is a PLACEHOLDER large hand, not his.
+// The outline comes from hand_outline.scad, written by outline_from_photo.py
+// from Jake's tape-measure photo (see README).
 include <hand_outline.scad>
 
 part = "tray";
@@ -32,7 +32,7 @@ module tray() {
     linear_extrude(pad) above_wrist() offset(r = clearance + wall) hand();
     linear_extrude(pad + wall_h) above_wrist() difference() {
         offset(r = clearance + wall) hand();
-        offset(r = clearance) union() { hand(); translate([-60, -20]) square([120, 21]); }
+        offset(r = clearance) union() { hand(); translate([-500, -20]) square([1000, 21]); }
     }
 }
 
