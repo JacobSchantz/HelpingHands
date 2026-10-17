@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T15:02:55.000Z",
-  "updated_at": "2026-10-17T15:02:55.000Z",
+  "updated_at": "2026-10-17T15:03:15Z",
   "user_request": {
     "name": "add a pebble for playing rock-paper-scissors using the camera but don't cheat it should be random"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Build a rock-paper-scissors game where the Aero Hand throws on the count of three after reading Jake's throw through the webcam with MediaPipe, reusing teleop.py's tracking. The hand's random pick must be committed and logged before Jake's throw is read, with winner announcements, score keeping, hand speed under 50%, and a button plus helpinghands://aero URL in the Helping Hands Mac app.",
-  "summary_sha": "71df05d28513376e"
+  "summary_sha": "71df05d28513376e",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-71df05d2",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-71df05d2",
+  "claimed_at": "2026-10-17T15:03:15.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
