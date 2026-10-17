@@ -27,5 +27,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Design a 3D-printable, tendon-driven robot hand in OpenSCAD that Jake's hand fits inside, using the Aero Hand's left-hand layout. Everything must be designed from scratch, with open-source hands studied only for ideas, each credited by project in REFERENCES.md.",
+  "summary_sha": "d85622a31c34d787"
 }

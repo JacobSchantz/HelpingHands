@@ -135,8 +135,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Jake wants Aero Hand recordings in the Helping Hands app to auto-label, rename by voice, capture narrated audio, and replay without shaking the other fingers. Replay should default to a clean key-pose \"motion\" mode with full-timing replay as an option, and the audio should be transcribed, stored with each take, and play during full replay.",
-  "summary_sha": "6933141fe868f87c",
+  "summary": "The Aero Hand auto-label for take-20261017-170553 lumps all fingers together, though they moved one at a time. Labels should read in time order, and transparent torques should drop so fingers rest open, with audio still missing.",
+  "summary_sha": "71bd2945cd815f15",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T20:55:28Z",
