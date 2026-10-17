@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T14:40:43.000Z",
-  "updated_at": "2026-10-17T14:40:43.000Z",
+  "updated_at": "2026-10-17T14:43:25Z",
   "user_request": {
     "name": "quickly translating camera finger positions into positions on the thing basically like teleoperating... map my hand positions to the actual hand... maybe they already have this built in"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Jake wants camera-based teleoperation that tracks his left hand and mirrors his finger positions onto the Aero Hand in real time. Check for existing solutions first, such as the aero-hand-open repo, its GUI and examples, or MediaPipe and dex-retargeting, before writing new code.",
-  "summary_sha": "9172d40ae3638e16"
+  "summary_sha": "9172d40ae3638e16",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-9172d40a",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-9172d40a",
+  "claimed_at": "2026-10-17T14:43:25.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
