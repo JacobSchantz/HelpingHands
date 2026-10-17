@@ -8,7 +8,7 @@ Run with the aero venv, or via pose.sh. To add a pose, add one line to POSES.
 """
 import glob, re, sys, time
 from aero_open_sdk.aero_hand import AeroHand
-import hand_speed
+import hand_speed, hold
 
 # joints: thumb abduction, thumb flex, thumb tendon, index, middle, ring, pinky (0 = open, 90 = curled)
 THUMB_OUT = [0.0, 0.0, 0.0]
@@ -75,12 +75,15 @@ hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls
 # glide from where the hand is now instead of snapping at full servo speed
 MOVE_S = 0.7  # Jake: half speed (2026-10-17); full speed was too fast
 for i, (key, joints) in enumerate(steps):
+    hold.engage(hand)  # move torque back up; the last hold may have lowered it
     start = hand.get_joint_positions_compact() or joints
     hand.run_trajectory([(start, 0.0), (joints, MOVE_S)])
     for _ in range(2):  # resend the target so a stalled frame can't leave the hand short
         hand.set_joint_positions(joints)
         time.sleep(0.02)
-    print("pose:", key, flush=True)
     if i < len(steps) - 1:
+        print("pose:", key, flush=True)
         time.sleep(HOLD_S)
+    else:  # only the pose that stays gets the low-power hold (the search takes ~2 s)
+        print("pose:", key, "hold torque", hold.hold(hand, joints), flush=True)
 hand.close()

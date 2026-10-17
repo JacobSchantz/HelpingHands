@@ -3,11 +3,12 @@
 
 Usage: grip.py [close|release] [--torque N]   (port auto-detected)
 The fingers close slowly with a reduced torque limit so they wrap the object and
-stop against it instead of crushing it. Torque stays limited until release.
+stop against it instead of crushing it. Once closed, hold.py lowers each servo to what it needs:
+a finger stopped on the object keeps half the grip torque, the rest drop to just above their springs.
 """
 import argparse, glob, sys, time
 from aero_open_sdk.aero_hand import AeroHand
-import hand_speed
+import hand_speed, hold
 
 OPEN = [100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]          # thumb rotated across, fingers open
 GRIP = [100.0, 55.0, 30.0, 70.0, 70.0, 70.0, 70.0]    # past the can, so torque does the stopping
@@ -35,5 +36,7 @@ start = hand.get_joint_positions_compact() or (OPEN if a.action == "close" else 
 target = GRIP if a.action == "close" else OPEN
 hand.run_trajectory([(start, 0.0), (target, CLOSE_S)])
 hand.set_joint_positions(target)
-print("grip:", a.action, "torque", a.torque if a.action == "close" else 1000, "temps", hand.get_actuator_temperatures())
+start_torque = a.torque if a.action == "close" else 1000
+held = hold.hold(hand, target, start=start_torque, stall_torque=start_torque // 2)
+print("grip:", a.action, "torque", start_torque, "hold torque", held, "temps", hand.get_actuator_temperatures())
 hand.close()

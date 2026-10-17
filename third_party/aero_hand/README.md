@@ -37,6 +37,14 @@ in v0.2.0 (`firmware.ino` `setup()`).
   shaka ("surf's up"), i love you, love, 666, and Chinese one-hand numbers one..ten (`pose.sh seven`).
   `pose.sh count to ten` counts 1..10, about a second on each. `--list` shows aliases; add a pose with one
   line in `POSES` in `pose.py`.
+- **Low-power holding** (`scripts/hold.py`, used by `pose.py` and `grip.py`, so the app's pose buttons too):
+  the servos have no brake, so a held pose costs current for as long as it's held. After a pose is reached
+  each servo is told to hold where it actually settled (a finger that stopped short of its target, e.g. on
+  the palm, otherwise pushes at its full torque limit forever), then its torque limit (SET_TOR) steps down
+  450 → 10 until it sags more than 2°; it keeps 1.5× the lowest level that held (floor 30). This takes about
+  4 s after the pose and you barely see it. The next move raises every servo back to 700 (firmware default).
+  In `grip.py` a finger stalled on the object keeps half the grip torque instead, so the object isn't let
+  go (not yet tried with a real can). Speed stays 50%.
 - `scripts/teleop.sh` – webcam teleop: the hand copies your hand live (Esc quits, `--dry-run` only shows
   tracking, `--camera N`). Needs `pip install mediapipe opencv-python` in the venv; the model downloads to
   `~/HelpingHands-tools/aero/hand_landmarker.task` on first run. Port of upstream's ROS 2 webcam teleop
@@ -94,3 +102,23 @@ We are building the **LEFT** hand. The board currently has the right-hand v0.2.0
 2026-10-17 servo EEPROM limits (bus_diag readAllLimits, read-only), all 7 servos: maxTemp 80 C, maxV 10.0 V, minV 4.0 V, protection current 1023. Left-hand firmware restored afterwards.
 
 2026-10-17 holding baseline (Jake gripping the hand while it held a pose, full torque): currents ~2000-2400 on thumb flex, ring, pinky; ring/pinky at 63-65 C and rising ~1 C per 3 s. Relaxed afterwards.
+
+## Holding power benchmark (2026-10-17)
+
+`scripts/hold_bench.py <label>` relaxes the hand, waits until every servo is ≤ 50 °C, runs the real
+command (`pose.py fist`, `pose.py peace`, `grip.py close` = can grip), then logs current and temperature
+for 60 s in free air. Raw data: `bench/hold_baseline.json`, `bench/hold_lowpower.json`. Heat safety: any
+servo at 68 °C relaxes everything and aborts that pose; nothing starts above 54 °C. Baseline was taken
+at move torque 700 (the firmware boot default) on every servo.
+
+Total mean current over the 60 s hold (sum of all 7 servos) and the hottest finger's temperature rise:
+
+| pose  | before (mA) | after (mA) | saved | ring / pinky before | ring / pinky after |
+|-------|------------:|-----------:|------:|--------------------:|-------------------:|
+| fist  | 12124 | 3068 | 75% | +13 / +13 °C/min (to 62 / 64 °C) | +0 / +0 °C/min |
+| peace |  8877 | 2212 | 75% | +12 / +14 °C/min (to 61 / 64 °C) | +0 / +0 °C/min |
+| can   |  5938 | 1798 | 70% |  +3 / +3 °C/min | −1 / +0 °C/min |
+
+Per servo, fist: thumb flex 2301 → 967 mA, index/middle/ring/pinky ~2060 → 340-490 mA each. Before, the
+curled fingers sat at their torque limit (~3 mA per torque unit), i.e. stalled short of 90°. The thumb flex
+is now the biggest draw (~960 mA at torque 150; it sags at 75), so it's the next thing to look at.
