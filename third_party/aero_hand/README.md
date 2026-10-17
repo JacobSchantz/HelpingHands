@@ -26,9 +26,13 @@ in v0.2.0 (`firmware.ino` `setup()`).
 
 ## Moving the hand
 - `scripts/performance.sh [song]` – starts a song (random from the ¿? playlist), then the hand dances to it:
-  the Mac mic tracks tempo, beat and loudness, and the hand cycles wave / bounce / pinch walk / pose hits every
-  8 bars, smoothed and speed-limited, until the track ends. Shrinks above 50 °C, stops at 60 °C. `--dry-run`
-  just listens and prints; `--routine` plays the old fixed routine. Needs Microphone access for the terminal.
+  the Mac mic tracks tempo, beat, loudness, brightness, busy highs and hard lows, and at each bar line the hand
+  picks the move that fits (quiet → slow sway, loud with heavy kicks → pose hits, busy hats → flutter, kicks →
+  bounce, bright → pinch walk, else wave), while each finger also flicks with hits in its own band (index highs,
+  middle/ring mids, pinky lows). Smoothed, speed-limited, half time when a beat is too quick for the 50% cap.
+  Shrinks above 50 °C, stops at 60 °C. `--dry-run` just listens and prints; `--wav song.wav` dances to a file
+  offline and prints the moves; `--routine` plays the old fixed routine. Needs Microphone access (Helping Hands
+  or the terminal); it prints MICROPHONE IS SILENT if macOS is blocking it.
 - `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
   shaka ("surf's up"), i love you, love, 666, and Chinese one-hand numbers one..ten (`pose.sh seven`).
   `pose.sh count to ten` counts 1..10, about a second on each. `--list` shows aliases; add a pose with one
