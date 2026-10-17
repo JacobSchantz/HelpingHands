@@ -1,0 +1,19 @@
+{
+  "id": "voice-8fe317cd",
+  "commit_id": "",
+  "description": "Dual-render workflow for every 3D design in Helping Hands. For each design, make (a) a three.js web concept render of the intended look and (b) the OpenSCAD part, exported to STL and loaded into the SAME viewer. Render both from the same fixed camera angles (front, side, top, iso, plus exploded) and put the pairs side by side, with a silhouette/overlay diff that highlights where they differ. Write a short 'differences and why' note per design (e.g. a printability constraint, a missing feature, wrong proportions) and the fix list. The OpenSCAD STL is the printable source of truth; the web render is the vision reference, not assumed correct. Show both on the Designs page cards (voice-0c526dc0). Apply it to the gripper generations and the Robot Glove Hand first. Make it one script: render_compare <design>.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T20:24:22.000Z",
+  "updated_at": "2026-10-17T20:24:22.000Z",
+  "user_request": {
+    "name": "for any 3D thing, I want you to make the web render and then the 3D object render and then compare them. So then you can see where they differ and potentially why they differ"
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
