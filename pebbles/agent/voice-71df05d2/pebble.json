@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Build a rock-paper-scissors game where the Aero Hand throws on the count of three after reading Jake's throw through the webcam with MediaPipe, reusing teleop.py's tracking. The hand's random pick must be committed and logged before Jake's throw is read, with winner announcements, score keeping, hand speed under 50%, and a button plus helpinghands://aero URL in the Helping Hands Mac app.",
+  "summary_sha": "71df05d28513376e"
 }
