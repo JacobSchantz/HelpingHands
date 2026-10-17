@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T21:06:44.000Z",
+      "result": "failed",
+      "notes": "Auto-label bug, take-20261017-170553: the label says 'Index, middle, pinky, ring and thumb curled in, thumb extended, index extended, ...', but the data shows ONE FINGER AT A TIME in order: thumb (0-25 s: abduction swung, tendon curled to 230), then index (26-40 s), middle (40-53 s), ring (53-66 s), pinky (67-75 s), each curling fully (~275) and extending back. The label should read in time order, e.g. 'Thumb curled and extended, then index, middle, ring, pinky each curled and extended'. Also: after release, the fingers rest 8-15% curled (index ~40-45, middle 33, ring 30, pinky 22 of ~288) and the thumb tendon stayed at 82 vs a 38 start, so tune the transparent torques down. There's a one-sample thumb abduction jump to ~0 at 10.7 s, probably a glitch; filter it.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T21:02:29.000Z",
       "result": "failed",
       "notes": "Still missing from Jake's earlier ask: AUDIO in every recording. Capture the mic in sync with the servo samples, save it with the take, transcribe it, use the transcript for the label, and play it during Replay full; the Helping Hands app owns mic permission. Also tune the per-finger transparent torque so fingers rest fully open (the index rested ~10% curled at torque 40).",
@@ -114,7 +125,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T21:02:29.000Z",
+  "updated_at": "2026-10-17T21:06:44.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
