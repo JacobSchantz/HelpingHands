@@ -62,8 +62,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Design a 3D-printable, tendon-driven robot hand in OpenSCAD that Jake's hand fits inside, using the Aero Hand's left-hand layout. Everything must be designed from scratch, with open-source hands studied only for ideas, each credited by project in REFERENCES.md.",
-  "summary_sha": "d85622a31c34d787",
+  "summary": "Jake wants one original tendon-driven index finger, fitted to jake_hand.scad, in OpenSCAD and an interactive JavaScript model in Designs. It must show the joints, tendon routing and return, with interference checks and honest untested limits, and the whole glove waits for his review.",
+  "summary_sha": "b128d8cb8b4a53cc",
   "artifacts": [
     {
       "kind": "file",
