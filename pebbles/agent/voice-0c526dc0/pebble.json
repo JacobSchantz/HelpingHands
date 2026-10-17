@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:57:06.000Z",
+      "result": "failed",
+      "notes": "Photo 3 of 3: cad/glove_hand/refs/jake_left_hand_side_thickness.jpg, a side view at table height. The hand lies flat on the bench edge and the tape stands vertically in front of it, reading downward (metric edge on the left: 10 cm red near the fingers, 20 cm red lower). My rough read: ~71 px/cm; tabletop at ~11.4 cm; hand top near the knuckles at ~7.6-8.2 cm, so ~3-3.5 cm thick at the knuckles; fingers ~1.4-1.6 cm thick. The tape sits slightly in front of the hand, so allow for perspective. You now have all three photos; build the first comfort-volume hand model and the fit-test surround.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:56:43.000Z",
       "result": "failed",
       "notes": "Tape scale, confirmed by Jake: the small numbers on one edge are metric (millimeter ticks, centimeters numbered with every 10 cm in red: 10, 20, 30); the large numbers on the other edge are inches. Use the metric edge for scale.",
@@ -137,7 +148,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T20:11:28.000Z",
-  "updated_at": "2026-10-17T20:56:43.000Z",
+  "updated_at": "2026-10-17T20:57:06.000Z",
   "user_request": {
     "name": "mock it up in 3D and then add it to our designs page. I should be able to see each project quite large and then the actual render displayed right there. So the first project is the gripper, second project is the hand... like a robot glove... what both the robot uses and what I use... the hand is empty in the middle... sufficient to fit a hand in the center... the hand has to be a lot bigger. But that's okay."
   },
