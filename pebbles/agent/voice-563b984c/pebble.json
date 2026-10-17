@@ -5,6 +5,17 @@
   "test_instructions": [],
   "results": [
     {
+      "kind": "test_result",
+      "at": "2026-10-17T21:24:39.000Z",
+      "result": "failed",
+      "notes": "Replay-motion BUG, filmed: third_party/aero_hand/bench/replay_frames/take-20261017-170553_motion_sheet.jpg (16 webcam frames in order, left to right, top to bottom). The thumb part matches the recording (thumb crosses the palm, then swings out). But in the finger section the fingers do NOT extend back after curling: they bend one after another and stay bent, so by the end all four are partly curled. The recording had each finger curl fully then extend fully, one at a time. The key-pose extraction (or the hold at the end) is dropping the extension poses. Fix it and re-verify on the hand with the camera (pebbles camera snap; the USB webcam is pointed at the hand). Also: hand_speed.limit now retries while the board is busy homing (it used to throw ACK 0x31 timeouts right after a replug).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
       "kind": "agent_action",
       "at": "2026-10-17T21:13:43Z",
       "commit_id": "abc4ce4be3d347052a21206c3517b64116c374b0",
@@ -160,7 +171,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T21:13:43Z",
+  "updated_at": "2026-10-17T21:24:39.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
@@ -228,6 +239,6 @@
     "name": "Jacob Schantz",
     "from": "human",
     "to": "agent",
-    "at": "2026-10-17T21:02:29.000Z"
+    "at": "2026-10-17T21:24:39.000Z"
   }
 }
