@@ -7,22 +7,44 @@ struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
     @State private var song = ""
 
-    private let columns = [GridItem(.adaptive(minimum: 110), spacing: 8)]
+    // Read from about four feet away: big type, big targets, generous spacing.
+    private let columns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
+    private let bodyFont = Font.system(size: 30, weight: .semibold)
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            status
+        VStack(alignment: .leading, spacing: 24) {
+            status  // pinned so Stop stays on screen
+            ScrollView { controls.padding(.trailing, 12) }
+            log
+        }
+        .padding(40)
+        .frame(minWidth: 1000, minHeight: 800)
+        .background(FillScreen())
+        .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
+        .navigationTitle("Aero Hand")
+        .onAppear { if runner.poses.isEmpty { runner.loadPoses() } }
+    }
+
+    private var controls: some View {
+        VStack(alignment: .leading, spacing: 32) {
             section("Performance") {
                 button(.perform(song: nil), "music.note")
                 button(.routine, "list.number")
                 button(.listen, "ear")
             }
-            HStack {
+            HStack(spacing: 20) {
                 TextField("Song name", text: $song)
-                    .textFieldStyle(.roundedBorder)
+                    .textFieldStyle(.plain)
+                    .font(bodyFont)
+                    .padding(.horizontal, 20)
+                    .frame(height: 80)
+                    .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 14))
                     .onSubmit(performSong)
-                Button("Perform song", action: performSong)
-                    .disabled(song.trimmingCharacters(in: .whitespaces).isEmpty)
+                Button(action: performSong) {
+                    Text("Perform song").font(bodyFont).padding(.horizontal, 24).frame(height: 80)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(song.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             section("Poses") {
                 button(.count, "textformat.123")
@@ -38,50 +60,60 @@ struct AeroHandPanel: View {
                 button(.teleop(dryRun: true), "hand.raised")
                 button(.home, "house")
             }
-            ScrollViewReader { proxy in
-                ScrollView {
-                    Text(runner.log.isEmpty ? "Output appears here." : runner.log)
-                        .font(.caption.monospaced())
-                        .foregroundStyle(runner.log.isEmpty ? .secondary : .primary)
-                        .textSelection(.enabled)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(8)
-                    Color.clear.frame(height: 1).id("end")
-                }
-                .background(.black.opacity(0.3), in: RoundedRectangle(cornerRadius: 8))
-                .onChange(of: runner.log) { _, _ in proxy.scrollTo("end") }
-            }
         }
-        .padding(20)
-        .frame(minWidth: 520, minHeight: 560)
-        .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
-        .navigationTitle("Aero Hand")
-        .onAppear { if runner.poses.isEmpty { runner.loadPoses() } }
+    }
+
+    private var log: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                Text(runner.log.isEmpty ? "Output appears here." : runner.log)
+                    .font(.system(size: 20, design: .monospaced))
+                    .foregroundStyle(runner.log.isEmpty ? .secondary : .primary)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(16)
+                Color.clear.frame(height: 1).id("end")
+            }
+            .frame(height: 160)
+            .background(.black.opacity(0.4), in: RoundedRectangle(cornerRadius: 14))
+            .onChange(of: runner.log) { _, _ in proxy.scrollTo("end") }
+        }
     }
 
     private var status: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 28) {
             Image(systemName: runner.running == nil ? "hand.raised" : "hand.raised.fill")
-                .font(.title2)
-                .foregroundStyle(Color.accentColor)
+                .font(.system(size: 56))
+                .foregroundStyle(runner.running == nil ? .white : .green)
             Text(runner.running?.title ?? "Idle")
-                .font(.headline)
+                .font(.system(size: 48, weight: .bold))
+                .foregroundStyle(runner.running == nil ? .white : .green)
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
             Spacer()
-            Toggle("Full speed", isOn: $runner.fullSpeed)
-                .toggleStyle(.switch)
-                .help("Off: servos capped at 50% (hand_speed.py). Resets every launch.")
+            Toggle(isOn: $runner.fullSpeed) {
+                Text("Full speed").font(bodyFont).foregroundStyle(runner.fullSpeed ? .orange : .white)
+            }
+            .toggleStyle(.switch)
+            .controlSize(.large)
+            .help("Off: servos capped at 50% (hand_speed.py). Resets every launch.")
             Button(role: .destructive) { runner.stop() } label: {
                 Label("Stop", systemImage: "stop.fill")
+                    .font(.system(size: 34, weight: .bold))
+                    .padding(.horizontal, 28)
+                    .frame(height: 88)
             }
+            .buttonStyle(.borderedProminent)
+            .tint(.red)
             .keyboardShortcut(.escape, modifiers: [])
             .disabled(runner.running == nil)
         }
     }
 
     private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title).font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 8, content: content)
+        VStack(alignment: .leading, spacing: 16) {
+            Text(title).font(.system(size: 38, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 20, content: content)
         }
     }
 
@@ -94,9 +126,13 @@ struct AeroHandPanel: View {
                     Text(label ?? command.title)
                 }
             }
-            .frame(maxWidth: .infinity)
+            .font(bodyFont)
+            .lineLimit(1)
+            .minimumScaleFactor(0.6)
+            .frame(maxWidth: .infinity, minHeight: 96)
         }
         .buttonStyle(.bordered)
+        .controlSize(.large)
         .tint(runner.running == command ? Color.accentColor : nil)
     }
 
@@ -105,6 +141,23 @@ struct AeroHandPanel: View {
         guard !name.isEmpty else { return }
         runner.run(.perform(song: name))
     }
+}
+
+/// Grows the Aero Hand window to most of the screen the first time it opens
+/// (macOS 14 has no `defaultWindowPlacement`).
+private struct FillScreen: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSView {
+        let view = NSView()
+        DispatchQueue.main.async {
+            guard let window = view.window, let screen = window.screen ?? NSScreen.main else { return }
+            window.setFrame(screen.visibleFrame.insetBy(dx: screen.visibleFrame.width * 0.04,
+                                                        dy: screen.visibleFrame.height * 0.04),
+                            display: true)
+        }
+        return view
+    }
+
+    func updateNSView(_ nsView: NSView, context: Context) {}
 }
 
 /// Routes `helpinghands://aero/…` to the runner without SwiftUI opening a new
