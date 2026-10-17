@@ -1,12 +1,12 @@
 {
   "id": "voice-bf54e709",
   "commit_id": "",
-  "description": "Aero Hand dances to the music: listen to what's playing and move the hand along with it so it flows with the song. The agent decides the approach (e.g. beat and tempo tracking plus energy/onsets driving finger waves, pinches and poses; smooth trajectories, nothing jerky). Extend third_party/aero_hand/scripts/performance.py (it already starts a random song from the ¿? playlist). LEFT hand; mind servo temperature over a full song.",
+  "description": "Aero Hand dances to the music: listen to what's playing and move the hand along with it so it flows with the song. The agent decides the approach (e.g. beat and tempo tracking plus energy/onsets driving finger waves, pinches and poses; smooth trajectories, nothing jerky). Extend third_party/aero_hand/scripts/performance.py (it already starts a random song from the \u00bf? playlist). LEFT hand; mind servo temperature over a full song.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T14:42:55.000Z",
-  "updated_at": "2026-10-17T14:42:55.000Z",
+  "updated_at": "2026-10-17T14:46:38Z",
   "user_request": {
     "name": "listening to the music and then moving the hand along with the music. I'll let you interpret what that means, but it should flow nicely with the music."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Aero Hand should dance to the music playing, using beat, tempo and energy tracking to drive smooth finger waves, pinches and poses. Extend performance.py, which already starts a random playlist song, on the LEFT hand while keeping servo temperature safe across a full song.",
-  "summary_sha": "bf54e709076d3fc9"
+  "summary_sha": "bf54e709076d3fc9",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-bf54e709",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-bf54e709",
+  "claimed_at": "2026-10-17T14:46:38.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
