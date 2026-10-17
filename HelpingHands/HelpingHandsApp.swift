@@ -33,6 +33,7 @@ struct RootTabs: View {
 
     #if os(macOS)
     @State private var tab = Tab.aeroHand
+    @ObservedObject private var repo = RepoDesigns.shared
     #else
     @State private var tab = Tab.designs
     #endif
@@ -42,13 +43,31 @@ struct RootTabs: View {
             AeroHandTab()
                 .tabItem { Label("Aero Hand", systemImage: "hand.raised.fingers.spread.fill") }
                 .tag(Tab.aeroHand)
-            DesignViewerScreen()
+            designs
                 .tabItem { Label("Designs", systemImage: "cube.transparent") }
                 .tag(Tab.designs)
             NavigationStack { WorkshopScreen() }
                 .tabItem { Label("Workshop", systemImage: "wrench.and.screwdriver") }
                 .tag(Tab.workshop)
         }
+        #if os(macOS)
+        // "work on <design>" (design.sh / helpinghands://designs/<name>): the
+        // workbench covers the whole window, which RepoDesigns makes full screen.
+        .overlay {
+            if let open = repo.open { DesignWorkbenchView(design: open).transition(.opacity) }
+        }
+        .onChange(of: repo.open?.id) { _, id in if id != nil { tab = .designs } }
+        #endif
+    }
+
+    /// On the Mac next to its checkout, the designs as they are on disk right
+    /// now (agents' unfinished work included); elsewhere, the ones baked into the build.
+    @ViewBuilder private var designs: some View {
+        #if os(macOS)
+        if repo.available { RepoDesignsScreen() } else { DesignViewerScreen() }
+        #else
+        DesignViewerScreen()
+        #endif
     }
 }
 

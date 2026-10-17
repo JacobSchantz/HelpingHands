@@ -1,0 +1,141 @@
+#!/usr/bin/env python3
+"""render_compare <design> — the web concept and the OpenSCAD STL side by side.
+
+Draws the design through cad/compare/viewer.html in headless Chrome: five fixed
+cameras (front, side, top, iso, exploded), each a row of web concept | STL |
+silhouette diff, on one PNG at <family>/render/compare_gen_NN.png (the Designs
+cards pick it up from there). The diff's overlap per view (IoU) goes into the
+metrics block of <family>/compare/gen_NN.md; the rest of that note — the
+differences, why, and the fix list — is written by whoever works the design
+and is kept as is. The STL is the printable truth; the web render is the
+vision, not assumed correct.
+
+    render_compare gripper            fuzzy names work, as in design.sh
+    render_compare glove-hand-gen-00 --export   re-export the STLs first
+    render_compare all
+"""
+import base64
+import json
+from pathlib import Path
+import re
+import subprocess
+import sys
+import socket
+import tempfile
+import time
+
+REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / 'cad' / 'compare'))
+import designs  # noqa: E402
+
+CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+BEGIN, END = '<!-- render_compare:begin -->', '<!-- render_compare:end -->'
+
+
+def serve():
+    """`python3 -m http.server` over the repo, on a free port. (An in-process
+    server dropped Chrome's module requests under --virtual-time-budget.)"""
+    with socket.socket() as probe:
+        probe.bind(('127.0.0.1', 0))
+        port = probe.getsockname()[1]
+    server = subprocess.Popen([sys.executable, '-m', 'http.server', str(port), '--bind', '127.0.0.1',
+                               '--directory', str(REPO)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    for _ in range(50):
+        try:
+            socket.create_connection(('127.0.0.1', port), timeout=0.2).close()
+            break
+        except OSError:
+            time.sleep(0.1)
+    server.port = port
+    return server
+
+
+def chrome(url, *args):
+    with tempfile.TemporaryDirectory(prefix='render-compare-') as profile:
+        return subprocess.run([CHROME, '--headless=new', f'--user-data-dir={profile}', '--hide-scrollbars',
+                               '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--no-first-run',
+                               '--window-size=1260,2156', '--virtual-time-budget=30000', *args, url],
+                              capture_output=True, text=True, timeout=180)
+
+
+def metrics_block(result):
+    rows = ['| View | Overlap (IoU) | Vision only px | STL only px |', '|---|---|---|---|']
+    for name, v in result['views'].items():
+        rows.append(f"| {name} | {v['iou'] * 100:.0f}% | {v['web_only_px']} | {v['stl_only_px']} |")
+    notes = ''.join(f'\n- {re.sub("<[^>]+>", "", n)}' for n in result.get('notes', []))
+    return f'{BEGIN}\n{chr(10).join(rows)}\n{notes}\n{END}'
+
+
+def write_notes(design, result):
+    path = REPO / design['notes']
+    path.parent.mkdir(exist_ok=True)
+    block = metrics_block(result)
+    if path.exists():
+        text = path.read_text()
+        text = (re.sub(re.escape(BEGIN) + '.*?' + re.escape(END), lambda _: block, text, flags=re.S)
+                if BEGIN in text else text.rstrip() + '\n\n## Overlap\n\n' + block + '\n')
+    else:
+        text = (f"# {design['name']} · web vs STL\n\n"
+                f"![compare](../render/compare_{design['generation']}.png)\n\n"
+                '## Overlap\n\n' + block + '\n\n'
+                '## Differences and why\n\n- (not written yet)\n\n'
+                '## Fix list\n\n- (not written yet)\n')
+    path.write_text(text)
+
+
+def compare(design, server):
+    """One headless run draws the sheet and hands back its PNG and overlap.
+    Chrome's module loader sometimes drops a request under a virtual time
+    budget, so a run that errors is simply tried again."""
+    url = (f'http://127.0.0.1:{server.port}/cad/compare/viewer.html'
+           f"?design={design['id']}&mode=sheet")
+    for attempt in range(6):
+        dom = chrome(url, '--dump-dom').stdout
+        found = re.search(r'<pre id="result">(.*?)</pre>', dom, re.S)
+        text = found.group(1).replace('&quot;', '"').replace('&amp;', '&') if found else ''
+        result = json.loads(text) if text.strip() else {'error': 'the viewer never finished drawing'}
+        if 'error' not in result:
+            break
+    else:
+        raise RuntimeError(result['error'])
+    sheet = REPO / design['sheet']
+    sheet.parent.mkdir(exist_ok=True)
+    sheet.write_bytes(base64.b64decode(result.pop('png').split(',', 1)[1]))
+    write_notes(design, result)
+    overlap = ', '.join(f"{k} {v['iou'] * 100:.0f}%" for k, v in result['views'].items())
+    print(f"{design['id']}: {design['sheet']} · overlap {overlap}")
+    for note in result.get('notes', []):
+        print('  ' + re.sub('<[^>]+>', '', note))
+
+
+def main(argv):
+    export = '--export' in argv
+    name = ' '.join(a for a in argv if a != '--export')
+    if not name:
+        print(__doc__)
+        return 2
+    found = designs.discover()
+    targets = found if name == 'all' else [designs.match(name, found)]
+    if not targets[0]:
+        print(f'No design matches "{name}". Try: design.sh --list', file=sys.stderr)
+        return 1
+    if export:
+        for d in targets:
+            designs.export(d)
+    designs.OUT.write_text(json.dumps({'designs': designs.discover()}, indent=1) + '\n')
+    server = serve()
+    try:
+        failed = 0
+        for d in targets:
+            try:
+                compare(d, server)
+            except RuntimeError as error:
+                failed += 1
+                print(f"{d['id']}: {error}", file=sys.stderr)
+    finally:
+        server.terminate()
+    return 1 if failed else 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

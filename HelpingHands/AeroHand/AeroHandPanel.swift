@@ -313,7 +313,8 @@ private struct FillScreen: NSViewRepresentable {
     func updateNSView(_ nsView: NSView, context: Context) {}
 }
 
-/// Routes `helpinghands://aero/…` to the runner without SwiftUI opening a new
+/// Routes `helpinghands://aero/…` to the runner and `helpinghands://designs/…`
+/// to the design workbench, without SwiftUI opening a new
 /// window for each URL (which `onOpenURL` on a WindowGroup does on the Mac).
 final class AeroURLDelegate: NSObject, NSApplicationDelegate {
     func applicationWillFinishLaunching(_ notification: Notification) {
@@ -325,6 +326,12 @@ final class AeroURLDelegate: NSObject, NSApplicationDelegate {
     @objc private func handleURL(_ event: NSAppleEventDescriptor, reply: NSAppleEventDescriptor) {
         guard let string = event.paramDescriptor(forKeyword: keyDirectObject)?.stringValue,
               let url = URL(string: string) else { return }
+        if url.host == "designs" {
+            // helpinghands://designs/<name>: the design workbench (Scripts/design.sh).
+            let name = url.path.trimmingCharacters(in: CharacterSet(charactersIn: "/")).removingPercentEncoding ?? ""
+            Task { @MainActor in RepoDesigns.shared.open(name: name) }
+            return
+        }
         Task { @MainActor in AeroHandRunner.shared.handle(url: url) }
     }
 }

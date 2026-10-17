@@ -124,7 +124,9 @@ def main():
     # Drop exports and renders left over from a renamed or older layout.
     for directory in ('export', 'render'):
         for stale in (ROOT / directory).iterdir():
-            if stale.suffix in ('.stl', '.png', '.json') and stale.name not in written:
+            # compare_gen_NN.png is render_compare's (web vs STL), not ours.
+            if stale.suffix in ('.stl', '.png', '.json') and stale.name not in written \
+                    and not stale.name.startswith('compare_'):
                 stale.unlink()
     print(f'Exported {len(groups)} generations, {len(parts)} pieces.')
 

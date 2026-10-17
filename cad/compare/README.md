@@ -1,0 +1,13 @@
+# Web render vs. STL, for every design
+
+Each 3D design has two renders. The **web concept** (`<family>/web/gen_NN.js`, three.js) is the vision. The **OpenSCAD STL** (`<family>/export/`) is what prints, so it is the source of truth. The web render is not assumed correct. Both are drawn by one page, `viewer.html`, with the same orthographic cameras, lights and framing, so anything that differs on screen differs in the geometry.
+
+    Scripts/render_compare gripper        # or "glove hand", "gripper gen 0", all, --export
+    Scripts/design.sh glove hand          # Mac app, full screen, live ("work on <design>")
+    Scripts/design.sh --list
+
+- `designs.py` finds every `cad/openscad/<family>/gen_NN_*.scad` and writes `designs.json`, which is gitignored. It does the fuzzy name matching for the script, the app and the URL. `--export <name>` re-exports only that generation's STLs, with no renders, in under a second. It also marks a design **in progress** when a claimed pebble (one in `agent/` with `working_on`) names it or is cited in its files.
+- `render_compare` writes `<family>/render/compare_gen_NN.png`, which shows on the Designs cards. The sheet has five rows: front, side, top, iso and exploded. Each row has three panels: web | STL | silhouette diff. In the diff, magenta is in the vision only, cyan is in the STL only, and grey is in both. The script fills the overlap table in `<family>/compare/gen_NN.md`. The rest of that note is written by hand and kept as is: **Differences and why** and the **Fix list**.
+- The Mac app's Designs tab reads the checkout, not the build. Each card shows that design's current web and STL renders. **Refresh** (⌘R) re-reads everything. The app also watches `cad/openscad`, so saving a `.scad` re-exports its STLs and redraws, and saving a concept redraws. `helpinghands://designs/<name>` opens the full-screen workbench: the web concept on the left and the STL on the right, on one shared orbit camera, with view presets and a Diff toggle.
+
+A concept file exports `build(THREE, { material, box, profile, rod })` (helpers from `shapes.js`). It returns `[{ name, object, explode: [x, y, z] }]`, in CAD mm with Z up, in the same frame as the STLs. It must not import anything else. Headless Chrome occasionally drops a dynamic import, and a file with a single module can simply be retried.

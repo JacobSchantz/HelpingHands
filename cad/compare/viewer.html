@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design compare</title>
+<!--
+  One viewer for both renders of a design, so they can only differ in the
+  geometry. ?design=<id from designs.json>
+    &mode=web | stl | diff | sheet   (sheet: every view x web/STL/diff on one image)
+    &view=front | side | top | iso | exploded
+    &live    orbit controls + window.hh for the Mac app
+-->
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/" } }
+</script>
+<style>
+  html, body { margin: 0; height: 100%; background: #0d1a22; color: #dfe7ef; overflow: hidden;
+               font: 13px -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+  canvas { display: block; }
+  .tag { position: absolute; padding: 4px 8px; border-radius: 6px; background: rgba(0,0,0,.45);
+         font-weight: 600; pointer-events: none; white-space: nowrap; }
+  #message { position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+             text-align: center; padding: 24px; color: #9fb0c0; line-height: 1.5; }
+  #result { display: none; }
+  .web { color: #ff7cc0; } .stl { color: #6fe3ea; }
+</style>
+</head>
+<body>
+<div id="message"></div>
+<pre id="result"></pre>
+<script type="module" src="./viewer.js"></script>
+</body>
+</html>
