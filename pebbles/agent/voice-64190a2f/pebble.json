@@ -5,6 +5,17 @@
   "test_instructions": [],
   "results": [
     {
+      "kind": "test_result",
+      "at": "2026-10-17T14:52:25.000Z",
+      "result": "failed",
+      "notes": "Jake: the 666 sign and Chinese counting 1 to 10 are still missing from pose.py (only open/fist/peace/flip off/rock on/shaka/i love you/love exist). Add them. Keep the scripts/hand_speed.limit() 50% cap; count to ten should pause about a second on each number.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
       "kind": "agent_action",
       "at": "2026-10-17T14:42:42Z",
       "commit_id": "2ab2954fc6d974f60cea93753610be86d97da42b",
@@ -39,7 +50,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:40:40.000Z",
-  "updated_at": "2026-10-17T14:42:42Z",
+  "updated_at": "2026-10-17T14:52:25.000Z",
   "user_request": {
     "name": "I should just be able to say a particular position... Jarvis peace. Or Jarvis flip me off. Or Jarvis rock on. Or Jarvis surfs up. or Jarvis lululil"
   },
@@ -75,5 +86,12 @@
     "cache_read_tokens": 1140320,
     "cache_write_tokens": 52798,
     "total_usd": 3.7651
+  },
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-17T14:52:25.000Z"
   }
 }
