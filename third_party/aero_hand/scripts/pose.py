@@ -18,7 +18,9 @@ POSES = {
     "flip off": (THUMB_IN + [90.0, 0.0, 90.0, 90.0], ["flip me off", "middle finger", "bird"]),
     "rock on":  (THUMB_IN + [0.0, 90.0, 90.0, 0.0], ["rock", "horns", "devil horns"]),
     "shaka":    (THUMB_OUT + [90.0, 90.0, 90.0, 0.0], ["surfs up", "hang loose"]),
-    "i love you": (THUMB_OUT + [0.0, 90.0, 90.0, 0.0], ["ily", "love you", "love"]),
+    "i love you": (THUMB_OUT + [0.0, 90.0, 90.0, 0.0], ["ily", "love you"]),
+    # half of a two-hand heart: fingers curved into a hook, thumb curled down to meet them
+    "love":     ([40.0, 30.0, 50.0] + [55.0, 55.0, 55.0, 55.0], ["heart", "half heart"]),
 }
 
 

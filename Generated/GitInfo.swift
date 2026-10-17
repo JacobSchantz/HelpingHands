@@ -1,9 +1,9 @@
 // Auto-generated — do not edit
 enum GitInfo {
-    static let shortHash = "5ab62b4"
-    static let fullHash = "5ab62b45593be0d3504e4c499f942a7b48637474"
+    static let shortHash = "ce7c8fb"
+    static let fullHash = "ce7c8fbff7b67d74f1259c0d9399ade19f3576a5"
     static let branch = "main"
-    static let lastCommitMessage = "aero_hand: performance picks a random song from the ¿? playlist"
-    static let commitCount = "243"
+    static let lastCommitMessage = "aero_hand: poses glide at half speed (0.7 s) instead of snapping"
+    static let commitCount = "260"
     static let repoRoot = "/Users/jakeschantz/HelpingHands"
 }
