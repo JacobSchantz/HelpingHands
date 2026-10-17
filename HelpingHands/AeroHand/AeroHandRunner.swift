@@ -10,9 +10,10 @@ enum AeroCommand: Equatable {
     case pose(String)             // any name or alias pose.py knows
     case count                    // Chinese one-hand counting 1..10
     case teleop(dryRun: Bool)     // webcam teleop; its OpenCV window is the live preview
+    case rps(dryRun: Bool)        // rock-paper-scissors on camera; the hand's throw is random and committed first
     case home
 
-    /// `helpinghands://aero/pose/peace`, `…/perform`, `…/perform/Song%20Name`, `…/teleop`.
+    /// `helpinghands://aero/pose/peace`, `…/perform`, `…/perform/Song%20Name`, `…/teleop`, `…/rps`.
     /// `stop` and `fast` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
@@ -24,6 +25,7 @@ enum AeroCommand: Equatable {
         case "count": self = .count
         case "teleop": self = .teleop(dryRun: arg == "dry-run")
         case "track", "tracking": self = .teleop(dryRun: true)
+        case "rps", "rock-paper-scissors", "rock paper scissors": self = .rps(dryRun: arg == "dry-run")
         case "home": self = .home
         default: return nil
         }
@@ -37,6 +39,7 @@ enum AeroCommand: Equatable {
         case .pose(let name): return "Pose: \(name)"
         case .count: return "Count to ten"
         case .teleop(let dryRun): return dryRun ? "Tracking only" : "Teleop"
+        case .rps(let dryRun): return dryRun ? "RPS (hand still)" : "Rock paper scissors"
         case .home: return "Home"
         }
     }
@@ -50,6 +53,7 @@ enum AeroCommand: Equatable {
         case .pose(let name): return ("pose.sh", [name])
         case .count: return ("pose.sh", ["count to ten"])
         case .teleop(let dryRun): return ("teleop.sh", dryRun ? ["--dry-run"] : [])
+        case .rps(let dryRun): return ("rps.sh", dryRun ? ["--dry-run"] : [])
         case .home: return ("home.sh", [])
         }
     }

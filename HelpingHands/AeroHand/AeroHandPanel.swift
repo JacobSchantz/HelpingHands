@@ -30,6 +30,9 @@ struct AeroHandPanel: View {
                     button(.pose(name), nil, label: name)
                 }
             }
+            section("Games") {
+                button(.rps(dryRun: false), "hand.raised.fingers.spread")
+            }
             section("Teleop & setup") {
                 button(.teleop(dryRun: false), "camera")
                 button(.teleop(dryRun: true), "hand.raised")
