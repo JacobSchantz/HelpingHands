@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Designs page plus a new design, the Robot Glove Hand.\n(1) Designs tab in the Helping Hands app: one large card per project, each with its live 3D render right there (reuse the existing CAD viewer with rotate and explode/assemble), big enough to see from across the room. Order: 1. Gripper (the existing generations). 2. Robot Glove Hand (new, below). 3. The wearable capture device (voice-b3454864) once mocked up.\n(2) Robot Glove Hand (OpenSCAD, generations kept as labeled files like the gripper): a robot hand that is hollow in the middle, an exoskeleton glove that Jake's own hand fits inside. His fingers go into the robot's fingers. The same hand is what the robot uses AND what Jake wears, so demonstrations are recorded on the robot's own joints. Mounting it on the robot arm works like putting on a glove: the arm's end has a hand-shaped mount or 'robot hand' core that slides in where Jake's hand would go. It needs enough empty space inside for an adult hand, assuming a large hand with margin, so it will be much bigger than the Aero Hand, and that's okay. Think about tendon or servo routing on the back of the hand so the inside stays clear, and a left-hand version to match the Aero. Ties into the glove-teaching plan (plans/aero-hand-glove-teaching.md) and the human-mirror principle.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-17T20:12:42.000Z",
+      "result": "failed",
+      "notes": "Jake, design priority for the Robot Glove Hand: minimize the material between his hand and the object he grabs. The palm and finger pads should ideally be a single thin layer of TPU, so all actuation, cords and structure go on the back and sides, never under the fingers or palm. Start small:\nStep 1: from a top-down photo of Jake's hand spread fully flat next to a scale reference (ruler or credit card), extract the outline. Build a 3D-printable TPU glove shell (OpenSCAD) that fits over the hand fully spread, so it captures the maximum width. Print, test the fit, iterate.\nStep 2: once the shell fits, build the robot glove around it.\nAsk Jake for the photo (he can AirDrop it; look in ~/Downloads), and add depth or thickness measurements as needed, e.g. a side photo or his measured finger widths.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-17T20:11:28.000Z",
-  "updated_at": "2026-10-17T20:11:28.000Z",
+  "updated_at": "2026-10-17T20:12:42.000Z",
   "user_request": {
     "name": "mock it up in 3D and then add it to our designs page. I should be able to see each project quite large and then the actual render displayed right there. So the first project is the gripper, second project is the hand... like a robot glove... what both the robot uses and what I use... the hand is empty in the middle... sufficient to fit a hand in the center... the hand has to be a lot bigger. But that's okay."
   },
