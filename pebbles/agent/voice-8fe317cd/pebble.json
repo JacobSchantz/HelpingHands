@@ -18,7 +18,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T20:24:22.000Z",
-  "updated_at": "2026-10-17T20:26:05.000Z",
+  "updated_at": "2026-10-17T20:26:52Z",
   "user_request": {
     "name": "for any 3D thing, I want you to make the web render and then the 3D object render and then compare them. So then you can see where they differ and potentially why they differ"
   },
@@ -29,5 +29,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Saying \"work on <design>\" should bring the Helping Hands Mac app forward full screen, showing the three.js web render beside the OpenSCAD STL render from matching camera angles, with a diff on request. Both renders must live-reload on every file save to show current unfinished state, and open via a helpinghands://designs/<name> URL and design.sh script with fuzzy name matching.",
-  "summary_sha": "113ce4922e029f9c"
+  "summary_sha": "113ce4922e029f9c",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-8fe317cd",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-8fe317cd",
+  "claimed_at": "2026-10-17T20:26:52.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
