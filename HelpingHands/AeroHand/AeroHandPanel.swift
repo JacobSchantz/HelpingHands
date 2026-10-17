@@ -12,7 +12,8 @@ struct AeroHandPanel: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            status  // pinned so Stop stays on screen
+            status  // pinned so Stop, Re-home and Relax stay on screen
+            rescue
             ScrollView { controls.padding(.trailing, 12) }
             log
         }
@@ -42,10 +43,9 @@ struct AeroHandPanel: View {
             section("Games") {
                 button(.rps(dryRun: false), "hand.raised.fingers.spread")
             }
-            section("Teleop & setup") {
+            section("Teleop") {
                 button(.teleop(dryRun: false), "camera")
                 button(.teleop(dryRun: true), "hand.raised")
-                button(.home, "house")
             }
         }
     }
@@ -84,11 +84,18 @@ struct AeroHandPanel: View {
             .toggleStyle(.switch)
             .controlSize(.large)
             .help("Off: servos capped at 50% (hand_speed.py). Resets every launch.")
+        }
+    }
+
+    /// The get-unstuck row: always visible, never scrolled away.
+    private var rescue: some View {
+        HStack(spacing: 20) {
+            bigButton(.home, "house.fill", height: 88, size: 34)
+            bigButton(.relax, "hand.raised.slash", height: 88, size: 34)
             Button(role: .destructive) { runner.stop() } label: {
                 Label("Stop", systemImage: "stop.fill")
                     .font(.system(size: 34, weight: .bold))
-                    .padding(.horizontal, 28)
-                    .frame(height: 88)
+                    .frame(maxWidth: .infinity, minHeight: 88)
             }
             .buttonStyle(.borderedProminent)
             .tint(.red)
@@ -108,11 +115,14 @@ struct AeroHandPanel: View {
         Text(title).font(.system(size: 38, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
     }
 
-    private func bigButton(_ command: AeroCommand, _ icon: String) -> some View {
+    private func bigButton(_ command: AeroCommand, _ icon: String,
+                           height: CGFloat = 160, size: CGFloat = 48) -> some View {
         Button { runner.run(command) } label: {
             Label(command.title, systemImage: icon)
-                .font(.system(size: 48, weight: .bold))
-                .frame(maxWidth: .infinity, minHeight: 160)
+                .font(.system(size: size, weight: .bold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
+                .frame(maxWidth: .infinity, minHeight: height)
         }
         .buttonStyle(.bordered)
         .controlSize(.large)

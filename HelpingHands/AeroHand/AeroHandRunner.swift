@@ -10,7 +10,8 @@ enum AeroCommand: Equatable {
     case count                    // Chinese one-hand counting 1..10
     case teleop(dryRun: Bool)     // webcam teleop; its OpenCV window is the live preview
     case rps(dryRun: Bool)        // rock-paper-scissors on camera; the hand's throw is random and committed first
-    case home
+    case home                     // re-home every servo; frees a stalled finger
+    case relax                    // zero torque on every servo
 
     /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`.
     /// `stop` and `fast` aren't commands; `AeroHandRunner.handle(url:)` takes those.
@@ -25,6 +26,7 @@ enum AeroCommand: Equatable {
         case "track", "tracking": self = .teleop(dryRun: true)
         case "rps", "rock-paper-scissors", "rock paper scissors": self = .rps(dryRun: arg == "dry-run")
         case "home": self = .home
+        case "relax": self = .relax
         default: return nil
         }
     }
@@ -37,7 +39,8 @@ enum AeroCommand: Equatable {
         case .count: return "Count to ten"
         case .teleop(let dryRun): return dryRun ? "Tracking only" : "Teleop"
         case .rps(let dryRun): return dryRun ? "RPS (hand still)" : "Rock paper scissors"
-        case .home: return "Home"
+        case .home: return "Re-home (if stuck)"
+        case .relax: return "Relax"
         }
     }
 
@@ -51,6 +54,7 @@ enum AeroCommand: Equatable {
         case .teleop(let dryRun): return ("teleop.sh", dryRun ? ["--dry-run"] : [])
         case .rps(let dryRun): return ("rps.sh", dryRun ? ["--dry-run"] : [])
         case .home: return ("home.sh", [])
+        case .relax: return ("relax.sh", [])
         }
     }
 }

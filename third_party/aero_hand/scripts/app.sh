@@ -1,7 +1,7 @@
 #!/bin/sh
 # Press a button in the Helping Hands Mac app, so the app (not Terminal) owns camera, mic and USB.
 #   app.sh dance [song]     app.sh test      app.sh pose peace   app.sh count
-#   app.sh teleop           app.sh rps       app.sh home         app.sh stop    app.sh fast on|off
+#   app.sh teleop           app.sh rps       app.sh home   app.sh relax   app.sh stop    app.sh fast on|off
 # Same as opening helpinghands://aero/<command>[/<arg>].
 [ $# -ge 1 ] || { sed -n '2,5p' "$0"; exit 2; }
 cmd=$1; shift
