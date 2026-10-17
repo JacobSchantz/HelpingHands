@@ -1,12 +1,24 @@
 {
   "id": "voice-64190a2f",
   "commit_id": "",
-  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription \u2014 maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
+  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription — maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-17T14:41:53.000Z",
+      "result": "failed",
+      "notes": "Jake: 'lululil' is the Chinese 666 sign (liù liù liù, 'that's cool'): thumb and pinky up, other fingers down (same shape as the 6 sign / shaka). Also add Chinese one-hand counting 1 to 10 as poses, so 'Jarvis count to ten' runs 1..10 and 'Jarvis seven' shows one number: 1 index; 2 index+middle; 3 middle+ring+pinky (OK-style, thumb touching index) or the index+middle+ring form; 4 four fingers, thumb folded; 5 open hand; 6 thumb+pinky; 7 fingertips pinched together; 8 thumb+index (L / pistol); 9 index hooked; 10 fist (or crossed index fingers, which one hand can't do, so use a fist). Check each against a reference for the common mainland forms.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-17T14:40:40.000Z",
-  "updated_at": "2026-10-17T14:41:05Z",
+  "updated_at": "2026-10-17T14:41:53.000Z",
   "user_request": {
     "name": "I should just be able to say a particular position... Jarvis peace. Or Jarvis flip me off. Or Jarvis rock on. Or Jarvis surfs up. or Jarvis lululil"
   },
