@@ -41,6 +41,9 @@ def osa(script):
 started = threading.Event()
 
 
+started = threading.Event()
+
+
 def start_song(name):
     """Start the track and return once Music reports it playing (polls every 50 ms)."""
     osa(f'tell application "Music" to play (first track of library playlist 1 whose name contains "{name}")')
@@ -59,6 +62,9 @@ song = threading.Thread(target=start_song, args=(SONG,))
 song.start()
 hand = AeroHand(port=ports[0])
 song.join()
+if not started.is_set():
+    hand.close()
+    sys.exit(f"song '{SONG}' did not start; hand not moved")
 if not started.is_set():
     hand.close()
     sys.exit(f"song '{SONG}' did not start; hand not moved")
