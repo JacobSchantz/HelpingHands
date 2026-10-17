@@ -64,8 +64,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Build a Designs tab with large live 3D cards per project, plus a new OpenSCAD Robot Glove Hand, a left-handed exoskeleton glove that Jake's large hand fits inside and the robot arm mounts like a glove. Start with a single thin TPU layer on the palm and finger pads, with all actuation on the back and sides, by extracting a flat-hand outline from Jake's top-down photo with a scale reference and printing a fitted shell first.",
-  "summary_sha": "e72636d7be87dbae",
+  "summary": "Build a Robot Glove Hand in OpenSCAD, starting with a thin TPU shell outlined from Jake's spread left-hand top-down photo using the tape measure for scale. The palm and finger pads must be a single thin TPU layer, with all actuation and structure on the back and sides.",
+  "summary_sha": "0f7af23205aa382d",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T20:17:32Z",
