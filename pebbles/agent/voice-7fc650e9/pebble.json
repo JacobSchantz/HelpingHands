@@ -1,12 +1,12 @@
 {
   "id": "voice-7fc650e9",
   "commit_id": "",
-  "description": "Helping Hands Mac app (add a macOS target to the existing Helping Hands iPhone app if practical) that owns the hardware permissions (camera for teleop, USB serial to the Aero Hand) so nothing runs under Terminal or Pebbles. Every aero_hand command is a button: performance (song first, random ¿? track), each pose from scripts/pose.py (and counting 1-10 once voice-64190a2f lands), teleop with live camera preview, homing, the music dance. Keep the 50% speed cap (scripts/hand_speed.py) unless an explicit faster toggle is set. Expose each command as a URL scheme or CLI hook too, so the Pebbles voice session can trigger the same buttons.",
+  "description": "Helping Hands Mac app (add a macOS target to the existing Helping Hands iPhone app if practical) that owns the hardware permissions (camera for teleop, USB serial to the Aero Hand) so nothing runs under Terminal or Pebbles. Every aero_hand command is a button: performance (song first, random \u00bf? track), each pose from scripts/pose.py (and counting 1-10 once voice-64190a2f lands), teleop with live camera preview, homing, the music dance. Keep the 50% speed cap (scripts/hand_speed.py) unless an explicit faster toggle is set. Expose each command as a URL scheme or CLI hook too, so the Pebbles voice session can trigger the same buttons.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T14:54:14.000Z",
-  "updated_at": "2026-10-17T14:54:14.000Z",
+  "updated_at": "2026-10-17T14:55:41Z",
   "user_request": {
     "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "A Mac app target in Helping Hands should give every aero_hand command its own button, owning camera and USB permissions. Keep the 50% speed cap unless a faster toggle is set, and expose each button via URL scheme or CLI for Pebbles.",
-  "summary_sha": "7fc650e93a42a0fc"
+  "summary_sha": "7fc650e93a42a0fc",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-7fc650e9",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-7fc650e9",
+  "claimed_at": "2026-10-17T14:55:41.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
