@@ -1,0 +1,19 @@
+{
+  "id": "voice-b66b39a9",
+  "commit_id": "",
+  "description": "Low-power pose holding for the Aero Hand (software). The servos have no brake, so holding a pose against the return springs, an object or a hand costs current and heat (2026-10-17: about 2000-2400 current units on thumb flex, ring and pinky while Jake held the hand; ring and pinky climbed past 63-65 C). After a pose is reached, drop each servo's torque (SET_TOR) to the lowest value that still holds it against its spring, with a small margin, and raise it again for the next move. Detect stalls (high current with little motion) and back off. MEASURE first: write a repeatable benchmark (e.g. hold fist, peace and the can grip in free air for 60 s each, logging per-servo current and temperature rise per minute, starting from a similar temperature). Record the baseline BEFORE changing anything, then the same numbers after, and put both in the README with the improvement. Applies to pose.py, grip.py, and the Mac app's buttons. Keep the 50% speed default.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T17:22:08.000Z",
+  "updated_at": "2026-10-17T17:22:08.000Z",
+  "user_request": {
+    "name": "file that as a software fix and then relax the arms first so we can measure the difference... record how much power is being used right now... and then record the difference after the software fix"
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
