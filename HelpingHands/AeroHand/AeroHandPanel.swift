@@ -177,7 +177,13 @@ struct AeroHandPanel: View {
             })
             .help(playing ? "Stop" : "Play the motion (hold for the full take at its recorded timing)")
             VStack(alignment: .leading, spacing: 4) {
-                Text(title(take)).font(.system(size: 28, weight: .bold)).lineLimit(1)
+                HStack(spacing: 8) {
+                    Text(title(take)).font(.system(size: 28, weight: .bold)).lineLimit(1)
+                    if take.audio == true {
+                        Image(systemName: "waveform").font(.system(size: 20, weight: .bold)).opacity(0.7)
+                            .help("Has audio: it plays during Replay full")
+                    }
+                }
                 Text(take.name.isEmpty ? clock(take.seconds)
                      : "\(take.date.formatted(date: .abbreviated, time: .shortened)) · \(clock(take.seconds))")
                     .font(.system(size: 22).monospacedDigit()).opacity(0.7)

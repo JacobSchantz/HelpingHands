@@ -80,6 +80,7 @@ struct AeroTake: Decodable, Identifiable, Equatable {
     let name: String
     let seconds: Double
     let recorded: Double  // seconds since 1970, from the file name
+    let audio: Bool?  // the mic was recorded with it
 
     var id: String { file }
     var date: Date { Date(timeIntervalSince1970: recorded) }
@@ -132,6 +133,8 @@ final class AeroHandRunner: ObservableObject {
     private var beforeRecord: Set<String> = []
 
     private var process: Process?
+    private let audio = TakeAudio()
+    private var saved: String?  // the take file teach.py's record just saved ("saved <path>: …")
     private var next: AeroCommand?
     private var partialLine = ""
 
@@ -302,7 +305,10 @@ final class AeroHandRunner: ObservableObject {
             self.process = process
             running = command
             startedAt = Date()
-            if case .record = command { beforeRecord = Set(takes.map(\.file)) }
+            if case .record = command {
+                beforeRecord = Set(takes.map(\.file))
+                audio.startRecording(into: Self.takesDir)
+            }
             live = []
         } catch {
             append("couldn't start \(script): \(error.localizedDescription)\n")
@@ -311,10 +317,13 @@ final class AeroHandRunner: ObservableObject {
 
     private func finished(status: Int32) {
         append(status == 0 ? "✓ done\n" : "✗ exited \(status)\n")
+        audio.stopPlaying()
         if case .record? = running {
             arriving = true
             loadTakes()
+            attachAudio(to: saved)
         }
+        saved = nil
         process = nil
         running = nil
         startedAt = nil
@@ -322,6 +331,24 @@ final class AeroHandRunner: ObservableObject {
         if let next {
             self.next = nil
             start(next)
+        }
+    }
+
+    /// Stops the mic, transcribes it, and has teach.py keep it with the take (and name the take
+    /// from the narration). With no take saved, the audio is thrown away.
+    private func attachAudio(to take: String?) {
+        Task {
+            guard let sidecar = await audio.finishRecording() else { return }
+            guard let take else {
+                if let side = try? JSONSerialization.jsonObject(with: Data(contentsOf: sidecar)) as? [String: Any],
+                   let file = side["file"] as? String { try? FileManager.default.removeItem(atPath: file) }
+                try? FileManager.default.removeItem(at: sidecar)
+                return
+            }
+            quick(["audio", take, sidecar.path]) { text in
+                self.append(text)
+                self.loadTakes()
+            }
         }
     }
 
@@ -345,7 +372,12 @@ final class AeroHandRunner: ObservableObject {
         for line in lines.dropLast() {
             if line.hasPrefix("pos ") {
                 live = line.split(separator: " ").dropFirst().compactMap { Int($0) }
+            } else if line.hasPrefix("audio ") {
+                audio.play(line: line)
             } else {
+                if line.hasPrefix("saved "), let path = line.dropFirst(6).split(separator: ":").first {
+                    saved = URL(fileURLWithPath: String(path)).lastPathComponent
+                }
                 append(line + "\n")
             }
         }

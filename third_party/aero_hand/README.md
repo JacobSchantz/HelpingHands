@@ -58,7 +58,9 @@ in v0.2.0 (`firmware.ino` `setup()`).
 - `scripts/teach.sh record` – teach by moving the hand: transparent torque mode (a small per-servo pull, `TORQUE`
   in `teach.py`, `--torque` to override) while all 7 actuations are logged at 100 Hz until Stop; the hand then
   relaxes and the take is saved to `~/HelpingHands-tools/aero/takes/take-<time>.json`, auto-named from its motion
-  ("Index finger curled in, index finger extended"; `teach.sh label [file|last]` prints it). `teach.sh replay
+  in time order ("Thumb, index, middle, ring and pinky each curled and extended"; `teach.sh label [file|last]`
+  prints it). Recording from the app also records the mic: the take gets `take-<time>.m4a`, a transcript (which
+  names the take when Jake narrates) and plays the audio during Replay full (`teach.sh audio` attaches it). `teach.sh replay
   [file|last]` smooths the take, holds servos that moved under 20° still, and drives between its key poses
   (turning points and pauses) as smooth moves at the speed setting; `--full` plays the recorded timing instead.
   Both send at 25 Hz with moving servos at torque 500 and still ones at 200, hold the last pose low-power, and stop

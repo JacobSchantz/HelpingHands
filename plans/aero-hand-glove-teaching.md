@@ -90,3 +90,25 @@ a finger that drifts needs its torque nudged.
 - Auto-label on save from the same turning points: "Index finger curled in, index finger extended". The thumb's
   three servos read as one thumb, described by whichever moved furthest. Rename (now by voice in the app, or
   `teach.sh rename last <name>`) overrides it.
+
+## Labels in time order, audio, lower pull (2026-10-17, voice-563b984c)
+- take-20261017-170553 moved one finger at a time (thumb 0-25 s, then index, middle, ring, pinky) but was labelled
+  "Index, middle, pinky, ring and thumb curled in, …": every finger's first move was timed from the take's start
+  (its first key point), so they all looked simultaneous. Moves are now timed where they cross halfway, runs of
+  one finger read as one phrase, and fingers taking turns at the same thing share one: "Thumb, index, middle, ring
+  and pinky each curled and extended". Labels are joined with ", then ". The index take: "Index finger curled and
+  extended".
+- The "one-sample" thumb abduction jump at 10.7 s isn't one sample: abduction ramps 100 → 0 over 9.2-10 s, sits
+  near 0 for 2 s and ramps back by 13 s (no step over 8° between samples anywhere in 0-26 s). It reads like a real
+  swing, so nothing filters it; the 0.15 s smoothing already flattens true single-sample spikes below a swing.
+- Audio: the app records the default input for the whole take (AVAudioRecorder, AAC mono), transcribes it on the
+  device (SFSpeechURLRecognitionRequest) and runs `teach.sh audio <take> <sidecar>`, which keeps
+  `take-….m4a` next to the take and stores `audio.offset` (wall-clock gap between mic start and the take's t=0),
+  `transcript` and `words` on the take's clock. When there's narration, it becomes the name (the motion label
+  stays in `motion`). Replay full prints `audio <file> <seconds in> <rate>` as the first frame goes out and the
+  app plays it at 1/stretch (clamped to 0.5-2x).
+- Torque `[10, 30, 30, 40, 40, 25, 25]` → `[8, 22, 20, 30, 30, 18, 18]`. Release test with nobody touching: curl
+  to 60% in position mode, switch to the pull, read after 3 s. Fingers stayed at exactly 171 of 288 at 1x, 0.75x,
+  0.5x and 0.35x, so the springs can't back-drive the spools and a finger rests where it's left; resting 8-15%
+  curled after a take is where Jake's hand let go, not the pull. The torque-0 control didn't run (the hand
+  dropped off USB).
