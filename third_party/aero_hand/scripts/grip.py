@@ -11,12 +11,16 @@ import hand_speed
 
 OPEN = [100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]          # thumb rotated across, fingers open
 GRIP = [100.0, 55.0, 30.0, 70.0, 70.0, 70.0, 70.0]    # past the can, so torque does the stopping
+TIGHT = [100.0, 55.0, 90.0, 90.0, 90.0, 90.0, 90.0]   # everything fully curled, thumb wrapped on (tools, e.g. a hammer)
 CLOSE_S = 3.0
 
 ap = argparse.ArgumentParser()
 ap.add_argument("action", nargs="?", default="close", choices=["close", "release"])
 ap.add_argument("--torque", type=int, default=300, help="0-1000; 300 holds a can without denting it")
+ap.add_argument("--tight", action="store_true", help="full force (torque 1000), thumb wrapped on")
 a = ap.parse_args()
+if a.tight:
+    a.torque, GRIP = 1000, TIGHT
 
 ports = sorted(glob.glob("/dev/cu.usbmodem*"))
 if not ports:
