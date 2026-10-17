@@ -14,13 +14,15 @@ enum AeroCommand: Equatable {
     case relax                    // zero torque on every servo
 
     /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`.
-    /// `stop` and `speed` aren't commands; `AeroHandRunner.handle(url:)` takes those.
+    /// `stop`, `speed` and `hold` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
         switch path.first?.lowercased() {
         case "dance", "perform", "performance": self = .dance(song: arg)
         case "test", "routine": self = .test
-        case "pose": guard let arg else { return nil }; self = .pose(arg)
+        case "pose":
+            guard let arg else { return nil }
+            self = arg.lowercased() == "relax" ? .relax : .pose(arg)  // Relax is a Poses button too
         case "count": self = .count
         case "teleop": self = .teleop(dryRun: arg == "dry-run")
         case "track", "tracking": self = .teleop(dryRun: true)
@@ -84,6 +86,10 @@ final class AeroHandRunner: ObservableObject {
     /// hand_speed.py). Back to 50% on every launch.
     static let speeds = [25, 50, 60, 80, 100]
     @Published var speedPct = 50
+    /// How hard a pose (or grip) is held once reached (AERO_HOLD, read by hold.py):
+    /// auto is the low-power hold, medium holds light objects, firm holds tools.
+    static let holds = ["auto", "medium", "firm"]
+    @Published var hold = "auto"
 
     private var process: Process?
     private var next: AeroCommand?
@@ -120,6 +126,11 @@ final class AeroHandRunner: ObservableObject {
                   (1...100).contains(pct) else { append("unknown URL \(url.absoluteString)\n"); return }
             speedPct = pct
             append("speed: \(pct)%\n")
+        case "hold":
+            guard let mode = path.dropFirst().first?.lowercased(), Self.holds.contains(mode)
+            else { append("unknown URL \(url.absoluteString)\n"); return }
+            hold = mode
+            append("hold: \(mode)\n")
         case "fast":  // old alias: on = 100%, off = 50%
             speedPct = path.dropFirst().first?.lowercased() == "off" ? 50 : 100
             append("speed: \(speedPct)%\n")
@@ -135,7 +146,7 @@ final class AeroHandRunner: ObservableObject {
     /// Fills `poses` from `pose.sh --list`, so a pose added to POSES gets a button
     /// without touching Swift.
     func loadPoses() {
-        let process = makeProcess(script: "pose.sh", args: ["--list"], speedPct: 50)
+        let process = makeProcess(script: "pose.sh", args: ["--list"], speedPct: 50, hold: "auto")
         let pipe = Pipe()
         process.standardOutput = pipe
         process.terminationHandler = { _ in
@@ -150,7 +161,7 @@ final class AeroHandRunner: ObservableObject {
 
     private func start(_ command: AeroCommand) {
         let (script, args) = command.invocation
-        let process = makeProcess(script: script, args: args, speedPct: speedPct)
+        let process = makeProcess(script: script, args: args, speedPct: speedPct, hold: hold)
         let pipe = Pipe()
         process.standardOutput = pipe
         process.standardError = pipe
@@ -165,7 +176,7 @@ final class AeroHandRunner: ObservableObject {
             let status = finished.terminationStatus
             Task { @MainActor in self.finished(status: status) }
         }
-        append("▶︎ \(command.title) (\(speedPct)%)\n")
+        append("▶︎ \(command.title) (\(speedPct)%, hold \(hold))\n")
         do {
             try process.run()
             self.process = process
@@ -185,7 +196,7 @@ final class AeroHandRunner: ObservableObject {
         }
     }
 
-    private func makeProcess(script: String, args: [String], speedPct: Int) -> Process {
+    private func makeProcess(script: String, args: [String], speedPct: Int, hold: String) -> Process {
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/bin/sh")
         process.arguments = [Self.scriptsDir.appendingPathComponent(script).path] + args
@@ -193,6 +204,7 @@ final class AeroHandRunner: ObservableObject {
         var env = ProcessInfo.processInfo.environment
         env["PYTHONUNBUFFERED"] = "1"
         env["AERO_SPEED_PCT"] = String(speedPct)
+        env["AERO_HOLD"] = hold
         process.environment = env
         return process
     }

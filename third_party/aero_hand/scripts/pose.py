@@ -1,31 +1,31 @@
 #!/usr/bin/env python3
 """Move the hand straight to a named pose.
 
-Usage: pose.py <name>     e.g. pose.py peace, pose.py "surf's up", pose.py seven   (port auto-detected)
+Usage: pose.py <name> [--hold auto|medium|firm]   e.g. pose.py peace, pose.py "surf's up", pose.py seven
        pose.py count to ten   (Chinese one-hand counting 1..10, about a second on each)
        pose.py --list
 Run with the aero venv, or via pose.sh. To add a pose, add one line to POSES.
 """
-import glob, re, sys, time
+import glob, os, re, sys, time
 from aero_open_sdk.aero_hand import AeroHand
 import hand_speed, hold
 
 # joints: thumb abduction, thumb flex, thumb tendon, index, middle, ring, pinky (0 = open, 90 = curled)
 THUMB_OUT = [0.0, 0.0, 0.0]
 THUMB_IN = [90.0, 45.0, 60.0]  # tucked over the curled fingers, as in performance.py's peace sign
-POSES = {
-    "open":     (THUMB_OUT + [0.0, 0.0, 0.0, 0.0], ["open hand", "relax"]),
+POSES = {  # the Poses buttons in the Mac app, in order (relax.sh is added there as the last one)
+    "open":     (THUMB_OUT + [0.0, 0.0, 0.0, 0.0], ["open hand"]),
     "fist":     (THUMB_IN + [90.0, 90.0, 90.0, 90.0], ["close", "closed fist"]),
     "peace":    (THUMB_IN + [0.0, 0.0, 90.0, 90.0], ["peace sign", "victory"]),
     "flip off": (THUMB_IN + [90.0, 0.0, 90.0, 90.0], ["flip me off", "middle finger", "bird"]),
-    "rock on":  (THUMB_IN + [0.0, 90.0, 90.0, 0.0], ["rock", "horns", "devil horns"]),
-    "shaka":    (THUMB_OUT + [90.0, 90.0, 90.0, 0.0], ["surfs up", "hang loose"]),
-    "i love you": (THUMB_OUT + [0.0, 90.0, 90.0, 0.0], ["ily", "love you"]),
-    # half of a two-hand heart: four fingers bent together in a line, thumb all the way in
-    "love":     ([100.0, 55.0, 90.0] + [40.0, 40.0, 40.0, 40.0], ["heart", "half heart"]),
-    # Chinese 666 (liù liù liù, "that's cool"): thumb and pinky up, same shape as shaka / six
-    "666":      (THUMB_OUT + [90.0, 90.0, 90.0, 0.0], ["six six six", "liu liu liu", "lululil", "lulu"]),
-    # Chinese one-hand counting (common mainland forms). Pinches use performance.py's thumb-to-fingertip values.
+    "rock on":  (THUMB_IN + [0.0, 90.0, 90.0, 0.0], ["rock", "horns", "devil horns", "i love you", "ily", "love you"]),
+    # Chinese 666 (liù liù liù, "that's cool"): thumb and pinky up, the same shape as shaka and six
+    "666":      (THUMB_OUT + [90.0, 90.0, 90.0, 0.0],
+                 ["six six six", "liu liu liu", "lululil", "lulu", "shaka", "surfs up", "hang loose"]),
+}
+# Chinese one-hand counting (common mainland forms), for "count to ten"; no buttons, but `pose.py seven` works.
+# Pinches use performance.py's thumb-to-fingertip values.
+NUMBERS = {
     "one":      (THUMB_IN + [0.0, 90.0, 90.0, 90.0], ["1", "yi"]),
     "two":      (THUMB_IN + [0.0, 0.0, 90.0, 90.0], ["2", "er"]),
     "three":    ([75.0, 25.0, 30.0] + [50.0, 0.0, 0.0, 0.0], ["3", "san"]),  # OK-style: thumb on index tip
@@ -48,24 +48,30 @@ def norm(s):
 
 def find(name):
     n = norm(name)
-    for key, (joints, aliases) in POSES.items():
+    for key, (joints, aliases) in {**POSES, **NUMBERS}.items():
         if n in [norm(key)] + [norm(a) for a in aliases]:
             return key, joints
     return None, None
 
 
-if len(sys.argv) < 2 or sys.argv[1] == "--list":
+args = sys.argv[1:]
+if "--hold" in args:  # auto | medium | firm, see hold.py; the app sets AERO_HOLD instead
+    i = args.index("--hold")
+    os.environ["AERO_HOLD"] = args[i + 1] if i + 1 < len(args) else ""
+    del args[i:i + 2]
+hold.mode()  # a bad --hold exits here, before the hand moves
+if not args or args[0] == "--list":  # --list prints the button poses only; the numbers are for counting
     for key, (_, aliases) in POSES.items():
         print(f"{key}: {', '.join(aliases)}")
     sys.exit(0)
-said = " ".join(sys.argv[1:])
+said = " ".join(args)
 if norm(said) in COUNT_ALIASES:
-    steps = [(k, POSES[k][0]) for k in COUNT]
+    steps = [(k, NUMBERS[k][0]) for k in COUNT]
 else:
     key, joints = find(said)
     steps = [(key, joints)]
 if not steps[0][1]:
-    sys.exit(f"unknown pose '{' '.join(sys.argv[1:])}'; known: {', '.join(POSES)}")
+    sys.exit(f"unknown pose '{said}'; known: {', '.join(POSES)}, one..ten")
 ports = sorted(glob.glob("/dev/cu.usbmodem*"))
 if not ports:
     sys.exit("hand not connected; not moved")
@@ -84,6 +90,6 @@ for i, (key, joints) in enumerate(steps):
     if i < len(steps) - 1:
         print("pose:", key, flush=True)
         time.sleep(HOLD_S)
-    else:  # only the pose that stays gets the low-power hold (the search takes ~2 s)
-        print("pose:", key, "hold torque", hold.hold(hand, joints), flush=True)
+    else:  # only the pose that stays gets the hold (auto's low-power search takes ~2 s)
+        print("pose:", key, "hold", hold.mode(), "torque", hold.hold(hand, joints), flush=True)
 hand.close()

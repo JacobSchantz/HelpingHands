@@ -12,7 +12,7 @@ struct AeroHandPanel: View {
     private let titleHeight: CGFloat = 40
     private let scripts: [(AeroCommand, String)] = [
         (.test, "list.number"), (.dance(song: nil), "music.note"), (.count, "textformat.123"),
-        (.home, "house.fill"), (.relax, "hand.raised.slash"), (.teleop(dryRun: false), "camera"),
+        (.home, "house.fill"), (.teleop(dryRun: false), "camera"),
     ]
 
     var body: some View {
@@ -29,10 +29,16 @@ struct AeroHandPanel: View {
         .onAppear { if runner.poses.isEmpty { runner.loadPoses() } }
     }
 
+    /// pose.py's button poses, then Relax (relax.sh, zero torque) as the last pose.
+    private var poses: [(AeroCommand, String)] {
+        runner.poses.map { (.pose($0), $0) } + [(.relax, "relax")]
+    }
+
     /// Poses on top, then Scripts and Games sharing the last row.
     private func grid(in size: CGSize) -> some View {
-        let columns = max(1, min(runner.poses.count, Int(size.width / 210)))
-        let poseRows = Int((Double(runner.poses.count) / Double(columns)).rounded(.up))
+        let poses = poses
+        let columns = max(1, min(poses.count, Int(size.width / 210)))
+        let poseRows = Int((Double(poses.count) / Double(columns)).rounded(.up))
         let rows = CGFloat(poseRows + 1)
         let rowHeight = max(60, (size.height - 2 * (titleHeight + spacing) - spacing * (rows - 1)) / rows)
         let tileWidth = (size.width - spacing * CGFloat(scripts.count)) / CGFloat(scripts.count + 1)
@@ -40,8 +46,8 @@ struct AeroHandPanel: View {
             sectionTitle("Poses")
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns),
                       spacing: spacing) {
-                ForEach(runner.poses, id: \.self) { name in
-                    tile(.pose(name), nil, label: name, height: rowHeight)
+                ForEach(poses, id: \.1) { command, name in
+                    tile(command, nil, label: name, height: rowHeight)
                 }
             }
             HStack(alignment: .top, spacing: spacing) {
@@ -104,6 +110,20 @@ struct AeroHandPanel: View {
             .buttonStyle(.bordered)
             .fixedSize()
             .help("Servo speed for every command (hand_speed.py). Back to 50% every launch.")
+            Menu {
+                ForEach(AeroHandRunner.holds, id: \.self) { mode in
+                    Button(mode.capitalized) { runner.hold = mode }
+                }
+            } label: {
+                Label("Hold \(runner.hold.capitalized)", systemImage: "hand.raised.fingers.spread.fill")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundStyle(runner.hold == "auto" ? .white : .orange)
+                    .frame(minHeight: 72)
+            }
+            .menuStyle(.button)
+            .buttonStyle(.bordered)
+            .fixedSize()
+            .help("How hard a pose is held: Auto is low power, Medium holds light objects, Firm holds tools (hottest).")
             Button(role: .destructive) { runner.stop() } label: {
                 Label("Stop", systemImage: "stop.fill")
                     .font(.system(size: 34, weight: .bold))

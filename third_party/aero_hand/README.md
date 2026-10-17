@@ -33,10 +33,10 @@ in v0.2.0 (`firmware.ino` `setup()`).
   Shrinks above 50 °C, stops at 60 °C. `--dry-run` just listens and prints; `--wav song.wav` dances to a file
   offline and prints the moves; `--routine` plays the old fixed routine. Needs Microphone access (Helping Hands
   or the terminal); it prints MICROPHONE IS SILENT if macOS is blocking it.
-- `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
-  shaka ("surf's up"), i love you, love, 666, and Chinese one-hand numbers one..ten (`pose.sh seven`).
-  `pose.sh count to ten` counts 1..10, about a second on each. `--list` shows aliases; add a pose with one
-  line in `POSES` in `pose.py`.
+- `scripts/pose.sh <name> [--hold auto|medium|firm]` – jumps straight to a named pose: open, fist, peace,
+  flip off, rock on ("i love you"), 666 ("shaka", "surf's up"). Chinese one-hand numbers one..ten are in
+  `NUMBERS` for `pose.sh count to ten` (about a second on each; `pose.sh seven` still works) and have no
+  buttons. `--list` shows the button poses and aliases; add one with a line in `POSES` in `pose.py`.
 - **Low-power holding** (`scripts/hold.py`, used by `pose.py` and `grip.py`, so the app's pose buttons too):
   the servos have no brake, so a held pose costs current for as long as it's held. After a pose is reached
   each servo is told to hold where it actually settled (a finger that stopped short of its target, e.g. on
@@ -45,6 +45,10 @@ in v0.2.0 (`firmware.ino` `setup()`).
   4 s after the pose and you barely see it. The next move raises every servo back to 700 (firmware default).
   In `grip.py` a finger stalled on the object keeps half the grip torque instead, so the object isn't let
   go (not yet tried with a real can). Speed stays 50%.
+  **Hold modes** (`AERO_HOLD`, `--hold` on pose.py/grip.py, the app's Hold menu): `auto` is the search
+  above (default); `medium` keeps every servo at torque 350 (light objects); `firm` at 1000 (tools like a
+  hammer, hottest; grip.py also closes at 1000). Both push on toward the target, so a finger on the palm
+  draws current the whole time. Neither has been measured on a held object yet.
 - `scripts/teleop.sh` – webcam teleop: the hand copies your hand live (Esc quits, `--dry-run` only shows
   tracking, `--camera N`). Needs `pip install mediapipe opencv-python` in the venv; the model downloads to
   `~/HelpingHands-tools/aero/hand_landmarker.task` on first run. Port of upstream's ROS 2 webcam teleop
@@ -53,10 +57,11 @@ in v0.2.0 (`firmware.ino` `setup()`).
 
 - `scripts/home.sh` – firmware homing on all seven servos (port auto-detected).
 - **Helping Hands Mac app** (⇧⌘H, or Workshop › Aero Hand controls) – every command above as a button, with
-  a Speed dropdown (25/50/60/80/100%, back to 50% each launch, applies to every command) and a Stop
+  a Speed dropdown (25/50/60/80/100%, back to 50% each launch, applies to every command), a Hold dropdown
+  (Auto/Medium/Firm, back to Auto each launch), Relax (zero torque) as the last Poses button, and a Stop
   button (Esc). The app runs these
   scripts as its children, so camera, mic and Music permissions belong to Helping Hands, not Terminal.
-  `scripts/app.sh dance|test|pose <name>|count|teleop|home|relax|stop|speed <pct>` presses the same
+  `scripts/app.sh dance|test|pose <name>|count|teleop|home|relax|stop|speed <pct>|hold <mode>` presses the same
   buttons from a shell or the voice session (it opens `helpinghands://aero/<command>/<arg>`). The app
   looks for scripts in `~/HelpingHands/third_party/aero_hand/scripts`
   (`defaults write com.helpinghands.app aeroScriptsDir <path>` to move it).

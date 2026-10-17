@@ -9,8 +9,13 @@ object isn't let go.
 
 The firmware only applies SET_TOR on the next CTRL_POS, so every change resends the target. Its
 torque values live in firmware RAM across scripts, which is why every move starts with engage().
+
+Hold modes (AERO_HOLD, or --hold on pose.py / grip.py; the Mac app's Hold menu sets it):
+  auto    the low-power search above (default)
+  medium  every servo kept at a fixed torque that holds light objects
+  firm    full torque on every servo, for tools like a hammer; the servos run hottest
 """
-import time
+import os, time
 
 MOVE_TORQUE = 700        # firmware boot default; every move runs at this
 LEVELS = [450, 300, 200, 140, 100, 70, 50, 35, 25, 15, 10]  # tried in turn, high to low
@@ -19,6 +24,15 @@ MARGIN = 1.5             # held torque = lowest level that held x MARGIN
 FLOOR = 30               # never hold below this
 STALL_MA_PER_TORQUE = 1.5  # stalled servos draw ~3 mA per torque unit (2026-10-17 baseline)
 STALL_ERR_DEG = 5.0
+MODE_TORQUE = {"medium": 350, "firm": 1000}  # fixed hold torques; not yet measured on held objects
+
+
+def mode(name=None):
+    """The hold mode to use: `name`, else AERO_HOLD, else auto. Exits on an unknown mode."""
+    m = (name or os.environ.get("AERO_HOLD") or "auto").strip().lower()
+    if m != "auto" and m not in MODE_TORQUE:
+        raise SystemExit(f"unknown hold '{m}'; use auto, medium or firm")
+    return m
 
 
 def _set(hand, torques):
@@ -49,9 +63,18 @@ def _settle(hand, timeout=2.0):
     return last
 
 
-def hold(hand, joints, start=MOVE_TORQUE, stall_torque=None):
+def hold(hand, joints, start=MOVE_TORQUE, stall_torque=None, how=None):
     """Lower each servo's torque to what it needs to keep `joints`; a stalled servo backs off to
-    `stall_torque` when given. Returns the torques left set."""
+    `stall_torque` when given. Medium and firm (see mode) skip that and hold every servo at a fixed
+    torque, pushing on toward `joints`. Returns the torques left set."""
+    m = mode(how)
+    if m != "auto":
+        final = [MODE_TORQUE[m]] * 7
+        _set(hand, final)
+        for _ in range(2):
+            hand.set_joint_positions(joints)
+            time.sleep(0.02)
+        return final
     ref = _settle(hand)
     cur = hand.get_actuator_currents()
     if not ref or not cur:
