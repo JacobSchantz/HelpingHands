@@ -1,0 +1,19 @@
+{
+  "id": "voice-7fc650e9",
+  "commit_id": "",
+  "description": "Helping Hands Mac app (add a macOS target to the existing Helping Hands iPhone app if practical) that owns the hardware permissions (camera for teleop, USB serial to the Aero Hand) so nothing runs under Terminal or Pebbles. Every aero_hand command is a button: performance (song first, random \u00bf? track), each pose from scripts/pose.py (and counting 1-10 once voice-64190a2f lands), teleop with live camera preview, homing, the music dance. Keep the 50% speed cap (scripts/hand_speed.py) unless an explicit faster toggle is set. Expose each command as a URL scheme or CLI hook too, so the Pebbles voice session can trigger the same buttons.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T14:54:14.000Z",
+  "updated_at": "2026-10-17T14:54:14.000Z",
+  "user_request": {
+    "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
