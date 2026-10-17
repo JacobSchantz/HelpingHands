@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:55:27.000Z",
+      "result": "failed",
+      "notes": "Photo 2 of 3: cad/glove_hand/refs/jake_left_hand_fingers_together_top.jpg, left hand palm down, fingers together, thumb resting alongside, tape (cm on the left edge) on the same surface. My rough read: ~25 px/cm; knuckle width across the four fingers ~8.5-9 cm; with the thumb ~11 cm. Measure properly. The side photo for thickness is still to come.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:54:56.000Z",
       "result": "failed",
       "notes": "Jake: skip the calipers for now (only measurement so far: thumb base knuckle width 30 mm, in cad/glove_hand/refs/measurements.md). He'll send two more photos (side with the tape for thickness, top with fingers together). What to build: the hand model is really the 'comfort volume', the space his hand would feel comfortable in, i.e. the cutout for the glove. Get a first version that works from the photos, good enough to build the glove around. All dimensions stay parameters so it can be fine-tuned later after fit tests.",
@@ -115,7 +126,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T20:11:28.000Z",
-  "updated_at": "2026-10-17T20:54:56.000Z",
+  "updated_at": "2026-10-17T20:55:27.000Z",
   "user_request": {
     "name": "mock it up in 3D and then add it to our designs page. I should be able to see each project quite large and then the actual render displayed right there. So the first project is the gripper, second project is the hand... like a robot glove... what both the robot uses and what I use... the hand is empty in the middle... sufficient to fit a hand in the center... the hand has to be a lot bigger. But that's okay."
   },
