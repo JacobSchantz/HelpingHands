@@ -165,8 +165,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The Aero Hand window needs a big \"Re-home (if stuck)\" button (home.sh) at the top beside Stop, visible without scrolling. Add a \"Relax\" button (relax.sh, zero torque) next to it, since re-homing fixed a stalled middle finger today.",
-  "summary_sha": "f3d567151588c090",
+  "summary": "The Aero Hand window needs a speed dropdown replacing the Full speed toggle, full-screen support, and buttons regrouped into Poses, Scripts, and Games sections. Everything should fit one screen without scrolling, with buttons sized to fill the space, readable from four feet, and the dropdown (25/50/60/80/100, default 50%) applying to every command.",
+  "summary_sha": "ffef0f618963c299",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T17:09:36Z",
