@@ -34,7 +34,7 @@ in v0.2.0 (`firmware.ino` `setup()`).
   offline and prints the moves; `--routine` plays the old fixed routine. Needs Microphone access (Helping Hands
   or the terminal); it prints MICROPHONE IS SILENT if macOS is blocking it.
 - `scripts/pose.sh <name> [--hold auto|medium|firm]` – jumps straight to a named pose: open, fist, peace,
-  flip off, rock on ("i love you"), 666 ("shaka", "surf's up"). Chinese one-hand numbers one..ten are in
+  flip off, rock on ("i love you"), 666 ("shaka", "surf's up"), thumbs up ("good job"). Chinese one-hand numbers one..ten are in
   `NUMBERS` for `pose.sh count to ten` (about a second on each; `pose.sh seven` still works) and have no
   buttons. `--list` shows the button poses and aliases; add one with a line in `POSES` in `pose.py`.
 - **Low-power holding** (`scripts/hold.py`, used by `pose.py` and `grip.py`, so the app's pose buttons too):

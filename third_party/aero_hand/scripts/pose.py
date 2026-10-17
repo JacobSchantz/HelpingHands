@@ -22,6 +22,7 @@ POSES = {  # the Poses buttons in the Mac app, in order (relax.sh is added there
     # Chinese 666 (liù liù liù, "that's cool"): thumb and pinky up, the same shape as shaka and six
     "666":      (THUMB_OUT + [90.0, 90.0, 90.0, 0.0],
                  ["six six six", "liu liu liu", "lululil", "lulu", "shaka", "surfs up", "hang loose"]),
+    "thumbs up": (THUMB_OUT + [90.0, 90.0, 90.0, 90.0], ["thumb up", "good job"]),
 }
 # Chinese one-hand counting (common mainland forms), for "count to ten"; no buttons, but `pose.py seven` works.
 # Pinches use performance.py's thumb-to-fingertip values.

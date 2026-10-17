@@ -5,6 +5,7 @@ import SwiftUI
 /// `helpinghands://aero/…` URLs, which `scripts/app.sh` opens for the voice session.
 struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
+    @State private var showLog = false  // Jake: hidden by default, the buttons get the room
 
     // Read from about four feet away, and everything on one screen: the buttons
     // share whatever height is left, so a bigger window means bigger buttons.
@@ -19,7 +20,7 @@ struct AeroHandPanel: View {
         VStack(alignment: .leading, spacing: 20) {
             status
             GeometryReader { geo in grid(in: geo.size) }
-            log
+            if showLog { log }
         }
         .padding(32)
         .frame(minWidth: 1000, minHeight: 700)
@@ -124,6 +125,14 @@ struct AeroHandPanel: View {
             .buttonStyle(.bordered)
             .fixedSize()
             .help("How hard a pose is held: Auto is low power, Medium holds light objects, Firm holds tools (hottest).")
+            Button { showLog.toggle() } label: {
+                Image(systemName: showLog ? "text.alignleft" : "text.justify.left")
+                    .font(.system(size: 22))
+                    .frame(minHeight: 44)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(.white.opacity(showLog ? 0.9 : 0.5))
+            .help(showLog ? "Hide log" : "Show log")
             Button(role: .destructive) { runner.stop() } label: {
                 Label("Stop", systemImage: "stop.fill")
                     .font(.system(size: 34, weight: .bold))
