@@ -46,7 +46,11 @@ if not ports:
     sys.exit("hand not connected; not moved")
 hand = AeroHand(port=ports[0])
 hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
-for _ in range(3):  # one target, sent thrice so a stalled frame can't leave the hand unmoved
+# glide from where the hand is now instead of snapping at full servo speed
+MOVE_S = 0.7  # Jake: half speed (2026-10-17); full speed was too fast
+start = hand.get_joint_positions_compact() or joints
+hand.run_trajectory([(start, 0.0), (joints, MOVE_S)])
+for _ in range(2):  # resend the target so a stalled frame can't leave the hand short
     hand.set_joint_positions(joints)
     time.sleep(0.02)
 hand.close()
