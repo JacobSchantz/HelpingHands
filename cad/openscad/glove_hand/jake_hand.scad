@@ -120,3 +120,14 @@ module jake_hand(grow = 0, tip_room = 0, splay = hand_splay, flex = hand_flex,
 }
 
 jake_hand();
+
+// Read-only access for files that `use` this one (OpenSCAD's `use` brings in
+// modules and functions, not variables): jake("finger_len")[1] is the middle
+// finger's length. Knowing the hand's numbers never means copying them.
+function jake(key) = let(table = [
+    ["palm_length", hand_palm_length], ["palm_width", hand_palm_width], ["wrist_width", hand_wrist_width],
+    ["palm_thick", hand_palm_thick], ["wrist_thick", hand_wrist_thick],
+    ["finger_len", hand_finger_len], ["finger_base_w", hand_finger_base_w], ["finger_tip_w", hand_finger_tip_w],
+    ["finger_base_t", hand_finger_base_t], ["finger_tip_t", hand_finger_tip_t], ["phalanx", hand_phalanx],
+    ["thumb_cmc", hand_thumb_cmc], ["thumb_len", hand_thumb_len], ["thumb_w", hand_thumb_w], ["thumb_t", hand_thumb_t]])
+    table[search([key], table)[0]][1];

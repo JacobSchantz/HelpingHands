@@ -14,6 +14,7 @@ copy the newest file to the next number and change the copy.
 |---|---|---|---|
 | 00 | `gen_00_fit_tray.scad` | Jake's flat spread left hand as a 0.8 mm pad with an 8 mm wall, to check the outline fits | TPU 95A |
 | 01 | `gen_01_fit_surround.scad` | Closed try-on shell around the 3D hand model, two pieces (palm + back), open at the wrist | TPU 95A |
+| 02 | `gen_02_tendon_exo.scad` | The first robot hand: tendon exoskeleton, pinned saddles over each phalanx, cords below the joint axes, seven-servo forearm deck | TPU pad + PETG |
 
 ## Two independent models
 
@@ -29,6 +30,24 @@ knuckle width (4 fingers) ~80 mm, wrist ~60 mm, wrist crease to middle tip ~190-
 From the spread photo: web-to-tip index ~75, middle ~81, ring ~75, pinky ~58 mm (model adds 14 mm to reach the knuckle joint).
 Calipers: thumb knuckle 30 mm.
 **Guesses until the side photo:** every thickness (wrist 38, palm 28, finger 20 → 14 mm).
+
+## gen_02: tendon exoskeleton (voice-55a7493e)
+
+Designed from scratch. Other hands were studied for ideas only; `REFERENCES.md` says which idea came from where.
+
+- **pad** (TPU, 0.8 mm): the only material under the palm and fingers, up to 6 mm above the palm surface.
+- **saddles** (PETG): three shells per finger, two on the thumb, over the back and sides of each phalanx. Neighbours are pinned at the side of Jake's own PIP and DIP (thumb MCP and IP), coaxial with his joints. Pins are 1.75 mm filament.
+- **back** (PETG): the back plate, the thumb's metacarpal shell, five web posts, two cord combs, and the forearm deck with seven servo windows in the Aero Hand order: index, middle, ring, pinky, thumb flex, thumb tendon, thumb abduction.
+
+**Cords.** Each digit has one loop with both ends on its servo spool. The loop crosses over the fingertip, runs down both sides through eyelets 70 % of the half-thickness below each joint axis, and passes through the web posts. It then goes over the combs to the deck. A cord below every axis flexes every joint. A dorsal elastic on the hooks opens them again: the Aero Hand's cord-plus-spring, so transparent teaching works the same way.
+
+**MCP.** Nothing rigid fits beside a middle or ring knuckle, so there is no MCP hardware. The cords cross the knuckle low, in the finger webs, which puts them below its axis. That is why the fingers are spread 18 deg apart: the posts need the gaps.
+
+**Checked** (OpenSCAD intersections, flat and with every finger curled 45/60/40): no part enters the comfort volume or the hand, and no saddle hits a neighbour. The only contact is hinge lugs touching face to face, as designed. To re-run the check, intersect `comfort()` or `hand()` with `saddles()` / `back()` after `include`-ing the file with `part = "none"`.
+
+`part = "curl"` shows the hand bent with the cords drawn. The open issues are in `compare/gen_02.md` → Fix list.
+
+`jake_hand.scad` gained one read-only function, `jake(key)`, so a glove can read the hand's numbers (`use` doesn't import variables). It changes no geometry.
 
 ## Step 1: outline from a photo
 
