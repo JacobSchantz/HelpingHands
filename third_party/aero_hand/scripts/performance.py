@@ -4,7 +4,7 @@
 Usage: performance.py [song]   (default "Violin the Trap"; port auto-detected)
 Run with the aero venv: ~/HelpingHands-tools/aero/venv/bin/python performance.py
 """
-import glob, subprocess, sys, time
+import glob, subprocess, sys, threading, time
 from aero_open_sdk.aero_hand import AeroHand
 
 SONG = sys.argv[1] if len(sys.argv) > 1 else "Violin the Trap"
@@ -38,22 +38,30 @@ def osa(script):
     return subprocess.run(["osascript", "-e", script], capture_output=True, text=True).stdout.strip()
 
 
+started = threading.Event()
+
+
 def start_song(name):
+    """Start the track and return once Music reports it playing (polls every 50 ms)."""
     osa(f'tell application "Music" to play (first track of library playlist 1 whose name contains "{name}")')
-    for _ in range(200):  # up to 20 s (cloud tracks load slowly)
-        if osa('tell application "Music" to get player state') == "playing" and \
-           name.lower() in osa('tell application "Music" to get name of current track').lower():
+    for _ in range(400):  # up to 20 s
+        if osa('tell application "Music" to get player state') == "playing":
+            started.set()
             return
-        time.sleep(0.1)
-    sys.exit(f"song '{name}' did not start; hand not moved")
+        time.sleep(0.05)
 
 
 ports = sorted(glob.glob("/dev/cu.usbmodem*"))
 if not ports:
     sys.exit("hand not connected; nothing played or moved")
+# open the hand's port while the song starts, so neither waits on the other
+song = threading.Thread(target=start_song, args=(SONG,))
+song.start()
 hand = AeroHand(port=ports[0])
-start_song(SONG)
-time.sleep(1.0)
+song.join()
+if not started.is_set():
+    hand.close()
+    sys.exit(f"song '{SONG}' did not start; hand not moved")
 hand.run_trajectory(ROUTINE)
 hand.close()
 print(f"performance done to '{SONG}'")
