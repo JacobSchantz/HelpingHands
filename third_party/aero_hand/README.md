@@ -55,3 +55,7 @@ TP1), pad 12 3V3, pad 13 GND. The XIAO 5V pad is unconnected and servo V+ comes 
 - Servo IDs set 2026-10-16 with `setid_check.py PORT <id> 1023`, one servo at a time. All seven came
   from the factory as ID 1. Now 0 thumb_abduction, 1 thumb_flex, 2 thumb_tendon, 3 index, 4 middle,
   5 ring, 6 pinky, each with current limit 1023 (the docs' recommendation). Jake's labels match the IDs.
+
+## Hand side (2026-10-16)
+
+We are building the **LEFT** hand. The board currently has the right-hand v0.2.0 firmware; flash `upstream/firmware/main/bin/firmware_v0.2.0_lefthand.bin` before the first powered move. ID map is the same on both hands: 0 thumb abduction, 1 thumb flex, 2 thumb tendon, 3 index, 4 middle, 5 ring, 6 pinky.
