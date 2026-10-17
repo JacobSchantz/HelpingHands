@@ -27,5 +27,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Saying \"work on <design>\" should bring the Helping Hands Mac app forward full screen, showing the three.js web render beside the OpenSCAD STL render from matching camera angles, with a diff on request. Both renders must live-reload on every file save to show current unfinished state, and open via a helpinghands://designs/<name> URL and design.sh script with fuzzy name matching.",
+  "summary_sha": "113ce4922e029f9c"
 }
