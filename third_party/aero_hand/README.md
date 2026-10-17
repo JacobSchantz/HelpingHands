@@ -28,6 +28,11 @@ in v0.2.0 (`firmware.ino` `setup()`).
 - `scripts/performance.sh [song]` – starts a song, then runs the routine.
 - `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
   shaka ("surf's up"), i love you. `--list` shows aliases; add a pose with one line in `POSES` in `pose.py`.
+- `scripts/teleop.sh` – webcam teleop: the hand copies your hand live (Esc quits, `--dry-run` only shows
+  tracking, `--camera N`). Needs `pip install mediapipe opencv-python` in the venv; the model downloads to
+  `~/HelpingHands-tools/aero/hand_landmarker.task` on first run. Port of upstream's ROS 2 webcam teleop
+  (`ros2/src/webcam_mocap` + `mediapipe_retargeting.py`) without ROS; upstream also has Vision Pro and Manus
+  glove teleop under `ros2/`.
 
 ## Testing the board
 - `scripts/setid_check.py PORT ID LIMIT` – documented Set ID flow via the SDK. Scans IDs 0–253
