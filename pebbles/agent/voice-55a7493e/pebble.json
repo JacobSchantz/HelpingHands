@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Robot Glove Hand v1: a 3D-printable TENDON-actuated robotic hand built around Jake's hand model. DEPENDS ON voice-0c526dc0: start only once its hand comfort-volume model (cad/openscad/glove_hand) and fit-test surround have landed. If they aren't there yet, say so and stop. Goal: a hollow exoskeleton-style hand that Jake's hand fits inside (thin TPU layer on the palm side, tendons, servos and routing on the back), which the robot can also use. Same left-hand layout as the Aero Hand. Study existing open-source tendon hands and reuse what fits: Aero Hand Open (Chestnut-Robotics/aero-hand-open, our current hand), LEAP Hand, ORCA Hand, Amazing Hand (Pollen), InMoov, DexHand, OpenBionics/Hero arm, soft exo-gloves. Record every reference (repo URL, license, what was borrowed) in cad/openscad/glove_hand/REFERENCES.md and respect the licenses. OpenSCAD, parameterized on the hand model so either side can change independently. Generations kept as labeled files. Dual-render compare (voice-8fe317cd), shown on the Designs page.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-17T21:00:22.000Z",
+      "result": "failed",
+      "notes": "Jake decided: design it FROM SCRATCH. No geometry or files copied from other projects. The agent may study open-source hands for ideas only (tendon routing, pulley sizing, printable joint and pin tolerances) and should still note in REFERENCES.md which ideas came from where.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-17T20:58:26.000Z",
-  "updated_at": "2026-10-17T20:58:26.000Z",
+  "updated_at": "2026-10-17T21:00:22.000Z",
   "user_request": {
     "name": "once that agent finishes up I want you to have another one taking that and attempting to build a 3D printable robotic hand out of it. It should be tendon actuated. Reference any existing open source projects and record their reference to them."
   },
