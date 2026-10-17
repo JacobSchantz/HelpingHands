@@ -46,8 +46,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Can the Aero Hand mount on the reBot Arm B601-DM, given wiring, power, ROS2/LeRobot control, and payload lost to hand mass? Record sourced findings in plans/aero_hand_on_b601.md, including kitchen food-prep suitability, which tasks need a second arm, and which open models fit.",
-  "summary_sha": "feeaa556779d7369",
+  "summary": "Add an integration plan for mounting the Aero Hand on the 48 V reBot B601-RS: printed wrist adapter, buck-converter power, USB hub, LeRobot robot class with two cameras, leader-arm and webcam teleop, and dataset recording. The plan should replace the earlier B601-DM assumption, and confirm with Seeed that the structure kit includes the wrist plate.",
+  "summary_sha": "ce9f4ca450a8e675",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-16T17:30:25Z",
