@@ -181,8 +181,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Jarvis can't yet see how the hand actually moves during recording and replay, so the Helping Hands app needs to capture Mac webcam video. Save the video with the take on the same time base as the samples, plus keyframe jpgs at each key pose for the voice session.",
-  "summary_sha": "219f84debef3744c",
+  "summary": "In Replay motion on the Aero Hand tab, fingers curl one after another but never extend back, ending partly curled, unlike the recording. Key-pose extraction must keep each finger's extension poses, then be re-verified on the hand with the webcam via pebbles camera snap.",
+  "summary_sha": "cf93a6eb2f42bd52",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T21:13:43Z",
