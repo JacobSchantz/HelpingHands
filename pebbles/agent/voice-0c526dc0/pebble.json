@@ -136,8 +136,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Build a Robot Glove Hand in OpenSCAD, starting with a thin TPU shell outlined from Jake's spread left-hand top-down photo using the tape measure for scale. The palm and finger pads must be a single thin TPU layer, with all actuation and structure on the back and sides.",
-  "summary_sha": "0f7af23205aa382d",
+  "summary": "Jake wants a hollow, left-handed Robot Glove Hand, built around a separate parameterized hand \"comfort volume\" from his photos, plus a Designs tab. The first deliverable is a printable fit-test surround, with clearance and wall thickness tunable independently of the hand model.",
+  "summary_sha": "9a3544958a76abe0",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T20:25:40Z",
