@@ -129,8 +129,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The Helping Hands Mac app's Aero Hand window should expose every aero_hand command as a button, with Performance reduced to two big buttons, Test and Dance. Both must stay triggerable through helpinghands://aero URLs, and the window must remain readable from four feet away.",
-  "summary_sha": "525a2da7a1f45fb1",
+  "summary": "The Aero Hand window needs a big \"Re-home (if stuck)\" button (home.sh) at the top beside Stop, visible without scrolling. Add a \"Relax\" button (relax.sh, zero torque) next to it, since re-homing fixed a stalled middle finger today.",
+  "summary_sha": "f3d567151588c090",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T15:25:06Z",
