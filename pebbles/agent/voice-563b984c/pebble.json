@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Aero Hand needs glove-based teaching: record all 7 servo positions at ~100 Hz in transparent torque mode, then replay them from the Helping Hands app with Record, Stop, and Replay last buttons. Replay should run in position mode at recorded speed under the 50% cap with a heat cutoff, and the glove advice should say whether it changes torque tuning.",
+  "summary_sha": "563b984c0f6dde96"
 }
