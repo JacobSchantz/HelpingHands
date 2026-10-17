@@ -31,3 +31,7 @@ Designed here: the V-cut saddle ends as the flexion and hyperextension stops, th
 
 Everything else in gen_02 is designed here: the saddle/pad split, side pins
 coaxial with Jake's PIP/DIP, the web posts, the combs, and the deck.
+
+## gen_04 (single index finger, first test print)
+
+No new sources. The rule is the same, and nothing from any project's CAD was used. Designed here: the flat-topped saddle section that prints top down, the radial clevises, the MCP tail-and-block stop, the turning post, the hand-turned drum with its pin lock, the pin and clearance coupon, and the mesh and interference checkers. The clevis and the filament-pin hinge are general printed-hinge practice, not taken from any one hand.

@@ -63,6 +63,16 @@ Jake found gen_02 too rudimentary. The rule now: one finger, shown working and r
 
 What only a print can tell: pin and tab fit at 0.3 mm, line friction in the guides, whether the elastic holds the finger open and what force the line needs, whether the saddles stay put on the finger with one strap, comfort, and whether the robot-only joint order matches the prediction.
 
+## gen_04: the index finger, first test print (voice-55a7493e, 2026-10-17)
+
+This is gen_03's mechanism made into something to print. `print/gen_04/README.md` is the package: files, settings, parts list, coupon, assembly, line routing and a bounded first-fit test. `compare/gen_04.md` has the check results and the fix list.
+
+- **Neighbours.** Nothing rigid sits past Jake's own index width on the ulnar side, and every hinge is on the radial side. The middle finger stays together with the index and moves freely in every checked pose. The thumb has to be out at least 35°: the MCP's coaxial hinge needs room beside the knuckle.
+- **Hinges.** The PIP and DIP are radial clevises with a 1.75 mm filament pin, pressed into the fork and running in the lug. The MCP is an M3 × 6 through the tab into the tapped base plate.
+- **Stops.** The V faces stop the PIP (100°) and DIP (71°). At the MCP, a tail on the tab meets a block on the base at 95°, and the same block stops hyperextension at 4°.
+- **Line and return.** The line runs below every axis, round a post behind the MCP and onto a hand-turned drum with an 18-hole lock. The elastic runs in channels inside the saddles' tops.
+- **Printable.** The saddles have a flat top and print top down (only the proximal one needs supports, under its MCP tab). `print_gen_04.py` checks every mesh. `check_gen_04.py` checks 28 poses plus the neighbours.
+
 ## Step 1: outline from a photo
 
 `hand_outline.scad` is **Jake's left hand**, from
