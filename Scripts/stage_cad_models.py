@@ -270,3 +270,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    from stage_design_viewer import stage
+    stage(os.path.join(os.path.dirname(destination()), "DesignViewer"))

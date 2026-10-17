@@ -65,6 +65,8 @@ struct RootTabs: View {
     @ViewBuilder private var designs: some View {
         #if os(macOS)
         if repo.available { RepoDesignsScreen() } else { DesignViewerScreen() }
+        #elseif os(iOS)
+        MobileDesignWorkbench()
         #else
         DesignViewerScreen()
         #endif
