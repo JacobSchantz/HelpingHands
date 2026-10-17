@@ -1,0 +1,19 @@
+{
+  "id": "voice-71df05d2",
+  "commit_id": "",
+  "description": "Rock-paper-scissors against the Aero Hand using the camera. Jake shows his throw to the webcam (MediaPipe, reuse teleop.py's tracking) and the hand throws rock, paper or scissors on the count of three. NO cheating: the hand's choice is picked at random (secrets/random) and committed BEFORE Jake's throw is read, never as a reaction to it; log the committed pick first so it can be checked. Announce who won and keep score. Hand moves stay under the 50% speed cap (scripts/hand_speed.py). Add it as a button in the Helping Hands Mac app (voice-7fc650e9) and a helpinghands://aero URL.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T15:02:55.000Z",
+  "updated_at": "2026-10-17T15:02:55.000Z",
+  "user_request": {
+    "name": "add a pebble for playing rock-paper-scissors using the camera but don't cheat it should be random"
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
