@@ -369,8 +369,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The Aero Hand tab needs to be rebuilt around teaching: one big Record button with a red dot, timer and live finger positions while recording, plus a big Stop button. Recordings should be listed with Play, Rename and Delete, with playback that truly reproduces the motion, and all other commands should move into one dropdown beside the Speed and Hold dropdowns.",
-  "summary_sha": "3d01b6c1987353b9",
+  "summary": "The Aero Hand tab's recordings list doesn't refresh when a take is renamed, created or deleted outside the app, such as through teach.py or a voice rename. The app should watch the takes folder (~/HelpingHands-tools/aero/takes) and reload the list on any change, including auto-labels.",
+  "summary_sha": "c8aec1c31bfd521b",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T19:57:39Z",
