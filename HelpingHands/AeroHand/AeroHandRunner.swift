@@ -4,7 +4,7 @@ import Foundation
 /// One Aero Hand command — a button in `AeroHandPanel` and a
 /// `helpinghands://aero/<command>[/<arg>]` URL (`scripts/app.sh` opens those).
 enum AeroCommand: Equatable {
-    case dance(song: String?)     // a random ¿? track (or the named song), danced along to
+    case dance(song: String?)     // a random 没有歌词 (no lyrics) track (or the named song), danced along to
     case test                     // song first, then the old fixed routine
     case pose(String)             // any name or alias pose.py knows
     case count                    // Chinese one-hand counting 1..10

@@ -2,7 +2,7 @@
 """Hand performance: start a song, then dance to it.
 
 Usage: performance.py [song] [--routine] [--dry-run]
-  song       default: a random track from the "¿?" playlist (port auto-detected)
+  song       default: a random track from the "没有歌词" playlist (port auto-detected)
   --routine  play the old fixed routine instead of dancing
   --dry-run  listen and print tempo/energy, don't move the hand
 Run with the aero venv: ~/HelpingHands-tools/aero/venv/bin/python performance.py
@@ -17,7 +17,7 @@ and stops when hot.
 import argparse, collections, glob, math, subprocess, sys, threading, time
 import numpy as np
 
-PLAYLIST = "¿?"
+PLAYLIST = "没有歌词"
 OPEN = [0.0] * 7
 
 ROUTINE = [
@@ -434,7 +434,7 @@ def simulate(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("song", nargs="?", help='track name (default: random from the "¿?" playlist)')
+    ap.add_argument("song", nargs="?", help='track name (default: random from the "没有歌词" playlist)')
     ap.add_argument("--routine", action="store_true", help="play the fixed routine instead of dancing")
     ap.add_argument("--dry-run", action="store_true", help="listen and print, don't move the hand")
     ap.add_argument("--wav", help="dance to this audio file offline (prints moves; no song, mic or hand)")
