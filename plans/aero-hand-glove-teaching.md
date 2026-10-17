@@ -74,3 +74,19 @@ directly (kinesthetic demonstration).
    under straps for grip.
 Any glove that adds force changes the balance point, so re-run a record with the glove on and nobody moving:
 a finger that drifts needs its torque nudged.
+
+## Replay v2 (2026-10-17, voice-563b984c)
+- Jake saw the other fingers shake and strain while replaying an index-only take. The take itself was clean
+  (the still servos moved <1.5° sample to sample, with only a slow ~14° drift as the low pull settled), so the
+  cause was the replay: every servo got a fresh goal 100 times a second at move torque 700. Same take, measured
+  on the hand: old way ring/pinky/thumb-tendon position sd 1.2-1.7°, new way 0.03-0.13°; index current halved.
+- Now every take is cleaned first: resampled to 25 Hz, 0.15 s moving average, the first 0.5 s (cords going taut)
+  dropped, and any servo that travelled < 20° held still at its median. Replay sends at 25 Hz; moving servos
+  get torque 500, still ones 200 (guesses that held fine on the bench; not tuned against a load).
+- Two modes. Motion (Play, the default): per servo, turning points that swing back ≥ 25% of its travel (≥ 30°)
+  plus pauses ≥ 0.6 s partway through a move; the union becomes key poses, driven between with eased moves whose
+  peak stays under the speed cap, resting 0.25 s on each. The index take becomes 3 poses: open, full curl, open.
+  Full (long-press Play, or right-click): the cleaned take at its recorded timing.
+- Auto-label on save from the same turning points: "Index finger curled in, index finger extended". The thumb's
+  three servos read as one thumb, described by whichever moved furthest. Rename (now by voice in the app, or
+  `teach.sh rename last <name>`) overrides it.

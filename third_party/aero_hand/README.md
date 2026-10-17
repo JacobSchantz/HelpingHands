@@ -57,10 +57,13 @@ in v0.2.0 (`firmware.ino` `setup()`).
 
 - `scripts/teach.sh record` – teach by moving the hand: transparent torque mode (a small per-servo pull, `TORQUE`
   in `teach.py`, `--torque` to override) while all 7 actuations are logged at 100 Hz until Stop; the hand then
-  relaxes and the take is saved to `~/HelpingHands-tools/aero/takes/take-<time>.json`. `teach.sh replay [file|last]`
-  plays it back in position mode at the recorded timing, slowed only where a servo would beat the speed cap, then
-  holds the last frame low-power. Both stop and relax at 60 °C. `replay --dry-run` prints duration and slow-down.
-  `teach.sh list` prints one JSON line per take (the app's Recordings list), `rename <file> <name>` names one, and
+  relaxes and the take is saved to `~/HelpingHands-tools/aero/takes/take-<time>.json`, auto-named from its motion
+  ("Index finger curled in, index finger extended"; `teach.sh label [file|last]` prints it). `teach.sh replay
+  [file|last]` smooths the take, holds servos that moved under 20° still, and drives between its key poses
+  (turning points and pauses) as smooth moves at the speed setting; `--full` plays the recorded timing instead.
+  Both send at 25 Hz with moving servos at torque 500 and still ones at 200, hold the last pose low-power, and stop
+  and relax at 60 °C. `replay --dry-run` prints the key poses.
+  `teach.sh list` prints one JSON line per take (the app's Recordings list), `rename <file|last> <name>` names one, and
   `delete <file>` moves it to `takes/deleted`. While recording it prints `pos` lines (each servo 0–100% of its
   range) that the app draws as live bars.
   Plan and glove notes: `plans/aero-hand-glove-teaching.md`.

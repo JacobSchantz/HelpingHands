@@ -9,7 +9,7 @@ struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
     @State private var showLog = false  // Jake: hidden by default
     @State private var renaming: AeroTake?
-    @State private var newName = ""
+    @State private var heldFull: Date?  // a long press on Play started a full replay; skip the tap after it
     @State private var deleting: AeroTake?
     @Namespace private var flight
 
@@ -45,11 +45,8 @@ struct AeroHandPanel: View {
             runner.loadTakes()
             runner.watchTakes()
         }
-        .alert("Rename recording", isPresented: Binding(get: { renaming != nil },
-                                                        set: { if !$0 { renaming = nil } })) {
-            TextField("Name", text: $newName)
-            Button("Save") { if let take = renaming { runner.rename(take, to: newName) } }
-            Button("Cancel", role: .cancel) {}
+        .sheet(item: $renaming) { take in
+            VoiceRenameSheet(take: take) { runner.rename(take, to: $0) }
         }
         .confirmationDialog("Delete \(deleting.map(title) ?? "")?",
                             isPresented: Binding(get: { deleting != nil }, set: { if !$0 { deleting = nil } })) {
@@ -157,17 +154,28 @@ struct AeroHandPanel: View {
         }
     }
 
+    /// Play is the key poses at the speed setting; a long press (or the right-click menu) plays
+    /// the full take at its recorded timing.
     private func row(_ take: AeroTake) -> some View {
-        let playing = runner.running == .replay(take.file)
+        var playing = false
+        if case .replay(let file, _)? = runner.running { playing = file == take.file }
         return HStack(spacing: 16) {
-            Button { playing ? runner.stop() : runner.run(.replay(take.file)) } label: {
+            Button {
+                if let held = heldFull, Date().timeIntervalSince(held) < 3 { heldFull = nil; return }
+                playing ? runner.stop() : runner.run(.replay(take.file, full: false))
+            } label: {
                 Image(systemName: playing ? "stop.fill" : "play.fill")
                     .font(.system(size: 34, weight: .bold))
                     .frame(width: 80, height: 72)
             }
             .buttonStyle(TileStyle(tint: playing ? .red : .accentColor))
             .disabled(recording)
-            .help(playing ? "Stop" : "Play")
+            .simultaneousGesture(LongPressGesture(minimumDuration: 0.5).onEnded { _ in
+                guard !playing, !recording else { return }
+                heldFull = Date()
+                runner.run(.replay(take.file, full: true))
+            })
+            .help(playing ? "Stop" : "Play the motion (hold for the full take at its recorded timing)")
             VStack(alignment: .leading, spacing: 4) {
                 Text(title(take)).font(.system(size: 28, weight: .bold)).lineLimit(1)
                 Text(take.name.isEmpty ? clock(take.seconds)
@@ -176,7 +184,7 @@ struct AeroHandPanel: View {
             }
             .foregroundStyle(.white)
             Spacer()
-            Button { newName = take.name; renaming = take } label: {
+            Button { renaming = take } label: {
                 Image(systemName: "pencil").font(.system(size: 26)).frame(width: 52, height: 52)
             }
             .buttonStyle(.borderless).foregroundStyle(.white.opacity(0.8)).help("Rename")
@@ -187,6 +195,15 @@ struct AeroHandPanel: View {
         }
         .padding(12)
         .background(.white.opacity(playing ? 0.18 : 0.08), in: RoundedRectangle(cornerRadius: 18))
+        .contextMenu {
+            Button("Replay motion") { runner.run(.replay(take.file, full: false)) }
+                .disabled(recording)
+            Button("Replay full (recorded timing)") { runner.run(.replay(take.file, full: true)) }
+                .disabled(recording)
+            Divider()
+            Button("Rename…") { renaming = take }
+            Button("Delete…", role: .destructive) { deleting = take }
+        }
     }
 
     /// The name if it has one, else when it was recorded.

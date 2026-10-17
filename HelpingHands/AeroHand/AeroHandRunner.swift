@@ -15,10 +15,11 @@ enum AeroCommand: Equatable {
     case home                     // re-home every servo; frees a stalled finger
     case relax                    // zero torque on every servo
     case record                   // transparent mode: move the fingers by hand; Stop saves the take
-    case replay(String?)          // play a take (file name in the takes folder; nil = newest) in position mode
+    case replay(String?, full: Bool)  // play a take (file name in the takes folder; nil = newest): its key
+                                      // poses at the speed setting, or `full` at the recorded timing
 
     /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`,
-    /// `…/record`, `…/replay`, `…/replay/take-20261017-155122.json`.
+    /// `…/record`, `…/replay`, `…/replay/take-20261017-155122.json`, `…/replay-full[/take-….json]`.
     /// `stop`, `speed` and `hold` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
@@ -35,7 +36,8 @@ enum AeroCommand: Equatable {
         case "home": self = .home
         case "relax": self = .relax
         case "record", "teach": self = .record
-        case "replay", "play": self = .replay(arg == "last" ? nil : arg)
+        case "replay", "play": self = .replay(arg == "last" ? nil : arg, full: false)
+        case "replay-full", "play-full": self = .replay(arg == "last" ? nil : arg, full: true)
         default: return nil
         }
     }
@@ -51,7 +53,7 @@ enum AeroCommand: Equatable {
         case .home: return "Re-home (if stuck)"
         case .relax: return "Relax"
         case .record: return "Record"
-        case .replay: return "Playing"
+        case .replay(_, let full): return full ? "Playing (full)" : "Playing"
         }
     }
 
@@ -67,7 +69,7 @@ enum AeroCommand: Equatable {
         case .home: return ("home.sh", [])
         case .relax: return ("relax.sh", [])
         case .record: return ("teach.sh", ["record"])
-        case .replay(let file): return ("teach.sh", ["replay", file ?? "last"])
+        case .replay(let file, let full): return ("teach.sh", ["replay", file ?? "last"] + (full ? ["--full"] : []))
         }
     }
 }

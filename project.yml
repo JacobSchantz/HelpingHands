@@ -85,7 +85,7 @@ targets:
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         ITSAppUsesNonExemptEncryption: false
         NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
-        NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
+        NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free, and the names you say for Aero Hand recordings."
         # The aero_hand scripts run as the Mac app's children (AeroHandRunner),
         # so these prompts name Helping Hands instead of Terminal.
         NSCameraUsageDescription: "Watches your hand so the Aero Hand can copy it (teleop)."

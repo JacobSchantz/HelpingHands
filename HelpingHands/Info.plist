@@ -42,7 +42,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free.</string>
+	<string>Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free, and the names you say for Aero Hand recordings.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
