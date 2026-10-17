@@ -1,0 +1,19 @@
+{
+  "id": "voice-9172d40a",
+  "commit_id": "",
+  "description": "Camera teleoperation for the Aero Hand: track Jake's hand from a camera and map his finger positions onto the hand in real time. First look for something already built (Chestnut/TetherIA aero-hand-open repo, its GUI or examples, MediaPipe/dex-retargeting style retargeting) before writing new code. LEFT hand; SDK in third_party/aero_hand/upstream/sdk.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T14:40:43.000Z",
+  "updated_at": "2026-10-17T14:40:43.000Z",
+  "user_request": {
+    "name": "quickly translating camera finger positions into positions on the thing basically like teleoperating... map my hand positions to the actual hand... maybe they already have this built in"
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
