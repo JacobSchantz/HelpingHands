@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants a research-and-design plan doc in plans/ for an all-day wrist wearable with a rolling local buffer that saves hand-manipulation episodes only on a gesture trigger. It should compare hardware, battery, sync, on-device gesture detection, privacy, and conversion to LeRobot data for the Aero Hand and reBot, and recommend a first prototype.",
+  "summary_sha": "b3454864d586f346"
 }
