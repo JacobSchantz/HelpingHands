@@ -1,0 +1,19 @@
+{
+  "id": "voice-563b984c",
+  "commit_id": "",
+  "description": "Aero Hand glove teaching: record and replay. Plan: HelpingHands plans/aero-hand-glove-teaching.md. The first bench test showed index and middle follow both ways in transparent torque mode.\n1. teach.py: hold transparent mode (per-finger tuned torque) and log all 7 servo positions at ~100 Hz with timestamps (plus camera frames later). Save each take as a file.\n2. replay.py: play a take back in position mode at the recorded speed, under the 50% speed cap by default, with a heat cutoff.\n3. Buttons in the Helping Hands app: Record, Stop, Replay last.\n4. Glove: Jake wears a glove that couples his fingers to the robot fingers (left hand). Suggest options: XL nitrile, or a thin winter glove over both hands, or straps per finger, and whether the glove changes the torque tuning.\nWorks by moving the fingers by hand even before the glove exists.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T19:38:54.000Z",
+  "updated_at": "2026-10-17T19:38:54.000Z",
+  "user_request": {
+    "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
