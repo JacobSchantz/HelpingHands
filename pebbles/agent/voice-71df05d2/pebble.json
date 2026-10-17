@@ -51,8 +51,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "Build a rock-paper-scissors game where the Aero Hand throws on the count of three after reading Jake's throw through the webcam with MediaPipe, reusing teleop.py's tracking. The hand's random pick must be committed and logged before Jake's throw is read, with winner announcements, score keeping, hand speed under 50%, and a button plus helpinghands://aero URL in the Helping Hands Mac app.",
-  "summary_sha": "71df05d28513376e",
+  "summary": "The rock-paper-scissors countdown should count \"3, 2, 1, shoot\" with the hand relaxed and partly open on each count. Only the shoot move goes to the committed random pick at 60% speed; everything else stays at 50%.",
+  "summary_sha": "5d4ef8afb8bd7529",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T15:07:09Z",
