@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T18:46:20.000Z",
+      "result": "failed",
+      "notes": "Jake: remove the individual number buttons (one through ten) from the Poses section. Counting stays only as the 'Count to ten' script (pose.py keeps the number poses internally for it). Move Relax into Poses as a pose button (zero torque, relax.sh). Final Poses: open, fist, peace, flip off, rock on, 666, relax.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T18:45:49.000Z",
       "result": "failed",
       "notes": "Jake: also remove the 'i love you' and 'love' poses and buttons. Of those hand signs keep only Rock on and 666 (plus open, fist, peace, flip off and the numbers). Drop their aliases or point them at the nearest kept pose (shaka/surf's up -> 666).",
@@ -202,7 +213,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:54:14.000Z",
-  "updated_at": "2026-10-17T18:45:49.000Z",
+  "updated_at": "2026-10-17T18:46:20.000Z",
   "user_request": {
     "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
   },
