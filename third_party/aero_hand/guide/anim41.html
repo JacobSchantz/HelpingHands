@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thumb CMC Flex Cable</title>
+<style>
+  :root {
+    --bg: #0b0f14; --panel: rgba(14,20,28,0.82); --ink: #eef3f8; --dim: #7d8a99;
+    --green: #3ee06a; --blue: #4aa8ff; --accent: #ffd166; --line: rgba(255,255,255,0.10);
+  }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden;
+    font-family: -apple-system, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif; }
+  #stage { position: fixed; inset: 0; }
+  #shade { position: fixed; left: 0; top: 0; bottom: 0; width: 760px; pointer-events: none; z-index: 1;
+    background: linear-gradient(90deg, rgba(11,15,20,.92) 0%, rgba(11,15,20,.75) 70%, rgba(11,15,20,0) 100%); }
+  #panel, #paused, #hint, #bar { z-index: 2; }
+  #panel { position: fixed; left: 40px; top: 40px; bottom: 40px; width: 600px; display: flex; flex-direction: column;
+    gap: 14px; pointer-events: none; }
+  .kicker { font-size: 24px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  h1 { margin: 0; font-size: 56px; line-height: 1.05; font-weight: 700; }
+  .hand { display: inline-block; margin-top: 6px; padding: 6px 16px; border-radius: 999px; font-size: 24px; font-weight: 700;
+    background: var(--accent); color: #111; width: max-content; }
+  #steps { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .step { display: flex; gap: 18px; align-items: flex-start; padding: 16px 20px; border-radius: 18px;
+    background: transparent; border: 2px solid transparent; transition: all .35s ease; opacity: .38; }
+  .step .n { flex: none; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+    font-size: 30px; font-weight: 800; background: #253141; color: var(--ink); }
+  .step .t { font-size: 30px; line-height: 1.22; padding-top: 6px; }
+  .step.on { opacity: 1; background: var(--panel); border-color: var(--green); }
+  .step.on .n { background: var(--green); color: #06210f; }
+  .step.on .t { font-size: 38px; font-weight: 650; }
+  .step.done { opacity: .62; }
+  .step.done .n { background: #1f5e33; }
+  #legend { margin-top: auto; display: flex; flex-direction: column; gap: 10px; font-size: 22px; color: #c9d3de; }
+  .sw { display: inline-block; width: 44px; height: 8px; border-radius: 4px; vertical-align: middle; margin-right: 12px; }
+  #bar { position: fixed; left: 680px; right: 40px; bottom: 40px; height: 10px; border-radius: 5px; background: #1d2632; overflow: hidden; }
+  #fill { height: 100%; width: 0; background: var(--green); }
+  #hint { position: fixed; right: 40px; bottom: 62px; font-size: 22px; color: var(--dim); text-align: right; }
+  #paused { position: fixed; right: 40px; top: 40px; font-size: 30px; font-weight: 800; padding: 10px 22px; border-radius: 14px;
+    background: var(--accent); color: #111; display: none; }
+  .lbl { font-size: 22px; font-weight: 700; color: var(--ink); background: rgba(10,14,20,0.78); padding: 5px 12px;
+    border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.18); white-space: nowrap; pointer-events: none; }
+  .lbl.g { border-color: var(--green); color: #c8ffd8; }
+  .lbl.faint { font-size: 18px; font-weight: 600; opacity: .7; }
+  .lbl.hot { border-color: var(--accent); color: #fff3c9; }
+  #err { position: fixed; left: 50%; top: 50%; transform: translate(-50%,-50%); font-size: 26px; display: none; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="stage"></div>
+<div id="shade"></div>
+<div id="panel">
+  <div class="kicker">Aero Hand · Page 41</div>
+  <h1>Thumb CMC<br>Flex Cable</h1>
+  <div class="hand">LEFT HAND</div>
+  <div id="steps">
+    <div class="step" data-i="0"><div class="n">1</div><div class="t">Thread the cable from servo 1 as shown</div></div>
+    <div class="step" data-i="1"><div class="n">2</div><div class="t">Go through the hole closer to the back of the palm on thumb MCP (11)</div></div>
+    <div class="step" data-i="2"><div class="n">3</div><div class="t">Tie an Ashley stopper knot at the mark</div></div>
+    <div class="step" data-i="3"><div class="n">4</div><div class="t">Pull the string tight</div></div>
+  </div>
+  <div id="legend">
+    <div><span class="sw" style="background:var(--green)"></span>CMC flex cable (servo 1)</div>
+    <div><span class="sw" style="background:#d9c7a0;opacity:.55"></span>Thumb pull cable (servo 2)</div>
+    <div><span class="sw" style="background:var(--blue);opacity:.55"></span>Coupling cable</div>
+  </div>
+</div>
+<div id="paused">PAUSED</div>
+<div id="hint">Drag to rotate · Scroll to zoom · Space pause/play · R restart · 1–4 jump</div>
+<div id="bar"><div id="fill"></div></div>
+<div id="err">Could not load the 3D parts.</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+const M = 'anim41/';
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+stage.appendChild(renderer.domElement);
+const labelR = new CSS2DRenderer();
+labelR.setSize(innerWidth, innerHeight);
+Object.assign(labelR.domElement.style, { position: 'fixed', inset: '0', pointerEvents: 'none' });
+document.body.appendChild(labelR.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b0f14);
+const camera = new THREE.PerspectiveCamera(32, innerWidth / innerHeight, 1, 3000);
+
+scene.add(new THREE.HemisphereLight(0xdfe9ff, 0x1a1410, 1.1));
+const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(-120, 160, 220); scene.add(key);
+const rim = new THREE.DirectionalLight(0x9fc4ff, 1.2); rim.position.set(160, 60, -200); scene.add(rim);
+
+// Hand root: URDF base frame in mm, rotated so the fingers point up (+Y) and the palm faces +Z.
+const hand = new THREE.Group();
+hand.rotation.x = -Math.PI / 2;
+scene.add(hand);
+
+const loader = new STLLoader();
+// The local guide server is simple: fetch a few files at a time and retry on a reset.
+let active = 0; const waiting = [];
+const slot = () => new Promise(r => { if (active < 3) { active++; r(); } else waiting.push(r); });
+const free = () => { const n = waiting.shift(); if (n) n(); else active--; };
+async function loadSTL(f) {
+  await slot();
+  try {
+    for (let i = 0; ; i++) {
+      try { const g = await loader.loadAsync(M + f + '.STL'); g.scale(1000, 1000, 1000); g.computeVertexNormals(); return g; }
+      catch (e) { if (i >= 4) throw e; await new Promise(r => setTimeout(r, 300 * (i + 1))); }
+    }
+  } finally { free(); }
+}
+
+const matShell = new THREE.MeshStandardMaterial({ color: 0xc9d1da, roughness: .6, metalness: 0, transparent: true, opacity: .2, depthWrite: false, side: THREE.DoubleSide });
+const matFinger = new THREE.MeshStandardMaterial({ color: 0x9aa4b0, roughness: .65, transparent: true, opacity: .45, depthWrite: false });
+const matThumb = new THREE.MeshStandardMaterial({ color: 0xd7dde4, roughness: .55 });
+const matMCP = new THREE.MeshStandardMaterial({ color: 0xa9c7ea, roughness: .5, emissive: 0x0d2033 });
+
+// URDF joints (left hand, metres -> mm)
+const mm = a => a.map(v => v * 1000);
+function joint(parent, xyz, rpy) {
+  const g = new THREE.Group();
+  g.position.set(...mm(xyz));
+  g.rotation.set(rpy[0], rpy[1], rpy[2], 'ZYX');
+  parent.add(g);
+  const q = new THREE.Group(); g.add(q);   // q rotates about the joint axis
+  return q;
+}
+const base = new THREE.Group(); hand.add(base);
+const tLink = joint(base, [-0.028112, -0.0145, 0.025363], [-1.2217, 0, 1.57]);
+const mcpL = joint(tLink, [0.003475, 0.003808, 0.019656], [0.1325, 0.17906, -0.26195]);
+const proxL = joint(mcpL, [0, 0.0033822, 0.035848], [0, 0, 0]);
+const distL = joint(proxL, [0, 0.002206, 0.029919], [0, 0, 0]);
+const tipL = joint(distL, [0, 0.0059474, 0.031823], [0, 0, 0]);
+const THUMB_ABD = 0.30;   // thumb swung slightly out, like the photos
+tLink.rotation.y = -THUMB_ABD;  // axis 0 -1 0
+
+const fingers = {
+  index: [[-0.030626, -0.0011782, 0.10542], [0, -0.05236, 0.034907]],
+  middle: [[-0.0075, 0, 0.106], [0, 0, 0]],
+  ring: [[0.015626, -0.0011782, 0.10542], [0, 0.05236, -0.034907]],
+  pinky: [[0.038266, -0.0036416, 0.092393], [0, 0.10472, -0.069946]],
+};
+
+const parts = [
+  ['left_base_link', base, matShell],
+  ['left_t_link', tLink, matThumb],
+  ['left_thumb_mcp_link', mcpL, matMCP],
+  ['left_thumb_proximal_link', proxL, matThumb],
+  ['left_thumb_distal_link', distL, matThumb],
+  ['left_thumb_tip_link', tipL, matThumb],
+];
+for (const [name, [xyz, rpy]] of Object.entries(fingers)) {
+  const p = joint(base, xyz, rpy);
+  const m = joint(p, [0, -0.0014554, 0.043], [0, 0, 0]);
+  const d = joint(m, [0, 0, 0.022], [0, 0, 0]);
+  const t = joint(d, [0, 0.003512, 0.026776], [0, 0, 0]);
+  parts.push([`left_${name}_proximal_link`, p, matFinger], [`left_${name}_middle_link`, m, matFinger],
+             [`left_${name}_distal_link`, d, matFinger], [`left_${name}_tip_link`, t, matFinger]);
+}
+const loaded = Promise.all(parts.map(([f, parent, mat]) => loadSTL(f).then(g => {
+  const mesh = new THREE.Mesh(g, mat);
+  if (mat === matShell) mesh.renderOrder = 2;
+  parent.add(mesh);
+})));
+
+// ---------- servo 1 (simplified) ----------
+const SPOOL_C = new THREE.Vector3(-17, -9, 50);   // base frame, mm (estimated)
+const SPOOL_R = 5.5;
+const servo = new THREE.Group(); servo.position.copy(SPOOL_C); base.add(servo);
+const body = new THREE.Mesh(new THREE.BoxGeometry(14, 16, 26), new THREE.MeshStandardMaterial({ color: 0xc8262e, roughness: .5 }));
+body.position.set(0, 10.5, -5); servo.add(body);
+const cap = new THREE.Mesh(new THREE.BoxGeometry(14.4, 3, 26.4), new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: .6 }));
+cap.position.set(0, 3.2, -5); servo.add(cap);
+const spool = new THREE.Group(); servo.add(spool);
+const spMat = new THREE.MeshStandardMaterial({ color: 0xf2f2f2, roughness: .45 });
+const hub = new THREE.Mesh(new THREE.CylinderGeometry(SPOOL_R, SPOOL_R, 4.2, 40), spMat); spool.add(hub);
+for (const y of [-2.6, 2.6]) { const f = new THREE.Mesh(new THREE.CylinderGeometry(SPOOL_R + 2.2, SPOOL_R + 2.2, 1, 40), spMat); f.position.y = y; spool.add(f); }
+const tick = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 6), new THREE.MeshStandardMaterial({ color: 0x333333 }));
+tick.position.set(0, -3.2, 3.5); spool.add(tick);
+// a few wraps already on the spool
+{ const w = []; for (let i = 0; i <= 160; i++) { const a = i / 160 * Math.PI * 2 * 2.6 + Math.PI * 1.25; w.push(new THREE.Vector3(Math.cos(a) * (SPOOL_R + .8), -1.6 + i / 160 * 3.2, -Math.sin(a) * (SPOOL_R + .8))); }
+  const wm = new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(w), 200, .75, 8), new THREE.MeshStandardMaterial({ color: 0x3ee06a, roughness: .45, emissive: 0x0f5a24, emissiveIntensity: .5 }));
+  spool.add(wm); }
+
+// servo 2 (context only)
+const servo2 = servo.clone(true); servo2.position.set(2, -9, 46); base.add(servo2);
+servo2.traverse(o => { if (o.material) { o.material = o.material.clone(); o.material.transparent = true; o.material.opacity = .35; } });
+
+// ---------- helpers ----------
+function toHand(frame, v) {  // frame-local mm -> hand-local mm
+  const p = new THREE.Vector3(...v);
+  frame.localToWorld(p); hand.worldToLocal(p);
+  return p;
+}
+function tube(points, r, mat, segs = 200) {
+  const c = new THREE.CatmullRomCurve3(points, false, 'centripetal');
+  return new THREE.Mesh(new THREE.TubeGeometry(c, segs, r, 10), mat);
+}
+function label(text, cls, parent, pos) {
+  const d = document.createElement('div'); d.className = 'lbl ' + (cls || ''); d.textContent = text;
+  const o = new CSS2DObject(d); o.position.copy(pos); parent.add(o); return o;
+}
+
+// ---------- the green cable path ----------
+// Points are [frame, [x,y,z] mm, sagWeight]. The hole on MCP(11): local x=+1.8 (toward the back of the palm), z=16.
+const HOLE = [1.8, 0, 16];
+let path = null;      // filled after the scene graph is updated
+function buildPath() {
+  hand.updateMatrixWorld(true);
+  const B = base, P = mcpL;
+  const lead = [B, [SPOOL_C.x - SPOOL_R * .72, SPOOL_C.y - .4, SPOOL_C.z - SPOOL_R * .69], 0];
+  const raw = [
+    lead,
+    [B, [-27, -10, 41], .3],
+    [B, [-35, -12, 35], .8],
+    [B, [-41, -14, 30.5], .6],
+    [P, [HOLE[0], -19, 3], .9],
+    [P, [HOLE[0], -17, 10], .5],
+    [P, [HOLE[0], -13.5, 15.5], 0],   // enters the hole (finger-side face)
+    [P, [HOLE[0], -4, 16], 0],
+    [P, [HOLE[0], 6, 16], 0],
+    [P, [HOLE[0], 13.2, 16], 0],      // exits on the back face
+    [P, [HOLE[0], 19, 17.5], 0],
+    [P, [HOLE[0] + 1, 27, 21], 0],
+    [P, [HOLE[0] + 2, 35, 26], 0],
+    [P, [HOLE[0] + 3, 43, 32], 0],
+    [P, [HOLE[0] + 4, 50, 40], 0],
+  ];
+  const pts = raw.map(([f, v]) => toHand(f, v));
+  const sag = raw.map(r => r[2]);
+  const holeIn = toHand(P, [HOLE[0], -12.6, 16]);
+  const holeOut = toHand(P, [HOLE[0], 13, 16]);
+  // sag direction: toward the palm face (base -y) and down toward the wrist
+  const sagDir = new THREE.Vector3(0, -1, -0.6).normalize();
+  return { pts, sag, sagDir, holeIn, holeOut, P };
+}
+
+const GREEN = 0x3ee06a;
+const stripeTex = (() => {
+  const c = document.createElement('canvas'); c.width = 64; c.height = 8;
+  const g = c.getContext('2d'); g.fillStyle = '#3ee06a'; g.fillRect(0, 0, 64, 8);
+  g.fillStyle = '#1f9a42'; g.fillRect(0, 0, 14, 8);
+  const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; return t;
+})();
+const matCable = new THREE.MeshStandardMaterial({ map: stripeTex, roughness: .45, emissive: 0x0f5a24, emissiveIntensity: .55 });
+let cableMesh = null;
+
+class SubCurve extends THREE.Curve {
+  constructor(c, u0, u1) { super(); this.c = c; this.u0 = u0; this.u1 = u1; }
+  getPoint(t, out = new THREE.Vector3()) { return this.c.getPointAt(this.u0 + (this.u1 - this.u0) * t, out); }
+}
+let curve = null, L = 0, sHoleIn = 0, sHoleOut = 0, sEnd = 0;
+function arcAt(c, target) {   // arclength (mm) of the nearest point on curve to target
+  const N = 600; let best = 1e9, bu = 0;
+  for (let i = 0; i <= N; i++) { const p = c.getPointAt(i / N); const d = p.distanceToSquared(target); if (d < best) { best = d; bu = i / N; } }
+  return bu * c.getLength();
+}
+function makeCurve(slack) {
+  const pts = path.pts.map((p, i) => p.clone().addScaledVector(path.sagDir, path.sag[i] * slack * 7));
+  const c = new THREE.CatmullRomCurve3(pts, false, 'centripetal');
+  c.arcLengthDivisions = 600;
+  return c;
+}
+
+// knot (Ashley stopper, stylised as a compact trefoil bead)
+const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(2.3, .95, 110, 14, 2, 3),
+  new THREE.MeshStandardMaterial({ color: GREEN, roughness: .4, emissive: 0x0f5a24, emissiveIntensity: .6 }));
+knot.visible = false; hand.add(knot);
+const mark = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.25, 1.6, 20), new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0x330000 }));
+mark.visible = false; hand.add(mark);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(3.4, .45, 12, 48), new THREE.MeshBasicMaterial({ color: 0xffd166, transparent: true }));
+ring.visible = false; hand.add(ring);
+const ringOut = ring.clone(); ringOut.material = ring.material.clone(); hand.add(ringOut);
+
+let lblHole, lblKnot, lblMCP, lblSpool;
+
+// ---------- context cables (faint) ----------
+function contextCables() {
+  const fp = new THREE.MeshStandardMaterial({ color: 0xd9c7a0, transparent: true, opacity: .32, depthWrite: false });
+  const fb = new THREE.MeshStandardMaterial({ color: 0x4aa8ff, transparent: true, opacity: .36, depthWrite: false });
+  // thumb pull cable: servo 2 spool -> along the thumb to the tip segment
+  const pull = [
+    toHand(base, [2 - 5.5, -9.5, 46]), toHand(base, [-14, -14, 36]), toHand(base, [-30, -17, 28]),
+    toHand(mcpL, [-2, -12, 6]), toHand(mcpL, [-2, -11, 30]), toHand(proxL, [0, -10, 12]), toHand(proxL, [0, -9, 30]), toHand(distL, [0, -7, 14]),
+  ];
+  hand.add(tube(pull, .45, fp));
+  // coupling cable: palm anchor -> CMC block -> MCP back face -> proximal link
+  const coup = [
+    toHand(base, [-34, -6, 18]), toHand(tLink, [0, 9, 10]), toHand(mcpL, [-3, 12, 6]),
+    toHand(mcpL, [-3, 12, 28]), toHand(proxL, [0, 7, 6]), toHand(proxL, [0, 6, 14]),
+  ];
+  hand.add(tube(coup, .45, fb));
+  label('Thumb pull cable (servo 2)', 'faint', hand, toHand(proxL, [0, -16, 24]));
+  label('Coupling cable', 'faint', hand, toHand(proxL, [-2, 16, 10]));
+  label('Servo 2', 'faint', hand, toHand(base, [6, -20, 40]));
+}
+
+// ---------- timeline ----------
+const T = { s1: [1, 7.5], s2: [7.5, 12.5], s3: [12.5, 18.5], s4: [18.5, 24.5], end: 28.5 };
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+const prog = (t, [a, b]) => clamp((t - a) / (b - a));
+const MARK_GAP = 24;          // mark distance past the exit hole, mm
+const SEAT = 2.2;             // knot rests this far past the exit face
+
+let t = 0, playing = true, last = performance.now();
+const stepEls = [...document.querySelectorAll('.step')];
+const fill = document.getElementById('fill');
+
+function update(time) {
+  if (!path) return;
+  const p4 = ease(prog(time, T.s4));
+  const slack = 1 - p4;
+  curve = makeCurve(slack);
+  L = curve.getLength();
+  if (!path.arc) {   // hole positions along the cable, slack and taut (computed once)
+    const c1 = makeCurve(1), c0 = makeCurve(0);
+    path.arc = { in1: arcAt(c1, path.holeIn), out1: arcAt(c1, path.holeOut), in0: arcAt(c0, path.holeIn), out0: arcAt(c0, path.holeOut), L1: c1.getLength(), L0: c0.getLength() };
+  }
+  const A = path.arc;
+  sHoleIn = A.in1 + (A.in0 - A.in1) * p4; sHoleOut = A.out1 + (A.out0 - A.out1) * p4;
+  sEnd = L;
+  const pull = p4 * (MARK_GAP - SEAT);
+  const sMark = sHoleOut + MARK_GAP - pull;
+
+  // reveal
+  let reveal;
+  if (time < T.s1[0]) reveal = 0.001;
+  else if (time < T.s2[0]) reveal = ease(prog(time, T.s1)) * (sHoleIn - 4);
+  else reveal = (sHoleIn - 4) + ease(prog(time, T.s2)) * (sEnd - (sHoleIn - 4));
+  const endS = Math.max(0.5, Math.min(reveal, sEnd - pull));
+
+  if (cableMesh) { cableMesh.geometry.dispose(); hand.remove(cableMesh); }
+  const sub = new SubCurve(curve, 0, endS / L);
+  cableMesh = new THREE.Mesh(new THREE.TubeGeometry(sub, Math.max(8, Math.round(endS * 1.6)), .85, 10), matCable);
+  hand.add(cableMesh);
+  stripeTex.repeat.set(endS / 5, 1);
+  stripeTex.offset.x = pull / 5;
+
+  // spool turns: unwinding while threading, winding while pulling tight
+  spool.rotation.y = -(Math.min(reveal, sEnd) / SPOOL_R) * .5 + (pull / SPOOL_R);
+
+  // hole highlight during step 2
+  const p2 = prog(time, T.s2);
+  const inS2 = time >= T.s2[0] - .3 && time < T.s3[0];
+  for (const [r, pt, s] of [[ring, path.holeIn, sHoleIn], [ringOut, path.holeOut, sHoleOut]]) {
+    r.visible = inS2 || (time >= T.s4[1] && time < T.s4[1] + 2.5);
+    r.position.copy(pt);
+    const tan = curve.getTangentAt(clamp(s / L, 0, 1));
+    r.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), tan);
+    const pulse = 1 + .18 * Math.sin(time * 7);
+    r.scale.setScalar(pulse);
+    r.material.color.set(time >= T.s4[1] ? 0x3ee06a : 0xffd166);
+    r.material.opacity = .9;
+  }
+  lblHole.visible = time >= T.s2[0] - .3 && time < T.s3[0];
+
+  // mark + knot
+  const markOn = time >= T.s2[0] + 2.5 && sMark < endS;
+  const uM = clamp(sMark / L, 0, 1);
+  const pM = curve.getPointAt(uM), tanM = curve.getTangentAt(uM);
+  mark.visible = markOn && time < T.s3[0] + 2.4;
+  mark.position.copy(pM); mark.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), tanM);
+  mark.material.emissive.setHex((time > T.s3[0] && Math.sin(time * 10) > 0) ? 0xaa1111 : 0x330000);
+  const k = ease(clamp((time - T.s3[0] - 1.2) / 3.8));
+  knot.visible = time >= T.s3[0] + 1.2;
+  knot.position.copy(pM);
+  knot.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), tanM);
+  knot.rotateZ((1 - k) * 6);
+  knot.scale.setScalar(.15 + .85 * k);
+  lblKnot.visible = markOn && time >= T.s2[0] + 2.5 && time < T.s4[1] + 2.5;
+  lblKnot.position.copy(pM).add(new THREE.Vector3(0, 0, 0));
+  lblKnot.element.textContent = time < T.s3[0] + 1.2 ? 'Mark' : (time < T.s4[0] ? 'Ashley stopper knot' : (time < T.s4[1] ? 'Pull until the knot seats' : 'Tight'));
+
+  // captions
+  const si = time < T.s2[0] ? 0 : time < T.s3[0] ? 1 : time < T.s4[0] ? 2 : 3;
+  stepEls.forEach((el, i) => { el.classList.toggle('on', i === si); el.classList.toggle('done', i < si); });
+  fill.style.width = (100 * time / T.end) + '%';
+}
+
+// ---------- camera + controls ----------
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = .08;
+controls.autoRotate = true; controls.autoRotateSpeed = .6;
+controls.minDistance = 60; controls.maxDistance = 600;
+const stopAuto = () => { controls.autoRotate = false; };
+renderer.domElement.addEventListener('pointerdown', stopAuto);
+renderer.domElement.addEventListener('wheel', stopAuto, { passive: true });
+renderer.domElement.addEventListener('touchstart', stopAuto, { passive: true });
+
+function frameView() {
+  // focus between the spool and the MCP hole; palm toward the viewer, thumb side
+  hand.updateMatrixWorld(true);
+  const a = hand.localToWorld(SPOOL_C.clone()), b = mcpL.localToWorld(new THREE.Vector3(0, 0, 16));
+  const target = a.clone().lerp(b, .5);
+  controls.target.copy(target);
+  // shift the view right so the caption panel does not cover the model
+  const off = (q.get('cam') || '-118,88,212').split(',').map(Number);
+  camera.position.copy(target).add(new THREE.Vector3(...off));
+  camera.setViewOffset(innerWidth, innerHeight, -Math.round(innerWidth * 0.2), 0, innerWidth, innerHeight);
+  controls.update();
+}
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.setViewOffset(innerWidth, innerHeight, -Math.round(innerWidth * 0.2), 0, innerWidth, innerHeight);
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight); labelR.setSize(innerWidth, innerHeight);
+});
+const pausedEl = document.getElementById('paused');
+addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); playing = !playing; pausedEl.style.display = playing ? 'none' : 'block'; }
+  else if (e.key === 'r' || e.key === 'R') { t = 0; playing = true; pausedEl.style.display = 'none'; }
+  else if ('1234'.includes(e.key) && e.key.length === 1) { t = [T.s1, T.s2, T.s3, T.s4][+e.key - 1][0] + .01; }
+});
+
+const q = new URLSearchParams(location.search);
+if (q.has('t')) { t = +q.get('t'); playing = !q.has('hold'); }
+
+loaded.then(() => {
+  path = buildPath();
+  contextCables();
+  lblSpool = label('Servo 1 spool', 'g', hand, toHand(base, [SPOOL_C.x + 4, SPOOL_C.y - 9, SPOOL_C.z + 8]));
+  lblMCP = label('Thumb MCP (11)', '', hand, toHand(mcpL, [-8, -6, 34]));
+  lblHole = label('Hole closer to back of palm', 'hot', hand, toHand(mcpL, [HOLE[0] + 9, -22, 20]));
+  lblKnot = label('Mark', 'hot', hand, new THREE.Vector3());
+  lblKnot.center.set(-0.12, 0.5);
+  frameView();
+  document.title = 'Thumb CMC Flex Cable';
+  window.__ready = true;
+}).catch(err => { console.error(err); document.getElementById('err').style.display = 'block'; });
+
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (playing && path) { t += dt; if (t > T.end) t = 0; }
+  update(t);
+  controls.update();
+  renderer.render(scene, camera);
+  labelR.render(scene, camera);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

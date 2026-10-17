@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aero Hand Page 32</title>
+<style>
+:root{--bg:#dfe8f0;--panel:#f4f8fb;--ink:#111}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+#grid{position:absolute;inset:18px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:18px}
+.step{position:relative;background:var(--panel);border:4px solid #1b1b1b;border-radius:14px;overflow:hidden;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.step svg{position:absolute;inset:0;width:100%;height:100%}
+.page{position:absolute;right:30px;bottom:22px;font-weight:900;font-size:44px;background:#fff;border:4px solid #111;border-radius:10px;padding:2px 16px;z-index:5}
+</style></head><body>
+<div id="grid"></div>
+<div class="page">32</div>
+<script>
+const W=620,H=500,P='lego_parts/';
+const SZ={s1:[1065,359],s2:[1172,635],s3:[1229,806],s4:[1100,1050],s5:[1223,681],pin:[198,52],servo:[911,674],bearing:[104,109],servo1:[382,355],s5f:[1223,382]};
+const PH={s1:'p1.jpg',s2:'p2.jpg',s3:'p3.jpg',s4:'p4.jpg',s5:'p5.jpg',s5f:'p5f.jpg'};const src=n=>P+(PH[n]||n+'.png');
+const OUT='stroke="#111" stroke-width="3" stroke-linejoin="round"';
+let uid=0;
+// place a photo by x,y,width; returns {svg, at(fx,fy)->[x,y]}
+function photo(n,x,y,w){const [iw,ih]=SZ[n],h=w*ih/iw;
+  return {n,x,y,w,h,svg:`<image href="${src(n)}" x="${x}" y="${y}" width="${w}" height="${h}" preserveAspectRatio="none"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#111" stroke-width="3"/>`,at:(fx,fy)=>[x+fx*w,y+fy*h]};}
+// magnifier: circle at cx,cy radius r showing photo ph around (fx,fy) zoomed z; optional leader to the spot
+function mag(ph,fx,fy,cx,cy,r,z,leader=true,extra=''){const id='m'+(uid++);const [iw,ih]=SZ[ph.n];
+  const w=ph.w*z,h=ph.h*z,ix=cx-fx*w,iy=cy-fy*h;const [sx,sy]=ph.at(fx,fy);
+  return (leader?`<circle cx="${sx}" cy="${sy}" r="16" fill="none" stroke="#111" stroke-width="3"/><line x1="${sx}" y1="${sy}" x2="${cx}" y2="${cy}" stroke="#111" stroke-width="3" stroke-dasharray="7 6"/>`:'')+
+  `<clipPath id="${id}"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath><circle cx="${cx}" cy="${cy}" r="${r+2}" fill="#fff"/>
+  <g clip-path="url(#${id})"><image href="${src(ph.n)}" preserveAspectRatio="none" x="${ix}" y="${iy}" width="${w}" height="${h}"/>${extra}</g>
+  <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#111" stroke-width="4"/>`;}
+function arrow(x1,y1,x2,y2,c='#e8231c'){const a=Math.atan2(y2-y1,x2-x1),L=28,w=19;
+  const bx=x2-L*Math.cos(a),by=y2-L*Math.sin(a);const p=k=>`${bx+k*w*Math.cos(a+Math.PI/2)},${by+k*w*Math.sin(a+Math.PI/2)}`;
+  return `<line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" stroke="#111" stroke-width="16" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" stroke="${c}" stroke-width="10" stroke-linecap="round"/><polygon points="${x2},${y2} ${p(1)} ${p(-1)}" fill="${c}" ${OUT}/>`;}
+const to=(pt,dx,dy)=>arrow(pt[0]+dx,pt[1]+dy,pt[0],pt[1]);
+function ring(pt,r=20){return `<circle cx="${pt[0]}" cy="${pt[1]}" r="${r}" fill="none" stroke="#111" stroke-width="9"/><circle cx="${pt[0]}" cy="${pt[1]}" r="${r}" fill="none" stroke="#e8231c" stroke-width="5"/>`}
+function callout(x,y,w,h,inner,qty){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#cfe0ee" stroke="#111" stroke-width="3.5"/>${inner}${qty?`<text x="${x+12}" y="${y+h-12}" font-size="30" font-weight="900">${qty}</text>`:''}`}
+function img(n,x,y,w){const [iw,ih]=SZ[n];return `<image href="${P}${n}.png" x="${x}" y="${y}" width="${w}" height="${w*ih/iw}"/>`}
+function num(n){return `<text x="22" y="82" font-size="82" font-weight="900" fill="#111">${n}</text>`}
+function tag(x,y,t,c='#ffd21f'){const w=t.length*17+26;return `<rect x="${x}" y="${y}" width="${w}" height="44" rx="8" fill="${c}" stroke="#111" stroke-width="3.5"/><text x="${x+w/2}" y="${y+32}" text-anchor="middle" font-size="30" font-weight="900">${t}</text>`}
+const steps=[];
+// 1 (guide 10): servo base + MCP onto proximal with 2x14 pin
+{const ph=photo('s1',14,250,592);const hole=ph.at(.29,.36);
+ steps.push(ph.svg+num(1)+callout(110,18,250,110,img('pin',138,44,200),'1x')+`<text x="232" y="114" font-size="24" font-weight="800" fill="#333">2×14 mm</text>`+
+  mag(ph,.29,.36,470,140,88,2.6,true)+
+  `<g transform="translate(${hole[0]-14},${hole[1]-150}) rotate(90)">${img('pin',0,-14,110)}</g>`+arrow(hole[0]+42,hole[1]-140,hole[0]+42,hole[1]-34)+ring(hole,18));}
+// 2 (guide 11): servo 6 cable through finger base
+{const ph=photo('s2',20,170,580);const base=ph.at(.55,.77);
+ steps.push(ph.svg+num(2)+callout(110,18,200,150,img('servo1',168,26,130),'1x')+
+  `<circle cx="540" cy="76" r="44" fill="#e8231c" stroke="#111" stroke-width="4"/><text x="540" y="94" text-anchor="middle" font-size="52" font-weight="900" fill="#fff">6</text>`+
+  mag(ph,.17,.86,420,100,78,2.4,true)+
+  arrow(base[0]-80,base[1]+5,base[0]-8,base[1])+ring(base,22));}
+// 3 (guide 12): thread between bearings
+{const ph=photo('s3',8,120,604);const b=[ph.at(.44,.405),ph.at(.5,.405),ph.at(.6,.395)];
+ steps.push(ph.svg+num(3)+mag(ph,.52,.37,470,104,84,2.0,true)+b.map(p=>to(p,0,62)).join(''));}
+// 4 (guide 13): through top medial hole and distal
+{const ph=photo('s4',95,20,500);const top=ph.at(.6,.42),dist=ph.at(.24,.655);
+ steps.push(ph.svg+num(4)+arrow(top[0]+95,top[1]-70,top[0]+6,top[1]-4)+ring(top,24)+arrow(dist[0]+100,dist[1]+80,dist[0]+10,dist[1]+8)+ring(dist,18));}
+// 5 (guide 14): Ashley stopper knot at mark, 140/150 mm
+{const ph=photo('s5',30,100,560);const k=ph.at(.81,.21);const y=ph.y+ph.h+20,x1=ph.x+4,x2=ph.at(.83,0)[0];
+ steps.push(ph.svg+num(5)+mag(ph,.81,.21,290,100,74,3.2,true)+arrow(k[0]+70,k[1]+10,k[0]+16,k[1]+2)+
+  `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="#111" stroke-width="3"/><line x1="${x1}" y1="${y-14}" x2="${x1}" y2="${y+14}" stroke="#111" stroke-width="3"/><line x1="${x2}" y1="${k[1]}" x2="${x2}" y2="${y+14}" stroke="#111" stroke-width="2.5" stroke-dasharray="6 5"/>`+
+  `<polygon points="${x1},${y} ${x1+20},${y-8} ${x1+20},${y+8}" fill="#111"/><polygon points="${x2},${y} ${x2-20},${y-8} ${x2-20},${y+8}" fill="#111"/>`+
+  tag(60,y+10,'3·4·5 = 140 mm')+tag(332,y+10,'6 = 150 mm',"#9fe08a"));}
+// 6 (guide 15): repeat for servos 3, 4, 5
+{let g=num(6)+`<text x="440" y="96" font-size="88" font-weight="900">×3</text>`;
+ [3,4,5].forEach((n,i)=>{const y=110+i*124;
+   g+=`<image href="${src('s5f')}" x="140" y="${y+12}" width="310" height="${310*382/1223}" preserveAspectRatio="none"/><rect x="140" y="${y+12}" width="310" height="${310*382/1223}" fill="none" stroke="#111" stroke-width="3"/>`;
+   g+=`<circle cx="98" cy="${y+60}" r="30" fill="#e8231c" stroke="#111" stroke-width="3.5"/><text x="98" y="${y+72}" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">${n}</text>`;
+   g+=tag(462,y+30,'140 mm');});
+ steps.push(g);}
+document.getElementById('grid').innerHTML=steps.map(s=>`<div class="step"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${s}</svg></div>`).join('');
+</script>
+</body></html>

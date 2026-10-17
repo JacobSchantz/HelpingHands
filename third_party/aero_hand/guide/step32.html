@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset=utf-8><title>Aero Hand step 32 — 3D</title>
+<style>html,body{margin:0;height:100%;background:#f4f1ea;font-family:-apple-system,Helvetica,sans-serif;color:#111;overflow:hidden}
+#cap{position:fixed;top:28px;left:44px;right:44px;pointer-events:none}#cap h1{font-size:46px;margin:0}#cap p{font-size:28px;margin:10px 0 0;color:#444;max-width:1100px}
+#lab{position:fixed;bottom:20px;left:44px;font-size:20px;color:#666}#n{position:fixed;top:30px;right:44px;font-size:24px;color:#888}
+canvas{display:block}</style>
+<script type=importmap>{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head><body><div id=cap><h1 id=t></h1><p id=s></p></div><div id=n></div>
+<div id=lab>Real parts from the official Aero Hand model (right hand, index finger). Red = pull cable. ← → or space to step · drag to rotate</div>
+<script type=module>
+import * as THREE from 'three';
+import {STLLoader} from 'three/addons/loaders/STLLoader.js';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+// Meshes and joint origins are the official URDF (aero_hand_open_right.urdf), metres.
+const M='meshes/right_';
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(30,innerWidth/innerHeight,.001,5);
+const ren=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+ren.setPixelRatio(devicePixelRatio);ren.setSize(innerWidth,innerHeight);document.body.appendChild(ren.domElement);
+scene.add(new THREE.HemisphereLight(0xffffff,0x998877,2.2));
+const sun=new THREE.DirectionalLight(0xffffff,2.2);sun.position.set(.3,.5,.4);scene.add(sun);
+scene.background=new THREE.Color(0xf4f1ea);
+const root=new THREE.Group();scene.add(root);
+function link(parent,xyz,rpy){const g=new THREE.Group();g.position.set(...xyz);g.rotation.set(...rpy,'ZYX');
+ const j=new THREE.Group();g.add(j);parent.add(g);return j}
+const base=new THREE.Group();root.add(base);
+const prox=link(base,[0.030626,-0.0011782,0.10542],[0,0.05236,-0.034907]);
+const mid=link(prox,[0,-0.0014554,0.043],[0,0,0]);
+const dist=link(mid,[0,0,0.022],[0,0,0]);
+const tip=link(dist,[0,0.003512,0.026776],[0,0,0]);
+const mats={};
+function mat(c,o=1){return new THREE.MeshStandardMaterial({color:c,roughness:.6,metalness:.05,transparent:o<1,opacity:o})}
+const loader=new STLLoader();
+function load(name,into,key){loader.load(M+name+'.STL',g=>{g.computeVertexNormals();const m=new THREE.Mesh(g,mats[key]=mat(0xcfcac2));into.add(m)})}
+load('base_link',base,'base');load('index_proximal_link',prox,'prox');load('index_middle_link',mid,'mid');
+load('index_distal_link',dist,'dist');load('index_tip_link',tip,'tip');
+// Pull cable: anchored on the palm side (-y) so tension curls the finger; it wraps the joint
+// axes (the bearings sit there) and ends in a stopper knot inside the distal.
+const pts=[[base,[0.0306,-0.010,0.040]],[base,[0.0306,-0.008,0.085]],[base,[0.0306,-0.006,0.104]],
+ [prox,[0,-0.007,0.006]],[prox,[0,-0.008,0.025]],[prox,[0,-0.007,0.041]],
+ [mid,[0,-0.006,0.002]],[mid,[0,-0.006,0.012]],[mid,[0,-0.005,0.021]],
+ [dist,[0,-0.004,0.003]],[dist,[0,-0.003,0.012]]];
+// [cable fraction start, end, title, text, bend, highlighted parts]
+const steps=[[0,0,'10. Servo base and MCP on the proximal','Pin the finger proximal to the base with the 2×14 mm pin.',0,['prox','base']],
+ [0,.32,'11. Up through the finger base','Feed the servo 6 cable from the spool up through the finger base.',0,['base']],
+ [.32,.72,'12. Between the bearings','Run it between the bearings at each joint, along the palm side.',0,['prox','mid']],
+ [.72,1,'13. Through the top medial hole into the distal','Pass it through the medial’s top hole and into the distal.',0,['mid','dist']],
+ [1,1,'14. Ashley stopper knot at the mark','140 mm for servos 3, 4, 5 · 150 mm for servo 6.',0,['dist']],
+ [1,1,'Check: pull the cable and the finger curls','Tension on the palm side flexes every joint.',1,[]]];
+let tube=null,count=0,knot;
+function cable(){const v=new THREE.Vector3();root.updateMatrixWorld(true);
+ const c=new THREE.CatmullRomCurve3(pts.map(([g,p])=>g.localToWorld(v.set(...p)).clone()));
+ if(tube){scene.remove(tube);tube.geometry.dispose()}
+ tube=new THREE.Mesh(new THREE.TubeGeometry(c,240,.0011,10,false),new THREE.MeshStandardMaterial({color:0xff2d55,roughness:.4}));
+ count=tube.geometry.index.count;tube.renderOrder=2;scene.add(tube);
+ if(!knot){knot=new THREE.Mesh(new THREE.SphereGeometry(.0024,20,16),new THREE.MeshStandardMaterial({color:0xd00000}));knot.renderOrder=3;scene.add(knot)}
+ knot.position.copy(c.getPoint(1));return c}
+// Side view like the guide's diagram: tip to the left, palm side down.
+cam.up.set(0,1,0);cam.position.set(.26,.05,.155);const ctl=new OrbitControls(cam,ren.domElement);ctl.target.set(.03,-.006,.15);ctl.update();
+let i=+(location.hash.slice(1)||1)-1;if(!(i>=0&&i<steps.length))i=0;let t0=null;
+function go(k){i=(k+steps.length)%steps.length;t0=null;history.replaceState(null,'','#'+(i+1))}
+addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key==' ')go(i+1);if(e.key=='ArrowLeft')go(i-1)});
+addEventListener('hashchange',()=>{const k=+location.hash.slice(1)-1;if(k!==i&&k>=0)go(k)});
+addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();ren.setSize(innerWidth,innerHeight)});
+window.guideStep=go;
+function frame(ts){if(t0===null)t0=ts;const [a,b,h,s,bend,hi]=steps[i];
+ document.getElementById('t').textContent=h;document.getElementById('s').textContent=s;
+ document.getElementById('n').textContent=`step ${i+1} of ${steps.length}`;
+ const k=Math.min(1,(ts-t0)/3000);
+ const ang=bend? (0.5-0.5*Math.cos(Math.min(1,(ts-t0)/1500)*Math.PI))*0.9*(0.5+0.5*Math.cos((ts-t0)/900)) :0;
+ prox.rotation.x=ang;mid.rotation.x=ang;dist.rotation.x=ang*.8;
+ cable();const f=a+(b-a)*k;tube.geometry.setDrawRange(0,Math.floor(count*f/6)*6);tube.visible=f>0;
+ knot.visible=i>=4;
+ const pulse=.5+.5*Math.sin(ts/250);
+ for(const [key,m] of Object.entries(mats)){const on=hi.includes(key);m.color.setHex(on?0x7fb3ff:0xcfcac2);
+  m.emissive.setHex(on?0x1d4ed8:0);m.emissiveIntensity=on?.25*pulse:0;m.opacity=key=='base'?(on?.55:.3):.6;m.transparent=true;m.depthWrite=false}
+ ren.render(scene,cam);requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+</script></body></html>

@@ -1,0 +1,16 @@
+<!doctype html><html><head><meta charset=utf-8><title>Aero Hand guide</title>
+<style>html,body{margin:0;height:100%;background:#fff;overflow:hidden}#pg{display:block;width:100vw;height:100vh;object-fit:contain}
+#help{position:fixed;right:16px;top:16px;width:34vw;height:50vh;border:0;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,.35);background:#fff}
+#help.off{display:none}#n{position:fixed;right:14px;bottom:10px;color:#888;font:14px -apple-system}</style></head>
+<body><img id=pg><iframe id=help></iframe><div id=n></div>
+<script>
+let cur="",hel="";
+async function tick(){try{
+ const c=(await (await fetch("current?"+Date.now())).text()).trim();
+ if(c!==cur){cur=c;document.getElementById("pg").src="p"+c+".png";document.getElementById("n").textContent=c+" / 50"}
+ const h=(await (await fetch("helper?"+Date.now())).text()).trim();
+ if(h!==hel){hel=h;const f=document.getElementById("help");if(!h||h=="off"){f.className="off"}else{f.className="";f.src=h+(h.includes("?")?"&":"?")+"t="+Date.now()}}
+}catch(e){}setTimeout(tick,700)}
+tick();
+addEventListener('keydown',e=>{let c=parseInt(cur||'1');if(e.key=='ArrowRight')c++;else if(e.key=='ArrowLeft')c--;else return;c=Math.max(1,Math.min(50,c));fetch('set?p='+c)});
+</script></body></html>

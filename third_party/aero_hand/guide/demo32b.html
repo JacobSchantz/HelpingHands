@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset=utf-8><title>Aero Hand guide 32 — cable route</title>
+<style>html,body{margin:0;height:100%;background:#fff;font-family:-apple-system,Helvetica,sans-serif;color:#111}
+#cap{position:fixed;top:30px;left:48px;right:48px}#cap h1{font-size:50px;margin:0}#cap p{font-size:32px;margin:10px 0 0;color:#444}
+#stage{position:absolute;left:0;right:0;top:230px;bottom:90px;display:flex;align-items:center;justify-content:center}
+svg{width:96vw;height:auto;max-height:100%}
+#lab{position:fixed;bottom:24px;left:48px;font-size:22px;color:#666}
+.k{font:700 34px -apple-system;fill:#d00}</style></head><body>
+<div id=cap><h1 id=t>Pull cable route (servo → fingertip)</h1><p id=s></p></div>
+<div id=stage><svg viewBox="0 0 2068 675">
+<image href="diag32.png" width="2068" height="675"/>
+<path id=route d="M1903,486 L1903,250 Q1900,175 1855,165 L1442,93 Q1415,90 1400,115 L1345,200 Q1330,212 1300,212 L1045,225 L497,112 Q480,108 465,115 L395,160"
+ fill=none stroke="#ff2d55" stroke-width=14 stroke-linecap=round stroke-linejoin=round opacity=.9/>
+<circle id=dot r=18 fill="#ff2d55"/>
+<g id=knot opacity=0><circle cx=395 cy=160 r=26 fill=none stroke="#d00" stroke-width=8/><text x=300 y=235 class=k>knot at mark</text></g>
+<text x=1700 y=600 class=k fill="#d00">from servo spool ↑</text>
+</svg></div>
+<div id=lab>Red = the white pull cord you're threading (green in the guide). Blue = coupling cable, already done. Tip is on the left. ← → to step</div>
+<script>
+const P=document.getElementById('route'),L=P.getTotalLength(),dot=document.getElementById('dot'),knot=document.getElementById('knot');
+P.style.strokeDasharray=L;
+const steps=[[0,.16,"11. Up through the finger base","Feed the cord from the spool up through the base, around the first bearing."],
+[.16,.42,"12. Over and between the bearings","Run it over the top bearing, then down between the bearings."],
+[.42,.88,"13. Through the top medial hole","Along the medial segment and through its top hole into the distal."],
+[.88,1,"14. Tie an Ashley stopper knot at your mark","140 mm for servos 3, 4, 5 · 150 mm for servo 6. Then repeat for the others."]];
+let i=0,t0=null,dur=[2500,3000,4000,2500];
+function show(f){P.style.strokeDashoffset=L*(1-f);const pt=P.getPointAtLength(L*f);dot.setAttribute('cx',pt.x);dot.setAttribute('cy',pt.y)}
+function run(ts){if(t0===null)t0=ts;const[a,b,h,s]=steps[i];document.getElementById('t').textContent=h;document.getElementById('s').textContent=s;
+ const k=Math.min(1,(ts-t0)/dur[i]);show(a+(b-a)*k);knot.setAttribute('opacity',i==3&&k>.5?1:0);
+ if(k>=1&&ts-t0>dur[i]+1500){i=(i+1)%4;t0=ts}requestAnimationFrame(run)}
+requestAnimationFrame(run);
+addEventListener('keydown',e=>{if(e.key=='ArrowRight'||e.key==' '){i=(i+1)%4;t0=null}if(e.key=='ArrowLeft'){i=(i+3)%4;t0=null}});
+</script></body></html>

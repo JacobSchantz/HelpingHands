@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aero Hand Page 32</title>
+<style>
+:root{--bg:#dfe8f0;--panel:#f4f8fb;--ink:#111;--num:#1a1a1a;--callout:#cfe0ee}
+html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;font-family:"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+#grid{position:absolute;inset:18px 18px 18px 18px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:18px}
+.step{position:relative;background:var(--panel);border:4px solid #1b1b1b;border-radius:14px;overflow:hidden;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+.step svg{position:absolute;inset:0;width:100%;height:100%}
+.page{position:absolute;right:30px;bottom:22px;font-weight:900;font-size:44px;background:#fff;border:4px solid #111;border-radius:10px;padding:2px 16px;z-index:5}
+</style></head><body>
+<div id="grid"></div>
+<div class="page">32</div>
+<script>
+const W=620,H=500;
+const OUT='stroke="#111" stroke-width="3" stroke-linejoin="round"';
+const G1='#b9bec4',G2='#d9dde1',G3='#8f959c';
+// isometric-ish box: front rect + top face + end face
+function box(x,y,w,h,d,c1=G1,c2=G2,c3=G3){
+  return `<polygon points="${x},${y} ${x+d},${y-d*.6} ${x+w+d},${y-d*.6} ${x+w},${y}" fill="${c2}" ${OUT}/>
+  <polygon points="${x+w},${y} ${x+w+d},${y-d*.6} ${x+w+d},${y+h-d*.6} ${x+w},${y+h}" fill="${c3}" ${OUT}/>
+  <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c1}" ${OUT}/>`;
+}
+function bearing(x,y,r=11){return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#silver)" ${OUT}/><circle cx="${x}" cy="${y}" r="${r*.35}" fill="#7d848b" stroke="#111" stroke-width="2"/>`}
+function distal(x,y){return `<path d="M${x},${y} L${x+70},${y+6} Q${x+118},${y+18} ${x+118},${y+40} L${x},${y+48} Z" fill="${G1}" ${OUT}/>
+  <path d="M${x},${y} L${x+10},${y-8} L${x+76},${y-2} Q${x+122},${y+10} ${x+118},${y+40} Q${x+118},${y+18} ${x+70},${y+6} Z" fill="${G2}" ${OUT}/>`}
+// finger: base at left. opts: {sep, cord:0..4, s}
+function finger(o={}){
+  const sep=o.sep||0;let g='';
+  // servo base + MCP (shifted left when separated)
+  g+=`<g transform="translate(${-sep},0)">${box(20,96,92,70,16)}${box(112,104,66,56,14,'#c3c8cd')}<circle cx="146" cy="132" r="6" fill="#555" stroke="#111" stroke-width="2"/></g>`;
+  g+=box(184,100,170,58,14);     // proximal
+  g+=box(360,104,96,50,12);      // medial
+  g+=`<circle cx="418" cy="112" r="5" fill="#333"/>`; // top hole
+  g+=distal(462,104);
+  // bearings
+  g+=bearing(82-sep,92)+bearing(220,92)+bearing(300,132)+bearing(357,128,9)+bearing(458,128,9)+bearing(146-sep,132,8);
+  // coupling cable (blue) medial -> tip, always present
+  g+=`<path d="M372,146 Q420,152 470,142 L540,136" fill="none" stroke="#1b8fd6" stroke-width="5" stroke-linecap="round"/>`;
+  const c=o.cord||0;
+  if(c){
+    const P=['M70,250 L70,170 L70,104 Q70,80 90,80',' L210,80 Q232,80 236,96 L292,144 Q300,150 320,146 L404,120 L418,112',' L470,116 L548,128'];
+    let d=P[0];if(c>=3)d+=P[1];if(c>=4)d+=P[2];
+    g+=`<path d="${d}" fill="none" stroke="#111" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="#fffbe8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  return g;
+}
+function servo(x,y,s=1){return `<g transform="translate(${x},${y}) scale(${s})">
+  ${box(-40,0,80,46,18,'#d42a2a','#ef5a5a','#a01818')}
+  <ellipse cx="0" cy="-4" rx="34" ry="12" fill="#c9cdd1" ${OUT}/><rect x="-34" y="-12" width="68" height="8" fill="#e6e9ec" stroke="none"/>
+  <ellipse cx="0" cy="-12" rx="34" ry="12" fill="#f2f4f6" ${OUT}/>
+  <circle cx="0" cy="-12" r="4" fill="#888" stroke="#111" stroke-width="2"/></g>`}
+function arrow(x1,y1,x2,y2,c='#e8231c'){
+  const a=Math.atan2(y2-y1,x2-x1),L=26,w=18;
+  const bx=x2-L*Math.cos(a),by=y2-L*Math.sin(a);
+  const p=(t,k)=>`${bx+k*w*Math.cos(a+Math.PI/2)},${by+k*w*Math.sin(a+Math.PI/2)}`;
+  return `<line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" stroke="#111" stroke-width="15" stroke-linecap="round"/><line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" stroke="${c}" stroke-width="9" stroke-linecap="round"/>
+  <polygon points="${x2},${y2} ${p(0,1)} ${p(0,-1)}" fill="${c}" ${OUT}/>`;
+}
+function curvedArrow(d,end,ang,c='#e8231c'){
+  return `<path d="${d}" fill="none" stroke="#111" stroke-width="15" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="9" stroke-linecap="round"/>
+  <g transform="translate(${end[0]},${end[1]}) rotate(${ang})"><polygon points="14,0 -14,-16 -14,16" fill="${c}" ${OUT}/></g>`;
+}
+function callout(x,y,w,h,inner,qty){
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="#cfe0ee" stroke="#111" stroke-width="3.5"/>${inner}
+  ${qty?`<text x="${x+12}" y="${y+h-12}" font-size="30" font-weight="900">${qty}</text>`:''}`;
+}
+function pin(x,y,len=110){return `<rect x="${x}" y="${y-7}" width="${len}" height="14" rx="7" fill="url(#silver)" ${OUT}/><ellipse cx="${x+len-7}" cy="${y}" rx="4" ry="7" fill="#f6f7f8" stroke="#111" stroke-width="2"/>`}
+function num(n){return `<text x="22" y="82" font-size="82" font-weight="900" fill="#111">${n}</text>`}
+function tag(x,y,t,c='#ffd21f'){const w=t.length*17+26;return `<rect x="${x}" y="${y}" width="${w}" height="44" rx="8" fill="${c}" stroke="#111" stroke-width="3.5"/><text x="${x+w/2}" y="${y+32}" text-anchor="middle" font-size="30" font-weight="900">${t}</text>`}
+const defs=`<defs><linearGradient id="silver" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfcfd"/><stop offset=".5" stop-color="#c3c9cf"/><stop offset="1" stop-color="#868d94"/></linearGradient></defs>`;
+const FX=(s='')=>`<g transform="translate(40,190) scale(1)" ${s}>`;
+const steps=[];
+// 1: servo base + MCP onto proximal, pin through
+steps.push(num(1)+callout(110,18,250,110,pin(140,62,150),'1x')+`<text x="245" y="110" font-size="22" font-weight="800" fill="#333">2×14</text>`+
+  FX()+finger({sep:40})+'</g>'+arrow(150,225,236,225)+
+  `<g>${pin(30,322,90)}</g>`+arrow(140,322,178,322,'#e8231c'));
+// fix step1 pin arrow aims at MCP pivot (146-40+40=146 , 132+190=322)
+// 2: cord out of servo spool up through base
+steps.push(num(2)+callout(110,18,190,130,servo(205,88,0.85),'1x')+
+  FX()+finger({cord:2})+servo(70,268,1)+'</g>'+arrow(150,420,150,320)+
+  // knot inside spool zoom
+  `<circle cx="520" cy="80" r="52" fill="#fff" stroke="#111" stroke-width="3.5"/><circle cx="520" cy="80" r="30" fill="#f2f4f6" ${OUT}/><circle cx="520" cy="80" r="9" fill="#fffbe8" stroke="#111" stroke-width="3"/><path d="M528,84 Q548,100 566,120" stroke="#111" stroke-width="8" fill="none"/><path d="M528,84 Q548,100 566,120" stroke="#fffbe8" stroke-width="4" fill="none"/>`);
+// 3: over/between bearings
+steps.push(num(3)+FX()+finger({cord:3})+'</g>'+
+  curvedArrow('M120,230 Q140,236 220,236',[230,236],0)+
+  curvedArrow('M286,248 Q320,290 340,320',[346,330],60)+
+  `<clipPath id="z3"><circle cx="300" cy="140" r="76"/></clipPath><circle cx="300" cy="140" r="78" fill="#fff" stroke="#111" stroke-width="3.5"/><g clip-path="url(#z3)"><g transform="translate(300,140) scale(1.35) translate(-258,-112)">${bearing(220,92)}${bearing(300,132)}<path d="M180,80 L210,80 Q232,80 236,96 L292,144 Q300,150 320,146" fill="none" stroke="#111" stroke-width="7"/><path d="M180,80 L210,80 Q232,80 236,96 L292,144 Q300,150 320,146" fill="none" stroke="#fffbe8" stroke-width="3.5"/></g></g><line x1="262" y1="210" x2="262" y2="262" stroke="#111" stroke-width="3" stroke-dasharray="6 5"/>`);
+// 4: top medial hole into distal
+steps.push(num(4)+FX()+finger({cord:4})+'</g>'+
+  arrow(400,240,454,296)+arrow(520,300,592,312)+
+  `<circle cx="458" cy="302" r="22" fill="none" stroke="#e8231c" stroke-width="5"/>`);
+// 5: Ashley stopper knot at mark, 140/150 mm
+steps.push(num(5)+FX()+finger({cord:4})+servo(70,268,1)+'</g>'+
+  `<line x1="110" y1="415" x2="588" y2="415" stroke="#111" stroke-width="3"/><line x1="110" y1="400" x2="110" y2="430" stroke="#111" stroke-width="3"/><line x1="588" y1="400" x2="588" y2="430" stroke="#111" stroke-width="3"/>`+
+  `<polygon points="110,415 130,407 130,423" fill="#111"/><polygon points="588,415 568,407 568,423" fill="#111"/>`+
+  tag(170,436,'3·4·5 = 140 mm')+tag(440,436,'6 = 150',"#9fe08a")+
+  // knot zoom
+  `<line x1="588" y1="318" x2="520" y2="150" stroke="#111" stroke-width="3" stroke-dasharray="6 5"/><circle cx="490" cy="110" r="70" fill="#fff" stroke="#111" stroke-width="3.5"/>`+
+  `<path d="M430,110 L478,110" stroke="#111" stroke-width="12" stroke-linecap="round"/><path d="M430,110 L478,110" stroke="#fffbe8" stroke-width="7" stroke-linecap="round"/>`+
+  `<ellipse cx="500" cy="110" rx="22" ry="17" fill="#fffbe8" ${OUT}/><path d="M486,100 Q500,122 514,100 M488,120 Q500,98 512,120" stroke="#111" stroke-width="2.5" fill="none"/><path d="M522,110 L546,116" stroke="#111" stroke-width="8" stroke-linecap="round"/><path d="M522,110 L546,116" stroke="#fffbe8" stroke-width="4" stroke-linecap="round"/><circle cx="500" cy="110" r="5" fill="#111"/>`);
+// 6: x3 repeat for servos 3,4,5
+(function(){let g=num(6)+`<text x="440" y="96" font-size="88" font-weight="900">×3</text>`;
+ [3,4,5].forEach((n,i)=>{const y=110+i*124;
+   g+=`<svg x="140" y="${y}" width="360" height="118" viewBox="0 40 590 193"><g transform="translate(0,0)">${finger({cord:4})}</g></svg>`;
+   g+=`<circle cx="98" cy="${y+60}" r="30" fill="#e8231c" stroke="#111" stroke-width="3.5"/><text x="98" y="${y+72}" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">${n}</text>`;
+   g+=tag(480,y+40,'140');
+ });steps.push(g);})();
+document.getElementById('grid').innerHTML=steps.map(s=>`<div class="step"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${defs}${s}</svg></div>`).join('');
+</script>
+</body></html>
