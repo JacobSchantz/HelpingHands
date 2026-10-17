@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T18:45:49.000Z",
+      "result": "failed",
+      "notes": "Jake: also remove the 'i love you' and 'love' poses and buttons. Of those hand signs keep only Rock on and 666 (plus open, fist, peace, flip off and the numbers). Drop their aliases or point them at the nearest kept pose (shaka/surf's up -> 666).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T18:45:34.000Z",
       "result": "failed",
       "notes": "Jake:\n- Add a 'Hold' dropdown next to Speed: Auto (default, today's low-power hold from scripts/hold.py), Medium (holds light objects) and Firm (tools like a hammer, more heat). pose.py and grip.py need a matching flag.\n- Remove the Shaka button and pose. It's the same shape as 666, so make 'shaka' and 'surf's up' aliases of 666 in pose.py.",
@@ -191,7 +202,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:54:14.000Z",
-  "updated_at": "2026-10-17T18:45:34.000Z",
+  "updated_at": "2026-10-17T18:45:49.000Z",
   "user_request": {
     "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
   },
