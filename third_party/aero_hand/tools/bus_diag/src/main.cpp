@@ -116,6 +116,21 @@ static void readRegs(bool full) {
   } else Serial.printf("TELEM read failed (%d, %d bytes)\n", r, n);
 }
 
+// One line per servo 0..6: the EEPROM limits that protect it (read-only).
+static void readAllLimits() {
+  Serial2.begin(1000000, SERIAL_8N1, PIN_RX, PIN_TX); delay(5);
+  uint8_t buf[96]; uint8_t id, err; const uint8_t* p;
+  for (int sid = 0; sid <= 6; sid++) {
+    uint8_t q[2] = {0, 40};
+    int n = txrx(sid, 0x02, q, 2, buf, sizeof buf, 1000000);
+    int r = parse(buf, n, &id, &err, &p);
+    if (r >= 40)
+      Serial.printf("LIMITS id=%u maxTemp=%uC maxV=%.1fV minV=%.1fV protCurrent(28)=%u\n",
+        id, p[13], p[14] / 10.0, p[15] / 10.0, p[28] | (p[29] << 8));
+    else Serial.printf("LIMITS id=%d read failed (%d)\n", sid, r);
+  }
+}
+
 void setup() {
   Serial.begin(921600);
   delay(1500);
@@ -127,6 +142,7 @@ void loop() {
   Serial.printf("--- round %d ---\n", round);
   pinTests();
   if (round == 0 || foundId < 0) scan();
+  readAllLimits();
   readRegs(round == 0 || round % 10 == 0);
   round++;
   delay(1000);

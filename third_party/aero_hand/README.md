@@ -89,3 +89,5 @@ TP1), pad 12 3V3, pad 13 GND. The XIAO 5V pad is unconnected and servo V+ comes 
 We are building the **LEFT** hand. The board currently has the right-hand v0.2.0 firmware; flash `upstream/firmware/main/bin/firmware_v0.2.0_lefthand.bin` before the first powered move. ID map is the same on both hands: 0 thumb abduction, 1 thumb flex, 2 thumb tendon, 3 index, 4 middle, 5 ring, 6 pinky.
 
 2026-10-17: flashed firmware_v0.2.0_lefthand.bin (port /dev/cu.usbmodem2101), no reset yet — next boot homes all 7 servos.
+
+2026-10-17 servo EEPROM limits (bus_diag readAllLimits, read-only), all 7 servos: maxTemp 80 C, maxV 10.0 V, minV 4.0 V, protection current 1023. Left-hand firmware restored afterwards.
