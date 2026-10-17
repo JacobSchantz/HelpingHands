@@ -13,10 +13,10 @@ enum AeroCommand: Equatable {
     case home                     // re-home every servo; frees a stalled finger
     case relax                    // zero torque on every servo
     case record                   // transparent mode: move the fingers by hand; Stop saves the take
-    case replay                   // play the newest take back in position mode
+    case replay(String?)          // play a take (file name in the takes folder; nil = newest) in position mode
 
     /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`,
-    /// `…/record`, `…/replay`.
+    /// `…/record`, `…/replay`, `…/replay/take-20261017-155122.json`.
     /// `stop`, `speed` and `hold` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
@@ -33,7 +33,7 @@ enum AeroCommand: Equatable {
         case "home": self = .home
         case "relax": self = .relax
         case "record", "teach": self = .record
-        case "replay": self = .replay
+        case "replay", "play": self = .replay(arg == "last" ? nil : arg)
         default: return nil
         }
     }
@@ -49,7 +49,7 @@ enum AeroCommand: Equatable {
         case .home: return "Re-home (if stuck)"
         case .relax: return "Relax"
         case .record: return "Record"
-        case .replay: return "Replay last"
+        case .replay: return "Playing"
         }
     }
 
@@ -65,9 +65,20 @@ enum AeroCommand: Equatable {
         case .home: return ("home.sh", [])
         case .relax: return ("relax.sh", [])
         case .record: return ("teach.sh", ["record"])
-        case .replay: return ("teach.sh", ["replay", "last"])
+        case .replay(let file): return ("teach.sh", ["replay", file ?? "last"])
         }
     }
+}
+
+/// A saved teach.py take, as `teach.sh list` prints it.
+struct AeroTake: Decodable, Identifiable, Equatable {
+    let file: String
+    let name: String
+    let seconds: Double
+    let recorded: Double  // seconds since 1970, from the file name
+
+    var id: String { file }
+    var date: Date { Date(timeIntervalSince1970: recorded) }
 }
 
 /// Runs the aero_hand scripts as children of the app, so macOS asks for (and
@@ -99,9 +110,15 @@ final class AeroHandRunner: ObservableObject {
     /// auto is the low-power hold, medium holds light objects, firm holds tools.
     static let holds = ["auto", "medium", "firm"]
     @Published var hold = "auto"
+    /// Saved recordings, newest first.
+    @Published private(set) var takes: [AeroTake] = []
+    /// While recording: each servo's place in its range, 0 (open) to 100 (teach.py's "pos" lines).
+    @Published private(set) var live: [Int] = []
+    @Published private(set) var startedAt: Date?
 
     private var process: Process?
     private var next: AeroCommand?
+    private var partialLine = ""
 
     func run(_ command: AeroCommand) {
         if process != nil {
@@ -168,6 +185,36 @@ final class AeroHandRunner: ObservableObject {
         do { try process.run() } catch { append("can't list poses: \(error.localizedDescription)\n") }
     }
 
+    /// Fills `takes` from `teach.sh list`.
+    func loadTakes() {
+        quick(["list"]) { text in
+            self.takes = text.split(separator: "\n").compactMap {
+                try? JSONDecoder().decode(AeroTake.self, from: Data($0.utf8))
+            }
+        }
+    }
+
+    func rename(_ take: AeroTake, to name: String) {
+        quick(["rename", take.file, name]) { _ in self.loadTakes() }
+    }
+
+    /// Moves the take to takes/deleted, so a wrong click can be undone by hand.
+    func delete(_ take: AeroTake) {
+        quick(["delete", take.file]) { _ in self.loadTakes() }
+    }
+
+    /// teach.sh file commands: no serial port, so they run beside whatever is moving the hand.
+    private func quick(_ args: [String], then: @escaping @MainActor (String) -> Void) {
+        let process = makeProcess(script: "teach.sh", args: args, speedPct: 50, hold: "auto")
+        let pipe = Pipe()
+        process.standardOutput = pipe
+        process.terminationHandler = { _ in
+            let text = String(decoding: pipe.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+            Task { @MainActor in then(text) }
+        }
+        do { try process.run() } catch { append("teach.sh \(args[0]): \(error.localizedDescription)\n") }
+    }
+
     private func start(_ command: AeroCommand) {
         let (script, args) = command.invocation
         let process = makeProcess(script: script, args: args, speedPct: speedPct, hold: hold)
@@ -178,7 +225,7 @@ final class AeroHandRunner: ObservableObject {
             let data = handle.availableData
             guard !data.isEmpty else { return }
             let text = String(decoding: data, as: UTF8.self)
-            Task { @MainActor in self.append(text) }
+            Task { @MainActor in self.output(text) }
         }
         process.terminationHandler = { finished in
             pipe.fileHandleForReading.readabilityHandler = nil
@@ -190,6 +237,8 @@ final class AeroHandRunner: ObservableObject {
             try process.run()
             self.process = process
             running = command
+            startedAt = Date()
+            live = []
         } catch {
             append("couldn't start \(script): \(error.localizedDescription)\n")
         }
@@ -197,8 +246,11 @@ final class AeroHandRunner: ObservableObject {
 
     private func finished(status: Int32) {
         append(status == 0 ? "✓ done\n" : "✗ exited \(status)\n")
+        if case .record? = running { loadTakes() }
         process = nil
         running = nil
+        startedAt = nil
+        partialLine = ""
         if let next {
             self.next = nil
             start(next)
@@ -216,6 +268,19 @@ final class AeroHandRunner: ObservableObject {
         env["AERO_HOLD"] = hold
         process.environment = env
         return process
+    }
+
+    /// Script output, whole lines at a time: "pos" lines feed `live`, the rest go to the log.
+    private func output(_ text: String) {
+        let lines = (partialLine + text).split(separator: "\n", omittingEmptySubsequences: false)
+        partialLine = String(lines.last ?? "")
+        for line in lines.dropLast() {
+            if line.hasPrefix("pos ") {
+                live = line.split(separator: " ").dropFirst().compactMap { Int($0) }
+            } else {
+                append(line + "\n")
+            }
+        }
     }
 
     private func append(_ text: String) {

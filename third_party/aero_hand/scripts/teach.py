@@ -3,11 +3,15 @@
 
 Usage: teach.py record [--seconds 300] [--torque 10,30,30,40,40,25,25]
        teach.py replay [take.json | last] [--dry-run]
+       teach.py list                      one JSON line per take, newest first (the app's list)
+       teach.py rename <take.json> <name>
+       teach.py delete <take.json>        moves it to TAKES/deleted, not gone
 
 record: transparent mode. Every servo gets a small constant pull (CTRL_TOR) that just keeps its cord
 taut against the return spring, so the fingers can be moved by hand (or a glove) both ways. All 7
 actuations are logged at ~100 Hz with timestamps until Stop (SIGINT) or --seconds, then the hand
-relaxes and the take is saved to TAKES. See plans/aero-hand-glove-teaching.md.
+relaxes and the take is saved to TAKES. About 10 times a second it prints "pos" and each servo's
+place in its range, 0 (open) to 100, which the app draws as live bars. See plans/aero-hand-glove-teaching.md.
 
 replay: position mode at the recorded timing, slowed down only where a servo would have to move
 faster than the speed cap (AERO_SPEED_PCT, 50% by default). Glides to the first frame first and
@@ -28,6 +32,20 @@ TEMP_EVERY_S = 1.0
 GLIDE_S = 1.0           # to the take's first frame before playing
 DEG_S_PER_UNIT = 0.732 * 6  # SET_SPE unit is 0.732 RPM (hand_speed.py)
 TAKES = os.path.expanduser("~/HelpingHands-tools/aero/takes")
+LIVE_EVERY_S = 0.1
+
+
+def take_path(name):
+    """A take by file name (the app passes those) or path; "last" or None is the newest."""
+    if name in (None, "last"):
+        takes = sorted(glob.glob(os.path.join(TAKES, "take-*.json")))
+        if not takes:
+            sys.exit(f"no takes in {TAKES}; record one first")
+        return takes[-1]
+    path = name if os.sep in name else os.path.join(TAKES, name)
+    if not os.path.isfile(path):
+        sys.exit(f"no take {name}")
+    return path
 
 
 def connect():
@@ -53,7 +71,8 @@ def record(seconds, torque):
     print("recording: move the fingers; Stop saves the take. torque", torque, flush=True)
     try:
         hand.ctrl_torque(torque)
-        next_tick = next_torque = next_temp = t0
+        next_tick = next_torque = next_temp = next_live = t0
+        lo, hi = hand.actuation_lower_limits, hand.actuation_upper_limits
         while (now := time.monotonic()) - t0 < seconds:
             if now >= next_torque:  # resend now and then, in case a frame was dropped
                 hand.ctrl_torque(torque)
@@ -69,6 +88,10 @@ def record(seconds, torque):
             a = hand.get_actuations()
             if a:
                 samples.append([round(time.monotonic() - t0, 4)] + [round(x, 2) for x in a])
+                if now >= next_live:
+                    pct = [max(0, min(100, round(100 * (x - l) / (h - l)))) for x, l, h in zip(a, lo, hi)]
+                    print("pos", *pct, flush=True)
+                    next_live = now + LIVE_EVERY_S
             next_tick += 1 / HZ
             time.sleep(max(0.0, next_tick - time.monotonic()))
     except KeyboardInterrupt:
@@ -98,12 +121,39 @@ def stretch_for(samples, cap_deg_s):
     return max(1.0, peak / cap_deg_s), peak
 
 
+def list_takes():
+    for path in sorted(glob.glob(os.path.join(TAKES, "take-*.json")), reverse=True):
+        try:
+            with open(path) as f:
+                take = json.load(f)
+            seconds = take["samples"][-1][0]
+        except (OSError, ValueError, KeyError, IndexError):
+            continue
+        print(json.dumps({"file": os.path.basename(path), "name": take.get("name", ""),
+                          "seconds": round(seconds, 1),
+                          "recorded": time.mktime(time.strptime(os.path.basename(path), "take-%Y%m%d-%H%M%S.json"))}))
+
+
+def rename(name, new):
+    path = take_path(name)
+    with open(path) as f:
+        take = json.load(f)
+    take["name"] = new.strip()
+    with open(path + ".tmp", "w") as f:
+        json.dump(take, f)
+    os.replace(path + ".tmp", path)
+    print(f"renamed {os.path.basename(path)}: {take['name']}")
+
+
+def delete(name):
+    path = take_path(name)
+    os.makedirs(os.path.join(TAKES, "deleted"), exist_ok=True)
+    os.replace(path, os.path.join(TAKES, "deleted", os.path.basename(path)))
+    print(f"deleted {os.path.basename(path)} (kept in {TAKES}/deleted)")
+
+
 def replay(path, dry_run):
-    if path in (None, "last"):
-        takes = sorted(glob.glob(os.path.join(TAKES, "take-*.json")))
-        if not takes:
-            sys.exit(f"no takes in {TAKES}; record one first")
-        path = takes[-1]
+    path = take_path(path)
     with open(path) as f:
         samples = json.load(f)["samples"]
     pct = float(os.environ.get("AERO_SPEED_PCT", hand_speed.DEFAULT_PCT))
@@ -165,5 +215,11 @@ if __name__ == "__main__":
         record(float(opts.get("--seconds", 300)), tq)
     elif args[:1] == ["replay"]:
         replay(args[1] if len(args) > 1 else None, dry)
+    elif args[:1] == ["list"]:
+        list_takes()
+    elif args[:1] == ["rename"] and len(args) == 3:
+        rename(args[1], args[2])
+    elif args[:1] == ["delete"] and len(args) == 2:
+        delete(args[1])
     else:
         sys.exit(__doc__)

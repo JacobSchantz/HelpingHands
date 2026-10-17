@@ -60,6 +60,9 @@ in v0.2.0 (`firmware.ino` `setup()`).
   relaxes and the take is saved to `~/HelpingHands-tools/aero/takes/take-<time>.json`. `teach.sh replay [file|last]`
   plays it back in position mode at the recorded timing, slowed only where a servo would beat the speed cap, then
   holds the last frame low-power. Both stop and relax at 60 °C. `replay --dry-run` prints duration and slow-down.
+  `teach.sh list` prints one JSON line per take (the app's Recordings list), `rename <file> <name>` names one, and
+  `delete <file>` moves it to `takes/deleted`. While recording it prints `pos` lines (each servo 0–100% of its
+  range) that the app draws as live bars.
   Plan and glove notes: `plans/aero-hand-glove-teaching.md`.
 - `scripts/home.sh` – firmware homing on all seven servos (port auto-detected).
 - **Helping Hands Mac app** (⇧⌘H, or Workshop › Aero Hand controls) – every command above as a button, with

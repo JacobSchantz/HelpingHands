@@ -1,27 +1,34 @@
 #if os(macOS)
 import SwiftUI
 
-/// Every aero_hand command as a button (Mac only) — the Aero Hand tab. The same commands answer
-/// `helpinghands://aero/…` URLs, which `scripts/app.sh` opens for the voice session.
+/// The Aero Hand tab, built around teaching (teach.py): one big Record button, the saved
+/// recordings beside it, and every other command in one Commands menu. The same commands
+/// answer `helpinghands://aero/…` URLs, which `scripts/app.sh` opens for the voice session.
 struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
-    @State private var showLog = false  // Jake: hidden by default, the buttons get the room
+    @State private var showLog = false  // Jake: hidden by default
+    @State private var renaming: AeroTake?
+    @State private var newName = ""
+    @State private var deleting: AeroTake?
 
-    // Read from about four feet away, and everything on one screen: the buttons
-    // share whatever height is left, so a bigger window means bigger buttons.
-    private let spacing: CGFloat = 16
-    private let titleHeight: CGFloat = 40
+    private static let fingers = ["Thumb out", "Thumb bend", "Thumb curl", "Index", "Middle", "Ring", "Pinky"]
     private let scripts: [(AeroCommand, String)] = [
         (.test, "list.number"), (.dance(song: nil), "music.note"), (.count, "textformat.123"),
-        (.home, "house.fill"), (.teleop(dryRun: false), "camera"),
+        (.teleop(dryRun: false), "camera"), (.home, "house.fill"),
     ]
-    /// Teaching (teach.py): Record holds transparent mode until Stop, which saves the take.
-    private let teach: [(AeroCommand, String)] = [(.record, "record.circle"), (.replay, "play.circle")]
+
+    private var recording: Bool {
+        if case .record? = runner.running { return true }
+        return false
+    }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            status
-            GeometryReader { geo in grid(in: geo.size) }
+        VStack(alignment: .leading, spacing: 24) {
+            topBar
+            HStack(alignment: .top, spacing: 32) {
+                recorder.frame(maxWidth: .infinity, maxHeight: .infinity)
+                recordings.frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
             if showLog { log }
         }
         .padding(32)
@@ -29,55 +36,223 @@ struct AeroHandPanel: View {
         .background(FillScreen())
         .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
         .navigationTitle("Aero Hand")
-        .onAppear { if runner.poses.isEmpty { runner.loadPoses() } }
+        .onAppear {
+            if runner.poses.isEmpty { runner.loadPoses() }
+            runner.loadTakes()
+        }
+        .alert("Rename recording", isPresented: Binding(get: { renaming != nil },
+                                                        set: { if !$0 { renaming = nil } })) {
+            TextField("Name", text: $newName)
+            Button("Save") { if let take = renaming { runner.rename(take, to: newName) } }
+            Button("Cancel", role: .cancel) {}
+        }
+        .confirmationDialog("Delete \(deleting.map(title) ?? "")?",
+                            isPresented: Binding(get: { deleting != nil }, set: { if !$0 { deleting = nil } })) {
+            Button("Delete", role: .destructive) { if let take = deleting { runner.delete(take) } }
+        } message: {
+            Text("It moves to the takes/deleted folder.")
+        }
     }
 
-    /// pose.py's button poses, then Relax (relax.sh, zero torque) as the last pose.
-    private var poses: [(AeroCommand, String)] {
-        runner.poses.map { (.pose($0), $0) } + [(.relax, "relax")]
-    }
+    // MARK: Record
 
-    /// Poses on top, then Scripts, Teach and Games sharing the last row.
-    private func grid(in size: CGSize) -> some View {
-        let poses = poses
-        let columns = max(1, min(poses.count, Int(size.width / 210)))
-        let poseRows = Int((Double(poses.count) / Double(columns)).rounded(.up))
-        let rows = CGFloat(poseRows + 1)
-        let rowHeight = max(60, (size.height - 2 * (titleHeight + spacing) - spacing * (rows - 1)) / rows)
-        let tiles = scripts.count + teach.count + 1
-        let tileWidth = (size.width - spacing * CGFloat(tiles - 1)) / CGFloat(tiles)
-        return VStack(alignment: .leading, spacing: spacing) {
-            sectionTitle("Poses")
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns),
-                      spacing: spacing) {
-                ForEach(poses, id: \.1) { command, name in
-                    tile(command, nil, label: name, height: rowHeight)
+    /// Idle: one big Record button. Recording: red dot, timer, live finger bars and a big Stop.
+    private var recorder: some View {
+        VStack(spacing: 24) {
+            if recording {
+                HStack(spacing: 18) {
+                    Circle().fill(.red).frame(width: 36, height: 36)
+                    Text("Recording").font(.system(size: 44, weight: .heavy)).foregroundStyle(.red)
+                    Spacer()
+                    TimelineView(.periodic(from: .now, by: 0.1)) { context in
+                        Text(clock(context.date.timeIntervalSince(runner.startedAt ?? context.date)))
+                            .font(.system(size: 44, weight: .bold).monospacedDigit())
+                            .foregroundStyle(.white)
+                    }
                 }
+                fingerBars
+                Button { runner.stop() } label: {
+                    Label("Stop", systemImage: "stop.fill")
+                        .font(.system(size: 56, weight: .heavy))
+                        .frame(maxWidth: .infinity, minHeight: 140)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.red)
+            } else {
+                Button { runner.run(.record) } label: {
+                    VStack(spacing: 20) {
+                        Image(systemName: "record.circle").font(.system(size: 120))
+                        Text("Record").font(.system(size: 64, weight: .heavy))
+                        Text("Then move the fingers by hand")
+                            .font(.system(size: 26, weight: .medium)).opacity(0.8)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(TileStyle(tint: .red))
             }
-            HStack(alignment: .top, spacing: spacing) {
-                VStack(alignment: .leading, spacing: spacing) {
-                    sectionTitle("Scripts")
-                    HStack(spacing: spacing) {
-                        ForEach(scripts, id: \.0.title) { command, icon in
-                            tile(command, icon, height: rowHeight)
+        }
+    }
+
+    private var fingerBars: some View {
+        VStack(spacing: 12) {
+            ForEach(Self.fingers.indices, id: \.self) { i in
+                let pct = i < runner.live.count ? runner.live[i] : 0
+                HStack(spacing: 16) {
+                    Text(Self.fingers[i]).font(.system(size: 26, weight: .semibold))
+                        .frame(width: 170, alignment: .leading)
+                    GeometryReader { geo in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(.white.opacity(0.12))
+                            Capsule().fill(.red.opacity(0.85))
+                                .frame(width: geo.size.width * CGFloat(pct) / 100)
                         }
                     }
+                    .frame(height: 26)
+                    Text("\(pct)%").font(.system(size: 24, weight: .bold).monospacedDigit())
+                        .frame(width: 80, alignment: .trailing)
                 }
-                VStack(alignment: .leading, spacing: spacing) {
-                    sectionTitle("Teach")
-                    HStack(spacing: spacing) {
-                        ForEach(teach, id: \.0.title) { command, icon in
-                            tile(command, icon, height: rowHeight).frame(width: tileWidth)
-                        }
+                .foregroundStyle(.white)
+            }
+        }
+        .frame(maxHeight: .infinity)
+    }
+
+    // MARK: Recordings
+
+    private var recordings: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Recordings").font(.system(size: 36, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+            if runner.takes.isEmpty {
+                Text("None yet. Press Record, move the fingers, then Stop.")
+                    .font(.system(size: 26)).foregroundStyle(.white.opacity(0.6))
+                Spacer()
+            } else {
+                ScrollView {
+                    VStack(spacing: 12) {
+                        ForEach(runner.takes) { take in row(take) }
                     }
-                }
-                VStack(alignment: .leading, spacing: spacing) {
-                    sectionTitle("Games")
-                    tile(.rps(dryRun: false), "hand.raised.fingers.spread", height: rowHeight)
-                        .frame(width: tileWidth)
                 }
             }
         }
+    }
+
+    private func row(_ take: AeroTake) -> some View {
+        let playing = runner.running == .replay(take.file)
+        return HStack(spacing: 16) {
+            Button { playing ? runner.stop() : runner.run(.replay(take.file)) } label: {
+                Image(systemName: playing ? "stop.fill" : "play.fill")
+                    .font(.system(size: 34, weight: .bold))
+                    .frame(width: 80, height: 72)
+            }
+            .buttonStyle(TileStyle(tint: playing ? .red : .accentColor))
+            .disabled(recording)
+            .help(playing ? "Stop" : "Play")
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title(take)).font(.system(size: 28, weight: .bold)).lineLimit(1)
+                Text(take.name.isEmpty ? clock(take.seconds)
+                     : "\(take.date.formatted(date: .abbreviated, time: .shortened)) · \(clock(take.seconds))")
+                    .font(.system(size: 22).monospacedDigit()).opacity(0.7)
+            }
+            .foregroundStyle(.white)
+            Spacer()
+            Button { newName = take.name; renaming = take } label: {
+                Image(systemName: "pencil").font(.system(size: 26)).frame(width: 52, height: 52)
+            }
+            .buttonStyle(.borderless).foregroundStyle(.white.opacity(0.8)).help("Rename")
+            Button { deleting = take } label: {
+                Image(systemName: "trash").font(.system(size: 26)).frame(width: 52, height: 52)
+            }
+            .buttonStyle(.borderless).foregroundStyle(.white.opacity(0.8)).help("Delete")
+        }
+        .padding(12)
+        .background(.white.opacity(playing ? 0.18 : 0.08), in: RoundedRectangle(cornerRadius: 18))
+    }
+
+    /// The name if it has one, else when it was recorded.
+    private func title(_ take: AeroTake) -> String {
+        take.name.isEmpty ? take.date.formatted(date: .abbreviated, time: .shortened) : take.name
+    }
+
+    private func clock(_ seconds: Double) -> String {
+        let s = max(0, Int(seconds))
+        return String(format: "%d:%02d", s / 60, s % 60)
+    }
+
+    // MARK: Everything else
+
+    private var topBar: some View {
+        HStack(spacing: 20) {
+            Image(systemName: runner.running == nil ? "hand.raised" : "hand.raised.fill")
+                .font(.system(size: 40))
+            Text(runner.running?.title ?? "Idle")
+                .font(.system(size: 36, weight: .bold))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+            Spacer()
+            dropdown("Commands", icon: "ellipsis.circle", warn: false) {
+                Section("Poses") {
+                    ForEach(runner.poses, id: \.self) { name in
+                        Button(name.capitalized) { runner.run(.pose(name)) }
+                    }
+                    Button("Relax") { runner.run(.relax) }
+                }
+                Section("Scripts") {
+                    ForEach(scripts, id: \.0.title) { command, icon in
+                        Button { runner.run(command) } label: { Label(command.title, systemImage: icon) }
+                    }
+                }
+                Section("Games") {
+                    Button { runner.run(.rps(dryRun: false)) } label: {
+                        Label("Rock paper scissors", systemImage: "hand.raised.fingers.spread")
+                    }
+                }
+            }
+            .help("Poses, scripts and games")
+            dropdown("Speed \(runner.speedPct)%", icon: "speedometer", warn: runner.speedPct > 50) {
+                ForEach(AeroHandRunner.speeds, id: \.self) { pct in
+                    Button("\(pct)%") { runner.speedPct = pct }
+                }
+            }
+            .help("Servo speed for every command and playback (hand_speed.py). Back to 50% every launch.")
+            dropdown("Hold \(runner.hold.capitalized)", icon: "hand.raised.fingers.spread.fill",
+                     warn: runner.hold != "auto") {
+                ForEach(AeroHandRunner.holds, id: \.self) { mode in
+                    Button(mode.capitalized) { runner.hold = mode }
+                }
+            }
+            .help("How hard a pose is held: Auto is low power, Medium holds light objects, Firm holds tools (hottest).")
+            Button { showLog.toggle() } label: {
+                Image(systemName: showLog ? "text.alignleft" : "text.justify.left")
+                    .font(.system(size: 22))
+                    .frame(minHeight: 44)
+            }
+            .buttonStyle(.borderless)
+            .foregroundStyle(.white.opacity(showLog ? 0.9 : 0.5))
+            .help(showLog ? "Hide log" : "Show log")
+            Button(role: .destructive) { runner.stop() } label: {
+                Label("Stop", systemImage: "stop.fill")
+                    .font(.system(size: 30, weight: .bold))
+                    .frame(minWidth: 160, minHeight: 64)
+            }
+            .buttonStyle(.borderedProminent)
+            .tint(.red)
+            .keyboardShortcut(.escape, modifiers: [])
+            .disabled(runner.running == nil)
+        }
+        .foregroundStyle(runner.running == nil ? .white : .green)
+    }
+
+    private func dropdown<Content: View>(_ title: String, icon: String, warn: Bool,
+                                         @ViewBuilder content: () -> Content) -> some View {
+        Menu(content: content) {
+            Label(title, systemImage: icon)
+                .font(.system(size: 26, weight: .bold))
+                .foregroundStyle(warn ? .orange : .white)
+                .frame(minHeight: 64)
+        }
+        .menuStyle(.button)
+        .buttonStyle(.bordered)
+        .fixedSize()
     }
 
     private var log: some View {
@@ -96,102 +271,19 @@ struct AeroHandPanel: View {
             .onChange(of: runner.log) { _, _ in proxy.scrollTo("end") }
         }
     }
-
-    private var status: some View {
-        HStack(spacing: 24) {
-            Image(systemName: runner.running == nil ? "hand.raised" : "hand.raised.fill")
-                .font(.system(size: 48))
-                .foregroundStyle(runner.running == nil ? .white : .green)
-            Text(runner.running?.title ?? "Idle")
-                .font(.system(size: 44, weight: .bold))
-                .foregroundStyle(runner.running == nil ? .white : .green)
-                .lineLimit(1)
-                .minimumScaleFactor(0.5)
-            Spacer()
-            Menu {
-                ForEach(AeroHandRunner.speeds, id: \.self) { pct in
-                    Button("\(pct)%") { runner.speedPct = pct }
-                }
-            } label: {
-                Label("Speed \(runner.speedPct)%", systemImage: "speedometer")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundStyle(runner.speedPct > 50 ? .orange : .white)
-                    .frame(minHeight: 72)
-            }
-            .menuStyle(.button)
-            .buttonStyle(.bordered)
-            .fixedSize()
-            .help("Servo speed for every command (hand_speed.py). Back to 50% every launch.")
-            Menu {
-                ForEach(AeroHandRunner.holds, id: \.self) { mode in
-                    Button(mode.capitalized) { runner.hold = mode }
-                }
-            } label: {
-                Label("Hold \(runner.hold.capitalized)", systemImage: "hand.raised.fingers.spread.fill")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundStyle(runner.hold == "auto" ? .white : .orange)
-                    .frame(minHeight: 72)
-            }
-            .menuStyle(.button)
-            .buttonStyle(.bordered)
-            .fixedSize()
-            .help("How hard a pose is held: Auto is low power, Medium holds light objects, Firm holds tools (hottest).")
-            Button { showLog.toggle() } label: {
-                Image(systemName: showLog ? "text.alignleft" : "text.justify.left")
-                    .font(.system(size: 22))
-                    .frame(minHeight: 44)
-            }
-            .buttonStyle(.borderless)
-            .foregroundStyle(.white.opacity(showLog ? 0.9 : 0.5))
-            .help(showLog ? "Hide log" : "Show log")
-            Button(role: .destructive) { runner.stop() } label: {
-                Label("Stop", systemImage: "stop.fill")
-                    .font(.system(size: 34, weight: .bold))
-                    .frame(minWidth: 200, minHeight: 72)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.red)
-            .keyboardShortcut(.escape, modifiers: [])
-            .disabled(runner.running == nil)
-        }
-    }
-
-    private func sectionTitle(_ title: String) -> some View {
-        Text(title).font(.system(size: 32, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
-            .frame(height: titleHeight)
-    }
-
-    /// Text scales with the row height (capped), and wraps to two lines before shrinking.
-    private func tile(_ command: AeroCommand, _ icon: String?, label: String? = nil,
-                      height: CGFloat) -> some View {
-        let size = min(44, max(22, height * 0.26))
-        return Button { runner.run(command) } label: {
-            VStack(spacing: 6) {
-                if let icon { Image(systemName: icon).font(.system(size: size * 0.9)) }
-                Text(label ?? command.title)
-                    .font(.system(size: size, weight: .bold))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)
-            }
-            .padding(.horizontal, 8)
-            .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
-        }
-        .buttonStyle(TileStyle(active: runner.running == command))
-    }
 }
 
-/// A plain rounded tile, exactly the size of its label (`.bordered` adds padding
-/// outside the computed row height, which pushed the last row off screen).
+/// A plain rounded tile in a tint, exactly the size of its label.
 private struct TileStyle: ButtonStyle {
-    let active: Bool
+    let tint: Color
+    @Environment(\.isEnabled) private var enabled
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(.white)
             .background(
                 RoundedRectangle(cornerRadius: 22)
-                    .fill(active ? Color.accentColor : .white.opacity(configuration.isPressed ? 0.25 : 0.1))
+                    .fill(tint.opacity(configuration.isPressed ? 0.55 : enabled ? 0.8 : 0.25))
             )
             .contentShape(RoundedRectangle(cornerRadius: 22))
     }
