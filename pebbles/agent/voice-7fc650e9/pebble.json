@@ -212,8 +212,8 @@
     "tool": "claude"
   },
   "owner": "JacobSchantz",
-  "summary": "The Aero Hand window needs a speed dropdown replacing the Full speed toggle, full-screen support, and buttons regrouped into Poses, Scripts, and Games sections. Everything should fit one screen without scrolling, with buttons sized to fill the space, readable from four feet, and the dropdown (25/50/60/80/100, default 50%) applying to every command.",
-  "summary_sha": "ffef0f618963c299",
+  "summary": "The Aero Hand window needs a Hold dropdown (Auto, Medium, Firm) wired to pose.py and grip.py, plus removal of the Shaka, \"i love you\" and \"love\" poses and buttons. Keep only Rock on, 666, open, fist, peace, flip off and the numbers, and point shaka and surf's up at 666.",
+  "summary_sha": "ddcdadb12a787902",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-17T17:14:34Z",
