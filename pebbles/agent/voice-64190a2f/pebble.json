@@ -1,7 +1,7 @@
 {
   "id": "voice-64190a2f",
   "commit_id": "2ab2954fc6d974f60cea93753610be86d97da42b",
-  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription — maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
+  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription \u2014 maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
   "test_instructions": [],
   "results": [
     {
@@ -29,7 +29,7 @@
         "third_party/aero_hand/scripts/pose.sh",
         "third_party/aero_hand/README.md"
       ],
-      "detailed_description": "New third_party/aero_hand/scripts/pose.sh <name> (wrapper for pose.py). It finds the port itself, sends the pose once with set_joint_positions (3 times, 20 ms apart, so a stalled USB frame can't leave it unmoved), and exits, so the hand jumps there as fast as the servos go, with no song and no interpolation. Names match loosely: 'Surf's up!', 'surfs up', 'hang loose' and 'shaka' all work, as do 'peace sign', 'flip me off', 'middle finger', 'rock on', 'horns'. I guessed 'lululil' means the ASL 'I love you' (thumb, index and pinky out), so that's 'i love you' / 'ily' / 'love you'. Tell me if you meant something else. Rock on is the horns with the thumb tucked over the curled middle and ring fingers. Note that performance.py's 'rock on' leaves the thumb out, so it's really the I-love-you sign. The thumb positions are hardcoded: tucked = [90, 45, 60], copied from the routine's peace sign; out = all zeros. Adding a pose is one line in POSES. I also added a memory note for the voice session ('Jarvis <pose>' → pose.sh) and a README line. Your hand was plugged in: my test of \"Surf's up!\" really moved it, so it's sitting in shaka right now. I haven't seen the other poses on the hand. Try: pose.sh peace, pose.sh flip me off, pose.sh rock on, pose.sh i love you, pose.sh open.",
+      "detailed_description": "New third_party/aero_hand/scripts/pose.sh <name> (wrapper for pose.py). It finds the port itself, sends the pose once with set_joint_positions (3 times, 20 ms apart, so a stalled USB frame can't leave it unmoved), and exits, so the hand jumps there as fast as the servos go, with no song and no interpolation. Names match loosely: 'Surf's up!', 'surfs up', 'hang loose' and 'shaka' all work, as do 'peace sign', 'flip me off', 'middle finger', 'rock on', 'horns'. I guessed 'lululil' means the ASL 'I love you' (thumb, index and pinky out), so that's 'i love you' / 'ily' / 'love you'. Tell me if you meant something else. Rock on is the horns with the thumb tucked over the curled middle and ring fingers. Note that performance.py's 'rock on' leaves the thumb out, so it's really the I-love-you sign. The thumb positions are hardcoded: tucked = [90, 45, 60], copied from the routine's peace sign; out = all zeros. Adding a pose is one line in POSES. I also added a memory note for the voice session ('Jarvis <pose>' \u2192 pose.sh) and a README line. Your hand was plugged in: my test of \"Surf's up!\" really moved it, so it's sitting in shaka right now. I haven't seen the other poses on the hand. Try: pose.sh peace, pose.sh flip me off, pose.sh rock on, pose.sh i love you, pose.sh open.",
       "user_reply_draft": "Done: say 'Jarvis peace', 'flip me off', 'rock on', 'surf's up' or 'I love you' and the hand jumps straight to that pose.",
       "solved_by_agent": "jarvis",
       "solved_by_device": "jakes-macbook-pro",
@@ -40,7 +40,7 @@
       "kind": "test_result",
       "at": "2026-10-17T14:41:53.000Z",
       "result": "failed",
-      "notes": "Jake: 'lululil' is the Chinese 666 sign (liù liù liù, 'that's cool'): thumb and pinky up, other fingers down (same shape as the 6 sign / shaka). Also add Chinese one-hand counting 1 to 10 as poses, so 'Jarvis count to ten' runs 1..10 and 'Jarvis seven' shows one number: 1 index; 2 index+middle; 3 middle+ring+pinky (OK-style, thumb touching index) or the index+middle+ring form; 4 four fingers, thumb folded; 5 open hand; 6 thumb+pinky; 7 fingertips pinched together; 8 thumb+index (L / pistol); 9 index hooked; 10 fist (or crossed index fingers, which one hand can't do, so use a fist). Check each against a reference for the common mainland forms.",
+      "notes": "Jake: 'lululil' is the Chinese 666 sign (li\u00f9 li\u00f9 li\u00f9, 'that's cool'): thumb and pinky up, other fingers down (same shape as the 6 sign / shaka). Also add Chinese one-hand counting 1 to 10 as poses, so 'Jarvis count to ten' runs 1..10 and 'Jarvis seven' shows one number: 1 index; 2 index+middle; 3 middle+ring+pinky (OK-style, thumb touching index) or the index+middle+ring form; 4 four fingers, thumb folded; 5 open hand; 6 thumb+pinky; 7 fingertips pinched together; 8 thumb+index (L / pistol); 9 index hooked; 10 fist (or crossed index fingers, which one hand can't do, so use a fist). Check each against a reference for the common mainland forms.",
       "image_urls": [],
       "by": {
         "github_login": "JacobSchantz",
@@ -50,7 +50,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:40:40.000Z",
-  "updated_at": "2026-10-17T14:52:25.000Z",
+  "updated_at": "2026-10-17T14:53:08Z",
   "user_request": {
     "name": "I should just be able to say a particular position... Jarvis peace. Or Jarvis flip me off. Or Jarvis rock on. Or Jarvis surfs up. or Jarvis lululil"
   },
@@ -93,5 +93,10 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-17T14:52:25.000Z"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-64190a2f",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-64190a2f",
+  "claimed_at": "2026-10-17T14:53:08.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
