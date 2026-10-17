@@ -7,6 +7,7 @@ Run with the aero venv, or via pose.sh. To add a pose, add one line to POSES.
 """
 import glob, re, sys, time
 from aero_open_sdk.aero_hand import AeroHand
+import hand_speed
 
 # joints: thumb abduction, thumb flex, thumb tendon, index, middle, ring, pinky (0 = open, 90 = curled)
 THUMB_OUT = [0.0, 0.0, 0.0]
@@ -47,6 +48,7 @@ ports = sorted(glob.glob("/dev/cu.usbmodem*"))
 if not ports:
     sys.exit("hand not connected; not moved")
 hand = AeroHand(port=ports[0])
+hand_speed.limit(hand)  # 50% unless Jake asks for more
 hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
 # glide from where the hand is now instead of snapping at full servo speed
 MOVE_S = 0.7  # Jake: half speed (2026-10-17); full speed was too fast

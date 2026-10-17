@@ -94,7 +94,9 @@ def main():
         if not ports:
             sys.exit("hand not connected (use --dry-run to just watch tracking)")
         from aero_open_sdk.aero_hand import AeroHand
+        import hand_speed
         hand = AeroHand(port=ports[0])
+        hand_speed.limit(hand)  # 50% unless Jake asks for more
         hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
 
     smooth, t0 = None, time.monotonic()

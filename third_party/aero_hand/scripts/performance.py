@@ -315,8 +315,10 @@ def main():
     song.start()
     if not args.dry_run:
         from aero_open_sdk.aero_hand import AeroHand
+        import hand_speed
         # open the hand's port while the song starts, so neither waits on the other
         hand = AeroHand(port=ports[0])
+        hand_speed.limit(hand)  # 50% unless Jake asks for more
         hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
     song.join()
     if not started.is_set():
