@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:39:08.000Z",
+      "result": "failed",
+      "notes": "Jake: BUG: the recordings list doesn't refresh when a take changes outside the app. Renaming take-20261017-163243 via teach.py didn't show until he deleted an item. Watch the takes folder (~/HelpingHands-tools/aero/takes, e.g. DispatchSource or FSEvents) and reload the list on any create, rename, delete or label change, including auto-labels and voice renames.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:36:47.000Z",
       "result": "failed",
       "notes": "Jake: when a recording stops, animate the new take flying from the Record button at the bottom up into the top of the recordings list (a matched-geometry move, then the list makes room and it settles), so it's obvious where it went.",
@@ -348,7 +359,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T14:54:14.000Z",
-  "updated_at": "2026-10-17T20:36:47.000Z",
+  "updated_at": "2026-10-17T20:39:08.000Z",
   "user_request": {
     "name": "we should just build a Helping Hands Mac app... then we don't have to request permission for terminal. And then we can put all of our commands in there as a button."
   },
