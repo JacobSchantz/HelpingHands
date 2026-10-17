@@ -27,5 +27,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Build a Designs tab with large live 3D cards per project, plus a new OpenSCAD Robot Glove Hand, a left-handed exoskeleton glove that Jake's large hand fits inside and the robot arm mounts like a glove. Start with a single thin TPU layer on the palm and finger pads, with all actuation on the back and sides, by extracting a flat-hand outline from Jake's top-down photo with a scale reference and printing a fitted shell first.",
+  "summary_sha": "e72636d7be87dbae"
 }
