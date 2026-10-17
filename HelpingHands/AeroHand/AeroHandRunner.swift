@@ -4,23 +4,21 @@ import Foundation
 /// One Aero Hand command — a button in `AeroHandPanel` and a
 /// `helpinghands://aero/<command>[/<arg>]` URL (`scripts/app.sh` opens those).
 enum AeroCommand: Equatable {
-    case perform(song: String?)   // song first (random ¿? track), then dance to it
-    case routine                  // song, then the old fixed routine
-    case listen                   // dance dry run: mic beat tracking only
+    case dance(song: String?)     // a random ¿? track (or the named song), danced along to
+    case test                     // song first, then the old fixed routine
     case pose(String)             // any name or alias pose.py knows
     case count                    // Chinese one-hand counting 1..10
     case teleop(dryRun: Bool)     // webcam teleop; its OpenCV window is the live preview
     case rps(dryRun: Bool)        // rock-paper-scissors on camera; the hand's throw is random and committed first
     case home
 
-    /// `helpinghands://aero/pose/peace`, `…/perform`, `…/perform/Song%20Name`, `…/teleop`, `…/rps`.
+    /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`.
     /// `stop` and `fast` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
         switch path.first?.lowercased() {
-        case "perform", "performance", "dance": self = .perform(song: arg)
-        case "routine": self = .routine
-        case "listen": self = .listen
+        case "dance", "perform", "performance": self = .dance(song: arg)
+        case "test", "routine": self = .test
         case "pose": guard let arg else { return nil }; self = .pose(arg)
         case "count": self = .count
         case "teleop": self = .teleop(dryRun: arg == "dry-run")
@@ -33,9 +31,8 @@ enum AeroCommand: Equatable {
 
     var title: String {
         switch self {
-        case .perform(let song): return song.map { "Perform \($0)" } ?? "Perform"
-        case .routine: return "Fixed routine"
-        case .listen: return "Listen only"
+        case .dance(let song): return song.map { "Dance: \($0)" } ?? "Dance"
+        case .test: return "Test"
         case .pose(let name): return "Pose: \(name)"
         case .count: return "Count to ten"
         case .teleop(let dryRun): return dryRun ? "Tracking only" : "Teleop"
@@ -47,9 +44,8 @@ enum AeroCommand: Equatable {
     /// The script (a venv wrapper in third_party/aero_hand/scripts) and its arguments.
     var invocation: (script: String, args: [String]) {
         switch self {
-        case .perform(let song): return ("performance.sh", song.map { [$0] } ?? [])
-        case .routine: return ("performance.sh", ["--routine"])
-        case .listen: return ("performance.sh", ["--dry-run"])
+        case .dance(let song): return ("performance.sh", song.map { [$0] } ?? [])
+        case .test: return ("performance.sh", ["--routine"])
         case .pose(let name): return ("pose.sh", [name])
         case .count: return ("pose.sh", ["count to ten"])
         case .teleop(let dryRun): return ("teleop.sh", dryRun ? ["--dry-run"] : [])

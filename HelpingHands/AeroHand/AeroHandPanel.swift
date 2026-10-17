@@ -5,7 +5,6 @@ import SwiftUI
 /// `helpinghands://aero/…` URLs, which `scripts/app.sh` opens for the voice session.
 struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
-    @State private var song = ""
 
     // Read from about four feet away: big type, big targets, generous spacing.
     private let columns = [GridItem(.adaptive(minimum: 300), spacing: 20)]
@@ -27,24 +26,12 @@ struct AeroHandPanel: View {
 
     private var controls: some View {
         VStack(alignment: .leading, spacing: 32) {
-            section("Performance") {
-                button(.perform(song: nil), "music.note")
-                button(.routine, "list.number")
-                button(.listen, "ear")
-            }
-            HStack(spacing: 20) {
-                TextField("Song name", text: $song)
-                    .textFieldStyle(.plain)
-                    .font(bodyFont)
-                    .padding(.horizontal, 20)
-                    .frame(height: 80)
-                    .background(.white.opacity(0.1), in: RoundedRectangle(cornerRadius: 14))
-                    .onSubmit(performSong)
-                Button(action: performSong) {
-                    Text("Perform song").font(bodyFont).padding(.horizontal, 24).frame(height: 80)
+            VStack(alignment: .leading, spacing: 16) {
+                sectionTitle("Performance")
+                HStack(spacing: 20) {
+                    bigButton(.test, "list.number")
+                    bigButton(.dance(song: nil), "music.note")
                 }
-                .buttonStyle(.borderedProminent)
-                .disabled(song.trimmingCharacters(in: .whitespaces).isEmpty)
             }
             section("Poses") {
                 button(.count, "textformat.123")
@@ -112,9 +99,24 @@ struct AeroHandPanel: View {
 
     private func section<Content: View>(_ title: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(title).font(.system(size: 38, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+            sectionTitle(title)
             LazyVGrid(columns: columns, alignment: .leading, spacing: 20, content: content)
         }
+    }
+
+    private func sectionTitle(_ title: String) -> some View {
+        Text(title).font(.system(size: 38, weight: .heavy)).foregroundStyle(.white.opacity(0.85))
+    }
+
+    private func bigButton(_ command: AeroCommand, _ icon: String) -> some View {
+        Button { runner.run(command) } label: {
+            Label(command.title, systemImage: icon)
+                .font(.system(size: 48, weight: .bold))
+                .frame(maxWidth: .infinity, minHeight: 160)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.large)
+        .tint(runner.running == command ? Color.accentColor : nil)
     }
 
     private func button(_ command: AeroCommand, _ icon: String?, label: String? = nil) -> some View {
@@ -134,12 +136,6 @@ struct AeroHandPanel: View {
         .buttonStyle(.bordered)
         .controlSize(.large)
         .tint(runner.running == command ? Color.accentColor : nil)
-    }
-
-    private func performSong() {
-        let name = song.trimmingCharacters(in: .whitespaces)
-        guard !name.isEmpty else { return }
-        runner.run(.perform(song: name))
     }
 }
 
