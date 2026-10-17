@@ -15,6 +15,7 @@ copy the newest file to the next number and change the copy.
 | 00 | `gen_00_fit_tray.scad` | Jake's flat spread left hand as a 0.8 mm pad with an 8 mm wall, to check the outline fits | TPU 95A |
 | 01 | `gen_01_fit_surround.scad` | Closed try-on shell around the 3D hand model, two pieces (palm + back), open at the wrist | TPU 95A |
 | 02 | `gen_02_tendon_exo.scad` | The first robot hand: tendon exoskeleton, pinned saddles over each phalanx, cords below the joint axes, seven-servo forearm deck | TPU pad + PETG |
+| 03 | `gen_03_index_finger.scad` | ONE index finger, to prove the mechanism before more glove: three hinged saddles, a radial MCP hinge, one line below every axis, a dorsal elastic, a hand-turned spool | PETG |
 
 ## Two independent models
 
@@ -48,6 +49,19 @@ Designed from scratch. Other hands were studied for ideas only; `REFERENCES.md` 
 `part = "curl"` shows the hand bent with the cords drawn. The open issues are in `compare/gen_02.md` → Fix list.
 
 `jake_hand.scad` gained one read-only function, `jake(key)`, so a glove can read the hand's numbers (`use` doesn't import variables). It changes no geometry.
+
+## gen_03: one index finger (voice-55a7493e, 2026-10-17)
+
+Jake found gen_02 too rudimentary. The rule now: one finger, shown working and reviewed, before any more glove. Original geometry; `REFERENCES.md` credits the ideas.
+
+- **Joints, coaxial with his.** The PIP and DIP each pin a tab on the distal saddle inside a lug on the proximal one, on both sides, with 1.75 mm filament pins. The MCP is one M3 bolt on the radial side only, through the base's side plate.
+- **Stops are the parts.** Below each axis the saddle ends are cut in a V that closes at the flexion limit. The 1.2 mm dorsal gap closes at about 6° of hyperextension. A rib on the base stops MCP hyperextension.
+- **Line.** One 1 mm braided line on the radial side. It's knotted in the distal saddle and runs through flared guides 5.5 / 6.5 / 7 mm below the DIP / PIP / MCP axes, then up the side plate onto the r = 9 spool. Every crossing is below its axis, so winding flexes all three joints. The lever grows as a joint bends: the MCP goes from 7 mm straight to about 15 mm at 90°.
+- **Return.** One 2 mm round elastic along the top midline: from a hook over the knuckle, through two tunnels per saddle, knotted at the distal one. It sits above every axis.
+- **Interactive.** `web/gen_03.js` is a separately built JavaScript model with sliders (curl, each joint, robot-only prediction, show the finger) and live numbers for line wound in, lever arms and elastic stretch. It's in the Designs workbench next to the STL.
+- **Checked.** `python3 check_gen_03.py` must print PASS: nothing touches anything, or the finger, in range, and every stop really stops. Results and open issues are in `compare/gen_03.md`.
+
+What only a print can tell: pin and tab fit at 0.3 mm, line friction in the guides, whether the elastic holds the finger open and what force the line needs, whether the saddles stay put on the finger with one strap, comfort, and whether the robot-only joint order matches the prediction.
 
 ## Step 1: outline from a photo
 

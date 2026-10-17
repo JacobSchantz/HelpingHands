@@ -18,5 +18,16 @@ Licences are listed so a future generation knows what borrowing *would* need.
 | Open Bionics (Ada hand; the Hero Arm is not open) | https://openbionics.com · https://github.com/Open-Bionics | Ada: CC BY-SA (unverified) | Wearable proportions and tendon return by elastic. Idea: the dorsal elastic hook on every saddle. |
 | Soft exo-gloves: Exo-Glove (SNU), Harvard soft robotic glove | papers (In et al. 2015; Polygerinos et al. 2015) | papers | Tendon exo-gloves route flexion cords under the palm. That is exactly what Jake ruled out, which showed the constraint: from the back you can't flex a knuckle with a cord unless it passes below the axis. Hence side eyelets below the axes, and web posts for the MCP. |
 
+## gen_03 (single index finger)
+
+Same rule, made stricter by Jake (2026-10-17): functional ideas only. Nothing from any project's CAD, STEP, STL or meshes was downloaded, imported, traced, reproduced or adapted.
+
+- **Aero Hand Open** (Apache-2.0): one flexion line per finger wound on a servo spool, with an elastic return, so the finger stays back-drivable for teaching. In gen_03 that's the line + spool + dorsal elastic.
+- **Underactuated tendon fingers in general** (the SDM hand, Yale OpenHand, InMoov): one line over several joints closes them in an order set by each joint's tendon lever against its return stiffness. gen_03 predicts that order (`web/gen_03.js`, robot-only mode) instead of assuming it.
+- **DexHand**: printed guides on the side of each phalanx.
+- **Soft exo-gloves**: the reminder that a line has to pass below a joint's axis to flex it. Since the palm side is ruled out, the guides sit low on the sides.
+
+Designed here: the V-cut saddle ends as the flexion and hyperextension stops, the single-sided radial MCP hinge with its stop rib, the guide heights and reaches, the dorsal elastic tunnels, the base, the spool, and the interference checker.
+
 Everything else in gen_02 is designed here: the saddle/pad split, side pins
 coaxial with Jake's PIP/DIP, the web posts, the combs, and the deck.

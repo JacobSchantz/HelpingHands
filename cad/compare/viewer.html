@@ -9,7 +9,8 @@
   geometry. ?design=<id from designs.json>
     &mode=web | stl | diff | sheet   (sheet: every view x web/STL/diff on one image)
     &view=front | side | top | iso | exploded
-    &live    orbit controls + window.hh for the Mac app
+    &live    orbit controls + window.hh for the Mac app; a concept that moves gets sliders
+    &set=pull:60,mode:robot   preset those sliders (screenshots)
 -->
 <script type="importmap">
 { "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/" } }
@@ -24,6 +25,13 @@
              text-align: center; padding: 24px; color: #9fb0c0; line-height: 1.5; }
   #result { display: none; }
   .web { color: #ff7cc0; } .stl { color: #6fe3ea; }
+  #pose { position: absolute; left: 10px; bottom: 30px; max-width: calc(100% - 20px); padding: 10px 12px; border-radius: 10px;
+          background: rgba(6, 14, 20, .78); display: grid; gap: 6px; font-size: 12px; }
+  #pose label { display: grid; grid-template-columns: 92px minmax(80px, 220px) 44px auto; align-items: center; gap: 8px; }
+  #pose label:has(select), #pose label:has([type=checkbox]) { grid-template-columns: 92px auto; }
+  #pose b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  #pose button { background: #24323d; color: inherit; border: 0; border-radius: 6px; padding: 2px 8px; }
+  #pose pre { margin: 4px 0 0; font: 11px ui-monospace, Menlo, monospace; color: #b8c6d3; white-space: pre-wrap; }
 </style>
 </head>
 <body>

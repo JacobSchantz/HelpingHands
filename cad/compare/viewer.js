@@ -45,6 +45,12 @@ scene.add(web, stl);
 let design = null;
 let exploded = false;
 let controls = null;
+let concept = null;      // the concept module: it may export `controls` and `update(values)` to move
+const values = {};       // the slider values, kept across live reloads; &set=pull:60,mode:robot presets them
+for (const pair of (query.get('set') || '').split(',').filter(Boolean)) {
+  const [id, value] = pair.split(':');
+  values[id] = value === 'true' ? true : value === 'false' ? false : isNaN(+value) ? value : +value;
+}
 
 const message = (text) => {
   const el = document.getElementById('message');
@@ -110,7 +116,69 @@ async function loadConcept() {
     piece.object.userData.explode = new THREE.Vector3(...(piece.explode || [0, 0, 0]));
     web.add(piece.object);
   }
+  concept = module;
+  posePanel();
   return true;
+}
+
+// A concept that moves (exports `controls` + `update`) gets sliders in the
+// live web pane. update(values) poses the model and returns a readout. The
+// sheet and the STL pane always show its default pose.
+function posePanel() {
+  document.getElementById('pose')?.remove();
+  if (!concept?.update || !concept.controls) return;
+  for (const c of concept.controls) if (!(c.id in values)) values[c.id] = c.value;
+  const apply = () => { readout.textContent = concept.update({ ...values }) || ''; draw(); };
+  if (!live || mode !== 'web') {
+    concept.update(Object.fromEntries(concept.controls.map((c) => [c.id, mode === 'sheet' ? c.value : values[c.id]])));
+    return;
+  }
+  const panel = document.createElement('div');
+  panel.id = 'pose';
+  const readout = document.createElement('pre');
+  let playing = null;
+  for (const c of concept.controls) {
+    const row = document.createElement('label');
+    row.append(Object.assign(document.createElement('span'), { textContent: c.label }));
+    let input;
+    if (c.type === 'select') {
+      input = document.createElement('select');
+      for (const [value, text] of c.options) input.append(new Option(text, value, false, value === values[c.id]));
+      input.onchange = () => { values[c.id] = input.value; apply(); };
+    } else if (c.type === 'checkbox') {
+      input = Object.assign(document.createElement('input'), { type: 'checkbox', checked: !!values[c.id] });
+      input.onchange = () => { values[c.id] = input.checked; apply(); };
+    } else {
+      input = Object.assign(document.createElement('input'), { type: 'range', min: c.min, max: c.max, step: c.step || 1, value: values[c.id] });
+      const shown = Object.assign(document.createElement('b'), { textContent: `${values[c.id]}${c.unit || ''}` });
+      input.oninput = () => { values[c.id] = +input.value; shown.textContent = `${input.value}${c.unit || ''}`; apply(); };
+      row.append(input, shown);
+      if (c.play) {
+        const button = Object.assign(document.createElement('button'), { textContent: '▶' });
+        button.onclick = (event) => {
+          event.preventDefault();
+          if (playing) { cancelAnimationFrame(playing); playing = null; button.textContent = '▶'; return; }
+          button.textContent = '❚❚';
+          const start = performance.now();
+          const step = (now) => {
+            const phase = ((now - start) / 4000) % 1;   // 4 s: open, closed, open
+            input.value = c.min + (c.max - c.min) * (1 - Math.cos(phase * 2 * Math.PI)) / 2;
+            input.oninput();
+            playing = requestAnimationFrame(step);
+          };
+          playing = requestAnimationFrame(step);
+        };
+        row.append(button);
+      }
+      panel.append(row);
+      continue;
+    }
+    row.append(input);
+    panel.append(row);
+  }
+  panel.append(readout);
+  document.body.append(panel);
+  apply();
 }
 
 function setExploded(on) {
