@@ -38,3 +38,12 @@ directly (kinesthetic demonstration).
 - Heat: low torque should stay cool, but log temperatures and respect the 70 °C firmware cutoff.
 - Thumb: abduction is a linkage (back-drivable directly); flex and tendon are cords like the fingers.
 - Switching back to position mode afterwards (CTRL_POS re-enables ServoMode).
+
+## Bench test 1 (2026-10-17, torque 50 on every servo, 45 s, `scripts/transparent_test.py`)
+- Index: followed Jake by hand smoothly through the full range (actuation 48 -> 279 -> 55), both ways.
+- Middle: followed the same way (49 -> 216 by the end of the run).
+- Ring and pinky: sat curled the whole time (277 / 268). At torque 50 their pull beats their springs,
+  so they need a lower per-finger torque.
+- Rest point at torque 50 isn't fully open (index/middle settled ~48 of ~288), so 50 is a bit strong
+  for those too. Next: sweep torque per finger to find the balance point.
+- Temperatures flat (42-49 C) the whole run, so the heat cost is negligible.
