@@ -25,7 +25,10 @@ $V/python third_party/aero_hand/scripts/capture.py 3 --reset    # expect "[BOOT]
 in v0.2.0 (`firmware.ino` `setup()`).
 
 ## Moving the hand
-- `scripts/performance.sh [song]` – starts a song, then runs the routine.
+- `scripts/performance.sh [song]` – starts a song (random from the ¿? playlist), then the hand dances to it:
+  the Mac mic tracks tempo, beat and loudness, and the hand cycles wave / bounce / pinch walk / pose hits every
+  8 bars, smoothed and speed-limited, until the track ends. Shrinks above 50 °C, stops at 60 °C. `--dry-run`
+  just listens and prints; `--routine` plays the old fixed routine. Needs Microphone access for the terminal.
 - `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
   shaka ("surf's up"), i love you. `--list` shows aliases; add a pose with one line in `POSES` in `pose.py`.
 - `scripts/teleop.sh` – webcam teleop: the hand copies your hand live (Esc quits, `--dry-run` only shows
