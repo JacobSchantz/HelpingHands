@@ -45,6 +45,10 @@ targets:
         # Copies plans/'s markdown + a manifest into the bundle so a new plan
         # is listenable on the next build without touching Swift.
         script: "python3 ${SRCROOT}/Scripts/stage_plans.py"
+      - name: Stage Aero Guide
+        # Copies third_party/aero_hand/guide (gallery, animations, PDF) into
+        # the bundle as AeroGuide/ for the Workshop's build-guide screen.
+        script: "python3 ${SRCROOT}/Scripts/stage_aero_guide.py"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.helpinghands.app
@@ -97,6 +101,8 @@ targets:
         script: "python3 ${SRCROOT}/Scripts/stage_cad_models.py"
       - name: Stage Plans
         script: "python3 ${SRCROOT}/Scripts/stage_plans.py"
+      - name: Stage Aero Guide
+        script: "python3 ${SRCROOT}/Scripts/stage_aero_guide.py"
     settings:
       base:
         PRODUCT_NAME: HelpingHands

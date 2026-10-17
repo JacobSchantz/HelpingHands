@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aero Hand Build Guide</title>
+<style>
+  :root { --bg: #0b0f14; --card: #141c26; --ink: #eef3f8; --dim: #8a97a6; --accent: #3ee06a; --line: #223040; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, "SF Pro Display", "Segoe UI", Helvetica, Arial, sans-serif; }
+  main { max-width: 1400px; margin: 0 auto; padding: 24px 16px 60px; }
+  .kicker { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+  h1 { font-size: clamp(30px, 5vw, 64px); margin: 4px 0 18px; line-height: 1.05; }
+  h2 { font-size: clamp(22px, 2.6vw, 36px); margin: 36px 0 12px; display: flex; align-items: baseline; gap: 12px; }
+  h2 .pg { font-size: .6em; color: var(--dim); font-weight: 600; }
+  a { color: inherit; text-decoration: none; }
+  .pdf { display: inline-flex; align-items: center; gap: 12px; padding: 16px 26px; border-radius: 16px;
+    background: var(--accent); color: #06210f; font-weight: 800; font-size: clamp(18px, 2vw, 28px); }
+  .pdf small { font-weight: 600; opacity: .7; font-size: .7em; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .card { display: block; padding: 16px 18px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); }
+  .card:hover, .card:focus-visible { border-color: var(--accent); outline: none; }
+  .card b { display: block; font-size: clamp(17px, 1.6vw, 24px); margin-bottom: 4px; }
+  .card span { color: var(--dim); font-size: clamp(14px, 1.2vw, 18px); line-height: 1.35; }
+  .tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 12px;
+    background: #253141; color: #c9d3de; vertical-align: middle; font-weight: 700; }
+  .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
+  .pages a { display: grid; place-items: center; height: 56px; border-radius: 12px; background: var(--card);
+    border: 2px solid var(--line); font-weight: 800; font-size: 20px; }
+  .pages a.has { border-color: #2f6b45; }
+  .pages a:hover, .pages a:focus-visible { border-color: var(--accent); outline: none; }
+  .note { color: var(--dim); font-size: 14px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Aero Hand · left hand</div>
+  <h1>Build guide</h1>
+  <a class="pdf" href="aero_guide_original.pdf">Open assembly PDF <small>50 pages</small></a>
+
+  <h2>Page 31 <span class="pg">cord marks</span></h2>
+  <div class="grid">
+    <a class="card" href="table31.html"><b>Cord marks table</b><span>Where to dot each cord, measured from the spool exit.</span></a>
+    <a class="card" href="bigtable.html"><b>Cord marks, projector size</b><span>The same table in huge type for the wall.</span></a>
+  </div>
+
+  <h2>Page 32 <span class="pg">finger servo cable</span></h2>
+  <div class="grid">
+    <a class="card" href="demo32.html"><b>Thread the finger cable</b><span>Animated walk-through, servo spool to fingertip, 7 steps.</span></a>
+    <a class="card" href="step32.html"><b>3D with real parts <span class="tag">3D</span></b><span>Official right-hand index finger meshes, red pull cable. Drag to rotate.</span></a>
+    <a class="card" href="demo32b.html"><b>Cable route on the diagram</b><span>The pull cord drawn over the guide's own diagram, steps 11–14.</span></a>
+    <a class="card" href="lego32real.html"><b>LEGO-style, real photos</b><span>Numbered steps with magnified photo callouts.</span></a>
+    <a class="card" href="lego32.html"><b>LEGO-style diagram</b><span>Drawn version of the same steps.</span></a>
+    <a class="card" href="join32.html"><b>Step 10: MCP into proximal</b><span>Join photo with the 2×14 mm pin spot circled.</span></a>
+    <a class="card" href="zh32.html"><b>中文版</b><span>Page 32 steps in Chinese.</span></a>
+    <a class="card" href="zoom.html?img=diag32.png"><b>Diagram, full screen</b><span>diag32.png</span></a>
+  </div>
+
+  <h2>Page 41 <span class="pg">thumb</span></h2>
+  <div class="grid">
+    <a class="card" href="anim41.html"><b>Thumb CMC flex cable <span class="tag">3D</span></b><span>Real left-hand CAD, animated in 4 steps. Space pauses, 1–4 jumps.</span></a>
+  </div>
+
+  <h2>Every page</h2>
+  <div class="pages" id="pages"></div>
+  <p class="note">Green pages have an animation or diagram above. Tap a page, then tap the left or right edge, swipe, or use the arrow keys to turn pages.</p>
+</main>
+<script>
+  const extras = new Set([31, 32, 41]);
+  const box = document.getElementById('pages');
+  for (let n = 1; n <= 50; n++) {
+    const a = document.createElement('a');
+    a.href = 'page.html?p=' + n;
+    a.textContent = n;
+    if (extras.has(n)) a.className = 'has';
+    box.appendChild(a);
+  }
+</script>
+</body>
+</html>

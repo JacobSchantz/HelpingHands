@@ -1,3 +1,6 @@
 p[0-9]*.png
 current
 helper
+# The repo ignores *.stl; the 3D pages need these meshes.
+!anim41/*.STL
+!meshes/*.STL

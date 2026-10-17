@@ -22,6 +22,7 @@ struct WorkshopScreen: View {
                     port: "/dev/tty.usbmodem5AA90242401",
                     icon: "hand.point.right.fill"
                 )
+                guideCard
                 plansCard
                 cadCard
                 teleopNote
@@ -59,6 +60,45 @@ struct WorkshopScreen: View {
             labeled("Port", port)
         }
         .padding(16)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+
+    private var guideCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            NavigationLink {
+                AeroGuideScreen()
+            } label: {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack(spacing: 10) {
+                        Image(systemName: "hand.raised.fingers.spread")
+                            .font(.title3)
+                            .foregroundStyle(Color.accentColor)
+                        Text("Aero Hand build guide")
+                            .font(.headline)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Text("Every animation and diagram from the build session, by guide page, plus all 50 pages.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            NavigationLink {
+                AeroGuideScreen(start: .pdf)
+            } label: {
+                Label("Open assembly PDF", systemImage: "doc.richtext")
+                    .font(.subheadline.weight(.semibold))
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 

@@ -1,5 +1,5 @@
 import http.server, os, urllib.parse
-D="/private/tmp/claude-501/-Users-jakeschantz/13d06805-9b09-406f-b090-40551ef08dda/scratchpad/guide"
+D=os.path.dirname(os.path.abspath(__file__))
 class H(http.server.SimpleHTTPRequestHandler):
     def __init__(s,*a,**k): super().__init__(*a,directory=D,**k)
     def do_GET(s):
