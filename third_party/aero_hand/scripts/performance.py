@@ -65,6 +65,7 @@ if not ports:
 song = threading.Thread(target=start_song, args=(SONG,))
 song.start()
 hand = AeroHand(port=ports[0])
+hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
 song.join()
 if not started.is_set():
     hand.close()
