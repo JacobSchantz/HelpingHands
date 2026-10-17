@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T19:38:54.000Z",
+  "updated_at": "2026-10-17T19:39:51Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Aero Hand needs glove-based teaching: record all 7 servo positions at ~100 Hz in transparent torque mode, then replay them from the Helping Hands app with Record, Stop, and Replay last buttons. Replay should run in position mode at recorded speed under the 50% cap with a heat cutoff, and the glove advice should say whether it changes torque tuning.",
-  "summary_sha": "563b984c0f6dde96"
+  "summary_sha": "563b984c0f6dde96",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-563b984c",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-563b984c",
+  "claimed_at": "2026-10-17T19:39:51.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
