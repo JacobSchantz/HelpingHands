@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:34:13.000Z",
+      "result": "failed",
+      "notes": "Jake: renaming a recording should be by voice, not typing. Tapping rename opens a small overlay that's already listening (mic on, live transcript). Speak the name, and it saves after a short pause, or on Enter or tap. Saying 'rename the last recording to ...' to the voice session should work too (teach.py rename last <name>).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:33:30.000Z",
       "result": "failed",
       "notes": "Jake doesn't want to label recordings by hand. Auto-label every new take from its motion when it stops: which fingers moved and how, e.g. 'Index finger curled in, index finger extended' (the label Jake gave take-20261017-163243). A rule-based summary of per-finger curl/extend events is fine to start. Keep rename for overrides.",
@@ -43,7 +54,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T20:33:30.000Z",
+  "updated_at": "2026-10-17T20:34:13.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
