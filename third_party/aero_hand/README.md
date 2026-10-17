@@ -55,13 +55,19 @@ in v0.2.0 (`firmware.ino` `setup()`).
   (`ros2/src/webcam_mocap` + `mediapipe_retargeting.py`) without ROS; upstream also has Vision Pro and Manus
   glove teleop under `ros2/`.
 
+- `scripts/teach.sh record` – teach by moving the hand: transparent torque mode (a small per-servo pull, `TORQUE`
+  in `teach.py`, `--torque` to override) while all 7 actuations are logged at 100 Hz until Stop; the hand then
+  relaxes and the take is saved to `~/HelpingHands-tools/aero/takes/take-<time>.json`. `teach.sh replay [file|last]`
+  plays it back in position mode at the recorded timing, slowed only where a servo would beat the speed cap, then
+  holds the last frame low-power. Both stop and relax at 60 °C. `replay --dry-run` prints duration and slow-down.
+  Plan and glove notes: `plans/aero-hand-glove-teaching.md`.
 - `scripts/home.sh` – firmware homing on all seven servos (port auto-detected).
 - **Helping Hands Mac app** (⇧⌘H, or Workshop › Aero Hand controls) – every command above as a button, with
   a Speed dropdown (25/50/60/80/100%, back to 50% each launch, applies to every command), a Hold dropdown
   (Auto/Medium/Firm, back to Auto each launch), Relax (zero torque) as the last Poses button, and a Stop
   button (Esc). The app runs these
   scripts as its children, so camera, mic and Music permissions belong to Helping Hands, not Terminal.
-  `scripts/app.sh dance|test|pose <name>|count|teleop|home|relax|stop|speed <pct>|hold <mode>` presses the same
+  `scripts/app.sh dance|test|pose <name>|count|teleop|record|replay|home|relax|stop|speed <pct>|hold <mode>` presses the same
   buttons from a shell or the voice session (it opens `helpinghands://aero/<command>/<arg>`). The app
   looks for scripts in `~/HelpingHands/third_party/aero_hand/scripts`
   (`defaults write com.helpinghands.app aeroScriptsDir <path>` to move it).

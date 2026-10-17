@@ -12,8 +12,11 @@ enum AeroCommand: Equatable {
     case rps(dryRun: Bool)        // rock-paper-scissors on camera; the hand's throw is random and committed first
     case home                     // re-home every servo; frees a stalled finger
     case relax                    // zero torque on every servo
+    case record                   // transparent mode: move the fingers by hand; Stop saves the take
+    case replay                   // play the newest take back in position mode
 
-    /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`.
+    /// `helpinghands://aero/pose/peace`, `…/dance`, `…/dance/Song%20Name`, `…/test`, `…/teleop`, `…/rps`,
+    /// `…/record`, `…/replay`.
     /// `stop`, `speed` and `hold` aren't commands; `AeroHandRunner.handle(url:)` takes those.
     init?(path: [String]) {
         let arg = path.count > 1 ? path.dropFirst().joined(separator: " ") : nil
@@ -29,6 +32,8 @@ enum AeroCommand: Equatable {
         case "rps", "rock-paper-scissors", "rock paper scissors": self = .rps(dryRun: arg == "dry-run")
         case "home": self = .home
         case "relax": self = .relax
+        case "record", "teach": self = .record
+        case "replay": self = .replay
         default: return nil
         }
     }
@@ -43,6 +48,8 @@ enum AeroCommand: Equatable {
         case .rps(let dryRun): return dryRun ? "RPS (hand still)" : "Rock paper scissors"
         case .home: return "Re-home (if stuck)"
         case .relax: return "Relax"
+        case .record: return "Record"
+        case .replay: return "Replay last"
         }
     }
 
@@ -57,6 +64,8 @@ enum AeroCommand: Equatable {
         case .rps(let dryRun): return ("rps.sh", dryRun ? ["--dry-run"] : [])
         case .home: return ("home.sh", [])
         case .relax: return ("relax.sh", [])
+        case .record: return ("teach.sh", ["record"])
+        case .replay: return ("teach.sh", ["replay", "last"])
         }
     }
 }

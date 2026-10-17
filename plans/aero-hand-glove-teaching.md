@@ -47,3 +47,30 @@ directly (kinesthetic demonstration).
 - Rest point at torque 50 isn't fully open (index/middle settled ~48 of ~288), so 50 is a bit strong
   for those too. Next: sweep torque per finger to find the balance point.
 - Temperatures flat (42-49 C) the whole run, so the heat cost is negligible.
+
+## teach.py, first version (2026-10-17, voice-563b984c)
+- `scripts/teach.sh record` / `replay [take|last]`, and Record / Replay last buttons in the app's Teach section
+  (Stop ends a recording and saves it). Takes: `~/HelpingHands-tools/aero/takes/*.json`
+  (`samples` = `[t, 7 actuations]` at 100 Hz, `temps` once a second, plus the torques used).
+- Starting torques `[10, 30, 30, 40, 40, 25, 25]` (thumb abd, flex, tendon, index, middle, ring, pinky).
+  Smoke test with nobody touching the hand: index/middle at 40 stay wherever they are, curled or open (good,
+  that's what transparent should feel like). Ring/pinky at 25 drift open slowly from a fist (~15° per second).
+  Thumb abduction at 10 and thumb tendon at 30 drift toward closed, so those two are still too strong.
+- The recording is the spool angle, not the finger: if Jake flexes faster than the spool can wind in at its
+  small torque, the cord goes slack and the take lags his finger. So "lowest torque that keeps the cord taut"
+  has to hold at teaching speed, not just at rest.
+- Replay sends CTRL_POS at 100 Hz. That holds the servo bus, so the firmware's own 100 Hz position read skips
+  cycles and readings go stale until the bus is quiet; teach.py waits 0.5 s before the end-of-replay hold.
+
+## Glove options (left hand)
+1. **Velcro finger straps (recommended first).** One loop per finger around Jake's middle segment and the
+   robot's matching link, plus one strap around both palms. No elastic force of its own, so the torque tuning
+   stays as tuned bare, and each finger can be loosened alone. Cheap and works today.
+2. **Stretchy knit ("magic") winter glove over both hands.** Grips well and holds everything together, but the
+   knit is a spring: it pulls fingers toward its own rest shape and lets Jake's fingers lag the robot's by
+   the stretch. Expect to re-tune (likely lower torques on fingers it pulls closed).
+3. **XL nitrile.** Thin and doesn't stretch much, but probably won't fit over a human hand plus the robot hand,
+   and it's slippery against the printed parts, so fingers slide instead of coupling. Fine as an inner layer
+   under straps for grip.
+Any glove that adds force changes the balance point, so re-run a record with the glove on and nobody moving:
+a finger that drifts needs its torque nudged.

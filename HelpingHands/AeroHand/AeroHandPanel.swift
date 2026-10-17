@@ -15,6 +15,8 @@ struct AeroHandPanel: View {
         (.test, "list.number"), (.dance(song: nil), "music.note"), (.count, "textformat.123"),
         (.home, "house.fill"), (.teleop(dryRun: false), "camera"),
     ]
+    /// Teaching (teach.py): Record holds transparent mode until Stop, which saves the take.
+    private let teach: [(AeroCommand, String)] = [(.record, "record.circle"), (.replay, "play.circle")]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -35,14 +37,15 @@ struct AeroHandPanel: View {
         runner.poses.map { (.pose($0), $0) } + [(.relax, "relax")]
     }
 
-    /// Poses on top, then Scripts and Games sharing the last row.
+    /// Poses on top, then Scripts, Teach and Games sharing the last row.
     private func grid(in size: CGSize) -> some View {
         let poses = poses
         let columns = max(1, min(poses.count, Int(size.width / 210)))
         let poseRows = Int((Double(poses.count) / Double(columns)).rounded(.up))
         let rows = CGFloat(poseRows + 1)
         let rowHeight = max(60, (size.height - 2 * (titleHeight + spacing) - spacing * (rows - 1)) / rows)
-        let tileWidth = (size.width - spacing * CGFloat(scripts.count)) / CGFloat(scripts.count + 1)
+        let tiles = scripts.count + teach.count + 1
+        let tileWidth = (size.width - spacing * CGFloat(tiles - 1)) / CGFloat(tiles)
         return VStack(alignment: .leading, spacing: spacing) {
             sectionTitle("Poses")
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: spacing), count: columns),
@@ -57,6 +60,14 @@ struct AeroHandPanel: View {
                     HStack(spacing: spacing) {
                         ForEach(scripts, id: \.0.title) { command, icon in
                             tile(command, icon, height: rowHeight)
+                        }
+                    }
+                }
+                VStack(alignment: .leading, spacing: spacing) {
+                    sectionTitle("Teach")
+                    HStack(spacing: spacing) {
+                        ForEach(teach, id: \.0.title) { command, icon in
+                            tile(command, icon, height: rowHeight).frame(width: tileWidth)
                         }
                     }
                 }
