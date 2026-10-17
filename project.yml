@@ -30,6 +30,7 @@ targets:
         excludes:
           - "Info.plist"
           - "Info-macOS.plist"
+          - "HelpingHandsMac.entitlements"
       - Generated
     dependencies:
       - package: PebblesKit
@@ -127,5 +128,20 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
         NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
+        # The aero_hand scripts run as the app's children (AeroHandRunner), so these
+        # prompts name Helping Hands instead of Terminal.
+        NSCameraUsageDescription: "Watches your hand so the Aero Hand can copy it (teleop)."
+        NSAppleEventsUsageDescription: "Starts a song in Music before the Aero Hand performs."
+        CFBundleURLTypes:
+          - CFBundleURLName: com.helpinghands.app.aero
+            CFBundleURLSchemes:
+              - helpinghands
         LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
         NSHighResolutionCapable: true
+    entitlements:
+      path: HelpingHands/HelpingHandsMac.entitlements
+      properties:
+        # Not sandboxed: the app runs ~/HelpingHands-tools' venv and opens /dev/cu.usbmodem*.
+        com.apple.security.device.camera: true
+        com.apple.security.device.audio-input: true
+        com.apple.security.automation.apple-events: true

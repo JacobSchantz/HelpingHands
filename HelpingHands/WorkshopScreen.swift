@@ -4,10 +4,17 @@ import SwiftUI
 /// app now opens on the newest design (`DesignViewerScreen`) and this sits
 /// behind its toolbar.
 struct WorkshopScreen: View {
+    #if os(macOS)
+    @Environment(\.openWindow) private var openWindow
+    #endif
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
                 header
+                #if os(macOS)
+                aeroHandCard
+                #endif
                 armCard(
                     role: "Leader",
                     id: "leader_left",
@@ -62,6 +69,37 @@ struct WorkshopScreen: View {
         .padding(16)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
+
+    #if os(macOS)
+    private var aeroHandCard: some View {
+        Button {
+            openWindow(id: "aero-hand")
+        } label: {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 10) {
+                    Image(systemName: "hand.raised.fingers.spread.fill")
+                        .font(.title3)
+                        .foregroundStyle(Color.accentColor)
+                    Text("Aero Hand controls")
+                        .font(.headline)
+                    Spacer()
+                    Text("⇧⌘H")
+                        .font(.caption.monospaced())
+                        .foregroundStyle(.secondary)
+                }
+                Text("Performance, every pose, teleop and homing as buttons. The app owns camera, mic and USB, so nothing runs under Terminal.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+    #endif
 
     private var guideCard: some View {
         VStack(alignment: .leading, spacing: 12) {
