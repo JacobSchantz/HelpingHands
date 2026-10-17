@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-17T20:10:05.000Z",
-  "updated_at": "2026-10-17T20:10:05.000Z",
+  "updated_at": "2026-10-17T20:10:40Z",
   "user_request": {
     "name": "I want to wear a camera and something on my hands all day long, every day... a wrist camera. Maybe a watch with a wrist camera... activate it is by doing Spider-Man... Or I point and it records. Otherwise it's recording locally but not doing anything."
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Jake wants a research-and-design plan doc in plans/ for an all-day wrist wearable with a rolling local buffer that saves hand-manipulation episodes only on a gesture trigger. It should compare hardware, battery, sync, on-device gesture detection, privacy, and conversion to LeRobot data for the Aero Hand and reBot, and recommend a first prototype.",
-  "summary_sha": "b3454864d586f346"
+  "summary_sha": "b3454864d586f346",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-b3454864",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-b3454864",
+  "claimed_at": "2026-10-17T20:10:40.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
