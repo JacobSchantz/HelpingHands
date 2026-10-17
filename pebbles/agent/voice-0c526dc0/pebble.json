@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-17T20:50:48.000Z",
+      "result": "failed",
+      "notes": "Jake confirms the architecture: two INDEPENDENT models. (a) jake_hand.scad is a 3D model of his hand only, with its own parameters from the photos and calipers. (b) The glove/surround takes the hand model as input plus fit parameters (clearance per region, wall thickness), so changing one never requires editing the other. First deliverable: a printable fit-test surround he can try on. Then expand or contract via the clearance parameters, or correct the hand model, independently.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-17T20:48:37.000Z",
       "result": "failed",
       "notes": "Jake, next steps for the Robot Glove Hand:\n1. Make Jake's hand a reusable OpenSCAD library (e.g. cad/openscad/glove_hand/jake_hand.scad, used via include/use) built from the photo outline, NOT the placeholder. Keep it parameterized.\n2. Get his hand in 3D: he'll send a side photo of the hand flat with the tape measure for thickness, and a top photo with fingers together for the narrow direction, so the fingers can come close together. Caliper finger widths are optional.\n3. Main approach: take an existing fully open-source hand design (start with the Aero Hand Open CAD we already have, Chestnut-Robotics/aero-hand-open, left hand), place Jake's hand model inside it, and scale or expand the robot hand until his hand fits inside in all directions with clearance. Then hollow it so his hand goes in, with a single thin TPU layer on the palm side and the actuation on the back.\nRender each generation with the dual-render workflow (voice-8fe317cd).",
@@ -93,7 +104,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T20:11:28.000Z",
-  "updated_at": "2026-10-17T20:48:37.000Z",
+  "updated_at": "2026-10-17T20:50:48.000Z",
   "user_request": {
     "name": "mock it up in 3D and then add it to our designs page. I should be able to see each project quite large and then the actual render displayed right there. So the first project is the gripper, second project is the hand... like a robot glove... what both the robot uses and what I use... the hand is empty in the middle... sufficient to fit a hand in the center... the hand has to be a lot bigger. But that's okay."
   },
