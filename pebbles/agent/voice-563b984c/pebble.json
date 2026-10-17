@@ -5,6 +5,17 @@
   "test_instructions": [],
   "results": [
     {
+      "kind": "test_result",
+      "at": "2026-10-17T21:02:29.000Z",
+      "result": "failed",
+      "notes": "Still missing from Jake's earlier ask: AUDIO in every recording. Capture the mic in sync with the servo samples, save it with the take, transcribe it, use the transcript for the label, and play it during Replay full; the Helping Hands app owns mic permission. Also tune the per-finger transparent torque so fingers rest fully open (the index rested ~10% curled at torque 40).",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
       "kind": "agent_action",
       "at": "2026-10-17T20:55:28Z",
       "commit_id": "1e9b263d4fcc5472d25f379b95458b28a88d1718",
@@ -103,7 +114,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T19:38:54.000Z",
-  "updated_at": "2026-10-17T20:55:28Z",
+  "updated_at": "2026-10-17T21:02:29.000Z",
   "user_request": {
     "name": "file the glove and then think about maybe we need like an XL glove or something. And probably like nitrile or maybe like a winter glove could be okay. But yeah, let's get it tuned in first... I want to be able to do some action while I'm sort of wearing the hand, and then you could recapitulate the exact action."
   },
@@ -158,6 +169,6 @@
     "name": "Jacob Schantz",
     "from": "human",
     "to": "agent",
-    "at": "2026-10-17T20:33:30.000Z"
+    "at": "2026-10-17T21:02:29.000Z"
   }
 }
