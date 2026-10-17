@@ -18,7 +18,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-17T20:11:28.000Z",
-  "updated_at": "2026-10-17T20:12:42.000Z",
+  "updated_at": "2026-10-17T20:14:01Z",
   "user_request": {
     "name": "mock it up in 3D and then add it to our designs page. I should be able to see each project quite large and then the actual render displayed right there. So the first project is the gripper, second project is the hand... like a robot glove... what both the robot uses and what I use... the hand is empty in the middle... sufficient to fit a hand in the center... the hand has to be a lot bigger. But that's okay."
   },
@@ -29,5 +29,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Build a Designs tab with large live 3D cards per project, plus a new OpenSCAD Robot Glove Hand, a left-handed exoskeleton glove that Jake's large hand fits inside and the robot arm mounts like a glove. Start with a single thin TPU layer on the palm and finger pads, with all actuation on the back and sides, by extracting a flat-hand outline from Jake's top-down photo with a scale reference and printing a fitted shell first.",
-  "summary_sha": "e72636d7be87dbae"
+  "summary_sha": "e72636d7be87dbae",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-0c526dc0",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-0c526dc0",
+  "claimed_at": "2026-10-17T20:14:01.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
