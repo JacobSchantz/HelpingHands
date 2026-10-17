@@ -1,5 +1,7 @@
 #if os(macOS)
+import CoreServices
 import Foundation
+import SwiftUI
 
 /// One Aero Hand command — a button in `AeroHandPanel` and a
 /// `helpinghands://aero/<command>[/<arg>]` URL (`scripts/app.sh` opens those).
@@ -115,6 +117,17 @@ final class AeroHandRunner: ObservableObject {
     /// While recording: each servo's place in its range, 0 (open) to 100 (teach.py's "pos" lines).
     @Published private(set) var live: [Int] = []
     @Published private(set) var startedAt: Date?
+    /// A recording just stopped: its card shows on the Record button until the take loads,
+    /// then flies to `arrived`, the new take's row at the top of the list.
+    @Published private(set) var arriving = false
+    @Published private(set) var arrived: String?
+
+    /// teach.py's takes folder, watched so the list follows renames, deletes and labels
+    /// made outside the app (teach.py, auto-labels, voice renames).
+    static let takesDir = FileManager.default.homeDirectoryForCurrentUser
+        .appendingPathComponent("HelpingHands-tools/aero/takes")
+    private var takesStream: FSEventStreamRef?
+    private var beforeRecord: Set<String> = []
 
     private var process: Process?
     private var next: AeroCommand?
@@ -140,13 +153,18 @@ final class AeroHandRunner: ObservableObject {
         }
     }
 
+    /// The Stop button: ends whatever is running (teach.py saves a recording on the way out),
+    /// then relaxes every servo.
+    func stopAndRelax() {
+        run(.relax)
+    }
+
     func handle(url: URL) {
         guard url.scheme == "helpinghands", url.host == "aero" else { return }
         let path = url.pathComponents.filter { $0 != "/" }
         switch path.first?.lowercased() {
         case "stop":
-            next = nil
-            stop()
+            stopAndRelax()
         case "speed":
             guard let pct = path.dropFirst().first.flatMap({ Int($0.trimmingCharacters(in: ["%"])) }),
                   (1...100).contains(pct) else { append("unknown URL \(url.absoluteString)\n"); return }
@@ -185,13 +203,57 @@ final class AeroHandRunner: ObservableObject {
         do { try process.run() } catch { append("can't list poses: \(error.localizedDescription)\n") }
     }
 
-    /// Fills `takes` from `teach.sh list`.
+    /// Fills `takes` from `teach.sh list`. After a recording, the new take arrives animated.
     func loadTakes() {
         quick(["list"]) { text in
-            self.takes = text.split(separator: "\n").compactMap {
+            let takes = text.split(separator: "\n").compactMap {
                 try? JSONDecoder().decode(AeroTake.self, from: Data($0.utf8))
             }
+            guard self.arriving, self.arrived == nil else { self.takes = takes; return }
+            guard let new = takes.first(where: { !self.beforeRecord.contains($0.file) }) else {
+                self.takes = takes  // nothing saved (too short, or it failed)
+                self.arriving = false
+                return
+            }
+            withAnimation(.spring(duration: 0.7)) {
+                self.takes = takes
+                self.arrived = new.file
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                self.arriving = false
+                self.arrived = nil
+                self.loadTakes()  // an auto-label may have landed mid-flight
+            }
         }
+    }
+
+    /// Reloads `takes` on any change in the takes folder (FSEvents, file-level, 0.3 s
+    /// coalescing), so a rename or delete from teach.py or a voice session shows at once.
+    func watchTakes() {
+        guard takesStream == nil else { return }
+        try? FileManager.default.createDirectory(at: Self.takesDir, withIntermediateDirectories: true)
+        var context = FSEventStreamContext(version: 0, info: Unmanaged.passUnretained(self).toOpaque(),
+                                           retain: nil, release: nil, copyDescription: nil)
+        let callback: FSEventStreamCallback = { _, info, _, _, _, _ in
+            guard let info else { return }
+            let runner = Unmanaged<AeroHandRunner>.fromOpaque(info).takeUnretainedValue()
+            MainActor.assumeIsolated { runner.takesChanged() }
+        }
+        guard let stream = FSEventStreamCreate(
+            nil, callback, &context, [Self.takesDir.path] as CFArray,
+            FSEventStreamEventId(kFSEventStreamEventIdSinceNow), 0.3,
+            FSEventStreamCreateFlags(kFSEventStreamCreateFlagFileEvents | kFSEventStreamCreateFlagNoDefer))
+        else { return }
+        FSEventStreamSetDispatchQueue(stream, .main)
+        FSEventStreamStart(stream)
+        takesStream = stream
+    }
+
+    /// Mid-recording the new file waits; `finished` loads it so it can fly in.
+    private func takesChanged() {
+        if case .record? = running { return }
+        if arriving { return }
+        loadTakes()
     }
 
     func rename(_ take: AeroTake, to name: String) {
@@ -238,6 +300,7 @@ final class AeroHandRunner: ObservableObject {
             self.process = process
             running = command
             startedAt = Date()
+            if case .record = command { beforeRecord = Set(takes.map(\.file)) }
             live = []
         } catch {
             append("couldn't start \(script): \(error.localizedDescription)\n")
@@ -246,7 +309,10 @@ final class AeroHandRunner: ObservableObject {
 
     private func finished(status: Int32) {
         append(status == 0 ? "✓ done\n" : "✗ exited \(status)\n")
-        if case .record? = running { loadTakes() }
+        if case .record? = running {
+            arriving = true
+            loadTakes()
+        }
         process = nil
         running = nil
         startedAt = nil
