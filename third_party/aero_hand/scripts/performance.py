@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Hand performance: start the song, confirm it is playing, then run the routine.
 
-Usage: performance.py [song]   (default "Violin the Trap"; port auto-detected)
+Usage: performance.py [song]   (default: a random track from the "¿?" playlist; port auto-detected)
 Run with the aero venv: ~/HelpingHands-tools/aero/venv/bin/python performance.py
 """
 import glob, subprocess, sys, threading, time
 from aero_open_sdk.aero_hand import AeroHand
 
-SONG = sys.argv[1] if len(sys.argv) > 1 else "Violin the Trap"
+SONG = sys.argv[1] if len(sys.argv) > 1 else None  # None: random track from the playlist below
+PLAYLIST = "¿?"
 OPEN = [0.0] * 7
 
 ROUTINE = [
@@ -46,7 +47,10 @@ started = threading.Event()
 
 def start_song(name):
     """Start the track and return once Music reports it playing (polls every 50 ms)."""
-    osa(f'tell application "Music" to play (first track of library playlist 1 whose name contains "{name}")')
+    if name:
+        osa(f'tell application "Music" to play (first track of library playlist 1 whose name contains "{name}")')
+    else:
+        osa(f'tell application "Music" to play some track of user playlist "{PLAYLIST}"')
     for _ in range(400):  # up to 20 s
         if osa('tell application "Music" to get player state') == "playing":
             started.set()
@@ -70,4 +74,4 @@ if not started.is_set():
     sys.exit(f"song '{SONG}' did not start; hand not moved")
 hand.run_trajectory(ROUTINE)
 hand.close()
-print(f"performance done to '{SONG}'")
+print("performance done to", osa('tell application "Music" to get name of current track'))
