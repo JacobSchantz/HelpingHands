@@ -7,12 +7,16 @@ Run with the aero venv, or via rps.sh. Tracking is teleop.py's (MediaPipe world 
 No cheating: each round the hand's throw comes from `secrets` and is committed before the
 count starts — appended to LOG and shown as a sha256 on screen — so it can't depend on yours.
 The hand only reveals it on "shoot", and the reveal's nonce lets anyone check the hash.
+
+The count is "3, 2, 1, shoot" with the hand relaxed and half open on each count. Moves run at
+hand_speed's 50% cap except the shoot move, which runs at SHOOT_PCT (Jake's exception).
 """
 import argparse, collections, glob, hashlib, json, os, secrets, subprocess, sys, time, urllib.request
 import cv2
 import mediapipe as mp
 import numpy as np
 from mediapipe.tasks.python import BaseOptions, vision
+import hand_speed
 from teleop import BONES, MODEL, MODEL_URL, raw_joints, wrist_frame
 
 LOG = os.path.expanduser("~/HelpingHands-tools/aero/rps_log.jsonl")
@@ -24,8 +28,10 @@ JOINTS = {
     "rock": THUMB_IN + [90.0, 90.0, 90.0, 90.0],
     "paper": THUMB_OUT + [0.0, 0.0, 0.0, 0.0],
     "scissors": THUMB_IN + [0.0, 0.0, 90.0, 90.0],
+    "relaxed": [30.0, 15.0, 20.0] + [30.0, 30.0, 30.0, 30.0],  # the count pose, not a throw
 }
-BEAT_S = 0.6     # between "rock", "paper", "scissors", "shoot"
+SHOOT_PCT = 60   # Jake, 2026-10-17: only the shoot move may beat the 50% cap
+BEAT_S = 0.6     # between "3", "2", "1", "shoot"
 READ_S = 0.8     # how long after "shoot" your throw is sampled (majority vote)
 BENT = 1.4       # a finger whose pip+dip bend (radians) exceeds this counts as curled
 GREEN, WHITE = (0, 255, 0), (255, 255, 255)
@@ -121,16 +127,19 @@ def main():
     args = ap.parse_args()
 
     cam = Camera(args.camera)
-    hand = None
+    hand, base_pct = None, hand_speed.DEFAULT_PCT
     if not args.dry_run:
         ports = sorted(glob.glob("/dev/cu.usbmodem*"))
         if not ports:
             sys.exit("hand not connected (use --dry-run to play without it)")
         from aero_open_sdk.aero_hand import AeroHand
-        import hand_speed
         hand = AeroHand(port=ports[0])
-        hand_speed.limit(hand)  # 50% unless Jake asks for more
+        base_pct = hand_speed.limit(hand)  # 50% unless Jake asks for more
         hand.ser.write_timeout = 0.05  # SDK default 10 ms drops a frame when USB stalls briefly
+
+    def speed(pct):
+        if hand:
+            hand_speed.limit(hand, pct)
 
     def move(throw):
         if hand:
@@ -149,14 +158,16 @@ def main():
             hand_throw, nonce, digest = commit(round_no)
             cam.lines = [f"Round {round_no}   you {score['you']} - hand {score['hand']}",
                          f"hand committed {digest[:16]}"]
-            move("rock")
-            for word in ("Rock", "Paper", "Scissors"):
+            for word in ("3", "2", "1"):
                 say(word)
+                move("relaxed")
                 cam.lines[2:] = [word + "…"]
                 cam.wait(BEAT_S)
+            speed(max(SHOOT_PCT, base_pct))
             say("Shoot!")
             move(hand_throw)
             seen = cam.wait(READ_S, look=True)
+            speed(base_pct)  # the shoot move is done; everything else is back under the cap
             yours = collections.Counter(seen).most_common(1)[0][0] if seen else None
             reveal = f"hand threw {hand_throw} (nonce {nonce})"
             if yours is None:
