@@ -1,0 +1,19 @@
+{
+  "id": "voice-aeeaba2f",
+  "commit_id": "",
+  "description": "One Helping Hands app. Merge the iOS and Mac apps into a single multiplatform target with one bundle ID that shares all code and views. Use a tab bar: an 'Aero Hand' tab with every control button (the current Aero Hand window from voice-7fc650e9) and a 'Designs' tab (the gripper generations, CAD viewer, explode/assemble). Plus the existing screens as tabs where needed. On the Mac allow only ONE window, with no separate Aero Hand or Workshop windows and no duplicate windows (single WindowGroup/Window scene, reuse it on reopen and URL open). Build installs to /Applications/HelpingHands.app (replacing, never side-by-side) and no other copies are launched from DerivedData. Use Jake's individual Apple team.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-17T17:18:25.000Z",
+  "updated_at": "2026-10-17T17:18:25.000Z",
+  "user_request": {
+    "name": "simplify Helping Hands into just one application, and then make sure that only one window opens at a time... combine the Mac and the iOS app... arrow hand tab and another tab for our designs... put it in the applications folder so it doesn't get duplicated"
+  },
+  "created_by": {
+    "kind": "agent",
+    "name": "jarvis",
+    "tool": "claude"
+  },
+  "owner": "JacobSchantz"
+}
