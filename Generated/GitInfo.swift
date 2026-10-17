@@ -1,9 +1,9 @@
-// Auto-generated stub — Scripts/write_git_info.sh overwrites this at build time
+// Auto-generated — do not edit
 enum GitInfo {
-    static let shortHash = "unknown"
-    static let fullHash = "unknown"
-    static let branch = "unknown"
-    static let lastCommitMessage = ""
-    static let commitCount = "0"
-    static let repoRoot = ""
+    static let shortHash = "2dcc263"
+    static let fullHash = "2dcc26346542138a50670b7325cfb254fe775f85"
+    static let branch = "main"
+    static let lastCommitMessage = "aero_hand: deterministic hand performance (song first, then routine)"
+    static let commitCount = "239"
+    static let repoRoot = "/Users/jakeschantz/HelpingHands"
 }

@@ -40,7 +40,7 @@ def osa(script):
 
 def start_song(name):
     osa(f'tell application "Music" to play (first track of library playlist 1 whose name contains "{name}")')
-    for _ in range(50):  # up to 5 s
+    for _ in range(200):  # up to 20 s (cloud tracks load slowly)
         if osa('tell application "Music" to get player state') == "playing" and \
            name.lower() in osa('tell application "Music" to get name of current track').lower():
             return
