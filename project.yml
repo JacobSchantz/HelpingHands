@@ -19,18 +19,19 @@ settings:
     DEVELOPMENT_TEAM: "563V2QK49N"
 
 targets:
+  # One app for iPhone, iPad and Mac: one target, one bundle ID, every file
+  # shared. Per-platform differences are SDK-conditional settings below.
   HelpingHands:
     type: application
-    platform: iOS
+    platform: auto
+    supportedDestinations: [iOS, macOS]
     sources:
-      # `excludes` is the key XcodeGen honours per source dir. Without it the
-      # macOS target's INFOPLIST_FILE is copied into the iOS .app as a resource,
-      # shipping unexpanded $(PRODUCT_BUNDLE_IDENTIFIER) and failing install.
+      # `excludes` keeps the plist and entitlements out of Copy Bundle Resources
+      # (a copied Info.plist ships unexpanded $(PRODUCT_BUNDLE_IDENTIFIER)).
       - path: HelpingHands
         excludes:
           - "Info.plist"
-          - "Info-macOS.plist"
-          - "HelpingHandsMac.entitlements"
+          - "HelpingHands.entitlements"
       - Generated
     dependencies:
       - package: PebblesKit
@@ -52,18 +53,30 @@ targets:
         script: "python3 ${SRCROOT}/Scripts/stage_aero_guide.py"
     settings:
       base:
+        PRODUCT_NAME: HelpingHands
         PRODUCT_BUNDLE_IDENTIFIER: com.helpinghands.app
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "0"
+        # Jake's individual team (only the ATG app uses the ATG team).
         DEVELOPMENT_TEAM: "563V2QK49N"
         CODE_SIGN_STYLE: Automatic
         SWIFT_VERSION: "5.9"
         INFOPLIST_FILE: HelpingHands/Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: NO
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
         ENABLE_DEBUG_DYLIB: NO
         ENABLE_PREVIEWS: NO
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        # Mac only. Not sandboxed: the app runs ~/HelpingHands-tools' venv and
+        # opens /dev/cu.usbmodem*; these cover camera, mic and Music.
+        "CODE_SIGN_ENTITLEMENTS[sdk=macosx*]": HelpingHands/HelpingHands.entitlements
+        # The asset catalog only carries an iOS app icon, so the Mac build ships
+        # without one rather than failing actool.
+        "ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]": ""
+        "COMBINE_HIDPI_IMAGES[sdk=macosx*]": YES
     info:
       path: HelpingHands/Info.plist
       properties:
@@ -73,6 +86,15 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
         NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
+        # The aero_hand scripts run as the Mac app's children (AeroHandRunner),
+        # so these prompts name Helping Hands instead of Terminal.
+        NSCameraUsageDescription: "Watches your hand so the Aero Hand can copy it (teleop)."
+        NSAppleEventsUsageDescription: "Starts a song in Music before the Aero Hand performs."
+        CFBundleURLTypes:
+          - CFBundleURLName: com.helpinghands.app.aero
+            CFBundleURLSchemes:
+              - helpinghands
+        NSHighResolutionCapable: true
         UIUserInterfaceStyle: Dark
         UILaunchScreen:
           UIColorName: AccentColor
@@ -85,63 +107,3 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-
-  HelpingHandsMac:
-    type: application
-    platform: macOS
-    sources:
-      - HelpingHands
-      - Generated
-    dependencies:
-      - package: PebblesKit
-    preBuildScripts:
-      - name: Write Git Info
-        script: "bash ${SRCROOT}/Scripts/write_git_info.sh"
-    postBuildScripts:
-      - name: Stage CAD Models
-        script: "python3 ${SRCROOT}/Scripts/stage_cad_models.py"
-      - name: Stage Plans
-        script: "python3 ${SRCROOT}/Scripts/stage_plans.py"
-      - name: Stage Aero Guide
-        script: "python3 ${SRCROOT}/Scripts/stage_aero_guide.py"
-    settings:
-      base:
-        PRODUCT_NAME: HelpingHands
-        PRODUCT_BUNDLE_IDENTIFIER: com.helpinghands.app
-        MARKETING_VERSION: "1.0"
-        CURRENT_PROJECT_VERSION: "0"
-        DEVELOPMENT_TEAM: "563V2QK49N"
-        CODE_SIGN_STYLE: Automatic
-        SWIFT_VERSION: "5.9"
-        INFOPLIST_FILE: HelpingHands/Info-macOS.plist
-        ENABLE_PREVIEWS: NO
-        # The asset catalog only carries an iOS app icon, so the Mac build ships
-        # without one rather than failing actool.
-        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
-        COMBINE_HIDPI_IMAGES: YES
-    info:
-      path: HelpingHands/Info-macOS.plist
-      properties:
-        CFBundleDisplayName: Helping Hands
-        CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
-        ITSAppUsesNonExemptEncryption: false
-        NSMicrophoneUsageDescription: "Records voice notes for test feedback, and listens for spoken commands while a plan is read aloud."
-        NSSpeechRecognitionUsageDescription: "Recognises short spoken commands — next, back, repeat, pause — so a plan can be followed hands-free."
-        # The aero_hand scripts run as the app's children (AeroHandRunner), so these
-        # prompts name Helping Hands instead of Terminal.
-        NSCameraUsageDescription: "Watches your hand so the Aero Hand can copy it (teleop)."
-        NSAppleEventsUsageDescription: "Starts a song in Music before the Aero Hand performs."
-        CFBundleURLTypes:
-          - CFBundleURLName: com.helpinghands.app.aero
-            CFBundleURLSchemes:
-              - helpinghands
-        LSMinimumSystemVersion: "$(MACOSX_DEPLOYMENT_TARGET)"
-        NSHighResolutionCapable: true
-    entitlements:
-      path: HelpingHands/HelpingHandsMac.entitlements
-      properties:
-        # Not sandboxed: the app runs ~/HelpingHands-tools' venv and opens /dev/cu.usbmodem*.
-        com.apple.security.device.camera: true
-        com.apple.security.device.audio-input: true
-        com.apple.security.automation.apple-events: true

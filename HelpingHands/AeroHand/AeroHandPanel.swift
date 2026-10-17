@@ -1,7 +1,7 @@
 #if os(macOS)
 import SwiftUI
 
-/// Every aero_hand command as a button (Mac only). The same commands answer
+/// Every aero_hand command as a button (Mac only) — the Aero Hand tab. The same commands answer
 /// `helpinghands://aero/…` URLs, which `scripts/app.sh` opens for the voice session.
 struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
@@ -157,13 +157,18 @@ private struct TileStyle: ButtonStyle {
     }
 }
 
-/// Grows the Aero Hand window to most of the screen the first time it opens
+/// Grows the app window to most of the screen the first time this tab shows
 /// (macOS 14 has no `defaultWindowPlacement`), and lets it go full screen.
+/// Once per launch, so switching back to this tab never resizes the window.
 private struct FillScreen: NSViewRepresentable {
+    @MainActor private static var filled = false
+
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
         DispatchQueue.main.async {
-            guard let window = view.window, let screen = window.screen ?? NSScreen.main else { return }
+            guard !Self.filled, let window = view.window,
+                  let screen = window.screen ?? NSScreen.main else { return }
+            Self.filled = true
             window.collectionBehavior.insert(.fullScreenPrimary)
             guard !window.styleMask.contains(.fullScreen) else { return }
             window.setFrame(screen.visibleFrame.insetBy(dx: screen.visibleFrame.width * 0.04,

@@ -92,3 +92,5 @@ We are building the **LEFT** hand. The board currently has the right-hand v0.2.0
 2026-10-17: flashed firmware_v0.2.0_lefthand.bin (port /dev/cu.usbmodem2101), no reset yet — next boot homes all 7 servos.
 
 2026-10-17 servo EEPROM limits (bus_diag readAllLimits, read-only), all 7 servos: maxTemp 80 C, maxV 10.0 V, minV 4.0 V, protection current 1023. Left-hand firmware restored afterwards.
+
+2026-10-17 holding baseline (Jake gripping the hand while it held a pose, full torque): currents ~2000-2400 on thumb flex, ring, pinky; ring/pinky at 63-65 C and rising ~1 C per 3 s. Relaxed afterwards.

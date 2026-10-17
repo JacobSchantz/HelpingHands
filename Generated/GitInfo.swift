@@ -1,9 +1,9 @@
 // Auto-generated — do not edit
 enum GitInfo {
-    static let shortHash = "7180126"
-    static let fullHash = "71801267495245a4137283aa40f73266f8ad80d1"
+    static let shortHash = "fe2a483"
+    static let fullHash = "fe2a483af7d1d10c577e836b9b20f922792b3981"
     static let branch = "main"
-    static let lastCommitMessage = "chore: give voice-bf54e709 to human (agent → human)"
-    static let commitCount = "309"
+    static let lastCommitMessage = "chore: mark voice-aeeaba2f working_on (tmux:pebbles-HelpingHands-f7b9e72b:voice-aeeaba2f)"
+    static let commitCount = "329"
     static let repoRoot = "/Users/jakeschantz/HelpingHands"
 }

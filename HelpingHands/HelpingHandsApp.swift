@@ -8,17 +8,68 @@ struct HelpingHandsApp: App {
     #endif
 
     var body: some Scene {
-        WindowGroup {
-            DesignViewerScreen()
-                .preferredColorScheme(.dark)
-                .pebblesOverlay()
-        }
+        // On the Mac this is a single `Window`, not a `WindowGroup`: there is no
+        // File › New Window, a Dock click reopens the same window, and
+        // helpinghands:// URLs go to AeroURLDelegate instead of spawning windows.
         #if os(macOS)
-        Window("Aero Hand", id: "aero-hand") {
-            AeroHandPanel()
-                .preferredColorScheme(.dark)
+        Window("Helping Hands", id: "main") { root }
+            .keyboardShortcut("h", modifiers: [.command, .shift])
+        #else
+        WindowGroup { root }
+        #endif
+    }
+
+    private var root: some View {
+        RootTabs()
+            .preferredColorScheme(.dark)
+            .pebblesOverlay()
+    }
+}
+
+/// The whole app: the Aero Hand controls, the designs, and the workshop
+/// (arms, build guide, plans, every 3D file), one tab each.
+struct RootTabs: View {
+    private enum Tab: Hashable { case aeroHand, designs, workshop }
+
+    #if os(macOS)
+    @State private var tab = Tab.aeroHand
+    #else
+    @State private var tab = Tab.designs
+    #endif
+
+    var body: some View {
+        TabView(selection: $tab) {
+            AeroHandTab()
+                .tabItem { Label("Aero Hand", systemImage: "hand.raised.fingers.spread.fill") }
+                .tag(Tab.aeroHand)
+            DesignViewerScreen()
+                .tabItem { Label("Designs", systemImage: "cube.transparent") }
+                .tag(Tab.designs)
+            NavigationStack { WorkshopScreen() }
+                .tabItem { Label("Workshop", systemImage: "wrench.and.screwdriver") }
+                .tag(Tab.workshop)
         }
-        .keyboardShortcut("h", modifiers: [.command, .shift])
+    }
+}
+
+/// The controls spawn the aero_hand scripts and talk to the hand over USB, so
+/// they only run on the Mac; the phone's tab says where to find them.
+private struct AeroHandTab: View {
+    var body: some View {
+        #if os(macOS)
+        AeroHandPanel()
+        #else
+        VStack(spacing: 12) {
+            Image(systemName: "desktopcomputer")
+                .font(.largeTitle)
+                .foregroundStyle(.secondary)
+            Text("The Aero Hand is plugged into the Mac. Open Helping Hands there to drive it.")
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 32)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.05, green: 0.12, blue: 0.16).ignoresSafeArea())
         #endif
     }
 }

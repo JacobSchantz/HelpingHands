@@ -8,13 +8,8 @@ import AppKit
 
 /// The app's first screen: the newest design in `cad/`, already loaded in a
 /// 3D viewport with its renders underneath. Swipe sideways under the viewport
-/// (or open the list) for older designs. The arms, plans and file browser live
-/// behind the toolbar's Workshop button.
+/// (or open the list) for older designs. The app's Designs tab.
 struct DesignViewerScreen: View {
-    private enum Destination: Hashable {
-        case workshop
-    }
-
     @StateObject private var catalog = CADModelCatalog()
     @State private var index = 0
     @State private var showingList = false
@@ -39,13 +34,6 @@ struct DesignViewerScreen: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        path.append(Destination.workshop)
-                    } label: {
-                        Label("Workshop", systemImage: "wrench.and.screwdriver")
-                    }
-                }
                 ToolbarItem(placement: .navigation) {
                     Button {
                         showingList = true
@@ -55,7 +43,6 @@ struct DesignViewerScreen: View {
                     .disabled(catalog.designs.count < 2)
                 }
             }
-            .navigationDestination(for: Destination.self) { _ in WorkshopScreen() }
             .navigationDestination(for: CADModel.self) { ModelDetailView(model: $0) }
             .sheet(isPresented: $showingList) { list }
         }
