@@ -1,7 +1,7 @@
 {
   "id": "voice-64190a2f",
   "commit_id": "",
-  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription \u2014 maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
+  "description": "Named Aero Hand poses on voice: 'Jarvis peace' / 'peace sign', 'flip me off', 'rock on', 'surf's up' (shaka), and 'lululil' (unclear transcription — maybe 'I love you' ASL; confirm with Jake). The voice session runs one deterministic command that moves the hand to the pose quickly. Build on third_party/aero_hand/scripts/performance.py (SDK set_joint_positions, 7 joints, port auto-detected; LEFT hand). Make it easy to add poses.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Voice commands like \"Jarvis peace,\" \"flip me off,\" \"rock on,\" and \"surf's up\" should move the left Aero Hand to named poses. The session should run one deterministic, fast command built on performance.py, with poses easy to add and \"lululil\" confirmed with Jake.",
+  "summary_sha": "64190a2f61f07818"
 }

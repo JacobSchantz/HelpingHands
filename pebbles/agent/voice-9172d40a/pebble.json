@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants camera-based teleoperation that tracks his left hand and mirrors his finger positions onto the Aero Hand in real time. Check for existing solutions first, such as the aero-hand-open repo, its GUI and examples, or MediaPipe and dex-retargeting, before writing new code.",
+  "summary_sha": "9172d40ae3638e16"
 }
