@@ -134,11 +134,26 @@ struct AeroHandPanel: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.5)
             }
+            .padding(.horizontal, 8)
             .frame(maxWidth: .infinity, minHeight: height, maxHeight: height)
         }
-        .buttonStyle(.bordered)
-        .controlSize(.large)
-        .tint(runner.running == command ? Color.accentColor : nil)
+        .buttonStyle(TileStyle(active: runner.running == command))
+    }
+}
+
+/// A plain rounded tile, exactly the size of its label (`.bordered` adds padding
+/// outside the computed row height, which pushed the last row off screen).
+private struct TileStyle: ButtonStyle {
+    let active: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(.white)
+            .background(
+                RoundedRectangle(cornerRadius: 22)
+                    .fill(active ? Color.accentColor : .white.opacity(configuration.isPressed ? 0.25 : 0.1))
+            )
+            .contentShape(RoundedRectangle(cornerRadius: 22))
     }
 }
 
