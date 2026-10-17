@@ -15,5 +15,7 @@
     "name": "jarvis",
     "tool": "claude"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Aero Hand assembly animations and diagrams saved in third_party/aero_hand/guide aren't yet viewable inside Helping Hands. Build a phone- and projector-friendly gallery index listing every animation by guide page, with a button opening aero_guide_original.pdf.",
+  "summary_sha": "35ae8ced313f52a5"
 }
