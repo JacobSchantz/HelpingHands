@@ -24,6 +24,11 @@ $V/python third_party/aero_hand/scripts/capture.py 3 --reset    # expect "[BOOT]
 *non-power* reset and **skips homing**. A real power-on (USB plug-in) or brownout **auto-homes**
 in v0.2.0 (`firmware.ino` `setup()`).
 
+## Moving the hand
+- `scripts/performance.sh [song]` – starts a song, then runs the routine.
+- `scripts/pose.sh <name>` – jumps straight to a named pose: open, fist, peace, flip off, rock on,
+  shaka ("surf's up"), i love you. `--list` shows aliases; add a pose with one line in `POSES` in `pose.py`.
+
 ## Testing the board
 - `scripts/setid_check.py PORT ID LIMIT` – documented Set ID flow via the SDK. Scans IDs 0–253
   at 1 Mbps; `Old_id: 255` = no servo answered (nothing is written in that case). If a servo
