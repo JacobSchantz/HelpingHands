@@ -1,0 +1,19 @@
+{
+  "id": "voice-b7ae5fc0",
+  "commit_id": "",
+  "description": "Open/close slider for gripper models in the Helping Hands design viewer. Jake (voice): 'For these gripper models, I'd like to be able to have a scroll bar and scroll them shut or open, so I can see kind of what they'll come to. They should come to a point at the tips, but then most of the rest of them will also be connected.' Asks: (1) a slider that animates each gripper design between fully open and fully closed; (2) design check: when closed, the fingers should meet at a point at the tips and most of the rest of the finger length should also make contact. Fix designs that don't.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T12:49:37.000Z",
+  "updated_at": "2026-10-18T12:49:37.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
