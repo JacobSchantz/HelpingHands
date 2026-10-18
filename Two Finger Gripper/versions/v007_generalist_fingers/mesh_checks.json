@@ -1,0 +1,107 @@
+[
+  {
+    "path": "exports/assembly.stl",
+    "triangles": 12856,
+    "components": 2,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 20241.14368534648,
+    "bounds_mm": [
+      [
+        -33.978851318359375,
+        -6.0,
+        -4.905805587768555
+      ],
+      [
+        33.978851318359375,
+        6.0,
+        109.84451293945312
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left.stl",
+    "triangles": 6428,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10120.571842673251,
+    "bounds_mm": [
+      [
+        -33.978851318359375,
+        -6.0,
+        -4.905805587768555
+      ],
+      [
+        -11.517449378967285,
+        6.0,
+        109.84451293945312
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right.stl",
+    "triangles": 6428,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10120.571842673251,
+    "bounds_mm": [
+      [
+        11.517449378967285,
+        -6.0,
+        -4.905805587768555
+      ],
+      [
+        33.978851318359375,
+        6.0,
+        109.84451293945312
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left.stl",
+    "triangles": 6428,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10120.571292341583,
+    "bounds_mm": [
+      [
+        -5.154211521148682,
+        -6.0,
+        -4.572300434112549
+      ],
+      [
+        26.025850296020508,
+        6.0,
+        106.80873107910156
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right.stl",
+    "triangles": 6428,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10120.571292341583,
+    "bounds_mm": [
+      [
+        -26.025850296020508,
+        -6.0,
+        -4.572300434112549
+      ],
+      [
+        5.154211521148682,
+        6.0,
+        106.80873107910156
+      ]
+    ],
+    "passed": true
+  }
+]
