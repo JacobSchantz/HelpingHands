@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-18T13:26:32.000Z",
-  "updated_at": "2026-10-18T13:26:32.000Z",
+  "updated_at": "2026-10-18T13:41:01Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Jake wants a sweep of 2026-only open handheld gripper systems, comparing Grabette (Apache-2.0) against UMI-3D and newer releases. Give a clear verdict on building on Grabette for SO-101 and Gen 6-8, and update plans/handheld_gripper.md.",
-  "summary_sha": "e93cef1fc4214467"
+  "summary_sha": "e93cef1fc4214467",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-e93cef1f",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-e93cef1f",
+  "claimed_at": "2026-10-18T13:41:01.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
