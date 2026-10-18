@@ -12,7 +12,12 @@ Question: what is the best open-source handheld robot-gripper system for
 collecting demonstrations that transfer to our SO-101, and do we adopt it or
 adapt Hand 1.0 (`plans/hand_1_0.md`)?
 
-**Answer in one line:** adapt Hand 1.0. We should copy UMI's *method*, not
+> **Updated 2026-10-18 (voice-e93cef1f):** among 2026 releases, **build on
+> Grabette** — see §1a. It changes the hardware answer below (take Grabette's
+> fingers, Gripette and its post-processing instead of designing our own), not the
+> method answer (retarget to SO-101 joint space, keep some teleop, QC every episode).
+
+**Answer in one line (2026-09-30):** adapt Hand 1.0. We should copy UMI's *method*, not
 anybody's *hardware*. No existing open design targets a 5-DOF servo arm. Hand 1.0
 already has the property that matters most: the same camera and the same gripper
 servo are used in both modes. The only things missing are a pose tracker in the
@@ -62,7 +67,7 @@ how impressive they are.
 | # | System | What's actually released | Tracking | Cost | Evidence | SO-101 fit |
 |---|---|---|---|---|---|---|
 | 1 | **UMI** (Chi et al. 2024) — [paper](https://arxiv.org/abs/2402.10329), [code](https://github.com/real-stanford/universal_manipulation_interface) | Code MIT; Onshape CAD + BOM (**no stated hardware license**); the in-the-wild cup dataset + checkpoint | GoPro + ORB-SLAM3, offline, per-scene mapping video | ~$371/unit, 780 g | Strongest: 20/20 cups at 305 demos; 71.7% in the wild at 1,400; ~3× SpaceMouse throughput | Poor as hardware: fingers are matched to a €3.9k WSG-50; 780 g |
-| 2 | **Grabette + Gripette** (Pollen / HF, Jul 2026) — [blog](https://huggingface.co/blog/grabette), [repo](https://github.com/pollen-robotics/grabette) | Handheld + robot gripper, exports 6-DoF pose + gripper to LeRobot; license *(unverified)* | OAK-D + RTAB-Map VIO | ~490 € handheld, ~120 € robot gripper | One task: 200 cup-grasp demos on a 7-DoF OpenArm | Medium: robot-agnostic and LeRobot-native, not tried on 5-DOF |
+| 2 | **Grabette + Gripette** (Pollen / HF, Jul 2026) — [blog](https://huggingface.co/blog/grabette), [repo](https://github.com/pollen-robotics/grabette) | Handheld + robot gripper, exports 6-DoF pose + gripper to LeRobot; **Apache-2.0** (verified 2026-10-18: GitHub license field + `LICENSE`, copied into `Two Finger Gripper/versions/v008_pollen_grabette/pollen/`) | OAK-D + RTAB-Map VIO | ~490 € handheld, ~120 € robot gripper | One task: 200 cup-grasp demos on a 7-DoF OpenArm | Medium: robot-agnostic and LeRobot-native, not tried on 5-DOF |
 | 3 | **iPhone ARKit family** — Stick-v2/RUM ([paper](https://arxiv.org/pdf/2409.05865)), [AnySense](https://github.com/NYU-robot-learning/AnySense), [UMI-FT](https://github.com/real-stanford/UMI-FT), [MagiClaw](https://arxiv.org/html/2509.19169v1) | Apps + code (AnySense open source); UMI-FT claims open hardware | ARKit VIO, live, ~140 ms latency, drift ~0.02 m/s | ~$25 of parts + a phone we own | Good: RUM zero-shot deployments; UMI-on-Legs 80% with iPhone vs 85% with mocap | **Best**: tracker only needed in the hand (§2); we already ship iOS apps |
 | 4 | **UMI-3D** (2026) — [paper](https://arxiv.org/abs/2604.14089), [hardware](https://github.com/Physical-Intelligence-Laboratory/UMI-3D-Hardware) | Hardware Apache-2.0, BOM, ROS Noetic drivers, policy + data repos | Livox MID-360 LiDAR-inertial, hardware-triggered sync | ~$700 | Cups 0.86 seen at 3,500 demos; door 97.5% | Poor: LiDAR mass, ROS Noetic, overkill for a tabletop |
 | 5 | **HandUMI** (murobotics) — [shop](https://shop.murobotics.ai/) | Assembled kit; "open-source" software *(repo not found)* | Quest 3 / PICO headset | $749 pair | Seller claims only | SO-101 not listed |
@@ -90,6 +95,50 @@ with ACT:
 So a handheld demo was worth roughly 0.9 of a teleop demo. The trial counts are
 tiny, and the retargeting code and CAD are unpublished. It is encouraging, not
 proof.
+
+---
+
+## 1a. 2026-only sweep: is Grabette the one? (2026-10-18, voice-e93cef1f)
+
+Jake asked whether Grabette is likely the best, considering only things released
+in 2026. **Verdict: yes — build on Grabette.** It is not the most capable 2026
+system (YUBI is), but it is the only one that is permissive, fully released,
+LeRobot-native, cheap, *and* whose robot gripper already uses the SO-101's servo.
+
+| 2026 release | Released & license | Tracking / cost | Robot side | Fit for us |
+|---|---|---|---|---|
+| **Grabette + Gripette** (Pollen/HF, blog 21 Jul 2026, repo since Jun, still active Oct) | Code, URDF, STL (Git LFS), Onshape CAD, BOM sheet, assembly guides; **Apache-2.0** | OAK-D SR RGB-D + IMU, RTAB-Map SLAM offline; fisheye policy camera; magnetic finger encoder. ~490 € handheld | **Gripette: same fingers on 2× Feetech STS3215** (the SO-101 servo), Pi Zero 2W, gRPC; ~120 € | **Best.** Same servo bus as our arm; `grabette-postprocess` writes LeRobot datasets; robot-agnostic core, new arms are "integrations". Already assembled as our Gen 8 |
+| **YUBI** (AIRoA / Toyota / AIST / UTokyo, [arXiv 2606.10244](https://arxiv.org/abs/2606.10244), Jun 2026) | [yubi-hw](https://github.com/toyota/yubi-hw) STEP/STL/BOM/assembly PDFs, **CERN-OHL-W v2** (commercial OK, modifications to the hardware must be shared); [yubi-sw](https://github.com/airoa-org/yubi-sw); 8,434 h dataset "coming soon" | Meta Quest 3S + a controller per gripper, live; finger-aligned (not pistol grip) | YUBI gripper on **Dynamixel**; flanges for Franka, OpenArm, Unitree G1 | Strongest evidence (bimanual, one policy across UR/Franka/ELEY, LeRobot 30 Hz). Wrong servo family and sized for big arms. **Watch the dataset** — pretraining value, not hardware |
+| **UMI-3D** ([arXiv 2604.14089](https://arxiv.org/abs/2604.14089), Apr 2026) | Hardware Apache-2.0, CAD/STL/BOM; ROS Noetic drivers | Livox MID-360 LiDAR-inertial, ~$700 | Mounts for ARX / Piper, no gripper of its own | Poor, unchanged from §1 |
+| **HiFi-UMI** (Simple AI, [arXiv 2607.25895](https://arxiv.org/abs/2607.25895), Jul 2026) | **Dataset only** (HiFi-UMI-2K, 2,000 h on HF); no hardware/code repo found | Head-mounted stereo-inertial SLAM, 3 mm claimed | not stated | Not buildable. Interesting because its *head-mounted* camera matches our mirror-a-human principle |
+| **PolyUMI** (Lynch, Colgate, Chalvatzaki et al., [arXiv 2609.29760](https://arxiv.org/abs/2609.29760), Sep 2026) | "Open-source platform"; code license not found | not stated | Same sensing finger moves to the robot | Tactile + audio research rig; Hand 2.0 reading |
+
+Not 2026 or not open, still excluded: UMI (2024), FastUMI/LEGATO (T265 EOL),
+HandUMI (shop, no repo), YAM-UMI (single-person repo for the I2RT YAM gripper).
+
+**Why Grabette over the plan's "design our own":** its robot side is two
+STS3215s, so Gripette talks the same Feetech bus protocol as the SO-101 — the
+"matched fingers on both ends" property Hand 1.0 wanted, already built and
+open. The tracker rides only on the handheld (principle §2.1 holds). And its
+post-processing already ends in LeRobot.
+
+**What Grabette does *not* give us (still our work):**
+- **An SO-101 integration.** Only OpenArm (7-DoF, CAN) exists. We write
+  `integrations/so101`: a flange from the SO-101 wrist to Gripette, and IK that
+  projects 6-DoF poses onto 5 DOF with the feasibility filter from §2.
+- **Wrist payload.** Gripette's mass isn't published. Weigh the BOM before
+  printing; the SO-101 budget in §2 is ≤ 250 g.
+- **Cameras.** Gripette carries a camera and streams it over gRPC at ~10 Hz;
+  our principle (`hand_1_0.md` §3) is head-height stereo. Either drop Gripette's
+  camera or keep it as an extra stream. Pollen's head-mounted "Casquette" is
+  announced but a work in progress.
+- **Evidence.** One task, 200 cup-grasp demos, Diffusion Policy on OpenArm, no
+  success-rate numbers. It is the best-*packaged* system, not the best-*proven*.
+
+**Revised pilot hardware:** build one Grabette (~490 €) and one Gripette
+(~120 €) from Pollen's BOM in place of the Hand 1.0 + iPhone clip-on in §4.
+The pipeline, QC checks and experiment in §4 stay as written, with RTAB-Map
+replacing ARKit as the pose source.
 
 ---
 
