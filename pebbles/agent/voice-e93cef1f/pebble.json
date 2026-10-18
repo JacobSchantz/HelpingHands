@@ -1,0 +1,19 @@
+{
+  "id": "voice-e93cef1f",
+  "commit_id": "",
+  "description": "Research: best open handheld gripper system released in 2026 only. Jake (voice): 'It looks like this Grabette is kind of along the right lines. Is this most likely to be the best one? Again, we should look for things that are done in 2026 specifically.' Sweep 2026 releases only (papers, repos, kits), with Grabette (Pollen/HF, July 2026, Apache-2.0) as the baseline, plus UMI-3D and anything newer. Compare: license and what's actually released (CAD/STL/BOM/code), matching robot-side gripper, tracking method and cost, LeRobot export, fit for our SO-101 arms and Gen 6-8 designs. Give a clear verdict on whether Grabette is the one to build on, and update plans/handheld_gripper.md (it currently marks Grabette's license unverified; it's Apache-2.0).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T13:26:32.000Z",
+  "updated_at": "2026-10-18T13:26:32.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
