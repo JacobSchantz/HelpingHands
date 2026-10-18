@@ -1,0 +1,19 @@
+{
+  "id": "voice-5e5e0497",
+  "commit_id": "",
+  "description": "Gripper Gen 7: reproduce Pollen's Grabette handheld gripper. Jake (voice): 'In the meantime I want another different agent working on Gen 7, which is basically [Grabette].' (transcript said 'hand it back'; read as Grabette from context; if Jake's reply says otherwise, follow that). Grabette repo: https://github.com/pollen-robotics/grabette (Apache-2.0; STL meshes in Git LFS, Onshape CAD and BOM linked from the README; Gripette is the matching robot gripper). Build Gen 7 in the Helping Hands design gallery as a faithful copy of Grabette, especially how the two fingers connect to the body (pivot/linkage/drive interface). Also write a short note describing that connection interface, so Jake can compare it with Gen 6 (the Generalist copy).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T13:24:04.000Z",
+  "updated_at": "2026-10-18T13:24:04.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
