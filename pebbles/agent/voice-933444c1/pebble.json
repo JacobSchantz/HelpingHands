@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Gripper Gen 8: merge Grabette's finger connection interface with the Generalist-style Gen 6. Jake (voice): 'On this Grabette, what does the actual connection interface to the two grippers look like? I'd like to take some ideas from this and some ideas from our current Generalist hand, so maybe we could make that Gen 8.' Depends on Gen 6 (voice-650be16a, Generalist copy, reference photos in cad/reference/generalist_gripper_gen6_*.png) and Gen 7 (Grabette copy). Combine: Grabette's finger mount/pivot/drive interface + Gen 6's finger shapes, cutouts, top-mounted drive and camera, clear thumb-index web, and the three straps. Wait for Gen 6 and Gen 7 to land before building; explain which ideas came from which.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-18T13:24:40.000Z",
+      "result": "failed",
+      "notes": "Note: Gen 7 changed. It is now just the yellow fingers matched to Generalist, not a Grabette copy. For Gen 8, take the finger connection interface straight from the Grabette repo (https://github.com/pollen-robotics/grabette, Apache-2.0) and combine it with the Gen 7 fingers and the Gen 6 body ideas. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-18T13:24:05.000Z",
-  "updated_at": "2026-10-18T13:24:05.000Z",
+  "updated_at": "2026-10-18T13:24:40.000Z",
   "user_request": {
     "name": "Jake"
   },
