@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T13:00:30.000Z",
+      "result": "failed",
+      "notes": "Jake (voice) correction on the cup photo (generalist_gripper_gen6_cup.png): 'It's like pouring the cup, so it's the view from the bottom.' It is the same handheld gripper rotated, seen from underneath while pouring. Ignore my earlier reading that the jaws strap along the index finger and thumb. Use it as the underside view of the fingers and mount. The robot photo (generalist_gripper_gen6_robot.png) is the same gripper on the arm. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T13:00:17.000Z",
       "result": "failed",
       "notes": "Jake (voice): fifth reference photo, saved at cad/reference/generalist_gripper_gen6_robot.png (source of truth). The same yellow fingers mounted on a robot arm instead of a hand: clearest view of the finger shape. Each finger is an L/hook: a pocketed proximal section that rises from the pivot, then angles down into a long jaw with a hump on the outer back edge and a short pointed tip with a black tip insert. Dense grid of small round/hex pockets on the faces. Fingers pivot on a black plate (with a fiducial tag) under a gray camera housing. The same fingers should work handheld and on the arm. .",
@@ -110,7 +121,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T13:00:17.000Z",
+  "updated_at": "2026-10-18T13:00:30.000Z",
   "user_request": {
     "name": "Jake"
   },
