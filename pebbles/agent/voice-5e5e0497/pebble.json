@@ -127,8 +127,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gen 7 should be only the two yellow fingers, matched closely to the Generalist photos, with every hole made a through-hole. Run at most three build-and-review rounds, each saved as a version, then hand it to Jake even if differences remain.",
-  "summary_sha": "6b9967fc23ef53ca",
+  "summary": "Gen 7 is just the two yellow fingers matched to the Generalist photos, and the latest version needs to show in the design gallery. Add ridged texture to the inner gripping faces as seen in the reference photos.",
+  "summary_sha": "b91b20f3bcd02ee1",
   "artifacts": [
     {
       "kind": "openscad",
