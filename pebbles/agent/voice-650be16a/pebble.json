@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:38:35.000Z",
+  "updated_at": "2026-10-18T12:39:47Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Gen 6 handheld gripper's gear and servo mounting crowds the thumb-index web, which sits between his fingers. Move all mounting above the hand and copy the Generalist gripper fingers exactly from the reference images.",
-  "summary_sha": "650be16a92db2901"
+  "summary_sha": "650be16a92db2901",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-650be16a",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-650be16a",
+  "claimed_at": "2026-10-18T12:39:47.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
