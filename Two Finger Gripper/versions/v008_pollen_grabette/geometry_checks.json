@@ -1,0 +1,32 @@
+[
+  {
+    "check": "hinge matches URDF at angle 0",
+    "max_error_mm": 0.0037,
+    "passed": true
+  },
+  {
+    "check": "hinge matches URDF at angle 30",
+    "max_error_mm": 0.0027,
+    "passed": true
+  },
+  {
+    "check": "hinge matches URDF at angle 60",
+    "max_error_mm": 0.0013,
+    "passed": true
+  },
+  {
+    "check": "hinge matches URDF at angle 90",
+    "max_error_mm": 0.0,
+    "passed": true
+  },
+  {
+    "check": "closed soft tips nearly meet",
+    "gap_mm": 1.8,
+    "passed": true
+  },
+  {
+    "check": "open gap is wide (positive control)",
+    "gap_mm": 79.0,
+    "passed": true
+  }
+]

@@ -1,5 +1,7 @@
 export default {
-  "_about": "Open/close slider for the gallery. Angles are each jaw's swing in degrees, the same 'angle' the design's .scad uses (0 = closed for gens 3-7). 'exported' is the angle the STLs were exported at. A hinge turns every model whose name matches 'match' about the Y axis through 'pivot' by sign*(angle - exported); a slide moves by dir*(sin(angle) - sin(exported)); a crank turns about 'pivot' by -(asin((2+20 sin(angle) - mid)/radius)) relative to the exported pose. Scripts/check_gripper_closure.py reads this file too.",
+  "_about": "Open/close slider for the gallery. Angles are each jaw's swing in degrees, the same 'angle' the design's .scad uses (0 = closed for gens 3-8). 'exported' is the angle the STLs were exported at. A hinge turns every model whose name matches 'match' about the Y axis through 'pivot' by sign*(angle - exported); a slide moves by dir*(sin(angle) - sin(exported)); a crank turns about 'pivot' by -(asin((2+20 sin(angle) - mid)/radius)) relative to the exported pose. Scripts/check_gripper_closure.py reads this file too.",
+  "two-finger-gripper-v008-pollen-grabette": {"exported": 90, "min": 0, "max": 90, "hinges": [
+    {"match": "^Finger", "pivot": [0, 0, 0], "sign": 1}]},
   "two-finger-gripper-v007-generalist-fingers": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [26.291, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-26.291, 0, 0], "sign": -1}]},
