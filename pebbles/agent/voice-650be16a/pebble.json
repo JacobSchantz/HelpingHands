@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T12:59:38.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): fourth reference photo, saved at cad/reference/generalist_gripper_gen6_cup.png (source of truth, like the others). Shows the gripper grasping a paper cup: the upper yellow jaw is strapped along the back of the index finger and the lower jaw along the thumb, each with a black strap loop, so the fingers drive the jaws directly. Jaws are slim, curved, with rows of small pockets, and pointed tips that hook inward; the cup is held between the curved middle sections. Camera/housing sits back on top of the wrist. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T12:58:55.000Z",
       "result": "failed",
       "notes": "Jake (voice): 'More than my prompt, these images are the source of truth.' Where the three reference photos in cad/reference/generalist_gripper_gen6_*.png disagree with any spoken description (Jake's or the filer's), follow the photos. .",
@@ -88,7 +99,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:58:55.000Z",
+  "updated_at": "2026-10-18T12:59:38.000Z",
   "user_request": {
     "name": "Jake"
   },
