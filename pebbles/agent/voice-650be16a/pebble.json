@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T13:00:17.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): fifth reference photo, saved at cad/reference/generalist_gripper_gen6_robot.png (source of truth). The same yellow fingers mounted on a robot arm instead of a hand: clearest view of the finger shape. Each finger is an L/hook: a pocketed proximal section that rises from the pivot, then angles down into a long jaw with a hump on the outer back edge and a short pointed tip with a black tip insert. Dense grid of small round/hex pockets on the faces. Fingers pivot on a black plate (with a fiducial tag) under a gray camera housing. The same fingers should work handheld and on the arm. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T12:59:38.000Z",
       "result": "failed",
       "notes": "Jake (voice): fourth reference photo, saved at cad/reference/generalist_gripper_gen6_cup.png (source of truth, like the others). Shows the gripper grasping a paper cup: the upper yellow jaw is strapped along the back of the index finger and the lower jaw along the thumb, each with a black strap loop, so the fingers drive the jaws directly. Jaws are slim, curved, with rows of small pockets, and pointed tips that hook inward; the cup is held between the curved middle sections. Camera/housing sits back on top of the wrist. .",
@@ -99,7 +110,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:59:38.000Z",
+  "updated_at": "2026-10-18T13:00:17.000Z",
   "user_request": {
     "name": "Jake"
   },
