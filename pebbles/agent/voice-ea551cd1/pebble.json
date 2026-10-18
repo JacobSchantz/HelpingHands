@@ -1,0 +1,19 @@
+{
+  "id": "voice-ea551cd1",
+  "commit_id": "",
+  "description": "Show/hide individual designs in the Helping Hands design viewer. Jake (voice): 'Can we have the option to show or hide a particular design in one thing? Like, I don't really care about Gen 1 or Gen 2 right now.' Ask: a per-design visibility toggle so Jake can hide designs (e.g. gripper Gen 1 and Gen 2) from the designs list/viewer and unhide them later; the choice persists. Make the action reachable by voice too.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T12:45:49.000Z",
+  "updated_at": "2026-10-18T12:45:49.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
