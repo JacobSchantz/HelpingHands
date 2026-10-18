@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T12:58:55.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'More than my prompt, these images are the source of truth.' Where the three reference photos in cad/reference/generalist_gripper_gen6_*.png disagree with any spoken description (Jake's or the filer's), follow the photos. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T12:58:19.000Z",
       "result": "failed",
       "notes": "Jake (voice) correction on the closed-jaw photo: 'It's not touching along most of the finger, it's just the tip here.' So in the Generalist reference, when closed only the pointed tips meet; there is a gap between the inner edges along the rest of the finger. Copy that. .",
@@ -77,7 +88,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:58:19.000Z",
+  "updated_at": "2026-10-18T12:58:55.000Z",
   "user_request": {
     "name": "Jake"
   },
