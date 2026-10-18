@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T12:57:44.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): third reference photo, front view with jaws nearly closed, saved at cad/reference/generalist_gripper_gen6_closed.png. Shows: when closed, the two yellow fingers meet at the pointed tips and the inner grip edges run almost parallel along most of their length, with interlocking wavy/serrated teeth; the inner faces have a dense dark perforated grid; the fingers pivot from a black plate right under the drive housing, above the back of the hand. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T12:57:10.000Z",
       "result": "failed",
       "notes": "Jake (voice): second reference photo, side view, saved at cad/reference/generalist_gripper_gen6_side.png. Shows: fingers are long, thick, flat-sided yellow jaws with rows of small rectangular pockets on the outer face, tapering to pointed tips; the hand slides in under a black curved frame with a strap over the index/middle fingers; the pivot and gear plate sit on top of the hand behind the knuckles, and the tall drive/camera housing rises vertically above the wrist. Nothing bulky in the thumb-index web. .",
@@ -55,7 +66,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:57:10.000Z",
+  "updated_at": "2026-10-18T12:57:44.000Z",
   "user_request": {
     "name": "Jake"
   },
