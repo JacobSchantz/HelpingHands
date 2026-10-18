@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T12:58:19.000Z",
+      "result": "failed",
+      "notes": "Jake (voice) correction on the closed-jaw photo: 'It's not touching along most of the finger, it's just the tip here.' So in the Generalist reference, when closed only the pointed tips meet; there is a gap between the inner edges along the rest of the finger. Copy that. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T12:57:44.000Z",
       "result": "failed",
       "notes": "Jake (voice): third reference photo, front view with jaws nearly closed, saved at cad/reference/generalist_gripper_gen6_closed.png. Shows: when closed, the two yellow fingers meet at the pointed tips and the inner grip edges run almost parallel along most of their length, with interlocking wavy/serrated teeth; the inner faces have a dense dark perforated grid; the fingers pivot from a black plate right under the drive housing, above the back of the hand. .",
@@ -66,7 +77,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T12:57:44.000Z",
+  "updated_at": "2026-10-18T12:58:19.000Z",
   "user_request": {
     "name": "Jake"
   },
