@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gen 7 of the Helping Hands design gallery should be a faithful copy of Pollen Robotics' Grabette handheld gripper, based on its open-source repo, CAD and BOM. Focus on how the two fingers connect to the body (pivot, linkage, drive), and write a short note on it so Jake can compare it with Gen 6.",
+  "summary_sha": "5e5e0497049d9af7"
 }

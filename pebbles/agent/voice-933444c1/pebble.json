@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gripper Gen 8 should combine Grabette's finger mount, pivot, and drive interface with Gen 6's Generalist-style finger shapes, cutouts, top drive and camera, clear thumb-index web, and three straps. Wait for Gen 6 and Gen 7 to land before building, and explain which ideas came from which.",
+  "summary_sha": "933444c19fcf4348"
 }
