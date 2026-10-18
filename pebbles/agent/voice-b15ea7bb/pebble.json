@@ -1,0 +1,19 @@
+{
+  "id": "voice-b15ea7bb",
+  "commit_id": "",
+  "description": "Gripper Gen 10: yellow fingers only, matched to the Generalist photos. MODEL: this generation must be built by Opus 5.5 (claude-opus-5-5) (Jake is comparing models; Gen 9 = Sonnet 5.5, Gen 10 = Opus 5.5, built independently in parallel). Jake (voice): 'Make two more versions, two more generations, and give it to different models, one to Sonnet 5.5 and one to Opus 5.5. Just reference those images and make it look as close as possible. The tips on these ones don't come to a nice enough point and aren't skinny enough. But more specifically, reference the images.' Same scope as Gen 7 (voice-5e5e0497): only the two yellow fingers, all holes going through, inner-face ridges/texture. The reference photos in cad/reference/generalist_gripper_gen6_*.png are the source of truth (Insta360 for scale). Known gap in Gen 7: tips not pointed or skinny enough. Run a build, side-by-side review against the photos with a separate reviewer, then fix, for up to 3 rounds, then hand to Jake. Show it in the design gallery.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T21:57:20.000Z",
+  "updated_at": "2026-10-18T21:57:20.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
