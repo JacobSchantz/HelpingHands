@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T22:59:25.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'For the next change you should be doing version 11.' SUPERSEDED: the ridge and shape feedback above now goes into the new Gen 11 pebble. Do NOT modify this generation. Hand it straight back to human unchanged. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T22:57:53.000Z",
       "result": "failed",
       "notes": "Jake (voice) CORRECTION on the ridges: 'I think they are cuts, but very shallow, maybe one millimeter or even less. They travel the whole width of the gripper.' So: shallow grooves (about 0.5 to 1 mm deep) cut straight across the full width of the inner gripping face, finely spaced, matching the photos. Not raised texture, and not the deep cuts from the last version. .",
@@ -51,7 +62,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T21:57:20.000Z",
-  "updated_at": "2026-10-18T22:57:53.000Z",
+  "updated_at": "2026-10-18T22:59:25.000Z",
   "user_request": {
     "name": "Jake"
   },
