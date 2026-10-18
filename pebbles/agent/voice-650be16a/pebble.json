@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T13:05:32.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'Can you get any more idea on the dimensions from that Insta360 camera?' Use the camera as a scale reference. It looks like an Insta360 X4 or X5 (lens on the same face as the screen): about 46 mm wide x 124 mm long x 38 mm thick (X4: 46 x 123.6 x 37.6 mm; X5: about 46 x 124.5 x 38.2 mm; verify the model from the photos). Measure the fingers, pivot plate, carrier blocks and jaw opening in the reference photos against the camera's known size (best views: generalist_gripper_gen6_camera.png, _top.png, _two_hands.png), write the estimated dimensions into the design notes, and size Gen 6 from them. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T13:04:42.000Z",
       "result": "failed",
       "notes": "Jake (voice) correction: 'You shouldn't have to mirror. Except for maybe the straps, everything should be as similar as possible. Don't worry about doing the mirror right now.' Drop the left/right mirroring ask: build one design; no mirrored version needed now. .",
@@ -202,7 +213,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T12:38:35.000Z",
-  "updated_at": "2026-10-18T13:04:42.000Z",
+  "updated_at": "2026-10-18T13:05:32.000Z",
   "user_request": {
     "name": "Jake"
   },
