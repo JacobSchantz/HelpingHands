@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-18T12:49:37.000Z",
-  "updated_at": "2026-10-18T12:49:37.000Z",
+  "updated_at": "2026-10-18T13:08:39Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Helping Hands design viewer needs a slider that animates each gripper model between fully open and fully closed. When closed, the finger tips should meet at a point and most of each finger's length should touch, with any designs that don't meet this fixed.",
-  "summary_sha": "b7ae5fc0029f65ab"
+  "summary_sha": "b7ae5fc0029f65ab",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-b7ae5fc0",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-b7ae5fc0",
+  "claimed_at": "2026-10-18T13:08:39.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
