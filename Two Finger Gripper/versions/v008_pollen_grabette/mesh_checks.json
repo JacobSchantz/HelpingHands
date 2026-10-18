@@ -1,22 +1,65 @@
 {
-  "parts": 73,
-  "upstream_meshes": 37,
-  "triangles": 832436,
-  "bounds_mm": [
-    [
-      -63.27,
-      -97.21,
-      -94.82
+  "Grabette": {
+    "parts": 73,
+    "upstream_meshes": 37,
+    "triangles": 832436,
+    "bounds_mm": [
+      [
+        -63.27,
+        -97.21,
+        -94.82
+      ],
+      [
+        98.76,
+        107.1,
+        71.33
+      ]
     ],
-    [
-      98.76,
-      107.1,
-      71.33
+    "groups": {
+      "body": 48,
+      "finger": 17,
+      "finger tip": 8
+    },
+    "highlighted": [
+      "Grabette body \u2014 SENSOR proximal-joint magnet",
+      "Grabette finger tip \u2014 SENSOR distal-joint magnet",
+      "Grabette finger \u2014 SENSOR AS5600L angle sensor"
+    ],
+    "proximal_pivot_mm": [
+      0.0,
+      0,
+      0.0
     ]
-  ],
-  "groups": {
-    "Body": 48,
-    "Finger": 17,
-    "Finger tip": 8
+  },
+  "Gripette": {
+    "parts": 79,
+    "upstream_meshes": 32,
+    "triangles": 978544,
+    "bounds_mm": [
+      [
+        260.74,
+        -97.21,
+        -94.82
+      ],
+      [
+        418.76,
+        50.2,
+        59.6
+      ]
+    ],
+    "groups": {
+      "body": 44,
+      "finger": 22,
+      "finger tip": 13
+    },
+    "highlighted": [
+      "Gripette body \u2014 DRIVE proximal servo STS3215 (ID 1)",
+      "Gripette finger \u2014 DRIVE distal servo STS3215 (ID 2)"
+    ],
+    "proximal_pivot_mm": [
+      320.0,
+      0,
+      0.0
+    ]
   }
 }

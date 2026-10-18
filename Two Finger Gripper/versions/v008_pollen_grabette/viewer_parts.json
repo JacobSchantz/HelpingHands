@@ -1,8 +1,8 @@
 {
   "parts": [
     {
-      "path": "exports/parts/00_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/000_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         34.1,
@@ -11,8 +11,8 @@
       ]
     },
     {
-      "path": "exports/parts/01_raspi_box_r.stl",
-      "name": "Body \u2014 raspi box r",
+      "path": "exports/parts/001_grabette_raspi_box_r.stl",
+      "name": "Grabette body \u2014 raspi box r",
       "color": "#43484d",
       "explode": [
         -52.9,
@@ -21,8 +21,8 @@
       ]
     },
     {
-      "path": "exports/parts/02_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/002_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -15.7,
@@ -31,8 +31,8 @@
       ]
     },
     {
-      "path": "exports/parts/03_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/003_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         34.6,
@@ -41,8 +41,8 @@
       ]
     },
     {
-      "path": "exports/parts/04_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/004_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -32.0,
@@ -51,8 +51,8 @@
       ]
     },
     {
-      "path": "exports/parts/05_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/005_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         56.7,
@@ -61,8 +61,8 @@
       ]
     },
     {
-      "path": "exports/parts/06_cameras_holder_r.stl",
-      "name": "Body \u2014 cameras holder r",
+      "path": "exports/parts/006_grabette_cameras_holder_r.stl",
+      "name": "Grabette body \u2014 cameras holder r",
       "color": "#43484d",
       "explode": [
         11.3,
@@ -71,8 +71,8 @@
       ]
     },
     {
-      "path": "exports/parts/07_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/007_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -32.0,
@@ -81,8 +81,8 @@
       ]
     },
     {
-      "path": "exports/parts/08_hmi.stl",
-      "name": "Body \u2014 hmi",
+      "path": "exports/parts/008_grabette_hmi.stl",
+      "name": "Grabette body \u2014 hmi",
       "color": "#3b61b4",
       "explode": [
         45.6,
@@ -91,8 +91,8 @@
       ]
     },
     {
-      "path": "exports/parts/09_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
-      "name": "Body \u2014 hex socket head cap screw m4x0 70 x 8",
+      "path": "exports/parts/009_grabette_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
+      "name": "Grabette body \u2014 hex socket head cap screw m4x0 70 x 8",
       "color": "#9aa5af",
       "explode": [
         -11.3,
@@ -101,8 +101,8 @@
       ]
     },
     {
-      "path": "exports/parts/10_grip_shell_r.stl",
-      "name": "Body \u2014 grip shell r",
+      "path": "exports/parts/010_grabette_grip_shell_r.stl",
+      "name": "Grabette body \u2014 grip shell r",
       "color": "#ffffff",
       "explode": [
         16.3,
@@ -111,8 +111,8 @@
       ]
     },
     {
-      "path": "exports/parts/11_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
-      "name": "Body \u2014 hex socket head cap screw m4x0 70 x 8",
+      "path": "exports/parts/011_grabette_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
+      "name": "Grabette body \u2014 hex socket head cap screw m4x0 70 x 8",
       "color": "#9aa5af",
       "explode": [
         29.2,
@@ -121,8 +121,8 @@
       ]
     },
     {
-      "path": "exports/parts/12_part_1.stl",
-      "name": "Body \u2014 part 1",
+      "path": "exports/parts/012_grabette_part_1.stl",
+      "name": "Grabette body \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         47.5,
@@ -131,8 +131,8 @@
       ]
     },
     {
-      "path": "exports/parts/13_arducam_fisheye.stl",
-      "name": "Body \u2014 arducam fisheye",
+      "path": "exports/parts/013_grabette_arducam_fisheye.stl",
+      "name": "Grabette body \u2014 arducam fisheye",
       "color": "#3c3c3c",
       "explode": [
         21.1,
@@ -141,8 +141,8 @@
       ]
     },
     {
-      "path": "exports/parts/14_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/014_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         8.0,
@@ -151,8 +151,8 @@
       ]
     },
     {
-      "path": "exports/parts/15_part_1.stl",
-      "name": "Body \u2014 part 1",
+      "path": "exports/parts/015_grabette_part_1.stl",
+      "name": "Grabette body \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         46.0,
@@ -161,8 +161,8 @@
       ]
     },
     {
-      "path": "exports/parts/16_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/016_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -32.0,
@@ -171,8 +171,8 @@
       ]
     },
     {
-      "path": "exports/parts/17_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/017_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         69.9,
@@ -181,8 +181,8 @@
       ]
     },
     {
-      "path": "exports/parts/18_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/018_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         34.1,
@@ -191,9 +191,9 @@
       ]
     },
     {
-      "path": "exports/parts/19_radial_magnet.stl",
-      "name": "Body \u2014 radial magnet",
-      "color": "#b6c2cc",
+      "path": "exports/parts/019_grabette_radial_magnet.stl",
+      "name": "Grabette body \u2014 SENSOR proximal-joint magnet",
+      "color": "#e5322d",
       "explode": [
         -15.7,
         -7.8,
@@ -201,8 +201,8 @@
       ]
     },
     {
-      "path": "exports/parts/20_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/020_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         56.7,
@@ -211,8 +211,8 @@
       ]
     },
     {
-      "path": "exports/parts/21_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/021_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -32.0,
@@ -221,8 +221,8 @@
       ]
     },
     {
-      "path": "exports/parts/22_button.stl",
-      "name": "Body \u2014 button",
+      "path": "exports/parts/022_grabette_button.stl",
+      "name": "Grabette body \u2014 button",
       "color": "#7f7f7f",
       "explode": [
         46.8,
@@ -231,8 +231,8 @@
       ]
     },
     {
-      "path": "exports/parts/23_grip_r.stl",
-      "name": "Body \u2014 grip r",
+      "path": "exports/parts/023_grabette_grip_r.stl",
+      "name": "Grabette body \u2014 grip r",
       "color": "#eaeaea",
       "explode": [
         19.8,
@@ -241,8 +241,8 @@
       ]
     },
     {
-      "path": "exports/parts/24_plain_washer_normal_grade_a_m4.stl",
-      "name": "Body \u2014 plain washer normal grade a m4",
+      "path": "exports/parts/024_grabette_plain_washer_normal_grade_a_m4.stl",
+      "name": "Grabette body \u2014 plain washer normal grade a m4",
       "color": "#9aa5af",
       "explode": [
         -15.7,
@@ -251,8 +251,8 @@
       ]
     },
     {
-      "path": "exports/parts/25_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/025_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         7.6,
@@ -261,8 +261,8 @@
       ]
     },
     {
-      "path": "exports/parts/26_grip_soft_tip_r.stl",
-      "name": "Body \u2014 grip soft tip r",
+      "path": "exports/parts/026_grabette_grip_soft_tip_r.stl",
+      "name": "Grabette body \u2014 grip soft tip r",
       "color": "#4d4d4d",
       "explode": [
         40.4,
@@ -271,8 +271,8 @@
       ]
     },
     {
-      "path": "exports/parts/27_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Body \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/027_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette body \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         8.0,
@@ -281,8 +281,8 @@
       ]
     },
     {
-      "path": "exports/parts/28_hexalobular_socket_pan_head_screw_m2_5x0.stl",
-      "name": "Body \u2014 hexalobular socket pan head screw m2 5x0 45 x 16",
+      "path": "exports/parts/028_grabette_hexalobular_socket_pan_head_screw_m2_5x0.stl",
+      "name": "Grabette body \u2014 hexalobular socket pan head screw m2 5x0 45 x 16",
       "color": "#9aa5af",
       "explode": [
         -55.3,
@@ -291,8 +291,8 @@
       ]
     },
     {
-      "path": "exports/parts/29_spacer_h8_5.stl",
-      "name": "Body \u2014 spacer h8 5",
+      "path": "exports/parts/029_grabette_spacer_h8_5.stl",
+      "name": "Grabette body \u2014 spacer h8 5",
       "color": "#43484d",
       "explode": [
         -57.0,
@@ -301,8 +301,8 @@
       ]
     },
     {
-      "path": "exports/parts/30_spacer_h8_5.stl",
-      "name": "Body \u2014 spacer h8 5",
+      "path": "exports/parts/030_grabette_spacer_h8_5.stl",
+      "name": "Grabette body \u2014 spacer h8 5",
       "color": "#43484d",
       "explode": [
         -57.0,
@@ -311,8 +311,8 @@
       ]
     },
     {
-      "path": "exports/parts/31_raspberry_pi_4_model_b.stl",
-      "name": "Body \u2014 raspberry pi 4 model b",
+      "path": "exports/parts/031_grabette_raspberry_pi_4_model_b.stl",
+      "name": "Grabette body \u2014 raspberry pi 4 model b",
       "color": "#b6c2cc",
       "explode": [
         -58.8,
@@ -321,8 +321,8 @@
       ]
     },
     {
-      "path": "exports/parts/32_hexalobular_socket_pan_head_screw_m2_5x0.stl",
-      "name": "Body \u2014 hexalobular socket pan head screw m2 5x0 45 x 16",
+      "path": "exports/parts/032_grabette_hexalobular_socket_pan_head_screw_m2_5x0.stl",
+      "name": "Grabette body \u2014 hexalobular socket pan head screw m2 5x0 45 x 16",
       "color": "#9aa5af",
       "explode": [
         -55.3,
@@ -331,8 +331,8 @@
       ]
     },
     {
-      "path": "exports/parts/33_pisugar3plus.stl",
-      "name": "Body \u2014 pisugar3plus",
+      "path": "exports/parts/033_grabette_pisugar3plus.stl",
+      "name": "Grabette body \u2014 pisugar3plus",
       "color": "#3c3c3c",
       "explode": [
         -44.4,
@@ -341,8 +341,8 @@
       ]
     },
     {
-      "path": "exports/parts/34_ase01187_elec_rpi_hat.stl",
-      "name": "Body \u2014 ase01187 elec rpi hat",
+      "path": "exports/parts/034_grabette_ase01187_elec_rpi_hat.stl",
+      "name": "Grabette body \u2014 ase01187 elec rpi hat",
       "color": "#a5a5a5",
       "explode": [
         -62.6,
@@ -351,8 +351,8 @@
       ]
     },
     {
-      "path": "exports/parts/35_pz_pan_head_screw_m2_5x0_45_x_6.stl",
-      "name": "Body \u2014 pz pan head screw m2 5x0 45 x 6",
+      "path": "exports/parts/035_grabette_pz_pan_head_screw_m2_5x0_45_x_6.stl",
+      "name": "Grabette body \u2014 pz pan head screw m2 5x0 45 x 6",
       "color": "#9aa5af",
       "explode": [
         -51.3,
@@ -361,8 +361,8 @@
       ]
     },
     {
-      "path": "exports/parts/36_pz_pan_head_screw_m2_5x0_45_x_6.stl",
-      "name": "Body \u2014 pz pan head screw m2 5x0 45 x 6",
+      "path": "exports/parts/036_grabette_pz_pan_head_screw_m2_5x0_45_x_6.stl",
+      "name": "Grabette body \u2014 pz pan head screw m2 5x0 45 x 6",
       "color": "#9aa5af",
       "explode": [
         -51.3,
@@ -371,8 +371,8 @@
       ]
     },
     {
-      "path": "exports/parts/37_611_00020_1.stl",
-      "name": "Body \u2014 611 00020 1",
+      "path": "exports/parts/037_grabette_611_00020_1.stl",
+      "name": "Grabette body \u2014 611 00020 1",
       "color": "#000000",
       "explode": [
         17.9,
@@ -381,8 +381,8 @@
       ]
     },
     {
-      "path": "exports/parts/38_611_00020.stl",
-      "name": "Body \u2014 611 00020",
+      "path": "exports/parts/038_grabette_611_00020.stl",
+      "name": "Grabette body \u2014 611 00020",
       "color": "#000000",
       "explode": [
         -0.1,
@@ -391,8 +391,8 @@
       ]
     },
     {
-      "path": "exports/parts/39_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
-      "name": "Body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 1",
+      "path": "exports/parts/039_grabette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Grabette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 1",
       "color": "#000000",
       "explode": [
         17.5,
@@ -401,8 +401,8 @@
       ]
     },
     {
-      "path": "exports/parts/40_sr_lens_py058.stl",
-      "name": "Body \u2014 sr lens py058",
+      "path": "exports/parts/040_grabette_sr_lens_py058.stl",
+      "name": "Grabette body \u2014 sr lens py058",
       "color": "#43484d",
       "explode": [
         8.9,
@@ -411,8 +411,8 @@
       ]
     },
     {
-      "path": "exports/parts/41_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
-      "name": "Body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802",
+      "path": "exports/parts/041_grabette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Grabette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802",
       "color": "#000000",
       "explode": [
         -4.2,
@@ -421,8 +421,8 @@
       ]
     },
     {
-      "path": "exports/parts/42_612_00001_tim_thermal_oak_d_poe.stl",
-      "name": "Body \u2014 612 00001 tim thermal oak d poe",
+      "path": "exports/parts/042_grabette_612_00001_tim_thermal_oak_d_poe.stl",
+      "name": "Grabette body \u2014 612 00001 tim thermal oak d poe",
       "color": "#98aaaf",
       "explode": [
         8.2,
@@ -431,8 +431,8 @@
       ]
     },
     {
-      "path": "exports/parts/43_lens_adhesive.stl",
-      "name": "Body \u2014 lens adhesive",
+      "path": "exports/parts/043_grabette_lens_adhesive.stl",
+      "name": "Grabette body \u2014 lens adhesive",
       "color": "#43484d",
       "explode": [
         8.9,
@@ -441,8 +441,8 @@
       ]
     },
     {
-      "path": "exports/parts/44_606_00021_sr_back_cover_py074.stl",
-      "name": "Body \u2014 606 00021 sr back cover py074",
+      "path": "exports/parts/044_grabette_606_00021_sr_back_cover_py074.stl",
+      "name": "Grabette body \u2014 606 00021 sr back cover py074",
       "color": "#43484d",
       "explode": [
         8.9,
@@ -451,8 +451,8 @@
       ]
     },
     {
-      "path": "exports/parts/45_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
-      "name": "Body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 2",
+      "path": "exports/parts/045_grabette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Grabette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 2",
       "color": "#000000",
       "explode": [
         -13.3,
@@ -461,8 +461,8 @@
       ]
     },
     {
-      "path": "exports/parts/46_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
-      "name": "Body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 3",
+      "path": "exports/parts/046_grabette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Grabette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 3",
       "color": "#000000",
       "explode": [
         31.1,
@@ -471,8 +471,8 @@
       ]
     },
     {
-      "path": "exports/parts/47_606_00020_sr_front_cover.stl",
-      "name": "Body \u2014 606 00020 sr front cover",
+      "path": "exports/parts/047_grabette_606_00020_sr_front_cover.stl",
+      "name": "Grabette body \u2014 606 00020 sr front cover",
       "color": "#43484d",
       "explode": [
         8.9,
@@ -481,8 +481,8 @@
       ]
     },
     {
-      "path": "exports/parts/48_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/048_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -26.8,
@@ -491,8 +491,8 @@
       ]
     },
     {
-      "path": "exports/parts/49_proximal_shell_r.stl",
-      "name": "Finger \u2014 proximal shell r",
+      "path": "exports/parts/049_grabette_proximal_shell_r.stl",
+      "name": "Grabette finger \u2014 proximal shell r",
       "color": "#ffffff",
       "explode": [
         -19.3,
@@ -501,8 +501,8 @@
       ]
     },
     {
-      "path": "exports/parts/50_proximal_bend_r.stl",
-      "name": "Finger \u2014 proximal bend r",
+      "path": "exports/parts/050_grabette_proximal_bend_r.stl",
+      "name": "Grabette finger \u2014 proximal bend r",
       "color": "#ffffff",
       "explode": [
         -19.3,
@@ -511,8 +511,8 @@
       ]
     },
     {
-      "path": "exports/parts/51_part_1.stl",
-      "name": "Finger \u2014 part 1",
+      "path": "exports/parts/051_grabette_part_1.stl",
+      "name": "Grabette finger \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         -28.9,
@@ -521,8 +521,8 @@
       ]
     },
     {
-      "path": "exports/parts/52_pivot_bot_r.stl",
-      "name": "Finger \u2014 pivot bot r",
+      "path": "exports/parts/052_grabette_pivot_bot_r.stl",
+      "name": "Grabette finger \u2014 pivot bot r",
       "color": "#ffffff",
       "explode": [
         -13.1,
@@ -531,8 +531,8 @@
       ]
     },
     {
-      "path": "exports/parts/53_part_1.stl",
-      "name": "Finger \u2014 part 1",
+      "path": "exports/parts/053_grabette_part_1.stl",
+      "name": "Grabette finger \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         0.0,
@@ -541,8 +541,8 @@
       ]
     },
     {
-      "path": "exports/parts/54_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/054_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -23.3,
@@ -551,8 +551,8 @@
       ]
     },
     {
-      "path": "exports/parts/55_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/055_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -35.0,
@@ -561,8 +561,8 @@
       ]
     },
     {
-      "path": "exports/parts/56_bushing_6x8x4.stl",
-      "name": "Finger \u2014 bushing 6x8x4",
+      "path": "exports/parts/056_grabette_bushing_6x8x4.stl",
+      "name": "Grabette finger \u2014 bushing 6x8x4",
       "color": "#000000",
       "explode": [
         -33.7,
@@ -571,8 +571,8 @@
       ]
     },
     {
-      "path": "exports/parts/57_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/057_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -23.0,
@@ -581,8 +581,8 @@
       ]
     },
     {
-      "path": "exports/parts/58_bushing_6x8x4.stl",
-      "name": "Finger \u2014 bushing 6x8x4",
+      "path": "exports/parts/058_grabette_bushing_6x8x4.stl",
+      "name": "Grabette finger \u2014 bushing 6x8x4",
       "color": "#000000",
       "explode": [
         -4.8,
@@ -591,8 +591,8 @@
       ]
     },
     {
-      "path": "exports/parts/59_part_1.stl",
-      "name": "Finger \u2014 part 1",
+      "path": "exports/parts/059_grabette_part_1.stl",
+      "name": "Grabette finger \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         -38.6,
@@ -601,8 +601,8 @@
       ]
     },
     {
-      "path": "exports/parts/60_bushing_6x8x4.stl",
-      "name": "Finger \u2014 bushing 6x8x4",
+      "path": "exports/parts/060_grabette_bushing_6x8x4.stl",
+      "name": "Grabette finger \u2014 bushing 6x8x4",
       "color": "#000000",
       "explode": [
         -33.7,
@@ -611,8 +611,8 @@
       ]
     },
     {
-      "path": "exports/parts/61_bushing_6x8x4.stl",
-      "name": "Finger \u2014 bushing 6x8x4",
+      "path": "exports/parts/061_grabette_bushing_6x8x4.stl",
+      "name": "Grabette finger \u2014 bushing 6x8x4",
       "color": "#000000",
       "explode": [
         -4.8,
@@ -621,9 +621,9 @@
       ]
     },
     {
-      "path": "exports/parts/62_sensor.stl",
-      "name": "Finger \u2014 sensor",
-      "color": "#c4e2f3",
+      "path": "exports/parts/062_grabette_sensor.stl",
+      "name": "Grabette finger \u2014 SENSOR AS5600L angle sensor",
+      "color": "#e5322d",
       "explode": [
         -6.6,
         -19.6,
@@ -631,8 +631,8 @@
       ]
     },
     {
-      "path": "exports/parts/63_part_1.stl",
-      "name": "Finger \u2014 part 1",
+      "path": "exports/parts/063_grabette_part_1.stl",
+      "name": "Grabette finger \u2014 part 1",
       "color": "#e6e6e6",
       "explode": [
         -9.6,
@@ -641,9 +641,9 @@
       ]
     },
     {
-      "path": "exports/parts/64_sensor.stl",
-      "name": "Finger \u2014 sensor",
-      "color": "#c4e2f3",
+      "path": "exports/parts/064_grabette_sensor.stl",
+      "name": "Grabette finger \u2014 SENSOR AS5600L angle sensor",
+      "color": "#e5322d",
       "explode": [
         -31.9,
         -19.6,
@@ -651,8 +651,8 @@
       ]
     },
     {
-      "path": "exports/parts/65_distal_r.stl",
-      "name": "Finger tip \u2014 distal r",
+      "path": "exports/parts/065_grabette_distal_r.stl",
+      "name": "Grabette finger tip \u2014 distal r",
       "color": "#ffffff",
       "explode": [
         -33.0,
@@ -661,8 +661,8 @@
       ]
     },
     {
-      "path": "exports/parts/66_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/066_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger tip \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -27.0,
@@ -671,8 +671,8 @@
       ]
     },
     {
-      "path": "exports/parts/67_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/067_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger tip \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -47.6,
@@ -681,9 +681,9 @@
       ]
     },
     {
-      "path": "exports/parts/68_radial_magnet.stl",
-      "name": "Finger tip \u2014 radial magnet",
-      "color": "#b6c2cc",
+      "path": "exports/parts/068_grabette_radial_magnet.stl",
+      "name": "Grabette finger tip \u2014 SENSOR distal-joint magnet",
+      "color": "#e5322d",
       "explode": [
         -27.0,
         -14.3,
@@ -691,8 +691,8 @@
       ]
     },
     {
-      "path": "exports/parts/69_distal_soft_tip.stl",
-      "name": "Finger tip \u2014 distal soft tip",
+      "path": "exports/parts/069_grabette_distal_soft_tip.stl",
+      "name": "Grabette finger tip \u2014 distal soft tip",
       "color": "#4d4d4d",
       "explode": [
         -37.3,
@@ -701,8 +701,8 @@
       ]
     },
     {
-      "path": "exports/parts/70_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/070_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger tip \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -35.3,
@@ -711,8 +711,8 @@
       ]
     },
     {
-      "path": "exports/parts/71_std00333_plast_tcb_torx_2_5x8.stl",
-      "name": "Finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "path": "exports/parts/071_grabette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Grabette finger tip \u2014 std00333 plast tcb torx 2 5x8",
       "color": "#e6e6e6",
       "explode": [
         -35.3,
@@ -721,13 +721,803 @@
       ]
     },
     {
-      "path": "exports/parts/72_plain_washer_normal_grade_a_m4.stl",
-      "name": "Finger tip \u2014 plain washer normal grade a m4",
+      "path": "exports/parts/072_grabette_plain_washer_normal_grade_a_m4.stl",
+      "name": "Grabette finger tip \u2014 plain washer normal grade a m4",
       "color": "#9aa5af",
       "explode": [
         -27.0,
         34.3,
         -35.8
+      ]
+    },
+    {
+      "path": "exports/parts/073_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -39.1,
+        17.4,
+        5.7
+      ]
+    },
+    {
+      "path": "exports/parts/074_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette body \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -29.9,
+        46.6,
+        -23.7
+      ]
+    },
+    {
+      "path": "exports/parts/075_gripette_part_1.stl",
+      "name": "Gripette body \u2014 part 1",
+      "color": "#e6e6e6",
+      "explode": [
+        -32.3,
+        8.5,
+        -3.8
+      ]
+    },
+    {
+      "path": "exports/parts/076_gripette_rasp_pi_0_2w.stl",
+      "name": "Gripette body \u2014 rasp pi 0 2w",
+      "color": "#f88701",
+      "explode": [
+        -5.9,
+        3.8,
+        6.3
+      ]
+    },
+    {
+      "path": "exports/parts/077_gripette_feetech_sts3215.stl",
+      "name": "Gripette body \u2014 DRIVE proximal servo STS3215 (ID 1)",
+      "color": "#d81b9a",
+      "explode": [
+        -29.9,
+        31.4,
+        -12.5
+      ]
+    },
+    {
+      "path": "exports/parts/078_gripette_hexalobular_socket_pan_head_screw_m2_5x0.stl",
+      "name": "Gripette body \u2014 hexalobular socket pan head screw m2 5x0 45 x 6",
+      "color": "#9aa5af",
+      "explode": [
+        -32.3,
+        6.4,
+        16.9
+      ]
+    },
+    {
+      "path": "exports/parts/079_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -20.6,
+        17.4,
+        5.7
+      ]
+    },
+    {
+      "path": "exports/parts/080_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -39.1,
+        45.5,
+        -16.3
+      ]
+    },
+    {
+      "path": "exports/parts/081_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        42.5,
+        48.3,
+        -46.9
+      ]
+    },
+    {
+      "path": "exports/parts/082_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -6.2,
+        -69.2,
+        6.8
+      ]
+    },
+    {
+      "path": "exports/parts/083_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -20.6,
+        45.5,
+        2.4
+      ]
+    },
+    {
+      "path": "exports/parts/084_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        20.5,
+        -5.1,
+        25.6
+      ]
+    },
+    {
+      "path": "exports/parts/085_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        42.5,
+        14.1,
+        -46.9
+      ]
+    },
+    {
+      "path": "exports/parts/086_gripette_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
+      "name": "Gripette body \u2014 hex socket head cap screw m4x0 70 x 8",
+      "color": "#9aa5af",
+      "explode": [
+        -25.5,
+        -18.6,
+        21.3
+      ]
+    },
+    {
+      "path": "exports/parts/087_gripette_gripper_base_r.stl",
+      "name": "Gripette body \u2014 gripper base r",
+      "color": "#ffffff",
+      "explode": [
+        5.7,
+        21.8,
+        -11.6
+      ]
+    },
+    {
+      "path": "exports/parts/088_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        26.2,
+        17.4,
+        -5.5
+      ]
+    },
+    {
+      "path": "exports/parts/089_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        26.3,
+        46.7,
+        -5.5
+      ]
+    },
+    {
+      "path": "exports/parts/090_gripette_hexalobular_socket_pan_head_screw_m2_5x0.stl",
+      "name": "Gripette body \u2014 hexalobular socket pan head screw m2 5x0 45 x 6",
+      "color": "#9aa5af",
+      "explode": [
+        19.9,
+        6.4,
+        -3.8
+      ]
+    },
+    {
+      "path": "exports/parts/091_gripette_hex_socket_head_cap_screw_m4x0_70_x_8.stl",
+      "name": "Gripette body \u2014 hex socket head cap screw m4x0 70 x 8",
+      "color": "#9aa5af",
+      "explode": [
+        15.0,
+        -18.6,
+        21.3
+      ]
+    },
+    {
+      "path": "exports/parts/092_gripette_grip_shell_r.stl",
+      "name": "Gripette body \u2014 grip shell r",
+      "color": "#ffffff",
+      "explode": [
+        2.1,
+        -33.4,
+        -3.5
+      ]
+    },
+    {
+      "path": "exports/parts/093_gripette_arducam_fisheye.stl",
+      "name": "Gripette body \u2014 arducam fisheye",
+      "color": "#3c3c3c",
+      "explode": [
+        6.9,
+        -56.5,
+        5.5
+      ]
+    },
+    {
+      "path": "exports/parts/094_gripette_bulkhead.stl",
+      "name": "Gripette body \u2014 bulkhead",
+      "color": "#fab601",
+      "explode": [
+        32.9,
+        32.1,
+        -4.4
+      ]
+    },
+    {
+      "path": "exports/parts/095_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -39.1,
+        45.5,
+        2.4
+      ]
+    },
+    {
+      "path": "exports/parts/096_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        19.9,
+        -44.6,
+        15.7
+      ]
+    },
+    {
+      "path": "exports/parts/097_gripette_cameras_holder_r.stl",
+      "name": "Gripette body \u2014 cameras holder r",
+      "color": "#43484d",
+      "explode": [
+        -2.8,
+        -37.1,
+        16.6
+      ]
+    },
+    {
+      "path": "exports/parts/098_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette body \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -20.6,
+        45.5,
+        -16.3
+      ]
+    },
+    {
+      "path": "exports/parts/099_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        55.7,
+        31.2,
+        -42.3
+      ]
+    },
+    {
+      "path": "exports/parts/100_gripette_grip_soft_tip_r.stl",
+      "name": "Gripette body \u2014 grip soft tip r",
+      "color": "#4d4d4d",
+      "explode": [
+        26.2,
+        31.2,
+        -44.4
+      ]
+    },
+    {
+      "path": "exports/parts/101_gripette_part_1.stl",
+      "name": "Gripette body \u2014 part 1",
+      "color": "#e6e6e6",
+      "explode": [
+        19.9,
+        8.5,
+        16.9
+      ]
+    },
+    {
+      "path": "exports/parts/102_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -6.2,
+        -44.6,
+        15.7
+      ]
+    },
+    {
+      "path": "exports/parts/103_gripette_hub_dyn.stl",
+      "name": "Gripette body \u2014 hub dyn",
+      "color": "#9dcfed",
+      "explode": [
+        -6.2,
+        11.9,
+        6.6
+      ]
+    },
+    {
+      "path": "exports/parts/104_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        19.9,
+        -69.2,
+        6.8
+      ]
+    },
+    {
+      "path": "exports/parts/105_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette body \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -6.5,
+        -5.1,
+        25.6
+      ]
+    },
+    {
+      "path": "exports/parts/106_gripette_611_00020_1.stl",
+      "name": "Gripette body \u2014 611 00020 1",
+      "color": "#000000",
+      "explode": [
+        3.7,
+        -16.5,
+        1.7
+      ]
+    },
+    {
+      "path": "exports/parts/107_gripette_611_00020.stl",
+      "name": "Gripette body \u2014 611 00020",
+      "color": "#000000",
+      "explode": [
+        -14.3,
+        -16.5,
+        1.7
+      ]
+    },
+    {
+      "path": "exports/parts/108_gripette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Gripette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 1",
+      "color": "#000000",
+      "explode": [
+        3.4,
+        -29.5,
+        8.0
+      ]
+    },
+    {
+      "path": "exports/parts/109_gripette_sr_lens_py058.stl",
+      "name": "Gripette body \u2014 sr lens py058",
+      "color": "#43484d",
+      "explode": [
+        -5.3,
+        -18.6,
+        -2.0
+      ]
+    },
+    {
+      "path": "exports/parts/110_gripette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Gripette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802",
+      "color": "#000000",
+      "explode": [
+        -18.4,
+        -7.7,
+        8.0
+      ]
+    },
+    {
+      "path": "exports/parts/111_gripette_612_00001_tim_thermal_oak_d_poe.stl",
+      "name": "Gripette body \u2014 612 00001 tim thermal oak d poe",
+      "color": "#98aaaf",
+      "explode": [
+        -5.9,
+        -18.2,
+        11.7
+      ]
+    },
+    {
+      "path": "exports/parts/112_gripette_lens_adhesive.stl",
+      "name": "Gripette body \u2014 lens adhesive",
+      "color": "#43484d",
+      "explode": [
+        -5.3,
+        -18.6,
+        -1.7
+      ]
+    },
+    {
+      "path": "exports/parts/113_gripette_606_00021_sr_back_cover_py074.stl",
+      "name": "Gripette body \u2014 606 00021 sr back cover py074",
+      "color": "#43484d",
+      "explode": [
+        -5.3,
+        -18.6,
+        9.9
+      ]
+    },
+    {
+      "path": "exports/parts/114_gripette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Gripette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 2",
+      "color": "#000000",
+      "explode": [
+        -27.5,
+        -30.3,
+        8.0
+      ]
+    },
+    {
+      "path": "exports/parts/115_gripette_602_00009_phillips_flat_head_m2_x_0_40mm.stl",
+      "name": "Gripette body \u2014 602 00009 phillips flat head  m2 x 0 40mm thread  14mm long screw 92010a802 3",
+      "color": "#000000",
+      "explode": [
+        17.0,
+        -6.9,
+        8.0
+      ]
+    },
+    {
+      "path": "exports/parts/116_gripette_606_00020_sr_front_cover.stl",
+      "name": "Gripette body \u2014 606 00020 sr front cover",
+      "color": "#43484d",
+      "explode": [
+        -5.3,
+        -18.6,
+        2.6
+      ]
+    },
+    {
+      "path": "exports/parts/117_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -16.2,
+        38.6,
+        -18.2
+      ]
+    },
+    {
+      "path": "exports/parts/118_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -49.8,
+        35.6,
+        -35.4
+      ]
+    },
+    {
+      "path": "exports/parts/119_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -23.1,
+        7.0,
+        -24.7
+      ]
+    },
+    {
+      "path": "exports/parts/120_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -22.5,
+        3.5,
+        -11.9
+      ]
+    },
+    {
+      "path": "exports/parts/121_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -39.4,
+        7.0,
+        -16.0
+      ]
+    },
+    {
+      "path": "exports/parts/122_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -16.2,
+        3.5,
+        -18.2
+      ]
+    },
+    {
+      "path": "exports/parts/123_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -24.7,
+        35.6,
+        -27.6
+      ]
+    },
+    {
+      "path": "exports/parts/124_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -49.8,
+        7.0,
+        -35.4
+      ]
+    },
+    {
+      "path": "exports/parts/125_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -16.2,
+        38.6,
+        -5.6
+      ]
+    },
+    {
+      "path": "exports/parts/126_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette finger \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -26.4,
+        2.9,
+        -36.2
+      ]
+    },
+    {
+      "path": "exports/parts/127_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette finger \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -26.4,
+        39.2,
+        -36.2
+      ]
+    },
+    {
+      "path": "exports/parts/128_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -45.1,
+        36.5,
+        -46.4
+      ]
+    },
+    {
+      "path": "exports/parts/129_gripette_proximal_shell_r.stl",
+      "name": "Gripette finger \u2014 proximal shell r",
+      "color": "#ffffff",
+      "explode": [
+        -30.7,
+        -7.3,
+        -29.1
+      ]
+    },
+    {
+      "path": "exports/parts/130_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -9.9,
+        3.5,
+        -11.9
+      ]
+    },
+    {
+      "path": "exports/parts/131_gripette_proximal_bot_r.stl",
+      "name": "Gripette finger \u2014 proximal bot r",
+      "color": "#ffffff",
+      "explode": [
+        -30.7,
+        40.4,
+        -29.1
+      ]
+    },
+    {
+      "path": "exports/parts/132_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -16.2,
+        3.5,
+        -5.6
+      ]
+    },
+    {
+      "path": "exports/parts/133_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -9.9,
+        38.6,
+        -11.9
+      ]
+    },
+    {
+      "path": "exports/parts/134_gripette_feetech_pt_screw_2x6.stl",
+      "name": "Gripette finger \u2014 feetech pt screw 2x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -41.0,
+        35.6,
+        -19.0
+      ]
+    },
+    {
+      "path": "exports/parts/135_gripette_feetech_sts3215.stl",
+      "name": "Gripette finger \u2014 DRIVE distal servo STS3215 (ID 2)",
+      "color": "#d81b9a",
+      "explode": [
+        -39.5,
+        21.3,
+        -36.1
+      ]
+    },
+    {
+      "path": "exports/parts/136_gripette_cross_bar.stl",
+      "name": "Gripette finger \u2014 cross bar",
+      "color": "#eaeaea",
+      "explode": [
+        -24.1,
+        21.1,
+        -38.1
+      ]
+    },
+    {
+      "path": "exports/parts/137_gripette_proximal_top_r.stl",
+      "name": "Gripette finger \u2014 proximal top r",
+      "color": "#ffffff",
+      "explode": [
+        -30.7,
+        0.4,
+        -29.1
+      ]
+    },
+    {
+      "path": "exports/parts/138_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -22.5,
+        38.6,
+        -11.9
+      ]
+    },
+    {
+      "path": "exports/parts/139_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -40.6,
+        38.1,
+        -41.4
+      ]
+    },
+    {
+      "path": "exports/parts/140_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -45.9,
+        3.8,
+        -62.1
+      ]
+    },
+    {
+      "path": "exports/parts/141_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -43.2,
+        3.6,
+        -32.9
+      ]
+    },
+    {
+      "path": "exports/parts/142_gripette_distal_soft_tip.stl",
+      "name": "Gripette finger tip \u2014 distal soft tip",
+      "color": "#4d4d4d",
+      "explode": [
+        -47.9,
+        20.9,
+        -67.9
+      ]
+    },
+    {
+      "path": "exports/parts/143_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -43.2,
+        38.1,
+        -32.9
+      ]
+    },
+    {
+      "path": "exports/parts/144_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -40.6,
+        3.6,
+        -41.4
+      ]
+    },
+    {
+      "path": "exports/parts/145_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -45.9,
+        38.0,
+        -62.1
+      ]
+    },
+    {
+      "path": "exports/parts/146_gripette_distal_r.stl",
+      "name": "Gripette finger tip \u2014 distal r",
+      "color": "#ffffff",
+      "explode": [
+        -44.6,
+        20.9,
+        -45.4
+      ]
+    },
+    {
+      "path": "exports/parts/147_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -34.6,
+        3.6,
+        -30.3
+      ]
+    },
+    {
+      "path": "exports/parts/148_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -32.0,
+        3.6,
+        -38.8
+      ]
+    },
+    {
+      "path": "exports/parts/149_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -34.6,
+        38.1,
+        -30.3
+      ]
+    },
+    {
+      "path": "exports/parts/150_gripette_std00333_plast_tcb_torx_2_5x8.stl",
+      "name": "Gripette finger tip \u2014 std00333 plast tcb torx 2 5x8",
+      "color": "#e6e6e6",
+      "explode": [
+        -58.2,
+        20.9,
+        -55.5
+      ]
+    },
+    {
+      "path": "exports/parts/151_gripette_feetech_screw_m3x6.stl",
+      "name": "Gripette finger tip \u2014 feetech screw m3x6",
+      "color": "#e6e6e6",
+      "explode": [
+        -32.0,
+        38.1,
+        -38.8
       ]
     }
   ]

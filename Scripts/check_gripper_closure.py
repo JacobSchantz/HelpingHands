@@ -126,7 +126,7 @@ def main():
     parser.add_argument('--json', action='store_true')
     args = parser.parse_args()
     catalog = json.loads((GALLERY / 'catalog.json').read_text())
-    report = [measure(k, v, catalog) for k, v in poses().items() if not k.startswith('_')]
+    report = [measure(k, v, catalog) for k, v in poses().items() if not k.startswith('_') and not v.get('single_finger')]
     if args.json:
         print(json.dumps(report, indent=1))
         return
