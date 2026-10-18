@@ -1,0 +1,19 @@
+{
+  "id": "voice-6663a540",
+  "commit_id": "",
+  "description": "Gripper Gen 11: next iteration of the Generalist-matched yellow fingers, built on Opus 5.5 first, then a second pass by GPT-6 Astra. Jake (voice): 'For the next change you should be doing version 11. Once Opus 5.5 finishes it, we can give it to Astra for a pass as well.' MODEL: Opus 5.5 (claude-opus-5-5) builds it. When it's done, a second worker on GPT-6 Astra (codex harness) does a refinement pass on the same Gen 11 (keep both outputs viewable, e.g. Gen 11 Opus and Gen 11 Astra). Start from the better of Gen 9 and Gen 10. Changes: (1) inner-face ridges are very shallow grooves, about 0.5 to 1 mm deep, cut straight across the full width of the inner gripping face, finely spaced as in the photos; (2) refine the shape ever so slightly against the reference photos cad/reference/generalist_gripper_gen6_*.png (the photos are the source of truth), especially skinny, pointed tips; (3) all holes go through; (4) working open/close slider and rotation in the gallery. Build/review loop with a separate reviewer, up to 3 rounds per model.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T22:59:24.000Z",
+  "updated_at": "2026-10-18T22:59:24.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
