@@ -72,8 +72,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gen 9's yellow gripper fingers have cut-in ridge grooves on the inner faces, but Jake wants very fine, shallow raised texture sitting almost on the surface, as in the Generalist photos. Replace the grooves with that texture and refine the finger shape slightly further against the reference photos, using the same build-review loop.",
-  "summary_sha": "01666aa01bf90487",
+  "summary": "Gen 9 of the yellow-finger gripper, built by Sonnet 5.5, has deep cut-in ridges that Jake wants as very shallow full-width grooves. That ridge and shape feedback now goes into the new Gen 11 build, so Gen 9 stays unchanged and goes back to Jake.",
+  "summary_sha": "1c88b9b61ea6100a",
   "artifacts": [
     {
       "kind": "web",

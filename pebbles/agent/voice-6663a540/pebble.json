@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Build Gen 11 of the yellow gripper fingers from the better of Gen 9 and Gen 10, with Opus 5.5 first, then GPT-6 Astra. Add shallow full-width ridges and through-holes, match the gen6 photos, and keep both outputs viewable with working slider and rotation.",
+  "summary_sha": "6663a540860801ff"
 }
