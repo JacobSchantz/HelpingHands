@@ -1,0 +1,9 @@
+{"title": "R1 · sharp tip",
+ "changes": ["Tip rebuilt as a skinny sharp point in plan view and as a knife-edge wedge in side view: 1.35 mm wide x 1.5 mm thick 0.5 mm behind the point (Gen 7: 3.7 x 4.8), 3.7 x 2.3 at 2 mm back (Gen 7: 7.9 x 5.3).",
+             "Wedge now eases in from the black dot with zero slope, so no crease where it starts.",
+             "Outline is a smoothed resampled contour, not a coarse polygon: the kink on the root's outer edge is gone.",
+             "All holes round (the three bar 'ovals' now read round); slots narrower and longer, 3.1 x 1.3 mm (about 2.4:1).",
+             "Root hole that touched the edge moved onto the hex grid with a wall around it.",
+             "Patch splice fixed: no self-overlapping hairline loops in the outline."],
+ "score": null, "verdict": "pending reviewer",
+ "review": []}

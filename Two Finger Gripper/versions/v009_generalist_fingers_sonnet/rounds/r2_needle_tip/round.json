@@ -1,0 +1,36 @@
+{
+ "title": "R2 \u00b7 needle tip",
+ "changes": [
+  "Distal blade redrawn: nearly straight inner edge, outer edge raised, long taper into a needle point. Point is 0.6 mm wide x 1.6 mm thick 1 mm back, 1.1 x 2.1 at 2 mm (R1: 2.2 x 1.8 and 3.7 x 2.3; Gen 7: 5.4 x 5.0 and 7.9 x 5.3). The tip is no longer rounded by the 0.8 mm smoothing offset.",
+  "Blade width at the dot cut from about 1.8x to about 1.3x the shank, and about 1x a little further out.",
+  "Ridges: 11 V teeth in a continuous row along the drawn inner edge (0.9 mm deep, 1.3 mm mouth, through the full thickness), kept beside the 6 through-slots.",
+  "Head honeycomb tighter: holes as large as the walls allow (up to 17 px, i.e. 3.4 mm). Shank holes follow one regular taper, 13.5 px down to 8 px, instead of alternating big and small. The black dot stays the single larger hole.",
+  "Inner-edge shoulders mid-shank smoothed into a swell and a ramped step; blade-root step on the outer edge made a longer S-curve. This removes the steep dark wall seen in top.png.",
+  "Base hook redrawn as a rounded J-claw with a round bowl and a fat rounded toe.",
+  "Wall bands: finer outline (167 points, $fn 48) and a 160-step wedge instead of 40."
+ ],
+ "score": 7.5,
+ "verdict": "accepted blade-width rejection; next round r3",
+ "review": [
+  "Outer blade edge nearly straight; photos show a gentle convex belly to about 60% of the blade.",
+  "Tip still 1.6 mm thick at 1 mm back.",
+  "Ridges too coarse, read as a saw.",
+  "Mid-shank holes smaller and further apart than the photo's near-continuous chain.",
+  "Mid-shank step slightly too ramped and too far toward the tip.",
+  "Closed tips pinch with a visible gap near the points."
+ ],
+ "r1_review": {
+  "score": 5.5,
+  "accepted": [
+   "Tip too fat/short taper; needle point under 1 mm.",
+   "Continuous row of ridges (8-12).",
+   "Denser head honeycomb; regular hole taper.",
+   "Blocky shoulders and the dark wall near y=550 in top.png.",
+   "Base hook should be a rounded J-claw.",
+   "Faceting bands on the extrusion walls."
+  ],
+  "partly_rejected": [
+   "Claim 1's blade at 1/3 to 1/2 of the shank width: the top, robot and target photos show a dagger about as wide as the shank, but the two_hands photo (the trace source) shows the blade about 1.7x the shank, and the black dot needs a wall around it. So the blade is about 1.3x the shank at the dot and about 1x further out. The point, the long taper and the under-1 mm tip were taken as asked."
+  ]
+ }
+}

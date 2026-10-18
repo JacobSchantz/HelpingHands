@@ -1,0 +1,26 @@
+{
+  "title": "R3 \u00b7 belly and chisel",
+  "changes": [
+    "Convex belly put back on the outer blade edge, bottoming near 60% of the blade (y 609 vs 601 px before), then the taper into the needle point. The inner edge is now one straight line from the first tooth to the point.",
+    "Chisel tip: tip_thick 0.5 mm and a flatter wedge near the point. Point is 0.4 mm wide x 0.6 mm thick at 0.5 mm back, 0.8 x 0.8 at 1 mm, 1.5 x 1.1 at 2 mm (r2: 0.3 x 1.4, 0.6 x 1.6, 1.1 x 2.1).",
+    "Ridges: 21 fine V teeth, 0.35 mm deep, 0.7 mm mouth, 1.0 mm pitch (r2: 11 at 0.9 / 1.3 / 1.7), on the inner gripping edge only. Pitch 5.2 px chosen because 5.0 to 5.1 gave non-manifold meshes.",
+    "Holes: shank chain 15 px down to 9.5 px (r2: 13.5 to 8), so neighbours nearly touch; head honeycomb snapped 60% toward a hex lattice and holes as large as the walls allow (up to 18 px = 3.6 mm).",
+    "Mid-shank step on the inner edge made steeper and moved about 7 px toward the root.",
+    "Closed pose: closed_trim turns each finger 3.3 deg outwards of the photo pose. The blades now sit 1.0 mm apart at the point and 3.0 mm at the first tooth (r2: 1 mm to about 5.8 mm). Full flush (5.5 deg) is impossible: the inner shank swells at about z=54 mm would collide, so this is the largest turn that clears."
+  ],
+  "score": "8.5/10",
+  "verdict": "pending reviewer",
+  "review": "Final independent review (Sonnet 5.5): 8.5/10. Fixed: outer belly, chisel tip, fine ridges, step; mostly fixed: hole chain/honeycomb; closed gap improved (1.0 mm, collision-limited). Remaining: belly slightly lean vs two_hands; head honeycomb a bit irregular/small; J-claw toe thin; tip teeth slightly ragged in iso (slicer-check before printing); tip ~0.8 mm wide at 1 mm back.",
+  "r2_review": {
+    "score": 7.5,
+    "accepted": [
+      "1 belly",
+      "2 thinner tip",
+      "3 finer ridges",
+      "4 bigger holes",
+      "5 mid-shank step",
+      "6 closed alignment (partly: see change 6)"
+    ],
+    "rejected": []
+  }
+}

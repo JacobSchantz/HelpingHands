@@ -1,0 +1,52 @@
+[
+  {
+    "out": "exports/assembly.stl",
+    "passed": true,
+    "log": "ECHO: jaw_psi = -5.53624, tip_gap = 1, edge_gap_at_first_tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.042\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      59\n   Vertices:     8842\n   Facets:      17916"
+  },
+  {
+    "out": "exports/parts/left.stl",
+    "passed": true,
+    "log": "ECHO: jaw_psi = -5.53624, tip_gap = 1, edge_gap_at_first_tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.038\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  },
+  {
+    "out": "exports/parts/right.stl",
+    "passed": true,
+    "log": "ECHO: jaw_psi = -5.53624, tip_gap = 1, edge_gap_at_first_tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  },
+  {
+    "out": "exports/print/left.stl",
+    "passed": true,
+    "log": "ECHO: jaw_psi = -5.53624, tip_gap = 1, edge_gap_at_first_tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.036\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  },
+  {
+    "out": "exports/print/right.stl",
+    "passed": true,
+    "log": "ECHO: jaw_psi = -5.53624, tip_gap = 1, edge_gap_at_first_tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 3\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.038\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  },
+  {
+    "out": "previews/top.png",
+    "passed": true,
+    "log": "tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.174\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      59\n   Vertices:     8842\n   Facets:      17916"
+  },
+  {
+    "out": "previews/open.png",
+    "passed": true,
+    "log": "tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.172\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      59\n   Vertices:     8842\n   Facets:      17916"
+  },
+  {
+    "out": "previews/iso.png",
+    "passed": true,
+    "log": "tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.168\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      59\n   Vertices:     8842\n   Facets:      17916"
+  },
+  {
+    "out": "previews/finger.png",
+    "passed": true,
+    "log": "tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 3\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.159\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  },
+  {
+    "out": "previews/edge.png",
+    "passed": true,
+    "log": "tooth = 2.9567\nGeometries in cache: 110\nGeometry cache size in bytes: 1282328\nCGAL Polyhedrons in cache: 3\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.158\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      30\n   Vertices:     4421\n   Facets:       8958"
+  }
+]
