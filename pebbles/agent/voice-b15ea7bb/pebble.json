@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T22:57:55.000Z",
+      "result": "failed",
+      "notes": "Jake (voice) CORRECTION on the ridges: 'I think they are cuts, but very shallow, maybe one millimeter or even less. They travel the whole width of the gripper.' So: shallow grooves (about 0.5 to 1 mm deep) cut straight across the full width of the inner gripping face, finely spaced, matching the photos. Not raised texture, and not the deep cuts from the last version. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T22:56:46.000Z",
       "result": "failed",
       "notes": "Jake (voice) on Gen 9 and Gen 10: 'We're making progress, I like that. Nine and ten are pretty similar, which probably makes sense. When I said ridges I don't mean cuts like that. If you reference it, they're just very tiny little texture, almost on top of the surface. It's kind of the right idea but not exactly that. Focus on the ridges, and hone the shape again, maybe ever so slightly, referencing the Generalist ones.' Asks: replace the cut-in grooves with a very fine, shallow raised texture on the inner gripping faces, matching the photos; make a slight further shape refinement against the reference photos (cad/reference/generalist_gripper_gen6_*.png). Same build/review loop, up to 3 rounds. (Keep building this one on Opus 5.5 if routing allows.) .",
@@ -46,7 +57,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T21:57:20.000Z",
-  "updated_at": "2026-10-18T22:56:46.000Z",
+  "updated_at": "2026-10-18T22:57:55.000Z",
   "user_request": {
     "name": "Jake"
   },
