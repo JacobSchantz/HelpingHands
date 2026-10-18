@@ -168,8 +168,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The Gen 6 handheld gripper fingers still don't match the Generalist reference photo: yellow plates with rows of small perforated cutouts, a wavy inner grip edge, and pointed tips. Copy those finger shapes and cutouts as exactly as possible, keeping the gear housing above the hand so the thumb-index web stays clear.",
-  "summary_sha": "63441bdbbf479a93",
+  "summary": "The Gen 6 handheld gripper needs its gear and servo mounting moved above the hand, keeping the thumb-index web clear, with fingers copied from the Generalist photos. Fingers should be hooked, pocketed yellow jaws that touch only at the pointed tips when closed, matching the reference images over any spoken description.",
+  "summary_sha": "68b5d98e7136b803",
   "artifacts": [
     {
       "kind": "image",
