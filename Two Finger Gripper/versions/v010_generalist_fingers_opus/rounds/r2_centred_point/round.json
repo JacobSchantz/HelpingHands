@@ -1,0 +1,12 @@
+{"title": "R2 · centred point",
+ "changes": ["The point is on the dot-to-nub centreline, and the yellow ends at the nub's centre.",
+             "Both edges follow one convex width curve from the dot, g(f)=(1-f)(1+1.31f), with no corner.",
+             "Ridges are cut only into the gripping face, with a 1 mm lip at each face, and follow the curved jaw edge.",
+             "The beak is symmetric on both faces and ends in a rounded nub about 2 mm across."],
+ "score": 7.5, "verdict": "yes",
+ "review": ["Ridges break out of the edge where the beak thins.",
+            "The outer edge is slightly too lean at the 3rd-5th slots.",
+            "The beak looks one-sided in edge.png. That turned out to be the 75 deg render camera; it is symmetric edge-on.",
+            "Give the plan point about a 0.5 mm radius so it doesn't read as a spear.",
+            "Ridges stop short of the point.",
+            "Fillet the shoulder step above the black dot."]}

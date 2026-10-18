@@ -1,0 +1,11 @@
+{"title": "R3 · fuller blade, textured face",
+ "changes": ["Ridge cuts are intersected with the beak shrunk 1 mm per face, so the lip follows the taper. The ridges run to ~92% of the way to the point.",
+             "The outer edge is fuller (A=2.0 on the outer edge, 1.31 on the jaw edge).",
+             "The edge view is truly edge-on; the beak is symmetric.",
+             "The point has a 0.5 mm radius in plan, and concave corners get 1.2 mm fillets."],
+ "score": 8, "verdict": "yes",
+ "review": ["Ridge ends nick the face edge near the tip, and there is a possible pinhole at the 4th-5th ridge from the point. genus.py confirmed two extra through-holes where grooves met slots.",
+            "The outer edge is still ~1.5 mm lean at slots 3-5.",
+            "The shoulder step above the dot still reads square. It wants a 2-3 mm fillet or a ramp.",
+            "Ridge coverage is fine.",
+            "The beak is symmetric with a rounded nub, which matches side.png and robot.png."]}

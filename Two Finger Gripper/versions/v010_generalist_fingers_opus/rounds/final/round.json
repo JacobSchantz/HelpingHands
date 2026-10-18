@@ -1,0 +1,5 @@
+{"title": "Final · after the R3 review",
+ "changes": ["Fixed the two pinholes: each groove is shallower where a slot is close, keeping a wall of at least 0.3 mm, and genus.py now counts exactly the designed 33 through-holes.",
+             "Outer edge fuller again (A=2.6). The slot row moved 2 px outboard so all 11 grooves fit.",
+             "Not re-reviewed (Jake asked for up to 3 rounds). The shoulder fillet note is still open."],
+ "score": null, "verdict": "not reviewed", "review": []}
