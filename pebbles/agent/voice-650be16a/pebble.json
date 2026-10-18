@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Gen 6 handheld gripper's gear and servo mounting crowds the thumb-index web, which sits between his fingers. Move all mounting above the hand and copy the Generalist gripper fingers exactly from the reference images.",
+  "summary_sha": "650be16a92db2901"
 }
