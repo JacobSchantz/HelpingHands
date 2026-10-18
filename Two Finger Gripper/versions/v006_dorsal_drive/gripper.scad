@@ -1,9 +1,10 @@
 /* GENERALIST GRIPPER — GENERATION 6 / original inspection CAD, mm.
    Everything that is not a finger lives ABOVE the hand: housing, gears and servo sit
    on the back of the hand (+Y), and only two pivot columns drop into the thumb-index
-   plane. Fingers are redrawn from the Generalist photos: flat yellow plates, hexagon
-   honeycomb cutouts, outer knuckle bump, inward-angled lower blade, black pointed tip,
-   grey dots. ONE servo -> right gear -> left gear, 1:1 counter-rotation. No sensor.
+   plane. Fingers copy the Generalist target photo: yellow crescent
+   plates with rows of small blind hex perforations, a scalloped inner grip edge, a small
+   step before the blade, a solid pad with a grey dot, and a small black point.
+   ONE servo -> right gear -> left gear, 1:1 counter-rotation. No sensor.
    Axes: X across (right jaw +X), Z along the fingers (tips +Z), +Y = dorsal / up. */
 $fn=48;
 part="assembly"; // assembly | left | right | left_gear | right_gear | left_tip | right_tip | housing_base | housing_lid | motor | collision | none | viewer_...
@@ -25,12 +26,15 @@ shoulder_d=14;            // stops the jaw rising into the housing floor
 hex_af=8;                 // jaw column hex that keys the gear
 hex_clear=0.3;
 pin_d=4;                  // steel axle pin, not modeled
-cell=4.6;                 // honeycomb cell across flats
-cell_wall=1.3;
-rim=2.2;                  // solid border around the honeycomb
-tip_start=97;             // black tip insert begins here
-magnets=[[6,63],[-4.5,86]];    // grey dots in the photos; 4x2 mm disc pockets
-straps=[[8,24],[8.5,44]];      // finger strap slots near the outer edge
+cell=2.4;                 // perforation: small blind hex pockets, across flats
+cell_wall=1.5;
+pocket=3.5;               // pocket depth from each face; leaves a 3 mm centre web
+rim=1.2;                  // solid border around the perforated band
+tip_start=104;            // small black tip insert begins here
+magnets=[[7,52],[-3.5,84]];    // grey dots in the photos; 4x2 mm disc pockets
+pads=[[[-12,78],[6,92]]];      // solid flat on the lower blade around the lower dot (ziptie_1)
+straps=[[11,22],[13,40]];      // finger strap slots near the outer edge
+tip_hole=[-9.5,99];            // small through hole near the point (target photo)
 
 function inv(t)=tan(t)-t*PI/180;
 function flank_angle(r)=90/teeth+(inv(pressure)-inv(acos(pitch_r*cos(pressure)/r)))*180/PI;
@@ -57,40 +61,47 @@ module gear2d(phase=0) {
 
 // ---------- finger: local frame, pivot at origin, inner (gripping) side is -X ----------
 tip_point=[-13.3,113];
+function wave(z)=-9.2-1.5*sin(360*(z-30)/18);        // scalloped inner grip edge
 module finger_profile() {
-    // Traced by eye from ziptie_1.jpg / human_jar_01.png: straight shank, outer knuckle
-    // bump at ~55% length, small inner notch opposite it, lower blade swinging inward
-    // to a pointed tip. Proportions are estimated from photos, not measured.
+    // Traced by eye from cad/reference/generalist_gripper_gen6_target.png and ziptie_1.jpg:
+    // a crescent that bulges outward to ~16 mm, a scalloped (wavy) inner grip edge, a
+    // small step before the blade, then a point. Proportions estimated, not measured.
     union() {
         circle(r=9);
         polygon(concat(
-            curve([9,2],[11,14],[10.8,36],[10,50]),          // outer shank
-            curve([10,50],[11.5,56],[14,60],[12.5,65]),      // knuckle bump
-            curve([12.5,65],[10,72],[3,86],[-6,100]),        // lower blade, outer
-            curve([-6,100],[-9,105],[-11.5,110],tip_point),  // into the point
+            curve([9,2],[13,14],[16.5,32],[16.5,50]),          // outer crescent
+            curve([16.5,50],[16.5,66],[10,84],[0,100]),
+            curve([0,100],[-5,105],[-10,110],tip_point),       // into the point
             curve(tip_point,[-13.9,111],[-14,106],[-13.3,100]),
-            curve([-13.3,100],[-11,90],[-7,78],[-5,69]),     // lower blade, inner
-            curve([-5,69],[-4.4,67.8],[-3.8,66.6],[-3.6,65.5]),  // small inner step
-            curve([-3.6,65.5],[-4.2,63.5],[-5.2,61.5],[-5.6,60]),
-            curve([-5.6,60],[-6.6,48],[-7.2,24],[-7,2])));   // inner shank
+            curve([-13.3,100],[-12.8,97],[-12.2,95],[-11.2,94]),   // step before the blade
+            curve([-11.2,94],[-10.4,93.4],[-10,92.6],[-10.1,91.5]),
+            [for(z=[90:-1:30]) [wave(z)-(z>84?(z-84)*0.18:0),z]],  // three scallops
+            curve([-9.2,30],[-8.4,22],[-7.4,12],[-7,2])));        // inner shank
     }
 }
-module hex_grid() {
+module hex_cell() {rotate(30) circle(d=cell/cos(30),$fn=6);}
+module hex_centres() {
     p=cell+cell_wall;
-    for(j=[-1:22],i=[-6:6]) translate([i*p+(j%2)*p/2,j*p*sqrt(3)/2])
-        rotate(30) circle(d=cell/cos(30),$fn=6);
+    for(j=[-2:50],i=[-10:10]) translate([i*p+(j%2)*p/2,j*p*sqrt(3)/2]) square(0.02,center=true);
 }
-module honeycomb2d() {
-    // Cutouts stay inside a solid rim and clear of the pivot, dots, strap slots and tip.
-    intersection() {
-        hex_grid();
-        difference() {
-            offset(r=-rim) finger_profile();
-            circle(r=13);
-            translate([-30,tip_start-9]) square([60,40]);
-            for(m=magnets) translate(m) circle(r=4.6);
-            for(s=straps) translate(s) square([6.5,9.5],center=true);
+module perforation2d() {
+    // Rows of small hex pockets inside a solid rim, clear of the pivot, dots, pad,
+    // strap slots, tip hole and the tip tongue. Whole cells only: centres are kept
+    // where a full cell fits, then each centre is grown back into a hex.
+    minkowski() {
+        intersection() {
+            hex_centres();
+            offset(delta=-cell/sqrt(3)) difference() {
+                offset(r=-rim) finger_profile();
+                circle(r=12);
+                translate([-30,tip_start-8]) square([60,40]);
+                for(m=magnets) translate(m) circle(r=4.2);
+                for(q=pads) translate(q[0]) square(q[1]-q[0]);
+                for(s=straps) translate(s) square([6,9.5],center=true);
+                translate(tip_hole) circle(r=2.6);
+            }
         }
+        hex_cell();
     }
 }
 module tongue2d() {intersection(){offset(r=-2) finger_profile();translate([-30,tip_start-3]) square([60,8]);}}
@@ -100,9 +111,10 @@ module finger_plate() {
             xz(plate) intersection(){finger_profile();translate([-30,-20]) square([60,tip_start+20]);}
             xz(plate/2) tongue2d();
         }
-        xz(plate+2) honeycomb2d();
+        for(s=[-1,1]) translate([0,s*(plate/2-pocket/2+0.5),0]) xz(pocket+1) perforation2d();
         for(m=magnets,s=[-1,1]) translate([m[0],s*(plate/2-1),m[1]]) rotate([90,0,0]) cylinder(d=4.2,h=2.2,center=true,$fn=24);
         for(s=straps) translate([s[0],0,s[1]]) xz(plate+2) hull() for(dz=[-2,2]) translate([0,dz]) circle(d=2.8,$fn=16);
+        translate([tip_hole[0],0,tip_hole[1]]) xz(plate+2) circle(d=2.2,$fn=16);
     }
 }
 module tip_insert() {

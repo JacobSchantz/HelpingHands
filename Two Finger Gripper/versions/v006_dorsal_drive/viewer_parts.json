@@ -22,7 +22,7 @@
     },
     {
       "path": "exports/parts/left.stl",
-      "name": "Left finger \u2014 honeycomb plate, mirror of the right",
+      "name": "Left finger \u2014 perforated crescent plate, mirror of the right",
       "color": "#efb83b",
       "explode": [
         -45,
@@ -32,7 +32,7 @@
     },
     {
       "path": "exports/parts/right.stl",
-      "name": "Right finger \u2014 honeycomb plate",
+      "name": "Right finger \u2014 perforated crescent plate",
       "color": "#efb83b",
       "explode": [
         45,

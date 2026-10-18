@@ -128,7 +128,7 @@
         43,
         44
       ],
-      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.322\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -101\n   Vertices:     2818\n   Facets:       5228"
+      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.315\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -101\n   Vertices:     2818\n   Facets:       5228"
     },
     {
       "name": "gear_flank_engages_minus_1deg",
@@ -181,7 +181,7 @@
         43,
         44
       ],
-      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.353\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -95\n   Vertices:     2882\n   Facets:       5380"
+      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.311\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -95\n   Vertices:     2882\n   Facets:       5380"
     },
     {
       "name": "tips_do_not_touch_when_closed",
@@ -194,7 +194,7 @@
   "limitations": [
     "45 sampled poses, not continuous motion or strength proof.",
     "+/-1 degree follower misphase overlaps at all poses: bounds nominal freeplay, not measured backlash.",
-    "Finger outline and honeycomb are estimated by eye from photos; no dimensions were measured from a real Generalist part.",
+    "Finger outline and perforations are estimated by eye from photos; no dimensions were measured from a real Generalist part.",
     "No hard travel stops in this generation; the servo limits travel.",
     "Unselected servo, horn, axle pins and fasteners; no print, fit, strength or backdrive validation."
   ]

@@ -43,7 +43,7 @@ def main():
       results=results,limitations=[
        '45 sampled poses, not continuous motion or strength proof.',
        '+/-1 degree follower misphase overlaps at all poses: bounds nominal freeplay, not measured backlash.',
-       'Finger outline and honeycomb are estimated by eye from photos; no dimensions were measured from a real Generalist part.',
+       'Finger outline and perforations are estimated by eye from photos; no dimensions were measured from a real Generalist part.',
        'No hard travel stops in this generation; the servo limits travel.',
        'Unselected servo, horn, axle pins and fasteners; no print, fit, strength or backdrive validation.'])
     (HERE/'geometry_checks.json').write_text(json.dumps(report,indent=2)+'\n')

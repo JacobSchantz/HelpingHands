@@ -8,14 +8,18 @@ Built on Generation 5 (voice-650be16a). Two changes, both from Jake's note:
    pivot columns (Ø10 mm, Ø14 mm shoulder) climbing out of the plane. Gen 5's
    hub floor, both hub cheeks, the in-plane gears and the motor are gone from
    the web.
-2. **Fingers redrawn to copy Generalist's.** Each finger is a flat 10 mm plate
-   with hexagon honeycomb through-cutouts inside a 2.2 mm solid rim. It has an
-   outer knuckle bump at about 55% of its length, a small inner step opposite
-   the bump, and a lower blade that swings inward to a black pointed TPU tip.
-   Two grey-dot pockets hold 4×2 mm disc magnets, matching the dots in the
-   photos.
+2. **Fingers redrawn to copy Generalist's** (second pass, from
+   `cad/reference/generalist_gripper_gen6_target.png`). Each finger is a 10 mm
+   yellow crescent plate that bulges outward to about 16 mm. It has a scalloped
+   inner grip edge (three waves), a small step before the blade, and a small
+   black TPU point. Rows of small blind hex perforations (2.4 mm across flats,
+   1.5 mm walls, 3.5 mm deep from each face, 3 mm solid centre web) stand in for
+   the dark dot pattern in the photo. The lower blade has a solid pad with a
+   grey dot (4×2 mm magnet pocket), and there is a Ø2.2 hole near the point.
+   Only whole cells are cut, never clipped ones.
+   `previews/compare_target.png` shows the photo beside the model.
 
-References used: `references/generalist/ziptie_1.jpg` (clearest view of the
+References used: `cad/reference/generalist_gripper_gen6_target.png` (the target), `references/generalist/ziptie_1.jpg` (clearest view of the
 finger outline and honeycomb), `screwhand_1.jpg`, `human_jar_01.png` (the
 human-worn device). The outline is traced **by eye** from these photos. No
 dimension was measured from a real part, and no Generalist CAD exists or was

@@ -8,8 +8,8 @@ SCAD='/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
 PARTS=[
  ('housing_base','Dorsal housing base — sits on the back of the hand','#2b313a',[0,25,-25]),
  ('housing_lid','Dorsal housing lid — holds the left axle, passes the servo drive','#3a424d',[0,50,-25]),
- ('left','Left finger — honeycomb plate, mirror of the right','#efb83b',[-45,0,10]),
- ('right','Right finger — honeycomb plate','#efb83b',[45,0,10]),
+ ('left','Left finger — perforated crescent plate, mirror of the right','#efb83b',[-45,0,10]),
+ ('right','Right finger — perforated crescent plate','#efb83b',[45,0,10]),
  ('left_gear','Left gear — half-tooth index','#8f969e',[-30,45,0]),
  ('right_gear','Right gear — servo driven','#8f969e',[30,45,0]),
  ('left_tip','Left black TPU tip','#15181c',[-55,0,40]),
