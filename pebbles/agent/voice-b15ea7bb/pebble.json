@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Build Gripper Gen 10, a CAD model of only the two yellow fingers with through-holes and inner-face ridges, built by Opus 5.5 to match the Generalist reference photos. The tips must be skinnier and come to a sharper point than Gen 7, checked by a separate reviewer over up to 3 rounds before showing it in the design gallery.",
+  "summary_sha": "b15ea7bbbbae0e68"
 }

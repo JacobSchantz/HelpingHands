@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Build Gripper Gen 9 with only the two yellow fingers, all holes through and inner-face ridges, matching the Generalist reference photos closely. Tips must be skinnier and come to a sharper point than Gen 7, so run up to three review-and-fix rounds against the photos and show it in the design gallery.",
+  "summary_sha": "31ca3e68d1e4f5c1"
 }
