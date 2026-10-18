@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-18T22:59:24.000Z",
-  "updated_at": "2026-10-18T22:59:24.000Z",
+  "updated_at": "2026-10-18T23:06:28Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Build Gen 11 of the yellow gripper fingers from the better of Gen 9 and Gen 10, with Opus 5.5 first, then GPT-6 Astra. Add shallow full-width ridges and through-holes, match the gen6 photos, and keep both outputs viewable with working slider and rotation.",
-  "summary_sha": "6663a540860801ff"
+  "summary_sha": "6663a540860801ff",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-6663a540",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-6663a540",
+  "claimed_at": "2026-10-18T23:06:28.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
