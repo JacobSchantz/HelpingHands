@@ -81,9 +81,24 @@ struct AeroTake: Decodable, Identifiable, Equatable {
     let seconds: Double
     let recorded: Double  // seconds since 1970, from the file name
     let audio: Bool?  // the mic was recorded with it
+    let replay_runs: [AeroReplayRun]?
+
 
     var id: String { file }
     var date: Date { Date(timeIntervalSince1970: recorded) }
+}
+
+struct AeroReplayRun: Decodable, Identifiable, Equatable {
+    let id: String
+    let started_at: Double
+    let status: String
+    let error: String?
+    let data: String
+    let video: String?
+    let kind: String?
+
+    var date: Date { Date(timeIntervalSince1970: started_at) }
+    var hasHandData: Bool { kind == nil || kind == "replay" }
 }
 
 /// Runs the aero_hand scripts as children of the app, so macOS asks for (and
@@ -106,6 +121,7 @@ final class AeroHandRunner: ObservableObject {
 
     @Published private(set) var running: AeroCommand?
     @Published private(set) var log = ""
+    @Published private(set) var lastError: String?
     @Published private(set) var poses: [String] = []
     /// Servo speed as a percent of full, for every command (AERO_SPEED_PCT, read by
     /// hand_speed.py). Back to 50% on every launch.
@@ -283,6 +299,7 @@ final class AeroHandRunner: ObservableObject {
     }
 
     private func start(_ command: AeroCommand) {
+        lastError = nil
         let (script, args) = command.invocation
         let process = makeProcess(script: script, args: args, speedPct: speedPct, hold: hold)
         let pipe = Pipe()
@@ -318,6 +335,7 @@ final class AeroHandRunner: ObservableObject {
     private func finished(status: Int32) {
         append(status == 0 ? "✓ done\n" : "✗ exited \(status)\n")
         audio.stopPlaying()
+        if status != 0 && lastError == nil { lastError = "Command stopped. Open the log for details." }
         if case .record? = running {
             arriving = true
             loadTakes()
@@ -377,6 +395,13 @@ final class AeroHandRunner: ObservableObject {
             } else {
                 if line.hasPrefix("saved "), let path = line.dropFirst(6).split(separator: ":").first {
                     saved = URL(fileURLWithPath: String(path)).lastPathComponent
+                }
+                if line.hasPrefix("capture_result "),
+                   let data = String(line.dropFirst(15)).data(using: .utf8),
+                   let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   result["status"] as? String == "failed" {
+                    let detail = result["error"] as? String ?? "Camera recording failed."
+                    lastError = detail + " See recording history for saved capture details."
                 }
                 append(line + "\n")
             }

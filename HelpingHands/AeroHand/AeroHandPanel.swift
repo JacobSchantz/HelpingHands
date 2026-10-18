@@ -9,6 +9,7 @@ struct AeroHandPanel: View {
     @ObservedObject private var runner = AeroHandRunner.shared
     @State private var showLog = false  // Jake: hidden by default
     @State private var renaming: AeroTake?
+    @State private var history: AeroTake?
     @State private var heldFull: Date?  // a long press on Play started a full replay; skip the tap after it
     @State private var deleting: AeroTake?
     @Namespace private var flight
@@ -26,6 +27,13 @@ struct AeroHandPanel: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
             topBar
+            if let error = runner.lastError {
+                HStack {
+                    Label(error, systemImage: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Button("Show log") { showLog = true }
+                }
+            }
             recordings.frame(maxWidth: .infinity, maxHeight: .infinity)
             if showLog { log }
             HStack(spacing: 24) {
@@ -48,12 +56,63 @@ struct AeroHandPanel: View {
         .sheet(item: $renaming) { take in
             VoiceRenameSheet(take: take) { runner.rename(take, to: $0) }
         }
+        .sheet(item: $history) { take in
+            recordingHistory(runner.takes.first { $0.file == take.file } ?? take)
+        }
         .confirmationDialog("Delete \(deleting.map(title) ?? "")?",
                             isPresented: Binding(get: { deleting != nil }, set: { if !$0 { deleting = nil } })) {
             Button("Delete", role: .destructive) { if let take = deleting { runner.delete(take) } }
         } message: {
             Text("It moves to the takes/deleted folder.")
         }
+    }
+
+    private func recordingHistory(_ take: AeroTake) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text(title(take)).font(.title2.bold())
+                Spacer()
+                Button("Done") { history = nil }
+            }
+            Button("Show original hand recording") {
+                NSWorkspace.shared.activateFileViewerSelecting([AeroHandRunner.takesDir.appendingPathComponent(take.file)])
+            }
+            Text("Each attempt keeps its own files. Completed means playback finished, not that the motion was approved.")
+                .font(.callout).foregroundStyle(.secondary)
+            if (take.replay_runs ?? []).isEmpty {
+                Text("No saved camera or replay history for this recording yet.")
+                    .foregroundStyle(.secondary)
+                Spacer()
+            } else {
+                List(take.replay_runs ?? []) { run in
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text(run.date.formatted(date: .abbreviated, time: .standard)).font(.headline)
+                            Spacer()
+                            Text(run.status.capitalized)
+                                .foregroundStyle(run.status == "completed" ? Color.secondary : Color.orange)
+                        }
+                        if let error = run.error, !error.isEmpty {
+                            Text(error).foregroundStyle(.orange).textSelection(.enabled)
+                        }
+                        HStack {
+                            if let path = run.video {
+                                Button("Watch camera") { NSWorkspace.shared.open(URL(fileURLWithPath: path)) }
+                            }
+                            Button(run.hasHandData ? "Show replay hand data" : "Show camera metadata") {
+                                NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: run.data)])
+                            }
+                        }
+                        if !run.hasHandData {
+                            Text(run.kind == "record-video" ? "Camera from the original recording" : "Earlier replay: camera saved; replay hand telemetry was not captured.")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                    }.padding(.vertical, 6)
+                }
+            }
+        }
+        .padding(24)
+        .frame(width: 760, height: 520)
     }
 
     // MARK: Record and Stop
@@ -190,6 +249,10 @@ struct AeroHandPanel: View {
             }
             .foregroundStyle(.white)
             Spacer()
+            Button { history = take } label: {
+                Label("History (\(take.replay_runs?.count ?? 0))", systemImage: "clock.arrow.circlepath")
+            }
+            .buttonStyle(.borderless).help("Saved hand data and camera recordings")
             Button { renaming = take } label: {
                 Image(systemName: "pencil").font(.system(size: 26)).frame(width: 52, height: 52)
             }
