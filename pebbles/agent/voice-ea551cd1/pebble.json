@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Helping Hands design viewer has no way to hide individual designs, so Jake can't declutter old ones like gripper Gen 1 and Gen 2. Add a per-design show/hide toggle that persists and can be undone later, and make it usable by voice.",
+  "summary_sha": "ea551cd10504ee05"
 }
