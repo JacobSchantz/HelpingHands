@@ -1,0 +1,94 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/housing_base.stl",
+      "name": "Dorsal housing base \u2014 sits on the back of the hand",
+      "color": "#2b313a",
+      "explode": [
+        0,
+        25,
+        -25
+      ]
+    },
+    {
+      "path": "exports/parts/housing_lid.stl",
+      "name": "Dorsal housing lid \u2014 holds the left axle, passes the servo drive",
+      "color": "#3a424d",
+      "explode": [
+        0,
+        50,
+        -25
+      ]
+    },
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 honeycomb plate, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -45,
+        0,
+        10
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 honeycomb plate",
+      "color": "#efb83b",
+      "explode": [
+        45,
+        0,
+        10
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left gear \u2014 half-tooth index",
+      "color": "#8f969e",
+      "explode": [
+        -30,
+        45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right gear \u2014 servo driven",
+      "color": "#8f969e",
+      "explode": [
+        30,
+        45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_tip.stl",
+      "name": "Left black TPU tip",
+      "color": "#15181c",
+      "explode": [
+        -55,
+        0,
+        40
+      ]
+    },
+    {
+      "path": "exports/parts/right_tip.stl",
+      "name": "Right black TPU tip",
+      "color": "#15181c",
+      "explode": [
+        55,
+        0,
+        40
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "ONE servo envelope \u2014 unselected",
+      "color": "#252e38",
+      "explode": [
+        0,
+        70,
+        -10
+      ]
+    }
+  ]
+}
