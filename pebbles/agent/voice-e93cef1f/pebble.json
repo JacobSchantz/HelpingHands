@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants a sweep of 2026-only open handheld gripper systems, comparing Grabette (Apache-2.0) against UMI-3D and newer releases. Give a clear verdict on building on Grabette for SO-101 and Gen 6-8, and update plans/handheld_gripper.md.",
+  "summary_sha": "e93cef1fc4214467"
 }

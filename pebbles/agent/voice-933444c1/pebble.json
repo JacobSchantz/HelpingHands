@@ -39,6 +39,6 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gripper Gen 8 should combine Grabette's finger mount, pivot, and drive interface with Gen 6's Generalist-style finger shapes, cutouts, top drive and camera, clear thumb-index web, and three straps. Wait for Gen 6 and Gen 7 to land before building, and explain which ideas came from which.",
-  "summary_sha": "933444c19fcf4348"
+  "summary": "Gen 8 should be Pollen Robotics' actual Grabette meshes from their GitHub repo, assembled as the real Grabette with no merging or redesign. It should open in the design viewer with exploded-view support, and keep Apache-2.0 license and notice files alongside.",
+  "summary_sha": "4874615bc39e6cd3"
 }
