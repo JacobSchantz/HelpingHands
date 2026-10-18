@@ -61,10 +61,51 @@ in v0.2.0 (`firmware.ino` `setup()`).
   in time order ("Thumb, index, middle, ring and pinky each curled and extended"; `teach.sh label [file|last]`
   prints it). Recording from the app also records the mic: the take gets `take-<time>.m4a`, a transcript (which
   names the take when Jake narrates) and plays the audio during Replay full (`teach.sh audio` attaches it). `teach.sh replay
-  [file|last]` smooths the take, holds servos that moved under 20° still, and drives between its key poses
-  (turning points and pauses) as smooth moves at the speed setting; `--full` plays the recorded timing instead.
+  [file|last]` smooths the take, holds thumb abduction/flexion under 5° and tendon actuators under 20° still, and drives between its key poses
+  (simplified simultaneous samples, preserving finger order and pauses) as smooth moves at the speed setting;
+  `--full` plays the recorded timing instead. Compression retains the observed coordination: a finger
+  waiting its turn stays still instead of interpolating toward its eventual peak from the take's start.
+  New takes also save timestamped motor currents at at most 10 Hz, separately from the nominal
+  100 Hz position samples. Missing current reads are omitted; signed values are in mA. Motor current
+  is diagnostic telemetry, **not calibrated fingertip force**. Recording's low torque settings keep
+  tendons taut; they do not encode the pressure a person applied while demonstrating a grasp.
+  Existing position-only takes still replay. Replaying a grasp posture reproduces its positions;
+  it does not reproduce contact pressure or keep holding after a recorded release.
+  Motion mode uses a continuous-velocity, monotone cubic path with no artificial stop at each key pose.
+  Both that path and the initial glide respect the configured speed cap and an acceleration cap
+  equivalent to taking at least 0.5 seconds to reach that speed. Replay may take longer to meet those bounds.
   Both send at 25 Hz with moving servos at torque 500 and still ones at 200, hold the last pose low-power, and stop
   and relax at 60 °C. `replay --dry-run` prints the key poses.
+  Record and replay now capture the camera automatically (including replay's initial glide and final hold).
+  Agents can call `scripts/teach.sh replay take-20261017-170553.json --camera 0` (or `last`);
+  `--full` keeps recorded timing. `--dry-run` opens neither camera nor hand; `--no-video` explicitly
+  disables capture. `--camera N` or `AERO_CAMERA=N` selects the OpenCV camera (default 0).
+  Capture requests 1280×720 at 30 fps to reduce camera transport load; the actual frame size and
+  reported device rate are logged in the result. Override with `AERO_CAMERA_WIDTH`,
+  `AERO_CAMERA_HEIGHT`, and `AERO_CAMERA_FPS` when diagnosing a device. A USB stream loss
+  still aborts motion; the recorder does not silently reconnect or switch cameras mid-replay.
+  Video requires the existing `opencv-python` dependency and camera permission for the calling app.
+  Each invocation saves a unique MP4 and JSON result under `~/HelpingHands-tools/aero/takes/videos/`
+  (`--video-dir DIR` overrides). The final `capture_result` JSON line gives absolute artifact paths,
+  source take, action and completed/failed status; the sidecar also contains wall-clock start time and
+  actual frame timestamps (MP4 plays at 25 fps, so consult timestamps if the camera runs slower).
+  Camera startup must succeed before connecting to the hand; camera loss during replay aborts and relaxes
+  it. A missing camera frame is retried for up to one second. During teaching, a capture failure
+  saves the collected motion as an interrupted take before reporting failure; startup failure saves
+  no take because the hand has not connected. The app displays capture failures above the take list.
+  Interrupted replays retain partial video and report failure. Videos have no audio track; existing
+  app take audio remains separate. Replay videos do not overwrite the original teaching take.
+  Every replay also gets a durable run under `takes/runs/<take-stem>/`, including runs without video
+  and failures before the hand connects. Its JSON manifest links the source take (with SHA-256),
+  camera result, video, status/error, and a `.hand.jsonl` stream. That stream distinguishes planned
+  targets, submitted actuator/joint commands, and measured encoder positions; commands are not
+  proof of achieved motion. Additional encoder polls run at at most 5 Hz; existing hold reads
+  are logged too. Timestamps use seconds since the manifest's wall-clock start. Partial logs
+  remain on interruption, and each run has a unique ID. The original take is never rewritten.
+  `teach.sh list` includes `replay_runs` for the app item's History button, with links to video and
+  data. Older camera-only captures and source-recording videos appear with their actual evidence
+  type; no hand measurements are invented for old runs. New record captures are indexed even
+  when using a custom video directory. The CLI emits `replay_result` after the camera finalizes.
   `teach.sh list` prints one JSON line per take (the app's Recordings list), `rename <file|last> <name>` names one, and
   `delete <file>` moves it to `takes/deleted`. While recording it prints `pos` lines (each servo 0–100% of its
   range) that the app draws as live bars.

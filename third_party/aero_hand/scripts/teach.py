@@ -3,6 +3,7 @@
 
 Usage: teach.py record [--seconds 300] [--torque 10,30,30,40,40,25,25]
        teach.py replay [take.json | last] [--full] [--dry-run]
+       # record/replay capture video by default; --camera N, --video-dir DIR, --no-video
        teach.py label [take.json | last]  prints (and with --save, sets) the take's auto-label
        teach.py list                      one JSON line per take, newest first (the app's list)
        teach.py rename <take.json | last> <name>
@@ -22,8 +23,9 @@ seconds of audio before the take's t=0, from both clocks' wall time), "transcrip
 take's clock. Narration names the take instead of the motion label, unless it was already renamed.
 
 replay: position mode. Every take is cleaned first (clean): smoothed, and a servo that travelled less
-than DEADBAND_DEG is held still at its middle value, so read noise and slow drift aren't replayed.
-  motion (default): the key poses only (each moving servo's turning points, and places it paused),
+than 5° for thumb abduction/flexion or 20° for tendons is held still at its middle value,
+so read noise and slow drift aren't replayed.
+  motion (default): simplified simultaneous poses, preserving finger order and pauses,
     driven between as smooth moves at the speed cap (AERO_SPEED_PCT, 50% by default).
   --full: the recorded timing, slowed down only where a servo would beat the speed cap. With audio, it
     prints "audio <file> <seconds in> <rate>" as the first frame goes out, and the app plays it from there.
@@ -34,6 +36,9 @@ pose first and holds the last one low-power (hold.py). Stops and relaxes at TEMP
 import glob, json, math, os, signal, sys, time
 from aero_open_sdk.aero_hand import AeroHand
 import hand_speed, hold
+from take_video import TakeVideo
+from replay_run import ReplayRun, take_runs, link_record_capture
+from contextlib import nullcontext
 
 NAMES = ["thumb_abd", "thumb_flex", "thumb_tendon", "index", "middle", "ring", "pinky"]
 # Transparent-mode pull per servo. Bench test 1 (2026-10-17, torque 50 everywhere): index and middle
@@ -52,13 +57,13 @@ TAKES = os.path.expanduser("~/HelpingHands-tools/aero/takes")
 LIVE_EVERY_S = 0.1
 SEND_HZ = 25            # replay command rate; 100 Hz CTRL_POS hogs the servo bus
 SMOOTH_S = 0.15         # moving-average window
-DEADBAND_DEG = 20.0     # a servo that travelled less than this (smoothed) didn't really move
+DEADBAND_DEG = 20.0     # tendon read noise/drift threshold (actuator degrees)
+THUMB_DEADBAND_DEG = 5.0  # abduction/flexion travel is much smaller than tendon travel
+CURRENT_HZ = 10         # telemetry only: measured motor current is not contact force
 SWING_FRAC = 0.25       # a turning point counts if it swings back this much of the servo's travel...
 SWING_MIN_DEG = 30.0    # ...and at least this many degrees
 SETTLE_S = 0.5          # the start of a recording, while the pull takes up the slack
 PAUSE_S, PAUSE_DEG = 0.6, 5.0  # a pause partway through a move: this long within this many degrees
-MERGE_S = 0.3           # key points closer than this are one key pose
-KEY_HOLD_S = 0.25       # motion mode rests this long on each key pose
 MOVE_TORQUE, STILL_TORQUE = 500, 200  # replay torque limits (SET_TOR) for moving and still servos
 # What curling (actuation going up) and opening are called in labels; the two thumb servos are one thumb.
 LABELS = {"thumb_abd": ("thumb", "swung across", "swung back"), "thumb_flex": ("thumb", "curled in", "extended"),
@@ -95,15 +100,18 @@ def too_hot(hand):
     return False
 
 
-def record(seconds, torque):
+def record(seconds, torque, video=None):
     hand = connect()
-    samples, temps, t0, started_at = [], [], time.monotonic(), time.time()
+    samples, temps, currents, t0, started_at = [], [], [], time.monotonic(), time.time()
+    failure = None
     print("recording: move the fingers; Stop saves the take. torque", torque, flush=True)
     try:
         hand.ctrl_torque(torque)
-        next_tick = next_torque = next_temp = next_live = t0
+        next_tick = next_torque = next_temp = next_live = next_current = t0
         lo, hi = hand.actuation_lower_limits, hand.actuation_upper_limits
         while (now := time.monotonic()) - t0 < seconds:
+            if video:
+                video.check()
             if now >= next_torque:  # resend now and then, in case a frame was dropped
                 hand.ctrl_torque(torque)
                 next_torque = now + 0.5
@@ -122,22 +130,44 @@ def record(seconds, torque):
                     pct = [max(0, min(100, round(100 * (x - l) / (h - l)))) for x, l, h in zip(a, lo, hi)]
                     print("pos", *pct, flush=True)
                     next_live = now + LIVE_EVERY_S
+            if time.monotonic() >= next_current:
+                current = hand.get_actuator_currents()
+                measured_at = time.monotonic()
+                if current is not None and len(current) == len(NAMES):
+                    currents.append([round(measured_at - t0, 4)] + current)
+                # Never catch up missed telemetry polls in bursts on the serial bus.
+                next_current = measured_at + 1 / CURRENT_HZ
             next_tick += 1 / HZ
             time.sleep(max(0.0, next_tick - time.monotonic()))
     except KeyboardInterrupt:
         pass
+    except Exception as exc:
+        failure = exc
     finally:
-        hand.ctrl_torque([0] * 7)
-        hand.close()
+        try:
+            hand.ctrl_torque([0] * 7)
+        except Exception as exc:
+            failure = failure or exc
+        finally:
+            hand.close()
     if len(samples) < 2:
+        if failure:
+            raise failure
         sys.exit("nothing recorded")
     os.makedirs(TAKES, exist_ok=True)
     path = os.path.join(TAKES, time.strftime("take-%Y%m%d-%H%M%S.json"))
     with open(path, "w") as f:
         json.dump({"names": NAMES, "torque": torque, "hz": HZ, "name": label(samples), "started_at": started_at,
-                   "samples": samples, "temps": temps}, f)
+                   "samples": samples, "temps": temps, "currents": currents, "current_unit": "mA",
+                   "current_semantics": "motor current telemetry; not calibrated contact force",
+                   "interrupted": failure is not None,
+                   "error": str(failure) if failure else None}, f)
+    if video:
+        video.take = path
     dur = samples[-1][0]
     print(f"saved {path}: {dur:.1f} s, {len(samples)} samples ({len(samples) / max(dur, 1e-3):.0f} Hz)", flush=True)
+    if failure:
+        raise failure
 
 
 def stretch_for(samples, cap_deg_s):
@@ -175,7 +205,8 @@ def clean(samples):
     moving = []
     for i in range(7):
         col = [r[i] for r in smooth]
-        moving.append(max(col) - min(col) >= DEADBAND_DEG)
+        threshold = THUMB_DEADBAND_DEG if i < 2 else DEADBAND_DEG
+        moving.append(max(col) - min(col) >= threshold)
         if not moving[i]:
             still = sorted(col)[len(col) // 2]
             for r in smooth:
@@ -217,31 +248,33 @@ def key_points(col):
 
 
 def key_poses(samples):
-    """The take as key poses: rows of 7. Each moving servo goes from key point to key point (linear in
-    time between its own points, flat after its last), sampled wherever any servo has one."""
+    """Simplify simultaneous recorded poses within PAUSE_DEG of each servo's cleaned track.
+
+    Keep the boundaries of stationary intervals as well as turns. Interpolating separate
+    servo extrema from t=0 makes fingers start curling before their recorded turn and
+    can delay their return until a much later minimum. Every retained pose here is an
+    actual cleaned sample, so compression preserves finger order and coordination.
+    """
     times, rows, moving = clean(samples)
-    tracks = {i: key_points([r[i] for r in rows]) for i in range(7) if moving[i]}
-    keys = sorted({0}.union(*tracks.values()))
-    merged = [keys[0]]
-    for k in keys[1:]:
-        if times[k] - times[merged[-1]] < MERGE_S:
-            merged[-1] = k  # the later point of a cluster: the moves have finished by then
-        else:
-            merged.append(k)
+    keep = {0, len(rows) - 1}
+    pending = [(0, len(rows) - 1)]
+    while pending:
+        a, b = pending.pop()
+        if b <= a + 1:
+            continue
 
-    def at(i, k):
-        pts = tracks.get(i)
-        if not pts:
-            return rows[0][i]
-        if k >= pts[-1]:
-            return rows[pts[-1]][i]
-        b = next(p for p in pts if p >= k)
-        a = max([p for p in pts if p <= k], default=b)
-        return rows[a][i] if a == b else rows[a][i] + (rows[b][i] - rows[a][i]) * (k - a) / (b - a)
+        def error(k):
+            f = (times[k] - times[a]) / (times[b] - times[a])
+            return max(abs(rows[k][i] - (rows[a][i] + (rows[b][i] - rows[a][i]) * f))
+                       for i in range(7))
 
+        k = max(range(a + 1, b), key=error)
+        if error(k) > PAUSE_DEG:
+            keep.add(k)
+            pending.extend(((a, k), (k, b)))
     poses = []
-    for k in merged:
-        pose = [at(i, k) for i in range(7)]
+    for k in sorted(keep):
+        pose = rows[k]
         if not poses or max(abs(x - y) for x, y in zip(pose, poses[-1])) >= PAUSE_DEG:
             poses.append(pose)
     return poses, moving
@@ -333,7 +366,7 @@ def list_takes():
         except (OSError, ValueError, KeyError, IndexError):
             continue
         print(json.dumps({"file": os.path.basename(path), "name": take.get("name", ""),
-                          "seconds": round(seconds, 1), "audio": "audio" in take,
+                          "seconds": round(seconds, 1), "audio": "audio" in take, "replay_runs": take_runs(path),
                           "recorded": time.mktime(time.strptime(os.path.basename(path), "take-%Y%m%d-%H%M%S.json"))}))
 
 
@@ -398,8 +431,67 @@ def ease(a, b, f):
     return [x + (y - x) * f for x, y in zip(a, b)]
 
 
-def replay(path, dry_run, full=False):
+def smooth_frames(poses, cap, min_duration=0.0):
+    """Monotone cubic path with continuous velocity and bounded acceleration.
+
+    A zero secant (a stationary finger) or a reversal has zero tangent. Other
+    knots use the weighted harmonic slope, preserving monotonicity without
+    stopping at every simplification point. Uniform time scaling enforces exact
+    polynomial speed/acceleration bounds before sampling at SEND_HZ.
+    """
+    if len(poses) == 1:
+        return [(0.0, poses[0])]
+    durations = [max(0.2, max(abs(y - x) for x, y in zip(a, b)) / cap)
+                 for a, b in zip(poses, poses[1:])]
+    slopes = [[(b[i] - a[i]) / h for i in range(7)]
+              for a, b, h in zip(poses, poses[1:], durations)]
+    tangents = [[0.0] * 7 for _ in poses]
+    for k in range(1, len(poses) - 1):
+        hp, hn = durations[k - 1], durations[k]
+        w1, w2 = 2 * hn + hp, hn + 2 * hp
+        for i in range(7):
+            before, after = slopes[k - 1][i], slopes[k][i]
+            if before * after > 0:
+                tangents[k][i] = (w1 + w2) / (w1 / before + w2 / after)
+    segments, peak_speed, peak_accel = [], 0.0, 0.0
+    for k, h in enumerate(durations):
+        coefficients = []
+        for i in range(7):
+            start, end = poses[k][i], poses[k + 1][i]
+            b, finish = tangents[k][i] * h, tangents[k + 1][i] * h
+            delta = end - start
+            a, c = -2 * delta + b + finish, 3 * delta - 2 * b - finish
+            coefficients.append((a, c, b, start))
+            candidates = [0.0, 1.0]
+            if a and 0 < -c / (3 * a) < 1:
+                candidates.append(-c / (3 * a))
+            peak_speed = max(peak_speed, *(abs(3 * a * u * u + 2 * c * u + b) / h
+                                           for u in candidates))
+            peak_accel = max(peak_accel, abs(2 * c) / h ** 2, abs(6 * a + 2 * c) / h ** 2)
+        segments.append(coefficients)
+    # At least half a second to accelerate from rest to the configured speed cap.
+    scale = max(1.0, peak_speed / cap, math.sqrt(peak_accel / (cap / 0.5)),
+                min_duration / sum(durations))
+    durations = [h * scale for h in durations]
+    total = sum(durations)
+    steps = max(1, math.ceil(total * SEND_HZ))
+    frames, segment, start_t = [], 0, 0.0
+    for k in range(steps + 1):
+        t = total * k / steps
+        while segment < len(segments) - 1 and t > start_t + durations[segment]:
+            start_t += durations[segment]
+            segment += 1
+        u = min(1.0, max(0.0, (t - start_t) / durations[segment]))
+        row = [((a * u + c) * u + b) * u + d for a, c, b, d in segments[segment]]
+        frames.append((t, row))
+    return frames
+
+
+def replay(path, dry_run, full=False, video=None, run=None):
     path = take_path(path)
+    if not dry_run and run is None:
+        with ReplayRun(path, 'full' if full else 'motion', video) as history:
+            return replay(path, dry_run, full, video, history)
     with open(path) as f:
         take = json.load(f)
     samples = take["samples"]
@@ -414,14 +506,8 @@ def replay(path, dry_run, full=False):
               f"cap {cap:.0f}°/s at {pct:.0f}%, playing {frames[-1][0]:.1f} s (x{stretch:.2f})", flush=True)
     else:
         poses, moving = key_poses(samples)
-        frames, t = [(0.0, poses[0])], 0.0
-        for a, b in zip(poses, poses[1:]):
-            # an eased move peaks at pi/2 times its average speed; keep that peak under the cap
-            move = max(0.3, max(abs(x - y) for x, y in zip(a, b)) * math.pi / 2 / cap)
-            steps = max(1, round(move * SEND_HZ))
-            frames += [(t + move * k / steps, ease(a, b, k / steps)) for k in range(1, steps + 1)]
-            t += move + KEY_HOLD_S
-            frames.append((t, b))
+        frames = smooth_frames(poses, cap)
+        t = frames[-1][0]
         print(f"replay motion {os.path.basename(path)}: {len(poses)} key poses from {samples[-1][0]:.1f} s, "
               f"{pct:.0f}% speed, playing {t:.1f} s", flush=True)
     print("moving:", ", ".join(n for n, m in zip(NAMES, moving) if m) or "nothing", flush=True)
@@ -430,63 +516,103 @@ def replay(path, dry_run, full=False):
             for p in poses:
                 print("  key", *(round(x) for x in p))
         return
-    hand = connect()
-    hand_speed.limit(hand, pct)
+    hand = run.wrap(connect())
     lo, hi = hand.actuation_lower_limits, hand.actuation_upper_limits
     frames = [(at, [max(l, min(h, x)) for x, l, h in zip(row, lo, hi)]) for at, row in frames]
     finished = False
     try:
+        run.metadata.update(speed_pct=pct, moving=moving, names=NAMES)
+        run.event('planned_replay_actuations', [[at] + row for at, row in frames],
+                  time_origin='seconds since replay phase starts')
+        hand_speed.limit(hand, pct)
         for i in range(7):  # moving servos get move torque; still ones only enough to stay put
             hand.set_torque(i, MOVE_TORQUE if moving[i] else STILL_TORQUE)
         start = hand.get_actuations() or frames[0][1]
-        steps = max(1, int(GLIDE_S * SEND_HZ))
-        for k in range(1, steps + 1):
-            hand.set_actuations(ease(start, frames[0][1], k / steps))
-            time.sleep(1 / SEND_HZ)
+        glide = smooth_frames([start, frames[0][1]], cap, min_duration=GLIDE_S)
+        run.phase = 'glide'
+        run.event('phase_start', None)
+        glide_t0, next_temp = time.monotonic(), 0.0
+        for at, row in glide:
+            if video:
+                video.check()
+            time.sleep(max(0.0, glide_t0 + at - time.monotonic()))
+            hand.set_actuations(row)
+            run.poll(hand)
+            if time.monotonic() >= next_temp:
+                if too_hot(hand):
+                    raise RuntimeError("replay stopped: hand temperature limit")
+                next_temp = time.monotonic() + TEMP_EVERY_S
+        run.phase = 'replay'
+        run.event('phase_start', None)
         t0, next_temp = time.monotonic(), 0.0
         if full and "audio" in take:  # the app plays it: from the first frame's moment, slowed to match
             print(f"audio {os.path.join(TAKES, take['audio']['file'])} "
                   f"{take['audio']['offset'] + frames_t0:.3f} {1 / stretch:.3f}", flush=True)
         for at, row in frames:
+            if video:
+                video.check()
             wait = t0 + at - time.monotonic()
             if wait > 0:
                 time.sleep(wait)
             hand.set_actuations(row)
+            run.poll(hand)
             if time.monotonic() >= next_temp:
                 if too_hot(hand):
-                    return
+                    raise RuntimeError("replay stopped: hand temperature limit")
                 next_temp = time.monotonic() + TEMP_EVERY_S
+        run.phase = 'hold'
+        run.event('phase_start', None)
         time.sleep(0.5)  # let the firmware's position read catch up before the hold measures
         joints = hand.get_joint_positions_compact()
         if joints:
             print("hold", hold.mode(), "torque", hold.hold(hand, joints, start=MOVE_TORQUE), flush=True)
+        if video:
+            video.check()
         finished = True
     except KeyboardInterrupt:
-        pass
+        raise
     finally:
-        if not finished:  # stopped or hot: go limp rather than push at move torque
-            hand.ctrl_torque([0] * 7)
-        hand.close()
+        try:
+            if not finished:  # stopped or hot: go limp rather than push at move torque
+                hand.ctrl_torque([0] * 7)
+        finally:
+            hand.close()
 
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, signal.default_int_handler)  # the app's fallback after SIGINT
     args = sys.argv[1:]
     opts = {}
-    for flag in ("--seconds", "--torque"):
+    for flag in ("--seconds", "--torque", "--camera", "--video-dir"):
         if flag in args:
             i = args.index(flag)
+            if i + 1 >= len(args):
+                sys.exit(f"{flag} requires a value")
             opts[flag] = args[i + 1]
             del args[i:i + 2]
     dry, full, save = "--dry-run" in args, "--full" in args, "--save" in args
-    args = [a for a in args if a not in ("--dry-run", "--full", "--save")]
+    capture = "--no-video" not in args and not dry
+    args = [a for a in args if a not in ("--dry-run", "--full", "--save", "--no-video")]
+
+    def video_for(action, take=None):
+        return TakeVideo(opts.get("--video-dir", os.path.join(TAKES, "videos")), action, take,
+                         int(opts.get("--camera", os.environ.get("AERO_CAMERA", "0")))) if capture else nullcontext()
     if args[:1] == ["record"]:
         tq = [int(x) for x in opts["--torque"].split(",")] if "--torque" in opts else TORQUE
         if len(tq) != 7 or not all(0 <= t <= 1000 for t in tq):
             sys.exit("--torque needs 7 values 0..1000, thumb_abd..pinky")
-        record(float(opts.get("--seconds", 300)), tq)
+        camera = video_for("record")
+        try:
+            with camera as video:
+                record(float(opts.get("--seconds", 300)), tq, video)
+        finally:
+            link_record_capture(camera)
     elif args[:1] == ["replay"]:
-        replay(args[1] if len(args) > 1 else None, dry, full)
+        path = take_path(args[1] if len(args) > 1 else None)
+        camera = video_for("replay-full" if full else "replay", os.path.abspath(path))
+        with (ReplayRun(path, 'full' if full else 'motion', camera) if not dry else nullcontext()) as run:
+            with camera as video:
+                replay(path, dry, full, video, run)
     elif args[:1] == ["label"]:
         path = take_path(args[1] if len(args) > 1 else None)
         with open(path) as f:
