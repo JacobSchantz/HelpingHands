@@ -29,7 +29,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T13:24:05.000Z",
-  "updated_at": "2026-10-18T13:25:26.000Z",
+  "updated_at": "2026-10-18T13:34:01Z",
   "user_request": {
     "name": "Jake"
   },
@@ -40,5 +40,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Gen 8 should be Pollen Robotics' actual Grabette meshes from their GitHub repo, assembled as the real Grabette with no merging or redesign. It should open in the design viewer with exploded-view support, and keep Apache-2.0 license and notice files alongside.",
-  "summary_sha": "4874615bc39e6cd3"
+  "summary_sha": "4874615bc39e6cd3",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-933444c1",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-933444c1",
+  "claimed_at": "2026-10-18T13:34:01.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
