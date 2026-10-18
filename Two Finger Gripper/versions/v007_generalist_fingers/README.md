@@ -28,6 +28,11 @@ cuts **every hole all the way through**:
 - the 17 px blade dot;
 - 6 slanted slots, the last one smaller.
 
+The inner (gripping) edge of the blade is ribbed. Jake asked for "ridges on the inside", and
+the side photo shows the jaw faces ribbed across their width. So 11 grooves (1.6 mm pitch,
+0.8 mm wide, 0.6 mm deep) are notched square to the jaw edge, from where the blade starts to
+the tip, and run through the full thickness (`jaw_px`, `ridge`).
+
 The finger is 13 mm thick. From the black dot it wedges down to 4 mm at the point, as the
 side and robot photos show.
 

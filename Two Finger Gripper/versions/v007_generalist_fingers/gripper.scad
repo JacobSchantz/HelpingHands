@@ -29,6 +29,9 @@ dot_z=px(dot_px)[1];      // the wedge starts at the black dot (side + robot pho
 pivot=-min([for(p=pxs(outline_px)) p[0]])+tip_gap/2;  // half the pivot spacing: closed jaws sit tip_gap apart
 min_hole=1.8;             // blurred small holes are read no smaller than this
 min_slot=1.2;             // ...and an oval no narrower than this
+jaw_px=[[753.2,539.0],[834.0,575.5]];  // the inner (gripping) edge of the blade, on outline_px
+ridge=[1.6,0.8,0.6];      // jaw ridges: pitch, groove width, groove depth (mm). The side photo shows the
+                          // gripping faces ribbed across their width, so the grooves run through the full thickness
 slot=[2.7,1.6];           // blade slot length x width, fat ovals; the last one is ~70% (photo)
 function frame_deg(img_deg)=90-(img_deg-axis_deg);   // a direction in the photo -> angle in the finger frame
 
@@ -38,8 +41,14 @@ module holes2d() {
         if(h[2]/h[3]>1.5) rotate(frame_deg(h[4])) scale([max(min_hole,h[2]*mm_per_px),max(min_slot,h[3]*mm_per_px)]) circle(d=1);
         else circle(d=max(min_hole,(h[2]+h[3])/2*mm_per_px));
     translate(px(dot_px)) circle(d=dot_px[2]*mm_per_px);
-    for(i=[0:len(slots_px)-1]) translate(px(slots_px[i])) rotate(frame_deg(120))   // "/" in the photo, ~35 deg off the row
+    for(i=[0:len(slots_px)-1]) translate(px(slots_px[i])) rotate(frame_deg(120))   // slanted like a forward slash in the photo, ~35 deg off the row
         scale(i==len(slots_px)-1?0.7:1) hull() for(s=[-1,1]) translate([s*(slot[0]-slot[1])/2,0]) circle(d=slot[1],$fn=16);
+}
+module ridges2d() {       // grooves notched into the jaw edge, square to it
+    a=jaw_px[0]; b=jaw_px[1]; L=norm(b-a)*mm_per_px; n=floor(L/ridge[0]);
+    u=(b-a)/norm(b-a); v=[-u[1],u[0]];                         // v points into the finger (down in the photo)
+    for(i=[1:n-1]) let(c=a+u*(i*ridge[0]/mm_per_px), w=ridge[1]/2/mm_per_px, d=ridge[2]/mm_per_px)
+        polygon(pxs([c-u*w-v*3, c+u*w-v*3, c+u*w+v*d, c-u*w+v*d]));
 }
 module side_taper() {     // Y-Z wedge: full plate to the dot, then thinning to the tip
     rotate([90,0,90]) linear_extrude(200,center=true)
@@ -51,6 +60,7 @@ module finger() {
     difference() {
         intersection() {xz(plate) profile(); side_taper();}
         xz(plate+2) holes2d();          // every hole goes all the way through (Jake)
+        xz(plate+2) ridges2d();
     }
 }
 module placed(s=1,a=angle) {
