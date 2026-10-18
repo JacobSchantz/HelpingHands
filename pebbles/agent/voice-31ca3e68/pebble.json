@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-18T21:57:20.000Z",
-  "updated_at": "2026-10-18T21:57:20.000Z",
+  "updated_at": "2026-10-18T21:57:55Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Build Gripper Gen 9 with only the two yellow fingers, all holes through and inner-face ridges, matching the Generalist reference photos closely. Tips must be skinnier and come to a sharper point than Gen 7, so run up to three review-and-fix rounds against the photos and show it in the design gallery.",
-  "summary_sha": "31ca3e68d1e4f5c1"
+  "summary_sha": "31ca3e68d1e4f5c1",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-31ca3e68",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-31ca3e68",
+  "claimed_at": "2026-10-18T21:57:55.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
