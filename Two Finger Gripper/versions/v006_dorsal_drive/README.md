@@ -8,16 +8,23 @@ Built on Generation 5 (voice-650be16a). Two changes, both from Jake's note:
    pivot columns (Ø10 mm, Ø14 mm shoulder) climbing out of the plane. Gen 5's
    hub floor, both hub cheeks, the in-plane gears and the motor are gone from
    the web.
-2. **Fingers redrawn to copy Generalist's** (second pass, from
-   `cad/reference/generalist_gripper_gen6_target.png`). Each finger is a 10 mm
-   yellow crescent plate that bulges outward to about 16 mm. It has a scalloped
-   inner grip edge (three waves), a small step before the blade, and a small
-   black TPU point. Rows of small blind hex perforations (2.4 mm across flats,
-   1.5 mm walls, 3.5 mm deep from each face, 3 mm solid centre web) stand in for
-   the dark dot pattern in the photo. The lower blade has a solid pad with a
-   grey dot (4×2 mm magnet pocket), and there is a Ø2.2 hole near the point.
-   Only whole cells are cut, never clipped ones.
-   `previews/compare_target.png` shows the photo beside the model.
+2. **Fingers redrawn to copy Generalist's** (third pass, from all six
+   `cad/reference/generalist_gripper_gen6_*.png` photos; the top-down and
+   robot-arm photos show the outline best). Each finger is a 10 mm yellow
+   **hook**, not a crescent. The proximal arm leans out from the pivot. The
+   knee has a hump on the outer back edge with a small notch behind it. Then
+   the jaw angles back in to a small black TPU point. The inner jaw edge is
+   serrated (three teeth) with a step behind the point. The inner side is
+   concave at the knee, so when closed **only the points meet** and there is
+   a 7–36 mm gap along the rest, enough for a cup. The faces have rows of
+   small round blind pockets (Ø2.3 mm, 1.1 mm walls, 3.5 mm deep from each
+   face). There are two grey magnet dots and a Ø2.2 hole near the point.
+   A **black carrier block** (14×34×6 mm, 2× M2) bolts to the dorsal face of
+   each proximal arm and hangs past its outer edge, like the black blocks in
+   the photos. The finger strap threads the carrier's two slots; the old
+   strap slots in the plate are gone.
+   `previews/compare_target.png` puts the top, robot and closed photos beside
+   the model.
 
 References used: `cad/reference/generalist_gripper_gen6_target.png` (the target), `references/generalist/ziptie_1.jpg` (clearest view of the
 finger outline and honeycomb), `screwhand_1.jpg`, `human_jar_01.png` (the
@@ -25,7 +32,7 @@ human-worn device). The outline is traced **by eye** from these photos. No
 dimension was measured from a real part, and no Generalist CAD exists or was
 used. Treat "identical" as "as close as photos allow".
 
-## Parts (8)
+## Parts (10)
 
 | Part | Print | Notes |
 |---|---|---|
@@ -33,12 +40,13 @@ used. Treat "identical" as "as close as photos allow".
 | `housing_lid` | PLA/PETG | Holds the left axle pin; right drive passes through to the servo |
 | `left`, `right` | PLA/PETG (yellow) | Mirror images from one `jaw()` source; print flat |
 | `left_gear`, `right_gear` | PLA/PETG | 24T m1.2, keyed on an 8 mm hex; left is half-tooth indexed, right carries the servo hub |
+| `left_carrier`, `right_carrier` | PLA/PETG (black) | Strap carrier on the proximal arm; 2× M2 into the plate |
 | `left_tip`, `right_tip` | TPU (black) | Slide over the jaw tongue, 0.15 mm seating gap |
 | servo | — | 36×38×30 envelope only, shaft down into the right gear; **unselected** |
 
 Not modeled: two Ø4 mm steel axle pins, three M2 self-tapping lid screws,
-the servo horn/adapter, the magnets, and the straps (finger straps go
-through the slots near each plate's outer edge; a palm strap goes through
+the servo horn/adapter, the magnets, the four M2 carrier screws, and the
+straps (finger straps go through the carrier slots; a palm strap goes through
 the housing's rear slots).
 
 ## How it moves
@@ -58,7 +66,7 @@ apart at 22°.
 - **No hard travel stops:** Gen 5's stop tabs are gone; the servo limits
   travel.
 - **No finger channel:** Gen 5's deep outer groove for the human finger can't
-  coexist with a honeycomb plate. Fingers attach by straps through the slots
+  coexist with a pocketed plate. Fingers attach by straps through the carrier slots
   instead. Fit is untested.
 - The stack is taller (the servo sits on the lid, about 60 mm above the
   finger plane).

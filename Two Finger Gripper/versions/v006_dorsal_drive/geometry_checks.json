@@ -128,7 +128,7 @@
         43,
         44
       ],
-      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.315\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -101\n   Vertices:     2818\n   Facets:       5228"
+      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.341\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -101\n   Vertices:     2818\n   Facets:       5228"
     },
     {
       "name": "gear_flank_engages_minus_1deg",
@@ -181,7 +181,7 @@
         43,
         44
       ],
-      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.311\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -95\n   Vertices:     2882\n   Facets:       5380"
+      "log": "Geometries in cache: 218\nGeometry cache size in bytes: 26800344\nCGAL Polyhedrons in cache: 91\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.268\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -95\n   Vertices:     2882\n   Facets:       5380"
     },
     {
       "name": "tips_do_not_touch_when_closed",

@@ -1,13 +1,15 @@
 /* GENERALIST GRIPPER — GENERATION 6 / original inspection CAD, mm.
    Everything that is not a finger lives ABOVE the hand: housing, gears and servo sit
    on the back of the hand (+Y), and only two pivot columns drop into the thumb-index
-   plane. Fingers copy the Generalist target photo: yellow crescent
-   plates with rows of small blind hex perforations, a scalloped inner grip edge, a small
-   step before the blade, a solid pad with a grey dot, and a small black point.
+   plane. Fingers copy the six Generalist photos: a yellow hook (proximal arm angled out,
+   a knee with a hump on the outer back edge, a jaw angled back in to a small black point),
+   rows of small round blind pockets, a serrated inner jaw, and a black carrier block bolted
+   on the dorsal face of the proximal arm that takes the finger strap. Closed, only the
+   points meet; the inner edges leave an open gap for a cup.
    ONE servo -> right gear -> left gear, 1:1 counter-rotation. No sensor.
    Axes: X across (right jaw +X), Z along the fingers (tips +Z), +Y = dorsal / up. */
 $fn=48;
-part="assembly"; // assembly | left | right | left_gear | right_gear | left_tip | right_tip | housing_base | housing_lid | motor | collision | none | viewer_...
+part="assembly"; // assembly | left | right | left_gear | right_gear | left_tip | right_tip | left_carrier | right_carrier | housing_base | housing_lid | motor | collision | none | viewer_...
 angle=15;
 show_motor=true;
 max_angle=22;
@@ -26,15 +28,17 @@ shoulder_d=14;            // stops the jaw rising into the housing floor
 hex_af=8;                 // jaw column hex that keys the gear
 hex_clear=0.3;
 pin_d=4;                  // steel axle pin, not modeled
-cell=2.4;                 // perforation: small blind hex pockets, across flats
-cell_wall=1.5;
+cell=2.3;                 // perforation: small round blind pockets, diameter
+cell_wall=1.1;
 pocket=3.5;               // pocket depth from each face; leaves a 3 mm centre web
-rim=1.2;                  // solid border around the perforated band
+rim=1.0;                  // solid border around the perforated band
 tip_start=104;            // small black tip insert begins here
-magnets=[[7,52],[-3.5,84]];    // grey dots in the photos; 4x2 mm disc pockets
-pads=[[[-12,78],[6,92]]];      // solid flat on the lower blade around the lower dot (ziptie_1)
-straps=[[11,22],[13,40]];      // finger strap slots near the outer edge
-tip_hole=[-9.5,99];            // small through hole near the point (target photo)
+magnets=[[9,55],[0,84]];       // grey dots in the photos; 4x2 mm disc pockets
+pads=[[[-5,79],[6,89]]];       // solid flat on the jaw around the lower dot
+tip_hole=[-6.5,100];           // small black dot near the point (top and robot photos)
+carrier_at=[16.5,30];          // black carrier block on the proximal arm, centre (finger frame)
+carrier_tilt=13;               // follows the proximal arm, which angles outward
+carrier_size=[14,34,6];        // across, along, height above the plate (stays under the housing floor)
 
 function inv(t)=tan(t)-t*PI/180;
 function flank_angle(r)=90/teeth+(inv(pressure)-inv(acos(pitch_r*cos(pressure)/r)))*180/PI;
@@ -61,32 +65,40 @@ module gear2d(phase=0) {
 
 // ---------- finger: local frame, pivot at origin, inner (gripping) side is -X ----------
 tip_point=[-13.3,113];
-function wave(z)=-9.2-1.5*sin(360*(z-30)/18);        // scalloped inner grip edge
+function jaw_edge(z)=-10.6+(96-z)/36*13+0.9*sin(360*(96-z)/12);   // serrated inner jaw, 3 teeth
 module finger_profile() {
-    // Traced by eye from cad/reference/generalist_gripper_gen6_target.png and ziptie_1.jpg:
-    // a crescent that bulges outward to ~16 mm, a scalloped (wavy) inner grip edge, a
-    // small step before the blade, then a point. Proportions estimated, not measured.
+    // Traced by eye from cad/reference/generalist_gripper_gen6_{top,robot,closed,cup}.png:
+    // a hook, not a crescent. The proximal arm leans out from the pivot, the knee carries a
+    // hump on the outer back edge and a small notch behind it, then the jaw angles back in
+    // to the point. The inner side is concave at the knee so closed jaws only meet at the
+    // points. Proportions estimated, not measured.
     union() {
         circle(r=9);
         polygon(concat(
-            curve([9,2],[13,14],[16.5,32],[16.5,50]),          // outer crescent
-            curve([16.5,50],[16.5,66],[10,84],[0,100]),
-            curve([0,100],[-5,105],[-10,110],tip_point),       // into the point
-            curve(tip_point,[-13.9,111],[-14,106],[-13.3,100]),
-            curve([-13.3,100],[-12.8,97],[-12.2,95],[-11.2,94]),   // step before the blade
-            curve([-11.2,94],[-10.4,93.4],[-10,92.6],[-10.1,91.5]),
-            [for(z=[90:-1:30]) [wave(z)-(z>84?(z-84)*0.18:0),z]],  // three scallops
-            curve([-9.2,30],[-8.4,22],[-7.4,12],[-7,2])));        // inner shank
+            curve([9,2],[12,14],[16.5,30],[20,42]),              // proximal arm, outer
+            curve([20,42],[22,48],[24,53],[24,57]),            // hump on the outer back edge
+            curve([24,57],[24,62],[21,65],[18,68]),
+            curve([18,68],[16,70],[15,71],[15,74]),        // notch behind the hump
+            curve([15,74],[14,86],[6,98],[-4,104]),          // jaw, outer
+            curve([-4,104],[-8,108],[-11,111],tip_point),      // into the point
+            curve(tip_point,[-13.9,111],[-14,106],[-13.5,102]),
+            curve([-13.5,102],[-13.2,99.5],[-12.4,98.4],[-11.2,97.6]),  // step behind the point
+            [for(z=[96:-1:60]) [jaw_edge(z),z]],
+            curve([jaw_edge(60),60],[3.6,50],[-2,24],[-7,2]))); // concave knee, inner arm
     }
 }
-module hex_cell() {rotate(30) circle(d=cell/cos(30),$fn=6);}
+module carrier2d() {translate(carrier_at) rotate(-carrier_tilt) offset(r=2) square([carrier_size[0]-4,carrier_size[1]-4],center=true);}
+function carrier_pt(x,z)=carrier_at+[x*cos(carrier_tilt)+z*sin(carrier_tilt),-x*sin(carrier_tilt)+z*cos(carrier_tilt)];
+carrier_screws=[carrier_pt(-4,-11),carrier_pt(-4,11)];   // M2 into the plate (the yellow dots)
+carrier_slots=[carrier_pt(4,-9),carrier_pt(4,9)];        // finger strap slots, in the overhang
+module pocket_cell() {circle(d=cell,$fn=12);}
 module hex_centres() {
     p=cell+cell_wall;
     for(j=[-2:50],i=[-10:10]) translate([i*p+(j%2)*p/2,j*p*sqrt(3)/2]) square(0.02,center=true);
 }
 module perforation2d() {
-    // Rows of small hex pockets inside a solid rim, clear of the pivot, dots, pad,
-    // strap slots, tip hole and the tip tongue. Whole cells only: centres are kept
+    // Rows of small round pockets inside a solid rim, clear of the pivot, dots, pad,
+    // carrier seat, tip hole and the tip tongue. Whole cells only: centres are kept
     // where a full cell fits, then each centre is grown back into a hex.
     minkowski() {
         intersection() {
@@ -97,11 +109,11 @@ module perforation2d() {
                 translate([-30,tip_start-8]) square([60,40]);
                 for(m=magnets) translate(m) circle(r=4.2);
                 for(q=pads) translate(q[0]) square(q[1]-q[0]);
-                for(s=straps) translate(s) square([6,9.5],center=true);
+                offset(r=0.5) carrier2d();
                 translate(tip_hole) circle(r=2.6);
             }
         }
-        hex_cell();
+        pocket_cell();
     }
 }
 module tongue2d() {intersection(){offset(r=-2) finger_profile();translate([-30,tip_start-3]) square([60,8]);}}
@@ -113,7 +125,7 @@ module finger_plate() {
         }
         for(s=[-1,1]) translate([0,s*(plate/2-pocket/2+0.5),0]) xz(pocket+1) perforation2d();
         for(m=magnets,s=[-1,1]) translate([m[0],s*(plate/2-1),m[1]]) rotate([90,0,0]) cylinder(d=4.2,h=2.2,center=true,$fn=24);
-        for(s=straps) translate([s[0],0,s[1]]) xz(plate+2) hull() for(dz=[-2,2]) translate([0,dz]) circle(d=2.8,$fn=16);
+        for(q=carrier_screws) translate([q[0],0,q[1]]) xz(plate+2) circle(d=1.7,$fn=16);
         translate([tip_hole[0],0,tip_hole[1]]) xz(plate+2) circle(d=2.2,$fn=16);
     }
 }
@@ -128,6 +140,16 @@ module tip_insert() {
             }
         }
         xz(plate/2+0.3) offset(r=0.15) tongue2d();
+    }
+}
+module carrier() {
+    // Black block bolted on the dorsal face of the proximal arm, hanging out past the
+    // outer edge. The finger strap threads the two slots in the overhang.
+    difference() {
+        translate([0,plate/2,0]) xz(carrier_size[2],false) carrier2d();
+        for(q=carrier_screws) translate([q[0],0,q[1]]) xz(40) circle(d=2.3,$fn=16);
+        for(q=carrier_screws) translate([q[0],plate/2+carrier_size[2]-1.5,q[1]]) xz(3,false) circle(d=4.2,$fn=20); // head counterbore
+        for(q=carrier_slots) translate([q[0],0,q[1]]) xz(40) rotate(-carrier_tilt) offset(r=0.8) square([1.2,7.4],center=true);
     }
 }
 module jaw() {
@@ -207,9 +229,11 @@ module piece(q,a=angle) {
     if(q=="right_gear") placed(1,a) gear(0,true);
     if(q=="left_tip") placed(-1,a) tip_insert();
     if(q=="right_tip") placed(1,a) tip_insert();
+    if(q=="left_carrier") placed(-1,a) carrier();
+    if(q=="right_carrier") placed(1,a) carrier();
     if(q=="motor") motor();
 }
-module moving(a=angle) {for(q=["left","right","left_gear","right_gear","left_tip","right_tip"]) piece(q,a);}
+module moving(a=angle) {for(q=["left","right","left_gear","right_gear","left_tip","right_tip","left_carrier","right_carrier"]) piece(q,a);}
 module gear_pair(a=angle,phase_error=0) {
     intersection() {
         placed(-1,a+phase_error) xz(10) gear2d(-180/teeth);
@@ -219,8 +243,10 @@ module gear_pair(a=angle,phase_error=0) {
 module clash(a=angle) {
     intersection(){housing();moving(a);}
     intersection(){motor();moving(a);}
-    intersection(){union(){piece("left",a);piece("left_gear",a);piece("left_tip",a);}
-                   union(){piece("right",a);piece("right_gear",a);piece("right_tip",a);}}
+    intersection(){union(){piece("left",a);piece("left_gear",a);piece("left_tip",a);piece("left_carrier",a);}
+                   union(){piece("right",a);piece("right_gear",a);piece("right_tip",a);piece("right_carrier",a);}}
+    intersection(){piece("left_gear",a);piece("left_carrier",a);}
+    intersection(){piece("right_gear",a);piece("right_carrier",a);}
     intersection(){piece("left",a);piece("left_gear",a);}
     intersection(){piece("right",a);piece("right_gear",a);}
     intersection(){piece("left",a);piece("left_tip",a);}
@@ -237,7 +263,7 @@ if(part=="assembly") {
     color("#3a424d") housing_lid();
     color("#efb83b") {piece("left");piece("right");}
     color("#8f969e") {piece("left_gear");piece("right_gear");}
-    color("#15181c") {piece("left_tip");piece("right_tip");}
+    color("#15181c") {piece("left_tip");piece("right_tip");piece("left_carrier");piece("right_carrier");}
     if(show_motor) color("#252e38") motor();
 }
 if(part=="right") jaw();
@@ -246,8 +272,10 @@ if(part=="right_gear") gear(0,true);
 if(part=="left_gear") gear(-180/teeth);
 if(part=="right_tip") tip_insert();
 if(part=="left_tip") mirror([1,0,0]) tip_insert();
+if(part=="right_carrier") carrier();
+if(part=="left_carrier") mirror([1,0,0]) carrier();
 if(part=="housing_base") housing_base();
 if(part=="housing_lid") housing_lid();
 if(part=="motor") motor();
 if(part=="collision") clash();
-for(q=["housing_base","housing_lid","left","right","left_gear","right_gear","left_tip","right_tip","motor"]) if(part==str("viewer_",q)) piece(q);
+for(q=["housing_base","housing_lid","left","right","left_gear","right_gear","left_tip","right_tip","left_carrier","right_carrier","motor"]) if(part==str("viewer_",q)) piece(q);

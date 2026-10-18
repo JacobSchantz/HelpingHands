@@ -8,12 +8,14 @@ SCAD='/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
 PARTS=[
  ('housing_base','Dorsal housing base — sits on the back of the hand','#2b313a',[0,25,-25]),
  ('housing_lid','Dorsal housing lid — holds the left axle, passes the servo drive','#3a424d',[0,50,-25]),
- ('left','Left finger — perforated crescent plate, mirror of the right','#efb83b',[-45,0,10]),
- ('right','Right finger — perforated crescent plate','#efb83b',[45,0,10]),
+ ('left','Left finger — perforated hook, mirror of the right','#efb83b',[-45,0,10]),
+ ('right','Right finger — perforated hook','#efb83b',[45,0,10]),
  ('left_gear','Left gear — half-tooth index','#8f969e',[-30,45,0]),
  ('right_gear','Right gear — servo driven','#8f969e',[30,45,0]),
  ('left_tip','Left black TPU tip','#15181c',[-55,0,40]),
  ('right_tip','Right black TPU tip','#15181c',[55,0,40]),
+ ('left_carrier','Left black carrier block — finger strap','#15181c',[-55,20,0]),
+ ('right_carrier','Right black carrier block — finger strap','#15181c',[55,20,0]),
  ('motor','ONE servo envelope — unselected','#252e38',[0,70,-10])]
 
 
@@ -44,7 +46,7 @@ def mesh_check(path):
 
 def main():
     logs=[];meshes=[];parts=[]
-    specs=[('assembly',HERE/'exports/assembly.stl')]+[('viewer_'+p[0],HERE/'exports/parts'/f'{p[0]}.stl') for p in PARTS]+[(k,HERE/'exports/print'/f'{k}.stl') for k in ('left','right','left_gear','right_gear','left_tip','right_tip','housing_base','housing_lid')]
+    specs=[('assembly',HERE/'exports/assembly.stl')]+[('viewer_'+p[0],HERE/'exports/parts'/f'{p[0]}.stl') for p in PARTS]+[(k,HERE/'exports/print'/f'{k}.stl') for k in ('left','right','left_gear','right_gear','left_tip','right_tip','left_carrier','right_carrier','housing_base','housing_lid')]
     for mode,path in specs:
         path.parent.mkdir(parents=True,exist_ok=True)
         p=subprocess.run([SCAD,'--export-format','binstl','-D',f'part="{mode}"','-o',str(path),str(HERE/'gripper.scad')],capture_output=True,text=True)

@@ -1,22 +1,22 @@
 [
   {
     "path": "exports/assembly.stl",
-    "triangles": 23618,
+    "triangles": 33078,
     "components": 8,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 117304.99396068645,
-    "min_triangle_area_mm2": 1.880413037724793e-06,
+    "signed_volume_mm3": 117948.69019457152,
+    "min_triangle_area_mm2": 5.190086085349321e-07,
     "bounds_mm": [
       [
-        -45.605316162109375,
+        -52.725128173828125,
         -5.0,
         -34.0
       ],
       [
-        45.605316162109375,
+        52.725128173828125,
         58.961570739746094,
-        112.53794860839844
+        112.53861236572266
       ]
     ],
     "passed": true
@@ -67,34 +67,34 @@
   },
   {
     "path": "exports/parts/left.stl",
-    "triangles": 6840,
+    "triangles": 10596,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 21528.862906916667,
-    "min_triangle_area_mm2": 0.00013622215192299336,
+    "signed_volume_mm3": 19387.504603260357,
+    "min_triangle_area_mm2": 1.9362312741577625e-05,
     "bounds_mm": [
       [
-        -45.605316162109375,
+        -52.725128173828125,
         -5.0,
         -9.0
       ],
       [
         -5.400000095367432,
         23.0,
-        108.16405487060547
+        108.23450469970703
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/parts/right.stl",
-    "triangles": 6840,
+    "triangles": 10596,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 21528.862906916667,
-    "min_triangle_area_mm2": 0.00013622215192299336,
+    "signed_volume_mm3": 19387.504603260357,
+    "min_triangle_area_mm2": 1.9362312741577625e-05,
     "bounds_mm": [
       [
         5.400000095367432,
@@ -102,9 +102,9 @@
         -9.0
       ],
       [
-        45.605316162109375,
+        52.725128173828125,
         23.0,
-        108.16405487060547
+        108.23450469970703
       ]
     ],
     "passed": true
@@ -155,44 +155,88 @@
   },
   {
     "path": "exports/parts/left_tip.stl",
-    "triangles": 352,
+    "triangles": 388,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 255.19753897140103,
-    "min_triangle_area_mm2": 1.880413037724793e-06,
+    "signed_volume_mm3": 256.28146013343127,
+    "min_triangle_area_mm2": 5.190086085349321e-07,
     "bounds_mm": [
       [
-        -37.3408317565918,
+        -37.34739685058594,
         -5.0,
-        101.67704010009766
+        101.67527770996094
       ],
       [
-        -28.15089225769043,
+        -28.11775779724121,
         5.0,
-        112.53794860839844
+        112.53861236572266
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/parts/right_tip.stl",
-    "triangles": 352,
+    "triangles": 388,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 255.19753897140103,
-    "min_triangle_area_mm2": 1.880413037724793e-06,
+    "signed_volume_mm3": 256.28146013343127,
+    "min_triangle_area_mm2": 5.190086085349321e-07,
     "bounds_mm": [
       [
-        28.15089225769043,
+        28.11775779724121,
         -5.0,
-        101.67704010009766
+        101.67527770996094
       ],
       [
-        37.3408317565918,
+        37.34739685058594,
         5.0,
-        112.53794860839844
+        112.53861236572266
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_carrier.stl",
+    "triangles": 924,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 2462.1224892620944,
+    "min_triangle_area_mm2": 0.0013928392509114929,
+    "bounds_mm": [
+      [
+        -51.55794143676758,
+        5.0,
+        7.116907119750977
+      ],
+      [
+        -24.64675521850586,
+        11.0,
+        42.29761505126953
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_carrier.stl",
+    "triangles": 924,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 2462.1224892620944,
+    "min_triangle_area_mm2": 0.0013928392509114929,
+    "bounds_mm": [
+      [
+        24.64675521850586,
+        5.0,
+        7.116907119750977
+      ],
+      [
+        51.55794143676758,
+        11.0,
+        42.29761505126953
       ]
     ],
     "passed": true
@@ -221,44 +265,44 @@
   },
   {
     "path": "exports/print/left.stl",
-    "triangles": 6840,
+    "triangles": 10596,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 21528.862625364083,
-    "min_triangle_area_mm2": 0.00013607567962026224,
+    "signed_volume_mm3": 19387.505161050078,
+    "min_triangle_area_mm2": 1.5527097275480628e-05,
     "bounds_mm": [
       [
-        -16.5,
+        -24.0,
         -5.0,
         -9.0
       ],
       [
-        13.660935401916504,
+        13.694026947021484,
         23.0,
-        108.82487487792969
+        108.89244842529297
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/print/right.stl",
-    "triangles": 6840,
+    "triangles": 10596,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 21528.862625364083,
-    "min_triangle_area_mm2": 0.00013607567962026224,
+    "signed_volume_mm3": 19387.505161050078,
+    "min_triangle_area_mm2": 1.5527097275480628e-05,
     "bounds_mm": [
       [
-        -13.660935401916504,
+        -13.694026947021484,
         -5.0,
         -9.0
       ],
       [
-        16.5,
+        24.0,
         23.0,
-        108.82487487792969
+        108.89244842529297
       ]
     ],
     "passed": true
@@ -309,44 +353,88 @@
   },
   {
     "path": "exports/print/left_tip.stl",
-    "triangles": 352,
+    "triangles": 388,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 255.19755525554032,
-    "min_triangle_area_mm2": 1.9598010112531483e-06,
+    "signed_volume_mm3": 256.28140201417204,
+    "min_triangle_area_mm2": 4.1591374611016363e-07,
     "bounds_mm": [
       [
-        4.156810283660889,
+        4.150014877319336,
         -5.0,
         104.1500015258789
       ],
       [
-        13.787500381469727,
+        13.820093154907227,
         5.0,
-        112.9567642211914
+        112.95770263671875
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/print/right_tip.stl",
-    "triangles": 352,
+    "triangles": 388,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 255.19755525554032,
-    "min_triangle_area_mm2": 1.9598010112531483e-06,
+    "signed_volume_mm3": 256.28140201417204,
+    "min_triangle_area_mm2": 4.1591374611016363e-07,
     "bounds_mm": [
       [
-        -13.787500381469727,
+        -13.820093154907227,
         -5.0,
         104.1500015258789
       ],
       [
-        -4.156810283660889,
+        -4.150014877319336,
         5.0,
-        112.9567642211914
+        112.95770263671875
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_carrier.stl",
+    "triangles": 924,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 2462.1224727268072,
+    "min_triangle_area_mm2": 0.0013921028112235945,
+    "bounds_mm": [
+      [
+        -26.744897842407227,
+        5.0,
+        12.26091194152832
+      ],
+      [
+        -6.255102157592773,
+        11.0,
+        47.73908615112305
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_carrier.stl",
+    "triangles": 924,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 2462.1224727268072,
+    "min_triangle_area_mm2": 0.0013921028112235945,
+    "bounds_mm": [
+      [
+        6.255102157592773,
+        5.0,
+        12.26091194152832
+      ],
+      [
+        26.744897842407227,
+        11.0,
+        47.73908615112305
       ]
     ],
     "passed": true

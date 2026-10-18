@@ -22,7 +22,7 @@
     },
     {
       "path": "exports/parts/left.stl",
-      "name": "Left finger \u2014 perforated crescent plate, mirror of the right",
+      "name": "Left finger \u2014 perforated hook, mirror of the right",
       "color": "#efb83b",
       "explode": [
         -45,
@@ -32,7 +32,7 @@
     },
     {
       "path": "exports/parts/right.stl",
-      "name": "Right finger \u2014 perforated crescent plate",
+      "name": "Right finger \u2014 perforated hook",
       "color": "#efb83b",
       "explode": [
         45,
@@ -78,6 +78,26 @@
         55,
         0,
         40
+      ]
+    },
+    {
+      "path": "exports/parts/left_carrier.stl",
+      "name": "Left black carrier block \u2014 finger strap",
+      "color": "#15181c",
+      "explode": [
+        -55,
+        20,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_carrier.stl",
+      "name": "Right black carrier block \u2014 finger strap",
+      "color": "#15181c",
+      "explode": [
+        55,
+        20,
+        0
       ]
     },
     {
