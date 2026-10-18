@@ -54,8 +54,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The Helping Hands design viewer needs a slider that animates each gripper model between fully open and fully closed. When closed, the finger tips should meet at a point and most of each finger's length should touch, with any designs that don't meet this fixed.",
-  "summary_sha": "b7ae5fc0029f65ab",
+  "summary": "Every gripper design in the gallery, including Gen 7, 9, 10 and the Grabette/Gripette assemblies, needs a working open/close slider. The fingers should pivot about their real hinge, and the view should still rotate freely.",
+  "summary_sha": "7cdcefad3f599806",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-18T13:16:18Z",

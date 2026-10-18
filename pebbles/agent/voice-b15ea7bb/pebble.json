@@ -56,8 +56,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Build Gripper Gen 10, a CAD model of only the two yellow fingers with through-holes and inner-face ridges, built by Opus 5.5 to match the Generalist reference photos. The tips must be skinnier and come to a sharper point than Gen 7, checked by a separate reviewer over up to 3 rounds before showing it in the design gallery.",
-  "summary_sha": "b15ea7bbbbae0e68",
+  "summary": "The Gen 10 gripper's yellow fingers have cut-in grooves on the inner gripping faces, but Jake wants a very fine, shallow raised texture sitting almost on top of the surface. Replace the grooves with that texture, then refine the finger shape slightly against the Generalist reference photos, using up to 3 build-review rounds on Opus 5.5.",
+  "summary_sha": "b26a99f92290cfc4",
   "artifacts": [
     {
       "kind": "web",

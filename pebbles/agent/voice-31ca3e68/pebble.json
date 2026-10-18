@@ -50,8 +50,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Build Gripper Gen 9 with only the two yellow fingers, all holes through and inner-face ridges, matching the Generalist reference photos closely. Tips must be skinnier and come to a sharper point than Gen 7, so run up to three review-and-fix rounds against the photos and show it in the design gallery.",
-  "summary_sha": "31ca3e68d1e4f5c1",
+  "summary": "Gen 9's yellow gripper fingers have cut-in ridge grooves on the inner faces, but Jake wants very fine, shallow raised texture sitting almost on the surface, as in the Generalist photos. Replace the grooves with that texture and refine the finger shape slightly further against the reference photos, using the same build-review loop.",
+  "summary_sha": "01666aa01bf90487",
   "artifacts": [
     {
       "kind": "web",
