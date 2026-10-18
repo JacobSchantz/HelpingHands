@@ -86,8 +86,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gen 7 should be only the two yellow fingers, with no body, mount, camera, straps or drive, replacing the earlier Grabette-copy plan. They should match the Generalist yellow fingers in the reference photos as closely as possible, using the two-hands, robot and top views.",
-  "summary_sha": "5f50ef0fcad7c03f",
+  "summary": "Gen 7 should be only the two yellow fingers, matched closely to the Generalist photos, with every hole made a through-hole. Run at most three build-and-review rounds, each saved as a version, then hand it to Jake even if differences remain.",
+  "summary_sha": "6b9967fc23ef53ca",
   "artifacts": [
     {
       "kind": "openscad",
