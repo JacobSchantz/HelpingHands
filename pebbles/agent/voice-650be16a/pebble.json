@@ -1,0 +1,19 @@
+{
+  "id": "voice-650be16a",
+  "commit_id": "",
+  "description": "Helping Hands handheld gripper, Gen 6. Jake (voice): 'It's getting better. I think all the gear mounting and everything should happen actually up above, because I'll be putting it in between my fingers, so I want as little as possible right there in that little niche between my thumb and my index finger. And you see the ones from Generalist? Try just copying those exactly, the gripper shape, with the cutouts and all that stuff. Just identical to those ones. Just try to reproduce them from the images. This is for Gen 6.' Asks: (1) move all gear/servo mounting up above the hand so the thumb-index web stays as empty as possible; (2) reproduce the Generalist gripper fingers exactly from the reference images (shape, cutouts, everything). Build on the latest handheld gripper generation.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-18T12:38:35.000Z",
+  "updated_at": "2026-10-18T12:38:35.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
