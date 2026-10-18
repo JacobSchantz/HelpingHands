@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-18T13:25:26.000Z",
+      "result": "failed",
+      "notes": "Jake (voice) CORRECTION, replaces everything above: 'Gen 8 should just be exactly the Grabette files assembled into what looks like the Grabette, so I can view it and explode it.' Gen 8 = Pollen's actual Grabette meshes from https://github.com/pollen-robotics/grabette (Apache-2.0; STLs are in Git LFS, so run git lfs pull; the URDF assets are under packages/grabette/urdf/; the Onshape CAD is linked from the README), assembled as the real Grabette, shown in the design viewer with exploded-view support. No merging with Generalist or Gen 6/7, and no redesign. Keep their license and notice with the files. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-18T13:24:40.000Z",
       "result": "failed",
       "notes": "Note: Gen 7 changed. It is now just the yellow fingers matched to Generalist, not a Grabette copy. For Gen 8, take the finger connection interface straight from the Grabette repo (https://github.com/pollen-robotics/grabette, Apache-2.0) and combine it with the Gen 7 fingers and the Gen 6 body ideas. .",
@@ -18,7 +29,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-18T13:24:05.000Z",
-  "updated_at": "2026-10-18T13:24:40.000Z",
+  "updated_at": "2026-10-18T13:25:26.000Z",
   "user_request": {
     "name": "Jake"
   },
