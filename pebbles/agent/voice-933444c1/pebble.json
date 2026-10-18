@@ -76,8 +76,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gen 8 should be Pollen Robotics' actual Grabette meshes from their GitHub repo, assembled as the real Grabette with no merging or redesign. It should open in the design viewer with exploded-view support, and keep Apache-2.0 license and notice files alongside.",
-  "summary_sha": "4874615bc39e6cd3",
+  "summary": "Gen 8 should add Pollen's Gripette robot gripper, from the same repo, as a second viewable and explodable assembly beside the Grabette. Explain in plain words how each is driven: Grabette's hand motion and grip measurement, and Gripette's motor and linkage, with drive parts labeled.",
+  "summary_sha": "cc40a05691d87927",
   "artifacts": [
     {
       "kind": "openscad",
