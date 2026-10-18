@@ -1,0 +1,13 @@
+{"title": "R4 · wedge tip",
+ "changes": ["13 mm thick, wedging smoothly down from the black dot to a 4 mm point (side and robot photos).",
+             "Tip narrowed: the inner edge runs straight into a small point on the outer edge.",
+             "Smooth concave blend where the blade starts, instead of a jog.",
+             "Slots made fatter (2.7 x 1.6 mm); the half-hidden head hole made round.",
+             "Head honeycomb left as traced: the reviewer counted 8 full holes plus 1 small one, the same as the model."],
+ "score": 8, "verdict": "no",
+ "review": ["The wedge starts with a visible crease at the dot; the robot photo shows a smooth chamfer.",
+            "Slots overshot: the photo's are narrower and longer (about 2.2:1), the model's are about 1.4:1.",
+            "The top-left head hole touches the outer edge; the photo shows a wall around it.",
+            "Three bar holes are slanted ovals; the photo reads them as slightly smaller round holes.",
+            "The tip still ends in a short flat; the photo rounds into a sharper point.",
+            "A small kink remains on the head's outer edge."]}

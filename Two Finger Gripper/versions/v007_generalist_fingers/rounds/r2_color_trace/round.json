@@ -1,0 +1,13 @@
+{"title": "R2 · colour trace",
+ "changes": ["Outline and holes now found by colour: every yellow pixel of the finger, and every dark blob inside it, instead of clicking points by eye.",
+             "All 25 holes use their photo position and size; the generated honeycomb is gone.",
+             "Every hole goes all the way through.",
+             "The blade thins from 12 mm at the knee to 5 mm at the tip."],
+ "score": 7, "verdict": "no",
+ "review": ["Edges are jagged from photo noise; the photo's edges are smooth curves.",
+            "The blade slots run along the row; in the photo they slant about 35 degrees steeper, and they are bigger (about 2.6 mm long).",
+            "The tip is an angular cusp; the photo shows one rounded point.",
+            "The blade dot is too big (21 px against about 17 px).",
+            "One hole is too small, one small hole is missing, and three small holes should be ovals.",
+            "The placeholder pivot bore shows in the hook lip; the photo shows it solid.",
+            "The bar reads thin next to a 12 mm thickness; the thinning should be a bevel near the tip, not a long wedge."]}

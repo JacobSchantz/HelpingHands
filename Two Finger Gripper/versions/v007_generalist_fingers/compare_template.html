@@ -1,0 +1,141 @@
+<title>Gen 7 Finger Match</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one inspection sheet — round picker, then the photo overlay, then 3D beside the photos, then notes. */
+:root{
+  --paper:#eeeeea; --sheet:#fbfbf8; --ink:#1d1f22; --muted:#5c6066; --rule:#d5d5cf;
+  --yellow:#efb83b; --yellow-ink:#7a5600; --carrier:#26282b; --good:#2f7d4f; --warn:#b4471f;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#16171a; --sheet:#1f2125; --ink:#eceae4; --muted:#a3a6ab; --rule:#33363b;
+  --yellow:#f2c04f; --yellow-ink:#f2c04f; --carrier:#0d0e10; --good:#6fc493; --warn:#f08a5d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#16171a; --sheet:#1f2125; --ink:#eceae4; --muted:#a3a6ab; --rule:#33363b;
+  --yellow:#f2c04f; --yellow-ink:#f2c04f; --carrier:#0d0e10; --good:#6fc493; --warn:#f08a5d; color-scheme:dark}
+body{background:var(--paper);color:var(--ink);font:16px/1.5 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+main{max-width:1180px;margin:0 auto;display:grid;gap:22px}
+h1,h2{font-family:var(--display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1}
+h2{font-size:1.35rem;text-transform:uppercase;letter-spacing:.06em}
+.lede{color:var(--muted);max-width:68ch;margin:6px 0 0}
+.label{font:500 .72rem/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.rounds{display:flex;flex-wrap:wrap;gap:8px}
+.rounds button{font:600 .95rem var(--body);border:1.5px solid var(--rule);background:var(--sheet);color:var(--ink);
+  border-radius:6px;padding:8px 12px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.rounds button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--yellow)}
+.rounds button:focus-visible,.seg button:focus-visible,input:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.score{font:500 .78rem var(--mono);padding:2px 6px;border-radius:4px;background:var(--paper);font-variant-numeric:tabular-nums}
+section{background:var(--sheet);border:1px solid var(--rule);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.stack{position:relative;width:100%;aspect-ratio:var(--ar);background:var(--carrier);border-radius:4px;overflow:hidden}
+.stack img{position:absolute;inset:0;width:100%;height:100%;max-width:100%}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.row input[type=range]{flex:1;min-width:160px;accent-color:var(--yellow)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.two>div{min-width:0;display:grid;gap:8px;align-content:start}
+.ref{width:100%;aspect-ratio:1/1;object-fit:contain;background:var(--carrier);border-radius:4px}
+#view{width:100%;aspect-ratio:1/1;border-radius:4px;background:#d9d9d4;display:block;touch-action:none}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:500 .85rem var(--body);border:1px solid var(--rule);background:transparent;color:var(--ink);border-radius:4px;padding:5px 9px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:760px){.notes{grid-template-columns:1fr}}
+.notes>div{min-width:0}
+.notes ul{margin:6px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.verdict{font-weight:600}
+.verdict.yes{color:var(--good)} .verdict.no{color:var(--warn)}
+.cap{color:var(--muted);font-size:.9rem;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<main>
+  <header>
+    <div class="label">Generalist gripper · Gen 7 · yellow finger only</div>
+    <h1>Gen 7 Finger Match</h1>
+    <p class="lede">Each round of the finger, checked against the Generalist photos. The top view is drawn in the photo's own pixels, so the model sits exactly where the real finger is. Slide to fade between them.</p>
+  </header>
+  <nav class="rounds" id="rounds" aria-label="Rounds"></nav>
+  <section>
+    <h2>Top view on the photo</h2>
+    <div class="stack" id="stack"><img id="photo" alt="Generalist gripper, lower finger of the left-hand device, top-down"><img id="overlay" alt="Model finger drawn in the photo's frame"></div>
+    <div class="row"><span class="label">Photo</span><input id="fade" type="range" min="0" max="1" step="0.01" value="0.55" aria-label="Fade between photo and model"><span class="label">Model</span></div>
+    <p class="cap">The photo is the lower finger of the left-hand device in the two-hands shot. Scale is 0.2 mm per photo pixel (assumed). The black carrier hides part of the outer edge.</p>
+  </section>
+  <section>
+    <h2>3D against the photos</h2>
+    <div class="two">
+      <div>
+        <div class="seg" id="refs"></div>
+        <img class="ref" id="ref" alt="Generalist reference photo">
+      </div>
+      <div>
+        <div class="seg" id="cams"></div>
+        <canvas id="view" aria-label="3D model of the right finger; drag to orbit"></canvas>
+        <p class="cap">Right finger. Drag to orbit, pinch or scroll to zoom.</p>
+      </div>
+    </div>
+  </section>
+  <section class="notes">
+    <div><h2>What changed</h2><ul id="changes"></ul></div>
+    <div><h2>Reviewer found</h2><p class="verdict" id="verdict"></p><ul id="review"></ul></div>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const D=/*DATA*/null;
+const $=id=>document.getElementById(id);
+$('stack').style.setProperty('--ar',D.size[0]+'/'+D.size[1]);
+$('photo').src=D.photos.two_hands;
+const fade=()=>{$('overlay').style.opacity=$('fade').value};$('fade').oninput=fade;fade();
+
+function seg(el,items,pick){
+  el.innerHTML='';items.forEach(([k,t],i)=>{const b=document.createElement('button');b.textContent=t;b.dataset.k=k;
+    b.onclick=()=>{[...el.children].forEach(c=>c.setAttribute('aria-pressed',c===b));pick(k)};el.appendChild(b);if(i===0)b.click()});
+}
+seg($('refs'),[['robot','Robot'],['side','Side'],['top','Top'],['closed','Closed']],k=>{$('ref').src=D.photos[k]});
+
+// 3D: fingers hang down like the robot photo; the dorsal (honeycomb) face looks at +Z.
+const canvas=$('view'),renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();scene.background=new THREE.Color(0xd9d9d4);
+const cam=new THREE.PerspectiveCamera(30,1,1,2000);
+scene.add(new THREE.HemisphereLight(0xffffff,0x555555,0.85));
+const sun=new THREE.DirectionalLight(0xffffff,0.75);sun.position.set(-60,80,120);scene.add(sun);
+const ctl=new THREE.OrbitControls(cam,canvas);ctl.enableDamping=true;
+const group=new THREE.Group();group.rotation.x=Math.PI/2;scene.add(group);
+let mesh=null,center=new THREE.Vector3(),radius=60;
+const loader=new THREE.STLLoader();
+function show(b64){
+  const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0)).buffer;const g=loader.parse(bin);g.computeVertexNormals();
+  if(mesh){group.remove(mesh);mesh.geometry.dispose()}
+  mesh=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xefb83b,roughness:.65,metalness:0}));group.add(mesh);
+  const box=new THREE.Box3().setFromObject(mesh);box.getCenter(center);radius=box.getSize(new THREE.Vector3()).length()/2;
+  ctl.target.copy(center);
+}
+const views={dorsal:[0,0,1],robot:[-.55,-.25,.8],edge:[-1,0,0.05],inner:[-.8,0,.6]};
+function aim(k){const v=new THREE.Vector3(...views[k]).normalize().multiplyScalar(radius*3.9);cam.position.copy(center).add(v);cam.up.set(0,1,0);ctl.update()}
+function size(){const w=canvas.clientWidth;renderer.setSize(w,w,false);cam.aspect=1;cam.updateProjectionMatrix()}
+new ResizeObserver(size).observe(canvas);
+(function loop(){ctl.update();renderer.render(scene,cam);requestAnimationFrame(loop)})();
+
+function pickRound(r){
+  $('overlay').src=r.overlay;show(r.stl);
+  seg($('cams'),[['robot','Like the robot photo'],['dorsal','Honeycomb face'],['edge','Edge-on'],['inner','Gripping face']],aim);
+  const li=(el,xs)=>{el.innerHTML='';xs.forEach(t=>{const l=document.createElement('li');l.textContent=t;el.appendChild(l)})};
+  li($('changes'),r.changes);li($('review'),r.review||[]);
+  const v=$('verdict');v.className='verdict '+(r.verdict==='yes'?'yes':'no');
+  v.textContent=r.score?`Similarity ${r.score}/10 · ${r.verdict==='yes'?'close match':'not a close match yet'}`:'Not reviewed';
+}
+const nav=$('rounds');
+D.rounds.forEach((r,i)=>{const b=document.createElement('button');b.innerHTML=`<span></span><span class="score"></span>`;
+  b.firstChild.textContent=r.title;b.lastChild.textContent=r.score?r.score+'/10':'—';
+  b.onclick=()=>{[...nav.children].forEach(c=>c.setAttribute('aria-pressed',c===b));pickRound(r)};nav.appendChild(b)});
+nav.lastChild.click();
+</script>

@@ -1,0 +1,13 @@
+{"title": "R3 · review fixes",
+ "changes": ["Smoothed the traced edges (0.4 mm rounding) and simplified the outline.",
+             "Blade slots turned to the photo's slant, made 2.6 mm long; the last one is smaller.",
+             "Tip rounded; blade dot cut to 17 px (3.4 mm).",
+             "One hole enlarged, a missed hole added, three small bar holes made ovals.",
+             "Removed the visible placeholder pivot bore: the photo shows the hook lip solid.",
+             "Thickness 12 to 10 mm, with a short chisel bevel at the tip."],
+ "score": 7.5, "verdict": "no",
+ "review": ["Thickness profile is wrong: the photos show a blade about as thick as it is wide, wedging down from the black dot over the last third. Model was a flat 10 mm plate with a short bevel.",
+            "Tip overshot into a wide round dome; the photo narrows to a small point on the outer edge.",
+            "Head honeycomb reads sparse and the small oval looks like an artifact.",
+            "Slots too thin (3.5:1); the photo's are fat ovals, about 2:1.",
+            "Hard jog in the outer edge where the blade starts; the photo is a smooth blend."]}

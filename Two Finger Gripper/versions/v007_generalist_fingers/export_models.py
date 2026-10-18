@@ -13,7 +13,8 @@ PARTS=[('left','Left finger — Generalist yellow, mirror of the right','#efb83b
 VIEWS=[('top','angle=0','0,0,55,72,0,180,330'),        # dorsal (tilted 18 deg so pockets shade), closed: compare with the photos
        ('open','angle=15','0,0,55,72,0,180,380'),
        ('iso','angle=15','0,0,55,62,0,150,380'),
-       ('finger','part="right"','-10,0,55,72,0,180,260')]
+       ('finger','part="right"','-10,0,55,72,0,180,260'),
+       ('edge','part="right"','0,0,55,90,0,75,260')]          # near edge-on: thickness and the blade wedge, like side.png
 
 
 def mesh_check(path):
@@ -47,18 +48,19 @@ def scad(out,*defs):
 
 
 def overlay(path):
-    """The traced outline and root holes drawn back on the source photo."""
+    """The traced outline, holes and slots drawn back on the source photo."""
     from PIL import Image, ImageDraw
-    src=(HERE/'gripper.scad').read_text()
+    src=(HERE/'trace_px.scad').read_text()
     def points(name):
-        body=re.sub(r'//[^\n]*','',re.search(name+r'=\[(.*?)\];',src,re.S).group(1))
-        return [tuple(map(float,m)) for m in re.findall(r'\[([\d.]+),([\d.]+)\]',body)]
-    k=2;box=(290,300,880,640)
+        body=re.search(name+r'=\[(.*?)\];',src,re.S).group(1)
+        return [tuple(map(float,m.split(','))) for m in re.findall(r'\[([-\d., ]+)\]',body)]
+    k=2;box=(290,300,880,640);X=lambda x:(x-box[0])*k;Y=lambda y:(y-box[1])*k
     img=Image.open(PHOTO).convert('RGB').crop(box);img=img.resize((img.width*k,img.height*k));d=ImageDraw.Draw(img)
-    line=[((x-box[0])*k,(y-box[1])*k) for x,y in points('outline_px')]
+    line=[(X(p[0]),Y(p[1])) for p in points('outline_px')]
     d.line(line+line[:1],fill=(0,230,255),width=3)
-    for x,y in points('root_holes_px'):
-        X,Y=(x-box[0])*k,(y-box[1])*k;d.ellipse([X-15,Y-15,X+15,Y+15],outline=(255,0,255),width=2)
+    for x,y,dia,*_ in points('holes_px')+points('dot_px'):
+        r=max(1.8/0.2,dia)/2*k;d.ellipse([X(x)-r,Y(y)-r,X(x)+r,Y(y)+r],outline=(255,0,255),width=2)
+    for x,y in points('slots_px'):d.ellipse([X(x)-4,Y(y)-4,X(x)+4,Y(y)+4],outline=(0,255,0),width=2)
     img.save(path)
 
 
