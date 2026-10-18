@@ -54,8 +54,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The Gen 6 handheld gripper's gear and servo mounting crowds the thumb-index web, which sits between his fingers. Move all mounting above the hand and copy the Generalist gripper fingers exactly from the reference images.",
-  "summary_sha": "650be16a92db2901",
+  "summary": "The Gen 6 handheld gripper fingers still don't match the Generalist reference photo: yellow plates with rows of small perforated cutouts, a wavy inner grip edge, and pointed tips. Copy those finger shapes and cutouts as exactly as possible, keeping the gear housing above the hand so the thumb-index web stays clear.",
+  "summary_sha": "63441bdbbf479a93",
   "artifacts": [
     {
       "kind": "image",

@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Helping Hands design viewer needs a slider that animates each gripper model between fully open and fully closed. When closed, the finger tips should meet at a point and most of each finger's length should touch, with any designs that don't meet this fixed.",
+  "summary_sha": "b7ae5fc0029f65ab"
 }
