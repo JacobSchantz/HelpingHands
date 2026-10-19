@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gripper version 3.3 needs handles barely taller than the fingers, attached more smoothly to a base and gear system moved up into the fingers' plane. Gears should surround one centered motor, with the handle wrapping into them, all parameterized, separable, and driven by the RobStride RS00.",
+  "summary_sha": "3b311f324546299a"
 }
