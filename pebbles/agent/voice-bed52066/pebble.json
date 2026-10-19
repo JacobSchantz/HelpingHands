@@ -8,7 +8,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T20:28:38.000Z",
-  "updated_at": "2026-10-19T20:28:38.000Z",
+  "updated_at": "2026-10-19T20:30:02Z",
   "user_request": {
     "name": "Jake"
   },
@@ -19,5 +19,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Gripper design versions in the repo and live preview UI use old numbering like 1.21, 2.6, and 3.3 instead of the AGENTS.md scheme. Rename them to Gripper N, Handle N, and Base N across catalog labels and pickers without breaking history, keeping each part's mix-and-match picker independent.",
-  "summary_sha": "bed52066381d9a5c"
+  "summary_sha": "bed52066381d9a5c",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-bed52066",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-bed52066",
+  "claimed_at": "2026-10-19T20:30:02.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
