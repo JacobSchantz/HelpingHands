@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "In version 1.19, the gripper finger's rounded section, from where rounding starts to the tip, is too thin. Thicken that section outward, building on 1.18, while the tip still tapers to a point.",
+  "summary_sha": "13bdab11970796bd"
 }

@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The gripper-and-handle design in version 2.3 should keep the 2.2 handles but drop the small connector between the two parts. The handle should instead get a long, narrow tongue that slides in from the top into a matching pocket along the gripper's flat face near the base hook.",
+  "summary_sha": "1557d48f1789eef8"
 }
