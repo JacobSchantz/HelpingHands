@@ -1,0 +1,87 @@
+{
+  "id": "voice-bbe0e945",
+  "commit_id": "a4c712ca0a2cddbc5d6a44e6b3f3e5c9becb5002",
+  "description": "Website live gripper preview: mix and match parts. Make the gripper (fingers, 1.x line) and the handles (strap-loop attachment, 2.x line) separate selectable parts in the preview, so any gripper version can be combined with any handle version and shown assembled together. Default view on load is 2.1; 1.1 must also be selectable. See AGENTS.md for the versioning scheme (1.x gripper only, 2.x gripper plus handles). Related: voice-4c63021e (2.1) and voice-caae8e01 (preview bug), both in human/.",
+  "test_instructions": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T18:25:45.000Z",
+      "result": "failed",
+      "notes": "The mix-and-match pickers miss the newest parts. Gripper picker tops out at 1.20 and never offers 1.21, because 1.21's fingers only exist inside the 2.6 design (v206) and the picker only takes grippers from 1.x designs. And 3.1 (v301, the base with the RobStride RS00 motor, arms and gears) is never offered, because the picker only accepts 1.x and 2.x lines. Fix: offer each 2.x/3.x design's fingers as its finger version (2.6 and 3.1 give gripper 1.21, label from VERSIONS.txt or a catalog field rather than parsing the name), and add the 3.x line, e.g. a Base picker or 3.1 in the handles list showing arms, gears, base and motor. Default should open on the newest version. The catalog is fresh and already lists 2.6 and 3.1, so this is a gallery.js change, plus a publisher field if needed.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "agent_action",
+      "at": "2026-10-19T16:10:30Z",
+      "commit_id": "a4c712ca0a2cddbc5d6a44e6b3f3e5c9becb5002",
+      "model": "claude-opus-5-5",
+      "model_display": "Claude Opus 5.5",
+      "identified_issue": "Mix tile is a synthetic design (MIX, id generalist-mix) built client-side in cad/mobile_gallery/gallery.js from catalog.json: no publisher change. Handle detection is name regex /strap slide|handle/i on model names; version labels parse 'Gen N' -> 1.N and 'Gen 2.x' -> 2.x from catalog names. Default = newest 1.x + newest 2.x rather than a stored 2.x->base mapping (2.1's base 1.17 happens to be newest). Motion: design.pose = gripper id so poses.js hinges of the gripper drive both its fingers and the handles; grippers with non Left/Right hinge names (1.1 demo, Gen 8) leave handles fixed. Handles are not refitted to other grippers (no lug position data). Initial load with no hash focuses the mix tile — previously it showed the all-generations grid; All button still returns to grid. Also added the missing v201 poses.js entry (test_gripper_poses passed against scad). Verified only in headless Chrome/swiftshader, not phone.",
+      "summary": "Live Preview now opens on a mix-and-match tile: pick any gripper (1.1 to 1.17) and any handles (2.1 or none) and see them assembled. It opens on 2.1.",
+      "description_sha": "bbe0e945d433a8de",
+      "changes": [
+        "cad/mobile_gallery/gallery.js",
+        "cad/mobile_gallery/index.html",
+        "cad/mobile_gallery/poses.js",
+        "cad/mobile_gallery/README.txt"
+      ],
+      "detailed_description": "The Generalist Gripper page now has a new first tile, and a plain load opens straight onto it. In its top right are two pickers: Gripper (1.1 through 1.17; the old Gen N shows as 1.N) and Handles (2.1, or No handles). The tile shows the two together, assembled, and the Open/Closed slider and Explode work on it. It starts on Gripper 1.17 + Handles 2.1, which is 2.1. 1.1 is in the list even though it's hidden in your comparison grid; hiding only affects the grid.\n\nHow it splits a design: any part whose name says 'strap slide' (or 'handle') counts as a handle, and everything else is the gripper. That also strips the leftover slides out of 1.17, so 1.17 shows gripper-only here.\n\nOne thing to know: the handles are drawn where 2.1 put them, and they swing on the chosen gripper's Left/Right hinge. They only really fit on 1.17, the gripper 2.1 was built on. On 1.1 they float next to the old jaws (see the second screenshot), and on 1.1 they stay still when you move the slider, because its hinges aren't named Left/Right. Making them fit any gripper would need each gripper to say where a lug sits. Defaults are always the newest gripper and the newest handles, so 2.2 would become the default automatically.\n\nAlso: 2.1 had no entry in poses.js, so its own tile didn't open or close. I added one with the same hinge as 1.17, and the pose test confirms it matches 2.1's gripper.scad. Links: ?gripper=1.1&handles=none presets the pickers, and #generalist-mix jumps to the tile. I checked this in headless Chrome against the live catalog and took screenshots. The pose and publisher tests pass (14 of 14). I haven't seen it on the phone.",
+      "image_urls": [
+        "pebbles/agent/voice-bbe0e945/mix_default_2_1.png",
+        "pebbles/agent/voice-bbe0e945/mix_1_1_with_2_1_handles.png"
+      ],
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-19T16:10:30Z",
+      "commit_count": 740
+    }
+  ],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:03:56.000Z",
+  "updated_at": "2026-10-19T18:25:45.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "summary": "The live gripper preview locks the 1.x gripper and 2.x strap-loop handles together as one version. Let users pick gripper and handle versions separately, showing the combination assembled, with 2.1 as default and 1.1 selectable.",
+  "summary_sha": "bbe0e945d433a8de",
+  "solved_by_agent": "jarvis",
+  "solved_by_device": "jakes-macbook-pro",
+  "solved_at": "2026-10-19T16:10:30Z",
+  "cost": {
+    "runs": [
+      {
+        "session": "3c122dd4-142b-4423-ba5f-e1c9067e9bb8",
+        "harness": "claude",
+        "model": "claude-opus-5-5",
+        "input_tokens": 84,
+        "output_tokens": 35672,
+        "cache_read_tokens": 3281792,
+        "cache_write_tokens": 145474,
+        "turns": 42,
+        "at": "2026-10-19T16:10:30Z",
+        "priced": true,
+        "usd": 10.327
+      }
+    ],
+    "input_tokens": 84,
+    "output_tokens": 35672,
+    "cache_read_tokens": 3281792,
+    "cache_write_tokens": 145474,
+    "total_usd": 10.327
+  },
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-19T18:25:45.000Z"
+  }
+}
