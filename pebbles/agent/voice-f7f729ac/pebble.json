@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T16:12:14.000Z",
-  "updated_at": "2026-10-19T16:12:14.000Z",
+  "updated_at": "2026-10-19T16:12:36Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "In version 2.2 of the gripper design, the handle/strap-loop flat pieces stick outward as they did in 2.1. Rotate them 90 degrees so they lie parallel to the gripper's flat faces, flush with its flat sides.",
-  "summary_sha": "f7f729ac01226dae"
+  "summary_sha": "f7f729ac01226dae",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-f7f729ac",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-f7f729ac",
+  "claimed_at": "2026-10-19T16:12:36.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
