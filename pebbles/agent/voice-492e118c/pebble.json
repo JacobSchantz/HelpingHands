@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Gripper Gen 15: full printable handheld gripper built around the Gen 14 fingers. Jake (voice): 'I'm happy with Gen 14. Let's move forward with making it printable. Gen 15: keep that, but from the photos add the rest of it: the actual attachment mechanism and stuff, and the ability to attach a camera.' Spec: keep the Gen 14 finger shape (voice-fe67959c) as-is, only adjusting it for printability (wall thickness, tip strength, hole sizes, print orientation, tolerances at the pivots). From all the reference photos in cad/reference/generalist_gripper_gen6_*.png, add the rest of the device: the pivot/linkage plate and finger carrier blocks, the hand-mount frame, and an Insta360 X4/X5-size camera mount on the back of the hand with the lens facing forward. Earlier asks from Jake still apply: mounting and mechanism sit ABOVE the hand, keep the thumb-index web as empty as possible; three straps (wrist, index finger, thumb) modeled as separate non-printed parts, with slots that also fit zip ties. Output printable STLs per part plus a parts list, and show the assembly in the gallery with the open/close slider and exploded view. New version only.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T01:45:30.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'We don't need to actually draw the straps on there. That's unnecessary.' Don't model or render the straps at all. Just keep the strap/zip-tie slots in the printed parts. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-19T01:30:37.000Z",
-  "updated_at": "2026-10-19T01:31:47Z",
+  "updated_at": "2026-10-19T01:45:30.000Z",
   "user_request": {
     "name": "Jake"
   },
