@@ -1,0 +1,19 @@
+{
+  "id": "voice-438af2a9",
+  "commit_id": "",
+  "description": "Gripper Gen 12: tweezer version that follows the fingers. Jake (voice): 'Do another version. It should be basically a set of tweezers that can follow the fingers. Pretty similar to what we have now, but significantly smaller at the end, and more tweezer-like.' Start from the current Generalist-style fingers (Gen 10/11) and keep the same family look and mounting/pivot idea, but make it a tweezer: the jaws track the wearer's thumb and index finger motion; the fingers taper to much smaller, finer, flatter tweezer tips for precise small-object picks; the tips meet cleanly when closed. New version only; don't modify earlier generations. Include it in the gallery with the open/close slider. (Separately, notes from the Gen 10 vs 11 comparison for future Generalist-copy versions: shallow grooves only on the gripping jaw near the tip, not along the whole edge; Gen 10's fuller beak looked closer than Gen 11's needle.)",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T00:26:34.000Z",
+  "updated_at": "2026-10-19T00:26:34.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
