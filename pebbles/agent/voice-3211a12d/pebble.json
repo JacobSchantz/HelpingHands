@@ -18,7 +18,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T16:30:16.000Z",
-  "updated_at": "2026-10-19T16:30:46.000Z",
+  "updated_at": "2026-10-19T16:43:25Z",
   "user_request": {
     "name": "Jake"
   },
@@ -29,5 +29,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The gripper and handle geometry still contains buried magic numbers, so finger, tip, pocket, tongue, and slot dimensions need to become named, documented parameters. The website live preview should add a slider for each parameter that updates the gripper and handles live while dragging.",
-  "summary_sha": "7a65370aeae9ad3b"
+  "summary_sha": "7a65370aeae9ad3b",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-3211a12d",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-3211a12d",
+  "claimed_at": "2026-10-19T16:43:25.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
