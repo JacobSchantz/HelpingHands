@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T17:04:17.000Z",
-  "updated_at": "2026-10-19T17:04:17.000Z",
+  "updated_at": "2026-10-19T17:04:37Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The gripper model needs a new version 1.20, built on 1.19, with a hook at both the bottom and top of the flat face. The handle piece should slide in and be held by both hooks, with the version bumped per AGENTS.md.",
-  "summary_sha": "483f28b9a08cfb3f"
+  "summary_sha": "483f28b9a08cfb3f",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-483f28b9",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-483f28b9",
+  "claimed_at": "2026-10-19T17:04:37.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
