@@ -1,0 +1,145 @@
+{
+  "sampled_angles_degrees": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "results": [
+    {
+      "name": "fingers_never_collide_1_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_touch_without_overlap_at_0_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_overlap_when_pushed_0.02mm_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 235\nGeometry cache size in bytes: 1300600\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.048\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -4\n   Vertices:      183\n   Facets:        346"
+    },
+    {
+      "name": "pushed_0.02mm_together_they_meet_only_in_the_last_6mm",
+      "passed": true,
+      "expected": "contact",
+      "overlap_z": [
+        99.71,
+        105.75
+      ],
+      "log": "Geometries in cache: 235\nGeometry cache size in bytes: 1300600\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.048\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -4\n   Vertices:      183\n   Facets:        346"
+    },
+    {
+      "name": "closed_gap_follows_the_photo_curve",
+      "passed": true,
+      "expected": "within 0.12 mm of the photo fit from 3 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
+      "worst_mm": 0.053,
+      "contact_z": 105.13,
+      "rows": [
+        {
+          "d_mm": 1,
+          "model_gap": 0.002,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 2,
+          "model_gap": 0.0,
+          "photo_gap": 0.001
+        },
+        {
+          "d_mm": 3,
+          "model_gap": 0.004,
+          "photo_gap": 0.003
+        },
+        {
+          "d_mm": 4,
+          "model_gap": 0.007,
+          "photo_gap": 0.007
+        },
+        {
+          "d_mm": 6,
+          "model_gap": 0.024,
+          "photo_gap": 0.026
+        },
+        {
+          "d_mm": 8,
+          "model_gap": 0.059,
+          "photo_gap": 0.064
+        },
+        {
+          "d_mm": 10,
+          "model_gap": 0.121,
+          "photo_gap": 0.129
+        },
+        {
+          "d_mm": 12,
+          "model_gap": 0.216,
+          "photo_gap": 0.229
+        },
+        {
+          "d_mm": 14,
+          "model_gap": 0.353,
+          "photo_gap": 0.373
+        },
+        {
+          "d_mm": 16,
+          "model_gap": 0.542,
+          "photo_gap": 0.567
+        },
+        {
+          "d_mm": 18,
+          "model_gap": 0.768,
+          "photo_gap": 0.821
+        },
+        {
+          "d_mm": 20,
+          "model_gap": 1.104,
+          "photo_gap": 1.144
+        },
+        {
+          "d_mm": 22,
+          "model_gap": 1.644,
+          "photo_gap": 1.544
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Integer-degree samples only, not continuous motion.",
+    "Closed gap read from one blurred perspective photo (~0.5 mm/px); sub-pixel widths come from seam darkness.",
+    "Plan shape traced from one photo at an assumed 0.2 mm/px; no Generalist part was measured.",
+    "No body, axle, drive or stops exist in this generation."
+  ]
+}
