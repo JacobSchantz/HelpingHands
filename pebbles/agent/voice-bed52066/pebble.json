@@ -1,0 +1,21 @@
+{
+  "id": "voice-bed52066",
+  "commit_id": "",
+  "description": "Rename all gripper design versions in the repo and the live preview UI (catalog labels, picker, folder names or display names, whatever is cleanest without breaking history) to the Gripper N / Handle N / Base N scheme in AGENTS.md (mapping table there: 1.21 = Gripper 21, 2.6 = Handle 6, 3.3 = Base 3). Keep the mix-and-match pickers independent per part: Gripper, Handle, Base. Related: picker voice-bbe0e945, Base 3 (old 3.3) voice-3b311f32.",
+  "test_instructions": [
+    "Open the live preview: no 1.x/2.x/3.x labels remain; pickers show Gripper N, Handle N and Base N and each selects independently."
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T20:28:38.000Z",
+  "updated_at": "2026-10-19T20:28:38.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
