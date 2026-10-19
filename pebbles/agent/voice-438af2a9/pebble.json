@@ -56,8 +56,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gripper Gen 12 needs a new tweezer-style version of the Gen 10/11 Generalist fingers, with jaws tracking the wearer's thumb and index finger. The tips should taper to much smaller, flatter points that meet cleanly when closed, and it should be added to the gallery with the open/close slider without changing earlier generations.",
-  "summary_sha": "438af2a97a94b488",
+  "summary": "Gen 12 is a new tweezer-style version of the Generalist fingers, with slender tines and small flat tips, shown in the gallery with the open/close slider. Serration should span nearly the whole inner edge, except maybe the very tip, replacing the earlier \"grooves only near the tip\" note.",
+  "summary_sha": "c9578a5f1f4b7004",
   "artifacts": [
     {
       "kind": "image",
