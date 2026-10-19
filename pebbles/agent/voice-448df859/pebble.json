@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T20:43:18.000Z",
-  "updated_at": "2026-10-19T20:43:18.000Z",
+  "updated_at": "2026-10-19T20:43:58Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Viewed edge-on, the Handle 6 plate is 37 mm tall, standing 12.5 mm past each face of the 12 mm gripper finger. Handle 7 should be about 12 mm tall, with the strap slots and stop strip reworked to fit, using Base 3's shared handle_over parameter.",
-  "summary_sha": "448df8592af8f153"
+  "summary_sha": "448df8592af8f153",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-448df859",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-448df859",
+  "claimed_at": "2026-10-19T20:43:58.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
