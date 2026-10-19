@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T01:30:37.000Z",
-  "updated_at": "2026-10-19T01:30:37.000Z",
+  "updated_at": "2026-10-19T01:31:47Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Make Gripper Gen 15 a fully printable handheld gripper, keeping the Gen 14 fingers and adding the mechanism, hand-mount frame, and forward-facing camera mount. Deliver per-part STLs, a parts list, and a gallery assembly with open/close slider and exploded view.",
-  "summary_sha": "492e118cea600185"
+  "summary_sha": "492e118cea600185",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-492e118c",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-492e118c",
+  "claimed_at": "2026-10-19T01:31:47.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
