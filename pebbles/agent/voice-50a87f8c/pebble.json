@@ -1,0 +1,16 @@
+{
+  "id": "voice-50a87f8c",
+  "commit_id": "",
+  "description": "Research open source egocentric datasets (first-person video of humans doing manipulation, e.g. Ego4D, EPIC-KITCHENS, and newer ones). For each: size, license, modalities (video, depth, hand pose, actions, language), and how useful it would be for training our world action model on the gripper. Write findings into the repo's docs so any agent can use them.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T06:00:57.000Z",
+  "updated_at": "2026-10-19T06:00:57.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
