@@ -1,0 +1,18 @@
+{
+ "title": "R2 · ribs over the steps and head",
+ "changes": [
+  "Grooves now start at the head corner and carry on over the step faces. A groove is skipped only at a corner sharper than 80°, and where two would converge into a loose sliver in a concave corner. 98 grooves in all.",
+  "Grooves are 0.5 mm deep (r1: 0.6). The least wall to a hole is 0.6 mm (r1: 0.4).",
+  "The point is rounded to 0.5 mm in plan again (r1: 0.35), but stays a skinny needle, as Jake asked."
+ ],
+ "score": 8,
+ "verdict": "yes",
+ "review": [
+  "Possible pinholes at the head end of the jaw face (a grid of dots in jaw.png). A close-up render showed clean grooves: the dots were render speckle. genus.py counts exactly 33 holes, and the mesh is one watertight body.",
+  "Two plain bands are left at the step corners, where grooves were skipped. Raise the skip angle to about 100°.",
+  "The tip's skinniness matches, but its last 2-3 mm are under 0.8 mm wide in plan, which prints as a single line. Keep 0.8-1.0 mm out to about 1 mm from the point.",
+  "The edge-on taper may be a one-sided chisel in side.png. Low confidence. (Not taken.)",
+  "Grooves stop about 3 mm before the point, but the photo shows ribs reaching the nub. Run them to within about 1 mm.",
+  "Holes look fine."
+ ]
+}

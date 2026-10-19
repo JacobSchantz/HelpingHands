@@ -1,0 +1,16 @@
+{
+ "title": "A2 · full outer edge, knee, straight chamfer",
+ "changes": [
+  "Per the a1 review: the outer edge is eased up to 0.9 of its half-width at the dot by f = 0.77, then runs as one straight chamfer to the point, a ~22 deg break (NEEDLE_CHISEL = (0.77, 0.9); a1: 0.6 on the curve).",
+  "The fuller beak passed the groove width test one station further out, and that groove broke through as a pinhole (genus.py: 34 holes). The grooves now also stop 1.6 mm short of the point (RIDGE_TIP_CLEAR_PX), as in r4: 29 grooves, 33 through-holes.",
+  "Still one watertight body per finger, no collision 0-30 deg; the pivot stays at 27.672 mm."
+ ],
+ "score": 8,
+ "verdict": "yes",
+ "review": [
+  "Closer to the photos: the first round where the outer edge stays full and then breaks into a straight facet near the point, like the photo's lower finger. r4 and a1 still read as one continuous curve.",
+  "The tip is still skinny and pointed, not stubby; the edge view is a clean ogive. The point leans slightly toward the gripping face, like a raptor beak.",
+  "No regressions: the grooves are straight and shallow across the full face, the short stop before the point isn't noticeable, and every hole is open.",
+  "Optional: keep knee-to-point a straight line with no concave dip, and ease the knee to ~0.80 if it still looks hooked. Otherwise ship. (Checked: the facet is a straight line in the trace, so it was shipped as is.)"
+ ]
+}

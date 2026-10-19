@@ -1,0 +1,20 @@
+{
+ "title": "R1 · full-width grooves, needle tip",
+ "changes": [
+  "Started from Gen 10 (Opus 5.5).",
+  "Ridges: 90 grooves, 0.6 mm deep, 0.5 mm wide, at 1.0 mm pitch, all along the inner edge from the head to the beak. Each is cut straight across the full thickness, with no lip. The depth is measured from the finished edge, and each groove keeps a 0.4 mm wall to any hole.",
+  "Tip: the width curve gets a (1-f)^Q factor (Q = 1.15 on the jaw edge, 1.35 on the outer edge), so the last 3 mm narrow to a needle. The beak ends 1.6 mm thick (Gen 10: 2.0). The plan point is rounded to 0.35 mm (Gen 10: 0.5).",
+  "The slot row moved 0.4 mm inboard so the narrower jaw keeps a wall: 33 through-holes, as designed.",
+  "Fixed a zero-width spur in the outline at the blade root (a patch inserted against the outline's direction)."
+ ],
+ "score": 7.5,
+ "verdict": "yes",
+ "review": [
+  "The step and shoulder faces are smooth bands. In robot.png the ribs run across them without a break.",
+  "There is 8-10 mm of plain face beside the head, where the photo is ribbed nearly to the hook.",
+  "The tip is too sharp: a 0.35 mm spike is fragile. The reviewer reads the yellow as ending in a small flat 3-4 mm across, where the nub sits. (Not taken, because Jake asked for skinny, pointed tips. The point radius went back to 0.5 mm so it prints.)",
+  "The beak may be a one-sided chisel in side.png; the reviewer was unsure because of the camera angle. (Not taken.)",
+  "A 0.4 mm wall between a groove and a hole is a single print line. Raise it.",
+  "Groove pitch is right at about 1 mm. Go a little shallower so the plan outline isn't a coarse saw-tooth."
+ ]
+}

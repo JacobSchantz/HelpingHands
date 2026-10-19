@@ -1,0 +1,17 @@
+{
+ "title": "R4 · grooves on the jaw only, Gen 10's beak back",
+ "changes": [
+  "Jake: r3 read as a serrated saw, and its needle lost Gen 10's fuller beak.",
+  "Grooves now run on the gripping jaw only, from the last step face below the beak shoulder to ~1.5 mm from the point: 29 grooves (r3: 99 from the head corner). Same 0.5 mm deep, 0.5 mm wide, 1.0 mm pitch, full thickness.",
+  "Beak width curve: Q = 1.05/1.12 and outer fullness A = 2.8 (r3: 1.15/1.35, 3.0; Gen 10: 1, 2.6). About Gen 10's beak, with only the last few mm sharpened; the r3 printability floor on the point stays.",
+  "Still 33 through-holes, one watertight body per finger, no collision 0-30 deg."
+ ],
+ "score": 8,
+ "verdict": "yes",
+ "review": [
+  "Both fixes land: the long inner edge and base are smooth again, and the beak's outer curve is back to about Gen 10's fullness with a clean point.",
+  "Groove start matches robot.png: the ribbed face runs from the step just behind the jaw out to the tip.",
+  "Optional: stop the grooves 2-3 mm short of the point (the photos look smooth there), and start them 1-2 mm past the step so it reads as its own shoulder.",
+  "Remaining gap to the photos is the overall outline and hole pattern, not the grooves or the beak."
+ ]
+}

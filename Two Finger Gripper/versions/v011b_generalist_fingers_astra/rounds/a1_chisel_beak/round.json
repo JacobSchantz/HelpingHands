@@ -1,0 +1,18 @@
+{
+ "title": "A1 · chisel beak (Astra pass)",
+ "changes": [
+  "Started from Gen 11 Opus r4. Built by Opus 5.5 because GPT-6 Astra was unavailable.",
+  "side.png is a dorsal (plan) view: the slot row and black dot sit near the jaw edge, as in two_hands.png. So the 'one-sided chisel' Opus left open is the plan outline, and the edge-on thickness taper stays symmetric.",
+  "Past 60% of the way from the dot to the point, the outer edge is a straight chamfer to the point instead of a continuing curve (trace_photo.py NEEDLE_CHISEL).",
+  "Inside-corner band: r4 already starts the grooves right at the shoulder's inside corner, so no plain band is left there.",
+  "Still 33 through-holes, one watertight body per finger, no collision 0-30 deg."
+ ],
+ "score": 7.5,
+ "verdict": "yes",
+ "review": [
+  "Agrees side.png is a plan view: the jaw edge runs straight to the nub, and the outer edge breaks at a knee into one flat facet (robot.png too). Keeping the thickness taper symmetric is right.",
+  "About the same as r4, slightly better: r4's curve past 60% was already nearly straight, so a1 still reads as one smooth convex curve.",
+  "The photos keep the outer edge full until about 75-80% and then break sharply into the facet. Move the knee to 0.75-0.78 and hold the edge within about 10% of its width at the dot up to it, for a visible 20-25 deg break.",
+  "No plain band at the inside corner: the smooth face below it is the shank's inner wall."
+ ]
+}

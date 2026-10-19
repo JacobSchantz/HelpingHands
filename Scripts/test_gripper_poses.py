@@ -52,7 +52,7 @@ class GripperPoseTests(unittest.TestCase):
         if not Path(OPENSCAD).exists():
             self.skipTest('OpenSCAD not installed')
         for design_id, pose in poses().items():
-            match = re.match(r'two-finger-gripper-(v\d+)', design_id)
+            match = re.match(r'two-finger-gripper-(v\d+[a-z]?)', design_id)   # v011b: the Astra pass, not v011
             folder = next(VERSIONS.glob(match.group(1) + '_*'), None) if match else None
             source = folder / 'gripper.scad' if folder else None
             if not source or not source.exists() or 'module placed' not in source.read_text():

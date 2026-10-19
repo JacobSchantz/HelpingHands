@@ -1,0 +1,19 @@
+{
+ "title": "R3 · printable point, ribs to the tip",
+ "changes": [
+  "The last 4 mm of the needle get a width floor of 0.6·d·(1−d/4 mm), where d is the distance to the point: at least 0.9 mm across 1 mm back. Further back the blade is r2's curve. (A first try put the floor on the whole beak and made a wide arrowhead; the reviewer caught it, and it was fixed before this review.)",
+  "Grooves run to about 1.5 mm from the point. They stop where the blade is under 1.8 mm across (r2: 2.6 mm); at 1.6 mm, two tip grooves left a pinhole.",
+  "A groove is skipped only at corners sharper than 100° (r2: 80°), so the step faces are ribbed through. 99 grooves; still 33 through-holes and one watertight body.",
+  "Checked the head-end dots with a close-up render: they were render speckle, not holes."
+ ],
+ "score": 8.5,
+ "verdict": "yes",
+ "review": [
+  "Accepted. The beak follows r2's curve on the photo outline, and the two thin curved needles close cleanly in top.png.",
+  "One plain band is left on the jaw face, at the inside corner at the foot of the shoulder below the beak. In robot.png the ribs run through it.",
+  "The edge-on taper is even from both sides. side.png hints at a one-sided chisel, but that reading is low-confidence.",
+  "The last ~1.5 mm of the jaw edge has no grooves. That is fine: grooving it made pinholes, and the photos can't resolve that area.",
+  "The grooves read as a saw-tooth in the dorsal close-up. That is just 0.5 mm grooves at render scale; no change needed.",
+  "For the next pass: rib that one inside corner, and check the chisel reading against a clearer side photo. Leave the outline, tip floor, holes and groove depth as they are."
+ ]
+}
