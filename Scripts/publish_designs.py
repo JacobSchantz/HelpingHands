@@ -143,7 +143,8 @@ def discover(repo=REPO):
                    "two-finger-gripper-v019-generalist-wide-beak": "1.19",
                    "two-finger-gripper-v201-generalist-strap-loops": "2.1",
                    "two-finger-gripper-v202-generalist-flush-loops": "2.2",
-                   "two-finger-gripper-v203-generalist-tongue-pocket": "2.3"}
+                   "two-finger-gripper-v203-generalist-tongue-pocket": "2.3",
+                   "two-finger-gripper-v204-generalist-parametric": "2.4"}
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',
@@ -284,6 +285,11 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     repo, out = repo.resolve(), out.resolve()
     public = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
     public.update(models=[], source=None, source_bundle=None, preview=None, export_status='no CAD source')
+    tuning = Path(row['folder']) / 'params.json'
+    if tuning.is_file() and (Path(row['folder']) / 'live_render.py').is_file():
+        # 2.4 on: the gallery's Tune panel draws a slider for each of these; serve_designs.py POST /tune renders them
+        public['params'] = [dict(name=g['name'], params=[q for q in g['params'] if q['stage'] != 'calibration'])
+                            for g in json.loads(tuning.read_text())['groups'] if any(q['stage'] != 'calibration' for q in g['params'])]
     source = inside(row['source_path'], repo) if row['source_path'] else None
     asset = out / 'assets' / row['id']
     asset.mkdir(parents=True, exist_ok=True)

@@ -35,3 +35,9 @@ Actual (Generalist): the Generalist Gripper family gets an extra first tile, the
 Top / Front / Side / Iso (bottom right) snap every tile on screen to one camera: same direction, centre and scale, framed on all shown models together. Top is the photo's viewpoint and also closes the jaws to the photo's pose. ?view=top does the same once the models load.
 
 Mix and match (Generalist Gripper): the family's first tile, and the view a plain load opens on. Two pickers in the tile choose any 1.x gripper (catalog "Gen N" = 1.N) and any 2.x version's handles, or No handles, and show them assembled. A handle is a part whose name says "strap slide" or "handle"; the rest of a design is its gripper. Handles keep their own design's coordinates and ride the gripper's ^Left/^Right hinges, so they are only truly fitted on the gripper their 2.x version was built on (2.1 on 1.17). Defaults are the newest gripper and newest handles; ?gripper=1.1&handles=2.1 (or handles=none) presets it; #generalist-mix links to it.
+
+Tune (2.4 on): a version folder with params.json + live_render.py publishes its parameters into the catalog (params).
+Focus that design and tap Tune: one slider per parameter. Each change POSTs {design, values} to serve_designs.py /tune,
+which renders the real OpenSCAD parts into tune/<id>/<hash>/ under the served directory (80 kept per design) and the
+view swaps them in. ?tune=name:value,... presets the values; Copy puts the changed ones on the clipboard. This is the one
+place the server runs CAD on request; values are numbers only, checked against params.json and clamped to slider range.

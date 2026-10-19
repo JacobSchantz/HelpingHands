@@ -26,3 +26,7 @@ v202_generalist_flush_loops — 2.2 (voice-f7f729ac): 2.1 with each strap slide'
 stands flush against the lug, parallel to the finger's outer side, instead of sticking 33 mm outboard. Fingers, lug and dovetail unchanged.
 v203_generalist_tongue_pocket — 2.3 (voice-1557d48f): 2.2's handles with the yellow lug dropped. Each handle's long, narrow tongue
 slides down from the top into a keyhole pocket in the finger's outer edge, and the handle's foot drops behind the base hook.
+v204_generalist_parametric — 2.4 (voice-3211a12d): 2.3 with every dimension a named, documented parameter in one params.json
+(67: outline, finger solid, handle plate, strap slots, tongue and pocket, calibration). Byte-identical STLs to 2.3 at its values;
+adds 1.18's taper, 1.19's outer lean, hook depth, hole scale and dovetail angles as params. The live preview's Tune panel
+slides each one and re-renders the real CAD (live_render.py via serve_designs.py /tune). Later versions: copy, edit params.json.

@@ -112,7 +112,7 @@ try {
 } catch (error) { webglError = '3D is unavailable on this device. Showing exported previews.'; }
 
 function shortLabel(design) {
-  const match = (design.name || '').match(/(?:generation|gen)\s+(\d+[a-z]?)\b/i);
+  const match = (design.name || '').match(/(?:generation|gen)\s+(\d+(?:\.\d+)?[a-z]?)\b/i);   // 'Gen 2.4', not 'Gen 2'
   return match ? 'Gen ' + match[1] : design.name || design.version || design.id;
 }
 // 'Gen 16' -> '1.16', 'Gen 2.1' -> '2.1' (AGENTS.md: 1.x gripper only, 2.x gripper plus handles).
@@ -195,7 +195,7 @@ function setFocus(id, updateHash = true) {
     view.element.setAttribute('role', focused ? 'img' : 'button');
   }
   if (updateHash) history.replaceState(null, '', location.pathname + location.search + (focused ? '#' + encodeURIComponent(focused) : ''));
-  updateExplodeControl(); updatePoseControl();
+  updateExplodeControl(); updatePoseControl(); updateTuneControl();
   requestAnimationFrame(fitVisible);
   document.title = focused ? 'HelpingHands · ' + views.get(focused).design.name : 'HelpingHands · ' + currentProject;
 }
@@ -220,7 +220,8 @@ function updateExplodeControl() {
 }
 // How one model moves with the slider (cad/mobile_gallery/poses.js): a hinge turns
 // it about Y through its pivot, a slide or crank follows the drive. Null = fixed.
-function motionFor(design, name) {
+// pivot: the right hinge's X when a Tune render moved it (the outline sets it), else poses.js's.
+function motionFor(design, name, pivot = null) {
   const pose = POSES[design.pose || design.id];
   if (!pose) return null;
   const sin = deg => Math.sin(THREE.MathUtils.degToRad(deg));
@@ -229,7 +230,7 @@ function motionFor(design, name) {
   const hinge = find(pose.hinges), slide = find(pose.slides), turn = find(pose.cranks);
   if (!hinge && !slide && !turn) return null;
   return angle => {
-    if (hinge) return {deg: hinge.sign * (angle - pose.exported), pivot: hinge.pivot, offset: [0, 0, 0]};
+    if (hinge) return {deg: hinge.sign * (angle - pose.exported), pivot: pivot === null ? hinge.pivot : [Math.sign(hinge.pivot[0]) * pivot, 0, 0], offset: [0, 0, 0]};
     if (turn) return {deg: crank(turn, angle) - crank(turn, pose.exported), pivot: turn.pivot, offset: [0, 0, 0]};
     const k = sin(angle) - sin(pose.exported);
     return {deg: 0, pivot: [0, 0, 0], offset: slide.dir.map(v => v * k)};
@@ -328,6 +329,7 @@ function createView(design) {
 async function updateView(view, design) {
   view.design = design; view.label.textContent = shortLabel(design);
   if (design.actual) { if (!view.photo) showPhoto(view, PHOTOS[0].id); return; }
+  if (view.tuned) return;   // Tune meshes stay until Reset; a catalog refresh must not swap them for the exported ones
   if (design.mix) {
     const [gripper, handles] = view.select.children;
     gripper.replaceChildren(...design.grippers.map(item => new Option('Gripper ' + lineVersion(item), lineVersion(item))));
@@ -425,6 +427,96 @@ async function refresh() {
   } catch (error) { message('Could not refresh. ' + error.message); }
   finally { refreshing = false; }
 }
+// Tune (2.4 on): a design whose catalog entry carries `params` (its params.json) gets a slider per parameter. Each change
+// posts {design, values} to serve_designs.py /tune, which renders the real OpenSCAD parts with those values (a solid-only
+// change is ~0.1 s, an outline change ~1 s) and the view swaps them in, camera untouched. One request is in flight at a
+// time; while it runs, only the newest values wait, so a drag always ends on what the slider shows. ?tune=name:value,...
+// presets the values (links, screenshots); Copy puts the changed values on the clipboard for the next version.
+const tune = {view:null, values:{}, busy:false, again:false};
+const tuneQuery = query.get('tune');
+function tuneParams(design) { return (design?.params || []).flatMap(group => group.params); }
+function updateTuneControl() {
+  const view = focused && views.get(focused);
+  $('tune-open').hidden = !view || !tuneParams(view.design).length;
+  if ($('tune-open').hidden && !$('tune').hidden) closeTune();
+}
+function tuneStatus(text, kind = '') { $('tune-status').textContent = text; $('tune-status').className = kind; }
+function decimals(step) { return Math.max(0, (String(step).split('.')[1] || '').length); }
+function formatValue(param, value) { return (+value).toFixed(decimals(param.step)) + (param.unit ? ' ' + param.unit : ''); }
+function writeTuneQuery() {
+  const params = new URLSearchParams(location.search), list = Object.entries(tune.values).map(([k, v]) => k + ':' + v).join(',');
+  if (list) params.set('tune', list); else params.delete('tune');
+  history.replaceState(null, '', location.pathname + (params.toString() ? '?' + params : '') + location.hash);
+}
+function openTune(view) {
+  tune.view = view; $('tune').hidden = false; $('tune-open').setAttribute('aria-expanded', 'true');
+  requestAnimationFrame(fitVisible);   // a phone's sheet takes the bottom half
+  $('tune-title').textContent = 'Tune ' + shortLabel(view.design);
+  if (tuneQuery && !Object.keys(tune.values).length) for (const pair of tuneQuery.split(',')) {
+    const [k, v] = pair.split(':'); if (tuneParams(view.design).some(p => p.name === k) && isFinite(v)) tune.values[k] = +v;
+  }
+  $('tune-list').replaceChildren(...view.design.params.flatMap(group => {
+    const heading = document.createElement('h3'); heading.textContent = group.name;
+    return [heading, ...group.params.map(param => {
+      const row = document.createElement('label'), name = document.createElement('span'), out = document.createElement('output'), input = document.createElement('input');
+      row.className = 'knob'; row.title = param.doc; name.textContent = param.label || param.name;
+      Object.assign(input, {type:'range', min:param.min, max:param.max, step:param.step, value:tune.values[param.name] ?? param.value});
+      input.setAttribute('aria-label', param.label || param.name);
+      const show = () => { out.textContent = formatValue(param, input.value); row.classList.toggle('changed', param.name in tune.values); };
+      input.oninput = () => {
+        if (+input.value === param.value) delete tune.values[param.name]; else tune.values[param.name] = +input.value;
+        show(); requestTune();
+      };
+      out.title = 'Tap to reset to ' + formatValue(param, param.value);
+      out.onclick = event => { event.preventDefault(); input.value = param.value; input.oninput(); };
+      show(); row.append(name, out, input); return row;
+    })];
+  }));
+  for (const type of ['pointerdown', 'pointerup', 'click', 'keydown', 'wheel']) $('tune').addEventListener(type, event => event.stopPropagation());
+  if (Object.keys(tune.values).length) requestTune(); else tuneStatus('Drag a slider: the real CAD re-renders. Tap a value to reset it.');
+}
+function closeTune() { $('tune').hidden = true; $('tune-open').setAttribute('aria-expanded', 'false'); requestAnimationFrame(fitVisible); }
+$('tune-open').onclick = () => $('tune').hidden ? openTune(views.get(focused)) : closeTune();
+$('tune-close').onclick = closeTune;
+$('tune-reset').onclick = () => { tune.values = {}; openTune(tune.view); requestTune(); };
+$('tune-copy').onclick = async () => {
+  const text = JSON.stringify(tune.values, null, 1);
+  try { await navigator.clipboard.writeText(text); tuneStatus('Copied ' + Object.keys(tune.values).length + ' changed values. Paste them into a pebble to make the next version.'); }
+  catch { tuneStatus(text); }
+};
+async function requestTune() {
+  if (tune.busy) { tune.again = true; return; }
+  const view = tune.view, values = {...tune.values};
+  if (!view) return;
+  writeTuneQuery();
+  tune.busy = true; tune.again = false; tuneStatus('Rendering…', 'busy');
+  try {
+    const response = await fetch('tune', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({design:view.design.id, values})});
+    const result = await response.json().catch(() => ({ok:false, error:'server said ' + response.status}));
+    if (!result.ok) throw Error(result.error || 'render failed');
+    const meshes = [];
+    for (const model of result.models) {
+      const geometry = await loader.loadAsync(model.path);
+      const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
+      mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
+      mesh.userData.motion = motionFor(view.design, model.name, result.pivot ?? null);
+      meshes.push(mesh);
+    }
+    // Swapped in even when newer values are waiting: mid-drag the model keeps up instead of freezing.
+    disposeMeshes(view); for (const mesh of meshes) view.group.add(mesh); applyExplosion(view);
+    view.tuned = Object.keys(values).length > 0; view.signature = view.tuned ? 'tuned' : view.signature;
+    view.element.classList.add('has-model'); view.loading.hidden = true;
+    const count = Object.keys(values).length;
+    tuneStatus((count ? count + ' changed · ' : 'This version’s values · ') + 'rendered in ' + result.seconds + ' s' + (result.retraced ? ' (outline re-traced)' : ''));
+  } catch (error) {
+    tuneStatus('Not rendered: ' + error.message + '. Showing the last good model.', 'error');
+  } finally {
+    tune.busy = false;
+    if (tune.again) requestTune();
+  }
+}
+
 $('refresh').onclick = refresh;
 await refresh();
+if (tuneQuery && focused && tuneParams(views.get(focused)?.design).length) openTune(views.get(focused));
 setInterval(refresh, 300000);
