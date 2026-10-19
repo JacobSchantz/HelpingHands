@@ -21,3 +21,5 @@ v201_generalist_strap_loops — 2.1 (voice-4c63021e): first gripper-plus-handles
 a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots. v201 = 2.01.
 v202_generalist_flush_loops — 2.2 (voice-f7f729ac): 2.1 with each strap slide's plate turned 90 deg about the finger's outer edge, so it
 stands flush against the lug, parallel to the finger's outer side, instead of sticking 33 mm outboard. Fingers, lug and dovetail unchanged.
+v203_generalist_tongue_pocket — 2.3 (voice-1557d48f): 2.2's handles with the yellow lug dropped. Each handle's long, narrow tongue
+slides down from the top into a keyhole pocket in the finger's outer edge, and the handle's foot drops behind the base hook.

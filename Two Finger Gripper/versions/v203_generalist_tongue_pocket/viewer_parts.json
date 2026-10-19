@@ -1,0 +1,44 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_slide.stl",
+      "name": "Left handle \u2014 black, tongue + two loop slots",
+      "color": "#26272b",
+      "explode": [
+        -60,
+        0,
+        -20
+      ]
+    },
+    {
+      "path": "exports/parts/right_slide.stl",
+      "name": "Right handle \u2014 black, tongue + two loop slots",
+      "color": "#26272b",
+      "explode": [
+        60,
+        0,
+        -20
+      ]
+    }
+  ]
+}

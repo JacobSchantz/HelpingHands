@@ -141,7 +141,8 @@ def discover(repo=REPO):
                    "two-finger-gripper-v017-generalist-strap-slide": 17,
                    "two-finger-gripper-v018-generalist-flat-taper": 18,
                    "two-finger-gripper-v201-generalist-strap-loops": "2.1",
-                   "two-finger-gripper-v202-generalist-flush-loops": "2.2"}
+                   "two-finger-gripper-v202-generalist-flush-loops": "2.2",
+                   "two-finger-gripper-v203-generalist-tongue-pocket": "2.3"}
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',
