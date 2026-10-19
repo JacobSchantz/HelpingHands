@@ -17,5 +17,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The live preview in gallery.js jumps parts straight to their final positions when the Explode/Assemble toggle is switched. Parts should animate smoothly, flying apart on Explode and back together on Assemble.",
+  "summary_sha": "3147fea8d26a7fbc"
 }
