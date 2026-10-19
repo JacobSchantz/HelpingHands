@@ -55,3 +55,6 @@ v303_generalist_inplane — Base 3 (voice-3b311f32), Gripper 21, Handle 6 reshap
 with a strap tunnel under a boss on its outer face instead of two slots, and a tail that wraps round the base hook and under the finger
 into its gear's hub (a cradle, keyed both ways). Side gears centred on the finger plane; one RS00 centred below them, its pinion
 meshing the right gear, which meshes the left. 8 printed parts (gears 2, pinion, base).
+v304_generalist_one_piece_drive — Base 4 (voice-b7260e73), Gripper 21, Handle 7: Base 3 with fewer pieces. Each handle and its side gear are one print
+(the tail runs into the hub; no key, cradle or stop strip). The finger drops in from the dorsal side and rests on the gear web. Pinion and
+base on 3 M3 each (every other RS00 hole). 13 pieces: 6 printed (2 fingers, 2 handle-gears, pinion, base) + RS00 + 6 M3 (Base 3: 21 = 8 + 1 + 12).
