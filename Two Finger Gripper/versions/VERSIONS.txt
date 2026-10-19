@@ -1,53 +1,53 @@
 v001_motor_force_layout — superseded rotating thumb/index architecture, no CAD.
 v002_two_parallel_modules — ACTIVE two independent parallel-jaw modules; provisional
 servo/encoder/load-cell interfaces; operator input mapping unresolved.
-v012_generalist_tweezer — Gen 12: Gen 11's yellow fingers as tweezers; slender tines,
+v012_generalist_tweezer — Gripper 12: Gripper 11's yellow fingers as tweezers; slender tines,
 flat 1.4 mm tips that meet along an 11 mm land, grooves near the tip only.
-v013_generalist_closed_beak — Gen 13: designed closed from the closed photo; the points touch
+v013_generalist_closed_beak — Gripper 13: designed closed from the closed photo; the points touch
 only at the tip, the gap opens behind it along the photo's measured curve; serration the whole inner edge.
-v014_generalist_tip_contact — Gen 14: refinement of Gen 13; only the points touch closed (8 deg V behind
+v014_generalist_tip_contact — Gripper 14: refinement of Gripper 13; only the points touch closed (8 deg V behind
 the point), sharper 0.3 mm point, dark tip pad from the photos, grooves stop behind the pad.
-v015_generalist_long_jaw — Gen 15 (voice-8673a6b6): Gen 14 with a beak 1.7x longer. Black dot -> point is 42 mm, a third
-of the finger (Gen 14: 25 mm, 23%); closed tip contact unchanged. Replaces the old printable Gen 15 (deleted; in git at 97850a1).
-v016_generalist_rounded_point — Gen 16 (voice-1fc7e062): Gen 15 + Gen 9. Gen 15's length and point contact; inner-edge knobs rounded to 1 mm swells,
-Gen 9's smoothed outline, J-hook, blade-root S-curve and 0.5 mm eased point; all yellow (no tip pad).
-v017_generalist_strap_slide — Gen 17 (voice-cfdf2d31): Gen 16's fingers at the full 12 mm thickness to the point (the point is in
+v015_generalist_long_jaw — Gripper 15 (voice-8673a6b6): Gripper 14 with a beak 1.7x longer. Black dot -> point is 42 mm, a third
+of the finger (Gripper 14: 25 mm, 23%); closed tip contact unchanged. Replaces the old printable Gripper 15 (deleted; in git at 97850a1).
+v016_generalist_rounded_point — Gripper 16 (voice-1fc7e062): Gripper 15 + Gripper 9. Gripper 15's length and point contact; inner-edge knobs rounded to 1 mm swells,
+Gripper 9's smoothed outline, J-hook, blade-root S-curve and 0.5 mm eased point; all yellow (no tip pad).
+v017_generalist_strap_slide — Gripper 17 (voice-cfdf2d31): Gripper 16's fingers at the full 12 mm thickness to the point (the point is in
 plan only) + how the loops attach: a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots.
-Replaces the old Gen 17 (v017_generalist_simple: fingers + pads + camera cradle; deleted, in git before voice-cfdf2d31).
-v018_generalist_flat_taper — 1.18 (voice-07e1e6a1): gripper only. 1.17's fingers tapered in thickness again past the black dot,
+Replaces the old Gripper 17 (v017_generalist_simple: fingers + pads + camera cradle; deleted, in git before voice-cfdf2d31).
+v018_generalist_flat_taper — Gripper 18 (voice-07e1e6a1): gripper only. Gripper 17's fingers tapered in thickness again past the black dot,
 like the Generalist, but from one side only: the ventral face is one flat plane to the point (prints flat), the dorsal face
-slopes on Gen 16's parabola from 12 mm to 2.4 mm at the point. 1.17's lug and strap slide are left out (the loops are 2.x).
-v019_generalist_wide_beak — 1.19 (voice-13bdab11): gripper only. 1.18 with a much wider beak: from the black dot the outer edge
-leans 15 deg outward and bows out, so the beak is 11.4 mm wide halfway to the point (1.18: 5.9) and still rounds in to the same point.
-Flat bottom, taper, holes, grooves and tip-only contact are 1.18's.
-v020_generalist_double_hook — 1.20 (voice-483f28b9): 1.19 plus a second hook at the top of the flat outer face, the base
+slopes on Gripper 16's parabola from 12 mm to 2.4 mm at the point. Gripper 17's lug and strap slide are left out (the loops are Handle N).
+v019_generalist_wide_beak — Gripper 19 (voice-13bdab11): gripper only. Gripper 18 with a much wider beak: from the black dot the outer edge
+leans 15 deg outward and bows out, so the beak is 11.4 mm wide halfway to the point (Gripper 18: 5.9) and still rounds in to the same point.
+Flat bottom, taper, holes, grooves and tip-only contact are Gripper 18's.
+v020_generalist_double_hook — Gripper 20 (voice-483f28b9): Gripper 19 plus a second hook at the top of the flat outer face, the base
 J-hook mirrored end for end, so the notches face each other 39.8 mm apart; a black handle blank slides in across the finger's
-thickness and is held along the edge and outboard by both hooks. Fit blank only (no strap slots; loops are 2.x).
-v201_generalist_strap_loops — 2.1 (voice-4c63021e): first gripper-plus-handles version. 1.17's fingers + the loop attachment:
-a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots. v201 = 2.01.
-v202_generalist_flush_loops — 2.2 (voice-f7f729ac): 2.1 with each strap slide's plate turned 90 deg about the finger's outer edge, so it
+thickness and is held along the edge and outboard by both hooks. Fit blank only (no strap slots; loops are Handle N).
+v201_generalist_strap_loops — Handle 1 (voice-4c63021e), Gripper 17: first gripper-plus-handles version. Gripper 17's fingers + the loop attachment:
+a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots.
+v202_generalist_flush_loops — Handle 2 (voice-f7f729ac), Gripper 17: Handle 1 with each strap slide's plate turned 90 deg about the finger's outer edge, so it
 stands flush against the lug, parallel to the finger's outer side, instead of sticking 33 mm outboard. Fingers, lug and dovetail unchanged.
-v203_generalist_tongue_pocket — 2.3 (voice-1557d48f): 2.2's handles with the yellow lug dropped. Each handle's long, narrow tongue
+v203_generalist_tongue_pocket — Handle 3 (voice-1557d48f): Handle 2's handles with the yellow lug dropped. Each handle's long, narrow tongue
 slides down from the top into a keyhole pocket in the finger's outer edge, and the handle's foot drops behind the base hook.
-v204_generalist_parametric — 2.4 (voice-3211a12d): 2.3 with every dimension a named, documented parameter in one params.json
-(67: outline, finger solid, handle plate, strap slots, tongue and pocket, calibration). Byte-identical STLs to 2.3 at its values;
-adds 1.18's taper, 1.19's outer lean, hook depth, hole scale and dovetail angles as params. The live preview's Tune panel
+v204_generalist_parametric — Handle 4 (voice-3211a12d): Handle 3 with every dimension a named, documented parameter in one params.json
+(67: outline, finger solid, handle plate, strap slots, tongue and pocket, calibration). Byte-identical STLs to Handle 3 at its values;
+adds Gripper 18's taper, Gripper 19's outer lean, hook depth, hole scale and dovetail angles as params. The live preview's Tune panel
 slides each one and re-renders the real CAD (live_render.py via serve_designs.py /tune). Later versions: copy, edit params.json.
-v205_generalist_spanning_handle — 2.5 (voice-56f9d73f): 2.4's params on 1.20's double-hook fingers (byte-identical finger). Each
-handle plate spans the straight outer edge floor to floor between the base and top hooks (41.8 mm; 2.4: 28), a foot in each notch,
-and slides in across the finger from the ventral side; a stop strip butts the ventral face when home. 2.3's tongue + pocket dropped.
-v206_generalist_single_step — 2.6 (voice-72840084), fingers 1.21: 2.5 with the top hook moved up to u 54, where 1.20's edge
-started going out. 1.21: the outer edge runs straight from the base hook to it, the hook curls out to its 6.6 mm crest and
-the edge stays out there until the beak meets it: one step out, no notch-dip-S-curve double indent. 2.6: the handle plate
-spans floor to floor, 67.4 mm (2.5: 41.8). Params: top_notch_u (replaces top_hook_mirror_u), top_step_back.
-v301_generalist_base — 3.1 (voice-5b59d3bf), fingers 1.21: first 3.x (gripper plus handles plus base). 2.6's fingers and handles unchanged, plus
+v205_generalist_spanning_handle — Handle 5 (voice-56f9d73f), Gripper 20: Handle 4's params on Gripper 20's double-hook fingers (byte-identical finger). Each
+handle plate spans the straight outer edge floor to floor between the base and top hooks (41.8 mm; Handle 4: 28), a foot in each notch,
+and slides in across the finger from the ventral side; a stop strip butts the ventral face when home. Handle 3's tongue + pocket dropped.
+v206_generalist_single_step — Handle 6 (voice-72840084), Gripper 21: Handle 5 with the top hook moved up to u 54, where Gripper 20's edge
+started going out. Gripper 21: the outer edge runs straight from the base hook to it, the hook curls out to its 6.6 mm crest and
+the edge stays out there until the beak meets it: one step out, no notch-dip-S-curve double indent. Handle 6: the handle plate
+spans floor to floor, 67.4 mm (Handle 5: 41.8). Params: top_notch_u (replaces top_hook_mirror_u), top_step_back.
+v301_generalist_base — Base 1 (voice-5b59d3bf), Gripper 21, Handle 6: first Base (gripper plus handles plus base). Handle 6's fingers and handles unchanged, plus
 a black arm under each handle (a channel round the plate's ventral edge, a floor to a hub on the pivot), the shared handle-base
 interface (a 10 mm hex boss + 2 M3 on each pivot axis), two meshing involute gear sectors (pitch radius = pivot half-spacing),
 a black base plate, and a RobStride RS00 motor underneath, coaxial with the right pivot. 52 new params (five groups).
-v302_generalist_simple — 3.2 (voice-e3cd53d6), fingers 1.21: 3.1 made simpler. Arms and the hex interface are gone: each gear carries
+v302_generalist_simple — Base 2 (voice-e3cd53d6), Gripper 21, Handle 6 reshaped: Base 1 made simpler. Arms and the hex interface are gone: each gear carries
 a short cup the handle's low end drops into (one print, the driver). Nothing comes within 3 mm of the strap slots at any swing
-(checked). Handle plate 29 mm across (3.1: 37). Base is just the motor and bushing discs, no wrist tab. 7 printed parts (3.1: 9).
-v303_generalist_inplane — 3.3 (voice-3b311f32), fingers 1.21: the drive moved into the finger plane. Handle 15 mm across the finger (3.2: 29),
+(checked). Handle plate 29 mm across (Base 1: 37). Base is just the motor and bushing discs, no wrist tab. 7 printed parts (Base 1: 9).
+v303_generalist_inplane — Base 3 (voice-3b311f32), Gripper 21, Handle 6 reshaped: the drive moved into the finger plane. Handle 15 mm across the finger (Base 2: 29),
 with a strap tunnel under a boss on its outer face instead of two slots, and a tail that wraps round the base hook and under the finger
 into its gear's hub (a cradle, keyed both ways). Side gears centred on the finger plane; one RS00 centred below them, its pinion
 meshing the right gear, which meshes the left. 8 printed parts (gears 2, pinion, base).

@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Hide or show designs in the Live Preview gallery. The voice session runs
-this for "hide gripper gen 1 and 2" / "show gen 1 again". Does not build.
+this for "hide gripper 1 and 2" / "hide handle 3" / "show base 1 again". Does not build.
 
 The hidden list is <gallery>/hidden.json, next to the published catalog. The
 gallery's Shown checklist writes the same file through serve_designs.py, so
 the phone, the Mac and voice all agree, and it survives republishing.
 
-    design_visibility.py hide gripper gen 1 2    # one design per number
-    design_visibility.py show gripper gen 1
+    design_visibility.py hide gripper 1 2        # one design per number
+    design_visibility.py show handle 6           # Handle N / Base N count separately (AGENTS.md)
     design_visibility.py show all                # unhide everything
     design_visibility.py list
 """
@@ -30,8 +30,14 @@ def words(text):
     return re.findall(r'[a-z]+|[0-9]+', text.lower())
 
 
-def generation(design):
-    """Its number: "Gen 3" or "v003" out of the name."""
+PART = re.compile(r'^(gripper|handle|base)\s+0*(\d+)', re.I)
+
+
+def generation(design, kind='gripper'):
+    """Its number within `kind`: "Gripper 3" (or "Handle 3" for kind handle), else "Gen 3" or "v003" out of the name."""
+    part = PART.match(design.get('name', ''))
+    if part:
+        return int(part.group(2)) if part.group(1).lower() == kind else None
     found = re.search(r'\b(?:generation|gen|v)\s*0*(\d+)', design.get('name', ''), re.I)
     return int(found.group(1)) if found else None
 
@@ -72,15 +78,16 @@ def resolve(query, catalog):
         return all(any(h.startswith(t) for h in hay) for t in terms)
 
     pool = [d for d in catalog if fits(d)]
+    kind = next((t.rstrip('s') for t in terms if t.rstrip('s') in ('handle', 'base')), 'gripper')
     if not numbers:
         if len(pool) != 1:
             raise LookupError(f'"{query}" matches {len(pool)} designs' + (':\n  ' + '\n  '.join(label(d) for d in pool) if pool else ''))
         return pool
     picked = []
     for n in numbers:
-        hits = [d for d in pool if generation(d) == n]
+        hits = [d for d in pool if generation(d, kind) == n]
         if len(hits) != 1:
-            raise LookupError(f'"{query}": gen {n} matches {len(hits)} designs' + (':\n  ' + '\n  '.join(label(d) for d in hits) if hits else ''))
+            raise LookupError(f'"{query}": {kind} {n} matches {len(hits)} designs' + (':\n  ' + '\n  '.join(label(d) for d in hits) if hits else ''))
         picked += hits
     return picked
 

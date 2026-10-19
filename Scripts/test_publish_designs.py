@@ -47,13 +47,13 @@ class PublisherTests(unittest.TestCase):
         for name in ('v206_single_step', 'v301_base', 'v018_taper'):
             (base / name).mkdir(parents=True)
             (base / name / 'gripper.scad').write_text('cube(1);')
-        (base / 'VERSIONS.txt').write_text('v018_taper — 1.18: gripper only\nv206_single_step — 2.6, fingers 1.21: '
-                                           'one step\n  out.\nv301_base — 3.1, fingers 1.21: a base on 2.6.\n')
+        (base / 'VERSIONS.txt').write_text('v018_taper — Gripper 18: gripper only\nv206_single_step — Handle 6, Gripper 21: '
+                                           'one step\n  out.\nv301_base — Base 1, Gripper 21, Handle 6: a base on Gripper 20.\n')
         rows = {r['version']: r for r in publisher.discover(self.repo)}
-        self.assertEqual(rows['v206_single_step']['fingers'], '1.21')
-        self.assertEqual(rows['v301_base']['fingers'], '1.21')
+        self.assertEqual(rows['v206_single_step']['fingers'], '21')
+        self.assertEqual(rows['v301_base']['fingers'], '21')
         self.assertIsNone(rows['v018_taper']['fingers'])
-        self.assertEqual(publisher.public_fields(rows['v301_base'])['fingers'], '1.21')
+        self.assertEqual(publisher.public_fields(rows['v301_base'])['fingers'], '21')
         self.assertNotIn('fingers', publisher.public_fields(rows['v206_single_step'] | {'fingers': None}))
 
     def test_public_families_keep_versions_and_exclude_deleted_prototypes(self):
@@ -83,8 +83,8 @@ class PublisherTests(unittest.TestCase):
             (folder / 'gripper.scad').write_text('cube(1);')
         rows = publisher.discover(self.repo)
         self.assertEqual(len(rows), 1)
-        self.assertEqual(rows[0]['name'], 'Gen 3')
-        self.assertEqual(rows[0]['version'], 'gen_03')
+        self.assertEqual(rows[0]['name'], 'Gripper 3')
+        self.assertEqual(rows[0]['version'], 'gripper_03')
         self.assertTrue((self.repo / 'Two Finger Gripper/versions/v002_two_parallel_modules/gripper.scad').exists())
 
     def test_positioned_parts_keep_authored_explode_offsets(self):
@@ -102,7 +102,7 @@ class PublisherTests(unittest.TestCase):
 
     def test_declared_parts_survive_a_source_saved_after_export(self):
         # voice-caae8e01: gripper.scad saved a minute after its parts were exported published one merged mesh,
-        # so the slider's ^Left/^Right hinges matched nothing and Gen 16 could not close.
+        # so the slider's ^Left/^Right hinges matched nothing and Gripper 16 could not close.
         import os
         folder = self.repo / 'Two Finger Gripper/versions/v016_generalist_rounded_point'
         (folder / 'exports/parts').mkdir(parents=True)
@@ -119,7 +119,7 @@ class PublisherTests(unittest.TestCase):
         (compare / 'designs.py').write_text((publisher.REPO / 'cad/compare/designs.py').read_text())
         (self.repo / 'cad/openscad').mkdir()
         rows = publisher.discover(self.repo)
-        self.assertEqual([r['name'] for r in rows], ['Gen 16'])   # designs.py lists the concept folder too; once only
+        self.assertEqual([r['name'] for r in rows], ['Gripper 16'])   # designs.py lists the concept folder too; once only
         with patch.object(publisher, 'run_scad', side_effect=lambda source, target, *a, **k: target.write_bytes(b'merged')):
             result = publisher.publish_entry(rows[0], self.out, self.repo)
         self.assertEqual([m['name'] for m in result['models']], ['Left finger', 'Right finger'])

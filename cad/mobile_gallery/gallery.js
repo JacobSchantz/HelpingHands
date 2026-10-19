@@ -24,16 +24,16 @@ const loader = new STLLoader();
 // resampled into the gripper's CAD millimetres (reference/make_reference.py) and laid on the
 // Y=0 plane, so the Top view lines the photo up with every model; the others show flat.
 const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actual (Generalist)', actual:true};
-// Mix and match (Generalist Gripper only): any gripper (fingers) with any 2.x version's handles and any 3.x
-// base, assembled in one tile. A part's kind comes from its name before ' — ': a handle is named like a strap
-// slide or handle, a finger says finger, and the rest of a 3.x design (arms, gears, base, motor) is its base.
-// Fingers that only exist inside a later design come from the catalog's 'fingers' field (2.6 and 3.1 carry
-// 1.21, from VERSIONS.txt). It opens on the newest of each (1.21 + 2.6 + 3.1 = 3.1).
-// ?gripper=1.1&handles=2.1|none&base=3.1|none presets it.
+// Mix and match (Generalist Gripper only): any Gripper N (fingers) with any Handle N's handles and any Base N,
+// assembled in one tile. A part's kind comes from its name before ' — ': a handle is named like a strap
+// slide or handle, a finger says finger, and the rest of a Base design (arms, gears, base, motor) is its base.
+// Fingers that only exist inside a later design come from the catalog's 'fingers' field (Handle 6 and Base 1-3
+// carry Gripper 21, from VERSIONS.txt). It opens on the newest of each (Gripper 21 + Handle 6 + Base 3).
+// ?gripper=21&handles=6|none&base=3|none presets it.
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
 const HANDLE = /strap slide|handle/i, FINGER = /finger/i;
 const part = model => model.name.split(' — ')[0];
-const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handles'], ['base', 'Base']];
+const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base']];
 const query = new URLSearchParams(location.search);
 const mix = {gripper:query.get('gripper'), handles:query.get('handles'), base:query.get('base')};
 const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3(40, 6, 116));
@@ -119,30 +119,35 @@ try {
 } catch (error) { webglError = '3D is unavailable on this device. Showing exported previews.'; }
 
 function shortLabel(design) {
-  const match = (design.name || '').match(/(?:generation|gen)\s+(\d+(?:\.\d+)?[a-z]?)\b/i);   // 'Gen 2.4', not 'Gen 2'
+  if (partVersion(design)) return design.name;
+  const match = (design.name || '').match(/(?:generation|gen)\s+(\d+[a-z]?)\b/i);
   return match ? 'Gen ' + match[1] : design.name || design.version || design.id;
 }
-// 'Gen 16' -> '1.16', 'Gen 2.1' -> '2.1' (AGENTS.md: 1.x gripper only, 2.x gripper plus handles).
-function lineVersion(design) {
-  const match = (design.name || '').match(/(?:generation|gen)\s+(\d+(?:\.\d+)?[a-z]?)\b/i);
-  return match ? (match[1].includes('.') ? match[1] : '1.' + match[1]) : null;
+// 'Gripper 16' -> {kind:'gripper', version:'16'}, 'Handle 6' -> handles, 'Base 3' -> base. Each part counts on its own (AGENTS.md).
+const KINDS = {gripper:'gripper', handle:'handles', base:'base'};
+function partVersion(design) {
+  const match = (design.name || '').match(/^(gripper|handle|base)\s+(\d+[a-z]?)$/i);
+  return match ? {kind:KINDS[match[1].toLowerCase()], version:match[2]} : null;
 }
-function versionOrder(version) { const [line, minor] = version.split('.'); return +line * 1000 + parseFloat(minor); }
+function versionOrder(version) { return parseFloat(version); }
+// Grippers, then Handles, then Bases, each by number: the order the parts were designed in.
+function partOrder(design) {
+  const part = partVersion(design);
+  return part ? PICKERS.findIndex(([key]) => key === part.kind) * 1000 + versionOrder(part.version) : -1;
+}
 // Each option is {version, design, models}: the version shown in its picker and the parts it adds.
 function mixOptions() {
-  const family = catalog.designs.filter(design => design.project === MIX.project && lineVersion(design) && design.models?.length)
-    .sort((a, b) => versionOrder(lineVersion(a)) - versionOrder(lineVersion(b)) || a.id.localeCompare(b.id));
+  const family = catalog.designs.filter(design => design.project === MIX.project && partVersion(design) && design.models?.length)
+    .sort((a, b) => partOrder(a) - partOrder(b) || a.id.localeCompare(b.id));
   const option = (version, design, keep) => ({version, design, models:design.models.filter(keep)});
-  const grippers = family.filter(design => lineVersion(design).startsWith('1.'))
-    .map(design => option(lineVersion(design), design, model => !HANDLE.test(part(model))));
-  for (const design of family) {   // a later design's own fingers (2.6 -> 1.21), once per finger version
+  const of = kind => family.filter(design => partVersion(design).kind === kind);
+  const grippers = of('gripper').map(design => option(partVersion(design).version, design, model => !HANDLE.test(part(model))));
+  for (const design of family) {   // a later design's own fingers (Handle 6 -> Gripper 21), once per finger version
     if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push(option(design.fingers, design, model => FINGER.test(part(model))));
   }
-  const handles = family.filter(design => lineVersion(design).startsWith('2.'))
-    .map(design => option(lineVersion(design), design, model => HANDLE.test(part(model))));
-  const bases = family.filter(design => lineVersion(design).startsWith('3.'))
-    .map(design => option(lineVersion(design), design, model => !HANDLE.test(part(model)) && !FINGER.test(part(model))));
-  const order = (a, b) => versionOrder(a.version) - versionOrder(b.version);
+  const handles = of('handles').map(design => option(partVersion(design).version, design, model => HANDLE.test(part(model))));
+  const bases = of('base').map(design => option(partVersion(design).version, design, model => !HANDLE.test(part(model)) && !FINGER.test(part(model))));
+  const order = (a, b) => versionOrder(a.version) - versionOrder(b.version) || a.version.localeCompare(b.version);
   return {gripper:grippers.filter(item => item.models.length).sort(order), handles:handles.filter(item => item.models.length),
           base:bases.filter(item => item.models.length)};
 }
@@ -156,12 +161,13 @@ function buildMix() {
   }
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
   return {...MIX, options, pose:chosen.gripper.design.id,
-    name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => chosen[key].version + ' ' + label.toLowerCase()).join(' + '),
+    name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
 function projectDesigns(project) {
   const list = catalog.designs.filter(design => design.project === project);
-  if (list.every(design => /(?:generation|gen)\s+\d+/i.test(design.name || ''))) {
+  if (list.every(partVersion)) list.sort((a, b) => partOrder(a) - partOrder(b) || a.id.localeCompare(b.id));
+  else if (list.every(design => /(?:generation|gen)\s+\d+/i.test(design.name || ''))) {
     list.sort((a, b) => Number(a.name.match(/(?:generation|gen)\s+(\d+)/i)[1]) - Number(b.name.match(/(?:generation|gen)\s+(\d+)/i)[1]));
   }
   if (project === ACTUAL.project) list.unshift(ACTUAL);
@@ -472,7 +478,7 @@ async function refresh() {
   } catch (error) { message('Could not refresh. ' + error.message); }
   finally { refreshing = false; }
 }
-// Tune (2.4 on): a design whose catalog entry carries `params` (its params.json) gets a slider per parameter. Each change
+// Tune (Handle 4 on): a design whose catalog entry carries `params` (its params.json) gets a slider per parameter. Each change
 // posts {design, values} to serve_designs.py /tune, which renders the real OpenSCAD parts with those values (a solid-only
 // change is ~0.1 s, an outline change ~1 s) and the view swaps them in, camera untouched. One request is in flight at a
 // time; while it runs, only the newest values wait, so a drag always ends on what the slider shows. ?tune=name:value,...
@@ -485,7 +491,7 @@ function tuneParams(design) { return (design?.params || []).flatMap(group => gro
 function tuneTarget() {
   const view = focused && views.get(focused);
   if (view && tuneParams(view.design).length) return view;
-  const order = other => lineVersion(other.design) ? versionOrder(lineVersion(other.design)) : -1;
+  const order = other => partOrder(other.design);
   return [...views.values()].filter(other => tuneParams(other.design).length).sort((a, b) => order(b) - order(a))[0] || null;
 }
 function updateTuneControl() {

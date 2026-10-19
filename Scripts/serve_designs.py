@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Serve only curated design artifacts; refresh working CAD exports every five minutes. POST /tune renders a design's
-parameters (2.4 on: a version folder with params.json + live_render.py) for the gallery's Tune sliders."""
+parameters (Handle 4 on: a version folder with params.json + live_render.py) for the gallery's Tune sliders."""
 import argparse
 import hashlib
 from datetime import datetime, timezone
@@ -25,7 +25,7 @@ tune_locks = {}
 
 
 def tunable(design_id):
-    """The version folder behind a design id when it has a live_render.py + params.json (2.4 on), else None. Ids are
+    """The version folder behind a design id when it has a live_render.py + params.json (Handle 4 on), else None. Ids are
     publish_designs.py's: slug(project + '-' + folder name)."""
     for folder in REPO.glob('*/versions/v[0-9]*'):
         if (folder / 'live_render.py').is_file() and (folder / 'params.json').is_file():
@@ -68,7 +68,7 @@ def tune(root, design_id, values):
 
 class GalleryServer(ThreadingHTTPServer):
     # The default backlog of 5 resets connections when a phone loads every
-    # generation at once (Gen 8 alone is ~150 STLs), and one reset part fails
+    # generation at once (Gripper 8 alone is ~150 STLs), and one reset part fails
     # the whole viewport with "Could not load 3D" (voice-b7ae5fc0).
     request_queue_size = 128
 

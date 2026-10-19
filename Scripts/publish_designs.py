@@ -47,12 +47,12 @@ def read_notes(folder):
 
 
 def finger_version(folder):
-    """'fingers 1.21' in this folder's VERSIONS.txt entry: the finger version a 2.x/3.x design carries, so the
-    gallery's mix-and-match can offer fingers that exist only inside a later design (voice-bbe0e945)."""
+    """', Gripper 21' in this folder's VERSIONS.txt heading (up to its first ':'): the fingers a Handle/Base design carries,
+    so the gallery's mix-and-match can offer fingers that exist only inside a later design (voice-bbe0e945)."""
     path = Path(folder).parent / 'VERSIONS.txt'
     text = path.read_text(errors='replace') if path.is_file() else ''
     found = re.search(r'^' + re.escape(Path(folder).name) + r'\b(.*?)(?=^v\d|\Z)', text, re.M | re.S)
-    match = found and re.search(r'\bfingers (\d+\.\d+)\b', found.group(1))
+    match = found and re.search(r',\s*Gripper (\d+[a-z]?)\b', found.group(1).split(':')[0])
     return match.group(1) if match else None
 
 
@@ -79,7 +79,7 @@ def discover(repo=REPO):
         spec.loader.exec_module(module)
         for design in module.discover():
             if '/versions/' in design['folder']:
-                continue   # discovered below; listing it twice published Gen 16 twice under one id (voice-caae8e01)
+                continue   # discovered below; listing it twice published Gripper 16 twice under one id (voice-caae8e01)
             row = entry(design['family'], design['generation'], repo / design['scad'], repo / design['folder'])
             row.update(id=design['id'], name=design['name'], notes='Historical OpenSCAD design study. ' + row['notes'])
             row['existing'] = [dict(path=repo / p['path'], name=p['name'], color=p.get('color'), explode=p.get('explode', [0, 0, 0]))
@@ -139,35 +139,36 @@ def discover(repo=REPO):
         "three-finger-gripper-v001-dorsal-linkage",
     }
     result = [row for row in result if row["id"] not in retired]
-    generations = {"demo-gripper-gen-00": 1, "demo-gripper-gen-01": 2,
-                   "two-finger-gripper-v003-single-pincher": 3,
-                   "two-finger-gripper-v004-symmetric-pincher": 4,
-                   "two-finger-gripper-v005-mirrored-gears": 5,
-                   "two-finger-gripper-v006-dorsal-drive": 6,
-                   "two-finger-gripper-v007-generalist-fingers": 7,
-                   "two-finger-gripper-v008-pollen-grabette": 8,
-                   "two-finger-gripper-v009-generalist-fingers-sonnet": 9,
-                   "two-finger-gripper-v010-generalist-fingers-opus": 10,
-                   "two-finger-gripper-v011-generalist-fingers-opus": 11,
-                   "two-finger-gripper-v011b-generalist-fingers-astra": "11b",
-                   "two-finger-gripper-v012-generalist-tweezer": 12,
-                   "two-finger-gripper-v013-generalist-closed-beak": 13,
-                   "two-finger-gripper-v014-generalist-tip-contact": 14,
-                   "two-finger-gripper-v015-generalist-long-jaw": 15,
-                   "two-finger-gripper-v016-generalist-rounded-point": 16,
-                   "two-finger-gripper-v017-generalist-strap-slide": 17,
-                   "two-finger-gripper-v018-generalist-flat-taper": 18,
-                   "two-finger-gripper-v019-generalist-wide-beak": "1.19",
-                   "two-finger-gripper-v020-generalist-double-hook": "1.20",
-                   "two-finger-gripper-v201-generalist-strap-loops": "2.1",
-                   "two-finger-gripper-v202-generalist-flush-loops": "2.2",
-                   "two-finger-gripper-v203-generalist-tongue-pocket": "2.3",
-                   "two-finger-gripper-v204-generalist-parametric": "2.4",
-                   "two-finger-gripper-v205-generalist-spanning-handle": "2.5",
-                   "two-finger-gripper-v206-generalist-single-step": "2.6",
-                   "two-finger-gripper-v301-generalist-base": "3.1",
-                   "two-finger-gripper-v302-generalist-simple": "3.2",
-                   "two-finger-gripper-v303-generalist-inplane": "3.3"}
+    # AGENTS.md: each part keeps its own counter (Gripper N fingers, Handle N, Base N); ids stay the folder's.
+    generations = {"demo-gripper-gen-00": "Gripper 1", "demo-gripper-gen-01": "Gripper 2",
+                   "two-finger-gripper-v003-single-pincher": "Gripper 3",
+                   "two-finger-gripper-v004-symmetric-pincher": "Gripper 4",
+                   "two-finger-gripper-v005-mirrored-gears": "Gripper 5",
+                   "two-finger-gripper-v006-dorsal-drive": "Gripper 6",
+                   "two-finger-gripper-v007-generalist-fingers": "Gripper 7",
+                   "two-finger-gripper-v008-pollen-grabette": "Gripper 8",
+                   "two-finger-gripper-v009-generalist-fingers-sonnet": "Gripper 9",
+                   "two-finger-gripper-v010-generalist-fingers-opus": "Gripper 10",
+                   "two-finger-gripper-v011-generalist-fingers-opus": "Gripper 11",
+                   "two-finger-gripper-v011b-generalist-fingers-astra": "Gripper 11b",
+                   "two-finger-gripper-v012-generalist-tweezer": "Gripper 12",
+                   "two-finger-gripper-v013-generalist-closed-beak": "Gripper 13",
+                   "two-finger-gripper-v014-generalist-tip-contact": "Gripper 14",
+                   "two-finger-gripper-v015-generalist-long-jaw": "Gripper 15",
+                   "two-finger-gripper-v016-generalist-rounded-point": "Gripper 16",
+                   "two-finger-gripper-v017-generalist-strap-slide": "Gripper 17",
+                   "two-finger-gripper-v018-generalist-flat-taper": "Gripper 18",
+                   "two-finger-gripper-v019-generalist-wide-beak": "Gripper 19",
+                   "two-finger-gripper-v020-generalist-double-hook": "Gripper 20",
+                   "two-finger-gripper-v201-generalist-strap-loops": "Handle 1",
+                   "two-finger-gripper-v202-generalist-flush-loops": "Handle 2",
+                   "two-finger-gripper-v203-generalist-tongue-pocket": "Handle 3",
+                   "two-finger-gripper-v204-generalist-parametric": "Handle 4",
+                   "two-finger-gripper-v205-generalist-spanning-handle": "Handle 5",
+                   "two-finger-gripper-v206-generalist-single-step": "Handle 6",
+                   "two-finger-gripper-v301-generalist-base": "Base 1",
+                   "two-finger-gripper-v302-generalist-simple": "Base 2",
+                   "two-finger-gripper-v303-generalist-inplane": "Base 3"}
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',
@@ -182,8 +183,8 @@ def discover(repo=REPO):
             row['name'] = row['project'] + row['name'][len(old):]
     for row in result:
         if row["id"] in generations:
-            number = generations[row["id"]]
-            row.update(name=f"Gen {number}", version=f"gen_{number:0>2}")   # "11b": the Astra pass beside Opus's Gen 11
+            kind, number = generations[row["id"]].split()
+            row.update(name=f"{kind} {number}", version=f"{kind.lower()}_{number:0>2}")   # "11b": the Astra pass beside Gripper 11
     # Latest generations first; source folders retain original version names.
     return sorted(result, key=lambda row: (row['project'], row['version']), reverse=True)
 
@@ -310,7 +311,7 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     public.update(models=[], source=None, source_bundle=None, preview=None, export_status='no CAD source')
     tuning = Path(row['folder']) / 'params.json'
     if tuning.is_file() and (Path(row['folder']) / 'live_render.py').is_file():
-        # 2.4 on: the gallery's Tune panel draws a slider for each of these; serve_designs.py POST /tune renders them
+        # Handle 4 on: the gallery's Tune panel draws a slider for each of these; serve_designs.py POST /tune renders them
         public['params'] = [dict(name=g['name'], params=[q for q in g['params'] if q['stage'] != 'calibration'])
                             for g in json.loads(tuning.read_text())['groups'] if any(q['stage'] != 'calibration' for q in g['params'])]
     source = inside(row['source_path'], repo) if row['source_path'] else None
@@ -373,7 +374,7 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
         existing_fresh = row['existing'] and all(m['path'].stat().st_mtime_ns + 100_000_000 >= newest_dependency for m in row['existing'])
         # Declared parts (viewer_parts.json, designs.py) are served even when older than the source: they are what the
         # Open/Closed slider's hinges move, and mtime order is noise (a .scad saved after export, a git checkout).
-        # Rendering the .scad whole merged Gen 16's fingers into one mesh that could not close (voice-caae8e01).
+        # Rendering the .scad whole merged Gripper 16's fingers into one mesh that could not close (voice-caae8e01).
         existing_valid = existing_fresh or row['existing'] and row.get('declared_parts')
         if existing_valid and not existing_fresh:
             public['parts_older_than_source'] = True
