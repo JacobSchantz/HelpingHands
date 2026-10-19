@@ -43,19 +43,19 @@
       "name": "closed_lands_touch_without_overlap_at_0_deg",
       "passed": true,
       "expected": "touch only",
-      "log": "Geometries in cache: 106\nGeometry cache size in bytes: 1009144\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.032\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -7\n   Vertices:      189\n   Facets:        346"
+      "log": "Geometries in cache: 227\nGeometry cache size in bytes: 1430888\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.050\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -10\n   Vertices:      191\n   Facets:        338"
     },
     {
       "name": "closed_lands_overlap_when_pushed_0.1mm_positive_control",
       "passed": true,
       "expected": "contact",
-      "log": "Geometries in cache: 107\nGeometry cache size in bytes: 1009144\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.033\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -7\n   Vertices:      285\n   Facets:        538"
+      "log": "Geometries in cache: 227\nGeometry cache size in bytes: 1430888\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.052\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -10\n   Vertices:      280\n   Facets:        516"
     },
     {
       "name": "closed_lands_meet_along_the_tip_not_just_a_point",
       "passed": true,
       "expected": "contact",
-      "log": "Geometries in cache: 109\nGeometry cache size in bytes: 1010856\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.034\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -5\n   Vertices:      127\n   Facets:        230"
+      "log": "Geometries in cache: 229\nGeometry cache size in bytes: 1432600\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.051\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -4\n   Vertices:       79\n   Facets:        138"
     }
   ],
   "limitations": [

@@ -24,9 +24,12 @@ the pair follows thumb and index the same way Gen 11 does. Earlier generations a
 - **Flatter blade.** The thickness along Y now thins along `(1−f)^1.5` (Gen 11: `1−f²`, a beak).
   It thins early and levels off, so the tip is a flat 2.4 × 1.4 mm pad with a rounded end,
   not a point.
-- **Grooves near the tip only.** Gen 11's 29 jaw grooves are gone. In their place are 7 fine
-  cross-cuts (0.3 mm deep, 0.4 mm wide, 0.8 mm pitch) on the land, 1–6 mm back from the tip.
-  This follows the Gen 10 vs 11 note: shallow grooves on the gripping jaw near the tip only.
+- **Serration along the whole inner edge (r2).** Fine cross-cuts (0.4 mm deep, 0.5 mm wide,
+  1 mm pitch) run from the head corner down the entire inner edge and along the land, stopping
+  1 mm short of the tip. Jake: the closed reference photo shows the serration spanning
+  essentially the entire inner edge (r1 had cut only 7 grooves near the tip). The traced edge's
+  stations come from `trace_photo.py` (`RIDGE_FROM` is the head corner); the land's are straight
+  cuts in `ridges2d`. Each groove keeps 0.6 mm of wall to every hole.
 - **Slots.** Gen 11's last three blade slots don't fit in the slender tine, so they are dropped
   (`slots_kept`). That leaves 30 designed through-holes (Gen 11: 33).
 

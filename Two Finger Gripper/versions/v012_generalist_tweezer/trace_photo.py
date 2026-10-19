@@ -48,11 +48,11 @@ NEEDLE_Q=(1.05,1.12)   # Gen 11, per edge: g(f)=(1-f)^Q (1+A f). Q>1 sharpens th
 NEEDLE_TAIL=(0.6,20)    # r3: half-width floor 0.6 d (1-d/20) over the last 20 px (4 mm): >= 0.9 mm across 1 mm back,
                         # where (1-f)^Q alone left a 0.5 mm sliver that prints as one line. Zero further back.
 # The slot row sits 4 px outboard of the Gen 7 trace (Gen 10: 2 px), so the narrowed jaw keeps a wall.
-# Ridges (Gen 11): a groove every RIDGE_PITCH_PX along the jaw's inner edge, from RIDGE_FROM to where the
+# Ridges (Gen 11; Gen 12 r2 starts them at the head corner again): a groove every RIDGE_PITCH_PX along the inner edge, from RIDGE_FROM to where the
 # blade gets too narrow to carry one, each across the full thickness. r4: only the gripping jaw/beak, as in
 # robot.png. r1-r3 ran them from the head corner down the whole inner edge, which read as a saw (Jake).
 RIDGE_PITCH_PX=5.0     # 1.0 mm at 0.2 mm/px
-RIDGE_FROM=(713.0,524.0)   # r4: the jaw, from the last step face below the beak shoulder; r2-r3: the head corner (423,336)
+RIDGE_FROM=(423.0,336.0)   # Gen 12 r2: the head corner, so the serration spans the whole inner edge (Jake, closed.png); Gen 11 r4: the jaw only (713,524)
 RIDGE_CORNER_DEG=100   # skip a groove only at a corner sharper than this within +-1 mm; the ribs carry on over the step faces (robot.png, r2-r3)
 GROOVE_PX=(2.5,2.5)    # groove width and depth in px, as gripper.scad cuts them (ridge[1], ridge[2])
 RIDGE_MIN_WIDTH_PX=9    # stop where the blade is narrower than 1.8 mm across (r3: runs to ~1.5 mm from the point; r1-r2: 2.6 mm). At 1.6 mm two tip grooves left a pinhole

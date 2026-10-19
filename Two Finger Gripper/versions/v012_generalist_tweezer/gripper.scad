@@ -5,7 +5,8 @@
    blade becomes a tine: its outer edge tapers (tine_out) to a 1.4 mm tip, its jaw edge runs straight
    along a flat land (land_x) for the last 11 mm, and the two lands close flat against each other at
    angle 0 (tip_gap=0). The thickness thins along (1-f)^1.5, so the last few mm are a flat blade, not a
-   beak. Grooves: a few fine cross-cuts on the land near the tip only (Jake, Gen 10 vs 11 notes).
+   beak. Grooves (r2): fine shallow cross-cuts along the whole inner edge, from the head corner to 1 mm
+   short of the tip (Jake: the closed photo shows the serration spanning essentially the entire inner edge).
    The root (honeycomb, dot, first slots) is still the pixel trace of the lower finger of the
    left-hand device in cad/reference/generalist_gripper_gen6_two_hands.png (trace_photo.py ->
    trace_px.scad), mapped to mm below. Every hole goes through.
@@ -42,8 +43,9 @@ function tine_out(z)=let(f=min(1,max(0,(z-tine_z0)/(tip[1]-tine_z0)))) land_x+ti
 pivot=-land_x+tip_gap/2;  // half the pivot spacing: closed lands sit tip_gap apart
 slots_kept=[for(q=slots_px) if(px(q)[1]<94) q];   // the tine is too slender for Gen 11's last slots
 min_hole=1.8;             // blurred small holes are read no smaller than this
-ridge=[0.8,0.4,0.3];      // land grooves: pitch, width, depth (mm), cut across the full thickness of the land
-ridge_span=[1.0,6.0];     // from 1 mm to 6 mm back from the tip only (Gen 10 vs 11 note: near the tip, not the whole edge)
+ridge=[1.0,0.5,0.4];      // inner-edge grooves: pitch (set in trace_photo.py for the traced edge), width, depth (mm), across the full thickness
+ridge_wall=0.6;           // least wall kept between a groove and any hole, so no groove opens into one
+ridge_stop=1.0;           // the grooves stop this far back from the tip: the very tip stays smooth
 slot=[3.0,1.35];          // blade slot length x width, ~2.2:1 like the photo; the last one is ~70%
 function frame_deg(img_deg)=90-(img_deg-axis_deg);   // a direction in the photo -> angle in the finger frame
 
@@ -70,8 +72,20 @@ module holes2d() {
     for(i=[0:len(slots_kept)-1]) translate(px(slots_kept[i])) rotate(frame_deg(120))   // slanted like a forward slash in the photo, ~35 deg off the row
         scale(i==len(slots_kept)-1?0.7:1) hull() for(s=[-1,1]) translate([s*(slot[0]-slot[1])/2,0]) circle(d=slot[1],$fn=16);
 }
-module ridges2d() {       // fine grooves square to the land, near the tip only, ridge[2] deep
-    for(z=[tip[1]-ridge_span[1]:ridge[0]:tip[1]-ridge_span[0]]) translate([land_x-1,z-ridge[1]/2]) square([1+ridge[2],ridge[1]]);
+module ridges2d() {       // grooves along the whole inner edge, square to it: the traced stations (ridges_px) up to the land,
+    // then straight cuts along the land to ridge_stop short of the tip. Depth is measured from the finished edge (the band
+    // between profile() and its inset) and every groove stops ridge_wall short of a hole, so all are exactly ridge[2] deep.
+    difference() {
+        intersection() {
+            union() {
+                for(r=ridges_px) let(c=px([r[0],r[1]]), n=px([r[0]+r[2],r[1]+r[3]])-c, a=atan2(n[1],n[0])) if(c[1]<land_z-0.8*ridge[0])
+                    translate(c) rotate(a) translate([-2*ridge[2],-ridge[1]/2]) square([4*ridge[2],ridge[1]]);
+                for(z=[land_z:ridge[0]:tip[1]-ridge_stop]) translate([land_x-1,z-ridge[1]/2]) square([1+2*ridge[2],ridge[1]]);
+            }
+            difference() {offset(delta=1) profile(); offset(r=-ridge[2]) profile();}   // past the edge, so no skin is left
+        }
+        offset(r=ridge_wall) holes2d();
+    }
 }
 function half_thick(f)=(tip_thick+(plate-tip_thick)*pow(1-f,1.5))/2;   // thins early and flattens out at the tip: a tweezer blade, not Gen 11's beak
 module side_taper(inset=0) {   // Y-Z profile: full plate to the dot, tapering on both faces to a flat blade with a rounded end
