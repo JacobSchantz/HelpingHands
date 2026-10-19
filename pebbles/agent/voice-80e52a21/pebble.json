@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-19T00:16:59.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'I also want the ability to auto-align the images. It should rotate all the models and align them, especially to the top-down view, but it makes sense to build the other views as well. It should align all of the ones on the screen, and that photo of the actual we're working from should be there too.' Add: view-preset buttons (Top first, plus Front, Side and Iso) that snap EVERY model on screen to the same camera angle and scale at once, so they line up for comparison. The Top preset should match the Actual photo's viewpoint so the models and the photo line up side by side. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-19T00:15:54.000Z",
       "result": "failed",
       "notes": "Jake (voice): 'What I want you to focus on right now is bringing in the actual photo we have from Generalist. I'm just going to look at Gen 9, 10 and 11. Add the photo there. Maybe make that photo show up as the actual.' Clarified ask, top priority: add the Generalist reference photo to the gallery comparison as its own entry labeled 'Actual (Generalist)', shown alongside Gen 9, 10 and 11 the same way the designs are, so he can compare live. Default photo: the best top-down profile (generalist_gripper_gen6_two_hands.png or _top.png, whichever shows the finger shape best, cropped to one gripper if that helps), with the other reference photos selectable. Do not change any existing generation. .",
@@ -18,7 +29,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T00:14:16.000Z",
-  "updated_at": "2026-10-19T00:15:54.000Z",
+  "updated_at": "2026-10-19T00:16:59.000Z",
   "user_request": {
     "name": "Jake"
   },
