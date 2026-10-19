@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Base 4 must simplify Base 3's gripper assembly, especially the finger-handle-gear-base linkage, which currently totals 21 pieces including 8 printed parts and 12 screws. Cut both the part count and screw count below that baseline, record the new count in VERSIONS.txt, and keep it parameterized and driven by the single RS00.",
+  "summary_sha": "b7260e7369b9f8b8"
 }
