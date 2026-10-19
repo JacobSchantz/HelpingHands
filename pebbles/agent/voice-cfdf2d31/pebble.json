@@ -24,5 +24,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Model a Gen 17 OpenSCAD attachment replacing the old v017: a flat black slide-in piece with two strap loop slots, no camera. Fingers keep constant thickness and taper to a point only in the closing plane.",
+  "summary_sha": "32fd65e7dbf1b6c0"
 }
