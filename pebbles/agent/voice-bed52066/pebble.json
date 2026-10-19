@@ -17,5 +17,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gripper design versions in the repo and live preview UI use old numbering like 1.21, 2.6, and 3.3 instead of the AGENTS.md scheme. Rename them to Gripper N, Handle N, and Base N across catalog labels and pickers without breaking history, keeping each part's mix-and-match picker independent.",
+  "summary_sha": "bed52066381d9a5c"
 }
