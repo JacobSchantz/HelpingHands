@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T01:49:52.000Z",
-  "updated_at": "2026-10-19T02:47:08Z",
+  "updated_at": "2026-10-19T02:47:48Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Gripper Gen 16 is a minimal handheld gripper using Gen 14 fingers, a pivot, a camera mount, and flat side pads with strap slots. Build it separately from Gen 15 with the fewest printable parts, delivering STLs, a parts list, and a gallery view.",
-  "summary_sha": "258bb62cecd5df7e"
+  "summary_sha": "258bb62cecd5df7e",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-258bb62c",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-258bb62c",
+  "claimed_at": "2026-10-19T02:47:48.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
