@@ -1,0 +1,191 @@
+[
+  {
+    "path": "exports/assembly.stl",
+    "triangles": 15760,
+    "components": 2,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 20354.53581580535,
+    "bounds_mm": [
+      [
+        -37.28451919555664,
+        -6.0,
+        -2.5423498153686523
+      ],
+      [
+        37.28451919555664,
+        6.0,
+        126.4361343383789
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left.stl",
+    "triangles": 7772,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10174.157304091084,
+    "bounds_mm": [
+      [
+        -37.28451919555664,
+        -6.0,
+        -2.5423498153686523
+      ],
+      [
+        -9.930902481079102,
+        6.0,
+        124.68975067138672
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right.stl",
+    "triangles": 7772,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10174.157304091084,
+    "bounds_mm": [
+      [
+        9.930902481079102,
+        -6.0,
+        -2.5423498153686523
+      ],
+      [
+        37.28451919555664,
+        6.0,
+        124.68975067138672
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_pad.stl",
+    "triangles": 112,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 3.1106038115182812,
+    "bounds_mm": [
+      [
+        -33.69776916503906,
+        -1.2136212587356567,
+        124.38443756103516
+      ],
+      [
+        -32.55833053588867,
+        1.2136212587356567,
+        126.4361343383789
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_pad.stl",
+    "triangles": 112,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 3.1106038115182812,
+    "bounds_mm": [
+      [
+        32.55833053588867,
+        -1.2136212587356567,
+        124.38443756103516
+      ],
+      [
+        33.69776916503906,
+        1.2136212587356567,
+        126.4361343383789
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left.stl",
+    "triangles": 7772,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10174.157354426554,
+    "bounds_mm": [
+      [
+        -2.4837028980255127,
+        -6.0,
+        -2.4326021671295166
+      ],
+      [
+        27.1462459564209,
+        6.0,
+        121.81451416015625
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right.stl",
+    "triangles": 7772,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 10174.157354426554,
+    "bounds_mm": [
+      [
+        -27.1462459564209,
+        -6.0,
+        -2.4326021671295166
+      ],
+      [
+        2.4837028980255127,
+        6.0,
+        121.81451416015625
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_pad.stl",
+    "triangles": 112,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 3.1105977438052914,
+    "bounds_mm": [
+      [
+        25.96661376953125,
+        -1.2136212587356567,
+        121.81451416015625
+      ],
+      [
+        27.250667572021484,
+        1.2136212587356567,
+        123.66454315185547
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_pad.stl",
+    "triangles": 112,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 3.1105977438052914,
+    "bounds_mm": [
+      [
+        -27.250667572021484,
+        -1.2136212587356567,
+        121.81451416015625
+      ],
+      [
+        -25.96661376953125,
+        1.2136212587356567,
+        123.66454315185547
+      ]
+    ],
+    "passed": true
+  }
+]

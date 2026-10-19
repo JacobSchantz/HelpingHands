@@ -56,6 +56,11 @@ PATCHES=[
 # point, and each edge meets the centreline at ~24 deg (side.png, robot.png).
 # TIP is the centre of the photo's dark nub, so the yellow stops where the nub begins.
 NEEDLE=dict(TIP=(846.0,606.0),HALF=(26.5,24.5),A=(1.31,2.8))   # inner, outer: half-width at the dot (px) and fullness
+# Gen 15 (voice-8673a6b6): the beak past the black dot is BEAK_STRETCH times longer along the finger, its point at the same
+# x, so dot -> point is a third of the finger (Gen 14: 24.8 of 109.4 mm, 23%; the closed photo shows ~38% from the dots).
+# Everything behind the dot is Gen 14's. The beak keeps Gen 14's widths at the same fraction of its length, so it is
+# slimmer per mm; the slots move with it (stretch_z) and closed_jaw() still shapes the contact in mm, so it is unchanged.
+BEAK_STRETCH=1.70
 NEEDLE_Q=(1.05,1.12)   # Gen 11, per edge: g(f)=(1-f)^Q (1+A f). Q>1 sharpens the last few mm into a clean point.
                        # r4: r1-r3 used (1.15,1.35) and A_outer 3.0, a needle that lost Gen 10's full beak (Jake);
                        # this is close to Gen 10's (1, 2.6) over the blade and only slightly sharper at the point.
@@ -93,9 +98,12 @@ def needle_frame():
 # Closed contact (Gen 13). Photo px -> finger-frame mm, as px() in gripper.scad.
 FRAME=dict(pivot=(337,395),deg=36.5,mm=0.2)
 TIP_SHIFT_FROM=0.55     # the point moves in to the jaw's innermost reach over the last 45% of the beak (smoothstep), outer edge too
-ROUND_BACK=0.4          # mm: Gen 14 rounds the point at 0.3 mm (gripper.scad tip_r), so the contact sits ~0.4 mm behind the trace.
+ROUND_BACK=1.0          # mm: Gen 15: the slimmer point loses more to the 0.3 mm round (gripper.scad tip_r), so the contact sits ~1.0 mm
+                        # behind the trace (measured on the mesh: innermost reach at z 123.35, trace point 124.31). Gen 14: 0.4; Gen 13: 1.8
                         # Gen 13: 1.8 (its 1 mm round left two nubs and a small V in front of the contact)
-WEDGE=dict(half_deg=4.0,cap=0.35,over=0.10,k=6)   # Gen 14: each inner edge leaves the contact at 4 deg (8 deg included) and the
+WEDGE=dict(half_deg=4.5,cap=0.40,over=0.10,k=6)   # Gen 15: 4.5 deg to 0.40 mm (Gen 14: 4 deg to 0.35). Gen 14's model met ~0.6 mm
+                        # behind its designed contact, which made its 1-2 mm included angle read 6.6 deg; on target, 4/0.35 gives only 5.7.
+                        # Gen 14: each inner edge leaves the contact at 4 deg (8 deg included) and the
                         # wedge levels off at a 0.35 mm gap; further back the gap is the photo's curve + 0.10 mm. A smooth max (power
                         # k) joins the two, so the gap only ever grows. r1 kept the whole wedge on (~0.5 mm over the photo
                         # the length of the jaw); the r1 review read that as a slit and asked for it to fade (r2)
@@ -106,6 +114,10 @@ def to_mm(q):
 def to_px(m):
     a=np.radians(FRAME['deg']);X,Z=np.asarray(m)/FRAME['mm']
     return np.array([FRAME['pivot'][0]-X*np.sin(a)+Z*np.cos(a),FRAME['pivot'][1]+X*np.cos(a)+Z*np.sin(a)])
+def stretch_z(q):   # Gen 15: photo px -> px with the finger stretched BEAK_STRETCH times along z past the dot
+    m=to_mm(q);dz=to_mm(DOT_XY)[1]
+    return tuple(to_px((m[0],dz+(m[1]-dz)*(BEAK_STRETCH if m[1]>dz else 1))))
+TIP_PHOTO=NEEDLE['TIP'];NEEDLE['TIP']=stretch_z(TIP_PHOTO)
 GAP=json.loads((HERE/'closed_trace.json').read_text())['gap_fit']
 photo_gap=lambda d:GAP['A']*max(0.0,d)**GAP['P']   # mm apart at d mm behind the point, closed, as measured (trace_closed.py)
 def closed_gap(d):   # Gen 14's target: opened sharply at the point, the photo's curve further back
@@ -133,6 +145,23 @@ def closed_jaw(n=48):
 def needle(n=48):
     inner,outer=closed_jaw(n)
     return [tuple(p) for p in inner]+[tuple(p) for p in outer[-2::-1]]
+
+
+def beak_slots(photo):
+    """Gen 15: each photo slot keeps its fraction of the beak's length (stretch_z) and of its width at that point,
+    measured inner -> outer edge on Gen 14's beak and placed on the longer one. Keeping x alone left the slots
+    hugging the jaw, where the beak is slimmer per mm, and the last one broke through."""
+    def edges(tip):
+        keep=NEEDLE['TIP'];NEEDLE['TIP']=tip
+        try:inner,outer=(np.array([to_mm(q) for q in e]) for e in closed_jaw(200))
+        finally:NEEDLE['TIP']=keep
+        x=lambda e,z:np.interp(z,*(e[np.argsort(e[:,1])][:,::-1].T))
+        return lambda z:(x(inner,z),x(outer,z))
+    old,new=edges(TIP_PHOTO),edges(NEEDLE['TIP']);out=[]
+    for q in photo:
+        m=to_mm(q);a,b=old(m[1]);f=(m[0]-a)/(b-a);z=to_mm(stretch_z(q))[1];a,b=new(z)
+        out.append(tuple(to_px((a+f*(b-a),z))))
+    return out
 
 
 def tip_px():
@@ -190,14 +219,15 @@ def trace():
         a,b=(np.argmin(np.hypot(*(Q-np.array(p)).T)) for p in (run[0],run[-1]))
         if a>b:run,a,b=run[::-1],b,a   # Gen 11: a run drawn against the outline's direction used to leave a zero-width spur
         Q=np.vstack([Q[:a],np.array(run,float),Q[b+1:]])
-    s=SLOT_ROW;slots=[(s['first'][0]+s['step'][0]*i,s['first'][1]+s['step'][1]*i) for i in range(s['count'])]
+    s=SLOT_ROW;slots=beak_slots([(s['first'][0]+s['step'][0]*i,s['first'][1]+s['step'][1]*i) for i in range(s['count'])])
     return Q,holes,slots
 
 
 def main():
     Q,holes,slots=trace()
     dot=max(holes,key=lambda h:h[2])
-    holes=[h for h in holes if h is not dot and min(np.hypot(h[0]-x,h[1]-y) for x,y in slots)>6]
+    s=SLOT_ROW;photo_slots=[(s['first'][0]+s['step'][0]*i,s['first'][1]+s['step'][1]*i) for i in range(s['count'])]
+    holes=[h for h in holes if h is not dot and min(np.hypot(h[0]-x,h[1]-y) for x,y in photo_slots)>6]   # Gen 15: the slot blobs where the photo has them, not where the stretch moved them
     f=lambda l:',\n    '.join(', '.join(f'[{", ".join(f"{v:.2f}" for v in p)}]' for p in l[i:i+6]) for i in range(0,len(l),6))
     tip=tip_px()
     (HERE/'trace_px.scad').write_text(

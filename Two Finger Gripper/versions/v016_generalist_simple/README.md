@@ -1,6 +1,7 @@
 # Gen 16 — simple handheld gripper (voice-258bb62c)
 
-A stripped-down sibling of Gen 15. Gen 15 is untouched.
+A stripped-down sibling of the old printable Gen 15. That Gen 15 was deleted later (voice-8673a6b6; it is in git at
+97850a1) and the number reused for the long-jaw fingers. Gen 16 copied everything it needed, so it stands alone.
 
 Jake: "Focus on significant simplicity. It doesn't need that whole arm attachment bit … It just needs a flat piece on
 the side that I can put my fingers in, my thumb on the other side, and a strap that goes over. We don't need to

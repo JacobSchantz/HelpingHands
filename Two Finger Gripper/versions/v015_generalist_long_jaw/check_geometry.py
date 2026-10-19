@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline finger checks for Generation 15 (Gen 14's, unchanged: the fingers must still contact exactly as Gen 14) (two fingers, each a yellow body + dark tip pad); no hardware operations.
+"""Offline solid checks for Generation 15 (Gen 14 with a longer beak; same contact spec) (two fingers, each a yellow body + dark tip pad); no hardware operations.
 Gen 14's spec is how the closed fingers contact: only the very points touch, the inner edges leave them at
 a sharp angle (>= CONTACT_DEG included), and further back the gap follows the closed photo's curve plus
 that wedge (trace_photo.py closed_gap)."""
@@ -31,7 +31,7 @@ def volume(V):
 
 
 def check(name,body,empty=True,touch=False,within_z=None):
-    with tempfile.TemporaryDirectory(prefix='generalist_g15_') as tmp:
+    with tempfile.TemporaryDirectory(prefix='generalist_g14_') as tmp:
         log,raw=run(body,tmp)
         is_empty='Current top level object is empty.' in log and raw is None
         if touch and not is_empty:   # faces that only touch leave a sliver of float noise: no thicker than 1 µm, or no volume
@@ -44,6 +44,15 @@ def check(name,body,empty=True,touch=False,within_z=None):
         return dict(name=name,passed=ok,expected=('touch only' if touch else 'empty') if empty else 'contact',**extra,log=log.strip()[-300:])
 
 
+def slice_x(V,z):
+    """x of every point where the mesh's triangle edges cross the plane at z."""
+    xs=[]
+    for tri in zip(V[::3],V[1::3],V[2::3]):
+        for a,b in ((tri[0],tri[1]),(tri[1],tri[2]),(tri[2],tri[0])):
+            if (a[2]-z)*(b[2]-z)<0:xs.append(a[0]+(z-a[2])/(b[2]-a[2])*(b[0]-a[0]))
+    return xs
+
+
 def gap_profile():
     """The closed gap of the whole right finger (body + pad) vs Gen 14's target and the photo's curve. A
     mirrored pair's gap at z is 2 * (the right finger's innermost x at z - its innermost x anywhere)."""
@@ -54,7 +63,7 @@ def gap_profile():
     zc=float(tp.to_mm(tp.tip_px())[1])-tp.ROUND_BACK   # the designed contact, just behind the rounded point
     rows=[]
     for d in [0.5,1,1.5,2,3,4,6,8,10,12,14,16,18,20,22]:
-        xs=[v[0] for v in V if abs(v[2]-(zc-d))<0.25]
+        xs=slice_x(V,zc-d)   # Gen 15: the mesh cut at that z, not vertices near it (the longer beak spaces them ~0.9 mm apart)
         if xs:rows.append(dict(d_mm=d,model_gap=round(2*(min(xs)-xc),3),target_gap=round(tp.closed_gap(d),3),photo_gap=round(tp.photo_gap(d),3)))
     worst=max(abs(r['model_gap']-r['target_gap']) for r in rows if 1<=r['d_mm']<=20)
     mono=all(a['model_gap']<=b['model_gap']+5e-3 for a,b in zip(rows,rows[1:]))
@@ -84,7 +93,7 @@ def main():
        'The 4 deg wedge is a design choice (Jake: too much contact before the tip), not a measurement: the photo cannot resolve it.',
        'The dark tip pad is read from the photos\' dark nubs; its material and how it is joined are not known.',
        'Plan shape traced from one photo at an assumed 0.2 mm/px; no Generalist part was measured.',
-       'The rest of the device is checked by check_device.py.'])
+       'No body, axle, drive or stops exist in this generation.'])
     (HERE/'geometry_checks.json').write_text(json.dumps(report,indent=2)+'\n')
     for r in results:print(('PASS' if r['passed'] else 'FAIL')+': '+r['name']+(f" {r.get('overlap_z','')}" if 'overlap_z' in r else '')+(f" worst {r['worst_mm']} mm" if 'worst_mm' in r else '')+(f" {r['included_deg']} deg" if 'included_deg' in r else ''))
     raise SystemExit(0 if all(r['passed'] for r in results) else 1)

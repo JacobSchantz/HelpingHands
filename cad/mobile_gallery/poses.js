@@ -6,9 +6,9 @@ export default {
   "two-finger-gripper-v016-generalist-simple": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},
-  "two-finger-gripper-v015-generalist-printable": {"exported": 15, "min": 0, "max": 30, "hinges": [
-    {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
-    {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},
+  "two-finger-gripper-v015-generalist-long-jaw": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [27.251, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.251, 0, 0], "sign": -1}]},
   "two-finger-gripper-v014-generalist-tip-contact": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},

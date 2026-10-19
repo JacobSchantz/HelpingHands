@@ -43,29 +43,29 @@
       "name": "closed_fingers_touch_without_overlap_at_0_deg",
       "passed": true,
       "expected": "touch only",
-      "log": "Geometries in cache: 247\nGeometry cache size in bytes: 1350840\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.046\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:        8\n   Facets:         12"
+      "log": "Current top level object is empty."
     },
     {
       "name": "closed_fingers_overlap_when_pushed_0.02mm_positive_control",
       "passed": true,
       "expected": "contact",
-      "log": "Geometries in cache: 247\nGeometry cache size in bytes: 1350840\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.047\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       20\n   Facets:         36"
+      "log": "Geometries in cache: 274\nGeometry cache size in bytes: 1389160\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.044\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       29\n   Facets:         54"
     },
     {
       "name": "pushed_0.02mm_together_they_meet_only_in_the_last_1.5mm",
       "passed": true,
       "expected": "contact",
       "overlap_z": [
-        105.99,
-        106.23
+        123.22,
+        123.43
       ],
-      "log": "Geometries in cache: 247\nGeometry cache size in bytes: 1350840\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.045\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       20\n   Facets:         36"
+      "log": "Geometries in cache: 274\nGeometry cache size in bytes: 1389160\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.045\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       29\n   Facets:         54"
     },
     {
       "name": "body_and_pad_are_the_whole_finger",
       "passed": true,
       "expected": "touch only",
-      "log": "Geometries in cache: 249\nGeometry cache size in bytes: 1352552\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.086\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -2\n   Vertices:       16\n   Facets:         20"
+      "log": "Geometries in cache: 276\nGeometry cache size in bytes: 1390872\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.083\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:        6\n   Facets:          8"
     },
     {
       "name": "body_and_pad_do_not_overlap",
@@ -77,96 +77,96 @@
       "name": "closed_gap_follows_the_gen14_target",
       "passed": true,
       "expected": "within 0.12 mm of photo curve + wedge from 1 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
-      "worst_mm": 0.081,
-      "contact_z": 106.53,
+      "worst_mm": 0.003,
+      "contact_z": 123.31,
       "rows": [
         {
           "d_mm": 0.5,
-          "model_gap": 0.0,
-          "target_gap": 0.069,
+          "model_gap": 0.078,
+          "target_gap": 0.078,
           "photo_gap": 0.0
         },
         {
           "d_mm": 1,
-          "model_gap": 0.052,
-          "target_gap": 0.133,
+          "model_gap": 0.149,
+          "target_gap": 0.15,
           "photo_gap": 0.0
         },
         {
           "d_mm": 1.5,
-          "model_gap": 0.117,
-          "target_gap": 0.188,
+          "model_gap": 0.209,
+          "target_gap": 0.212,
           "photo_gap": 0.0
         },
         {
           "d_mm": 2,
-          "model_gap": 0.172,
-          "target_gap": 0.232,
+          "model_gap": 0.261,
+          "target_gap": 0.263,
           "photo_gap": 0.001
         },
         {
           "d_mm": 3,
-          "model_gap": 0.236,
-          "target_gap": 0.292,
+          "model_gap": 0.329,
+          "target_gap": 0.331,
           "photo_gap": 0.003
         },
         {
           "d_mm": 4,
-          "model_gap": 0.266,
-          "target_gap": 0.323,
+          "model_gap": 0.366,
+          "target_gap": 0.367,
           "photo_gap": 0.007
         },
         {
           "d_mm": 6,
-          "model_gap": 0.289,
-          "target_gap": 0.344,
+          "model_gap": 0.394,
+          "target_gap": 0.393,
           "photo_gap": 0.026
         },
         {
           "d_mm": 8,
-          "model_gap": 0.292,
-          "target_gap": 0.349,
+          "model_gap": 0.398,
+          "target_gap": 0.399,
           "photo_gap": 0.064
         },
         {
           "d_mm": 10,
-          "model_gap": 0.298,
-          "target_gap": 0.354,
+          "model_gap": 0.403,
+          "target_gap": 0.402,
           "photo_gap": 0.129
         },
         {
           "d_mm": 12,
-          "model_gap": 0.32,
-          "target_gap": 0.382,
+          "model_gap": 0.419,
+          "target_gap": 0.418,
           "photo_gap": 0.229
         },
         {
           "d_mm": 14,
-          "model_gap": 0.429,
-          "target_gap": 0.485,
+          "model_gap": 0.501,
+          "target_gap": 0.498,
           "photo_gap": 0.373
         },
         {
           "d_mm": 16,
-          "model_gap": 0.618,
-          "target_gap": 0.669,
+          "model_gap": 0.675,
+          "target_gap": 0.672,
           "photo_gap": 0.567
         },
         {
           "d_mm": 18,
-          "model_gap": 0.854,
+          "model_gap": 0.925,
           "target_gap": 0.922,
           "photo_gap": 0.821
         },
         {
           "d_mm": 20,
-          "model_gap": 1.18,
+          "model_gap": 1.247,
           "target_gap": 1.244,
           "photo_gap": 1.144
         },
         {
           "d_mm": 22,
-          "model_gap": 1.767,
+          "model_gap": 1.646,
           "target_gap": 1.644,
           "photo_gap": 1.544
         }
@@ -176,7 +176,7 @@
       "name": "contact_angle_at_least_6_deg_included",
       "passed": true,
       "expected": "slope of the closed gap 1 to 2 mm behind the point, as an included angle",
-      "included_deg": 6.87
+      "included_deg": 6.41
     }
   ],
   "limitations": [
@@ -185,6 +185,6 @@
     "The 4 deg wedge is a design choice (Jake: too much contact before the tip), not a measurement: the photo cannot resolve it.",
     "The dark tip pad is read from the photos' dark nubs; its material and how it is joined are not known.",
     "Plan shape traced from one photo at an assumed 0.2 mm/px; no Generalist part was measured.",
-    "The rest of the device is checked by check_device.py."
+    "No body, axle, drive or stops exist in this generation."
   ]
 }
