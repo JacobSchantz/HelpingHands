@@ -1,12 +1,12 @@
 {
   "id": "voice-105178b9",
   "commit_id": "",
-  "description": "Document the end-state architecture of Helping Hands in the repo's main docs (README or an architecture doc) so future work aligns to it. The end result is an agentic harness that talks to a world action model. Two layers: (1) the world action model — trained on our gripper's data, it understands the world and how to physically interact with it (low-level manipulation); (2) above it, an LLM agent harness that runs tool calls to get things done in the real world, with the world action model exposed to it as the thing that executes actions.",
+  "description": "Document the end-state architecture of Helping Hands in the repo's main docs (README or an architecture doc) so future work aligns to it. The end result is an agentic harness that talks to a world action model. Two layers: (1) the world action model \u2014 trained on our gripper's data, it understands the world and how to physically interact with it (low-level manipulation); (2) above it, an LLM agent harness that runs tool calls to get things done in the real world, with the world action model exposed to it as the thing that executes actions.",
   "test_instructions": [],
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T05:56:08.000Z",
-  "updated_at": "2026-10-19T05:56:08.000Z",
+  "updated_at": "2026-10-19T05:56:32Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Helping Hands' main docs don't describe its end-state architecture: an LLM agent harness running tool calls above a gripper-trained world action model. Document those two layers, with the world action model exposed as the executor of low-level physical manipulation, so future work aligns.",
-  "summary_sha": "105178b914ff8ddd"
+  "summary_sha": "105178b914ff8ddd",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-105178b9",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-105178b9",
+  "claimed_at": "2026-10-19T05:56:32.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
