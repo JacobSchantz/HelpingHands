@@ -39,6 +39,6 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The design gallery lacks real Generalist gripper photos beside the 3D model, so Jake can't compare them live, including on phone. Default to the clearest top-down profile shot and let him swap to the other reference photos.",
-  "summary_sha": "80e52a21520a6468"
+  "summary": "The design gallery needs the Generalist reference photo added as an \"Actual (Generalist)\" entry beside Gen 9, 10 and 11. It also needs Top, Front, Side and Iso preset buttons that snap every model to the same camera angle, with Top matching the photo.",
+  "summary_sha": "ac1b561c2bb4941d"
 }
