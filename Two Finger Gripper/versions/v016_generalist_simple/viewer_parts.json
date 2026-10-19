@@ -1,0 +1,64 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/right_finger.stl",
+      "name": "Right finger + thumb side pad — one print, one strap slot",
+      "color": "#efb83b",
+      "explode": [
+        25,
+        0,
+        25
+      ]
+    },
+    {
+      "path": "exports/parts/left_finger.stl",
+      "name": "Left finger + index side pad — one print, one strap slot",
+      "color": "#efb83b",
+      "explode": [
+        -25,
+        0,
+        25
+      ]
+    },
+    {
+      "path": "exports/parts/right_tip.stl",
+      "name": "Right tip pad — dark (prints merged unless two-material)",
+      "color": "#2a2a2c",
+      "explode": [
+        30,
+        0,
+        45
+      ]
+    },
+    {
+      "path": "exports/parts/left_tip.stl",
+      "name": "Left tip pad — dark (prints merged unless two-material)",
+      "color": "#2a2a2c",
+      "explode": [
+        -30,
+        0,
+        45
+      ]
+    },
+    {
+      "path": "exports/parts/pivot_plate.stl",
+      "name": "Pivot plate + camera cradle — both M4 pivots, Insta360 X4/X5 on its 1/4\"-20 thread",
+      "color": "#46464c",
+      "explode": [
+        0,
+        40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/camera.stl",
+      "name": "Camera — Insta360 X4 size, lenses forward/back, not printed",
+      "color": "#26262a",
+      "explode": [
+        0,
+        80,
+        0
+      ]
+    }
+  ]
+}
