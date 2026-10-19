@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Two Finger Gripper: delete Gen 15 (Two Finger Gripper/versions/v015_generalist_printable) and make a new v015 that improves on v014_generalist_tip_contact. Jake (voice, looking at the HelpingHands Live Preview design gallery): \"Delete version 15, we don't need it. Then make a new version 15 that improves on version 14: the actual gripper part at the end, past the black dots (from where the finger would stop, where it bumps out, to the tip), should be much longer. In the reference it looks like about a third of the total length, so extend that end section to roughly a third of the length.\"\n\nNotes for the implementer:\n- Reference photos: cad/reference/generalist_gripper_gen6_closed.png and the other generalist photos v014's README uses; 'black dots' is probably v014's dark tip pad / the bump where the finger stops. Confirm against the photos.\n- 3D designs use the dual render: a three.js vision render plus an OpenSCAD STL from the same angles, diffed. The STL is the source of truth.\n- The new v015 must appear in the Live Preview gallery (Scripts/publish_designs.py discovery -> ~/HelpingHands-tools/design-gallery catalog) in place of the deleted one. Update VERSIONS.txt.\n- Heads-up: v016_generalist_simple is built from Gen 15's fingers. Removing the old v015 must not break v016 (copy over or re-point anything it imports); leave v016 in place.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T03:17:35.000Z",
+      "result": "failed",
+      "notes": "Correction from Jake (this REPLACES the 'past the black dots' wording above; ignore that part): the section to lengthen is the end section from where the gripper starts getting much thicker, out to the tip. That thick end section should be quite a bit longer, about a third of the total finger length. Check this against the reference images (cad/reference/generalist_gripper_gen6_closed.png and the other generalist photos); Jake thinks they show that thick section much longer than v014 has it. Everything else in the request stands: delete old v015, new v015 improves on v014, dual render (three.js vision render + OpenSCAD STL, same angles, diffed, STL is truth), shows in the Live Preview gallery in place of the old v015, keep v016 working.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-19T03:17:19.000Z",
-  "updated_at": "2026-10-19T03:17:19.000Z",
+  "updated_at": "2026-10-19T03:17:35.000Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
