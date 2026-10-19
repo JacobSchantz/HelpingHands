@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Rename the current Gen 16 gripper to Gen 17, then build a new Gen 16 merging Gen 15's length with Gen 9's rounded shape. It needs shallower 1 mm ridges, rounder knobs, an all-yellow tip, and sides that actually touch at the point.",
+  "summary_sha": "1fc7e062dbd116b9"
 }
