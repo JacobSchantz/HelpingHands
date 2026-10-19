@@ -15,6 +15,9 @@ export default {
   "two-finger-gripper-v201-generalist-strap-loops": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.1856, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.1856, 0, 0], "sign": -1}]},
+  "two-finger-gripper-v020-generalist-double-hook": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [27.2512, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.2512, 0, 0], "sign": -1}]},
   "two-finger-gripper-v019-generalist-wide-beak": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.2512, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.2512, 0, 0], "sign": -1}]},
