@@ -1,0 +1,16 @@
+{
+  "id": "voice-07e1e6a1",
+  "commit_id": "",
+  "description": "Version 1.18, gripper only (builds on 1.17, related: voice-cfdf2d31): Correction to 1.17: the fingers SHOULD taper in thickness toward the tip like the Generalist reference gripper does. But keep one face flat so it's easy to 3D print: the taper goes down from one side only (a flat bottom with the top sloping down toward the tip), not a symmetric taper toward the midplane. Reference images: cad/reference/generalist_gripper_gen6_closed.png and references/generalist.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:12:58.000Z",
+  "updated_at": "2026-10-19T16:12:58.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
