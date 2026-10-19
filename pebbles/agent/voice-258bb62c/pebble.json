@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gripper Gen 16 is a minimal handheld gripper using Gen 14 fingers, a pivot, a camera mount, and flat side pads with strap slots. Build it separately from Gen 15 with the fewest printable parts, delivering STLs, a parts list, and a gallery view.",
+  "summary_sha": "258bb62cecd5df7e"
 }

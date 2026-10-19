@@ -80,8 +80,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gen 15 should be a simple printable gripper with the Gen 14 fingers, the pivot, and an Insta360 camera mount. Drop the wrist attachment and strap models, leaving one flat slotted pad per side for fingers and thumb.",
-  "summary_sha": "6ef7cce3a827952b",
+  "summary": "Gen 15 needs a full printable handheld gripper: the unchanged Gen 14 fingers plus pivot plate, carrier blocks, above-hand mount frame, and forward-facing Insta360 camera mount. Deliver per-part STLs, a parts list, and a gallery assembly with open/close slider and exploded view, with three separately modeled straps and strap/zip-tie slots.",
+  "summary_sha": "a49c62f0e395f7be",
   "artifacts": [
     {
       "kind": "file",
