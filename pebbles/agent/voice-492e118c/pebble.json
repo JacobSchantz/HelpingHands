@@ -5,6 +5,17 @@
   "test_instructions": [],
   "results": [
     {
+      "kind": "test_result",
+      "at": "2026-10-19T01:49:50.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'Maybe we need all those things to go for Gen 16?' SUPERSEDED: ignore the last two notes (no straps drawn; radical simplification without the wrist attachment). Those go into a separate Gen 16. Finish Gen 15 as originally specified in the description. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
       "kind": "agent_action",
       "at": "2026-10-19T01:46:24Z",
       "commit_id": "9499dfe7430b35d9aa2167ffcd541da7c36467fd",
@@ -59,7 +70,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T01:30:37.000Z",
-  "updated_at": "2026-10-19T01:46:24Z",
+  "updated_at": "2026-10-19T01:49:50.000Z",
   "user_request": {
     "name": "Jake"
   },
@@ -102,5 +113,12 @@
     "cache_read_tokens": 13874223,
     "cache_write_tokens": 356260,
     "total_usd": 40.8532
+  },
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-19T01:49:50.000Z"
   }
 }
