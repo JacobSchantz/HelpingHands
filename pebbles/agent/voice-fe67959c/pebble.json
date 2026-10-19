@@ -33,6 +33,6 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Gripper Gen 13 has too much contact leading up to the tip, and its contact angle isn't tight or sharp enough. Build Gen 14 as a new version on Astra, keeping all Gen 13 features, so only the tips touch when closed with inner edges diverging sooner.",
-  "summary_sha": "fe67959c8c3dac6f"
+  "summary": "Gripper Gen 14 should be a refinement of Gen 13 built on GPT-6 Astra, starting with sharper, tip-only contact in the closed pose. Compare Gen 13 against all the reference photos, with closed.png primary, and improve anything that's off, not just the tips.",
+  "summary_sha": "7fdd98594506abaa"
 }
