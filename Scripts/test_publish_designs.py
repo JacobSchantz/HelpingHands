@@ -86,6 +86,48 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(result['models'][0]['explode'], [20, 0, 15])
         self.assertEqual(result['models'][0]['name'], 'Jaw')
 
+    def test_declared_parts_survive_a_source_saved_after_export(self):
+        # voice-caae8e01: gripper.scad saved a minute after its parts were exported published one merged mesh,
+        # so the slider's ^Left/^Right hinges matched nothing and Gen 16 could not close.
+        import os
+        folder = self.repo / 'Two Finger Gripper/versions/v016_generalist_rounded_point'
+        (folder / 'exports/parts').mkdir(parents=True)
+        for side in ('left', 'right'):
+            (folder / f'exports/parts/{side}.stl').write_bytes(b'finger')
+            os.utime(folder / f'exports/parts/{side}.stl', (1, 1))
+        (folder / 'gripper.scad').write_text('cube(1);')
+        (folder / 'web').mkdir()
+        (folder / 'web/concept.js').write_text('')
+        (folder / 'viewer_parts.json').write_text(json.dumps({'parts': [
+            {'path': 'exports/parts/left.stl', 'name': 'Left finger'}, {'path': 'exports/parts/right.stl', 'name': 'Right finger'}]}))
+        compare = self.repo / 'cad/compare'
+        compare.mkdir(parents=True)
+        (compare / 'designs.py').write_text((publisher.REPO / 'cad/compare/designs.py').read_text())
+        (self.repo / 'cad/openscad').mkdir()
+        rows = publisher.discover(self.repo)
+        self.assertEqual([r['name'] for r in rows], ['Gen 16'])   # designs.py lists the concept folder too; once only
+        with patch.object(publisher, 'run_scad', side_effect=lambda source, target, *a, **k: target.write_bytes(b'merged')):
+            result = publisher.publish_entry(rows[0], self.out, self.repo)
+        self.assertEqual([m['name'] for m in result['models']], ['Left finger', 'Right finger'])
+        self.assertTrue(result['parts_older_than_source'])
+
+    def test_every_posed_gripper_publishes_its_hinge_parts(self):
+        """Every poses.js gripper the repo publishes is served as parts its hinges move, under one id."""
+        import re
+        text = (publisher.REPO / 'cad/mobile_gallery/poses.js').read_text()
+        poses = json.loads(text[text.index('{'):text.rindex('}') + 1])
+        rows = publisher.discover()
+        ids = [r['id'] for r in rows]
+        self.assertEqual(len(ids), len(set(ids)), 'duplicate catalog ids')
+        for row in rows:
+            if row['id'] not in poses or not row['existing']:
+                continue   # STLs are gitignored: a fresh checkout has none to check
+            with self.subTest(row['id']):
+                self.assertTrue(row.get('declared_parts'), 'served as one merged assembly; the slider cannot move it')
+                names = [m['name'] for m in row['existing']]
+                for hinge in poses[row['id']]['hinges']:
+                    self.assertTrue(any(re.search(hinge['match'], n) for n in names), f"hinge {hinge['match']!r} moves no part")
+
     def test_recursive_dynamic_dependencies_and_reject_external_paths(self):
         row = self.row()
         source = row['source_path']

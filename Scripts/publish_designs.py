@@ -61,10 +61,13 @@ def discover(repo=REPO):
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         for design in module.discover():
+            if '/versions/' in design['folder']:
+                continue   # discovered below; listing it twice published Gen 16 twice under one id (voice-caae8e01)
             row = entry(design['family'], design['generation'], repo / design['scad'], repo / design['folder'])
             row.update(id=design['id'], name=design['name'], notes='Historical OpenSCAD design study. ' + row['notes'])
             row['existing'] = [dict(path=repo / p['path'], name=p['name'], color=p.get('color'), explode=p.get('explode', [0, 0, 0]))
                                for p in design['parts'] if (repo / p['path']).is_file()]
+            row['declared_parts'] = True
             result.append(row)
     for project in ('ORCA CC-BY Prototype', 'Two Finger Gripper', 'Three Finger Gripper'):
         base = repo / project
@@ -95,6 +98,7 @@ def discover(repo=REPO):
                 row['existing'] = [dict(path=inside(folder / p['path'], repo), name=p['name'],
                                         color=p.get('color'), explode=p.get('explode', [0, 0, 0]))
                                    for p in parts]
+                row['declared_parts'] = True
             result.append(row)
     specials = [
         ('ORCA CC-BY Prototype', 'full_hand', 'full_hand/assembled_hand.scad', 'full_hand', 'assembled visual reference', 'MIT (official simulation visual meshes; separate hardware CAD remains CC BY 4.0)'),
@@ -332,7 +336,13 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
         return public
     try:
         newest_dependency = max(p.stat().st_mtime_ns for p in deps)
-        existing_valid = row['existing'] and all(m['path'].stat().st_mtime_ns + 100_000_000 >= newest_dependency for m in row['existing'])
+        existing_fresh = row['existing'] and all(m['path'].stat().st_mtime_ns + 100_000_000 >= newest_dependency for m in row['existing'])
+        # Declared parts (viewer_parts.json, designs.py) are served even when older than the source: they are what the
+        # Open/Closed slider's hinges move, and mtime order is noise (a .scad saved after export, a git checkout).
+        # Rendering the .scad whole merged Gen 16's fingers into one mesh that could not close (voice-caae8e01).
+        existing_valid = existing_fresh or row['existing'] and row.get('declared_parts')
+        if existing_valid and not existing_fresh:
+            public['parts_older_than_source'] = True
         kind = 'inspection' if 'unassembled' in public['status'] else 'assembly'
         if existing_valid:
             public['models'] = []
