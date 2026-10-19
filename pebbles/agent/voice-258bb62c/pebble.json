@@ -1,0 +1,19 @@
+{
+  "id": "voice-258bb62c",
+  "commit_id": "",
+  "description": "Gripper Gen 16: radically simplified handheld gripper (sibling of Gen 15). Jake (voice): 'Focus on significant simplicity. It doesn't need that whole arm attachment bit; if it doesn't attach to my wrist, that's okay. It just needs a flat piece on the side that I can put my fingers in, my thumb on the other side, and a strap that goes over. Really simple. We don't need to actually draw the straps; that's unnecessary.' Spec: Gen 14 fingers (voice-fe67959c), made printable; a pivot; an Insta360 X4/X5 camera mount on top; each finger gets a simple flat side pad (fingers on one side, thumb on the other), each with one strap/zip-tie slot. No wrist/forearm attachment, straps not modeled, and the fewest possible parts. Mechanism stays above the hand with the thumb-index web clear. Build it independently of Gen 15 (Gen 15 is the fuller version); don't modify Gen 15. Printable STLs, parts list, and a gallery view with open/close and exploded view.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T01:49:52.000Z",
+  "updated_at": "2026-10-19T01:49:52.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
