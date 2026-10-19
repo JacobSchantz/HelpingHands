@@ -51,3 +51,10 @@ __pycache__/
 
 # robot_eval: rented pod id + bearer token (secret, per machine)
 robot_eval/.pod.json
+pebbles/.last_build_identity
+pebbles/.last_build_macos
+pebbles/.last_build_macos_identity
+pebbles/.last_macos_drift_check
+
+# Large local reference files — too big for git; ignored so git clean keeps them
+hand.pdf
