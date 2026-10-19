@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T16:29:21.000Z",
-  "updated_at": "2026-10-19T16:29:21.000Z",
+  "updated_at": "2026-10-19T16:29:45Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The gripper-and-handle design in version 2.3 should keep the 2.2 handles but drop the small connector between the two parts. The handle should instead get a long, narrow tongue that slides in from the top into a matching pocket along the gripper's flat face near the base hook.",
-  "summary_sha": "1557d48f1789eef8"
+  "summary_sha": "1557d48f1789eef8",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-1557d48f",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-1557d48f",
+  "claimed_at": "2026-10-19T16:29:44.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
