@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T14:13:18.000Z",
-  "updated_at": "2026-10-19T14:13:18.000Z",
+  "updated_at": "2026-10-19T14:14:08Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Live Preview shows Gen 16 as one merged mesh instead of Left/Right finger STLs, so the Open/Closed slider can't close the gripper. Publishing should use the v016 part STLs, with a robust freshness check, deduped catalog ids, and a test failing when posed grippers lack hinge parts.",
-  "summary_sha": "caae8e017c1bf00f"
+  "summary_sha": "caae8e017c1bf00f",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-caae8e01",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-caae8e01",
+  "claimed_at": "2026-10-19T14:14:08.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
