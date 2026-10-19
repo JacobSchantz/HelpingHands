@@ -1,0 +1,16 @@
+{
+  "id": "voice-56f9d73f",
+  "commit_id": "",
+  "description": "Handles version 2.4 (builds on 2.3 / voice-1557d48f slide-in tongue + pocket near base hook; uses the new 1.20 gripper with top and bottom hooks). Bring the handles down further, and make the handle piece extend higher up, so it spans between the gripper's bottom and top hooks and slides in to be captured by both. Related params pebble: voice-3211a12d.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T17:04:17.000Z",
+  "updated_at": "2026-10-19T17:04:17.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
