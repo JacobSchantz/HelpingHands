@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The gripper fingers in version 1.18 should taper in thickness toward the tip like the Generalist reference gripper, correcting 1.17. Keep a flat bottom for easy 3D printing, with only the top sloping down toward the tip rather than a symmetric taper.",
+  "summary_sha": "07e1e6a18c3f0556"
 }
