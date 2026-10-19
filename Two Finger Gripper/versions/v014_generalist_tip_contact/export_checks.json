@@ -1,0 +1,87 @@
+[
+  {
+    "out": "exports/assembly.stl",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.071\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      65\n   Vertices:     7516\n   Facets:      15288"
+  },
+  {
+    "out": "exports/parts/left.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.050\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "exports/parts/right.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.048\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "exports/parts/left_pad.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.043\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       72\n   Facets:        140"
+  },
+  {
+    "out": "exports/parts/right_pad.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.046\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       72\n   Facets:        140"
+  },
+  {
+    "out": "exports/print/left.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.052\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "exports/print/right.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.049\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "exports/print/left_pad.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 5\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       72\n   Facets:        140"
+  },
+  {
+    "out": "exports/print/right_pad.stl",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.044\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       72\n   Facets:        140"
+  },
+  {
+    "out": "previews/top.png",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.204\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      66\n   Vertices:     7518\n   Facets:      15296"
+  },
+  {
+    "out": "previews/open.png",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.261\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      65\n   Vertices:     7516\n   Facets:      15288"
+  },
+  {
+    "out": "previews/iso.png",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.210\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      65\n   Vertices:     7516\n   Facets:      15288"
+  },
+  {
+    "out": "previews/finger.png",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.166\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "previews/edge.png",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.169\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "previews/jaw.png",
+    "passed": true,
+    "log": "Geometries in cache: 242\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.172\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      33\n   Vertices:     3690\n   Facets:       7508"
+  },
+  {
+    "out": "previews/closed.png",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.225\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      66\n   Vertices:     7518\n   Facets:      15296"
+  },
+  {
+    "out": "previews/tip.png",
+    "passed": true,
+    "log": "Geometries in cache: 243\nGeometry cache size in bytes: 1342280\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.205\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      66\n   Vertices:     7518\n   Facets:      15296"
+  }
+]
