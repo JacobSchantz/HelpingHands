@@ -1,0 +1,16 @@
+{
+  "id": "voice-c7c6c5dc",
+  "commit_id": "",
+  "description": "Research open source robotics datasets more generally (e.g. Open X-Embodiment, DROID, LeRobot hub / SO-101 datasets, and newer ones). For each: size, license, embodiment, modalities, and fit for training our world action model on our gripper. Write findings into the repo's docs so any agent can use them.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T06:01:00.000Z",
+  "updated_at": "2026-10-19T06:01:00.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
