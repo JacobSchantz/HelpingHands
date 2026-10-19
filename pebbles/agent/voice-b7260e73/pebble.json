@@ -1,0 +1,16 @@
+{
+  "id": "voice-b7260e73",
+  "commit_id": "",
+  "description": "Base 4 (builds on Base 3 / old 3.3, voice-3b311f32, folder v303_generalist_inplane; carries Gripper 21 and Handle 7, voice-448df859, handle height ~12 mm to match the finger via the shared handle_over param): Simplify again: there are too many pieces. Focus especially on how the base links to the handle; that connection has too many parts. Cut the part count wherever possible. Baseline to beat (Base 3 README/exports): 9 separate parts = 8 printed (2 fingers, 2 handles, 2 side gears, 1 pinion, 1 base) + the RS00, plus 12 M3 screws (6 flange through the pinion, 6 front ring) = 21 pieces total. Handle-to-gear link today: each handle's tail band wraps the finger's base hook and a key sticks down from it; that sits in a cradle cut into the side gear's hub (with a key notch), the gear's web reaches the pivot, and the gear's axle turns in a plain bushing in the base; the pinion on the RS00 flange drives the right gear, which meshes the left. So finger -> handle (tail+key) -> gear cradle -> gear axle -> base bushing, and the pinion is a separate part from the gears. Beat both counts (e.g. merge handle into gear or pinion into the flange, fewer screws) and say the new count in VERSIONS.txt. Keep it parameterized (params.json + Tune sliders), driven by the single RS00, with the strap slots clear. New folder, params.json-first per AGENTS.md; name it Base 4 in VERSIONS.txt / catalog.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T20:44:00.000Z",
+  "updated_at": "2026-10-19T20:44:00.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
