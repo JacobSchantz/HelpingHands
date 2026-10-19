@@ -48,8 +48,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Rename the current Gen 16 gripper to Gen 17, then build a new Gen 16 merging Gen 15's length with Gen 9's rounded shape. It needs shallower 1 mm ridges, rounder knobs, an all-yellow tip, and sides that actually touch at the point.",
-  "summary_sha": "1fc7e062dbd116b9",
+  "summary": "Edit the gripper's Gen 16 (v016_generalist_rounded_point) in place: make the two length-wise bump-outs much more rounded and the tip thicker, still ending in a single touching point. Behind the tip the two sides should diverge sharply, widening well past the current 6.8-degree V, so they touch only at the tip.",
+  "summary_sha": "fb8df4effcd89fb7",
   "artifacts": [
     {
       "kind": "openscad",
