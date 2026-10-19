@@ -327,7 +327,7 @@ function createView(design) {
     else moved = true;
   });
   element.addEventListener('pointermove', event => {
-    if (start && Math.hypot(event.clientX - start[0], event.clientY - start[1]) > 6) moved = true;
+    if (start && Math.hypot(event.clientX - start[0], event.clientY - start[1]) > (event.pointerType === 'mouse' ? 6 : 16)) moved = true;
   });
   element.addEventListener('pointerup', event => {
     pointers.delete(event.pointerId);
@@ -456,10 +456,19 @@ async function refresh() {
 const tune = {view:null, values:{}, busy:false, again:false};
 const tuneQuery = query.get('tune');
 function tuneParams(design) { return (design?.params || []).flatMap(group => group.params); }
-function updateTuneControl() {
+// The focused design when it has params, else the newest tunable one on screen: the phone opens on the mix tile or the
+// grid, neither of which has params, so Tune must not wait for a tap to focus a tunable design first.
+function tuneTarget() {
   const view = focused && views.get(focused);
-  $('tune-open').hidden = !view || !tuneParams(view.design).length;
-  if ($('tune-open').hidden && !$('tune').hidden) closeTune();
+  if (view && tuneParams(view.design).length) return view;
+  const order = other => lineVersion(other.design) ? versionOrder(lineVersion(other.design)) : -1;
+  return [...views.values()].filter(other => tuneParams(other.design).length).sort((a, b) => order(b) - order(a))[0] || null;
+}
+function updateTuneControl() {
+  const view = tuneTarget(), jump = view && view.design.id !== focused;
+  $('tune-open').hidden = !view;
+  $('tune-open').textContent = jump ? 'Tune ' + shortLabel(view.design) : 'Tune';
+  if (!$('tune').hidden && tune.view?.design.id !== focused) closeTune();
 }
 function tuneStatus(text, kind = '') { $('tune-status').textContent = text; $('tune-status').className = kind; }
 function decimals(step) { return Math.max(0, (String(step).split('.')[1] || '').length); }
@@ -497,7 +506,12 @@ function openTune(view) {
   if (Object.keys(tune.values).length) requestTune(); else tuneStatus('Drag a slider: the real CAD re-renders. Tap a value to reset it.');
 }
 function closeTune() { $('tune').hidden = true; $('tune-open').setAttribute('aria-expanded', 'false'); requestAnimationFrame(fitVisible); }
-$('tune-open').onclick = () => $('tune').hidden ? openTune(views.get(focused)) : closeTune();
+$('tune-open').onclick = () => {
+  if (!$('tune').hidden) return closeTune();
+  const view = tuneTarget(); if (!view) return;
+  if (view.design.id !== focused) setFocus(view.design.id);
+  openTune(view); updateTuneControl();
+};
 $('tune-close').onclick = closeTune;
 $('tune-reset').onclick = () => { tune.values = {}; openTune(tune.view); requestTune(); };
 $('tune-copy').onclick = async () => {
@@ -539,5 +553,5 @@ async function requestTune() {
 
 $('refresh').onclick = refresh;
 await refresh();
-if (tuneQuery && focused && tuneParams(views.get(focused)?.design).length) openTune(views.get(focused));
+if (tuneQuery && tuneTarget()) $('tune-open').click();
 setInterval(refresh, 300000);
