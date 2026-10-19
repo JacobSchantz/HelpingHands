@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T17:04:17.000Z",
-  "updated_at": "2026-10-19T17:04:17.000Z",
+  "updated_at": "2026-10-19T17:12:58Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Handles version 2.4 lowers the handles further and extends the handle piece upward to span the new 1.20 gripper's bottom and top hooks. The handle should slide in and be captured by both hooks, building on the 2.3 slide-in tongue and pocket.",
-  "summary_sha": "56f9d73f7f3a850d"
+  "summary_sha": "56f9d73f7f3a850d",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-56f9d73f",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-56f9d73f",
+  "claimed_at": "2026-10-19T17:12:58.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
