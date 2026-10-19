@@ -1,0 +1,16 @@
+{
+  "id": "voice-4c63021e",
+  "commit_id": "",
+  "description": "Version 2.1 of the generalist gripper (gripper plus handles line): the 1.17 gripper plus the loop attachment. Builds on 1.17 (pebble voice-cfdf2d31: fingers same thickness along whole length) \u2014 wait for/use that version. The attachment is a small, black, flat piece that slides into the gripper and has two slots for loops (straps). No camera attachment. Closely match the reference images \u2014 key photo cad/reference/generalist_gripper_gen6_closed.png, plus the other references under cad/reference and references/generalist. Model in OpenSCAD with every piece separable: each part its own module and its own exported STL, viewable individually and together in the live preview. Use the repo's dual-render workflow (cad/compare: three.js vision render + OpenSCAD STL, same angles, diffed; STL is truth). Versioning scheme is in AGENTS.md.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T15:49:18.000Z",
+  "updated_at": "2026-10-19T15:49:18.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
