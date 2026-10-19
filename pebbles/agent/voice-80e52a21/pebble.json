@@ -1,0 +1,19 @@
+{
+  "id": "voice-80e52a21",
+  "commit_id": "",
+  "description": "Show the best Generalist reference photo on screen in the design gallery for live comparison. Jake (voice): 'Put somewhere on the screen the actual photos you have of the Generalist one, from the top angle, the best photo that shows the design well. Because it's the same all the way down, a top angle would be best. I'd like to see that in there so we can compare it live.' Ask: in the Helping Hands design gallery/viewer, when viewing a Generalist-copy gripper (Gen 6, 7, 9, 10, 11...), show a reference photo panel on screen next to the 3D model. Default to the best top-down profile shot (cad/reference/generalist_gripper_gen6_two_hands.png is the clearest full finger profile; _top.png is the alternative; pick whichever shows the shape best), and let him swap to the other reference photos. It must work on the phone layout too.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T00:14:16.000Z",
+  "updated_at": "2026-10-19T00:14:16.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
