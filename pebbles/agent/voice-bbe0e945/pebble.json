@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The live gripper preview locks the 1.x gripper and 2.x strap-loop handles together as one version. Let users pick gripper and handle versions separately, showing the combination assembled, with 2.1 as default and 1.1 selectable.",
+  "summary_sha": "bbe0e945d433a8de"
 }
