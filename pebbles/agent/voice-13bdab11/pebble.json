@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T16:29:24.000Z",
-  "updated_at": "2026-10-19T16:29:24.000Z",
+  "updated_at": "2026-10-19T16:40:12Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "In version 1.19, the gripper finger's rounded section, from where rounding starts to the tip, is too thin. Thicken that section outward, building on 1.18, while the tip still tapers to a point.",
-  "summary_sha": "13bdab11970796bd"
+  "summary_sha": "13bdab11970796bd",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-13bdab11",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-13bdab11",
+  "claimed_at": "2026-10-19T16:40:12.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
