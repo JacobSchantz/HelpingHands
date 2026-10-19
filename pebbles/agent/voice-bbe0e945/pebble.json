@@ -1,0 +1,16 @@
+{
+  "id": "voice-bbe0e945",
+  "commit_id": "",
+  "description": "Website live gripper preview: mix and match parts. Make the gripper (fingers, 1.x line) and the handles (strap-loop attachment, 2.x line) separate selectable parts in the preview, so any gripper version can be combined with any handle version and shown assembled together. Default view on load is 2.1; 1.1 must also be selectable. See AGENTS.md for the versioning scheme (1.x gripper only, 2.x gripper plus handles). Related: voice-4c63021e (2.1) and voice-caae8e01 (preview bug), both in human/.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:03:56.000Z",
+  "updated_at": "2026-10-19T16:03:56.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
