@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Model the gripper 3.x base with a single underneath motor mount sized for the SO-101's STS3215 servo, plus gears linking to the handles. Make every dimension tunable in params.json, give each part its own STL, and define a common interface so any 2.x handle fits.",
+  "summary_sha": "5b59d3bf869e9069"
 }
