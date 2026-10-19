@@ -1,14 +1,25 @@
 {
   "id": "voice-cfdf2d31",
   "commit_id": "",
-  "description": "Generalist gripper next stage: build the attachment. It is simply a small, black, flat piece that slides into the gripper and has two slots for loops (straps). Closely reference the reference images \u2014 key photo cad/reference/generalist_gripper_gen6_closed.png, plus the other references under cad/reference and references/generalist. Model it in OpenSCAD alongside the current gripper (Gen 16, Two Finger Gripper/versions/v016_generalist_rounded_point). Make every piece separable: each part its own module and its own exported STL, viewable individually and together in the live preview. Use the repo's dual-render workflow (cad/compare: three.js vision render + OpenSCAD STL, same angles, diffed; STL is truth).",
+  "description": "Generalist gripper next stage: build the attachment. It is simply a small, black, flat piece that slides into the gripper and has two slots for loops (straps). Closely reference the reference images — key photo cad/reference/generalist_gripper_gen6_closed.png, plus the other references under cad/reference and references/generalist. Model it in OpenSCAD alongside the current gripper (Gen 16, Two Finger Gripper/versions/v016_generalist_rounded_point). Make every piece separable: each part its own module and its own exported STL, viewable individually and together in the live preview. Use the repo's dual-render workflow (cad/compare: three.js vision render + OpenSCAD STL, same angles, diffed; STL is truth).",
   "test_instructions": [],
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-19T15:49:16.000Z",
+      "result": "failed",
+      "notes": "Scope change from Jake (supersedes earlier messages): versioning is now 1.x = gripper only, 2.x = gripper plus handles (strap loops); old Gen N = 1.N. This pebble now covers ONLY version 1.17: the gripper fingers keep the same thickness along their whole length (no narrowing to a point in the thickness direction; the point is only in the closing plane), replacing the unrigged current Gen 17 (v017_generalist_simple). Leave the loop attachment out — it moves to a separate 2.1 pebble that builds on 1.17. See AGENTS.md for the versioning scheme.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-19T15:48:14.000Z",
       "result": "failed",
-      "notes": "Updates from Jake: (1) This is Gen 17. Replace the current Gen 17 (Two Finger Gripper/versions/v017_generalist_simple \u2014 effectively the old Gen 16) because it isn't really rigged. (2) No camera attachment. Scope is only how the loops (straps) attach to the gripper: the flat black slide-in piece with two loop slots. (3) The gripper fingers keep the same thickness along their whole length \u2014 they must not narrow to a point in the thickness direction; the point is only in the closing plane.",
+      "notes": "Updates from Jake: (1) This is Gen 17. Replace the current Gen 17 (Two Finger Gripper/versions/v017_generalist_simple — effectively the old Gen 16) because it isn't really rigged. (2) No camera attachment. Scope is only how the loops (straps) attach to the gripper: the flat black slide-in piece with two loop slots. (3) The gripper fingers keep the same thickness along their whole length — they must not narrow to a point in the thickness direction; the point is only in the closing plane.",
       "image_urls": [],
       "by": {
         "github_login": "JacobSchantz",
@@ -18,7 +29,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T15:48:01.000Z",
-  "updated_at": "2026-10-19T15:48:37Z",
+  "updated_at": "2026-10-19T15:49:16.000Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
