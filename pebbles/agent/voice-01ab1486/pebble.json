@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T21:24:02.000Z",
-  "updated_at": "2026-10-19T21:24:02.000Z",
+  "updated_at": "2026-10-19T21:24:53Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Base 5 should redesign the two-finger gripper so one gear, driven by the RS00, opens and closes both fingers. Pick the simplest mechanism, explain why, keep strap slots clear, and record a part count under Base 4's 13 in VERSIONS.txt.",
-  "summary_sha": "01ab14860f05c0f0"
+  "summary_sha": "01ab14860f05c0f0",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-01ab1486",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-01ab1486",
+  "claimed_at": "2026-10-19T21:24:53.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
