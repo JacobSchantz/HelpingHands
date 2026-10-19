@@ -50,8 +50,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The live gripper preview locks the 1.x gripper and 2.x strap-loop handles together as one version. Let users pick gripper and handle versions separately, showing the combination assembled, with 2.1 as default and 1.1 selectable.",
-  "summary_sha": "bbe0e945d433a8de",
+  "summary": "The Live Preview mix-and-match pickers omit gripper 1.21 (fingers only in the 2.6 design) and the 3.x base line (3.1 with motor, arms, gears). Offer each 2.x/3.x design's fingers as a gripper version, labeled from VERSIONS.txt or a catalog field, and add a Base picker for 3.1.",
+  "summary_sha": "9ff52da3bd7bb1aa",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-19T16:10:30Z",
