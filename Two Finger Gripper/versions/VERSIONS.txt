@@ -44,3 +44,6 @@ v301_generalist_base — 3.1 (voice-5b59d3bf), fingers 1.21: first 3.x (gripper 
 a black arm under each handle (a channel round the plate's ventral edge, a floor to a hub on the pivot), the shared handle-base
 interface (a 10 mm hex boss + 2 M3 on each pivot axis), two meshing involute gear sectors (pitch radius = pivot half-spacing),
 a black base plate, and a RobStride RS00 motor underneath, coaxial with the right pivot. 52 new params (five groups).
+v302_generalist_simple — 3.2 (voice-e3cd53d6), fingers 1.21: 3.1 made simpler. Arms and the hex interface are gone: each gear carries
+a short cup the handle's low end drops into (one print, the driver). Nothing comes within 3 mm of the strap slots at any swing
+(checked). Handle plate 29 mm across (3.1: 37). Base is just the motor and bushing discs, no wrist tab. 7 printed parts (3.1: 9).

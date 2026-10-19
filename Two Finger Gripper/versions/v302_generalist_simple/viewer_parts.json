@@ -1,0 +1,84 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_slide.stl",
+      "name": "Left handle \u2014 black, held by both hooks, two loop slots",
+      "color": "#26272b",
+      "explode": [
+        -60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_slide.stl",
+      "name": "Right handle \u2014 black, held by both hooks, two loop slots",
+      "color": "#26272b",
+      "explode": [
+        60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_driver.stl",
+      "name": "Left driver \u2014 black gear sector + handle cup, follows through the mesh",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_driver.stl",
+      "name": "Right driver \u2014 black gear sector + handle cup, bolted to the motor flange",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black plate under both drivers",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 RobStride RS00, reference only (not printed)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    }
+  ]
+}
