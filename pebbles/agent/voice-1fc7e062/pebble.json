@@ -1,0 +1,16 @@
+{
+  "id": "voice-1fc7e062",
+  "commit_id": "",
+  "description": "Gripper: new Gen 16 combining Gen 15 + Gen 9 (Jake, by voice). Take inspiration from Gen 9. Rename the current Gen 16 to Gen 17. Make a new Gen 16 that combines Gen 15 and Gen 9, taking the best of both: keep Gen 15's length; keep the ridges but make them shallower, about 1 mm, less pronounced; make it more rounded like Gen 9 (knobs more rounded); have it come to a nice point like Gen 9 does, but the two sides should actually touch at the point; remove the black tip from Gen 15 so it is all yellow. Worker note: use the dual-render workflow (three.js vision render + OpenSCAD STL, same angles, diffed; STL is truth).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T03:58:44.000Z",
+  "updated_at": "2026-10-19T03:58:44.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
