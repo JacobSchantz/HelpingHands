@@ -1,0 +1,16 @@
+{
+  "id": "voice-cfdf2d31",
+  "commit_id": "",
+  "description": "Generalist gripper next stage: build the attachment. It is simply a small, black, flat piece that slides into the gripper and has two slots for loops (straps). Closely reference the reference images \u2014 key photo cad/reference/generalist_gripper_gen6_closed.png, plus the other references under cad/reference and references/generalist. Model it in OpenSCAD alongside the current gripper (Gen 16, Two Finger Gripper/versions/v016_generalist_rounded_point). Make every piece separable: each part its own module and its own exported STL, viewable individually and together in the live preview. Use the repo's dual-render workflow (cad/compare: three.js vision render + OpenSCAD STL, same angles, diffed; STL is truth).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T15:48:01.000Z",
+  "updated_at": "2026-10-19T15:48:01.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
