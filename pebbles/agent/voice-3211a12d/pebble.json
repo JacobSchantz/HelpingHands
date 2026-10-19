@@ -1,0 +1,116 @@
+{
+  "id": "voice-3211a12d",
+  "commit_id": "1a43be2b94b1e6174eadf24e235b7bf11d989936",
+  "description": "Gripper: define as many named, documented parameters as possible so future versions are made by changing parameters only. The gripper is already parameterized, but every meaningful dimension should be a named parameter with no magic numbers buried in the geometry. Fingers: length, thickness, taper, tip thickness and point, bump-out rounding, convergence angle near the tip, pocket and hook geometry. Handles / strap-loop attachment: tongue length and width, slot sizes, pocket fit and clearance. Expose them clearly (e.g. a single parameters file per version, or a shared one). Related in-flight version pebbles: 1.19 voice-13bdab11, 2.3 voice-1557d48f; see AGENTS.md for the versioning scheme.",
+  "test_instructions": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T19:42:33.000Z",
+      "result": "failed",
+      "notes": "Jake can't see the parameter sliders (Tune panel) on his phone in the live preview. Finding (no code changed): the phone path is Pebbles iOS > HelpingHands > Live, a WKWebView on http://<Mac tailnet host>:8768/ through the embedded Tailscale route to serve_designs.py, and it does load the current index.html and gallery.js with Tune (proxied GETs of gallery.js return 200 today; the served ~/HelpingHands-tools/design-gallery copy is byte-identical to cad/mobile_gallery; catalog.json carries params for 2.4, 2.5, 2.6, 3.1 and 3.2). So it is not transport or caching. The Tune button is gated by updateTuneControl() on a focused design, so in the multi-design grid the phone opens to there is no Tune at all, and on touch a tap that drifts more than 6 px counts as a drag and never focuses. Your 390 px headless check ran with a design already focused, which is why it passed. Fix: make Tune reachable from the grid on a phone (e.g. Tune visible whenever a visible design has params, opening for the focused one or the first tunable one), loosen the touch-tap threshold, and verify on the real phone through the Pebbles Live view, not only headless.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "agent_action",
+      "at": "2026-10-19T16:59:58Z",
+      "commit_id": "1a43be2b94b1e6174eadf24e235b7bf11d989936",
+      "model": "claude-opus-5-5",
+      "model_display": "Claude Opus 5.5",
+      "identified_issue": "Approach: params.json is the one source. params.py writes params.scad (included by gripper.scad), and trace_photo.py configure() reads the outline params (mm to px with round(...,9), so defaults reproduce 2.3's trace_px.scad byte for byte).\nLive preview: rather than port the photo-trace pipeline to JS (concept.js is only an approximation), it renders the real CAD server-side. OpenSCAD's Manifold backend does a part in ~0.1 s; the trace is ~0.9 s and is cached per outline-value hash. Scripts/serve_designs.py POST /tune {design, values} runs live_render.py into <served>/tune/<id>/<hash>/ (cache hit when you drag back). The catalog carries 'params' (publish_designs.py) and gallery.js draws the panel and coalesces requests (one in flight plus the latest). The hinge pivot comes back from the 'ECHO: pivot' line and overrides poses.js for tuned meshes.\nI restarted the launch agent com.helpinghands.design-preview (launchctl kickstart) so the endpoint is live.\nVerified: export_models/genus/check_geometry all pass; STLs cmp-identical to 2.3; curl /tune OK for solid, outline and invalid combos; headless-Chrome drag test (42 input events gave 18 POSTs and ended on the final values); desktop and 390 px phone layouts.\nNot verified: a real phone over the tailnet; live renders are not geometry-checked; extreme combos may produce non-manifold or thin geometry (asserts cover only the obvious invalid ones).\nAlso fixed shortLabel so 2.x shows 'Gen 2.4', not 'Gen 2'. Scripts/check_gripper_closure.py fails for every version (Gen 1 on, already the case before this change), and 2.4 matches 2.3 there.",
+      "summary": "Made gripper version 2.4: every dimension of the fingers and handles is now a named parameter in one file, and the live preview has a Tune panel with a slider for each one that re-renders the real CAD as you drag.",
+      "description_sha": "3211a12d07377753",
+      "changes": [
+        "Two Finger Gripper/versions/v204_generalist_parametric/params.json",
+        "Two Finger Gripper/versions/v204_generalist_parametric/params.py",
+        "Two Finger Gripper/versions/v204_generalist_parametric/live_render.py",
+        "Two Finger Gripper/versions/v204_generalist_parametric/gripper.scad",
+        "Two Finger Gripper/versions/v204_generalist_parametric/trace_photo.py",
+        "Scripts/serve_designs.py",
+        "Scripts/publish_designs.py",
+        "cad/mobile_gallery/gallery.js",
+        "cad/mobile_gallery/index.html",
+        "cad/mobile_gallery/poses.js",
+        "AGENTS.md"
+      ],
+      "detailed_description": "Open Gen 2.4 in the HelpingHands Live Preview, tap it, then tap Tune. There are 60 sliders in five groups:\n- Finger outline: beak length, outer-edge lean, fullness and bow, jaw convergence, the two bump-outs, smoothing, hook depth, slot count, grooves.\n- Finger solid: thickness, taper (tip thickness, curve, start), point rounding, corner rounding and fillets, hole and slot sizes, closed tip gap.\n- Handle plate: fit clearance, plate thickness, length, foot position, stand-off, corners.\n- Strap slots: strap width, slot size and clearance, digit gap.\n- Tongue and pocket: tongue width and length, dovetail head width, length and depth, neck, flank angle.\n\nEach change re-runs the actual OpenSCAD model, not a JavaScript copy. A thickness or handle change shows up in about 0.15 s. An outline change re-traces first and takes about 1 s. While you drag, it renders the latest value and skips the ones in between, so it always ends on what the sliders show. Changed sliders turn gold, tapping a value resets it, Reset puts everything back, and the URL keeps your settings. Copy puts the changed values on the clipboard as JSON. Paste that into a pebble and the next version is just those values.\n\nAll the numbers live in one file, Two Finger Gripper/versions/v204_generalist_parametric/params.json, with a label, unit, range and a one-line explanation for each. At its starting values 2.4 is exactly 2.3: the STLs are byte-identical and every 2.3 check passes. Some sliders are new and start where 2.3 is. Thickness at the point below 12 mm gives 1.18's flat-bottom taper, outer-edge lean gives 1.19's wide beak, and there are hook depth and hole size.\n\nThings to know:\n1. The server now runs CAD when asked, which it never did before. It only accepts numbers for known parameter names, clamps them to each slider's range, and keeps the last 80 renders per design. I restarted the local preview service so it has this.\n2. Settings that can't make a solid (for example a dovetail head too wide for its depth) show a plain message in the panel and keep the last good model.\n3. Far-out settings aren't geometry-checked live. The checks only run on the values saved in params.json.\n4. A few traced reference numbers (photo scale, the handle's rail points, the contact correction) are documented in params.json but have no slider, because moving them would break the photo trace.",
+      "image_urls": [
+        "pebbles/agent/voice-3211a12d/tune_panel.png",
+        "pebbles/agent/voice-3211a12d/tune_phone.png"
+      ],
+      "user_reply_draft": "Hey Jake — the gripper's now fully slider-driven. Open Gen 2.4 in the Live Preview, tap it, then hit Tune: there's a slider for every finger and handle dimension (beak length, taper, tip, bumps, hook, tongue, slots, fit), and the real model re-renders as you drag, usually in well under a second. When you like a shape, tap Copy and paste the values into a pebble — that becomes the next version. At its starting values it's exactly 2.3, so nothing moved until you move it.",
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-19T16:59:58Z",
+      "commit_count": 771
+    },
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T16:30:46.000Z",
+      "result": "failed",
+      "notes": "Specifically, there should be an interface to slide those parameters: sliders in the website live preview for each parameter that update the gripper and handles live, so I can tune the design by dragging.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:30:16.000Z",
+  "updated_at": "2026-10-19T19:42:33.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "summary": "The gripper and handle geometry still contains buried magic numbers, so finger, tip, pocket, tongue, and slot dimensions need to become named, documented parameters. The website live preview should add a slider for each parameter that updates the gripper and handles live while dragging.",
+  "summary_sha": "7a65370aeae9ad3b",
+  "artifacts": [
+    {
+      "kind": "image",
+      "path": "pebbles/agent/voice-3211a12d/tune_panel.png",
+      "label": "Tune panel"
+    }
+  ],
+  "solved_by_agent": "jarvis",
+  "solved_by_device": "jakes-macbook-pro",
+  "solved_at": "2026-10-19T16:59:58Z",
+  "cost": {
+    "runs": [
+      {
+        "session": "1c7ee778-e7d2-4efe-bc41-e0b090b60534",
+        "harness": "claude",
+        "model": "claude-opus-5-5",
+        "input_tokens": 276,
+        "output_tokens": 175313,
+        "cache_read_tokens": 21882434,
+        "cache_write_tokens": 384367,
+        "turns": 138,
+        "at": "2026-10-19T17:00:07Z",
+        "priced": true,
+        "usd": 53.1831
+      }
+    ],
+    "input_tokens": 276,
+    "output_tokens": 175313,
+    "cache_read_tokens": 21882434,
+    "cache_write_tokens": 384367,
+    "total_usd": 53.1831
+  },
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-19T19:42:33.000Z"
+  }
+}
