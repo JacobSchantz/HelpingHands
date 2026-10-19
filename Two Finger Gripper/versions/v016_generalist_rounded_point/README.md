@@ -5,6 +5,18 @@ Gen 15 and Gen 9 combined (voice-1fc7e062). Jake: *"keep Gen 15's length; keep t
 should actually touch at the point; remove the black tip, so it is all yellow."* The simple handheld that was Gen 16 is
 now Gen 17 (`v017_generalist_simple`, unchanged).
 
+## Key reference image for the finger design
+
+**`cad/reference/generalist_gripper_gen6_closed.png`** is THE key reference image for the Generalist gripper finger
+design (Jake, 2026-10-19). It is the "Actual (Generalist)" → "Closed" photo in the design viewer (gallery copy:
+`cad/mobile_gallery/reference/closed.png`). What it shows:
+
+- Closed, **only the tips touch**; the gap opens up rapidly right behind the tip.
+- Approaching the tip on the outside, the profile **rounds inward** into the final tip.
+- The tip itself stays **relatively thick** — not a needle point.
+
+Check every finger revision against this photo first.
+
 ## What changed from Gen 15
 
 - **Length, beak, holes, slots and closed contact are Gen 15's.** Dot → point is still ~42 mm. Closed, only the points

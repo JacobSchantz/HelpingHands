@@ -1,5 +1,17 @@
 # Generalist Gripper iterations
 
+## Key reference image for the finger design
+
+**`cad/reference/generalist_gripper_gen6_closed.png`** is THE key reference image for the Generalist gripper finger
+design (Jake, 2026-10-19). It is the "Actual (Generalist)" → "Closed" photo in the design viewer (gallery copy:
+`cad/mobile_gallery/reference/closed.png`). What it shows:
+
+- Closed, **only the tips touch**; the gap opens up rapidly right behind the tip.
+- Approaching the tip on the outside, the profile **rounds inward** into the final tip.
+- The tip itself stays **relatively thick** — not a needle point.
+
+Check every finger revision against this photo first.
+
 The current review version is [Generation 8: Pollen's Grabette, exactly as published](versions/v008_pollen_grabette/README.md).
 Generation 7 (the Generalist yellow fingers only) is preserved in versions/v007_generalist_fingers.
 Generation 6 (dorsal drive, Generalist honeycomb fingers) is preserved in versions/v006_dorsal_drive.
