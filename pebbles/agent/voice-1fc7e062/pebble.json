@@ -84,8 +84,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Edit the gripper's Gen 16 (v016_generalist_rounded_point) in place: make the two length-wise bump-outs much more rounded and the tip thicker, still ending in a single touching point. Behind the tip the two sides should diverge sharply, widening well past the current 6.8-degree V, so they touch only at the tip.",
-  "summary_sha": "fb8df4effcd89fb7",
+  "summary": "The Gen 16 gripper has an indent at the large circle near the finger ends, and its outer profile toward the tip is too curved. Smooth the indent, straighten the profile, and keep the fingers always converging near the tip so the closed shape reads as a triangle, matching the closed reference photo.",
+  "summary_sha": "108dd33ddbdd1666",
   "artifacts": [
     {
       "kind": "openscad",
