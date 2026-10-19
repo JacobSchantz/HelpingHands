@@ -8,7 +8,9 @@
      * one yellow body per finger: Gen 15's dark tip pad is gone.
    r2 (Jake; key reference cad/reference/generalist_gripper_gen6_closed.png): the two knobs much rounder; closed, only the
    points touch and a 30 deg V opens right behind them (r1: 6.8); the outer edge rounds in to a thick tip in plan (NOSE) and
-   side view (tip_thick 2.4). Gen 15's notes follow.
+   side view (tip_thick 2.4).
+   r3 (Jake): closed, the jaws form a triangle into the point, never parallel (trace_photo.py TRIANGLE); the outer edge runs
+   nearly straight to the point (OUTER); the joins at the dot are smoothed. Gen 15's notes follow.
    GENERATION 15, LONG JAW.
    Gen 15 (voice-8673a6b6) is Gen 14 with the beak past the black dot 1.7x longer (trace_photo.py BEAK_STRETCH), so dot ->
    point is a third of the finger: Jake, "that thick end section should be quite a bit longer, about a third of the total
@@ -47,10 +49,10 @@ plate=12;                 // finger thickness along Y, centred on the hand plane
 tip_thick=2.4;            // Gen 16 r2 (Jake: "make the tip thicker"): side-view thickness at the point. From the black dot the blade thins
                           // smoothly (no crease) to this. r1: 0.5 (Gen 9's needle); Gen 15: 1.6
 tip_gap=0;                // closed: the points touch (Gen 11: 1.0 mm apart)
-contact_back=0.001;       // how far the smoothed point sits outboard of the traced one (see pivot). Gen 15: the mesh's innermost reach
+contact_back=-0.0651;     // r3: the triangle point rounds further back: mesh innermost reach 27.1856 vs outline 27.2507, so the pivots move in. How far the smoothed point sits outboard of the traced one (see pivot). Gen 15: the mesh's innermost reach
                           // is 27.2507 mm vs the trace's 27.2500 (Gen 14: -0.028), so the pivots sit 1 um outboard of touching
 tip_r=0.3;                // Gen 14: plan-view radius of the point (Gen 13 rounded it ~1 mm, two nubs with a V between)
-tip_zone=6;               // the sharper rounding applies within this many mm of the point; elsewhere Gen 13's
+tip_zone=6.25;            // the sharper rounding applies within this many mm of the point; elsewhere Gen 13's. r3: 6.25, off the 1 mm groove pitch (at 6 a groove wall sat on the cut: non-manifold)
 
 // finger frame (right finger): pivot at origin, inner (gripping) side is -X
 function px(q)=let(d=[q[0],q[1]]-px_pivot) mm_per_px*[-(d[0]*sin(axis_deg)-d[1]*cos(axis_deg)), d[0]*cos(axis_deg)+d[1]*sin(axis_deg)];

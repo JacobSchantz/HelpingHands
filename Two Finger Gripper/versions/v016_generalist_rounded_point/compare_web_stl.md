@@ -7,11 +7,11 @@
 <!-- render_compare:begin -->
 | View | Overlap (IoU) | Vision only px | STL only px |
 |---|---|---|---|
-| front | 98% | 406 | 27 |
-| side | 100% | 64 | 0 |
-| top | 100% | 8 | 0 |
-| iso | 99% | 229 | 6 |
-| exploded | 99% | 150 | 3 |
+| front | 97% | 422 | 9 |
+| side | 99% | 86 | 6 |
+| top | 100% | 0 | 0 |
+| iso | 99% | 245 | 11 |
+| exploded | 99% | 178 | 12 |
 
 <!-- render_compare:end -->
 

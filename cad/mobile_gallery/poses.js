@@ -7,8 +7,8 @@ export default {
     {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},
   "two-finger-gripper-v016-generalist-rounded-point": {"exported": 15, "min": 0, "max": 30, "hinges": [
-    {"match": "^Right", "pivot": [27.2517, 0, 0], "sign": 1},
-    {"match": "^Left", "pivot": [-27.2517, 0, 0], "sign": -1}]},
+    {"match": "^Right", "pivot": [27.1856, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.1856, 0, 0], "sign": -1}]},
   "two-finger-gripper-v015-generalist-long-jaw": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.251, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.251, 0, 0], "sign": -1}]},

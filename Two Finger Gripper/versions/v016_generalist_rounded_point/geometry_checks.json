@@ -43,119 +43,119 @@
       "name": "closed_fingers_touch_without_overlap_at_0_deg",
       "passed": true,
       "expected": "touch only",
-      "log": "Current top level object is empty."
+      "log": "Geometries in cache: 279\nGeometry cache size in bytes: 1380776\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.040\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:        9\n   Facets:         14"
     },
     {
       "name": "closed_fingers_overlap_when_pushed_0.02mm_positive_control",
       "passed": true,
       "expected": "contact",
-      "log": "Geometries in cache: 291\nGeometry cache size in bytes: 1432008\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.042\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       52\n   Facets:        100"
+      "log": "Geometries in cache: 280\nGeometry cache size in bytes: 1380776\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       48\n   Facets:         92"
     },
     {
       "name": "pushed_0.02mm_together_they_meet_only_in_the_last_1.5mm",
       "passed": true,
       "expected": "contact",
       "overlap_z": [
-        123.31,
-        123.86
+        122.68,
+        122.86
       ],
-      "log": "Geometries in cache: 291\nGeometry cache size in bytes: 1432008\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.043\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       52\n   Facets:        100"
+      "log": "Geometries in cache: 280\nGeometry cache size in bytes: 1380776\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       48\n   Facets:         92"
     },
     {
       "name": "closed_gap_follows_the_gen14_target",
       "passed": true,
-      "expected": "within 0.12 mm of photo curve + wedge from 1 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
-      "worst_mm": 0.033,
-      "contact_z": 123.31,
+      "expected": "within 0.2 mm of photo curve + wedge from 1 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
+      "worst_mm": 0.164,
+      "contact_z": 122.81,
       "rows": [
         {
           "d_mm": 0.5,
-          "model_gap": 0.26,
-          "target_gap": 0.266,
+          "model_gap": 0.118,
+          "target_gap": 0.255,
           "photo_gap": 0.0
         },
         {
           "d_mm": 1,
-          "model_gap": 0.505,
-          "target_gap": 0.523,
+          "model_gap": 0.301,
+          "target_gap": 0.459,
           "photo_gap": 0.0
         },
         {
           "d_mm": 1.5,
-          "model_gap": 0.751,
-          "target_gap": 0.763,
+          "model_gap": 0.484,
+          "target_gap": 0.648,
           "photo_gap": 0.0
         },
         {
           "d_mm": 2,
-          "model_gap": 0.974,
-          "target_gap": 0.98,
+          "model_gap": 0.667,
+          "target_gap": 0.827,
           "photo_gap": 0.001
         },
         {
           "d_mm": 3,
-          "model_gap": 1.162,
-          "target_gap": 1.17,
+          "model_gap": 0.85,
+          "target_gap": 1.0,
           "photo_gap": 0.003
         },
         {
           "d_mm": 4,
-          "model_gap": 1.492,
-          "target_gap": 1.468,
+          "model_gap": 1.196,
+          "target_gap": 1.331,
           "photo_gap": 0.007
         },
         {
           "d_mm": 6,
-          "model_gap": 1.809,
-          "target_gap": 1.801,
+          "model_gap": 1.863,
+          "target_gap": 1.954,
           "photo_gap": 0.026
         },
         {
           "d_mm": 8,
-          "model_gap": 1.899,
-          "target_gap": 1.929,
+          "model_gap": 2.469,
+          "target_gap": 2.543,
           "photo_gap": 0.064
         },
         {
           "d_mm": 10,
-          "model_gap": 1.976,
-          "target_gap": 1.976,
+          "model_gap": 2.995,
+          "target_gap": 3.109,
           "photo_gap": 0.129
         },
         {
           "d_mm": 12,
-          "model_gap": 1.989,
-          "target_gap": 1.992,
+          "model_gap": 3.543,
+          "target_gap": 3.658,
           "photo_gap": 0.229
         },
         {
           "d_mm": 14,
-          "model_gap": 2.004,
-          "target_gap": 1.997,
+          "model_gap": 4.089,
+          "target_gap": 4.192,
           "photo_gap": 0.373
         },
         {
           "d_mm": 16,
-          "model_gap": 2.018,
-          "target_gap": 1.999,
+          "model_gap": 4.598,
+          "target_gap": 4.714,
           "photo_gap": 0.567
         },
         {
           "d_mm": 18,
-          "model_gap": 2.031,
-          "target_gap": 2.002,
+          "model_gap": 5.108,
+          "target_gap": 5.226,
           "photo_gap": 0.821
         },
         {
           "d_mm": 20,
-          "model_gap": 2.045,
-          "target_gap": 2.012,
+          "model_gap": 5.617,
+          "target_gap": 5.73,
           "photo_gap": 1.144
         },
         {
           "d_mm": 22,
-          "model_gap": 2.087,
-          "target_gap": 2.063,
+          "model_gap": 6.089,
+          "target_gap": 6.225,
           "photo_gap": 1.544
         }
       ]
@@ -164,7 +164,7 @@
       "name": "contact_angle_at_least_20_deg_included",
       "passed": true,
       "expected": "slope of the closed gap 1 to 2 mm behind the point, as an included angle",
-      "included_deg": 26.39
+      "included_deg": 20.74
     }
   ],
   "limitations": [

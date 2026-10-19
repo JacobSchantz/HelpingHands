@@ -1,74 +1,74 @@
 [
   {
     "path": "exports/assembly.stl",
-    "triangles": 16576,
+    "triangles": 16008,
     "components": 2,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 21556.018954340012,
+    "signed_volume_mm3": 19302.05461045885,
     "bounds_mm": [
       [
-        -38.862728118896484,
+        -36.29156494140625,
         -6.0,
         -2.4776721000671387
       ],
       [
-        38.862728118896484,
+        36.29156494140625,
         6.0,
-        126.85466766357422
+        125.86382293701172
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/parts/left.stl",
-    "triangles": 8288,
+    "triangles": 8004,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 10778.009477169986,
+    "signed_volume_mm3": 9651.027305229398,
     "bounds_mm": [
       [
-        -38.862728118896484,
+        -36.29156494140625,
         -6.0,
         -2.4776721000671387
       ],
       [
-        -10.022904396057129,
+        -9.956804275512695,
         6.0,
-        126.85466766357422
+        125.86382293701172
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/parts/right.stl",
-    "triangles": 8288,
+    "triangles": 8004,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 10778.009477169986,
+    "signed_volume_mm3": 9651.027305229398,
     "bounds_mm": [
       [
-        10.022904396057129,
+        9.956804275512695,
         -6.0,
         -2.4776721000671387
       ],
       [
-        38.862728118896484,
+        36.29156494140625,
         6.0,
-        126.85466766357422
+        125.86382293701172
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/print/left.stl",
-    "triangles": 8288,
+    "triangles": 8004,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 10778.00970092903,
+    "signed_volume_mm3": 9651.027178499404,
     "bounds_mm": [
       [
         -3.52134370803833,
@@ -76,30 +76,30 @@
         -2.387730598449707
       ],
       [
-        27.25065040588379,
+        27.185590744018555,
         6.0,
-        124.09697723388672
+        123.08918762207031
       ]
     ],
     "passed": true
   },
   {
     "path": "exports/print/right.stl",
-    "triangles": 8288,
+    "triangles": 8004,
     "components": 1,
     "watertight": true,
     "consistent_winding": true,
-    "signed_volume_mm3": 10778.00970092903,
+    "signed_volume_mm3": 9651.027178499404,
     "bounds_mm": [
       [
-        -27.25065040588379,
+        -27.185590744018555,
         -6.0,
         -2.387730598449707
       ],
       [
         3.52134370803833,
         6.0,
-        124.09697723388672
+        123.08918762207031
       ]
     ],
     "passed": true

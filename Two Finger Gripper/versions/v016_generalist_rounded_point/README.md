@@ -17,6 +17,27 @@ design (Jake, 2026-10-19). It is the "Actual (Generalist)" → "Closed" photo in
 
 Check every finger revision against this photo first.
 
+## Round 3 (Jake: smooth the dot, straighter outside, a triangle)
+
+*"At the large circle toward the end of the fingers there's an indent — smooth it out. The outside profile running in
+toward the tip should be more of a straight line — it can round slightly. Near the tip the two fingers should never run
+parallel ... so the closed shape reads like a triangle coming to the point."* `previews/closed_full.png` (whole closed
+pair) and `previews/compare_closed_photo.png`.
+
+- **Triangle.** r2's V levelled off at a 2 mm gap 6 mm back and then ran parallel for ~20 mm. Now each jaw edge runs from
+  the point all the way back to the crest of the second knob swell, just behind the dot, as half-gap `H (d/D)^0.85`
+  (`TRIANGLE`; H 5.4 mm at D 41 mm). The gap widens at every distance: 20.7° included 1–2 mm back, easing to ~15°
+  further back. It never runs parallel.
+- **The indent at the dot.** It came from two joins: on the inner edge, the beak's edge dipped in at the dot before the
+  knob swell; on the outer edge, there was a 0.6 mm step. The inner edge now runs straight into the knob crest, and both
+  joins are Gaussian-smoothed (`JOIN`, `soften()`).
+- **Straighter outside.** From the dot the outer edge is one nearly straight Bezier into the point, bowed out 4 % of
+  its length (`OUTER`). It replaces r2's bulge and rounded `NOSE`.
+- **Knock-ons.** The slots are centred across the slimmer beak (otherwise three broke through). `tip_zone` 6 → 6.25 mm,
+  because a groove wall landed on the 6 mm cut and left a non-manifold edge. The sharper plan point rounds back
+  further: `ROUND_BACK` 1.0 → 1.5 and `contact_back` −0.065, so the pivots are now ±27.1856 (`poses.js`).
+  `check_geometry` `GAP_TOL` 0.12 → 0.20: the model runs a steady 0.13 mm under the target, which is that rounding.
+
 ## Round 2 (Jake: edit Gen 16 in place)
 
 *"Round the two bump-outs along the length even further — really rounded. Make the tip thicker; it should still come to
@@ -69,7 +90,7 @@ that has a `web/concept.js`.
   - the included angle is 26.4° (check: ≥ 20°).
   The gap is read at the ridge tops (innermost over a 1 mm groove pitch) wherever there are grooves, and the target is
   read the same way (r2: the 30° wedge changes 0.5 mm across that window). A single cut could land in a groove bottom.
-- Pivots are at ±27.2517 mm (`cad/mobile_gallery/poses.js`).
+- Pivots are at ±27.1856 mm (`cad/mobile_gallery/poses.js`; r2: 27.2517).
 
 ## Limits
 

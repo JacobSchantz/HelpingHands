@@ -154,7 +154,7 @@ def needle_frame():
 # Closed contact (Gen 13). Photo px -> finger-frame mm, as px() in gripper.scad.
 FRAME=dict(pivot=(337,395),deg=36.5,mm=0.2)
 TIP_SHIFT_FROM=0.55     # the point moves in to the jaw's innermost reach over the last 45% of the beak (smoothstep), outer edge too
-ROUND_BACK=1.0          # mm: Gen 15: the slimmer point loses more to the 0.3 mm round (gripper.scad tip_r), so the contact sits ~1.0 mm
+ROUND_BACK=1.5          # mm: Gen 16 r3: the triangle point is sharper in plan, so tip_r rounds it ~1.5 mm back (mesh innermost reach z 122.78, trace point 124.31). Gen 15: 1.0. Gen 15: the slimmer point loses more to the 0.3 mm round (gripper.scad tip_r), so the contact sits ~1.0 mm
                         # behind the trace (measured on the mesh: innermost reach at z 123.35, trace point 124.31). Gen 14: 0.4; Gen 13: 1.8
                         # Gen 13: 1.8 (its 1 mm round left two nubs and a small V in front of the contact)
 WEDGE=dict(half_deg=15.0,cap=2.0,over=0.10,k=6)   # Gen 16 r2 (Jake: "the gap opens up rapidly going back from the tip", 6.8 deg
@@ -176,6 +176,20 @@ NOSE=dict(mm=7.0,a=0.35,b=0.35,deg=65)   # Gen 16 r2, from the closed photo: "ap
                         # finger's axis (handle b x chord): a full, rounded nose instead of r1's straight 45 deg run in to a needle.
                         # Square on (90 deg) read as a dome, not a point. 7 mm, not 6: gripper.scad tip_zone cuts at 6, and a
                         # shared vertex there left a non-manifold edge
+# Gen 16 r3 (Jake: "near the tip the two fingers should never run parallel ... the closed shape reads like a triangle coming
+# to the point"; key reference cad/reference/generalist_gripper_gen6_closed.png): r2's wedge levelled off at 2 mm by 6 mm back
+# and ran parallel to ~25 mm. Now, closed, each jaw edge runs from the point all the way back to the black dot as
+# half_gap = H (d/D)^p: H and D are the crest of the second knob swell, just behind the dot, so the edge runs straight
+# into it instead of dipping in at the dot and out again (Jake's indent; the crest is in the knobs() run). p < 1 opens fastest
+# right at the point and straightens behind it, so the gap widens at every d (never parallel, never closing).
+TRIANGLE=dict(p=0.85)
+# r3 (Jake: "the outside profile running in toward the tip should be more of a straight line"): r2's outer edge bulged to
+# 13.6 mm and then rounded in (NOSE). Now from the dot it is one cubic Bezier: it leaves along the shank (a x chord),
+# then runs almost straight to the point, bowed out bow x chord at its far handle.
+OUTER=dict(a=0.30,b=0.30,bow=0.04)
+JOIN=dict(half_px=40,sigma=10)   # r3 (Jake: "at the large circle toward the end of the fingers there's an indent"): where the
+                        # generated beak meets the traced shank at the dot, both edges kinked (outer: a 0.6 mm step in). Each
+                        # join is Gaussian-smoothed over +-half_px of arc, eased in from both ends
 JAW_FOLLOW=(21,26)      # mm behind the contact: the jaw edge IS the closed-gap curve up to 21 mm, blending into Gen 11's shoulder by 26 (r2; r1 18-24 opened too fast at 19-24 mm)
 def to_mm(q):
     a=np.radians(FRAME['deg']);d=np.subtract(q,FRAME['pivot'])
@@ -189,7 +203,14 @@ def stretch_z(q):   # Gen 15: photo px -> px with the finger stretched BEAK_STRE
 TIP_PHOTO=NEEDLE['TIP'];NEEDLE['TIP']=stretch_z(TIP_PHOTO)
 GAP=json.loads((HERE/'closed_trace.json').read_text())['gap_fit']
 photo_gap=lambda d:GAP['A']*max(0.0,d)**GAP['P']   # mm apart at d mm behind the point, closed, as measured (trace_closed.py)
-def closed_gap(d,w=None):   # Gen 14's target: opened sharply at the point, the photo's curve further back
+def triangle():
+    """r3: (H, D) of the closed jaw edge, half-gap H mm at D mm behind the contact (the dot), as closed_jaw() builds it."""
+    L,edge=needle_frame();xs=[to_mm(edge(s,-1)) for s in np.linspace(0,L,48)];xc=min(x for x,_ in xs)
+    k=np.array([to_mm(q) for q in knobs()]);k=k[k[:,1]>to_mm(DOT_XY)[1]-8];c=k[np.argmax(k[:,0])]   # the crest, within 8 mm of the dot
+    return c[0]-xc,xs[-1][1]-ROUND_BACK-c[1]
+def closed_gap(d,w=None):
+    if w is None:   # r3: the triangle (TRIANGLE); WEDGE (r2) and WEDGE_R1 still describe the older beaks for KEEP_WIDTH and the slots
+        H,D=triangle();return 2*H*np.clip(max(0.0,d)/D,0,1)**TRIANGLE['p']   # Gen 14's target: opened sharply at the point, the photo's curve further back
     d=max(0.0,d);w=w or WEDGE;d0=w['cap']/(2*np.tan(np.radians(w['half_deg'])))   # slope 2 tan(4 deg) at the contact
     wedge=w['cap']*np.tanh(d/d0);rear=photo_gap(d)+w['over']*np.tanh(d/d0)
     return (wedge**w['k']+rear**w['k'])**(1/w['k'])
@@ -208,9 +229,29 @@ def closed_jaw(n=48,r1=False):
     def jaw(wedge):
         want=np.array([xc+closed_gap(tip[1]-ROUND_BACK-z,wedge)/2 for z in inner[:,1]])
         return np.maximum(want,want+(inner[:,0]+dx*w-want)*b)
-    x=jaw(WEDGE_R1 if r1 else WEDGE);outer[:,0]+=dx*w+(0 if r1 else KEEP_WIDTH)*(x-jaw(WEDGE_R1));inner[:,0]=x
-    if not r1:outer=nose(outer,inner[-1])
+    if r1:
+        x=jaw(WEDGE_R1);outer[:,0]+=dx*w;inner[:,0]=x
+        return [to_px(m) for m in inner],[to_px(m) for m in outer]
+    H,D=triangle();d=np.clip((tip[1]-ROUND_BACK-inner[:,1])/D,0,1)
+    inner[:,0]=xc+H*d**TRIANGLE['p'];outer=straight_outer(outer,inner[-1])
     return [to_px(m) for m in inner],[to_px(m) for m in outer]
+
+
+def straight_outer(outer,tip):
+    """r3: the outer edge from the dot to the point, OUTER's near-straight Bezier. mm in, mm out."""
+    p0=outer[0];t0=np.array([0.0,1.0]);c=tip-p0;L=np.hypot(*c);n=np.array([c[1],-c[0]])/L   # n: outward (+x side)
+    p1=p0+t0*OUTER['a']*L;p2=tip-c*OUTER['b']+n*OUTER['bow']*L
+    u=np.linspace(0,1,len(outer))[:,None];return (1-u)**3*p0+3*(1-u)**2*u*p1+3*(1-u)*u*u*p2+u**3*tip
+
+
+def soften(Q,centre):
+    """r3: Gaussian-smooth the outline over +-JOIN['half_px'] of arc around the point nearest centre."""
+    i=np.argmin(np.hypot(*(Q-np.array(centre)).T));s=np.r_[0,np.cumsum(np.hypot(*np.diff(Q,axis=0).T))]
+    a,b=np.searchsorted(s,s[i]-JOIN['half_px']),np.searchsorted(s,s[i]+JOIN['half_px'])
+    seg=Q[a:b+1];ss=s[a:b+1]-s[a];t=np.arange(0,ss[-1],1.0);P=np.c_[np.interp(t,ss,seg[:,0]),np.interp(t,ss,seg[:,1])]
+    S=np.c_[nd.gaussian_filter1d(P[:,0],JOIN['sigma'],mode='nearest'),nd.gaussian_filter1d(P[:,1],JOIN['sigma'],mode='nearest')]
+    r=np.clip(np.minimum(t,t[-1]-t)/(2*JOIN['sigma']),0,1);r=r*r*(3-2*r)
+    return np.vstack([Q[:a],P+(S-P)*r[:,None],Q[b+1:]])
 
 
 def nose(outer,tip):
@@ -239,6 +280,7 @@ def beak_slots(photo):
     old,new=edges(TIP_PHOTO,True),edges(NEEDLE['TIP']);out=[]   # Gen 16 r2: fractions read on r1's beak, so the wider V moves the slots out with the jaw
     for q in photo:
         m=to_mm(q);a,b=old(m[1]);f=(m[0]-a)/(b-a);z=to_mm(stretch_z(q))[1];a,b=new(z)
+        a+=GROOVE_PX[1]*FRAME['mm'];f=0.5   # r3: the triangle's beak is slimmer at the point; centred between groove bottoms and outer edge, or they broke through
         out.append(tuple(to_px((a+f*(b-a),z))))
     return out
 
@@ -297,6 +339,7 @@ def trace():
         a,b=(np.argmin(np.hypot(*(Q-np.array(p)).T)) for p in (run[0],run[-1]))
         if a>b:run,a,b=run[::-1],b,a   # Gen 11: a run drawn against the outline's direction used to leave a zero-width spur
         Q=np.vstack([Q[:a],np.array(run,float),Q[b+1:]])
+    beak=needle();Q=soften(soften(Q,beak[0]),beak[-1])   # r3: the two joins at the dot
     j=len(Q)//2;Q=np.vstack([rdp(Q[:j+1],0.12)[:-1],rdp(np.vstack([Q[j:],Q[:1]]),0.12)[:-1]])   # drop collinear points only
     s=SLOT_ROW;slots=beak_slots([(s['first'][0]+s['step'][0]*i,s['first'][1]+s['step'][1]*i) for i in range(s['count'])])
     return Q,holes,slots

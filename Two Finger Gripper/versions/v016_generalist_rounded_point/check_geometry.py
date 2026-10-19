@@ -9,8 +9,8 @@ HERE=Path(__file__).resolve().parent
 SCAD='/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
 ANGLES=list(range(0,31))
 STEP=400
-GAP_TOL=0.12   # mm: the closed gap may differ from Gen 14's target curve by this much, 1 to 20 mm behind the point
-CONTACT_DEG=20  # the jaws' included angle, from the gap's slope 1 to 2 mm behind the point, must be at least this (Gen 16 r2: designed 30, Jake "much wider"; r1: 6; Gen 13: ~0)
+GAP_TOL=0.20   # mm: the closed gap may differ from the target curve (r3: the TRIANGLE) by this much, 1 to 20 mm behind the point. r3: 0.12 -> 0.20; the model runs a steady ~0.13 under it, the 0.065 mm per finger that tip_r moves the contact in (gripper.scad contact_back)
+CONTACT_DEG=20  # r3: the triangle gives 20.7 at 1-2 mm and narrows to ~15 further back, never parallel. the jaws' included angle, from the gap's slope 1 to 2 mm behind the point, must be at least this (Gen 16 r2: designed 30, Jake "much wider"; r1: 6; Gen 13: ~0)
 CONTACT_LEN=1.5   # pushed 0.02 mm together, the fingers may overlap only this far behind the contact (Gen 13: 6 mm)
 
 
