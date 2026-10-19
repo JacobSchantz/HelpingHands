@@ -40,3 +40,7 @@ v206_generalist_single_step — 2.6 (voice-72840084), fingers 1.21: 2.5 with the
 started going out. 1.21: the outer edge runs straight from the base hook to it, the hook curls out to its 6.6 mm crest and
 the edge stays out there until the beak meets it: one step out, no notch-dip-S-curve double indent. 2.6: the handle plate
 spans floor to floor, 67.4 mm (2.5: 41.8). Params: top_notch_u (replaces top_hook_mirror_u), top_step_back.
+v301_generalist_base — 3.1 (voice-5b59d3bf): first 3.x (gripper plus handles plus base). 2.6's fingers and handles unchanged, plus
+a black arm under each handle (a channel round the plate's ventral edge, a floor to a hub on the pivot), the shared handle-base
+interface (a 10 mm hex boss + 2 M3 on each pivot axis), two meshing involute gear sectors (pitch radius = pivot half-spacing),
+a black base plate, and a RobStride RS00 motor underneath, coaxial with the right pivot. 52 new params (five groups).

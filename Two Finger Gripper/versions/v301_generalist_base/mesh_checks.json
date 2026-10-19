@@ -1,0 +1,443 @@
+[
+  {
+    "path": "exports/assembly.stl",
+    "triangles": 27976,
+    "components": 8,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 246088.71966825836,
+    "bounds_mm": [
+      [
+        -58.25117492675781,
+        -89.30000305175781,
+        -51.0
+      ],
+      [
+        58.25117492675781,
+        18.5,
+        126.78550720214844
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left.stl",
+    "triangles": 8018,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 12169.15911263004,
+    "bounds_mm": [
+      [
+        -41.54167175292969,
+        -6.0,
+        -2.4776721000671387
+      ],
+      [
+        -10.022403717041016,
+        6.0,
+        126.78550720214844
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right.stl",
+    "triangles": 8018,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 12169.15911263004,
+    "bounds_mm": [
+      [
+        10.022403717041016,
+        -6.0,
+        -2.4776721000671387
+      ],
+      [
+        41.54167175292969,
+        6.0,
+        126.78550720214844
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_slide.stl",
+    "triangles": 606,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 8068.858085499989,
+    "bounds_mm": [
+      [
+        -33.44984817504883,
+        -18.5,
+        2.3841397762298584
+      ],
+      [
+        -23.35879898071289,
+        18.5,
+        67.42948150634766
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_slide.stl",
+    "triangles": 606,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 8068.858085499989,
+    "bounds_mm": [
+      [
+        23.35879898071289,
+        -18.5,
+        2.3841397762298584
+      ],
+      [
+        33.44984817504883,
+        18.5,
+        67.42948150634766
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_arm.stl",
+    "triangles": 536,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 4676.275112505255,
+    "bounds_mm": [
+      [
+        -39.2447509765625,
+        -27.700000762939453,
+        -11.993575096130371
+      ],
+      [
+        -15.257599830627441,
+        -13.5,
+        31.379228591918945
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_arm.stl",
+    "triangles": 536,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 4676.275112505255,
+    "bounds_mm": [
+      [
+        15.257599830627441,
+        -27.700000762939453,
+        -11.993575096130371
+      ],
+      [
+        39.2447509765625,
+        -13.5,
+        31.379228591918945
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_gear.stl",
+    "triangles": 2916,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 16355.49858698659,
+    "bounds_mm": [
+      [
+        -47.25117492675781,
+        -37.29999923706055,
+        -20.121822357177734
+      ],
+      [
+        1.6029679775238037,
+        -24.0,
+        27.766178131103516
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_gear.stl",
+    "triangles": 2888,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 16309.800950787338,
+    "bounds_mm": [
+      [
+        -1.5512831211090088,
+        -37.29999923706055,
+        -20.0
+      ],
+      [
+        47.25117492675781,
+        -24.0,
+        26.923538208007812
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/base.stl",
+    "triangles": 2468,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 33010.35128453562,
+    "bounds_mm": [
+      [
+        -58.25117492675781,
+        -38.29999923706055,
+        -51.0
+      ],
+      [
+        58.25117492675781,
+        -32.29999923706055,
+        31.0
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/parts/motor.stl",
+    "triangles": 1628,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 130584.48422467815,
+    "bounds_mm": [
+      [
+        -1.2488250732421875,
+        -89.30000305175781,
+        -28.5
+      ],
+      [
+        55.75117492675781,
+        -37.29999923706055,
+        28.5
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left.stl",
+    "triangles": 8018,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 12169.159345765544,
+    "bounds_mm": [
+      [
+        -3.52134370803833,
+        -6.0,
+        -2.387730598449707
+      ],
+      [
+        27.25066375732422,
+        6.0,
+        124.0272445678711
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right.stl",
+    "triangles": 8018,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 12169.159345765544,
+    "bounds_mm": [
+      [
+        -27.25066375732422,
+        -6.0,
+        -2.387730598449707
+      ],
+      [
+        3.52134370803833,
+        6.0,
+        124.0272445678711
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_slide.stl",
+    "triangles": 606,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 8068.858224855506,
+    "bounds_mm": [
+      [
+        -0.6724482774734497,
+        -18.5,
+        1.5054198503494263
+      ],
+      [
+        16.6207218170166,
+        18.5,
+        65.98604583740234
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_slide.stl",
+    "triangles": 606,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 8068.858224855506,
+    "bounds_mm": [
+      [
+        -16.6207218170166,
+        -18.5,
+        1.5054198503494263
+      ],
+      [
+        0.6724482774734497,
+        18.5,
+        65.98604583740234
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_arm.stl",
+    "triangles": 536,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 4676.274874044896,
+    "bounds_mm": [
+      [
+        -12.0,
+        -27.700000762939453,
+        -12.0
+      ],
+      [
+        12.0,
+        -13.5,
+        31.322755813598633
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_arm.stl",
+    "triangles": 536,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 4676.274874044896,
+    "bounds_mm": [
+      [
+        -12.0,
+        -27.700000762939453,
+        -12.0
+      ],
+      [
+        12.0,
+        -13.5,
+        31.322755813598633
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_gear.stl",
+    "triangles": 2916,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 16355.49868832645,
+    "bounds_mm": [
+      [
+        -20.0,
+        -37.29999923706055,
+        -24.788652420043945
+      ],
+      [
+        28.772449493408203,
+        -24.0,
+        24.788652420043945
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_gear.stl",
+    "triangles": 2888,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 16309.801080770967,
+    "bounds_mm": [
+      [
+        -28.849960327148438,
+        -37.29999923706055,
+        -23.3203125
+      ],
+      [
+        20.0,
+        -24.0,
+        23.3203125
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/base.stl",
+    "triangles": 2468,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 33010.35128453561,
+    "bounds_mm": [
+      [
+        -58.25117492675781,
+        -38.29999923706055,
+        -51.0
+      ],
+      [
+        58.25117492675781,
+        -32.29999923706055,
+        31.0
+      ]
+    ],
+    "passed": true
+  },
+  {
+    "path": "exports/print/motor.stl",
+    "triangles": 1628,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true,
+    "signed_volume_mm3": 130584.48418520887,
+    "bounds_mm": [
+      [
+        -1.2488250732421875,
+        -89.30000305175781,
+        -28.5
+      ],
+      [
+        55.75117492675781,
+        -37.29999923706055,
+        28.5
+      ]
+    ],
+    "passed": true
+  }
+]

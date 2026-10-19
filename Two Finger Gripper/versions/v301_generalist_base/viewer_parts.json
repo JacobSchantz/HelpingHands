@@ -1,0 +1,104 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_slide.stl",
+      "name": "Left handle \u2014 black, held by both hooks, two loop slots",
+      "color": "#26272b",
+      "explode": [
+        -60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_slide.stl",
+      "name": "Right handle \u2014 black, held by both hooks, two loop slots",
+      "color": "#26272b",
+      "explode": [
+        60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_arm.stl",
+      "name": "Left arm \u2014 black, wraps the handle, hex boss to the gear",
+      "color": "#26272b",
+      "explode": [
+        -60,
+        -25,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_arm.stl",
+      "name": "Right arm \u2014 black, wraps the handle, hex boss to the gear",
+      "color": "#26272b",
+      "explode": [
+        60,
+        -25,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left gear \u2014 follows through the mesh",
+      "color": "#45474d",
+      "explode": [
+        -20,
+        -45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right gear \u2014 bolted to the motor flange",
+      "color": "#45474d",
+      "explode": [
+        20,
+        -45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black plate under both gears, wrist tab",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 RobStride RS00, reference only (not printed)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    }
+  ]
+}
