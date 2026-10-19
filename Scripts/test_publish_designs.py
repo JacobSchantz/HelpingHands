@@ -42,6 +42,20 @@ class PublisherTests(unittest.TestCase):
         (third / 'gripper.scad').write_text('cube(3);')
         self.assertEqual(len(publisher.discover(self.repo)), 3)
 
+    def test_versions_txt_fingers_reach_the_catalog_row(self):
+        base = self.repo / 'Two Finger Gripper/versions'
+        for name in ('v206_single_step', 'v301_base', 'v018_taper'):
+            (base / name).mkdir(parents=True)
+            (base / name / 'gripper.scad').write_text('cube(1);')
+        (base / 'VERSIONS.txt').write_text('v018_taper — 1.18: gripper only\nv206_single_step — 2.6, fingers 1.21: '
+                                           'one step\n  out.\nv301_base — 3.1, fingers 1.21: a base on 2.6.\n')
+        rows = {r['version']: r for r in publisher.discover(self.repo)}
+        self.assertEqual(rows['v206_single_step']['fingers'], '1.21')
+        self.assertEqual(rows['v301_base']['fingers'], '1.21')
+        self.assertIsNone(rows['v018_taper']['fingers'])
+        self.assertEqual(publisher.public_fields(rows['v301_base'])['fingers'], '1.21')
+        self.assertNotIn('fingers', publisher.public_fields(rows['v206_single_step'] | {'fingers': None}))
+
     def test_public_families_keep_versions_and_exclude_deleted_prototypes(self):
         for project in ('ORCA CC-BY Prototype', 'Two Finger Gripper', 'Three Finger Gripper'):
             folder = self.repo / project / 'versions/v001_study'

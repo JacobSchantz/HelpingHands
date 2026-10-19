@@ -46,6 +46,23 @@ def read_notes(folder):
     return 'OpenSCAD geometry study; mechanical operation and print readiness are not established.'
 
 
+def finger_version(folder):
+    """'fingers 1.21' in this folder's VERSIONS.txt entry: the finger version a 2.x/3.x design carries, so the
+    gallery's mix-and-match can offer fingers that exist only inside a later design (voice-bbe0e945)."""
+    path = Path(folder).parent / 'VERSIONS.txt'
+    text = path.read_text(errors='replace') if path.is_file() else ''
+    found = re.search(r'^' + re.escape(Path(folder).name) + r'\b(.*?)(?=^v\d|\Z)', text, re.M | re.S)
+    match = found and re.search(r'\bfingers (\d+\.\d+)\b', found.group(1))
+    return match.group(1) if match else None
+
+
+def public_fields(row):
+    fields = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
+    if row.get('fingers'):
+        fields['fingers'] = row['fingers']
+    return fields
+
+
 def entry(project, version, source, folder, **extra):
     return dict(id=slug(project + '-' + version), project=project, version=version,
                 name=version.replace('_', ' '), status='in progress — design study', notes=read_notes(folder),
@@ -80,7 +97,7 @@ def discover(repo=REPO):
             if source is None:
                 direct = list(folder.glob('*.scad'))
                 source = direct[0] if len(direct) == 1 else None
-            row = entry(project, folder.name, source, folder)
+            row = entry(project, folder.name, source, folder, fingers=finger_version(folder))
             if project == 'ORCA CC-BY Prototype':
                 row['license'] = 'CC BY 4.0 — ORCA Dexterity, Inc.'
                 if 'shell' in folder.name:
@@ -287,7 +304,7 @@ def run_scad(source, target, defines, timeout, preview=False):
 
 def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     repo, out = repo.resolve(), out.resolve()
-    public = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
+    public = public_fields(row)
     public.update(models=[], source=None, source_bundle=None, preview=None, export_status='no CAD source')
     tuning = Path(row['folder']) / 'params.json'
     if tuning.is_file() and (Path(row['folder']) / 'live_render.py').is_file():
@@ -444,7 +461,7 @@ def publish(repo=REPO, out=DEFAULT_OUT, build=True, workers=2, timeout=180):
         published = {}
         for row in rows:
             item = dict(previous.get(row['id'], {}))
-            item.update({k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')})
+            item.update(public_fields(row))
             item.setdefault('models', [])
             item.setdefault('export_status', 'pending export')
             published[row['id']] = item
@@ -458,7 +475,7 @@ def publish(repo=REPO, out=DEFAULT_OUT, build=True, workers=2, timeout=180):
                 try:
                     item = future.result()
                 except Exception as error:
-                    item = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
+                    item = public_fields(row)
                     item.update(models=[], export_status='export failed', export_error=str(error))
                 published[row['id']] = item
                 catalog['designs'] = [published[r['id']] for r in rows]

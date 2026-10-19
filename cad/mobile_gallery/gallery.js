@@ -22,13 +22,18 @@ const loader = new STLLoader();
 // resampled into the gripper's CAD millimetres (reference/make_reference.py) and laid on the
 // Y=0 plane, so the Top view lines the photo up with every model; the others show flat.
 const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actual (Generalist)', actual:true};
-// Mix and match (Generalist Gripper only): any 1.x gripper with any 2.x version's handles, assembled
-// in one tile. A handle is a model named like a strap slide; everything else in a design is its gripper.
-// It opens on the newest gripper + newest handles (1.17 + 2.1 = 2.1). ?gripper=1.1&handles=2.1|none presets it.
+// Mix and match (Generalist Gripper only): any gripper (fingers) with any 2.x version's handles and any 3.x
+// base, assembled in one tile. A part's kind comes from its name before ' — ': a handle is named like a strap
+// slide or handle, a finger says finger, and the rest of a 3.x design (arms, gears, base, motor) is its base.
+// Fingers that only exist inside a later design come from the catalog's 'fingers' field (2.6 and 3.1 carry
+// 1.21, from VERSIONS.txt). It opens on the newest of each (1.21 + 2.6 + 3.1 = 3.1).
+// ?gripper=1.1&handles=2.1|none&base=3.1|none presets it.
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
-const HANDLE = /strap slide|handle/i;
+const HANDLE = /strap slide|handle/i, FINGER = /finger/i;
+const part = model => model.name.split(' — ')[0];
+const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handles'], ['base', 'Base']];
 const query = new URLSearchParams(location.search);
-const mix = {gripper:query.get('gripper'), handles:query.get('handles')};
+const mix = {gripper:query.get('gripper'), handles:query.get('handles'), base:query.get('base')};
 const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3(40, 6, 116));
 // View presets: the direction the camera looks from, in CAD axes (Z along the fingers).
 // Top is the photo's viewpoint: from -Y, +X to the right, fingertips up.
@@ -121,22 +126,36 @@ function lineVersion(design) {
   return match ? (match[1].includes('.') ? match[1] : '1.' + match[1]) : null;
 }
 function versionOrder(version) { const [line, minor] = version.split('.'); return +line * 1000 + parseFloat(minor); }
+// Each option is {version, design, models}: the version shown in its picker and the parts it adds.
 function mixOptions() {
   const family = catalog.designs.filter(design => design.project === MIX.project && lineVersion(design) && design.models?.length)
     .sort((a, b) => versionOrder(lineVersion(a)) - versionOrder(lineVersion(b)) || a.id.localeCompare(b.id));
-  return {grippers: family.filter(design => lineVersion(design).startsWith('1.') && design.models.some(model => !HANDLE.test(model.name))),
-          handles: family.filter(design => lineVersion(design).startsWith('2.') && design.models.some(model => HANDLE.test(model.name)))};
+  const option = (version, design, keep) => ({version, design, models:design.models.filter(keep)});
+  const grippers = family.filter(design => lineVersion(design).startsWith('1.'))
+    .map(design => option(lineVersion(design), design, model => !HANDLE.test(part(model))));
+  for (const design of family) {   // a later design's own fingers (2.6 -> 1.21), once per finger version
+    if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push(option(design.fingers, design, model => FINGER.test(part(model))));
+  }
+  const handles = family.filter(design => lineVersion(design).startsWith('2.'))
+    .map(design => option(lineVersion(design), design, model => HANDLE.test(part(model))));
+  const bases = family.filter(design => lineVersion(design).startsWith('3.'))
+    .map(design => option(lineVersion(design), design, model => !HANDLE.test(part(model)) && !FINGER.test(part(model))));
+  const order = (a, b) => versionOrder(a.version) - versionOrder(b.version);
+  return {gripper:grippers.filter(item => item.models.length).sort(order), handles:handles.filter(item => item.models.length),
+          base:bases.filter(item => item.models.length)};
 }
 function buildMix() {
-  const {grippers, handles} = mixOptions();
-  if (!grippers.length) return null;
-  const gripper = grippers.find(design => lineVersion(design) === mix.gripper) || grippers.at(-1);
-  const handle = mix.handles === 'none' ? null : handles.find(design => lineVersion(design) === mix.handles) || handles.at(-1) || null;
-  mix.gripper = lineVersion(gripper); mix.handles = handle ? lineVersion(handle) : 'none';
-  // The handles ride the gripper's hinges (poses.js, keyed by the gripper), placed where their own design put them.
-  return {...MIX, grippers, handles, pose:gripper.id,
-    name:handle ? mix.gripper + ' gripper + ' + mix.handles + ' handles' : mix.gripper + ' gripper, no handles',
-    models:[...gripper.models.filter(model => !HANDLE.test(model.name)), ...(handle ? handle.models.filter(model => HANDLE.test(model.name)) : [])]};
+  const options = mixOptions();
+  if (!options.gripper.length) return null;
+  const chosen = {};
+  for (const [key] of PICKERS) {
+    chosen[key] = key !== 'gripper' && mix[key] === 'none' ? null : options[key].find(item => item.version === mix[key]) || options[key].at(-1) || null;
+    mix[key] = chosen[key] ? chosen[key].version : 'none';
+  }
+  // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
+  return {...MIX, options, pose:chosen.gripper.design.id,
+    name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => chosen[key].version + ' ' + label.toLowerCase()).join(' + '),
+    models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
 function projectDesigns(project) {
   const list = catalog.designs.filter(design => design.project === project);
@@ -285,8 +304,8 @@ function createView(design) {
   }
   if (design.mix) {
     select = document.createElement('div'); select.className = 'mixer';
-    for (const [key, label] of [['gripper', 'Gripper version'], ['handles', 'Handles version']]) {
-      const choice = document.createElement('select'); choice.setAttribute('aria-label', label); choice.dataset.part = key;
+    for (const [key, label] of PICKERS) {
+      const choice = document.createElement('select'); choice.setAttribute('aria-label', label + ' version'); choice.dataset.part = key;
       for (const type of ['pointerdown', 'pointerup', 'click', 'keydown']) choice.addEventListener(type, event => event.stopPropagation());
       choice.onchange = () => { mix[key] = choice.value; updateView(view, buildMix()); };
       select.append(choice);
@@ -331,10 +350,12 @@ async function updateView(view, design) {
   if (design.actual) { if (!view.photo) showPhoto(view, PHOTOS[0].id); return; }
   if (view.tuned) return;   // Tune meshes stay until Reset; a catalog refresh must not swap them for the exported ones
   if (design.mix) {
-    const [gripper, handles] = view.select.children;
-    gripper.replaceChildren(...design.grippers.map(item => new Option('Gripper ' + lineVersion(item), lineVersion(item))));
-    handles.replaceChildren(new Option('No handles', 'none'), ...design.handles.map(item => new Option('Handles ' + lineVersion(item), lineVersion(item))));
-    gripper.value = mix.gripper; handles.value = mix.handles;
+    PICKERS.forEach(([key, label], index) => {
+      const choice = view.select.children[index];
+      choice.replaceChildren(...(key === 'gripper' ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
+        ...design.options[key].map(item => new Option(label + ' ' + item.version, item.version)));
+      choice.value = mix[key];
+    });
     view.element.setAttribute('aria-label', design.name); if (focused === MIX.id) document.title = 'HelpingHands · ' + design.name;
   }
   const signature = JSON.stringify(design.models || []);
@@ -412,7 +433,7 @@ async function refresh() {
     await loadHidden();
     const projects = [...new Set(catalog.designs.map(design => design.project))];
     $('project').replaceChildren(...projects.map(project => { const option = document.createElement('option'); option.value = option.textContent = project; return option; }));
-    // A first load with no #design opens on the mix-and-match tile (2.1 unless ?gripper/?handles say otherwise).
+    // A first load with no #design opens on the mix-and-match tile (the newest of each unless ?gripper/?handles/?base say otherwise).
     const wanted = focused || (initial ? hashDesign() || MIX.id : '');
     const target = wanted === MIX.id ? MIX : catalog.designs.find(design => design.id === wanted);
     const project = target?.project || (projects.includes(currentProject) ? currentProject : projects.find(p => p === 'Generalist Gripper') || projects[0]);
