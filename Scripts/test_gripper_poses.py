@@ -45,7 +45,9 @@ class GripperPoseTests(unittest.TestCase):
             with self.subTest(design['id']):
                 self.assertTrue(design['id'] in table, 'no hinge entry in poses.js, so its fingers will not move')
                 names = [m['name'] for m in design['models']]
-                for hinge in table[design['id']]['hinges']:
+                pose = table[design['id']]
+                self.assertTrue(pose['hinges'] or pose.get('slides'), 'no hinge or slide, so its fingers will not move')
+                for hinge in pose['hinges'] + pose.get('slides', []):
                     self.assertTrue(any(re.search(hinge['match'], n) for n in names), f"hinge {hinge['match']!r} moves no part")
 
     def test_hinges_match_the_scad(self):
@@ -58,8 +60,11 @@ class GripperPoseTests(unittest.TestCase):
             if not source or not source.exists() or 'module placed' not in source.read_text():
                 continue  # Gen 8 is placed from its URDF; demo grippers live elsewhere
             with self.subTest(design_id):
-                values = scad_values(source, ['pivot', 'angle'])
-                self.assertAlmostEqual(pose['hinges'][0]['pivot'][0], values['pivot'], delta=0.01)
+                values = scad_values(source, ['pivot', 'angle'] + ([] if pose['hinges'] else ['pose_dir']))
+                if pose['hinges']:
+                    self.assertAlmostEqual(pose['hinges'][0]['pivot'][0], values['pivot'], delta=0.01)
+                else:   # Base 5: the fingers slide; the right slide's dir is the .scad's pose_dir
+                    self.assertAlmostEqual(pose['slides'][0]['dir'][0], values['pose_dir'], delta=0.01)
                 self.assertEqual(pose['exported'], values['angle'], 'STLs are exported at the .scad default angle')
 
 

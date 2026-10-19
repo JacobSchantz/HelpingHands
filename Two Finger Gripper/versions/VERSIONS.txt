@@ -58,3 +58,8 @@ meshing the right gear, which meshes the left. 8 printed parts (gears 2, pinion,
 v304_generalist_one_piece_drive — Base 4 (voice-b7260e73), Gripper 21, Handle 7: Base 3 with fewer pieces. Each handle and its side gear are one print
 (the tail runs into the hub; no key, cradle or stop strip). The finger drops in from the dorsal side and rests on the gear web. Pinion and
 base on 3 M3 each (every other RS00 hole). 13 pieces: 6 printed (2 fingers, 2 handle-gears, pinion, base) + RS00 + 6 M3 (Base 3: 21 = 8 + 1 + 12).
+v305_generalist_single_gear — Base 5 (voice-01ab1486), Gripper 21, Handle 7: Base 4 driven by one gear. One pinion on the RS00 sits
+between two opposed racks, one along its top and one along its bottom, so turning it slides the fingers apart and together by the
+same distance (a parallel gripper, 20 mm each way; Base 4 swung 30 deg). Each rack is one print with its handle, as Base 4's
+handle-gears were. A tongue under each rack runs in a groove in the base, and the groove ends are the travel stops. The side gears,
+axles and bushings are gone. 12 pieces: 6 printed (2 fingers, 2 handle-racks, pinion, base) + RS00 + 5 M3 (Base 4: 13 = 6 + 1 + 6).

@@ -160,7 +160,9 @@ function buildMix() {
     mix[key] = chosen[key] ? chosen[key].version : 'none';
   }
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
-  return {...MIX, options, pose:chosen.gripper.design.id,
+  // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
+  const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
+  return {...MIX, options, pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
     name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
