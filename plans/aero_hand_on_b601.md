@@ -40,6 +40,10 @@ what I checked or still need to confirm. Nothing here has been built yet.
   plate the gripper bolts to? Can we get its STEP file and bolt pattern?"*
   If it isn't included, we print it too, using the J6 motor's output bolt
   pattern from the RobStride datasheet.
+- **RS motor map (confirmed 2026-10-19):** J1–J3 are RobStride RS06; wrist
+  J4–J6 and the gripper (motor 7) are RobStride RS00 (Ø57 × 51 mm, 310 g,
+  5 / 14 N·m). Output flange 6× M3 on Ø27 PCD. Details and sources in
+  `AGENTS.md` → Hardware.
 - Get the M3 hole spacing from the Aero Onshape CAD. The docs' mechanical
   page is still a placeholder.
 - **Payload on the RS:** 2.5 kg rated, minus ~0.4 kg for the hand and
