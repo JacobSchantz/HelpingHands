@@ -1,0 +1,16 @@
+{
+  "id": "voice-13bdab11",
+  "commit_id": "",
+  "description": "Version 1.19 (gripper only; builds on 1.18, related pebble voice-07e1e6a1). Jake: make the section from where the finger starts rounding to the tip much thicker. Extend the width outward through that rounded section, but it should still come to a point at the tip.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:29:24.000Z",
+  "updated_at": "2026-10-19T16:29:24.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
