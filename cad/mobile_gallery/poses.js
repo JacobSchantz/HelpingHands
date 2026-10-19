@@ -12,6 +12,9 @@ export default {
   "two-finger-gripper-v301-generalist-base": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.2512, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.2512, 0, 0], "sign": -1}]},
+  "two-finger-gripper-v207-generalist-flush-handle": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [27.2512, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.2512, 0, 0], "sign": -1}]},
   "two-finger-gripper-v206-generalist-single-step": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.2512, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.2512, 0, 0], "sign": -1}]},

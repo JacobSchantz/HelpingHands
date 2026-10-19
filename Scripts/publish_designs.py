@@ -166,6 +166,7 @@ def discover(repo=REPO):
                    "two-finger-gripper-v204-generalist-parametric": "Handle 4",
                    "two-finger-gripper-v205-generalist-spanning-handle": "Handle 5",
                    "two-finger-gripper-v206-generalist-single-step": "Handle 6",
+                   "two-finger-gripper-v207-generalist-flush-handle": "Handle 7",
                    "two-finger-gripper-v301-generalist-base": "Base 1",
                    "two-finger-gripper-v302-generalist-simple": "Base 2",
                    "two-finger-gripper-v303-generalist-inplane": "Base 3"}

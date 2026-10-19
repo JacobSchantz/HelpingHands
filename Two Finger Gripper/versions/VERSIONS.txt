@@ -40,6 +40,10 @@ v206_generalist_single_step — Handle 6 (voice-72840084), Gripper 21: Handle 5 
 started going out. Gripper 21: the outer edge runs straight from the base hook to it, the hook curls out to its 6.6 mm crest and
 the edge stays out there until the beak meets it: one step out, no notch-dip-S-curve double indent. Handle 6: the handle plate
 spans floor to floor, 67.4 mm (Handle 5: 41.8). Params: top_notch_u (replaces top_hook_mirror_u), top_step_back.
+v207_generalist_flush_handle — Handle 7 (voice-448df859), Gripper 21: Handle 6 cut down to the finger's height. Edge-on the plate is
+plate + 2 x handle_over (Base 3's shared param) with handle_over 0: 12 mm, flush with both finger faces (Handle 6: 37). The two strap
+slots no longer fit, so the strap runs through Base 3's tunnel under a boss on the plate's outer face. The stop strip stays, 0.8 mm
+wide, so the ventral edge stands 1 mm past the finger (13 mm overall; stop_depth 0 makes it exactly 12). Hooks, feet, length unchanged.
 v301_generalist_base — Base 1 (voice-5b59d3bf), Gripper 21, Handle 6: first Base (gripper plus handles plus base). Handle 6's fingers and handles unchanged, plus
 a black arm under each handle (a channel round the plate's ventral edge, a floor to a hub on the pivot), the shared handle-base
 interface (a 10 mm hex boss + 2 M3 on each pivot axis), two meshing involute gear sectors (pitch radius = pivot half-spacing),
