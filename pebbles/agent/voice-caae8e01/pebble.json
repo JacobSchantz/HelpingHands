@@ -1,0 +1,16 @@
+{
+  "id": "voice-caae8e01",
+  "commit_id": "",
+  "description": "Live Preview: Gen 16 gripper (v016_generalist_rounded_point) can't close. The Open/Closed slider does nothing for it because the catalog serves Gen 16 as one merged OpenSCAD mesh named 'Gen 16' instead of the Left/Right finger STLs, so poses.js hinges (^Right/^Left) match no mesh. Cause: Scripts/publish_designs.py only uses viewer_parts.json STLs when they are newer than every dependency (mtime check); gripper.scad (09:48:15) was saved after exports/parts/*.stl (09:47:16), so it fell back to rendering gripper.scad whole. Also Gen 16 appears twice in catalog.json (same id) because cad/compare/designs.py adds any version folder with web/concept.js on top of the normal versions discovery. Fix: re-export the v016 parts (or make the freshness check robust to mtime order/git checkouts), dedupe catalog ids, and have a test fail when a posed gripper in poses.js publishes without its hinge parts. Verify in Live Preview that Gen 16 closes with the slider and Top view.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T14:13:18.000Z",
+  "updated_at": "2026-10-19T14:13:18.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
