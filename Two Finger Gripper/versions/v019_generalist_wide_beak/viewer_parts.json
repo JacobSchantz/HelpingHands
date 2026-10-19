@@ -1,0 +1,24 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    }
+  ]
+}

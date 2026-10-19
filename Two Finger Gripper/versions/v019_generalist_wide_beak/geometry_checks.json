@@ -1,0 +1,230 @@
+{
+  "sampled_angles_degrees": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "results": [
+    {
+      "name": "fingers_never_collide_1_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_touch_without_overlap_at_0_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_overlap_when_pushed_0.02mm_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 284\nGeometry cache size in bytes: 1383896\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       28\n   Facets:         52"
+    },
+    {
+      "name": "pushed_0.02mm_together_they_meet_only_in_the_last_1.5mm",
+      "passed": true,
+      "expected": "contact",
+      "overlap_z": [
+        123.26,
+        123.8
+      ],
+      "log": "Geometries in cache: 284\nGeometry cache size in bytes: 1383896\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.041\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       28\n   Facets:         52"
+    },
+    {
+      "name": "closed_gap_follows_the_gen14_target",
+      "passed": true,
+      "expected": "within 0.2 mm of photo curve + wedge from 1 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
+      "worst_mm": 0.056,
+      "contact_z": 122.81,
+      "rows": [
+        {
+          "d_mm": 0.5,
+          "model_gap": 0.248,
+          "target_gap": 0.255,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 1,
+          "model_gap": 0.431,
+          "target_gap": 0.459,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 1.5,
+          "model_gap": 0.614,
+          "target_gap": 0.648,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 2,
+          "model_gap": 0.797,
+          "target_gap": 0.827,
+          "photo_gap": 0.001
+        },
+        {
+          "d_mm": 3,
+          "model_gap": 1.053,
+          "target_gap": 1.0,
+          "photo_gap": 0.003
+        },
+        {
+          "d_mm": 4,
+          "model_gap": 1.386,
+          "target_gap": 1.331,
+          "photo_gap": 0.007
+        },
+        {
+          "d_mm": 6,
+          "model_gap": 1.993,
+          "target_gap": 1.954,
+          "photo_gap": 0.026
+        },
+        {
+          "d_mm": 8,
+          "model_gap": 2.599,
+          "target_gap": 2.543,
+          "photo_gap": 0.064
+        },
+        {
+          "d_mm": 10,
+          "model_gap": 3.125,
+          "target_gap": 3.109,
+          "photo_gap": 0.129
+        },
+        {
+          "d_mm": 12,
+          "model_gap": 3.674,
+          "target_gap": 3.658,
+          "photo_gap": 0.229
+        },
+        {
+          "d_mm": 14,
+          "model_gap": 4.219,
+          "target_gap": 4.192,
+          "photo_gap": 0.373
+        },
+        {
+          "d_mm": 16,
+          "model_gap": 4.728,
+          "target_gap": 4.714,
+          "photo_gap": 0.567
+        },
+        {
+          "d_mm": 18,
+          "model_gap": 5.238,
+          "target_gap": 5.226,
+          "photo_gap": 0.821
+        },
+        {
+          "d_mm": 20,
+          "model_gap": 5.747,
+          "target_gap": 5.73,
+          "photo_gap": 1.144
+        },
+        {
+          "d_mm": 22,
+          "model_gap": 6.219,
+          "target_gap": 6.225,
+          "photo_gap": 1.544
+        }
+      ]
+    },
+    {
+      "name": "contact_angle_at_least_20_deg_included",
+      "passed": true,
+      "expected": "slope of the closed gap 1 to 2 mm behind the point, as an included angle",
+      "included_deg": 20.74
+    },
+    {
+      "name": "flat_bottom_and_one_sided_taper",
+      "passed": true,
+      "expected": "bottom face y=-6.0 at every station; thickness 12.0 behind the dot, the parabola to 2.4 at the point",
+      "dot_z": 82.11,
+      "tip_z": 124.31,
+      "rows": [
+        {
+          "z_mm": 20,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 60,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 80.11,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 94.77,
+          "bottom_y": -6.0,
+          "thick_mm": 11.135,
+          "want_mm": 11.066
+        },
+        {
+          "z_mm": 107.43,
+          "bottom_y": -6.0,
+          "thick_mm": 8.543,
+          "want_mm": 8.406
+        },
+        {
+          "z_mm": 117.98,
+          "bottom_y": -6.0,
+          "thick_mm": 5.063,
+          "want_mm": 4.869
+        },
+        {
+          "z_mm": 121.31,
+          "bottom_y": -6.0,
+          "thick_mm": 3.715,
+          "want_mm": 3.504
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Integer-degree samples only, not continuous motion.",
+    "Closed gap read from one blurred perspective photo (~0.5 mm/px); sub-pixel widths come from seam darkness.",
+    "The 4 deg wedge is a design choice (Jake: too much contact before the tip), not a measurement: the photo cannot resolve it.",
+    "1.18: the point is 2.4 mm thick, all of it on the flat ventral side, and about 0.6 mm wide in plan; not printed.",
+    "1.18: the taper shape (Gen 16 r2 parabola from the dot) is read from the photos by eye, not measured.",
+    "Plan shape traced from one photo at an assumed 0.2 mm/px; no Generalist part was measured.",
+    "No body, axle, drive or stops exist in this generation."
+  ]
+}
