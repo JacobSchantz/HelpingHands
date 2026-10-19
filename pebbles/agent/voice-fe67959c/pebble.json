@@ -1,0 +1,24 @@
+{
+  "id": "voice-fe67959c",
+  "commit_id": "",
+  "description": "Gripper Gen 14: refinement pass on Gen 13 by a different model. Do this on GPT-6 Astra (gpt-6-astra, codex harness). Gen 13 (voice-decf86cd) was built by Opus 5.5. Jake (voice): 'Gen 13 is looking really good. Have a different model take a pass at it, Astra, and come up with Gen 14, a further refinement with all the same ideas, where just the tip contacts. I think there's a little too much contact leading up to the tip, maybe not quite a tight, sharp enough contact angle.' Spec: start from Gen 13 and keep everything (closed-first design from cad/reference/generalist_gripper_gen6_closed.png, serration along nearly the whole inner edge, beak tip, through-holes). Change: in the closed pose, only the very tips touch, with a sharper contact angle so the inner edges diverge sooner and more clearly right behind the point. New version only; leave Gen 13 untouched. Build/review loop against the closed photo, up to 3 rounds; show it in the gallery.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T01:10:26.000Z",
+  "updated_at": "2026-10-19T01:10:26.000Z",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "effort": ""
+  },
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
