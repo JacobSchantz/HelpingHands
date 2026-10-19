@@ -3,10 +3,22 @@
   "commit_id": "",
   "description": "Gripper: define as many named, documented parameters as possible so future versions are made by changing parameters only. The gripper is already parameterized, but every meaningful dimension should be a named parameter with no magic numbers buried in the geometry. Fingers: length, thickness, taper, tip thickness and point, bump-out rounding, convergence angle near the tip, pocket and hook geometry. Handles / strap-loop attachment: tongue length and width, slot sizes, pocket fit and clearance. Expose them clearly (e.g. a single parameters file per version, or a shared one). Related in-flight version pebbles: 1.19 voice-13bdab11, 2.3 voice-1557d48f; see AGENTS.md for the versioning scheme.",
   "test_instructions": [],
-  "results": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T16:30:46.000Z",
+      "result": "failed",
+      "notes": "Specifically, there should be an interface to slide those parameters: sliders in the website live preview for each parameter that update the gripper and handles live, so I can tune the design by dragging.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
   "image_urls": [],
   "created_at": "2026-10-19T16:30:16.000Z",
-  "updated_at": "2026-10-19T16:30:16.000Z",
+  "updated_at": "2026-10-19T16:30:46.000Z",
   "user_request": {
     "name": "Jake"
   },
