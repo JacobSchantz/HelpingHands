@@ -10,7 +10,7 @@ SCAD='/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
 ANGLES=list(range(0,31))
 STEP=400
 GAP_TOL=0.12   # mm: the closed gap may differ from Gen 14's target curve by this much, 1 to 20 mm behind the point
-CONTACT_DEG=6  # the jaws' included angle, from the gap's slope 1 to 2 mm behind the point, must be at least this (designed 8; Gen 13: ~0)
+CONTACT_DEG=20  # the jaws' included angle, from the gap's slope 1 to 2 mm behind the point, must be at least this (Gen 16 r2: designed 30, Jake "much wider"; r1: 6; Gen 13: ~0)
 CONTACT_LEN=1.5   # pushed 0.02 mm together, the fingers may overlap only this far behind the contact (Gen 13: 6 mm)
 
 
@@ -65,8 +65,9 @@ def gap_profile():
     for d in [0.5,1,1.5,2,3,4,6,8,10,12,14,16,18,20,22]:
         # Gen 15: the mesh cut at that z, not vertices near it. Gen 16: where there are grooves (>= 3 mm back) a cut can land
         # in a groove bottom, so take the ridge tops: the innermost reach over one 1 mm groove pitch around z
-        xs=[x for k in ([0] if d<3 else [i/10 for i in range(-5,6)]) for x in slice_x(V,zc-d+k)]
-        if xs:rows.append(dict(d_mm=d,model_gap=round(2*(min(xs)-xc),3),target_gap=round(tp.closed_gap(d),3),photo_gap=round(tp.photo_gap(d),3)))
+        ks=[0] if d<3 else [i/10 for i in range(-5,6)];xs=[x for k in ks for x in slice_x(V,zc-d+k)]
+        # Gen 16 r2: the target read the same way (its least gap over that window), or the 30 deg wedge's slope reads as error
+        if xs:rows.append(dict(d_mm=d,model_gap=round(2*(min(xs)-xc),3),target_gap=round(min(tp.closed_gap(d-k) for k in ks),3),photo_gap=round(tp.photo_gap(d),3)))
     worst=max(abs(r['model_gap']-r['target_gap']) for r in rows if 1<=r['d_mm']<=20)
     mono=all(a['model_gap']<=b['model_gap']+5e-3 for a,b in zip(rows,rows[1:]))
     g=lambda d:next(r['model_gap'] for r in rows if r['d_mm']==d);deg=2*math.degrees(math.atan((g(2)-g(1))/2))

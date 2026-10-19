@@ -4,9 +4,11 @@
    does, but the two sides should actually touch at the point; remove the black tip, so it is all yellow."
      * plan view (trace_photo.py): Gen 15's beak, length and point contact; Gen 9's smoothed contour, rounded blade
        root and J-hook; the two square inner-edge knobs are now rounded 1 mm swells on a smooth ramp;
-     * side view: Gen 9's eased taper from the dot to a tip_thick point (Gen 15: a parabola to a 1.6 mm blunt end);
+     * side view: a parabola from the dot to a thick tip_thick point (r1: Gen 9's eased needle; Gen 15: 1.6 mm);
      * one yellow body per finger: Gen 15's dark tip pad is gone.
-   The closed contact is Gen 15's: only the points touch, a V opens behind them. Gen 15's notes follow.
+   r2 (Jake; key reference cad/reference/generalist_gripper_gen6_closed.png): the two knobs much rounder; closed, only the
+   points touch and a 30 deg V opens right behind them (r1: 6.8); the outer edge rounds in to a thick tip in plan (NOSE) and
+   side view (tip_thick 2.4). Gen 15's notes follow.
    GENERATION 15, LONG JAW.
    Gen 15 (voice-8673a6b6) is Gen 14 with the beak past the black dot 1.7x longer (trace_photo.py BEAK_STRETCH), so dot ->
    point is a third of the finger: Jake, "that thick end section should be quite a bit longer, about a third of the total
@@ -42,7 +44,8 @@ px_pivot=[337,395];       // frame origin only: the photo shows the lip solid, s
 axis_deg=36.5;            // bisector of the two closed fingers in the photo (27 and 46 deg)
 plate=12;                 // finger thickness along Y, centred on the hand plane: the side and robot photos
                           // show the blade about as thick as it is wide
-tip_thick=0.5;            // Gen 16: Gen 9's point. From the black dot the blade thins smoothly (no crease) to this at the point (Gen 15: 1.6)
+tip_thick=2.4;            // Gen 16 r2 (Jake: "make the tip thicker"): side-view thickness at the point. From the black dot the blade thins
+                          // smoothly (no crease) to this. r1: 0.5 (Gen 9's needle); Gen 15: 1.6
 tip_gap=0;                // closed: the points touch (Gen 11: 1.0 mm apart)
 contact_back=0.001;       // how far the smoothed point sits outboard of the traced one (see pivot). Gen 15: the mesh's innermost reach
                           // is 27.2507 mm vs the trace's 27.2500 (Gen 14: -0.028), so the pivots sit 1 um outboard of touching
@@ -92,8 +95,8 @@ module ridges2d() {       // one groove per station on the inner edge (ridges_px
         offset(r=ridge_wall) holes2d();
     }
 }
-function ease(t)=0.5*t*t*(2-t)+0.5*t*t*(3-2*t);   // Gen 9: 0 slope at the dot (no crease), flatter than a straight wedge near the point so the tip stays thin
-function half_thick(f)=(plate-(plate-tip_thick)*ease(f))/2;   // Gen 16: Gen 9's taper (Gen 15: a parabola, fuller near the point)
+function half_thick(f)=(plate-(plate-tip_thick)*f*f)/2;   // Gen 16 r2: a parabola, full to near the point and rounding in to a thick
+                          // tip, as the closed photo shows (r1: Gen 9's ease(), a concave needle)
 module side_taper(inset=0) {   // Y-Z profile: full plate to the dot, eased on both faces, rounded nub at the point; inset shrinks each face
     r=tip_thick/2; L=tip[1]-r-dot_z; n=48;
     rotate([90,0,90]) linear_extrude(200,center=true)
@@ -126,7 +129,7 @@ if(part=="left") color("#efb83b") mirror([1,0,0]) finger();
 if(part=="collision") clash();
 for(s=[-1,1]) if(part==str("viewer_",s<0?"left":"right")) placed(s) finger();
 // The design numbers web/concept.js draws (export_models.py writes them to web/concept.json): the vision is this plan
-// outline and holes extruded, cut to Gen 9's taper, with none of the rounding, grooves or tip nub the solid adds.
+// outline and holes extruded, cut to the side taper, with none of the rounding, grooves or tip nub the solid adds.
 if(part=="concept") echo(concept=[pxs(outline_px),
     [for(h=holes_px) [px(h)[0],px(h)[1],max(min_hole,(h[2]+h[3])/2*mm_per_px)]],
     [px(dot_px)[0],px(dot_px)[1],dot_px[2]*mm_per_px],

@@ -17,10 +17,27 @@ design (Jake, 2026-10-19). It is the "Actual (Generalist)" → "Closed" photo in
 
 Check every finger revision against this photo first.
 
-## What changed from Gen 15
+## Round 2 (Jake: edit Gen 16 in place)
+
+*"Round the two bump-outs along the length even further — really rounded. Make the tip thicker; it should still come to
+a single point where the two sides touch. Behind the tip the two sides should diverge at a sharper angle ... much
+wider."* Matched to the closed photo above. `previews/compare_closed_photo.png`: photo, closed top view, closed tip, edge.
+
+- **Knobs.** Each swell is ~2.3× wider (`KNOBS` half-widths 30/28 px, was 13/11) and 1.2 mm high, so the crest radius is
+  ~4 mm (was ~1.4). The ramp under them is smoothed first (`KNOB_BASE_SIGMA`), so their feet have no corners.
+- **The V.** Closed, each inner edge leaves the point at 15° (30° designed, 26° measured 1–2 mm back; was 6.8°) and the
+  gap levels off at 2 mm (`WEDGE`), about what the jaw already has 25 mm back, so it never narrows again.
+- **Thick tip, plan view.** The outer edge moves out by whatever the wider V cuts from the inner edge (`KEEP_WIDTH`), so
+  the beak keeps its width. Its last 7 mm is a rounded nose (`NOSE`) that arrives at the point 65° off the axis, not r1's
+  straight 45° run in.
+- **Thick tip, side view.** `tip_thick` 0.5 → 2.4 mm, with a parabola taper (full until near the point, then rounding in)
+  in place of Gen 9's concave `ease()` needle.
+- Slots keep their place across the beak, measured on r1's beak (`beak_slots`); otherwise the wider V broke two through.
+
+## What changed from Gen 15 (round 1)
 
 - **Length, beak, holes, slots and closed contact are Gen 15's.** Dot → point is still ~42 mm. Closed, only the points
-  touch, with a 6.8° V behind them.
+  touch, with a 6.8° V behind them (r2: 30°).
 - **The knobs are rounded.** Gen 15 had two square knobs on the inner edge, mid-shank: a ~6 mm step and a bump. Now
   that edge is one smooth ramp with two rounded swells, 1 mm proud (`trace_photo.py KNOBS`, `KNOB_SWELL_PX`). I read
   "ridges, about 1 mm" as these knobs. The 0.4 mm serration grooves are unchanged.
@@ -36,7 +53,7 @@ Check every finger revision against this photo first.
 
 `web/concept.js` is the three.js vision: the traced outline and holes, extruded and pinched to the taper.
 `Scripts/render_compare two-finger-gripper-v016-generalist-rounded-point` draws it beside the STLs with the same cameras →
-`previews/compare_web_stl.png`, `compare_web_stl.md`. Overlap: front 97 %, side 100 %, top 100 %, iso 99 %. The front
+`previews/compare_web_stl.png`, `compare_web_stl.md`. Overlap: front 98 %, side 100 %, top 100 %, iso 99 %. The front
 fringe is the grooves and edge rounding, which only the STL has. `cad/compare/designs.py` now picks up any version folder
 that has a `web/concept.js`.
 
@@ -47,15 +64,17 @@ that has a `web/concept.js`.
 - `check_geometry.py`:
   - no collision from 1 to 30°;
   - closed, the fingers touch with no overlap;
-  - pushed 0.02 mm together, they overlap only at the point (z 123.21–123.43);
-  - the gap is within 0.085 mm of Gen 15's target from 1 to 20 mm back;
-  - the included angle is 6.8°.
-  The gap is read at the ridge tops (innermost over a 1 mm groove pitch) wherever there are grooves. A single cut could
-  land in a groove bottom and read 0.8 mm too wide.
+  - pushed 0.02 mm together, they overlap only at the point (z 123.31–123.86);
+  - the gap is within 0.033 mm of the `WEDGE` target from 1 to 20 mm back;
+  - the included angle is 26.4° (check: ≥ 20°).
+  The gap is read at the ridge tops (innermost over a 1 mm groove pitch) wherever there are grooves, and the target is
+  read the same way (r2: the 30° wedge changes 0.5 mm across that window). A single cut could land in a groove bottom.
 - Pivots are at ±27.2517 mm (`cad/mobile_gallery/poses.js`).
 
 ## Limits
 
-- Nothing is printed. A 0.5 mm point is one or two extrusion lines thick and may be fragile.
+- Nothing is printed. r2's 2.4 mm tip is sturdier than r1's 0.5 mm.
+- The 30° V and 2 mm gap are read by eye from the closed photo, not measured (`closed_trace.json`'s fitted gap is far
+  narrower; the photo can't resolve it).
 - "About 1 mm" is read as the knob height. If it meant the serration grooves, change `ridge` in `gripper.scad`.
 - The knob ramp and swells are hand-drawn in photo px, not traced.

@@ -1,13 +1,12 @@
 // Gen 16 · the VISION, not the print. The plan outline and holes gripper.scad traces (web/concept.json, written by
-// export_models.py), extruded to the plate and pinched to Gen 9's eased taper past the dot, both fingers at the
+// export_models.py), extruded to the plate and pinched to the side taper past the dot (r2: a parabola), both fingers at the
 // gallery's 15 deg. No rounding, grooves or point nub: render_compare shows what the solid adds and loses.
 
 export default async function build(THREE, { material }) {
   const c = await (await fetch(new URL('./concept.json', import.meta.url))).json();
-  const ease = (t) => 0.5 * t * t * (2 - t) + 0.5 * t * t * (3 - 2 * t);   // gripper.scad, from Gen 9
   const half = (z) => {
     const f = Math.min(1, Math.max(0, (z - c.dot_z) / (c.tip_z - c.dot_z)));
-    return (c.plate - (c.plate - c.tip_thick) * ease(f)) / 2;
+    return (c.plate - (c.plate - c.tip_thick) * f * f) / 2;   // gripper.scad half_thick
   };
   const shape = new THREE.Shape(c.outline.map(([x, z]) => new THREE.Vector2(x, z)));
   for (const [x, z, d] of c.holes) shape.holes.push(new THREE.Path().absarc(x, z, d / 2, 0, 2 * Math.PI, true));

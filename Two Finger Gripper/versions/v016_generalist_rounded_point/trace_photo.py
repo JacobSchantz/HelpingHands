@@ -68,17 +68,20 @@ SMOOTH_SIGMA=4.0        # Gen 16, from Gen 9: px, periodic Gaussian along the tr
 # Gen 16: the inner edge between the head and the beak. Gen 15 had two square knobs there (a 6 mm step at x 637 and a
 # bump at x 680-690). Now a smooth ramp (base) with two rounded swells, each KNOB_SWELL_PX proud along the edge's
 # normal over a cos^2 window of the given half-width: where Gen 15's knobs were, ~1 mm high instead of ~6.
-KNOB_SWELL_PX=5.0       # 1.0 mm at 0.2 mm/px
+KNOB_SWELL_PX=6.0       # 1.2 mm at 0.2 mm/px. r2: 5.0 (1 mm) over a narrow window read as a knob, not a bump
 KNOBS=dict(base=[(606,456.3),(618,457.6),(630,462),(641,471),(652,482),(664,491),(677,497),(690,502),(701,510),
                  (710,521),(717,533),(724,544),(732,551.5),(740.6,554.6)],
-           swells=[((627,461),13.0),((687,500.5),11.0)])   # (centre px, half-width px) along the edge
+           swells=[((627,461),30.0),((687,500.5),28.0)])   # (centre px, half-width px) along the edge. r2 (Jake: "really
+                                                           # rounded"): 30/28, ~2.3x wider, crest radius ~4 mm (r1: 13/11, ~1.4 mm)
+KNOB_BASE_SIGMA=6.0     # r2: px, Gaussian along the ramp before the swells, so its own bends don't put corners at their feet
 # Needle tip (Gen 10, round 2). Past the black dot the blade is generated, not traced. It
 # narrows evenly from the dot to a point on the dot->TIP centreline (top.png: a centred,
 # pencil-like point). Half-widths are the traced ones at the dot, times
 # g(f)=(1-f)(1+A f), f=s/L, with A per edge: convex, with no corner. It is about 1/3 width just before the
 # point, and each edge meets the centreline at ~24 deg (side.png, robot.png).
 # TIP is the centre of the photo's dark nub, so the yellow stops where the nub begins.
-NEEDLE=dict(TIP=(846.0,606.0),HALF=(26.5,24.5),A=(1.31,2.8))   # inner, outer: half-width at the dot (px) and fullness
+# Gen 16 r2: outer A 2.8 -> 4.0. The closed photo's outer edge stays full and then rounds in to a thick tip.
+NEEDLE=dict(TIP=(846.0,606.0),HALF=(26.5,24.5),A=(1.31,4.0))   # inner, outer: half-width at the dot (px) and fullness
 # Gen 15 (voice-8673a6b6): the beak past the black dot is BEAK_STRETCH times longer along the finger, its point at the same
 # x, so dot -> point is a third of the finger (Gen 14: 24.8 of 109.4 mm, 23%; the closed photo shows ~38% from the dots).
 # Everything behind the dot is Gen 14's. The beak keeps Gen 14's widths at the same fraction of its length, so it is
@@ -128,7 +131,11 @@ def curve(pts,step=1.0):
 def knobs():
     """Gen 16's inner edge mid-shank: the base ramp plus two rounded 1 mm swells, pushed out along the outward normal
     (the finger is below the edge in the photo, so outward is the edge's left-hand normal)."""
-    B=curve(KNOBS['base']);t=np.gradient(B,axis=0);t/=np.hypot(*t.T)[:,None];n=np.c_[t[:,1],-t[:,0]]
+    B=curve(KNOBS['base']);k=int(3*KNOB_BASE_SIGMA)
+    S=np.c_[nd.gaussian_filter1d(B[:,0],KNOB_BASE_SIGMA,mode='nearest'),nd.gaussian_filter1d(B[:,1],KNOB_BASE_SIGMA,mode='nearest')]
+    r=np.clip(np.minimum(np.arange(len(B)),np.arange(len(B))[::-1])/k,0,1);r=r*r*(3-2*r)
+    B=B+(S-B)*r[:,None]   # eased in from both ends, so it still joins the trace without a step
+    t=np.gradient(B,axis=0);t/=np.hypot(*t.T)[:,None];n=np.c_[t[:,1],-t[:,0]]
     s=np.r_[0,np.cumsum(np.hypot(*np.diff(B,axis=0).T))];lift=np.zeros(len(B))
     for c,w in KNOBS['swells']:
         d=np.abs(s-s[np.argmin(np.hypot(*(B-np.array(c)).T))]);lift+=np.where(d<w,np.cos(np.pi/2*d/w)**2,0)
@@ -150,12 +157,25 @@ TIP_SHIFT_FROM=0.55     # the point moves in to the jaw's innermost reach over t
 ROUND_BACK=1.0          # mm: Gen 15: the slimmer point loses more to the 0.3 mm round (gripper.scad tip_r), so the contact sits ~1.0 mm
                         # behind the trace (measured on the mesh: innermost reach at z 123.35, trace point 124.31). Gen 14: 0.4; Gen 13: 1.8
                         # Gen 13: 1.8 (its 1 mm round left two nubs and a small V in front of the contact)
-WEDGE=dict(half_deg=4.5,cap=0.40,over=0.10,k=6)   # Gen 15: 4.5 deg to 0.40 mm (Gen 14: 4 deg to 0.35). Gen 14's model met ~0.6 mm
+WEDGE=dict(half_deg=15.0,cap=2.0,over=0.10,k=6)   # Gen 16 r2 (Jake: "the gap opens up rapidly going back from the tip", 6.8 deg
+                        # was too narrow; the closed photo, cad/reference/generalist_gripper_gen6_closed.png, is the key reference): 15 deg each
+                        # side (30 included) to a 2 mm gap, about what the jaw already has 25 mm back, so the gap never narrows again
+                        # (3 mm left a parallel slot that stepped back in at the shoulder).
+WEDGE_R1=dict(half_deg=4.5,cap=0.40,over=0.10,k=6)   # Gen 16 r1's wedge; the outer edge moves out by what r2 cuts beyond it (KEEP_WIDTH)
+KEEP_WIDTH=1.0          # r2 (Jake: "make the tip thicker"): fraction of the extra inner cut added back on the outer edge, so the beak
+                        # keeps r1's width and bends away from the jaw instead of getting thinner
+# Gen 15: 4.5 deg to 0.40 mm: 4.5 deg to 0.40 mm (Gen 14: 4 deg to 0.35). Gen 14's model met ~0.6 mm
                         # behind its designed contact, which made its 1-2 mm included angle read 6.6 deg; on target, 4/0.35 gives only 5.7.
                         # Gen 14: each inner edge leaves the contact at 4 deg (8 deg included) and the
                         # wedge levels off at a 0.35 mm gap; further back the gap is the photo's curve + 0.10 mm. A smooth max (power
                         # k) joins the two, so the gap only ever grows. r1 kept the whole wedge on (~0.5 mm over the photo
                         # the length of the jaw); the r1 review read that as a slit and asked for it to fade (r2)
+NOSE=dict(mm=7.0,a=0.35,b=0.35,deg=65)   # Gen 16 r2, from the closed photo: "approaching the tip on the outside, the profile rounds inward into
+                        # the final tip, but the tip itself stays relatively thick". The last NOSE['mm'] of the outer edge is a cubic
+                        # Bezier leaving the edge along its own tangent (handle a x chord) and arriving at the point deg off the
+                        # finger's axis (handle b x chord): a full, rounded nose instead of r1's straight 45 deg run in to a needle.
+                        # Square on (90 deg) read as a dome, not a point. 7 mm, not 6: gripper.scad tip_zone cuts at 6, and a
+                        # shared vertex there left a non-manifold edge
 JAW_FOLLOW=(21,26)      # mm behind the contact: the jaw edge IS the closed-gap curve up to 21 mm, blending into Gen 11's shoulder by 26 (r2; r1 18-24 opened too fast at 19-24 mm)
 def to_mm(q):
     a=np.radians(FRAME['deg']);d=np.subtract(q,FRAME['pivot'])
@@ -169,26 +189,36 @@ def stretch_z(q):   # Gen 15: photo px -> px with the finger stretched BEAK_STRE
 TIP_PHOTO=NEEDLE['TIP'];NEEDLE['TIP']=stretch_z(TIP_PHOTO)
 GAP=json.loads((HERE/'closed_trace.json').read_text())['gap_fit']
 photo_gap=lambda d:GAP['A']*max(0.0,d)**GAP['P']   # mm apart at d mm behind the point, closed, as measured (trace_closed.py)
-def closed_gap(d):   # Gen 14's target: opened sharply at the point, the photo's curve further back
-    d=max(0.0,d);w=WEDGE;d0=w['cap']/(2*np.tan(np.radians(w['half_deg'])))   # slope 2 tan(4 deg) at the contact
+def closed_gap(d,w=None):   # Gen 14's target: opened sharply at the point, the photo's curve further back
+    d=max(0.0,d);w=w or WEDGE;d0=w['cap']/(2*np.tan(np.radians(w['half_deg'])))   # slope 2 tan(4 deg) at the contact
     wedge=w['cap']*np.tanh(d/d0);rear=photo_gap(d)+w['over']*np.tanh(d/d0)
     return (wedge**w['k']+rear**w['k'])**(1/w['k'])
 
 
-def closed_jaw(n=48):
+def closed_jaw(n=48,r1=False):
     """Gen 11 r4's beak, made to close the way the photo does. The point moves in to x_c, the innermost
     reach of Gen 11's jaw (both edges blend over the last 45%). The jaw edge follows x_c + g(d)/2 up to
     JAW_FOLLOW[0] mm back, then blends into Gen 11's edge, and never comes inside x_c + g(d)/2, so two
-    mirrored fingers touch at the point only. Returns (inner, outer) px."""
+    mirrored fingers touch at the point only. r1: Gen 16 r1's beak (its wedge, no KEEP_WIDTH, no nose). Returns (inner, outer) px."""
     L,edge=needle_frame();ss=np.linspace(0,L,n)
     inner=np.array([to_mm(edge(s,-1)) for s in ss]);outer=np.array([to_mm(edge(s,1)) for s in ss])
     xc=inner[:,0].min();tip=inner[-1];dx=xc-tip[0]
     t=np.clip((ss/L-TIP_SHIFT_FROM)/(1-TIP_SHIFT_FROM),0,1);w=t*t*(3-2*t)
-    want=np.array([xc+closed_gap(tip[1]-ROUND_BACK-z)/2 for z in inner[:,1]])
     b=np.clip((tip[1]-ROUND_BACK-inner[:,1]-JAW_FOLLOW[0])/(JAW_FOLLOW[1]-JAW_FOLLOW[0]),0,1);b=b*b*(3-2*b)
-    inner[:,0]=np.maximum(want,want+(inner[:,0]+dx*w-want)*b)
-    outer[:,0]+=dx*w
+    def jaw(wedge):
+        want=np.array([xc+closed_gap(tip[1]-ROUND_BACK-z,wedge)/2 for z in inner[:,1]])
+        return np.maximum(want,want+(inner[:,0]+dx*w-want)*b)
+    x=jaw(WEDGE_R1 if r1 else WEDGE);outer[:,0]+=dx*w+(0 if r1 else KEEP_WIDTH)*(x-jaw(WEDGE_R1));inner[:,0]=x
+    if not r1:outer=nose(outer,inner[-1])
     return [to_px(m) for m in inner],[to_px(m) for m in outer]
+
+
+def nose(outer,tip):
+    """Gen 16 r2: replace the outer edge's last NOSE['mm'] (in z) with a rounded nose into the point. mm in, mm out."""
+    i=np.searchsorted(outer[:,1],tip[1]-NOSE['mm']);p0=outer[i-1];t0=outer[i]-outer[i-2];t0/=np.hypot(*t0)
+    L=np.hypot(*(tip-p0));p1=p0+t0*NOSE['a']*L;q=np.radians(NOSE['deg']);p2=tip+np.array([np.sin(q),-np.cos(q)])*NOSE['b']*L
+    u=np.linspace(0,1,40)[1:,None];b=(1-u)**3*p0+3*(1-u)**2*u*p1+3*(1-u)*u*u*p2+u**3*tip
+    return np.vstack([outer[:i],b])
 
 
 def needle(n=48):
@@ -200,13 +230,13 @@ def beak_slots(photo):
     """Gen 15: each photo slot keeps its fraction of the beak's length (stretch_z) and of its width at that point,
     measured inner -> outer edge on Gen 14's beak and placed on the longer one. Keeping x alone left the slots
     hugging the jaw, where the beak is slimmer per mm, and the last one broke through."""
-    def edges(tip):
+    def edges(tip,r1=False):
         keep=NEEDLE['TIP'];NEEDLE['TIP']=tip
-        try:inner,outer=(np.array([to_mm(q) for q in e]) for e in closed_jaw(200))
+        try:inner,outer=(np.array([to_mm(q) for q in e]) for e in closed_jaw(200,r1))
         finally:NEEDLE['TIP']=keep
         x=lambda e,z:np.interp(z,*(e[np.argsort(e[:,1])][:,::-1].T))
         return lambda z:(x(inner,z),x(outer,z))
-    old,new=edges(TIP_PHOTO),edges(NEEDLE['TIP']);out=[]
+    old,new=edges(TIP_PHOTO,True),edges(NEEDLE['TIP']);out=[]   # Gen 16 r2: fractions read on r1's beak, so the wider V moves the slots out with the jaw
     for q in photo:
         m=to_mm(q);a,b=old(m[1]);f=(m[0]-a)/(b-a);z=to_mm(stretch_z(q))[1];a,b=new(z)
         out.append(tuple(to_px((a+f*(b-a),z))))
