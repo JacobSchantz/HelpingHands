@@ -14,3 +14,5 @@ Gen 9's smoothed outline, J-hook, blade-root S-curve and 0.5 mm eased point; all
 v017_generalist_strap_slide — Gen 17 (voice-cfdf2d31): Gen 16's fingers at the full 12 mm thickness to the point (the point is in
 plan only) + how the loops attach: a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots.
 Replaces the old Gen 17 (v017_generalist_simple: fingers + pads + camera cradle; deleted, in git before voice-cfdf2d31).
+v201_generalist_strap_loops — 2.1 (voice-4c63021e): first gripper-plus-handles version. 1.17's fingers + the loop attachment:
+a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots. v201 = 2.01.
