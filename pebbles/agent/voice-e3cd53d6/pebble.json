@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Version 3.2 of the gripper, handles and base needs a much simpler design than 3.1, with fewer parts and shrunken handles. The strap-loop slots must stay completely clear, with params.json, Tune sliders, separable pieces and the single RS00 drive kept.",
+  "summary_sha": "e3cd53d619de752a"
 }
