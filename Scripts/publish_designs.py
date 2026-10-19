@@ -139,6 +139,7 @@ def discover(repo=REPO):
                    "two-finger-gripper-v015-generalist-long-jaw": 15,
                    "two-finger-gripper-v016-generalist-rounded-point": 16,
                    "two-finger-gripper-v017-generalist-strap-slide": 17,
+                   "two-finger-gripper-v018-generalist-flat-taper": 18,
                    "two-finger-gripper-v201-generalist-strap-loops": "2.1",
                    "two-finger-gripper-v202-generalist-flush-loops": "2.2"}
     # Public families group related studies; stable IDs preserve saved links
