@@ -33,3 +33,6 @@ v204_generalist_parametric — 2.4 (voice-3211a12d): 2.3 with every dimension a 
 (67: outline, finger solid, handle plate, strap slots, tongue and pocket, calibration). Byte-identical STLs to 2.3 at its values;
 adds 1.18's taper, 1.19's outer lean, hook depth, hole scale and dovetail angles as params. The live preview's Tune panel
 slides each one and re-renders the real CAD (live_render.py via serve_designs.py /tune). Later versions: copy, edit params.json.
+v205_generalist_spanning_handle — 2.5 (voice-56f9d73f): 2.4's params on 1.20's double-hook fingers (byte-identical finger). Each
+handle plate spans the straight outer edge floor to floor between the base and top hooks (41.8 mm; 2.4: 28), a foot in each notch,
+and slides in across the finger from the ventral side; a stop strip butts the ventral face when home. 2.3's tongue + pocket dropped.
