@@ -82,6 +82,7 @@ The split gives us two properties:
 | Gripper, hand and glove hardware (the data source) | 1 | `Two Finger Gripper/`, `Three Finger Gripper/`, `cad/`, `plans/hand_1_0.md`, `plans/handheld_gripper.md`, `plans/aero-hand-glove-teaching.md` |
 | Demonstration capture and training | 1 | `record_actions.sh`, `teleop.sh`, `plans/training_pipeline.md` |
 | Model choice and deployment | 1 | `plans/world_action_model.md`, `plans/molmoact2_deployment.md`, `plans/robot_model_scouting.md` |
+| External human data (egocentric datasets) | 1 | `plans/egocentric_datasets.md` |
 | Scoring models, the tool contract | 1 ↔ 2 | `robot_eval/` |
 | Agent harness | 2 | not built yet |
 | The app (instruction, eyes, stop button) | the person ↔ 2 | `HelpingHands/` |
