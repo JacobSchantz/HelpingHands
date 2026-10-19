@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Survey open source robotics datasets such as Open X-Embodiment, DROID, and LeRobot hub SO-101 sets, recording size, license, embodiment, and modalities for each. Document findings in the repo docs, rating each dataset's fit for training our world action model on our gripper.",
+  "summary_sha": "c7c6c5dca4959b09"
 }

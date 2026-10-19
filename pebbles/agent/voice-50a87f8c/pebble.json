@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Survey open-source egocentric manipulation datasets like Ego4D and EPIC-KITCHENS, plus newer ones, recording size, license, and modalities (video, depth, hand pose, actions, language). Document each one's usefulness for training our gripper world action model in the repo's docs so any agent can use it.",
+  "summary_sha": "50a87f8ca544c04f"
 }
