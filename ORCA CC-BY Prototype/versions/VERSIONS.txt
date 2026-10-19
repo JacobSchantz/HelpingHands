@@ -1,0 +1,6 @@
+ORCA finger design history
+
+v001_channel_study/ — saved original assembly and first2x central-channel experiment, including source files and failed-cut audit.
+v002_clean_index/ — clean intact original-scale index assembly, one color. Current viewing version.
+
+Keep existing version folders unchanged. Save the next revision in a new numbered folder with source geometry, settings and change notes.

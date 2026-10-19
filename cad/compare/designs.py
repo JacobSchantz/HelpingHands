@@ -122,6 +122,21 @@ def discover():
                 'parts': pieces(folder, source, index),
                 'in_progress': working_on(folder, source, index == len(sources) - 1, claimed),
             })
+    folder = OPENSCAD_DIR / 'glove_hand'
+    source = folder / 'jake_hand.scad'
+    if source.exists():
+        mesh = folder / 'export' / 'jake_hand.stl'
+        found.insert(0, {
+            'id': 'jake-hand', 'name': "Your hand · measured model",
+            'family': 'Your hand', 'generation': 'gen_00', 'newest': True,
+            'folder': str(folder.relative_to(REPO)), 'scad': str(source.relative_to(REPO)),
+            'concept': str((folder / 'web' / 'jake_hand.js').relative_to(REPO)),
+            'notes': str((folder / 'compare' / 'jake_hand.md').relative_to(REPO)),
+            'sheet': str((folder / 'render' / 'compare_jake_hand.png').relative_to(REPO)),
+            'parts': [{'file': mesh.name, 'name': 'Your hand', 'color': '#e2b49a',
+                       'explode': [0, 0, 0], 'path': str(mesh.relative_to(REPO))}] if mesh.exists() else [],
+            'in_progress': working_on(folder, source, False, claimed),
+        })
     return found
 
 
@@ -151,6 +166,8 @@ def score(query, design):
 
 
 def match(query, found):
+    if query.strip().lower() in ('hand', 'my hand', 'your hand', 'jake hand'):
+        query = 'jake-hand'
     exact = [d for d in found if d['id'] == query.strip()]
     if exact or not found:
         return exact[0] if exact else None

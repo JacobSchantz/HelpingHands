@@ -1,0 +1,102 @@
+{
+  "source_sha256": "69c6bd5612a4d91648d77f7246ea7b1894975a7a4d0ad75932aec1fc980f9e19",
+  "pose_count": 6,
+  "max_overlaps_mm3": {
+    "base x proximal": 0,
+    "base x middle": 0,
+    "base x distal": 0,
+    "base x drum": 0,
+    "base x lid": 0,
+    "proximal x middle": 0.3839855768903571,
+    "proximal x distal": 0,
+    "proximal x drum": 0,
+    "proximal x lid": 0,
+    "middle x distal": 9.107184624907083,
+    "middle x drum": 0,
+    "middle x lid": 0,
+    "distal x drum": 0,
+    "distal x lid": 0,
+    "drum x lid": 0,
+    "base x finger": 0,
+    "proximal x finger": 0,
+    "middle x finger": 0,
+    "distal x finger": 0,
+    "drum x finger": 0,
+    "lid x finger": 0,
+    "base x palm comfort": 2.2104897790253717e-05,
+    "proximal x palm comfort": 0,
+    "middle x palm comfort": 0,
+    "distal x palm comfort": 0,
+    "drum x palm comfort": 0,
+    "lid x palm comfort": 0,
+    "printed x thumb 22": 0,
+    "printed x thumb 30": 0,
+    "printed x thumb 45": 0,
+    "printed x thumb 70": 0,
+    "pin 0 x skin": 0,
+    "pin 1 x skin": 0,
+    "pin 2 x skin": 0,
+    "cord x finger": 0,
+    "cord x thumb 22": 0,
+    "cord x thumb 30": 0,
+    "cord x thumb 45": 0,
+    "cord x thumb 70": 0
+  },
+  "collisions": [
+    {
+      "pose": [
+        0,
+        0,
+        0
+      ],
+      "pair": "proximal x middle",
+      "mm3": 0.384
+    },
+    {
+      "pose": [
+        0,
+        0,
+        0
+      ],
+      "pair": "middle x distal",
+      "mm3": 9.1072
+    },
+    {
+      "pose": [
+        90,
+        0,
+        0
+      ],
+      "pair": "proximal x middle",
+      "mm3": 0.384
+    },
+    {
+      "pose": [
+        90,
+        0,
+        0
+      ],
+      "pair": "middle x distal",
+      "mm3": 9.1072
+    },
+    {
+      "pose": [
+        0,
+        95,
+        0
+      ],
+      "pair": "middle x distal",
+      "mm3": 9.1072
+    },
+    {
+      "pose": [
+        0,
+        0,
+        65
+      ],
+      "pair": "proximal x middle",
+      "mm3": 0.384
+    }
+  ],
+  "mesh_failures": []
+}

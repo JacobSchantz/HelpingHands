@@ -1,0 +1,54 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/hub.stl",
+      "name": "Compact two-pivot hub",
+      "color": "#3d4653",
+      "explode": [
+        0,
+        0,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left jaw \u2014 shared source, half-pitch tooth index",
+      "color": "#efb83b",
+      "explode": [
+        -50,
+        0,
+        18
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right jaw \u2014 shared source, direct servo drive",
+      "color": "#efb83b",
+      "explode": [
+        50,
+        0,
+        18
+      ]
+    },
+    {
+      "path": "exports/parts/adapter.stl",
+      "name": "Plastic horn adapter blank \u2014 unselected interface",
+      "color": "#abb4bc",
+      "explode": [
+        15,
+        -30,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "ONE servo envelope \u2014 unselected",
+      "color": "#252e38",
+      "explode": [
+        0,
+        -65,
+        -10
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+v001_motor_force_layout — superseded rotating thumb/index architecture, no CAD.
+v002_two_parallel_modules — ACTIVE two independent parallel-jaw modules; provisional
+servo/encoder/load-cell interfaces; operator input mapping unresolved.
+v012_generalist_tweezer — Gen 12: Gen 11's yellow fingers as tweezers; slender tines,
+flat 1.4 mm tips that meet along an 11 mm land, grooves near the tip only.
+v013_generalist_closed_beak — Gen 13: designed closed from the closed photo; the points touch
+only at the tip, the gap opens behind it along the photo's measured curve; serration the whole inner edge.
+v014_generalist_tip_contact — Gen 14: refinement of Gen 13; only the points touch closed (8 deg V behind
+the point), sharper 0.3 mm point, dark tip pad from the photos, grooves stop behind the pad.
+v015_generalist_printable — Gen 15: Gen 14 fingers made printable (2.0 mm tip, 0.8 mm walls, M3 holes, pad merged)
+plus the device from the photos: thumb/index carriers, pivot plate, hand frame, Insta360 X4/X5 camera mount, straps. BOM.md.
+v016_generalist_simple — Gen 16: Gen 15 cut to 3 printed parts. Each finger fused to a flat side pad (thumb / index)
+with one strap slot; one pivot plate + Insta360 X4/X5 cradle. No wrist attachment, straps not modelled. BOM.md.

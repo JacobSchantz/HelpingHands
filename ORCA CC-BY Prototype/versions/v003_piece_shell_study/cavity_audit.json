@@ -1,0 +1,432 @@
+{
+  "source_repository": "https://github.com/orcahand/orcahand_hardware",
+  "source_commit": "37b71dc03d3f11e48b920cbf54562b33c025bc8c",
+  "license": "CC-BY-4.0",
+  "attribution": "ORCA Hand, Copyright (c) 2026 ORCA Dexterity, Inc.",
+  "source_units": "millimeters",
+  "method": "Signed Euclidean distance from the closed source triangle mesh, sampled on a regular grid; negative isosurfaces extracted by vtkFlyingEdges3D. Subtract each cavity from the unchanged source exterior in OpenSCAD.",
+  "maximum_grid_pitch_mm": 0.2,
+  "grid_origin_shift_mm": [
+    0.013071,
+    0.019137,
+    0.029513
+  ],
+  "tiny_cavity_filter": "Exclude an entire disconnected cavity island only when its largest bounding-box extent is below 1 mm AND its bounding-box volume is below 0.01 mm3. This preserves solid material in those locations; no hole filling or smoothing is performed.",
+  "nominal_offset_presets_mm_at_1x": [
+    1.0,
+    1.5,
+    2.0
+  ],
+  "measurement_limit": "Surface clearance is sampled at every cavity vertex and triangle centroid; it is not a certified minimum over all points. Original narrow features remain solid and may already be thinner than the selected offset.",
+  "part_results": [
+    {
+      "id": "I-AP-R",
+      "source_path": "source/I-AP-R.stl",
+      "source_sha256": "dcb079b42627e2b72fabb00a623293d587e9c22d8a0b58bd194ba27e60c315cb",
+      "source_bounds_mm": [
+        [
+          -9.498553276062012,
+          -9.0,
+          -9.497538566589355
+        ],
+        [
+          24.28112030029297,
+          9.0,
+          9.5
+        ]
+      ],
+      "source_volume_mm3": 3701.4467978480698,
+      "source_connected_boundary_components": 1,
+      "grid_dimensions": [
+        174,
+        95,
+        100
+      ],
+      "grid_spacing_mm": [
+        0.1998825062217051,
+        0.2,
+        0.19997513703625613
+      ],
+      "maximum_sampled_interior_distance_mm": 2.46460860997859,
+      "cavities": [
+        {
+          "nominal_offset_mm_at_1x": 1.0,
+          "path": "generated/I-AP-R_cavity_1.0mm.stl",
+          "sha256": "7f6ebb5b75dff7a3964ce4699729cfa00a332e282325538dec0de1b02054a6f5",
+          "triangle_count": 99260,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 1055.5062473856142,
+          "material_removed_percent": 28.516045347437103,
+          "remaining_material_volume_mm3": 2645.9405504624556,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 3,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 0.9862603303499288,
+            "maximum": 1.0975296726801091,
+            "median": 1.0,
+            "sample_count": 148892,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 1.5,
+          "path": "generated/I-AP-R_cavity_1.5mm.stl",
+          "sha256": "ce660af5cd2e1aa0cd34fbda8d36fcf6bcbc7d9f623e84c8744764579a9bb8ca",
+          "triangle_count": 49568,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [
+            {
+              "triangle_count": 8,
+              "bounds_mm": [
+                [
+                  -0.4448722302913666,
+                  -7.400484085083008,
+                  5.6919050216674805
+                ],
+                [
+                  -0.25172558426856995,
+                  -7.363306999206543,
+                  5.740871906280518
+                ]
+              ],
+              "bounding_box_volume_mm3": 0.00035161305352835327,
+              "was_watertight": true
+            }
+          ],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 423.96865208622347,
+          "material_removed_percent": 11.45413334949752,
+          "remaining_material_volume_mm3": 3277.478145761846,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 5,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.4908765167136377,
+            "maximum": 1.6003200611276225,
+            "median": 1.499999987337592,
+            "sample_count": 74358,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 2.0,
+          "path": "generated/I-AP-R_cavity_2.0mm.stl",
+          "sha256": "c59768c853f3440d5b12b506972b7c192c1743b67fba63c19a3adbddc6c943b1",
+          "triangle_count": 22876,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [
+            {
+              "triangle_count": 8,
+              "bounds_mm": [
+                [
+                  14.881566047668457,
+                  -4.19752836227417,
+                  0.9144191145896912
+                ],
+                [
+                  14.937106132507324,
+                  -4.16316556930542,
+                  1.038916826248169
+                ]
+              ],
+              "bounding_box_volume_mm3": 0.00023760543105145332,
+              "was_watertight": true
+            }
+          ],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 102.21508058729312,
+          "material_removed_percent": 2.7614899300111184,
+          "remaining_material_volume_mm3": 3599.2317172607763,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 5,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.9951566096167748,
+            "maximum": 2.0962167991441314,
+            "median": 2.000000008913597,
+            "sample_count": 34324,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "I-PP",
+      "source_path": "source/I-PP.stl",
+      "source_sha256": "326697b792080363c007674953f84799ead7e5a4d886942435171a12bffce8cf",
+      "source_bounds_mm": [
+        [
+          -9.5,
+          -9.0,
+          -9.496834754943848
+        ],
+        [
+          9.5,
+          9.0,
+          44.99939727783203
+        ]
+      ],
+      "source_volume_mm3": 6396.164324364726,
+      "source_connected_boundary_components": 1,
+      "grid_dimensions": [
+        100,
+        95,
+        278
+      ],
+      "grid_spacing_mm": [
+        0.2,
+        0.2,
+        0.1996253863999129
+      ],
+      "maximum_sampled_interior_distance_mm": 4.154132612884749,
+      "cavities": [
+        {
+          "nominal_offset_mm_at_1x": 1.0,
+          "path": "generated/I-PP_cavity_1.0mm.stl",
+          "sha256": "8280aca96aaf5a54ba9df2eb6a0cc7acb5c04f2ca33cffc78b14f45807d21647",
+          "triangle_count": 158140,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 2473.0708363473987,
+          "material_removed_percent": 38.664904635529794,
+          "remaining_material_volume_mm3": 3923.0934880173263,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 1,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 0.9862093789324077,
+            "maximum": 1.1029775756470819,
+            "median": 0.9999999350971587,
+            "sample_count": 237204,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 1.5,
+          "path": "generated/I-PP_cavity_1.5mm.stl",
+          "sha256": "5e28a50ca2f0e7d8217f79c1f9fe7803daf7a47f170f1a71256b166fb26c7847",
+          "triangle_count": 111164,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [
+            {
+              "triangle_count": 8,
+              "bounds_mm": [
+                [
+                  -1.1622806787490845,
+                  2.5991692543029785,
+                  13.196682929992676
+                ],
+                [
+                  -1.0619359016418457,
+                  2.634131908416748,
+                  13.341570854187012
+                ]
+              ],
+              "bounding_box_volume_mm3": 0.0005083131636872058,
+              "was_watertight": true
+            },
+            {
+              "triangle_count": 8,
+              "bounds_mm": [
+                [
+                  2.480327844619751,
+                  3.789235830307007,
+                  17.577293395996094
+                ],
+                [
+                  2.649074077606201,
+                  3.8516428470611572,
+                  17.831689834594727
+                ]
+              ],
+              "bounding_box_volume_mm3": 0.0026790359179125773,
+              "was_watertight": true
+            }
+          ],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 1324.354298918141,
+          "material_removed_percent": 20.70544519741234,
+          "remaining_material_volume_mm3": 5071.810025446948,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 3,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.4911575651535147,
+            "maximum": 1.5982865843980711,
+            "median": 1.499999821186066,
+            "sample_count": 166746,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 2.0,
+          "path": "generated/I-PP_cavity_2.0mm.stl",
+          "sha256": "7cd135cb933dec024cf66e333b2b1bd3c7f204eb29629bc17bc8bd57246b08a4",
+          "triangle_count": 64792,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 552.4743739917484,
+          "material_removed_percent": 8.637588810644292,
+          "remaining_material_volume_mm3": 5843.689950372976,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 2,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.9933977667402767,
+            "maximum": 2.106606324513753,
+            "median": 1.9999998211860657,
+            "sample_count": 97188,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        }
+      ]
+    },
+    {
+      "id": "I-IP",
+      "source_path": "source/I-IP.stl",
+      "source_sha256": "f265a451fba256522035f0d1e7dd932bf6da9653844da720eeb520e02a8ebb11",
+      "source_bounds_mm": [
+        [
+          -8.0,
+          -7.0,
+          -7.5
+        ],
+        [
+          8.717405319213867,
+          7.0,
+          45.03361511230469
+        ]
+      ],
+      "source_volume_mm3": 4012.0967017009425,
+      "source_connected_boundary_components": 1,
+      "grid_dimensions": [
+        89,
+        75,
+        268
+      ],
+      "grid_spacing_mm": [
+        0.19906142408197577,
+        0.2,
+        0.1997513674618153
+      ],
+      "maximum_sampled_interior_distance_mm": 4.477056663917158,
+      "cavities": [
+        {
+          "nominal_offset_mm_at_1x": 1.0,
+          "path": "generated/I-IP_cavity_1.0mm.stl",
+          "sha256": "59916fda49b494e40345b3139dbec90dfd53e90882cc7fd43b61ededb117a31b",
+          "triangle_count": 94516,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [
+            {
+              "triangle_count": 24,
+              "bounds_mm": [
+                [
+                  -3.8135414123535156,
+                  -0.34315624833106995,
+                  42.2541389465332
+                ],
+                [
+                  -3.803617238998413,
+                  0.34151172637939453,
+                  42.27385711669922
+                ]
+              ],
+              "bounding_box_volume_mm3": 0.0001339803063167101,
+              "was_watertight": true
+            },
+            {
+              "triangle_count": 4,
+              "bounds_mm": [
+                [
+                  -5.627523422241211,
+                  3.9897799491882324,
+                  45.43317794799805
+                ],
+                [
+                  -5.571300506591797,
+                  4.046418190002441,
+                  45.46312713623047
+                ]
+              ],
+              "bounding_box_volume_mm3": 9.536920775714622e-05,
+              "was_watertight": false
+            }
+          ],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 2090.3411690802245,
+          "material_removed_percent": 52.100966752474754,
+          "remaining_material_volume_mm3": 1921.7555330705982,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 1,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 0.9865001086676302,
+            "maximum": 1.092930475870768,
+            "median": 0.9999999920634348,
+            "sample_count": 141772,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 1.5,
+          "path": "generated/I-IP_cavity_1.5mm.stl",
+          "sha256": "b947b562d74a59fe6f4008f4cc0e5bc39d915464077524802cf4e149590732f4",
+          "triangle_count": 72988,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 1388.7963330050695,
+          "material_removed_percent": 34.615225798680385,
+          "remaining_material_volume_mm3": 2623.300369145753,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 1,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.4909517289719574,
+            "maximum": 1.5920948493989109,
+            "median": 1.4999999031881928,
+            "sample_count": 109484,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        },
+        {
+          "nominal_offset_mm_at_1x": 2.0,
+          "path": "generated/I-IP_cavity_2.0mm.stl",
+          "sha256": "15137662dcc54d328a1329ce3721443d5ff5a477101ec4ef56b24a6057aa8da0",
+          "triangle_count": 57012,
+          "watertight": true,
+          "excluded_tiny_cavity_islands": [],
+          "outside_source_triangle_count": 0,
+          "outside_source_volume_mm3": 0.0,
+          "cavity_volume_mm3": 838.990560646811,
+          "material_removed_percent": 20.91152388827613,
+          "remaining_material_volume_mm3": 3173.1061415040112,
+          "remaining_positive_boundary_components": 1,
+          "closed_void_boundaries": 1,
+          "hollow_watertight": true,
+          "sampled_clearance_mm": {
+            "minimum": 1.993162612612538,
+            "maximum": 2.097072938023796,
+            "median": 1.9999998509883883,
+            "sample_count": 85518,
+            "sample_locations": "Every cavity vertex and triangle centroid"
+          }
+        }
+      ]
+    }
+  ]
+}

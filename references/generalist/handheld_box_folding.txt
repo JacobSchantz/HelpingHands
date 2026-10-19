@@ -1,0 +1,3 @@
+Official Generalist AI handheld demonstration reference; imagery only, no hardware/CAD licence claimed.
+https://generalistai.com/assets/pages/blog/gen-1/assets/generalist-gen1-box-folding-handheld-1x.mp4
+Frames sampled by ffmpeg for mechanism/attachment inspection.

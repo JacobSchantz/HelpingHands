@@ -1,0 +1,38 @@
+{
+  "hub": {
+    "triangles": 1884,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true
+  },
+  "index": {
+    "triangles": 3796,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true
+  },
+  "sensor_pad": {
+    "triangles": 1292,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true
+  },
+  "adapter": {
+    "triangles": 212,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true
+  },
+  "assembly": {
+    "triangles": 13340,
+    "components": 7,
+    "watertight": true,
+    "consistent_winding": true
+  },
+  "thumb": {
+    "triangles": 4048,
+    "components": 1,
+    "watertight": true,
+    "consistent_winding": true
+  }
+}

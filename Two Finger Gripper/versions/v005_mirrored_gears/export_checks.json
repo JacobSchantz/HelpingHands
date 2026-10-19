@@ -1,0 +1,42 @@
+[
+  {
+    "part": "assembly",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 206\nGeometry cache size in bytes: 21244008\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:02.834\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      7\n   Vertices:    10584\n   Facets:      21192"
+  },
+  {
+    "part": "viewer_hub",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 45\nGeometry cache size in bytes: 348840\nCGAL Polyhedrons in cache: 8\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.034\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      4\n   Vertices:     1216\n   Facets:       2444"
+  },
+  {
+    "part": "viewer_left",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 132\nGeometry cache size in bytes: 20340472\nCGAL Polyhedrons in cache: 37\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:02.599\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     4340\n   Facets:       8688"
+  },
+  {
+    "part": "viewer_right",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 132\nGeometry cache size in bytes: 20340472\nCGAL Polyhedrons in cache: 36\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:02.547\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     4344\n   Facets:       8696"
+  },
+  {
+    "part": "viewer_adapter",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 11\nGeometry cache size in bytes: 91064\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.007\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:      396\n   Facets:        788"
+  },
+  {
+    "part": "viewer_motor",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 14\nGeometry cache size in bytes: 165680\nCGAL Polyhedrons in cache: 2\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.017\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:      288\n   Facets:        572"
+  },
+  {
+    "part": "left",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 132\nGeometry cache size in bytes: 20340472\nCGAL Polyhedrons in cache: 34\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:02.608\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     4340\n   Facets:       8688"
+  },
+  {
+    "part": "right",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 132\nGeometry cache size in bytes: 20340472\nCGAL Polyhedrons in cache: 34\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:06.719\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     4344\n   Facets:       8696"
+  }
+]

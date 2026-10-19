@@ -1,0 +1,22 @@
+[
+  {
+    "name": "mirrored_gears",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 206\nGeometry cache size in bytes: 21244008\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:03.508\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      7\n   Vertices:    10584\n   Facets:      21192\n"
+  },
+  {
+    "name": "front",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 206\nGeometry cache size in bytes: 21244008\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:03.573\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      7\n   Vertices:    10584\n   Facets:      21192\n"
+  },
+  {
+    "name": "closed",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 0, reference_gap_mm = 3.4\nGeometries in cache: 206\nGeometry cache size in bytes: 21244008\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:04.771\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      7\n   Vertices:    10584\n   Facets:      21192\n"
+  },
+  {
+    "name": "finger_channel",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, reference_gap_mm = 35.3238\nGeometries in cache: 206\nGeometry cache size in bytes: 21244008\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:03.908\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      7\n   Vertices:    10584\n   Facets:      21192\n"
+  }
+]

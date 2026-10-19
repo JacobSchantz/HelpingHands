@@ -1,0 +1,124 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/hub.stl",
+      "name": "Fixed pivot hub",
+      "color": "#454e60",
+      "explode": [
+        0,
+        0,
+        -25
+      ]
+    },
+    {
+      "path": "exports/parts/thumb.stl",
+      "name": "Thumb jaw and gear",
+      "color": "#efb739",
+      "explode": [
+        -55,
+        0,
+        10
+      ]
+    },
+    {
+      "path": "exports/parts/index.stl",
+      "name": "Index jaw and gear",
+      "color": "#f8c640",
+      "explode": [
+        55,
+        0,
+        10
+      ]
+    },
+    {
+      "path": "exports/parts/pad.stl",
+      "name": "Floating normal-force contact pad",
+      "color": "#333f45",
+      "explode": [
+        -25,
+        -12,
+        25
+      ]
+    },
+    {
+      "path": "exports/parts/sensor.stl",
+      "name": "Compression sensor envelope \u2014 unselected",
+      "color": "#40be63",
+      "explode": [
+        -40,
+        0,
+        17
+      ]
+    },
+    {
+      "path": "exports/parts/guide_front.stl",
+      "name": "Front pad shoulder-guide fastener",
+      "color": "#a8b3ba",
+      "explode": [
+        -15,
+        -20,
+        28
+      ]
+    },
+    {
+      "path": "exports/parts/guide_rear.stl",
+      "name": "Rear pad shoulder-guide fastener",
+      "color": "#a8b3ba",
+      "explode": [
+        -15,
+        20,
+        28
+      ]
+    },
+    {
+      "path": "exports/parts/adapter.stl",
+      "name": "Undrilled servo-horn adapter blank",
+      "color": "#a8b3ba",
+      "explode": [
+        15,
+        -25,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "ONE servo envelope \u2014 unselected",
+      "color": "#303943",
+      "explode": [
+        0,
+        -55,
+        -10
+      ]
+    },
+    {
+      "path": "exports/parts/pivot_pin.stl",
+      "name": "Free pivot pin envelope",
+      "color": "#a8b3ba",
+      "explode": [
+        -12,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/thumb_strap.stl",
+      "name": "Thumb soft-strap envelope \u2014 NOT a printed cuff",
+      "color": "#b26ac1",
+      "explode": [
+        -80,
+        0,
+        20
+      ]
+    },
+    {
+      "path": "exports/parts/index_strap.stl",
+      "name": "Index soft-strap envelope \u2014 NOT a printed cuff",
+      "color": "#b26ac1",
+      "explode": [
+        80,
+        0,
+        20
+      ]
+    }
+  ]
+}

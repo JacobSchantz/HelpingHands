@@ -1,0 +1,19 @@
+Generalist Gripper — Live generations
+
+Gen 1: cad/openscad/demo_gripper/gen_00_slim_two_pairs.scad
+Gen 2: cad/openscad/demo_gripper/gen_01_finray_tpu.scad
+Gen 3: Two Finger Gripper/versions/v003_single_pincher/gripper.scad
+Gen 4: Two Finger Gripper/versions/v004_symmetric_pincher/gripper.scad
+Gen 5: Two Finger Gripper/versions/v005_mirrored_gears/gripper.scad
+Gen 6: Two Finger Gripper/versions/v006_dorsal_drive/gripper.scad
+Gen 7: Two Finger Gripper/versions/v007_generalist_fingers/gripper.scad (yellow fingers only)
+Gen 8: Two Finger Gripper/versions/v008_pollen_grabette/gripper.scad (Pollen's actual Grabette, assembled from their URDF; Apache-2.0)
+
+Live names are simple generation numbers. Original source paths and stable catalog
+IDs remain unchanged so previous work and saved links can still be identified.
+Dorsal linkage, motor-force layout, and two-parallel-module studies are removed
+from the Live catalog. Their source folders remain historical working material.
+
+Gen 3 is the current thumb/index, one-servo, one-jaw-pair direction. Inspect the
+version's README for mechanical checks and unverified hardware assumptions.
+Reference images here are attributed Generalist AI imagery, not CAD sources.

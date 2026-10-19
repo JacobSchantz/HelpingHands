@@ -1,0 +1,5 @@
+Visual references downloaded 2026-10-17 from https://generalistai.com/
+Original website video poster frames, Generalist AI. Reference imagery only; no CAD or open-source license claimed.
+https://generalistai.com/assets/videos/index-hero/generalist_website_screwhand_1.jpg
+https://generalistai.com/assets/videos/index-hero/generalist_website_ziptie_1.jpg
+https://generalistai.com/assets/videos/index-hero/generalist_website_whiskhand_1.jpg

@@ -1,0 +1,109 @@
+{
+  "parameters": {
+    "enlargement": 2,
+    "longitudinal_scale": 2,
+    "channel_width_mm": 24,
+    "channel_depth_mm": 22,
+    "channel_center_xy_mm": [
+      0,
+      0
+    ]
+  },
+  "source_hashes_match": true,
+  "original_neutral_intersection_mm3": {
+    "I-AP-R vs I-PP": 0.0,
+    "I-PP vs I-IP": 0.0,
+    "I-AP-R vs I-IP": 0.0
+  },
+  "parts": [
+    {
+      "part": "I-AP-R",
+      "uncut_volume_mm3": 29611.574382784558,
+      "remaining_volume_mm3": 22648.58181961456,
+      "removed_percent": 23.514428760728478,
+      "remaining_connected_components": 4,
+      "component_volumes_mm3": [
+        22575.36416926952,
+        72.71091048783698,
+        0.10716590946265943,
+        0.399573947743819
+      ],
+      "watertight": true,
+      "bounds_mm": [
+        [
+          -18.99507713317871,
+          -18.0,
+          -48.56224060058594
+        ],
+        [
+          19.0,
+          18.0,
+          18.997106552124023
+        ]
+      ]
+    },
+    {
+      "part": "I-PP",
+      "uncut_volume_mm3": 51169.31459491781,
+      "remaining_volume_mm3": 29006.557985641703,
+      "removed_percent": 43.31259229232931,
+      "remaining_connected_components": 4,
+      "component_volumes_mm3": [
+        2563.57877107697,
+        108.04418863352127,
+        26272.92404693594,
+        62.01097899526771
+      ],
+      "watertight": true,
+      "bounds_mm": [
+        [
+          -19.0,
+          -18.0,
+          -16.160383224487305
+        ],
+        [
+          19.0,
+          18.0,
+          89.99879455566406
+        ]
+      ]
+    },
+    {
+      "part": "I-IP",
+      "uncut_volume_mm3": 32096.77361360754,
+      "remaining_volume_mm3": 8972.407341896609,
+      "removed_percent": 72.04576556538154,
+      "remaining_connected_components": 6,
+      "component_volumes_mm3": [
+        286.2297737018298,
+        130.25006887752147,
+        24.360448135992254,
+        130.2500679566944,
+        24.359575866043844,
+        8376.957407358526
+      ],
+      "watertight": true,
+      "bounds_mm": [
+        [
+          -13.0,
+          -14.0,
+          59.62367630004883
+        ],
+        [
+          20.434810638427734,
+          14.0,
+          161.18756103515625
+        ]
+      ]
+    }
+  ],
+  "saved_openscad_stl": {
+    "triangles": 30192,
+    "watertight": true,
+    "consistent_winding": true,
+    "connected_components": 14,
+    "volume_mm3": 60627.54720623511,
+    "sha256": "8276e649a61ccc8d3a0dcb4cd3dcf027a07d8fa63b0c2b2e573228817a03516e"
+  },
+  "scope": "Geometry only. Disconnected remnants are retained and reported. No force, pin retention, tendon routing, motion range or wearable-fit validation."
+}

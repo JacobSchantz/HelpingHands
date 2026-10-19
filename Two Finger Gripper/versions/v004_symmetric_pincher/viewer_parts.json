@@ -1,0 +1,64 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/hub.stl",
+      "name": "Centered fixed hub",
+      "color": "#3d4653",
+      "explode": [
+        0,
+        0,
+        -35
+      ]
+    },
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left mirrored jaw \u2014 outer finger channel",
+      "color": "#efb83b",
+      "explode": [
+        -50,
+        0,
+        20
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right mirrored jaw \u2014 outer finger channel",
+      "color": "#efb83b",
+      "explode": [
+        50,
+        0,
+        20
+      ]
+    },
+    {
+      "path": "exports/parts/yoke.stl",
+      "name": "Single symmetric sliding yoke",
+      "color": "#abb4bc",
+      "explode": [
+        0,
+        30,
+        -8
+      ]
+    },
+    {
+      "path": "exports/parts/crank.stl",
+      "name": "ONE servo crank \u2014 unselected horn interface",
+      "color": "#687887",
+      "explode": [
+        0,
+        -30,
+        -10
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "ONE centered servo envelope \u2014 unselected",
+      "color": "#252e38",
+      "explode": [
+        0,
+        -65,
+        -20
+      ]
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "hardware_commit": "37b71dc03d3f11e48b920cbf54562b33c025bc8c",
+  "description_commit": "b9b349a21ee0238c62b6cf92ae7597027867adf8",
+  "additional_reference_files": [
+    {
+      "path": "source/orcahand_right.urdf",
+      "url": "https://raw.githubusercontent.com/orcahand/orcahand_description/b9b349a21ee0238c62b6cf92ae7597027867adf8/v2/models/urdf/orcahand_right.urdf",
+      "license": "MIT",
+      "bytes": 21855,
+      "sha256": "286dd8b329d31ef6570ab0d1474f086e83186ca53386de976e193b1019d33bb4"
+    },
+    {
+      "path": "source/DESCRIPTION_LICENSE_MIT.txt",
+      "url": "https://raw.githubusercontent.com/orcahand/orcahand_description/b9b349a21ee0238c62b6cf92ae7597027867adf8/LICENSE",
+      "license": "MIT",
+      "bytes": 1061,
+      "sha256": "fbe1992f5485169984e944a26e5a7f5ef62bc1335b8c3946c715e645bc0c2624"
+    },
+    {
+      "path": "source/ap-ptfe-1.png",
+      "url": "https://raw.githubusercontent.com/orcahand/orcahand_hardware/37b71dc03d3f11e48b920cbf54562b33c025bc8c/orca_v2/base/assembly-addendum/ap-ptfe-1.png",
+      "license": "CC-BY-4.0",
+      "bytes": 523121,
+      "sha256": "2512b601c904c216e4abdfb3e118932ba3ecc0b70222a829556e4cebbd5d3945"
+    }
+  ],
+  "manufacturing_files": "../manifest.json",
+  "geometry_method": "OpenCascade BRepAdaptor_Surface analytic cylindrical faces in the pinned STEP files; not fitted to screenshots. OpenSCAD imports the original STL shapes unchanged.",
+  "source_axis_evidence": [
+    {
+      "part": "I-AP-R.step",
+      "radius_mm": 4.1,
+      "origin_mm": [
+        0,
+        0,
+        0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "role": "MCP bearing seat"
+    },
+    {
+      "part": "I-PP.step",
+      "radius_mm": 2.0,
+      "origin_mm": [
+        0,
+        0,
+        0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "role": "MCP shaft hole"
+    },
+    {
+      "part": "I-PP.step",
+      "radius_mm": 4.125,
+      "origin_mm": [
+        1.5,
+        0,
+        37
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "role": "PIP bearing seat"
+    },
+    {
+      "part": "I-IP.step",
+      "radius_mm": 2.0,
+      "origin_mm": [
+        0,
+        0,
+        0
+      ],
+      "axis": [
+        0,
+        1,
+        0
+      ],
+      "role": "PIP shaft hole"
+    }
+  ],
+  "assembly_transforms_source_to_neutral_mm": {
+    "I-AP-R.stl": [
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "I-PP.stl": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "I-IP.stl": [
+      [
+        1,
+        0,
+        0,
+        1.5
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        37
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "matrix_convention": "Nested row-major matrices multiply column vectors [x,y,z,1]. Millimeters.",
+  "urdf_offset_difference_mm": 0.40096815087663,
+  "urdf_use": "Confirm relative rotation and PIP offset. Align manufacturing bearings using current STEP, not URDF visual placement offset.",
+  "physical_validation": "none"
+}

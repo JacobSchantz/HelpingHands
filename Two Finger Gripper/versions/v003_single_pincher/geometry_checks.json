@@ -1,0 +1,99 @@
+{
+  "sampled_jaw_angles_degrees": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5,
+    5.0,
+    5.5,
+    6.0,
+    6.5,
+    7.0,
+    7.5,
+    8.0,
+    8.5,
+    9.0,
+    9.5,
+    10.0,
+    10.5,
+    11.0,
+    11.5,
+    12.0,
+    12.5,
+    13.0,
+    13.5,
+    14.0,
+    14.5,
+    15.0,
+    15.5,
+    16.0,
+    16.5,
+    17.0,
+    17.5,
+    18.0,
+    18.5,
+    19.0,
+    19.5,
+    20.0,
+    20.5,
+    21.0,
+    21.5,
+    22.0
+  ],
+  "dof": "One input angle; the equal gears counter-rotate the two jaws. These are angular jaws, not parallel slides.",
+  "contact_patch_gap_mm": {
+    "0": 4.0,
+    "18": 35.88056911159167,
+    "22": 42.91698225025546
+  },
+  "results": [
+    {
+      "name": "free_motion_half_degree_samples",
+      "passed": true,
+      "expected": "empty",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nCurrent top level object is empty."
+    },
+    {
+      "name": "gear_mesh_half_degree_samples",
+      "passed": true,
+      "expected": "empty",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nCurrent top level object is empty."
+    },
+    {
+      "name": "closing_stop_overrun",
+      "passed": true,
+      "expected": "positive contact",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 154\nGeometry cache size in bytes: 1104824\nCGAL Polyhedrons in cache: 47\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.120\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:       40\n   Facets:         72"
+    },
+    {
+      "name": "opening_stop_overrun",
+      "passed": true,
+      "expected": "positive contact",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 154\nGeometry cache size in bytes: 1104824\nCGAL Polyhedrons in cache: 47\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.197\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:       28\n   Facets:         48"
+    },
+    {
+      "name": "floating_force_pad_no_rigid_bypass",
+      "passed": true,
+      "expected": "empty",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nCurrent top level object is empty."
+    },
+    {
+      "name": "sensor_seat_material_clearance",
+      "passed": true,
+      "expected": "empty",
+      "log": "ECHO: contact_patch_gap_mm = 35.8806\nCurrent top level object is empty."
+    }
+  ],
+  "limitations": [
+    "Sampled intersections only, not a continuous motion/strength proof.",
+    "Motor body/horn, bearing fits and sensor remain unselected.",
+    "No human fit, print, backdrive, force calibration, friction, fatigue or payload validation.",
+    "Sensor reads the local normal force at its patch; other contacts and operator backdrive effort are not measured."
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "previous_snapshot_hash_checks": {
+    "v001_channel_study": {
+      "assembly/cut_audit.json": "e461d7750ae895b550c6c7d893615f781b553e9c211c6775ea6f2f0121c8ebd4",
+      "assembly/audit.py": "a4229c5a233ce1d2e52887c69bada25d66acaaafa9ba9674a7edfe85a338be09",
+      "assembly/provenance.json": "916b3e46e868e7b2e2576d2b14570a571af341f3005042fe0e4ce7642b1b5ba2",
+      "assembly/original_index.scad": "4ff47786e27be4aabe8765211d9a8f9bedc6ddc9b1528f450d18df4b89b6cbad",
+      "assembly/README.md": "472dd276eb2d27a322f4beca9489f1771a7f942f1005253438e20aa1a6f7c82f",
+      "assembly/wearable_channel_concept.scad": "90f1ced0a62adb9d684f956c18aa80e3f9a30c1838cd50cf2b522927eb6588fe",
+      "upstream/LICENSE": "a0d1cc4791072562651444fefd9522b251b5ef451565837bf78076ac4a24e7bd",
+      "upstream/README.md": "e0232aad019e69c74e5077a84cf385cb48c5d78c18282f3d38ba472d2d3f8bc9",
+      "upstream/orca_v2/base/ASSEMBLY_ADDENDUM.md": "5ad17ccee83f7b8ff2be635c68ccd06aa7a769e2749a2333f6eacd4eb7e2c28a",
+      "upstream/orca_v2/base/01_Fingers/R-T-AP.stl": "440da7edd0fb6d216b92ca3b75e2e24501b8372cb58d205a38348d75305e687a",
+      "upstream/orca_v2/base/01_Fingers/L-T-AP.stl": "d244460a77961c603d5631ac12b9dc5f32681c4d7336d112e41ef10cb33b1962",
+      "upstream/orca_v2/base/01_Fingers/M-PP.stl": "bf373073d8e47a951bac1d7b8631cbbabaaa89f4894b7602e592e672d80c398d",
+      "upstream/orca_v2/base/01_Fingers/M-IP.stl": "3842a56edd9d0acf13a31e54c619dfcaaa0b57dc8540c8e0329e7d8ca746e063",
+      "upstream/orca_v2/base/01_Fingers/I-PP.stl": "326697b792080363c007674953f84799ead7e5a4d886942435171a12bffce8cf",
+      "upstream/orca_v2/base/01_Fingers/P-AP.stl": "3628c86fc5f4644cbbc9d5269e0cfd35a8abcd2a52c99932d3b9c8db825e75bb",
+      "upstream/orca_v2/base/01_Fingers/I-IP.stl": "f265a451fba256522035f0d1e7dd932bf6da9653844da720eeb520e02a8ebb11",
+      "upstream/orca_v2/base/01_Fingers/I-AP-L.stl": "936cfa264f964f23d42dfbe18c6144129557cb4867c4d5bbdfff091e8c9afa1e",
+      "upstream/orca_v2/base/01_Fingers/T-TP-L.stl": "fab27efbfe483ffc718680627569ef6efb780d91eda7cd83b413cf0bcdeaf531",
+      "upstream/orca_v2/base/01_Fingers/T-DP.stl": "edbafeae8eb9bf1c4445a5fc577afd20639b5aa3df2b53778d3052cf42685d76",
+      "upstream/orca_v2/base/01_Fingers/I-AP-R.stl": "dcb079b42627e2b72fabb00a623293d587e9c22d8a0b58bd194ba27e60c315cb",
+      "upstream/orca_v2/base/01_Fingers/T-TP-R.stl": "eb9024fe716daedb2e60c4559d3204632f7dc44bab0dab3f45f00af7b7fa7b84",
+      "upstream/orca_v2/base/01_Fingers/T-PP.stl": "06dd967b312dd29f293fe0b25c660bc4243142adf4486c221e42c90394e17fd9",
+      "upstream/orca_v2/base/01_Fingers/M-AP.stl": "c12ec45031f0485b4b713571844a034e9c275b38571db208274d5dbf911c2594",
+      "upstream/orca_v2/base/01_Fingers/P-IP.stl": "44db845e31230e9f984064590f8c4df2c7f780d06be4ae6168b80f5fb573f3a8",
+      "upstream/orca_v2/base/01_Fingers/P-PP.stl": "3e892e7607d896f9eb490237a76c22f32ac602ef0f5a63d6a42ef91575a997a9",
+      "upstream/orca_v2/base/01_Fingers/step_files/T-TP-R.step": "ca70bad1ccbcb84c881da9b1e16fe6227bd94e40e6fff9674a39846e18d66f42",
+      "upstream/orca_v2/base/01_Fingers/step_files/I-PP.step": "f09ac91910cabc17abde9d786cb9eea38db26bde2d4e7059169ab17a2bdfce15",
+      "upstream/orca_v2/base/01_Fingers/step_files/T-TP-L.step": "0700f62a7d1f655899bcdd09b9a55f1c09a9bfa24f2204bbc65534793cdb97c7",
+      "upstream/orca_v2/base/01_Fingers/step_files/I-IP.step": "6bceda506734c717f58083c3d43d0ab6145030cd022dbb596da6003c98a51929",
+      "upstream/orca_v2/base/01_Fingers/step_files/M-AP.step": "a07f14a557ac304df78f7f12181c6007deff73bfbd7bf61d1726a4e542c163b3",
+      "upstream/orca_v2/base/01_Fingers/step_files/T-PP.step": "153661edafd688e5e4e9230aea35b36609da24e47b4d9328c40ba1a3badd70e1",
+      "upstream/orca_v2/base/01_Fingers/step_files/P-AP.step": "726b5008891688dafc0dbba1e7c7cf99259974042f1f337ee05e447306bbcfbc",
+      "upstream/orca_v2/base/01_Fingers/step_files/L-T-AP.step": "73d560c4953f4325f12269f7e51630fc8eef66c7390794089ba16cd5487a52d7",
+      "upstream/orca_v2/base/01_Fingers/step_files/M-PP.step": "fd7c1a67862b07c8efabc0cd680d3b4371816f3baf39ebd5fb093ead7be8d403",
+      "upstream/orca_v2/base/01_Fingers/step_files/M-IP.step": "54aed76688c4ac7e0cd13c3261ba6a3e0e42805aedcfe101aa1f0091290f1943",
+      "upstream/orca_v2/base/01_Fingers/step_files/P-PP.step": "2b69f5c58cce897209ffa459ef6a39d2b89a21560786cf2491b9bed4cce28fa7",
+      "upstream/orca_v2/base/01_Fingers/step_files/I-AP-L.step": "94c032ed4b19de984af9712714924ab22ec50d98689a4b26265f2ced243c2de3",
+      "upstream/orca_v2/base/01_Fingers/step_files/R-T-AP.step": "10c7644cc97226263ea90af08becaeeb5e0293071578bc56f64a035ea9cc574d",
+      "upstream/orca_v2/base/01_Fingers/step_files/P-IP.step": "2990f9af29e54ca4d8d5bd2bcc3c257523755ed59b41bb2beef413628e188ed6",
+      "upstream/orca_v2/base/01_Fingers/step_files/I-AP-R.step": "1ff5c4820665ca74feb1339e041220ad775068b30a66b877a2a1feaaa341d72d",
+      "assembly/source/orcahand_right.urdf": "286dd8b329d31ef6570ab0d1474f086e83186ca53386de976e193b1019d33bb4",
+      "assembly/source/ap-ptfe-1.png": "2512b601c904c216e4abdfb3e118932ba3ecc0b70222a829556e4cebbd5d3945",
+      "assembly/source/DESCRIPTION_LICENSE_MIT.txt": "fbe1992f5485169984e944a26e5a7f5ef62bc1335b8c3946c715e645bc0c2624",
+      "assembly/render/original_index.png": "b374758792a6994426bd51c1db26f746853a0f37505e1ee92d9a5f2c413bc64a",
+      "assembly/render/index_2x_carved_concept.png": "7adbd21f09e58d12045df1f027bd9be8dfc4b6bbc6d2e898077860783e05b4b8",
+      "assembly/export/index_2x_carved_concept.stl": "8276e649a61ccc8d3a0dcb4cd3dcf027a07d8fa63b0c2b2e573228817a03516e"
+    },
+    "v002_clean_index": {
+      "LICENSE": "a0d1cc4791072562651444fefd9522b251b5ef451565837bf78076ac4a24e7bd",
+      "index.scad": "1b28cadef7f6610dfdb03566c8345fa608e24fb2f176171cb4fdb8ead77fdfe0",
+      "README.txt": "f84fede9ac432ad85e9dcc50c04b458458750c2a9d2375ba4293dd130d2d1d78",
+      "source/I-PP.stl": "326697b792080363c007674953f84799ead7e5a4d886942435171a12bffce8cf",
+      "source/I-IP.stl": "f265a451fba256522035f0d1e7dd932bf6da9653844da720eeb520e02a8ebb11",
+      "source/I-AP-R.stl": "dcb079b42627e2b72fabb00a623293d587e9c22d8a0b58bd194ba27e60c315cb"
+    }
+  },
+  "openscad_export_checks": [
+    {
+      "case": "default_1.5_mm",
+      "watertight": true,
+      "consistent_winding": true,
+      "positive_material_boundaries": 3,
+      "actual_volume_mm3": 10972.58825593726,
+      "expected_volume_mm3": 10972.588540354547,
+      "absolute_volume_difference_mm3": 0.0002844172868208261
+    },
+    {
+      "case": "offset_1_mm",
+      "watertight": true,
+      "consistent_winding": true,
+      "positive_material_boundaries": 3,
+      "actual_volume_mm3": 8490.78934381041,
+      "expected_volume_mm3": 8490.78957155038,
+      "absolute_volume_difference_mm3": 0.0002277399707963923
+    },
+    {
+      "case": "offset_2_mm",
+      "watertight": true,
+      "consistent_winding": true,
+      "positive_material_boundaries": 3,
+      "actual_volume_mm3": 12616.02741702453,
+      "expected_volume_mm3": 12616.027809137764,
+      "absolute_volume_difference_mm3": 0.00039211323382915
+    },
+    {
+      "case": "scale_2",
+      "watertight": true,
+      "consistent_winding": true,
+      "positive_material_boundaries": 3,
+      "actual_volume_mm3": 87780.70604749808,
+      "expected_volume_mm3": 87780.70832283638,
+      "absolute_volume_difference_mm3": 0.002275338294566609
+    },
+    {
+      "case": "original_IP",
+      "watertight": true,
+      "consistent_winding": true,
+      "positive_material_boundaries": 1,
+      "actual_volume_mm3": 4012.0966906172507,
+      "expected_volume_mm3": 4012.0967017009425,
+      "absolute_volume_difference_mm3": 1.1083691788371652e-05
+    }
+  ],
+  "scope": "Numerical geometry and source preservation only; no physical, strength, fit or print-process validation."
+}

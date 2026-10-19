@@ -106,6 +106,11 @@ in v0.2.0 (`firmware.ino` `setup()`).
   data. Older camera-only captures and source-recording videos appear with their actual evidence
   type; no hand measurements are invented for old runs. New record captures are indexed even
   when using a custom video directory. The CLI emits `replay_result` after the camera finalizes.
+  To author an explicit once-per-finger variant, use `scripts/curate_take.py <take>
+  --thumb-anchors <open-seconds>,<opposition-seconds>,<flexed-seconds>` with the hand Python environment.
+  This creates a new take marked generated, stores the source hash and selected poses, and preserves
+  all five fingers in order. Its normal Replay uses the prepared bounded trajectory directly;
+  the original demonstration and intentional motions in other takes remain unchanged.
   `teach.sh list` prints one JSON line per take (the app's Recordings list), `rename <file|last> <name>` names one, and
   `delete <file>` moves it to `takes/deleted`. While recording it prints `pos` lines (each servo 0–100% of its
   range) that the app draws as live bars.
@@ -182,3 +187,27 @@ Total mean current over the 60 s hold (sum of all 7 servos) and the hottest fing
 Per servo, fist: thumb flex 2301 → 967 mA, index/middle/ring/pinky ~2060 → 340-490 mA each. Before, the
 curled fingers sat at their torque limit (~3 mA per torque unit), i.e. stalled short of 90°. The thumb flex
 is now the biggest draw (~960 mA at torque 150; it sags at 75), so it's the next thing to look at.
+
+## Recorded posture grasp trials
+
+`third_party/aero_hand/scripts/grasp.sh --take take-20261017-174731.json --at 5 --squeeze 25 --torque 200 --hold-seconds 5`
+uses the grasp posture five seconds into the original take, adds explicit joint-space flexion
+(25 degrees on the fingers, smaller coupled thumb changes), closes over four seconds, maintains
+the torque-limited target for five seconds, returns to the starting pose, and relaxes. `--dry-run`
+prints the chosen posture and limits without opening camera or hand. This is an explicit timed
+grasp command; normal `teach.sh replay` continues to reproduce position motion including release.
+
+The trial logs commanded/measured positions, signed motor currents and temperature at 10 Hz,
+plus a camera video, under `~/HelpingHands-tools/aero/takes/grasp-trials/`. Missing telemetry,
+55°C temperature, 1800 mA on any actuator, camera loss or interruption ends the trial and relaxes
+before video finalization. Trial torque is capped at the existing replay limit of 500 and hold
+time at 10 seconds; these are testing limits, not payload ratings. Current is not calibrated
+contact force. No force is inferred from the narrator's words or from transparent-mode torque.
+
+2026-10-17 bottle tests: existing bottle pose at torque 250 and the recorded posture plus squeeze
+at torque 200 both established visible finger contact for five seconds. Maximum observed temperature
+was 45°C. The second trial showed roughly 1.2–1.35 A per actuator during contact. Evidence:
+`trial-20261017-180154-e6de980c.json` and `grasp-trial-20261017-180154-964afea7.mp4` in the trial directory.
+The bottle remained supported by the staged setup: no unsupported payload, pull-resistance or lift
+has been verified. Every result explicitly keeps `payload_verified: false`. The hand is fixed to
+its base; its recorded finger actuations do not encode arm position or lifting motion.

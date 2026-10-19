@@ -1,0 +1,62 @@
+{
+  "version": "v003_piece_shell_study",
+  "source_repository": "https://github.com/orcahand/orcahand_hardware",
+  "source_commit": "37b71dc03d3f11e48b920cbf54562b33c025bc8c",
+  "source_license": "CC-BY-4.0",
+  "source_attribution": "ORCA Hand, Copyright (c) 2026 ORCA Dexterity, Inc.",
+  "source_units": "millimeters",
+  "changes": "Independent inward-distance cavity study with separated section views. Original source meshes are unmodified. Derived cavities approximate an offset and do not imply wearable fit or mechanical function.",
+  "display_note": "Inspection transforms set each component base at z=0; row placement is additional x = -40, 0, +40 mm at 1x. These are not assembly transforms.",
+  "parts": [
+    {
+      "id": "I-AP-R",
+      "label": "Abduction/base",
+      "source_path": "source/I-AP-R.stl",
+      "upstream_path": "orca_v2/base/01_Fingers/I-AP-R.stl",
+      "source_sha256": "dcb079b42627e2b72fabb00a623293d587e9c22d8a0b58bd194ba27e60c315cb",
+      "original_bytes": 1409284,
+      "inspection_transform": {
+        "rotate_y_degrees": 90,
+        "translate_mm": [
+          0,
+          0,
+          24.28112
+        ]
+      }
+    },
+    {
+      "id": "I-PP",
+      "label": "Proximal",
+      "source_path": "source/I-PP.stl",
+      "upstream_path": "orca_v2/base/01_Fingers/I-PP.stl",
+      "source_sha256": "326697b792080363c007674953f84799ead7e5a4d886942435171a12bffce8cf",
+      "original_bytes": 540384,
+      "inspection_transform": {
+        "rotate_y_degrees": 0,
+        "translate_mm": [
+          0,
+          0,
+          9.49683
+        ]
+      }
+    },
+    {
+      "id": "I-IP",
+      "label": "Intermediate and fixed distal tip",
+      "source_path": "source/I-IP.stl",
+      "upstream_path": "orca_v2/base/01_Fingers/I-IP.stl",
+      "source_sha256": "f265a451fba256522035f0d1e7dd932bf6da9653844da720eeb520e02a8ebb11",
+      "original_bytes": 549984,
+      "inspection_transform": {
+        "rotate_y_degrees": 0,
+        "translate_mm": [
+          0,
+          0,
+          7.5
+        ]
+      }
+    }
+  ],
+  "primary_openscad": "index.scad",
+  "geometry_audit": "cavity_audit.json"
+}

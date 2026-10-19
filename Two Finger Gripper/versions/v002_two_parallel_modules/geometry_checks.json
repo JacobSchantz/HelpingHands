@@ -1,0 +1,102 @@
+{
+  "sampled_gaps_mm": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70
+  ],
+  "parallelism": "Jaw carriages translate only along X on two fixed guide rods; their contact-plane normals remain +/-X.",
+  "kinematics": "gap = 2 * (pitch_radius * pinion_angle_radians - pad_offset), with a fixed zero offset.",
+  "independence": "Each module has a distinct shaft, rack pair, guide pair, servo and sensors. Only the fixed support is shared.",
+  "results": [
+    {
+      "name": "frame_and_opposed_slides",
+      "passed": true,
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "rack_pinion_mesh",
+      "passed": true,
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closing_stop",
+      "passed": true,
+      "log": "Geometries in cache: 128\nGeometry cache size in bytes: 663128\nCGAL Polyhedrons in cache: 40\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.077\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      1\n   Vertices:      768\n   Facets:       1536"
+    },
+    {
+      "name": "opening_stop",
+      "passed": true,
+      "log": "Geometries in cache: 128\nGeometry cache size in bytes: 663128\nCGAL Polyhedrons in cache: 40\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.079\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      1\n   Vertices:      768\n   Facets:       1536"
+    },
+    {
+      "name": "encoder_board_clearance",
+      "passed": true,
+      "log": "Current top level object is empty."
+    }
+  ],
+  "limitations": [
+    "No selected bearings, servo horn, load cell or encoder package.",
+    "No force, fit, friction, backdrive, fatigue or print validation.",
+    "Contact-pad sensor envelopes are conceptual; mounting and calibration remain open."
+  ]
+}

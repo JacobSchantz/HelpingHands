@@ -1,0 +1,42 @@
+[
+  {
+    "part": "assembly",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 262\nGeometry cache size in bytes: 48402488\nCGAL Polyhedrons in cache: 93\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:11.956\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     9900\n   Facets:      19848"
+  },
+  {
+    "part": "viewer_hub",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 70\nGeometry cache size in bytes: 616976\nCGAL Polyhedrons in cache: 14\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.066\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      8\n   Vertices:     1850\n   Facets:       3728"
+  },
+  {
+    "part": "viewer_left",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 141\nGeometry cache size in bytes: 47367888\nCGAL Polyhedrons in cache: 61\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:09.583\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     3341\n   Facets:       6690"
+  },
+  {
+    "part": "viewer_right",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 141\nGeometry cache size in bytes: 47367888\nCGAL Polyhedrons in cache: 60\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:17.105\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     3341\n   Facets:       6690"
+  },
+  {
+    "part": "viewer_yoke",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 28\nGeometry cache size in bytes: 164456\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.030\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:      568\n   Facets:       1144"
+  },
+  {
+    "part": "viewer_crank",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 10\nGeometry cache size in bytes: 109360\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.017\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      1\n   Vertices:      512\n   Facets:       1024"
+  },
+  {
+    "part": "viewer_motor",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 14\nGeometry cache size in bytes: 165680\nCGAL Polyhedrons in cache: 2\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.034\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:      288\n   Facets:        572"
+  },
+  {
+    "part": "jaw",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 141\nGeometry cache size in bytes: 47367888\nCGAL Polyhedrons in cache: 58\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:35.896\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:     3341\n   Facets:       6690"
+  }
+]

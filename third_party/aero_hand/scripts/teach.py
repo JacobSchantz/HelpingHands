@@ -497,7 +497,20 @@ def replay(path, dry_run, full=False, video=None, run=None):
     samples = take["samples"]
     pct = float(os.environ.get("AERO_SPEED_PCT", hand_speed.DEFAULT_PCT))
     cap = hand_speed.FULL * min(pct, 100) / 100 * DEG_S_PER_UNIT
-    if full:
+    prepared = take.get('derivation', {}).get('method') == 'once-per-finger-v1'
+    if prepared:
+        # Authored trajectory: already smoothed and explicitly marked as generated,
+        # so do not run sensor denoising or key-pose extraction on it a second time.
+        authored_cap = take['derivation']['speed_cap_deg_s']
+        stretch = max(1.0, authored_cap / cap)
+        frames_t0 = samples[0][0]
+        frames = [((row[0] - frames_t0) * stretch, row[1:]) for row in samples]
+        moving = [max(row[i + 1] for row in samples) - min(row[i + 1] for row in samples) > 1e-6
+                  for i in range(7)]
+        poses = take['derivation']['key_poses']
+        print(f"replay prepared {os.path.basename(path)}: one curl/release per finger, "
+              f"{pct:.0f}% speed cap, playing {frames[-1][0]:.1f} s", flush=True)
+    elif full:
         times, rows, moving = clean(samples)
         frames_t0 = times[0]
         stretch, peak = stretch_for([[t] + r for t, r in zip(times, rows)], cap)

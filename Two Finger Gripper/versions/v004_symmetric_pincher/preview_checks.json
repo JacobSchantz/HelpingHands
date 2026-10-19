@@ -1,0 +1,22 @@
+[
+  {
+    "name": "symmetric_pincher",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 262\nGeometry cache size in bytes: 48402488\nCGAL Polyhedrons in cache: 93\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:12.087\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     9900\n   Facets:      19848\n"
+  },
+  {
+    "name": "front",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 262\nGeometry cache size in bytes: 48402488\nCGAL Polyhedrons in cache: 93\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:09.864\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     9900\n   Facets:      19848\n"
+  },
+  {
+    "name": "closed",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 0, slider_z_mm = 2, servo_angle_deg = -38.6341\nGeometries in cache: 262\nGeometry cache size in bytes: 48402488\nCGAL Polyhedrons in cache: 93\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:17.961\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     9900\n   Facets:      19848\n"
+  },
+  {
+    "name": "finger_channel",
+    "passed": true,
+    "log": "ECHO: jaw_angle_deg = 15, slider_z_mm = 7.17638, servo_angle_deg = 13.7913\nGeometries in cache: 262\nGeometry cache size in bytes: 48402488\nCGAL Polyhedrons in cache: 93\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:36.510\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     9900\n   Facets:      19848\n"
+  }
+]

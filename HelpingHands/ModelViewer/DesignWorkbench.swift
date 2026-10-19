@@ -345,7 +345,8 @@ struct RepoDesignsScreen: View {
     }
 
     private func pane(_ title: String, _ web: CompareWebView) -> some View {
-        web.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+        web.frame(minWidth: 0, maxWidth: .infinity)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .overlay(alignment: .bottomLeading) {
                 Text(title).font(.caption2.weight(.semibold)).padding(6).foregroundStyle(.secondary)
             }
@@ -365,12 +366,15 @@ struct DesignWorkbenchView: View {
     var body: some View {
         VStack(spacing: 0) {
             bar
-            HStack(spacing: 2) {
-                pane(diff ? "Web concept" : "Web concept · the vision", mode: "web")
-                    .frame(maxWidth: .infinity)
-                    .layoutPriority(1.5)
-                pane(diff ? "Diff · magenta vision only · cyan STL only" : "OpenSCAD STL · prints", mode: diff ? "diff" : "stl")
-                    .frame(maxWidth: .infinity)
+            GeometryReader { geometry in
+                HStack(spacing: 2) {
+                    pane("JavaScript model", mode: "web")
+                        .frame(width: max(0, (geometry.size.width - 2) / 2), height: geometry.size.height)
+                        .clipped()
+                    pane(diff ? "Difference · pink JavaScript · cyan OpenSCAD" : "OpenSCAD model", mode: diff ? "diff" : "stl")
+                        .frame(width: max(0, (geometry.size.width - 2) / 2), height: geometry.size.height)
+                        .clipped()
+                }
             }
         }
         .background(backdrop.ignoresSafeArea())
@@ -380,7 +384,13 @@ struct DesignWorkbenchView: View {
         HStack(spacing: 14) {
             Button { designs.open = nil } label: { Label("Designs", systemImage: "chevron.left") }
                 .keyboardShortcut(.cancelAction)
-            Text(design.name).font(.title3.weight(.semibold)).lineLimit(1)
+            Menu {
+                ForEach(designs.designs) { choice in
+                    Button(choice.name) { designs.open = choice }
+                }
+            } label: {
+                Label(design.name, systemImage: "chevron.down").font(.headline).lineLimit(1)
+            }
             if !design.in_progress.isEmpty { InProgressBadge(pebbles: design.in_progress) }
             Spacer()
             if !designs.status.isEmpty { Text(designs.status).font(.caption).foregroundStyle(.secondary).lineLimit(1) }

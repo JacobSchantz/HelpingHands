@@ -1,0 +1,177 @@
+{
+  "repository": "https://github.com/orcahand/orcahand_hardware",
+  "commit": "37b71dc03d3f11e48b920cbf54562b33c025bc8c",
+  "license": "CC-BY-4.0",
+  "files": [
+    {
+      "path": "upstream/LICENSE",
+      "sha256": "a0d1cc4791072562651444fefd9522b251b5ef451565837bf78076ac4a24e7bd",
+      "bytes": 19279
+    },
+    {
+      "path": "upstream/README.md",
+      "sha256": "e0232aad019e69c74e5077a84cf385cb48c5d78c18282f3d38ba472d2d3f8bc9",
+      "bytes": 5704
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/I-AP-L.stl",
+      "sha256": "936cfa264f964f23d42dfbe18c6144129557cb4867c4d5bbdfff091e8c9afa1e",
+      "bytes": 1388484
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/I-AP-R.stl",
+      "sha256": "dcb079b42627e2b72fabb00a623293d587e9c22d8a0b58bd194ba27e60c315cb",
+      "bytes": 1409284
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/I-IP.stl",
+      "sha256": "f265a451fba256522035f0d1e7dd932bf6da9653844da720eeb520e02a8ebb11",
+      "bytes": 549984
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/I-PP.stl",
+      "sha256": "326697b792080363c007674953f84799ead7e5a4d886942435171a12bffce8cf",
+      "bytes": 540384
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/L-T-AP.stl",
+      "sha256": "d244460a77961c603d5631ac12b9dc5f32681c4d7336d112e41ef10cb33b1962",
+      "bytes": 1481484
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/M-AP.stl",
+      "sha256": "c12ec45031f0485b4b713571844a034e9c275b38571db208274d5dbf911c2594",
+      "bytes": 1399484
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/M-IP.stl",
+      "sha256": "3842a56edd9d0acf13a31e54c619dfcaaa0b57dc8540c8e0329e7d8ca746e063",
+      "bytes": 554184
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/M-PP.stl",
+      "sha256": "bf373073d8e47a951bac1d7b8631cbbabaaa89f4894b7602e592e672d80c398d",
+      "bytes": 470884
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/P-AP.stl",
+      "sha256": "3628c86fc5f4644cbbc9d5269e0cfd35a8abcd2a52c99932d3b9c8db825e75bb",
+      "bytes": 1373984
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/P-IP.stl",
+      "sha256": "44db845e31230e9f984064590f8c4df2c7f780d06be4ae6168b80f5fb573f3a8",
+      "bytes": 502584
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/P-PP.stl",
+      "sha256": "3e892e7607d896f9eb490237a76c22f32ac602ef0f5a63d6a42ef91575a997a9",
+      "bytes": 587384
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/R-T-AP.stl",
+      "sha256": "440da7edd0fb6d216b92ca3b75e2e24501b8372cb58d205a38348d75305e687a",
+      "bytes": 1501884
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/T-DP.stl",
+      "sha256": "edbafeae8eb9bf1c4445a5fc577afd20639b5aa3df2b53778d3052cf42685d76",
+      "bytes": 322884
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/T-PP.stl",
+      "sha256": "06dd967b312dd29f293fe0b25c660bc4243142adf4486c221e42c90394e17fd9",
+      "bytes": 562284
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/T-TP-L.stl",
+      "sha256": "fab27efbfe483ffc718680627569ef6efb780d91eda7cd83b413cf0bcdeaf531",
+      "bytes": 612784
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/T-TP-R.stl",
+      "sha256": "eb9024fe716daedb2e60c4559d3204632f7dc44bab0dab3f45f00af7b7fa7b84",
+      "bytes": 628384
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/I-AP-L.step",
+      "sha256": "94c032ed4b19de984af9712714924ab22ec50d98689a4b26265f2ced243c2de3",
+      "bytes": 683928
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/I-AP-R.step",
+      "sha256": "1ff5c4820665ca74feb1339e041220ad775068b30a66b877a2a1feaaa341d72d",
+      "bytes": 751213
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/I-IP.step",
+      "sha256": "6bceda506734c717f58083c3d43d0ab6145030cd022dbb596da6003c98a51929",
+      "bytes": 325537
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/I-PP.step",
+      "sha256": "f09ac91910cabc17abde9d786cb9eea38db26bde2d4e7059169ab17a2bdfce15",
+      "bytes": 424394
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/L-T-AP.step",
+      "sha256": "73d560c4953f4325f12269f7e51630fc8eef66c7390794089ba16cd5487a52d7",
+      "bytes": 570051
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/M-AP.step",
+      "sha256": "a07f14a557ac304df78f7f12181c6007deff73bfbd7bf61d1726a4e542c163b3",
+      "bytes": 683449
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/M-IP.step",
+      "sha256": "54aed76688c4ac7e0cd13c3261ba6a3e0e42805aedcfe101aa1f0091290f1943",
+      "bytes": 338587
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/M-PP.step",
+      "sha256": "fd7c1a67862b07c8efabc0cd680d3b4371816f3baf39ebd5fb093ead7be8d403",
+      "bytes": 404631
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/P-AP.step",
+      "sha256": "726b5008891688dafc0dbba1e7c7cf99259974042f1f337ee05e447306bbcfbc",
+      "bytes": 730125
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/P-IP.step",
+      "sha256": "2990f9af29e54ca4d8d5bd2bcc3c257523755ed59b41bb2beef413628e188ed6",
+      "bytes": 346449
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/P-PP.step",
+      "sha256": "2b69f5c58cce897209ffa459ef6a39d2b89a21560786cf2491b9bed4cce28fa7",
+      "bytes": 427486
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/R-T-AP.step",
+      "sha256": "10c7644cc97226263ea90af08becaeeb5e0293071578bc56f64a035ea9cc574d",
+      "bytes": 632072
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/T-PP.step",
+      "sha256": "153661edafd688e5e4e9230aea35b36609da24e47b4d9328c40ba1a3badd70e1",
+      "bytes": 406734
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/T-TP-L.step",
+      "sha256": "0700f62a7d1f655899bcdd09b9a55f1c09a9bfa24f2204bbc65534793cdb97c7",
+      "bytes": 587767
+    },
+    {
+      "path": "upstream/orca_v2/base/01_Fingers/step_files/T-TP-R.step",
+      "sha256": "ca70bad1ccbcb84c881da9b1e16fe6227bd94e40e6fff9674a39846e18d66f42",
+      "bytes": 644082
+    },
+    {
+      "path": "upstream/orca_v2/base/ASSEMBLY_ADDENDUM.md",
+      "sha256": "5ad17ccee83f7b8ff2be635c68ccd06aa7a769e2749a2333f6eacd4eb7e2c28a",
+      "bytes": 5216
+    }
+  ]
+}

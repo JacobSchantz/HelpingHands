@@ -1,0 +1,26 @@
+{
+  "assembly": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 251\nGeometry cache size in bytes: 1960048\nCGAL Polyhedrons in cache: 56\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.165\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      23\n   Vertices:     6626\n   Facets:      13340\n"
+  },
+  "hub": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 47\nGeometry cache size in bytes: 318040\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.025\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      4\n   Vertices:      936\n   Facets:       1884\n"
+  },
+  "thumb": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 89\nGeometry cache size in bytes: 599080\nCGAL Polyhedrons in cache: 11\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.038\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      13\n   Vertices:     2000\n   Facets:       4048\n"
+  },
+  "index": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 94\nGeometry cache size in bytes: 611616\nCGAL Polyhedrons in cache: 9\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.035\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      11\n   Vertices:     1878\n   Facets:       3796\n"
+  },
+  "sensor_pad": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 27\nGeometry cache size in bytes: 314232\nCGAL Polyhedrons in cache: 6\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.021\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      2\n   Vertices:      644\n   Facets:       1292\n"
+  },
+  "adapter": {
+    "returncode": 0,
+    "log": "ECHO: contact_patch_gap_mm = 35.8806\nGeometries in cache: 5\nGeometry cache size in bytes: 20072\nCGAL Polyhedrons in cache: 1\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.001\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:      108\n   Facets:        212\n"
+  }
+}
