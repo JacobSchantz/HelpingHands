@@ -21,7 +21,7 @@
       "commit_id": "a4c712ca0a2cddbc5d6a44e6b3f3e5c9becb5002",
       "model": "claude-opus-5-5",
       "model_display": "Claude Opus 5.5",
-      "identified_issue": "Mix tile is a synthetic design (MIX, id generalist-mix) built client-side in cad/mobile_gallery/gallery.js from catalog.json: no publisher change. Handle detection is name regex /strap slide|handle/i on model names; version labels parse 'Gen N' -> 1.N and 'Gen 2.x' -> 2.x from catalog names. Default = newest 1.x + newest 2.x rather than a stored 2.x->base mapping (2.1's base 1.17 happens to be newest). Motion: design.pose = gripper id so poses.js hinges of the gripper drive both its fingers and the handles; grippers with non Left/Right hinge names (1.1 demo, Gen 8) leave handles fixed. Handles are not refitted to other grippers (no lug position data). Initial load with no hash focuses the mix tile — previously it showed the all-generations grid; All button still returns to grid. Also added the missing v201 poses.js entry (test_gripper_poses passed against scad). Verified only in headless Chrome/swiftshader, not phone.",
+      "identified_issue": "Mix tile is a synthetic design (MIX, id generalist-mix) built client-side in cad/mobile_gallery/gallery.js from catalog.json: no publisher change. Handle detection is name regex /strap slide|handle/i on model names; version labels parse 'Gen N' -> 1.N and 'Gen 2.x' -> 2.x from catalog names. Default = newest 1.x + newest 2.x rather than a stored 2.x->base mapping (2.1's base 1.17 happens to be newest). Motion: design.pose = gripper id so poses.js hinges of the gripper drive both its fingers and the handles; grippers with non Left/Right hinge names (1.1 demo, Gen 8) leave handles fixed. Handles are not refitted to other grippers (no lug position data). Initial load with no hash focuses the mix tile \u2014 previously it showed the all-generations grid; All button still returns to grid. Also added the missing v201 poses.js entry (test_gripper_poses passed against scad). Verified only in headless Chrome/swiftshader, not phone.",
       "summary": "Live Preview now opens on a mix-and-match tile: pick any gripper (1.1 to 1.17) and any handles (2.1 or none) and see them assembled. It opens on 2.1.",
       "description_sha": "bbe0e945d433a8de",
       "changes": [
@@ -43,7 +43,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T16:03:56.000Z",
-  "updated_at": "2026-10-19T18:25:45.000Z",
+  "updated_at": "2026-10-19T18:25:57Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -83,5 +83,10 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-19T18:25:45.000Z"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-bbe0e945",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-bbe0e945",
+  "claimed_at": "2026-10-19T18:25:57.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
