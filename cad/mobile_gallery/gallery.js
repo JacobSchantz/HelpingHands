@@ -11,6 +11,8 @@ const views = new Map();
 // by the Shown checklist (through serve_designs.py) and by design_visibility.py.
 let hidden = new Set();
 let renderer, catalog, focused = null, currentProject = '', webglError = '', refreshing = false, exploded = false;
+// How far apart the parts are right now: 0 assembled, 1 exploded. The Explode button eases it between the two.
+let explodeAmount = 0, explodeRun = 0;
 // Open/Closed slider: 0 = closed, 1 = fully open, the same fraction for every generation shown.
 // ?open=0..100 presets it (screenshots, links).
 const preset = new URLSearchParams(location.search).get('open');
@@ -266,7 +268,7 @@ function applyExplosion(view) {
     mesh.rotation.set(0, THREE.MathUtils.degToRad(move.deg), 0);
     const pivot = new THREE.Vector3(...move.pivot);
     mesh.position.copy(pivot).sub(pivot.clone().applyEuler(mesh.rotation)).add(new THREE.Vector3(...move.offset))
-      .addScaledVector(mesh.userData.explode, exploded ? 1 : 0);
+      .addScaledVector(mesh.userData.explode, explodeAmount);
   }
 }
 function updatePoseControl() {
@@ -283,9 +285,31 @@ $('explode').onclick = () => {
   exploded = !exploded;
   $('explode').textContent = exploded ? 'Assemble' : 'Explode';
   $('explode').setAttribute('aria-pressed', String(exploded));
-  for (const view of views.values()) applyExplosion(view);
-  fitVisible();
+  animateExplosion(exploded ? 1 : 0);
 };
+// Fly the parts apart (or back together) and glide each visible camera from where it is to the framing of the
+// new layout, so nothing jumps. Reduced motion (or no 3D) still lands in one step.
+function animateExplosion(to) {
+  const from = explodeAmount, run = ++explodeRun;
+  const glides = [...views.values()].filter(view => !view.element.hidden && view.controls).map(view => {
+    const start = {position: view.camera.position.clone(), target: view.controls.target.clone()};
+    explodeAmount = to; applyExplosion(view); frame(view);
+    return {view, start, end: {position: view.camera.position.clone(), target: view.controls.target.clone()}};
+  });
+  const ms = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 650, began = performance.now();
+  const step = now => {
+    if (run !== explodeRun) return;
+    const t = ms ? Math.min(1, (now - began) / ms) : 1, ease = t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+    explodeAmount = from + (to - from) * ease;
+    for (const view of views.values()) applyExplosion(view);
+    for (const {view, start, end} of glides) {
+      view.camera.position.lerpVectors(start.position, end.position, ease);
+      view.controls.target.lerpVectors(start.target, end.target, ease); view.controls.update();
+    }
+    if (t < 1) requestAnimationFrame(step);
+  };
+  step(began);
+}
 
 function createView(design) {
   const element = document.createElement('section'); element.className = 'viewport'; element.tabIndex = 0;
