@@ -1,0 +1,16 @@
+{
+  "id": "voice-483f28b9",
+  "commit_id": "",
+  "description": "Gripper version 1.20 (next after 1.19, builds on 1.19 / voice-13bdab11). The gripper should have a hook at both the bottom AND the top along the flat face, so the handle piece slides in and is held by both hooks. Bump to 1.20 per AGENTS.md versioning.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T17:04:17.000Z",
+  "updated_at": "2026-10-19T17:04:17.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
