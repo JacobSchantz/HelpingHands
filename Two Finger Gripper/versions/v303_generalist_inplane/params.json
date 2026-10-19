@@ -1,0 +1,1200 @@
+{
+  "_about": "Version 3.3: every dimension of the Generalist gripper, its handles (wrapped round the base hook into the gears), the in-plane gears, the centred pinion, the base and the RS00 motor mount, by name. This file is the single source: params.py writes params.scad (gripper.scad includes it) and trace_photo.py reads the 'outline' params. Make the next version by copying this folder and changing values here only. stage 'outline' = re-trace the plan outline (trace_photo.py) before the solid; 'solid' = gripper.scad only; 'calibration' = photo-to-mm and traced reference numbers, documented but not on a slider. The live preview's Tune panel draws one slider per non-calibration param, between min and max.",
+  "groups": [
+    {
+      "name": "Finger outline",
+      "params": [
+        {
+          "name": "beak_stretch",
+          "label": "Beak length",
+          "value": 1.7,
+          "min": 1.0,
+          "max": 2.4,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "outline",
+          "doc": "How many times the photo's beak (black dot to point) is stretched along the finger. 1.70 makes dot to point a third of the finger (Gen 15)."
+        },
+        {
+          "name": "outer_lean_deg",
+          "label": "Outer edge lean at the dot",
+          "value": 15,
+          "min": -10,
+          "max": 25,
+          "step": 0.5,
+          "unit": "deg",
+          "stage": "outline",
+          "doc": "The outer edge leaves the black dot this far outboard of the finger axis. 2.5: 15, 1.19's wide beak (2.4: 0)."
+        },
+        {
+          "name": "outer_start_handle",
+          "label": "Outer edge: fullness behind",
+          "value": 0.5,
+          "min": 0.05,
+          "max": 0.8,
+          "step": 0.01,
+          "unit": "x chord",
+          "stage": "outline",
+          "doc": "Bezier handle at the dot end of the outer edge, as a fraction of dot-to-point. Longer keeps the beak full further out. 2.5: 0.50, 1.19's (2.4: 0.30)."
+        },
+        {
+          "name": "outer_end_handle",
+          "label": "Outer edge: fullness at the point",
+          "value": 0.25,
+          "min": 0.05,
+          "max": 0.8,
+          "step": 0.01,
+          "unit": "x chord",
+          "stage": "outline",
+          "doc": "Bezier handle at the point end of the outer edge. Longer rounds in later, giving a blunter nose. 2.5: 0.25, 1.19's (2.4: 0.30)."
+        },
+        {
+          "name": "outer_bow",
+          "label": "Outer edge bow",
+          "value": 0.2,
+          "min": -0.05,
+          "max": 0.3,
+          "step": 0.005,
+          "unit": "x chord",
+          "stage": "outline",
+          "doc": "How far the outer edge bows outboard of the straight dot-to-point line, as a fraction of its length. 2.5: 0.20, 1.19's (2.4: 0.04)."
+        },
+        {
+          "name": "jaw_open_power",
+          "label": "Jaw convergence (opening shape)",
+          "value": 0.85,
+          "min": 0.4,
+          "max": 1.5,
+          "step": 0.01,
+          "unit": "",
+          "stage": "outline",
+          "doc": "Closed, each jaw edge sits H (d/D)^p off the centreline, d mm behind the point. Below 1 the gap opens fastest right at the point (sharper convergence angle); 1 is a straight triangle; above 1 the jaws run nearly parallel near the tip."
+        },
+        {
+          "name": "knob_swell",
+          "label": "Inner bump-out height",
+          "value": 1.2,
+          "min": 0,
+          "max": 3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "How far the two rounded swells on the inner edge, mid-shank, stand proud of the ramp."
+        },
+        {
+          "name": "knob1_halfwidth",
+          "label": "Bump 1 half-width (near the head)",
+          "value": 6.0,
+          "min": 2,
+          "max": 10,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Half-width along the edge of the first swell's cos^2 window. Wider is rounder."
+        },
+        {
+          "name": "knob2_halfwidth",
+          "label": "Bump 2 half-width (near the dot)",
+          "value": 5.6,
+          "min": 2,
+          "max": 10,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Half-width of the second swell, just behind the black dot. Its crest also sets where the closed jaw triangle starts."
+        },
+        {
+          "name": "knob_ramp_smooth",
+          "label": "Bump ramp smoothing",
+          "value": 1.2,
+          "min": 0.2,
+          "max": 3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Gaussian smoothing of the inner-edge ramp under the swells, so its own bends put no corners at their feet."
+        },
+        {
+          "name": "outline_smooth",
+          "label": "Outline smoothing",
+          "value": 0.8,
+          "min": 0.2,
+          "max": 2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Gaussian smoothing along the traced photo contour (Gen 9 / Gen 16 roundness)."
+        },
+        {
+          "name": "dot_join_smooth",
+          "label": "Smoothing at the dot joins",
+          "value": 2.0,
+          "min": 0.4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Where the generated beak meets the traced shank, both edges are smoothed with this sigma."
+        },
+        {
+          "name": "dot_join_span",
+          "label": "Dot join span",
+          "value": 8.0,
+          "min": 3,
+          "max": 14,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Half-length of arc smoothed either side of each dot join."
+        },
+        {
+          "name": "hook_depth",
+          "label": "Base hook depth",
+          "value": 1.0,
+          "min": 0.6,
+          "max": 1.4,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "outline",
+          "doc": "Scales the base J-hook's bowl and toe away from the line between its two ends (1 = Gen 9's hook). The handle's foot is trimmed to whatever notch this makes."
+        },
+        {
+          "name": "top_notch_u",
+          "label": "Top hook position",
+          "value": 54,
+          "min": 30,
+          "max": 58,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "2.6: u (along the straight outer edge from the rail origin) of the top hook's notch floor. The edge runs straight up to it, the base J-hook mirrored end for end curls round there, its notch open toward the base, and the handle spans floor to floor (base floor u -11.4), so this sets the handle's length. 54: where 1.20's edge started going out again (2.5: top_hook_mirror_u 8.5, floor 28.4)."
+        },
+        {
+          "name": "top_step_back",
+          "label": "Top step: back dips by",
+          "value": 0,
+          "min": 0,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "2.6: from the top hook's crest (6.6 mm out) the outer edge fills on to the beak's outer edge where it is back up to the crest's height less this. 0 = a level shoulder, one jump out (Jake: no double indent); larger meets the edge sooner, lower down the blade-root curve, and dips behind the crest."
+        },
+        {
+          "name": "slot_count",
+          "label": "Beak slot count",
+          "value": 6,
+          "min": 0,
+          "max": 7,
+          "step": 1,
+          "unit": "",
+          "stage": "outline",
+          "doc": "How many slanted slots run up the beak (the photo shows six on the upper finger)."
+        },
+        {
+          "name": "groove_pitch",
+          "label": "Groove pitch",
+          "value": 1.0,
+          "min": 0.6,
+          "max": 3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Spacing of the inner-edge grooves. Off-pitch values can land a groove wall on the tip-zone cut; the render reports it."
+        },
+        {
+          "name": "groove_width",
+          "label": "Groove width",
+          "value": 0.5,
+          "min": 0.2,
+          "max": 1.2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Width of each groove across its station."
+        },
+        {
+          "name": "groove_depth",
+          "label": "Groove depth",
+          "value": 0.4,
+          "min": 0,
+          "max": 1.2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Depth of each groove, measured in from the finished edge. 0 = no grooves."
+        },
+        {
+          "name": "groove_stop",
+          "label": "Grooves stop short of the point",
+          "value": 3.4,
+          "min": 0.5,
+          "max": 15,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Arc length from the point with no grooves."
+        },
+        {
+          "name": "groove_min_width",
+          "label": "Grooves stop where the beak is narrower than",
+          "value": 1.8,
+          "min": 1,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "outline",
+          "doc": "Below this width across the beak a groove would leave a pinhole; the row stops there."
+        }
+      ]
+    },
+    {
+      "name": "Finger solid",
+      "params": [
+        {
+          "name": "plate",
+          "label": "Finger thickness",
+          "value": 12,
+          "min": 6,
+          "max": 20,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The finger's thickness along Y (the 12 mm side), centred on the hand plane."
+        },
+        {
+          "name": "tip_thick",
+          "label": "Thickness at the point (taper)",
+          "value": 2.4,
+          "min": 1.5,
+          "max": 20,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "At or above the finger thickness there is no taper (2.3). Below it, the dorsal (+Y) face slopes down from the black dot to this at the point and the ventral face stays flat (1.18's print-flat taper; 1.18 used 2.4). 2.5: 2.4, 1.18's flat-bottom taper (2.4: 12, none)."
+        },
+        {
+          "name": "taper_power",
+          "label": "Taper curve",
+          "value": 2,
+          "min": 1,
+          "max": 4,
+          "step": 0.1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "Thickness drops as f^power from the taper start to the point: 1 is a straight wedge, 2 Gen 16's parabola (full near the dot, steep at the point)."
+        },
+        {
+          "name": "taper_start",
+          "label": "Taper start past the dot",
+          "value": 0,
+          "min": -40,
+          "max": 30,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Where along the finger the taper begins, relative to the black dot (negative = toward the base)."
+        },
+        {
+          "name": "tip_r",
+          "label": "Point rounding",
+          "value": 0.3,
+          "min": 0.1,
+          "max": 1.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Plan-view radius of the point. The closed fingers touch here."
+        },
+        {
+          "name": "tip_zone",
+          "label": "Point rounding zone",
+          "value": 6.25,
+          "min": 3,
+          "max": 12,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "tip_r applies within this many mm of the point; elsewhere edge_round. Keep it off the groove pitch (at 6 a groove wall sat on the cut: non-manifold)."
+        },
+        {
+          "name": "edge_round",
+          "label": "Convex corner rounding",
+          "value": 0.5,
+          "min": 0.1,
+          "max": 1.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Radius on every convex corner of the plan outline (photo blur to smooth edges)."
+        },
+        {
+          "name": "fillet_r",
+          "label": "Concave fillet",
+          "value": 1.2,
+          "min": 0.2,
+          "max": 3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Radius in every concave corner of the plan outline (the shoulder)."
+        },
+        {
+          "name": "min_hole",
+          "label": "Smallest honeycomb hole",
+          "value": 1.8,
+          "min": 1,
+          "max": 3.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Blurred small holes are read no smaller than this."
+        },
+        {
+          "name": "hole_scale",
+          "label": "Honeycomb hole size",
+          "value": 1.0,
+          "min": 0.6,
+          "max": 1.3,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "solid",
+          "doc": "Multiplies every traced honeycomb hole's diameter."
+        },
+        {
+          "name": "dot_scale",
+          "label": "Black dot size",
+          "value": 1.0,
+          "min": 0.5,
+          "max": 1.4,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "solid",
+          "doc": "Multiplies the black dot's traced 3.4 mm diameter."
+        },
+        {
+          "name": "slot_len",
+          "label": "Beak slot length",
+          "value": 3.0,
+          "min": 1.5,
+          "max": 5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Length of each slanted beak slot."
+        },
+        {
+          "name": "slot_width",
+          "label": "Beak slot width",
+          "value": 1.35,
+          "min": 0.6,
+          "max": 2.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Width of each beak slot (round ends)."
+        },
+        {
+          "name": "last_slot_scale",
+          "label": "Last slot size",
+          "value": 0.7,
+          "min": 0.3,
+          "max": 1,
+          "step": 0.05,
+          "unit": "x",
+          "stage": "solid",
+          "doc": "The slot nearest the point is this fraction of the others."
+        },
+        {
+          "name": "slot_angle_deg",
+          "label": "Slot slant (photo)",
+          "value": 120,
+          "min": 60,
+          "max": 180,
+          "step": 1,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Slot direction in the photo's image degrees (a forward slash, ~35 deg off the row)."
+        },
+        {
+          "name": "groove_wall",
+          "label": "Wall between grooves and holes",
+          "value": 0.6,
+          "min": 0.2,
+          "max": 1.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Least wall kept between a groove and any hole, so no groove opens into one."
+        },
+        {
+          "name": "tip_gap",
+          "label": "Closed gap at the points",
+          "value": 0,
+          "min": -0.3,
+          "max": 2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Closed, the points are this far apart (0 = touching; negative = preload/overlap)."
+        }
+      ]
+    },
+    {
+      "name": "Handle plate",
+      "params": [
+        {
+          "name": "fit",
+          "label": "Fit clearance (per side)",
+          "value": 0.2,
+          "min": 0.05,
+          "max": 0.6,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Clearance per side between handle and finger: the plate against the outer edge and each foot in its hook's notch."
+        },
+        {
+          "name": "slide_t",
+          "label": "Plate thickness",
+          "value": 3.5,
+          "min": 2,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The black handle plate's thickness (outboard of the finger)."
+        },
+        {
+          "name": "handle_over",
+          "label": "Handle past each finger face",
+          "value": 1.5,
+          "min": 0.5,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the plate stands this far past the finger on each face (dorsal and ventral), so it is plate + 2x this tall across the finger: 15 mm, just taller than the 12 mm finger (3.2: 29, with a strap slot either side of the finger)."
+        },
+        {
+          "name": "span_over",
+          "label": "Plate run past each notch floor",
+          "value": 1.0,
+          "min": 0.3,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "2.5: the plate spans the finger's outer edge from the base hook's notch floor to the top hook's, plus this at each end; the finger outline grown by fit then trims both ends into feet that fill the two notches. Its length follows the hooks (top_hook_mirror_u)."
+        },
+        {
+          "name": "slide_w0",
+          "label": "Plate stand-off from the finger",
+          "value": 0.45,
+          "min": 0.2,
+          "max": 2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The plate's inboard face sits this far outboard of the rail line; the finger's outer edge reaches +0.17 at most."
+        },
+        {
+          "name": "plate_corner_r",
+          "label": "Plate corner radius",
+          "value": 3,
+          "min": 0.5,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Rounding on the plate's four corners."
+        },
+        {
+          "name": "stop_depth",
+          "label": "Stop strip depth",
+          "value": 1.5,
+          "min": 0,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "2.5: a strip on the plate's inboard face along its ventral (-y) side, reaching this far inboard past the outer edge. The handle slides in across the finger from the flat ventral face's side; seated, the strip butts against that face, so it cannot go through. 0 = no strip (1.20: friction only)."
+        },
+        {
+          "name": "stop_width",
+          "label": "Stop strip width",
+          "value": 1.0,
+          "min": 0.5,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "2.5: the stop strip's width across the finger's thickness (y), outside the ventral face. 3.3: 1.0 (2.0), to fit inside the shorter plate (it must stay under handle_over - fit)."
+        }
+      ]
+    },
+    {
+      "name": "Strap tunnel",
+      "params": [
+        {
+          "name": "strap_width",
+          "label": "Strap (webbing) width",
+          "value": 20,
+          "min": 10,
+          "max": 30,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Nominal loop webbing width (not measured; straps are not modelled)."
+        },
+        {
+          "name": "strap_thick",
+          "label": "Strap thickness",
+          "value": 1.5,
+          "min": 0.5,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Nominal webbing thickness; documented only (the slot width below sets the opening)."
+        },
+        {
+          "name": "strap_slot_clearance",
+          "label": "Slot length over strap width",
+          "value": 1.0,
+          "min": 0.2,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The strap tunnel is the strap width plus this long (along the finger)."
+        },
+        {
+          "name": "strap_slot_width",
+          "label": "Strap slot width",
+          "value": 2.5,
+          "min": 1.5,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the tunnel's gap (outboard of the plate) that the webbing runs through, across the finger from one face to the other. 2.5 (3.2: a 3.5 mm slot through the plate either side of the finger)."
+        },
+        {
+          "name": "slot_wall",
+          "label": "Tunnel wall",
+          "value": 1.5,
+          "min": 1,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the strap boss's outer wall over the tunnel (the digit lies on it) and its end walls, along the finger."
+        },
+        {
+          "name": "slot_corner_r",
+          "label": "Slot corner radius",
+          "value": 1,
+          "min": 0.2,
+          "max": 1.7,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Rounding on the tunnel's and the boss's corners (less than half the tunnel gap)."
+        },
+        {
+          "name": "strap_clear",
+          "label": "Strap keep-out round the slots",
+          "value": 3,
+          "min": 1,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.2/3.3: nothing but the handle itself may come within this of either tunnel mouth (the webbing leaves the tunnel there, past each face of the plate), at any swing. check_geometry.py checks it."
+        }
+      ]
+    },
+    {
+      "name": "Handle tail and gear cradle (3.3)",
+      "params": [
+        {
+          "name": "tail_gap",
+          "label": "Tail gap off the finger",
+          "value": 0.4,
+          "min": 0.2,
+          "max": 1.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the handle's tail is a band that follows the finger's outline this far off it: up the outer edge, over the base hook's prong, round the hook and under the finger."
+        },
+        {
+          "name": "tail_top_u",
+          "label": "Tail top (along the edge)",
+          "value": -4,
+          "min": -8.5,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the band starts on the plate this far along the outer edge (rail u; the base hook's prong tip is at -9.2), so it covers the prong."
+        },
+        {
+          "name": "tail_reach",
+          "label": "Tail reach under the finger",
+          "value": 6,
+          "min": 2,
+          "max": 12,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the band runs on under the finger's base until it is this far inboard of the outer edge line (rail w). Its end is the key the gear's cradle drives."
+        },
+        {
+          "name": "key_deg",
+          "label": "Tail key direction",
+          "value": -90,
+          "min": -150,
+          "max": -30,
+          "step": 1,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "3.3: a key sticks out of the tail, away from the pivot, in this direction (finger-frame plan, from +x toward +z; -90 = straight down from the pivot). Its two sides face along the swing, so the gear drives the handle both ways (the tail alone only pushed it open)."
+        },
+        {
+          "name": "key_w",
+          "label": "Tail key width",
+          "value": 4,
+          "min": 2,
+          "max": 8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the key's width across its direction."
+        },
+        {
+          "name": "key_r",
+          "label": "Tail key reach",
+          "value": 10,
+          "min": 6,
+          "max": 13,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: how far from the pivot the key's end is. Keep it inside hub_r with wall to spare."
+        },
+        {
+          "name": "hub_r",
+          "label": "Gear hub radius",
+          "value": 14,
+          "min": 10,
+          "max": 24,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: each gear's hub disc round its pivot, below the finger: it is the cradle that the handle's tail lies in (cut to the tail and the finger, fit off them)."
+        },
+        {
+          "name": "hub_top",
+          "label": "Hub top",
+          "value": 0,
+          "min": -6,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the hub is cut off this far above the pivot (finger-frame z). Higher holds more of the tail's climb outside the hook."
+        },
+        {
+          "name": "web_t",
+          "label": "Gear web",
+          "value": 3,
+          "min": 1.5,
+          "max": 6,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the floor of each gear under the finger and handle (they sit fit above it) that reaches in to the pivot axle."
+        },
+        {
+          "name": "axle_d",
+          "label": "Gear axle",
+          "value": 12,
+          "min": 6,
+          "max": 20,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the spigot under each side gear that turns in its plain bushing in the base."
+        },
+        {
+          "name": "screw_clear_d",
+          "label": "M3 clearance hole",
+          "value": 3.4,
+          "min": 3.1,
+          "max": 4,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Every M3 through-hole in a printed part (the motor flange and front ring screws)."
+        },
+        {
+          "name": "stack_gap",
+          "label": "Gap between stacked parts",
+          "value": 0.3,
+          "min": 0.1,
+          "max": 1,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Running clearance between each gear (and the pinion) and the base plate."
+        }
+      ]
+    },
+    {
+      "name": "Gears (3.3: in the finger plane)",
+      "params": [
+        {
+          "name": "gear_teeth",
+          "label": "Teeth (full circle)",
+          "value": 34,
+          "min": 20,
+          "max": 60,
+          "step": 1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "Teeth on the full gear circle. The pitch radius is fixed to the pivot half-spacing (27.25 mm), so this sets the module: 34 = module 1.60."
+        },
+        {
+          "name": "gear_pressure_deg",
+          "label": "Pressure angle",
+          "value": 20,
+          "min": 14.5,
+          "max": 25,
+          "step": 0.5,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Involute pressure angle."
+        },
+        {
+          "name": "gear_w",
+          "label": "Gear face width",
+          "value": 8,
+          "min": 4,
+          "max": 16,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: thickness of the teeth of every gear (both side gears and the pinion), centred on the finger's mid-plane."
+        },
+        {
+          "name": "gear_backlash",
+          "label": "Backlash",
+          "value": 0.2,
+          "min": 0,
+          "max": 0.6,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Tooth thickness taken off at the pitch circle, so the printed pair runs free."
+        },
+        {
+          "name": "gear_extra",
+          "label": "Extra teeth past the swing",
+          "value": 0.5,
+          "min": 0,
+          "max": 2,
+          "step": 0.1,
+          "unit": "teeth",
+          "stage": "solid",
+          "doc": "3.3: each gear carries teeth only where its mates meet it over the 0-30 deg swing, plus this many tooth pitches at each end. The left one must stay clear of the pinion."
+        },
+        {
+          "name": "pinion_teeth",
+          "label": "Pinion teeth",
+          "value": 34,
+          "min": 24,
+          "max": 48,
+          "step": 1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "3.3: the pinion on the RS00 sits on the centreline below the side gears and drives the right one (34 = 1:1). More teeth move it lower and further from the left gear's teeth."
+        },
+        {
+          "name": "gear_bolt_phase_deg",
+          "label": "Gear-to-flange bolt angle",
+          "value": 30,
+          "min": 0,
+          "max": 60,
+          "step": 5,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "3.3: how the pinion sits on the motor's 6-hole output flange (any multiple of 60 fits)."
+        },
+        {
+          "name": "gear_bolt_head_d",
+          "label": "Flange bolt head counterbore",
+          "value": 5.8,
+          "min": 4,
+          "max": 8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Counterbore in the pinion's top for the six M3 heads that bolt it to the motor flange."
+        },
+        {
+          "name": "gear_bolt_head_h",
+          "label": "Flange bolt head depth",
+          "value": 3.2,
+          "min": 1.5,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Depth of those counterbores."
+        }
+      ]
+    },
+    {
+      "name": "Base (3.3)",
+      "params": [
+        {
+          "name": "base_t",
+          "label": "Base plate thickness",
+          "value": 6,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The black plate under both gears and the pinion; the motor bolts under it."
+        },
+        {
+          "name": "base_r",
+          "label": "Base radius round the motor",
+          "value": 29,
+          "min": 28.5,
+          "max": 45,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the plate is the hull of a disc this big round the motor (centred, under the pinion) and one round each side gear's bushing."
+        },
+        {
+          "name": "bush_r",
+          "label": "Base radius round the left pivot",
+          "value": 11,
+          "min": 8,
+          "max": 30,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "3.3: the disc round each side gear's pivot, where its axle turns in a plain bushing."
+        },
+        {
+          "name": "base_clear",
+          "label": "Spigot clearance (per side)",
+          "value": 0.25,
+          "min": 0.1,
+          "max": 0.6,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Between each gear axle (and the pinion spigot) and its hole in the plate."
+        },
+        {
+          "name": "motor_screw_head_d",
+          "label": "Motor screw head counterbore",
+          "value": 5.8,
+          "min": 4,
+          "max": 8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Counterbore in the plate top for the six M3 heads that hold the motor's front ring."
+        },
+        {
+          "name": "motor_screw_head_h",
+          "label": "Motor screw head depth",
+          "value": 3,
+          "min": 1.5,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Depth of those counterbores (the pinion turns over them)."
+        }
+      ]
+    },
+    {
+      "name": "Motor: RobStride RS00 (3.1)",
+      "params": [
+        {
+          "name": "motor_d",
+          "label": "Body diameter",
+          "value": 57,
+          "min": 40,
+          "max": 80,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "RS00 (the B601-RS gripper motor): 57 mm. Source: RobStride RS00 drawing (Seeed 100083284) and RS00.step. 14 N m peak, 5 N m rated, 315 rpm no-load at 48 V, CAN."
+        },
+        {
+          "name": "motor_len",
+          "label": "Body length",
+          "value": 51,
+          "min": 30,
+          "max": 80,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "51 +-1 mm, front face to back (drawing); the output boss adds motor_boss_h."
+        },
+        {
+          "name": "motor_boss_d",
+          "label": "Output boss diameter",
+          "value": 35,
+          "min": 20,
+          "max": 50,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "The turning output boss on the front face. The pinion's spigot sits on it."
+        },
+        {
+          "name": "motor_boss_h",
+          "label": "Output boss height",
+          "value": 1,
+          "min": 0,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "How far the output boss stands proud of the front face (drawing: 1)."
+        },
+        {
+          "name": "motor_out_pcd",
+          "label": "Output flange bolt circle",
+          "value": 27,
+          "min": 15,
+          "max": 40,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "6 x M3, 5 deep, on 27 +-0.1 (drawing). 3.3: the pinion bolts here."
+        },
+        {
+          "name": "motor_out_holes",
+          "label": "Output flange bolts",
+          "value": 6,
+          "min": 3,
+          "max": 8,
+          "step": 1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "Number of M3 holes on the output flange."
+        },
+        {
+          "name": "motor_out_depth",
+          "label": "Output thread depth",
+          "value": 5,
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Thread depth of those holes."
+        },
+        {
+          "name": "motor_front_pcd",
+          "label": "Front ring bolt circle",
+          "value": 50,
+          "min": 40,
+          "max": 70,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "6 x M3 on 50 +-0.1 on the fixed front ring (drawing). The base plate bolts here."
+        },
+        {
+          "name": "motor_front_holes",
+          "label": "Front ring bolts",
+          "value": 6,
+          "min": 3,
+          "max": 8,
+          "step": 1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "Number of M3 holes on the front ring."
+        },
+        {
+          "name": "motor_front_phase_deg",
+          "label": "Front ring bolt angle",
+          "value": 30,
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Angle of the first front-ring hole from +x (drawing: 30 deg off the vertical centreline)."
+        },
+        {
+          "name": "motor_front_depth",
+          "label": "Front thread depth",
+          "value": 5,
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Thread depth on the front ring (the drawing does not give it for this ring; 5 assumed like the output)."
+        },
+        {
+          "name": "motor_dowel_d",
+          "label": "Dowel hole diameter",
+          "value": 3,
+          "min": 2,
+          "max": 5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "2 x 3 (+0.02/+0.04), 5 deep, on the front ring circle (drawing)."
+        },
+        {
+          "name": "motor_dowel_depth",
+          "label": "Dowel hole depth",
+          "value": 5,
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Depth of the two dowel holes."
+        },
+        {
+          "name": "motor_dowel_phase_deg",
+          "label": "Dowel angle",
+          "value": 15,
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Angle of the first dowel from +x (drawing: 15 deg); the second is assumed opposite it."
+        },
+        {
+          "name": "motor_back_pcd",
+          "label": "Back face bolt circle",
+          "value": 38,
+          "min": 20,
+          "max": 55,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "4 x M3, 4 deep, on 38 +-0.1 on the back face (drawing). 3.2: the wrist mount (the base plate has no wrist tab)."
+        },
+        {
+          "name": "motor_back_holes",
+          "label": "Back face bolts",
+          "value": 4,
+          "min": 2,
+          "max": 8,
+          "step": 1,
+          "unit": "",
+          "stage": "solid",
+          "doc": "Number of holes on the back face."
+        },
+        {
+          "name": "motor_back_depth",
+          "label": "Back thread depth",
+          "value": 4,
+          "min": 2,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "solid",
+          "doc": "Thread depth on the back face."
+        },
+        {
+          "name": "motor_back_phase_deg",
+          "label": "Back face bolt angle",
+          "value": 45,
+          "min": 0,
+          "max": 90,
+          "step": 1,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Angle of the first back-face hole (drawing: 45)."
+        }
+      ]
+    },
+    {
+      "name": "Calibration (traced, not on a slider)",
+      "params": [
+        {
+          "name": "mm_per_px",
+          "value": 0.2,
+          "unit": "mm/px",
+          "stage": "calibration",
+          "doc": "Photo scale: ~110 mm pivot to tip. No measured scale."
+        },
+        {
+          "name": "px_pivot",
+          "value": [
+            337,
+            395
+          ],
+          "unit": "px",
+          "stage": "calibration",
+          "doc": "Frame origin in the two-hands photo."
+        },
+        {
+          "name": "axis_deg",
+          "value": 36.5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Bisector of the two closed fingers in the photo (27 and 46 deg)."
+        },
+        {
+          "name": "contact_back",
+          "value": 0.0005,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the smoothed point sits outboard of the traced one; moves the pivots so closed the points meet. 2.5: 0.0005, 1.19's: the wide point keeps its full reach through the tip_r round (mesh innermost reach = outline's). 2.4: -0.0651."
+        },
+        {
+          "name": "rail_p",
+          "value": [
+            [
+              -5.06,
+              12.79
+            ],
+            [
+              -9.54,
+              36.26
+            ]
+          ],
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Two outer-edge points of the traced outline where the edge is straight within 0.3 mm (the handle's rail)."
+        },
+        {
+          "name": "round_back",
+          "value": 1.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far tip_r rounds the triangle point back from the trace (trace_photo.py ROUND_BACK)."
+        },
+        {
+          "name": "max_angle",
+          "value": 30,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Each finger's largest swing about its pivot."
+        }
+      ]
+    }
+  ]
+}

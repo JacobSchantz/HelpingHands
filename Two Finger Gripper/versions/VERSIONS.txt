@@ -47,3 +47,7 @@ a black base plate, and a RobStride RS00 motor underneath, coaxial with the righ
 v302_generalist_simple — 3.2 (voice-e3cd53d6), fingers 1.21: 3.1 made simpler. Arms and the hex interface are gone: each gear carries
 a short cup the handle's low end drops into (one print, the driver). Nothing comes within 3 mm of the strap slots at any swing
 (checked). Handle plate 29 mm across (3.1: 37). Base is just the motor and bushing discs, no wrist tab. 7 printed parts (3.1: 9).
+v303_generalist_inplane — 3.3 (voice-3b311f32), fingers 1.21: the drive moved into the finger plane. Handle 15 mm across the finger (3.2: 29),
+with a strap tunnel under a boss on its outer face instead of two slots, and a tail that wraps round the base hook and under the finger
+into its gear's hub (a cradle, keyed both ways). Side gears centred on the finger plane; one RS00 centred below them, its pinion
+meshing the right gear, which meshes the left. 8 printed parts (gears 2, pinion, base).

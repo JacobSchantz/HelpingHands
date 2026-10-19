@@ -1,0 +1,94 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_slide.stl",
+      "name": "Left handle \u2014 black, held by both hooks, strap tunnel, tail round the base hook",
+      "color": "#26272b",
+      "explode": [
+        -60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_slide.stl",
+      "name": "Right handle \u2014 black, held by both hooks, strap tunnel, tail round the base hook",
+      "color": "#26272b",
+      "explode": [
+        60,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left gear \u2014 black, in the finger plane, cradles the left finger and handle tail",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right gear \u2014 black, in the finger plane, cradles the right finger and handle tail, driven by the pinion",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 black, centred, bolted to the motor flange",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -40,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black plate under the gears and pinion",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 RobStride RS00, reference only (not printed)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    }
+  ]
+}
