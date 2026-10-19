@@ -1,0 +1,19 @@
+{
+  "id": "voice-decf86cd",
+  "commit_id": "",
+  "description": "Gripper Gen 13: design from the CLOSED reference photo first. Jake (voice): 'Take all your learnings so far and reference the closed one specifically to make Gen 13. It only touches at the very tip, and everything from there backs off a little bit. The serration does span the entire length, except maybe the very tip, and it's more beak-shaped at the tip. Instead of designing it open, design it from a closed position first, because that's what determines how usable it will be. How it contacts is key. Maybe do a sketch/outline traced from it. The top-down shot is too blurry; the image labeled closed has a pretty good shot, so generate off of that as the primary reference.' Spec: primary reference = cad/reference/generalist_gripper_gen6_closed.png. (1) Trace a 2D outline/sketch of both closed fingers from that photo first and save it; (2) model the fingers in the CLOSED pose: tips touch only at the very point, with a small, gradually widening gap behind it; (3) shallow full-thickness serration grooves along essentially the whole inner edge, stopping just short of the tip; (4) beak-shaped tip. Then derive the open pose from the hinge. Carry over learnings from Gens 7-11 (through-holes, Gen 10's fuller beak). New version only; leave earlier gens untouched. Build/review loop against the closed photo, up to 3 rounds; show it in the gallery with the Actual photo.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T00:52:59.000Z",
+  "updated_at": "2026-10-19T00:52:59.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
