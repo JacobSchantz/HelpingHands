@@ -27,5 +27,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The gripper and handle geometry still contains buried magic numbers, so finger, tip, pocket, tongue, and slot dimensions need to become named, documented parameters. The website live preview should add a slider for each parameter that updates the gripper and handles live while dragging.",
+  "summary_sha": "7a65370aeae9ad3b"
 }
