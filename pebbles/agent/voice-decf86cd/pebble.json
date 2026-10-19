@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T00:52:59.000Z",
-  "updated_at": "2026-10-19T00:52:59.000Z",
+  "updated_at": "2026-10-19T00:56:23Z",
   "user_request": {
     "name": "Jake"
   },
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Create Gripper Gen 13 by first tracing a 2D outline of both fingers from the closed reference photo, then modeling the fingers in the closed pose with tips touching only at the point and a gradually widening gap behind it. Serration grooves should run nearly the full inner edge but stop short of the beak-shaped tip, with the open pose derived from the hinge afterward.",
-  "summary_sha": "decf86cdf4ff430d"
+  "summary_sha": "decf86cdf4ff430d",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-decf86cd",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-decf86cd",
+  "claimed_at": "2026-10-19T00:56:23.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
