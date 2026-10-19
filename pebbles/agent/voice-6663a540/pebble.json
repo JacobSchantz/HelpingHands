@@ -58,8 +58,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Build Gen 11 of the yellow gripper fingers from the better of Gen 9 and Gen 10, with Opus 5.5 first, then GPT-6 Astra. Add shallow full-width ridges and through-holes, match the gen6 photos, and keep both outputs viewable with working slider and rotation.",
-  "summary_sha": "6663a540860801ff",
+  "summary": "Gen 11's fine grooves run along the whole inner edge down to the base, so it reads as a serrated saw, and the needle tip lost Gen 10's fuller beak. Keep the shallow full-thickness grooves only on the gripping jaw near the tip, and restore some of Gen 10's beak fullness with a clean point.",
+  "summary_sha": "0546301e94f164f3",
   "artifacts": [
     {
       "kind": "model",

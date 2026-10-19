@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The design gallery lacks real Generalist gripper photos beside the 3D model, so Jake can't compare them live, including on phone. Default to the clearest top-down profile shot and let him swap to the other reference photos.",
+  "summary_sha": "80e52a21520a6468"
 }
