@@ -72,8 +72,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The gripper and handle geometry still contains buried magic numbers, so finger, tip, pocket, tongue, and slot dimensions need to become named, documented parameters. The website live preview should add a slider for each parameter that updates the gripper and handles live while dragging.",
-  "summary_sha": "7a65370aeae9ad3b",
+  "summary": "The Tune panel with parameter sliders never appears on Jake's phone in the Pebbles Live view, because the Tune button only shows when a single design is focused. Make Tune reachable from the multi-design grid, loosen the 6 px touch-tap threshold, and verify on the real phone, not just headless.",
+  "summary_sha": "57e24463df5c17d0",
   "artifacts": [
     {
       "kind": "image",
