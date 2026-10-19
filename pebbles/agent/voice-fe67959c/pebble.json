@@ -18,7 +18,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T01:10:26.000Z",
-  "updated_at": "2026-10-19T01:11:21.000Z",
+  "updated_at": "2026-10-19T01:12:52Z",
   "dispatch_target": {
     "harness": "codex",
     "model": "gpt-6-astra",
@@ -34,5 +34,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Gripper Gen 14 should be a refinement of Gen 13 built on GPT-6 Astra, starting with sharper, tip-only contact in the closed pose. Compare Gen 13 against all the reference photos, with closed.png primary, and improve anything that's off, not just the tips.",
-  "summary_sha": "7fdd98594506abaa"
+  "summary_sha": "7fdd98594506abaa",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-fe67959c",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-fe67959c",
+  "claimed_at": "2026-10-19T01:12:52.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
