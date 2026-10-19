@@ -1,0 +1,16 @@
+{
+  "id": "voice-448df859",
+  "commit_id": "",
+  "description": "Handle 7 (builds on Handle 6 / old 2.6, voice-72840084; carries Gripper 21): Viewed edge-on (looking along the gripper's edge, the finger's thickness direction), the handle is still too tall. Make the handle about the same height as the gripper finger itself, not taller. Measured in Handle 6's CAD (v206 params + exports/parts): handle plate height slide_h = 37 mm (2*slot_wall 3 + 2*strap_slot_width 3.5 + slot_gap 24) vs finger thickness plate = 12 mm, so the handle stands 12.5 mm past each finger face (25 mm taller overall). Target: handle height ~12 mm, matching the finger. The strap slots and stop strip will no longer fit across the height as laid out, so rework them as needed. Keep consistent with Base 3 (voice-3b311f32), which asked the same of its handles and added a handle_over param (slide_h = plate + 2*handle_over, 15 mm there): use that same shared parameter, set so the handle matches the finger height, so Handle 7 and Base handles stay in step. New folder, params.json-first per AGENTS.md; name it Handle 7 in VERSIONS.txt / catalog.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T20:43:18.000Z",
+  "updated_at": "2026-10-19T20:43:18.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
