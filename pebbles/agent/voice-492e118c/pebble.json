@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Make Gripper Gen 15 a fully printable handheld gripper, keeping the Gen 14 fingers and adding the mechanism, hand-mount frame, and forward-facing camera mount. Deliver per-part STLs, a parts list, and a gallery assembly with open/close slider and exploded view.",
+  "summary_sha": "492e118cea600185"
 }
