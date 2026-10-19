@@ -1,0 +1,16 @@
+{
+  "id": "voice-3b311f32",
+  "commit_id": "",
+  "description": "Version 3.3, gripper plus handles plus base (builds on 3.2, related: voice-e3cd53d6; 3.1 is voice-5b59d3bf): Reduce the handle height again: just barely taller than the gripper fingers themselves. Rework how the handle attaches to the base and gear system so it attaches much more smoothly. Put the gears in the same plane as the gripper fingers (move the gears up), with a single motor centered there. The handle wraps around and connects into the gear system. Iterate on every piece as needed for this layout. Keep it parameterized (params.json and the Tune sliders), keep the pieces separable, and keep it driven by the single RobStride RS00.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T19:37:58.000Z",
+  "updated_at": "2026-10-19T19:37:58.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
