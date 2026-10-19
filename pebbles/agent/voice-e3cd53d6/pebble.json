@@ -1,0 +1,16 @@
+{
+  "id": "voice-e3cd53d6",
+  "commit_id": "",
+  "description": "Version 3.2, gripper plus handles plus base (builds on 3.1, related: voice-5b59d3bf): Simplify the whole 3.1 setup. It has to be much simpler: fewer parts and features, as little as needed. Nothing should get in the way of the strap-loop slots; keep them completely clear. Shrink the handles part down. Overall, simplify the whole design wherever possible. Keep it parameterized (params.json and the Tune sliders), keep the pieces separable, and keep it driven by the single RobStride RS00 underneath.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T18:39:08.000Z",
+  "updated_at": "2026-10-19T18:39:08.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
