@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T00:12:36.000Z",
-  "updated_at": "2026-10-19T00:12:36.000Z",
+  "updated_at": "2026-10-19T00:19:46Z",
   "dispatch_target": {
     "harness": "codex",
     "model": "gpt-6-astra",
@@ -19,5 +19,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Copy Gen 11 Opus yellow fingers into a new v011b_generalist_fingers_astra folder and refine them there, using the gen6 reference photos as truth. Keep the shallow full-width grooves, skinny pointed tips and through-holes, add the gallery pose and publish entries, and resolve the open beak-corner and chisel-taper questions.",
-  "summary_sha": "72fa2b1aa907fdf6"
+  "summary_sha": "72fa2b1aa907fdf6",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-72fa2b1a",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-72fa2b1a",
+  "claimed_at": "2026-10-19T00:19:46.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
