@@ -8,7 +8,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-19T20:27:46.000Z",
-  "updated_at": "2026-10-19T20:27:46.000Z",
+  "updated_at": "2026-10-19T20:28:49Z",
   "user_request": {
     "name": "Jake"
   },
@@ -19,5 +19,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The live preview in gallery.js jumps parts straight to their final positions when the Explode/Assemble toggle is switched. Parts should animate smoothly, flying apart on Explode and back together on Assemble.",
-  "summary_sha": "3147fea8d26a7fbc"
+  "summary_sha": "3147fea8d26a7fbc",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-3147fea8",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-3147fea8",
+  "claimed_at": "2026-10-19T20:28:49.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
