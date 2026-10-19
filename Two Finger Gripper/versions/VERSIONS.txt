@@ -36,3 +36,7 @@ slides each one and re-renders the real CAD (live_render.py via serve_designs.py
 v205_generalist_spanning_handle — 2.5 (voice-56f9d73f): 2.4's params on 1.20's double-hook fingers (byte-identical finger). Each
 handle plate spans the straight outer edge floor to floor between the base and top hooks (41.8 mm; 2.4: 28), a foot in each notch,
 and slides in across the finger from the ventral side; a stop strip butts the ventral face when home. 2.3's tongue + pocket dropped.
+v206_generalist_single_step — 2.6 (voice-72840084), fingers 1.21: 2.5 with the top hook moved up to u 54, where 1.20's edge
+started going out. 1.21: the outer edge runs straight from the base hook to it, the hook curls out to its 6.6 mm crest and
+the edge stays out there until the beak meets it: one step out, no notch-dip-S-curve double indent. 2.6: the handle plate
+spans floor to floor, 67.4 mm (2.5: 41.8). Params: top_notch_u (replaces top_hook_mirror_u), top_step_back.
