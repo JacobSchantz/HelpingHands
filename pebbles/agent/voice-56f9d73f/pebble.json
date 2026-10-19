@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Handles version 2.4 lowers the handles further and extends the handle piece upward to span the new 1.20 gripper's bottom and top hooks. The handle should slide in and be captured by both hooks, building on the 2.3 slide-in tongue and pocket.",
+  "summary_sha": "56f9d73f7f3a850d"
 }

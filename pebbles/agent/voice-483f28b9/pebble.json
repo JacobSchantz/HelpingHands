@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The gripper model needs a new version 1.20, built on 1.19, with a hook at both the bottom and top of the flat face. The handle piece should slide in and be held by both hooks, with the version bumped per AGENTS.md.",
+  "summary_sha": "483f28b9a08cfb3f"
 }
