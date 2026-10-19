@@ -3,9 +3,9 @@ export default {
   "two-finger-gripper-v008-pollen-grabette": {"exported": 90, "min": 0, "max": 90, "single_finger": true, "hinges": [
     {"match": "^Grabette finger", "pivot": [0, 0, 0], "sign": 1},
     {"match": "^Gripette finger", "pivot": [320, 0, 0], "sign": 1}]},
-  "two-finger-gripper-v017-generalist-simple": {"exported": 15, "min": 0, "max": 30, "hinges": [
-    {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
-    {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},
+  "two-finger-gripper-v017-generalist-strap-slide": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [27.1856, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.1856, 0, 0], "sign": -1}]},
   "two-finger-gripper-v016-generalist-rounded-point": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.1856, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.1856, 0, 0], "sign": -1}]},

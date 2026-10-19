@@ -2,8 +2,8 @@
 
 Gen 15 and Gen 9 combined (voice-1fc7e062). Jake: *"keep Gen 15's length; keep the ridges but make them shallower, about
 1 mm, less pronounced; make it more rounded like Gen 9; have it come to a nice point like Gen 9 does, but the two sides
-should actually touch at the point; remove the black tip, so it is all yellow."* The simple handheld that was Gen 16 is
-now Gen 17 (`v017_generalist_simple`, unchanged).
+should actually touch at the point; remove the black tip, so it is all yellow."* The simple handheld that was Gen 16 became
+Gen 17 and was later replaced (voice-cfdf2d31) by `v017_generalist_strap_slide`, this finger plus the strap slides.
 
 ## Key reference image for the finger design
 

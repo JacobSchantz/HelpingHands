@@ -11,5 +11,6 @@ v015_generalist_long_jaw — Gen 15 (voice-8673a6b6): Gen 14 with a beak 1.7x lo
 of the finger (Gen 14: 25 mm, 23%); closed tip contact unchanged. Replaces the old printable Gen 15 (deleted; in git at 97850a1).
 v016_generalist_rounded_point — Gen 16 (voice-1fc7e062): Gen 15 + Gen 9. Gen 15's length and point contact; inner-edge knobs rounded to 1 mm swells,
 Gen 9's smoothed outline, J-hook, blade-root S-curve and 0.5 mm eased point; all yellow (no tip pad).
-v017_generalist_simple — Gen 17 (was Gen 16 until voice-1fc7e062): the old printable Gen 15 (now deleted) cut to 3 printed parts. Each finger fused to a flat side pad (thumb / index)
-with one strap slot; one pivot plate + Insta360 X4/X5 cradle. No wrist attachment, straps not modelled. BOM.md.
+v017_generalist_strap_slide — Gen 17 (voice-cfdf2d31): Gen 16's fingers at the full 12 mm thickness to the point (the point is in
+plan only) + how the loops attach: a yellow dovetail lug on each finger's outer edge and a black flat strap slide with two loop slots.
+Replaces the old Gen 17 (v017_generalist_simple: fingers + pads + camera cradle; deleted, in git before voice-cfdf2d31).
