@@ -1,1 +1,106 @@
-{"id":"voice-492e118c","commit_id":"9499dfe7430b35d9aa2167ffcd541da7c36467fd","description":"Gripper Gen 15: full printable handheld gripper built around the Gen 14 fingers. Jake (voice): 'I'm happy with Gen 14. Let's move forward with making it printable. Gen 15: keep that, but from the photos add the rest of it: the actual attachment mechanism and stuff, and the ability to attach a camera.' Spec: keep the Gen 14 finger shape (voice-fe67959c) as-is, only adjusting it for printability (wall thickness, tip strength, hole sizes, print orientation, tolerances at the pivots). From all the reference photos in cad/reference/generalist_gripper_gen6_*.png, add the rest of the device: the pivot/linkage plate and finger carrier blocks, the hand-mount frame, and an Insta360 X4/X5-size camera mount on the back of the hand with the lens facing forward. Earlier asks from Jake still apply: mounting and mechanism sit ABOVE the hand, keep the thumb-index web as empty as possible; three straps (wrist, index finger, thumb) modeled as separate non-printed parts, with slots that also fit zip ties. Output printable STLs per part plus a parts list, and show the assembly in the gallery with the open/close slider and exploded view. New version only.","test_instructions":[],"results":[{"kind":"agent_action","at":"2026-10-19T01:46:24Z","commit_id":"9499dfe7430b35d9aa2167ffcd541da7c36467fd","model":"claude-opus-5-5","model_display":"Claude Opus 5.5","identified_issue":"Architecture read from photos: each finger is moved by its own digit, with no sync linkage. The carrier holds the pivot nut (side-entry M4 nyloc) because Gen 14's pivot origin sits at the finger's thin root lip (only ~2 mm of wall), so a bore there would break out. The finger bolts to the carrier through honeycomb holes (-11.2,16.3) and (-11.2,27.4) in the finger frame, opened to 3.2 mm. Hole count stays 33. The orientation is a right hand, palm down: viewed from +Y, +X is on the viewer's left, so the thumb is on the +X/'Right' finger. The hand dimensions and the back-of-hand height are nominal guesses. The slot clip uses offset(-ridge_wall-0.05), because exactly -ridge_wall made the grooves' stop line land on the edge and broke the mesh. Under the manifold backend, intersection() with a bare for() treats each child separately, so it is wrapped in union(). Scripts/publish_designs.py (untracked, local only) got a v015 \u2192 'Gen 15' entry that is not committed. VERSIONS.txt is untracked too, so its new line is also uncommitted. STLs are gitignored.","summary":"Gen 15 is in the gallery: the Gen 14 fingers plus everything from the photos to wear it and print it. That's thumb and index carriers, a pivot plate, a hand frame, an Insta360 X4/X5 camera mount, and three straps, with STLs and a parts list.","description_sha":"492e118cea600185","changes":["Two Finger Gripper/versions/v015_generalist_printable/gripper.scad","Two Finger Gripper/versions/v015_generalist_printable/BOM.md","Two Finger Gripper/versions/v015_generalist_printable/README.md","Two Finger Gripper/versions/v015_generalist_printable/check_device.py","Two Finger Gripper/versions/v015_generalist_printable/export_models.py","Two Finger Gripper/versions/v015_generalist_printable/check_geometry.py","Two Finger Gripper/versions/v015_generalist_printable/genus.py","Two Finger Gripper/versions/v015_generalist_printable/viewer_parts.json","cad/mobile_gallery/poses.js"],"detailed_description":"Each finger bolts into a dark carrier through two of its own honeycomb holes, opened up to 3.2 mm for M3. The right carrier rides on your thumb and the left on your index finger, each held by a strap through two 4 \u00d7 22 mm slots. Those slots also take zip ties. The carrier holds a captive M4 lock nut, so the finger root isn't drilled. A 6 mm pivot plate sits above both carriers and holds the two M4 pivots at Gen 14's 27.137 mm spacing, so the closed tips still meet exactly as before. The hand frame bolts on top of the plate and runs back over the back of your hand to two wrist-strap slots. The camera cradle bolts onto the frame and holds an X4 or X5 upright on its own 1/4\"-20 thread, lenses facing forward and back like the side and robot photos. Everything sits above the hand. A check confirms the thumb-index web stays empty at every angle from 0 to 30\u00b0.\n\nThe finger shape is Gen 14's. Gen 14's contact checks pass unchanged. I made four small changes for printing:\n- the point is 2.0 mm thick instead of 1.6;\n- every wall is at least 0.8 mm, two perimeters (the slot nearest the beak was 0.66 mm from the edge);\n- the two bolt holes are opened up for M3;\n- the dark tip pad prints merged with the finger. There's a two-material version if you want the pad in TPU.\n\nThe fingers print flat but need supports under the beak, because it thins on both faces. A flat-bottomed beak would have avoided that, but it changes the shape, so I left it.\n\nSeven parts to print, about 150 cm\u00b3, all on a 220 mm bed. BOM.md has the hardware and the assembly steps. The hand itself is my guess: 22.5 mm fingers, a 60 \u00d7 44 mm wrist. The carrier's finger position, rail height and wrist-slot spacing are what to adjust after a first fit. One more: the camera stands 124 mm tall, like the photos, so it's top-heavy. The STLs are in exports/print/, which the repo's .gitignore keeps out of git. Rerun export_models.py to rebuild them.","image_urls":["Two Finger Gripper/versions/v015_generalist_printable/previews/iso.png"],"user_reply_draft":"Hey Jake, Gen 15 is up in the gallery. It's the Gen 14 fingers you liked plus the rest of the device: thumb and index carriers with straps, a pivot plate, a hand frame on the back of your hand, and a mount for an Insta360 X4/X5 facing forward. The fingers' shape is unchanged, just tuned to print cleanly. There's a parts list with every screw and strap. The hand sizing is a first guess, so expect to adjust the strap positions after a test fit.","solved_by_agent":"jarvis","solved_by_device":"jakes-macbook-pro","solved_at":"2026-10-19T01:46:24Z","commit_count":654},{"kind":"test_result","at":"2026-10-19T01:46:23.000Z","result":"failed","notes":"Jake (voice): 'Focus on significant simplicity. Make it much simpler. It doesn't need that whole arm attachment bit; if it doesn't attach to my wrist, that's okay. It just needs a flat piece on the side that I can put my fingers in, my thumb on the other side, and a strap that goes over. Really simple.' Revised scope: drop the wrist/forearm attachment entirely. Each finger gets a simple flat pad/plate on its side: fingers on one, thumb on the other, each with one slot for a strap or zip tie over the top. Keep the Gen 14 fingers, the pivot and the camera mount, but minimize part count and complexity everywhere else. .","image_urls":[],"by":{"github_login":"JacobSchantz","name":"Jacob Schantz"}},{"kind":"test_result","at":"2026-10-19T01:45:30.000Z","result":"failed","notes":"Jake (voice): 'We don't need to actually draw the straps on there. That's unnecessary.' Don't model or render the straps at all. Just keep the strap/zip-tie slots in the printed parts. .","image_urls":[],"by":{"github_login":"JacobSchantz","name":"Jacob Schantz"}}],"image_urls":[],"created_at":"2026-10-19T01:30:37.000Z","updated_at":"2026-10-19T01:46:24Z","user_request":{"name":"Jake"},"created_by":{"kind":"human","name":"Jacob Schantz","github_login":"JacobSchantz"},"owner":"JacobSchantz","summary":"Make Gripper Gen 15 a fully printable handheld gripper, keeping the Gen 14 fingers and adding the mechanism, hand-mount frame, and forward-facing camera mount. Deliver per-part STLs, a parts list, and a gallery assembly with open/close slider and exploded view.","summary_sha":"492e118cea600185","artifacts":[{"kind":"file","path":"Two Finger Gripper/versions/v015_generalist_printable/BOM.md","label":"Parts list"}],"solved_by_agent":"jarvis","solved_by_device":"jakes-macbook-pro","solved_at":"2026-10-19T01:46:24Z","cost":{"runs":[{"session":"e4faaadc-013d-4d8e-9d15-6bf01de818c0","harness":"claude","model":"claude-opus-5-5","input_tokens":224,"output_tokens":178115,"cache_read_tokens":13874223,"cache_write_tokens":356260,"turns":112,"at":"2026-10-19T01:46:24Z","priced":true,"usd":40.8532}],"input_tokens":224,"output_tokens":178115,"cache_read_tokens":13874223,"cache_write_tokens":356260,"total_usd":40.8532}}
+{
+  "id": "voice-492e118c",
+  "commit_id": "9499dfe7430b35d9aa2167ffcd541da7c36467fd",
+  "description": "Gripper Gen 15: full printable handheld gripper built around the Gen 14 fingers. Jake (voice): 'I'm happy with Gen 14. Let's move forward with making it printable. Gen 15: keep that, but from the photos add the rest of it: the actual attachment mechanism and stuff, and the ability to attach a camera.' Spec: keep the Gen 14 finger shape (voice-fe67959c) as-is, only adjusting it for printability (wall thickness, tip strength, hole sizes, print orientation, tolerances at the pivots). From all the reference photos in cad/reference/generalist_gripper_gen6_*.png, add the rest of the device: the pivot/linkage plate and finger carrier blocks, the hand-mount frame, and an Insta360 X4/X5-size camera mount on the back of the hand with the lens facing forward. Earlier asks from Jake still apply: mounting and mechanism sit ABOVE the hand, keep the thumb-index web as empty as possible; three straps (wrist, index finger, thumb) modeled as separate non-printed parts, with slots that also fit zip ties. Output printable STLs per part plus a parts list, and show the assembly in the gallery with the open/close slider and exploded view. New version only.",
+  "test_instructions": [],
+  "results": [
+    {
+      "kind": "agent_action",
+      "at": "2026-10-19T01:46:24Z",
+      "commit_id": "9499dfe7430b35d9aa2167ffcd541da7c36467fd",
+      "model": "claude-opus-5-5",
+      "model_display": "Claude Opus 5.5",
+      "identified_issue": "Architecture read from photos: each finger is moved by its own digit, with no sync linkage. The carrier holds the pivot nut (side-entry M4 nyloc) because Gen 14's pivot origin sits at the finger's thin root lip (only ~2 mm of wall), so a bore there would break out. The finger bolts to the carrier through honeycomb holes (-11.2,16.3) and (-11.2,27.4) in the finger frame, opened to 3.2 mm. Hole count stays 33. The orientation is a right hand, palm down: viewed from +Y, +X is on the viewer's left, so the thumb is on the +X/'Right' finger. The hand dimensions and the back-of-hand height are nominal guesses. The slot clip uses offset(-ridge_wall-0.05), because exactly -ridge_wall made the grooves' stop line land on the edge and broke the mesh. Under the manifold backend, intersection() with a bare for() treats each child separately, so it is wrapped in union(). Scripts/publish_designs.py (untracked, local only) got a v015 → 'Gen 15' entry that is not committed. VERSIONS.txt is untracked too, so its new line is also uncommitted. STLs are gitignored.",
+      "summary": "Gen 15 is in the gallery: the Gen 14 fingers plus everything from the photos to wear it and print it. That's thumb and index carriers, a pivot plate, a hand frame, an Insta360 X4/X5 camera mount, and three straps, with STLs and a parts list.",
+      "description_sha": "492e118cea600185",
+      "changes": [
+        "Two Finger Gripper/versions/v015_generalist_printable/gripper.scad",
+        "Two Finger Gripper/versions/v015_generalist_printable/BOM.md",
+        "Two Finger Gripper/versions/v015_generalist_printable/README.md",
+        "Two Finger Gripper/versions/v015_generalist_printable/check_device.py",
+        "Two Finger Gripper/versions/v015_generalist_printable/export_models.py",
+        "Two Finger Gripper/versions/v015_generalist_printable/check_geometry.py",
+        "Two Finger Gripper/versions/v015_generalist_printable/genus.py",
+        "Two Finger Gripper/versions/v015_generalist_printable/viewer_parts.json",
+        "cad/mobile_gallery/poses.js"
+      ],
+      "detailed_description": "Each finger bolts into a dark carrier through two of its own honeycomb holes, opened up to 3.2 mm for M3. The right carrier rides on your thumb and the left on your index finger, each held by a strap through two 4 × 22 mm slots. Those slots also take zip ties. The carrier holds a captive M4 lock nut, so the finger root isn't drilled. A 6 mm pivot plate sits above both carriers and holds the two M4 pivots at Gen 14's 27.137 mm spacing, so the closed tips still meet exactly as before. The hand frame bolts on top of the plate and runs back over the back of your hand to two wrist-strap slots. The camera cradle bolts onto the frame and holds an X4 or X5 upright on its own 1/4\"-20 thread, lenses facing forward and back like the side and robot photos. Everything sits above the hand. A check confirms the thumb-index web stays empty at every angle from 0 to 30°.\n\nThe finger shape is Gen 14's. Gen 14's contact checks pass unchanged. I made four small changes for printing:\n- the point is 2.0 mm thick instead of 1.6;\n- every wall is at least 0.8 mm, two perimeters (the slot nearest the beak was 0.66 mm from the edge);\n- the two bolt holes are opened up for M3;\n- the dark tip pad prints merged with the finger. There's a two-material version if you want the pad in TPU.\n\nThe fingers print flat but need supports under the beak, because it thins on both faces. A flat-bottomed beak would have avoided that, but it changes the shape, so I left it.\n\nSeven parts to print, about 150 cm³, all on a 220 mm bed. BOM.md has the hardware and the assembly steps. The hand itself is my guess: 22.5 mm fingers, a 60 × 44 mm wrist. The carrier's finger position, rail height and wrist-slot spacing are what to adjust after a first fit. One more: the camera stands 124 mm tall, like the photos, so it's top-heavy. The STLs are in exports/print/, which the repo's .gitignore keeps out of git. Rerun export_models.py to rebuild them.",
+      "image_urls": [
+        "Two Finger Gripper/versions/v015_generalist_printable/previews/iso.png"
+      ],
+      "user_reply_draft": "Hey Jake, Gen 15 is up in the gallery. It's the Gen 14 fingers you liked plus the rest of the device: thumb and index carriers with straps, a pivot plate, a hand frame on the back of your hand, and a mount for an Insta360 X4/X5 facing forward. The fingers' shape is unchanged, just tuned to print cleanly. There's a parts list with every screw and strap. The hand sizing is a first guess, so expect to adjust the strap positions after a test fit.",
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-19T01:46:24Z",
+      "commit_count": 654
+    },
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T01:46:23.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'Focus on significant simplicity. Make it much simpler. It doesn't need that whole arm attachment bit; if it doesn't attach to my wrist, that's okay. It just needs a flat piece on the side that I can put my fingers in, my thumb on the other side, and a strap that goes over. Really simple.' Revised scope: drop the wrist/forearm attachment entirely. Each finger gets a simple flat pad/plate on its side: fingers on one, thumb on the other, each with one slot for a strap or zip tie over the top. Keep the Gen 14 fingers, the pivot and the camera mount, but minimize part count and complexity everywhere else. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
+      "at": "2026-10-19T01:45:30.000Z",
+      "result": "failed",
+      "notes": "Jake (voice): 'We don't need to actually draw the straps on there. That's unnecessary.' Don't model or render the straps at all. Just keep the strap/zip-tie slots in the printed parts. .",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    }
+  ],
+  "image_urls": [],
+  "created_at": "2026-10-19T01:30:37.000Z",
+  "updated_at": "2026-10-19T01:46:24Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "summary": "Gen 15 should be a simple printable gripper with the Gen 14 fingers, the pivot, and an Insta360 camera mount. Drop the wrist attachment and strap models, leaving one flat slotted pad per side for fingers and thumb.",
+  "summary_sha": "6ef7cce3a827952b",
+  "artifacts": [
+    {
+      "kind": "file",
+      "path": "Two Finger Gripper/versions/v015_generalist_printable/BOM.md",
+      "label": "Parts list"
+    }
+  ],
+  "solved_by_agent": "jarvis",
+  "solved_by_device": "jakes-macbook-pro",
+  "solved_at": "2026-10-19T01:46:24Z",
+  "cost": {
+    "runs": [
+      {
+        "session": "e4faaadc-013d-4d8e-9d15-6bf01de818c0",
+        "harness": "claude",
+        "model": "claude-opus-5-5",
+        "input_tokens": 224,
+        "output_tokens": 178115,
+        "cache_read_tokens": 13874223,
+        "cache_write_tokens": 356260,
+        "turns": 112,
+        "at": "2026-10-19T01:46:24Z",
+        "priced": true,
+        "usd": 40.8532
+      }
+    ],
+    "input_tokens": 224,
+    "output_tokens": 178115,
+    "cache_read_tokens": 13874223,
+    "cache_write_tokens": 356260,
+    "total_usd": 40.8532
+  }
+}
