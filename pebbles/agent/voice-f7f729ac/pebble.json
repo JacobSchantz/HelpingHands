@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "In version 2.2 of the gripper design, the handle/strap-loop flat pieces stick outward as they did in 2.1. Rotate them 90 degrees so they lie parallel to the gripper's flat faces, flush with its flat sides.",
+  "summary_sha": "f7f729ac01226dae"
 }
