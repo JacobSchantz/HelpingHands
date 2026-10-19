@@ -1,0 +1,16 @@
+{
+  "id": "voice-72840084",
+  "commit_id": "",
+  "description": "Gripper 1.21 + handles 2.6 (from 1.20 gripper + 2.5 handles, which Jake likes). Jake, in substance: \"Extend the black piece where my finger rests all the way up to where the profile starts to go out again. Where it goes out again, make it more of a single jump out: no double indent, just out and then back in.\"\n\nVersions: next free are 1.21 and 2.6 (latest: v020 = 1.20, v205 = 2.5; nothing in flight). This touches BOTH parts, so make both:\n- 1.21 (gripper/finger outline): the 'go out again' is on the finger's outer edge above 1.20's top hook \u2014 the top hook notch (top_hook_mirror_u, floor at u 28.4), its ramp back onto the edge (lands u 36.5), then the blade-root bend/S-curve. That reads as the double indent. Replace it with one clean step: out once, then back in. The top hook has to move up to (or become) that step so the handle can reach it.\n- 2.6 (handle plate, the black piece): on 1.21's fingers, the handle plate runs from the base hook up to that new single step (longer than 2.5's 41.8 mm floor-to-floor span), keeping 2.5's slide-in-across-the-finger fit and stop strip.\n\nFollow AGENTS.md: copy v205_generalist_spanning_handle, change params.json (add params for the new step rather than literals), regenerate, check_geometry, register in Scripts/publish_designs.py and cad/mobile_gallery/poses.js. Also record 1.21 in VERSIONS.txt. Show Jake 2.6 next to 2.5 from the same angle.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T17:24:50.000Z",
+  "updated_at": "2026-10-19T17:24:50.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
