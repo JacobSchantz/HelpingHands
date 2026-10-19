@@ -20,5 +20,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Gripper Gen 13 has too much contact leading up to the tip, and its contact angle isn't tight or sharp enough. Build Gen 14 as a new version on Astra, keeping all Gen 13 features, so only the tips touch when closed with inner edges diverging sooner.",
+  "summary_sha": "fe67959c8c3dac6f"
 }
