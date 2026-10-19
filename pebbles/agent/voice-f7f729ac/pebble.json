@@ -1,0 +1,16 @@
+{
+  "id": "voice-f7f729ac",
+  "commit_id": "",
+  "description": "Version 2.2 (builds on 2.1, related: voice-4c63021e): The handle/strap-loop flat pieces shouldn't stick out the way they do in 2.1. Rotate them 90 degrees so the flat pieces lie parallel to the flat faces of the gripper (flush with the gripper's flat sides) instead of extending outward.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T16:12:14.000Z",
+  "updated_at": "2026-10-19T16:12:14.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
