@@ -1,0 +1,16 @@
+{
+  "id": "voice-01ab1486",
+  "commit_id": "",
+  "description": "Base 5 (builds on Base 4, voice-b7260e73, folder Two Finger Gripper/versions/v304_generalist_one_piece_drive; related: Base 3): Look at the most recent design and see if you can come up with one that uses a single gear. Today the handles are driven through meshing gears, each handle sitting in a cradle on its own gear. Base 5 should open and close both fingers from the one RobStride RS00 using only one gear. Options: one central gear driving both handles through a rack, a cam or linkage, or an opposed rack-and-pinion where one pinion moves two opposing racks. Pick the simplest approach and briefly explain why you chose it over the others. Keep it parameterized, cut the part count below Base 4's 13 pieces where possible, keep the strap slots clear across the full travel, and record the count in VERSIONS.txt.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-19T21:24:02.000Z",
+  "updated_at": "2026-10-19T21:24:02.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
