@@ -24,5 +24,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Delete the old Two Finger Gripper v015 and build a new v015 from v014 whose thick end section, from where it thickens to the tip, is much longer. That section should be about a third of the finger length per the reference photos, with v016 still working and the new v015 shown in the Live Preview gallery.",
+  "summary_sha": "968c3368fbd40461"
 }
