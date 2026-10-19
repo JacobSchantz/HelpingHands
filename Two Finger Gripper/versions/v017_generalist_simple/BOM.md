@@ -1,4 +1,4 @@
-# Gen 16 parts list
+# Gen 17 parts list
 
 Right-hand build. Mirror X in the slicer (or in `gripper.scad`) for a left hand. Sizes are mm.
 Three printed parts, two pivot screws, one camera screw. No wrist or forearm attachment.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export Generation 16: every part placed (for the gallery, at the .scad's default angle) and every printed part in
+"""Export Generation 17: every part placed (for the gallery, at the .scad's default angle) and every printed part in
 its print orientation, check the meshes, render previews, write viewer_parts.json. No hardware operations."""
 from pathlib import Path
 from collections import Counter

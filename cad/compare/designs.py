@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Every comparable 3D design in the repo, by name. Does not build the app.
 
-A design is one generation file, cad/openscad/<family>/gen_NN_<label>.scad.
+A design is one generation file, cad/openscad/<family>/gen_NN_<label>.scad, or a
+version folder <Project>/versions/vNNN_<label>/ that has a concept, web/concept.js.
 Its printable truth is the STLs that file exports (export/gen_NN_*.stl, or
 export/<stem>.stl for a one-piece design); its vision is the three.js concept
 scene beside it, <family>/web/gen_NN.js. render_compare, design.sh, the viewer
@@ -122,6 +123,28 @@ def discover():
                 'parts': pieces(folder, source, index),
                 'in_progress': working_on(folder, source, index == len(sources) - 1, claimed),
             })
+    # Version-folder designs (<Project>/versions/vNNN_<label>/) join when they have a concept, web/concept.js.
+    # Their STLs are the parts in viewer_parts.json; sheet and notes live in the version folder.
+    for concept in sorted(REPO.glob('*/versions/v[0-9][0-9][0-9]*/web/concept.js')):
+        folder = concept.parent.parent
+        parts_file = folder / 'viewer_parts.json'
+        parts = json.loads(parts_file.read_text())['parts'] if parts_file.exists() else []
+        g = f'gen_{int(folder.name[1:4]):02d}'
+        project = folder.parent.parent.name
+        found.append({
+            'id': f'{project} {folder.name}'.lower().replace(' ', '-').replace('_', '-'),
+            'name': f'{project} {g.replace("_", " ")} · {folder.name[5:].replace("_", " ")}',
+            'family': project, 'generation': g, 'newest': True,
+            'folder': str(folder.relative_to(REPO)),
+            'scad': str((folder / 'gripper.scad').relative_to(REPO)),
+            'concept': str(concept.relative_to(REPO)),
+            'notes': str((folder / 'compare_web_stl.md').relative_to(REPO)),
+            'sheet': str((folder / 'previews' / 'compare_web_stl.png').relative_to(REPO)),
+            'parts': [dict(file=Path(p['path']).name, name=p['name'], color=p.get('color', GREY),
+                           explode=p.get('explode', [0, 0, 0]), path=str((folder / p['path']).relative_to(REPO)))
+                      for p in parts],
+            'in_progress': [],
+        })
     folder = OPENSCAD_DIR / 'glove_hand'
     source = folder / 'jake_hand.scad'
     if source.exists():
@@ -196,6 +219,8 @@ def export(design):
     in a second or two. Pieces when the file lists them, else the whole file."""
     source = REPO / design['scad']
     folder = source.parent
+    if (folder / 'export_models.py').exists():   # a version folder exports with its own script
+        return subprocess.run([sys.executable, str(folder / 'export_models.py')], capture_output=True).returncode == 0
     (folder / 'export').mkdir(exist_ok=True)
     g = source.stem[:6]
     names = echo_rows(source)

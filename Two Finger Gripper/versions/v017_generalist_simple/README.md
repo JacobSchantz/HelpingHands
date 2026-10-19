@@ -1,7 +1,8 @@
-# Gen 16 — simple handheld gripper (voice-258bb62c)
+# Gen 17 — simple handheld gripper (voice-258bb62c)
 
 A stripped-down sibling of the old printable Gen 15. That Gen 15 was deleted later (voice-8673a6b6; it is in git at
-97850a1) and the number reused for the long-jaw fingers. Gen 16 copied everything it needed, so it stands alone.
+97850a1) and the number reused for the long-jaw fingers. Gen 17 copied everything it needed, so it stands alone.
+Renumbered Gen 16 → Gen 17 (voice-1fc7e062, folder `v016_generalist_simple` → `v017_generalist_simple`); the geometry did not change.
 
 Jake: "Focus on significant simplicity. It doesn't need that whole arm attachment bit … It just needs a flat piece on
 the side that I can put my fingers in, my thumb on the other side, and a strap that goes over. We don't need to

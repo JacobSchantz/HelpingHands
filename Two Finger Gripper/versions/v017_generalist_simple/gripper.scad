@@ -1,4 +1,4 @@
-/* GENERALIST GRIPPER — GENERATION 16, SIMPLE HANDHELD / the whole device, mm. Sibling of Gen 15, not a change to it.
+/* GENERALIST GRIPPER — GENERATION 17, SIMPLE HANDHELD / the whole device, mm. Sibling of Gen 15, not a change to it.
    Jake (voice-258bb62c): "Focus on significant simplicity. It doesn't need that whole arm attachment bit; if it doesn't
    attach to my wrist, that's okay. It just needs a flat piece on the side that I can put my fingers in, my thumb on
    the other side, and a strap that goes over. Really simple. We don't need to actually draw the straps."
@@ -61,7 +61,7 @@ module holes2d() {
     for(h=holes_px) translate(px(h))
         circle(d=max(min_hole,(h[2]+h[3])/2*mm_per_px));   // the photo reads every honeycomb hole round (Gen 7 r4 review)
     translate(px(dot_px)) circle(d=dot_px[2]*mm_per_px);
-    for(h=bolt_holes) translate(h) circle(d=m3);   // Gen 15 opened these two honeycomb holes for its carrier bolts; Gen 16 keeps Gen 15's finger as is
+    for(h=bolt_holes) translate(h) circle(d=m3);   // Gen 15 opened these two honeycomb holes for its carrier bolts; Gen 17 keeps Gen 15's finger as is
     intersection() {   // Gen 15: a slot keeps ridge_wall to the edge (the last one came within 0.66 mm of the beak's edge)
         union() for(i=[0:len(slots_px)-1]) translate(px(slots_px[i])) rotate(frame_deg(120))   // slanted like a forward slash in the photo, ~35 deg off the row
             scale(i==len(slots_px)-1?0.7:1) hull() for(s=[-1,1]) translate([s*(slot[0]-slot[1])/2,0]) circle(d=slot[1],$fn=16);
@@ -101,9 +101,9 @@ module whole_finger() {
     }
 }
 
-// ================= Gen 16: the rest of the device, as few parts as possible =================
+// ================= Gen 17: the rest of the device, as few parts as possible =================
 // Finger-frame numbers below are for the RIGHT (thumb) side; placed(-1) mirrors them for the left (index) side.
-m3=3.2;                   // Gen 15's finger: two honeycomb holes at M3 clearance (no bolt goes through them in Gen 16)
+m3=3.2;                   // Gen 15's finger: two honeycomb holes at M3 clearance (no bolt goes through them in Gen 17)
 bolt_holes=[[-11.2,16.3],[-11.2,27.4]];   // finger frame (x,z)
 pad_y=[6,15];             // the side pad's thickness band, on the finger's dorsal face (the finger is Y -6..6)
 pad_r=9;                  // round boss about the pivot: holds the pivot nut

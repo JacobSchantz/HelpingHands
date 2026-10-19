@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline finger checks for Generation 16 (Gen 15 = Gen 14's, unchanged: the fingers must still contact exactly as Gen 14) (two fingers, each a yellow body + dark tip pad); no hardware operations.
+"""Offline finger checks for Generation 17 (Gen 15 = Gen 14's, unchanged: the fingers must still contact exactly as Gen 14) (two fingers, each a yellow body + dark tip pad); no hardware operations.
 Gen 14's spec is how the closed fingers contact: only the very points touch, the inner edges leave them at
 a sharp angle (>= CONTACT_DEG included), and further back the gap follows the closed photo's curve plus
 that wedge (trace_photo.py closed_gap)."""

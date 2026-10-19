@@ -1,11 +1,14 @@
 export default {
-  "_about": "Open/close slider for the gallery. Angles are each jaw's swing in degrees, the same 'angle' the design's .scad uses (0 = closed for gens 3-16). 'exported' is the angle the STLs were exported at. A hinge turns every model whose name matches 'match' about the Y axis through 'pivot' by sign*(angle - exported); a slide moves by dir*(sin(angle) - sin(exported)); a crank turns about 'pivot' by -(asin((2+20 sin(angle) - mid)/radius)) relative to the exported pose. Scripts/check_gripper_closure.py reads this file too, and skips 'single_finger' designs (one moving finger against a fixed thumb, so its hinges are not left/right pairs). Scripts/test_gripper_poses.py checks that every gripper in the catalog has an entry whose hinges match parts, and that each version's gripper.scad 'pivot' and 'angle' still equal the right hinge's pivot X and 'exported'.",
+  "_about": "Open/close slider for the gallery. Angles are each jaw's swing in degrees, the same 'angle' the design's .scad uses (0 = closed for gens 3-17). 'exported' is the angle the STLs were exported at. A hinge turns every model whose name matches 'match' about the Y axis through 'pivot' by sign*(angle - exported); a slide moves by dir*(sin(angle) - sin(exported)); a crank turns about 'pivot' by -(asin((2+20 sin(angle) - mid)/radius)) relative to the exported pose. Scripts/check_gripper_closure.py reads this file too, and skips 'single_finger' designs (one moving finger against a fixed thumb, so its hinges are not left/right pairs). Scripts/test_gripper_poses.py checks that every gripper in the catalog has an entry whose hinges match parts, and that each version's gripper.scad 'pivot' and 'angle' still equal the right hinge's pivot X and 'exported'.",
   "two-finger-gripper-v008-pollen-grabette": {"exported": 90, "min": 0, "max": 90, "single_finger": true, "hinges": [
     {"match": "^Grabette finger", "pivot": [0, 0, 0], "sign": 1},
     {"match": "^Gripette finger", "pivot": [320, 0, 0], "sign": 1}]},
-  "two-finger-gripper-v016-generalist-simple": {"exported": 15, "min": 0, "max": 30, "hinges": [
+  "two-finger-gripper-v017-generalist-simple": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.137, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.137, 0, 0], "sign": -1}]},
+  "two-finger-gripper-v016-generalist-rounded-point": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [27.2517, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-27.2517, 0, 0], "sign": -1}]},
   "two-finger-gripper-v015-generalist-long-jaw": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [27.251, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-27.251, 0, 0], "sign": -1}]},

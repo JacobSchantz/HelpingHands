@@ -9,5 +9,7 @@ v014_generalist_tip_contact — Gen 14: refinement of Gen 13; only the points to
 the point), sharper 0.3 mm point, dark tip pad from the photos, grooves stop behind the pad.
 v015_generalist_long_jaw — Gen 15 (voice-8673a6b6): Gen 14 with a beak 1.7x longer. Black dot -> point is 42 mm, a third
 of the finger (Gen 14: 25 mm, 23%); closed tip contact unchanged. Replaces the old printable Gen 15 (deleted; in git at 97850a1).
-v016_generalist_simple — Gen 16: the old printable Gen 15 (now deleted) cut to 3 printed parts. Each finger fused to a flat side pad (thumb / index)
+v016_generalist_rounded_point — Gen 16 (voice-1fc7e062): Gen 15 + Gen 9. Gen 15's length and point contact; inner-edge knobs rounded to 1 mm swells,
+Gen 9's smoothed outline, J-hook, blade-root S-curve and 0.5 mm eased point; all yellow (no tip pad).
+v017_generalist_simple — Gen 17 (was Gen 16 until voice-1fc7e062): the old printable Gen 15 (now deleted) cut to 3 printed parts. Each finger fused to a flat side pad (thumb / index)
 with one strap slot; one pivot plate + Insta360 X4/X5 cradle. No wrist attachment, straps not modelled. BOM.md.

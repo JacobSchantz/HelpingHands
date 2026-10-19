@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline checks for the Generation 16 device around the fingers (check_geometry.py covers the fingers' contact).
+"""Offline checks for the Generation 17 device around the fingers (check_geometry.py covers the fingers' contact).
 Over the whole 0-30 deg swing: neither finger + side pad hits the pivot plate, the camera or the other side, and the
 thumb-index web under the plate stays empty. At rest: the camera sits in its cradle, a nominal digit fits under each
 pad without touching the finger, and the printed finger has no wall under two 0.4 mm perimeters.
