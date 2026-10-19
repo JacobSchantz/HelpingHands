@@ -49,7 +49,7 @@
       "name": "closed_tips_touch_with_gap_removed_positive_control",
       "passed": true,
       "expected": "contact",
-      "log": "Geometries in cache: 210\nGeometry cache size in bytes: 1267416\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.042\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -8\n   Vertices:      289\n   Facets:        542"
+      "log": "Geometries in cache: 130\nGeometry cache size in bytes: 1015832\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.034\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -6\n   Vertices:      174\n   Facets:        320"
     }
   ],
   "limitations": [

@@ -17,18 +17,19 @@ grooves from opening any hole.
 
 ## What changed from Gen 10
 
-- **Ridges.** 99 grooves, each 0.5 mm deep and 0.5 mm wide, at a 1.0 mm pitch. They run along
-  the whole inner (gripping) edge, from the head corner over the step faces to about 1.5 mm from
-  the point. Each one is cut straight across the full thickness of the finger, with no lip, as
+- **Ridges.** 29 grooves, each 0.5 mm deep and 0.5 mm wide, at a 1.0 mm pitch. They run along
+  the gripping jaw only, from the last step face below the beak shoulder to about 1.5 mm from
+  the point (r4; r1–r3 had 99 down the whole inner edge, which read as a serrated saw). Each one is cut straight across the full thickness of the finger, with no lip, as
   `robot.png` and `side.png` show. Gen 10 had 11 grooves on the blade only, inset from each face.
   - `trace_photo.py` (`ridges()`) places each groove square to the local edge.
   - `gripper.scad` (`ridges2d()`) measures the depth from the finished edge and keeps a 0.6 mm
     wall to every hole.
   - A groove is skipped only at a corner sharper than 100°, or where two would converge into a
     loose sliver in an inside corner.
-- **Tip.** The blade's width curve gains a (1−f)^Q factor, with Q = 1.15 on the jaw edge and
-  1.35 on the outer edge. The mid-blade stays about as full as Gen 10, but the last few mm narrow
-  to a needle.
+- **Tip.** The blade's width curve gains a (1−f)^Q factor, with Q = 1.05 on the jaw edge and
+  1.12 on the outer edge (outer fullness A = 2.8; Gen 10: Q = 1, A = 2.6). The beak is about as
+  full as Gen 10 and only the last few mm sharpen to a clean point. r1–r3 used Q = 1.15/1.35 and
+  A = 3.0, a needle that lost Gen 10's beak.
   - A floor of 0.6·d·(1−d/4 mm), where d is the distance to the point, keeps the tip at least
     0.9 mm across 1 mm back, so it doesn't print as a single fragile line.
   - The beak thins to 1.6 mm at the point (Gen 10: 2.0 mm).
@@ -47,8 +48,9 @@ notes are in `rounds/`, and `compare.html` shows them all over the photo.
 | r1 full-width grooves | 0.6 mm grooves across the full thickness; needle tip; slot row inboard | 7.5/10, yes |
 | r2 ribs over steps | grooves from the head corner and over the step faces; 0.5 mm deep; 0.6 mm wall to holes | 8/10, yes |
 | r3 printable point | tip floor of at least 0.9 mm at 1 mm back; grooves to ~1.5 mm from the point | 8.5/10, yes |
+| r4 jaw grooves, full beak | Jake: r3 read as a saw and lost Gen 10's beak. Grooves on the jaw only; Gen 10's beak fullness back, clean point | 8/10, yes |
 
-r3 is the shipped design, and it's the current `gripper.scad`.
+r4 is the shipped design, and it's the current `gripper.scad`.
 
 - **Rejected.** The reviewer twice suggested ending the yellow in a 3–4 mm flat where the black
   nub sits. That went against Jake's "skinny, pointed tips", so the tip stays a needle, only

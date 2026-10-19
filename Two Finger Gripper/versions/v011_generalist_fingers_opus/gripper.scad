@@ -1,7 +1,8 @@
 /* GENERALIST GRIPPER — GENERATION 11 (built by Opus 5.5) / the two yellow fingers only, mm.
-   Starts from Gen 10. The needle tip is skinnier and more pointed (trace_photo.py NEEDLE_Q), the
-   beak ends thinner, and the ridges are fine shallow grooves cut straight across the full
-   thickness of the inner gripping face, all along it (ridges2d). Jake: "they are cuts, but very
+   Starts from Gen 10. The beak keeps Gen 10's fullness but comes to a cleaner point
+   (trace_photo.py NEEDLE_Q), it ends thinner, and the ridges are fine shallow grooves cut
+   straight across the full thickness of the gripping jaw, from the beak shoulder to the point
+   (ridges2d; r4: jaw only, r1-r3 ran them down the whole inner edge and read as a saw). Jake: "they are cuts, but very
    shallow, maybe one millimeter or even less. They travel the whole width of the gripper."
    Jake: "delete everything else, just keep the yellow grippers ... get the yellow part to
    look as close as possible to Generalist's yellow part." No body, mount, camera, straps,
@@ -32,8 +33,8 @@ tip=px(tip_px);
 dot_z=px(dot_px)[1];      // the wedge starts at the black dot (side + robot photos)
 pivot=-min([for(p=pxs(outline_px)) p[0]])+tip_gap/2;  // half the pivot spacing: closed jaws sit tip_gap apart
 min_hole=1.8;             // blurred small holes are read no smaller than this
-ridge=[1.0,0.5,0.5];      // inner-face grooves: pitch (set in trace_photo.py), width, depth (mm). The robot and
-                          // side photos show the gripping face finely ribbed across its full thickness
+ridge=[1.0,0.5,0.5];      // jaw grooves: pitch (set in trace_photo.py), width, depth (mm). The robot and
+                          // side photos show the jaw finely ribbed across its full thickness
 ridge_wall=0.6;           // least wall kept between a groove and any hole, so no groove opens into one
 slot=[3.0,1.35];          // blade slot length x width, ~2.2:1 like the photo; the last one is ~70%
 function frame_deg(img_deg)=90-(img_deg-axis_deg);   // a direction in the photo -> angle in the finger frame

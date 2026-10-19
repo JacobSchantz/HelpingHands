@@ -5,10 +5,10 @@ it -> a hole (centre + size). Writes trace_px.scad, which gripper.scad includes.
 
 Gen 11 (Opus 5.5) starts from Gen 10. It keeps Gen 10's generated needle past the black dot
 (the two-hands photo is blurred there) and changes two things Jake asked for:
-  * the tip is skinnier and more pointed: the width curve gets a (1-f)^NEEDLE_Q factor, so the
-    last few mm narrow to a needle instead of a round spear nose (top.png, robot.png);
-  * the ridges are fine, shallow grooves along the WHOLE inner edge, from the head to the
-    beak, cut across the full thickness (robot.png, side.png). gripper.scad cuts them;
+  * the tip comes to a cleaner point: the width curve gets a (1-f)^NEEDLE_Q factor, so the
+    last few mm sharpen while the beak keeps Gen 10's fullness (r4);
+  * the ridges are fine, shallow grooves on the gripping jaw only, from the beak shoulder to
+    the point, cut across the full thickness (robot.png, side.png). gripper.scad cuts them;
     this file only places them (RIDGE_*).
 
 Two things the photo cannot give are patched by hand, and marked below:
@@ -41,18 +41,18 @@ PATCHES=[
 # g(f)=(1-f)(1+A f), f=s/L, with A per edge: convex, with no corner. It is about 1/3 width just before the
 # point, and each edge meets the centreline at ~24 deg (side.png, robot.png).
 # TIP is the centre of the photo's dark nub, so the yellow stops where the nub begins.
-NEEDLE=dict(TIP=(846.0,606.0),HALF=(26.5,24.5),A=(1.31,3.0))   # inner, outer: half-width at the dot (px) and fullness
-NEEDLE_Q=(1.15,1.35)   # Gen 11, per edge: g(f)=(1-f)^Q (1+A f). Q>1 keeps the mid-blade about as full as Gen 10
-                       # but narrows the last 3 mm to a needle (Jake: "skinny, pointed tips"). The jaw edge
-                       # gets less, so it keeps a wall outside the slot row.
+NEEDLE=dict(TIP=(846.0,606.0),HALF=(26.5,24.5),A=(1.31,2.8))   # inner, outer: half-width at the dot (px) and fullness
+NEEDLE_Q=(1.05,1.12)   # Gen 11, per edge: g(f)=(1-f)^Q (1+A f). Q>1 sharpens the last few mm into a clean point.
+                       # r4: r1-r3 used (1.15,1.35) and A_outer 3.0, a needle that lost Gen 10's full beak (Jake);
+                       # this is close to Gen 10's (1, 2.6) over the blade and only slightly sharper at the point.
 NEEDLE_TAIL=(0.6,20)    # r3: half-width floor 0.6 d (1-d/20) over the last 20 px (4 mm): >= 0.9 mm across 1 mm back,
                         # where (1-f)^Q alone left a 0.5 mm sliver that prints as one line. Zero further back.
 # The slot row sits 4 px outboard of the Gen 7 trace (Gen 10: 2 px), so the narrowed jaw keeps a wall.
-# Ridges (Gen 11): a groove every RIDGE_PITCH_PX along the inner edge, from RIDGE_FROM (just past the
-# head corner) to where the blade gets too narrow to carry one. The robot photo shows the inner face
-# ribbed from the carrier to the beak, across its full thickness.
+# Ridges (Gen 11): a groove every RIDGE_PITCH_PX along the jaw's inner edge, from RIDGE_FROM to where the
+# blade gets too narrow to carry one, each across the full thickness. r4: only the gripping jaw/beak, as in
+# robot.png. r1-r3 ran them from the head corner down the whole inner edge, which read as a saw (Jake).
 RIDGE_PITCH_PX=5.0     # 1.0 mm at 0.2 mm/px
-RIDGE_FROM=(423.0,335.6)   # r2: from the head corner itself (robot.png ribs run up to the head)
+RIDGE_FROM=(713.0,524.0)   # r4: the jaw, from the last step face below the beak shoulder; r2-r3: the head corner (423,336)
 RIDGE_CORNER_DEG=100   # skip a groove only at a corner sharper than this within +-1 mm; the ribs carry on over the step faces (robot.png, r2-r3)
 GROOVE_PX=(2.5,2.5)    # groove width and depth in px, as gripper.scad cuts them (ridge[1], ridge[2])
 RIDGE_MIN_WIDTH_PX=9    # stop where the blade is narrower than 1.8 mm across (r3: runs to ~1.5 mm from the point; r1-r2: 2.6 mm). At 1.6 mm two tip grooves left a pinhole
