@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The live preview needs a parts list with per-part eye-icon visibility toggles, so users can hide pieces like the top plate or a housing. Hidden parts must stay hidden during the open/close animation, with an optional \"isolate this part\" action, so the gears can be watched meshing.",
+  "summary_sha": "2308ade10d864043"
 }
