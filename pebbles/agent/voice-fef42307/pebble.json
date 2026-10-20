@@ -1,0 +1,16 @@
+{
+  "id": "voice-fef42307",
+  "commit_id": "",
+  "description": "Base 7: copy Base 4 (voice-b7260e73) with Handle 7 (voice-448df859) and simplify significantly, with a focus on 3D printability. The gripper fingers are pretty good; the other pieces are too complex and not very printable. Every piece should print on an FDM printer without supports, ideally: flat bases, overhangs at 45\u00b0 or less, no floating features, sensible split lines, and a print orientation noted for each part. Fewer parts. Keep it parameterized and driven by the single RobStride RS00. Rejected approaches: Base 5 (voice-01ab1486, single-gear) and Base 6 (voice-0973c464) \u2014 do not build on them.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T04:08:23.000Z",
+  "updated_at": "2026-10-20T04:08:23.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
