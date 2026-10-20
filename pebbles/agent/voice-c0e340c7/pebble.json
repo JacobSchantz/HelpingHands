@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The live preview of the Aero Hand in gripper.scad aero_hand() shows only the palm, so the thumb and four finger meshes are missing. Attach every finger from the existing STLs at its URDF joint pose as separable parts, and use that full hand in the reBot arm mount design.",
+  "summary_sha": "c0e340c711c335e1"
 }
