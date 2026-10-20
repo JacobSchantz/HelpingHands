@@ -1,0 +1,16 @@
+{
+  "id": "voice-d96cd30d",
+  "commit_id": "",
+  "description": "Base 9: build on Base 8 (voice-1f4d3de1, v308_generalist_handle_gear). Jake: Add a piece on top so everything stays centered: a top plate similar to the bottom base piece, so the geared handle pieces are captured and supported from both sides (above and below), and their axles are held at both ends so they stay aligned. Keep it printable without supports, and keep the motor underneath.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T13:01:46.000Z",
+  "updated_at": "2026-10-20T13:01:46.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
