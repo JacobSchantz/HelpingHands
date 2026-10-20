@@ -1,0 +1,16 @@
+{
+  "id": "voice-e82254ec",
+  "commit_id": "",
+  "description": "Add an optional motor variant to the gripper: the gripper base can alternatively be driven by the SO-101 arm's motor, the Feetech STS3215 servo, instead of the RobStride RS00. Make the motor a selectable parameter (motor = RS00 | STS3215) with the right mount, gear or horn interface and cable routing for each, built on the latest Base (see AGENTS.md hardware notes and the Gripper/Handle/Base scheme). Also record joint positions from the STS3215 servo while the gripper is used by hand, for data collection.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T13:16:22.000Z",
+  "updated_at": "2026-10-20T13:16:22.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
