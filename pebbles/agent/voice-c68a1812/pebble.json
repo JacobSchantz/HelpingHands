@@ -1,0 +1,19 @@
+{
+  "id": "voice-c68a1812",
+  "commit_id": "",
+  "description": "Helping Hands live preview / compare pages (e.g. Two Finger Gripper versions compare.html): every object must always have a toggle to turn its reference photo on or off, and when on, the reference photo shows inline alongside the object's renders, the same way the other views can be shown. Make this the standard in the compare template so all versions get it. Jake (voice, 2026-10-20): 'we should always be able to turn the reference photo on or off for a given object, so I should be able to view the reference photo in line with this one just like I can view other' views.",
+  "test_instructions": [
+    "Open the live compare page: each object has a reference-photo toggle.",
+    "Toggle on: the reference photo appears inline next to the object's views; toggle off: it hides."
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T23:39:43.000Z",
+  "updated_at": "2026-10-20T23:39:43.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
