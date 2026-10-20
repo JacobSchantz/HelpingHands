@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T13:16:22.000Z",
-  "updated_at": "2026-10-20T13:16:22.000Z",
+  "updated_at": "2026-10-20T13:58:11Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The gripper base design only supports the RobStride RS00 motor, and there is no option to use the SO-101 arm's Feetech STS3215 servo. Add a selectable motor parameter (RS00 or STS3215) with the correct mount, horn interface and cable routing, built on the latest Base, and record STS3215 joint positions during hand use for data collection.",
-  "summary_sha": "e82254ec9f8e847e"
+  "summary_sha": "e82254ec9f8e847e",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-e82254ec",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-e82254ec",
+  "claimed_at": "2026-10-20T13:58:11.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
