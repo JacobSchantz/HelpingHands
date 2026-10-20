@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Base 9 needs a top plate, like the bottom base piece, above the geared handle pieces from Base 8. It should hold their axles at both ends for alignment, stay printable without supports, and keep the motor underneath.",
+  "summary_sha": "d96cd30dc96c5a88"
 }
