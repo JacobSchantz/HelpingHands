@@ -57,8 +57,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Base 5 should redesign the two-finger gripper so one gear, driven by the RS00, opens and closes both fingers. Pick the simplest mechanism, explain why, keep strap slots clear, and record a part count under Base 4's 13 in VERSIONS.txt.",
-  "summary_sha": "01ab14860f05c0f0",
+  "summary": "Base 5 tried driving both gripper fingers from one RS00 with a single pinion between two opposed racks, but it was rejected. Base 7, a printability-simplified Base 4, replaces it, and the Base 5 folder stays untouched.",
+  "summary_sha": "37986cd6f755c7d2",
   "artifacts": [
     {
       "kind": "openscad",

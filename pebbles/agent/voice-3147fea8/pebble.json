@@ -49,8 +49,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The live preview in gallery.js jumps parts straight to their final positions when the Explode/Assemble toggle is switched. Parts should animate smoothly, flying apart on Explode and back together on Assemble.",
-  "summary_sha": "3147fea8d26a7fbc",
+  "summary": "The gripper in the live preview (gallery.js) has no animation, so its fingers can't swing open and closed smoothly. Add a play or toggle control that animates the fingers opening and closing, rather than a static pose or a slider jump.",
+  "summary_sha": "d58f048fb02597a5",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-19T20:29:46Z",
