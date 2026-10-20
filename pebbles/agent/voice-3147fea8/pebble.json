@@ -23,14 +23,14 @@
       "commit_id": "efaa9293ec7f6142ec53f5da65ff02fe6391aa36",
       "model": "claude-opus-5-5",
       "model_display": "Claude Opus 5.5",
-      "identified_issue": "gallery.js used a boolean 'exploded' multiplied into each mesh's explode offset, then called fitVisible() (frame() reframes the camera) — both instant. Added explodeAmount (0..1) used by applyExplosion instead of the boolean, and animateExplosion(to): for each visible 3D view it records camera position + controls.target, temporarily applies the target layout and calls frame() to learn the end framing, then a requestAnimationFrame loop eases explodeAmount (cubic in-out, 650 ms) and lerps camera/target between start and end. A run counter cancels an in-flight animation if the button is tapped again (it starts from the current amount, so reversing mid-flight is smooth). prefers-reduced-motion => 0 ms (single step). The openness slider and late-loading meshes call applyExplosion and pick up the current explodeAmount. frame() sets near/far to the end values up front. Not verified in a real browser — only parsed with node (ESM); served copy updates when publish_designs.py next runs (every 300 s).",
+      "identified_issue": "gallery.js used a boolean 'exploded' multiplied into each mesh's explode offset, then called fitVisible() (frame() reframes the camera) \u2014 both instant. Added explodeAmount (0..1) used by applyExplosion instead of the boolean, and animateExplosion(to): for each visible 3D view it records camera position + controls.target, temporarily applies the target layout and calls frame() to learn the end framing, then a requestAnimationFrame loop eases explodeAmount (cubic in-out, 650 ms) and lerps camera/target between start and end. A run counter cancels an in-flight animation if the button is tapped again (it starts from the current amount, so reversing mid-flight is smooth). prefers-reduced-motion => 0 ms (single step). The openness slider and late-loading meshes call applyExplosion and pick up the current explodeAmount. frame() sets near/far to the end values up front. Not verified in a real browser \u2014 only parsed with node (ESM); served copy updates when publish_designs.py next runs (every 300 s).",
       "summary": "Explode and Assemble now animate: the parts fly apart and back together over about two thirds of a second.",
       "description_sha": "3147fea8d26a7fbc",
       "changes": [
         "cad/mobile_gallery/gallery.js"
       ],
       "detailed_description": "Tapping Explode now eases the parts out to their exploded spots over about 0.65 s, and Assemble eases them back. The camera glides to the new framing at the same time instead of snapping. Tapping again mid-flight reverses smoothly from where the parts are.\n\nMechanism: the on/off explode flag became an amount from 0 to 1 that a short animation steps each frame (ease in and out). If your device has Reduce Motion on, it still jumps in one step.\n\nI couldn't watch it in a browser here. The live preview picks up the new gallery.js on the publisher's next run (within 5 minutes). Then toggle Explode and Assemble and tell me if the speed feels right.",
-      "user_reply_draft": "Hey Jake — Explode and Assemble now animate. The parts fly apart and back together smoothly, and the camera follows instead of jumping. Give it a try in the live preview and tell me if the speed feels right.",
+      "user_reply_draft": "Hey Jake \u2014 Explode and Assemble now animate. The parts fly apart and back together smoothly, and the camera follows instead of jumping. Give it a try in the live preview and tell me if the speed feels right.",
       "solved_by_agent": "jarvis",
       "solved_by_device": "jakes-macbook-pro",
       "solved_at": "2026-10-19T20:29:46Z",
@@ -39,7 +39,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-19T20:27:46.000Z",
-  "updated_at": "2026-10-20T04:08:26.000Z",
+  "updated_at": "2026-10-20T04:09:41Z",
   "user_request": {
     "name": "Jake"
   },
@@ -82,5 +82,10 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-20T04:08:26.000Z"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-3147fea8",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-3147fea8",
+  "claimed_at": "2026-10-20T04:09:41.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
