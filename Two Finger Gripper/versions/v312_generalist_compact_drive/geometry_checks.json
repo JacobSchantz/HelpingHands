@@ -1,0 +1,585 @@
+{
+  "sampled_angles_degrees": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "results": [
+    {
+      "name": "fingers_never_collide_1_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_touch_without_overlap_at_0_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_fingers_overlap_when_pushed_0.02mm_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 284\nGeometry cache size in bytes: 1405720\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.045\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       16\n   Facets:         28"
+    },
+    {
+      "name": "pushed_0.02mm_together_they_meet_only_in_the_last_1.5mm",
+      "passed": true,
+      "expected": "contact",
+      "overlap_z": [
+        122.51,
+        122.83
+      ],
+      "log": "Geometries in cache: 284\nGeometry cache size in bytes: 1405720\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.045\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       16\n   Facets:         28"
+    },
+    {
+      "name": "slides_never_hit_the_other_side_1_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "closed_gap_follows_the_gen14_target",
+      "passed": true,
+      "expected": "within 0.2 mm of photo curve + wedge from 1 to 20 mm back, never closing again (5 \u00b5m faceting allowed)",
+      "worst_mm": 0.138,
+      "contact_z": 121.84,
+      "toe_deg": 1.905,
+      "rows": [
+        {
+          "d_mm": 0.5,
+          "model_gap": 0.343,
+          "target_gap": 0.288,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 1,
+          "model_gap": 0.561,
+          "target_gap": 0.525,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 1.5,
+          "model_gap": 0.778,
+          "target_gap": 0.747,
+          "photo_gap": 0.0
+        },
+        {
+          "d_mm": 2,
+          "model_gap": 0.996,
+          "target_gap": 0.96,
+          "photo_gap": 0.001
+        },
+        {
+          "d_mm": 3,
+          "model_gap": 1.301,
+          "target_gap": 1.166,
+          "photo_gap": 0.003
+        },
+        {
+          "d_mm": 4,
+          "model_gap": 1.701,
+          "target_gap": 1.563,
+          "photo_gap": 0.007
+        },
+        {
+          "d_mm": 6,
+          "model_gap": 2.444,
+          "target_gap": 2.32,
+          "photo_gap": 0.026
+        },
+        {
+          "d_mm": 8,
+          "model_gap": 3.151,
+          "target_gap": 3.042,
+          "photo_gap": 0.064
+        },
+        {
+          "d_mm": 10,
+          "model_gap": 3.841,
+          "target_gap": 3.741,
+          "photo_gap": 0.129
+        },
+        {
+          "d_mm": 12,
+          "model_gap": 4.526,
+          "target_gap": 4.422,
+          "photo_gap": 0.229
+        },
+        {
+          "d_mm": 14,
+          "model_gap": 5.174,
+          "target_gap": 5.09,
+          "photo_gap": 0.373
+        },
+        {
+          "d_mm": 16,
+          "model_gap": 5.819,
+          "target_gap": 5.745,
+          "photo_gap": 0.567
+        },
+        {
+          "d_mm": 18,
+          "model_gap": 6.464,
+          "target_gap": 6.39,
+          "photo_gap": 0.821
+        },
+        {
+          "d_mm": 20,
+          "model_gap": 7.11,
+          "target_gap": 7.027,
+          "photo_gap": 1.144
+        },
+        {
+          "d_mm": 22,
+          "model_gap": 7.74,
+          "target_gap": 7.656,
+          "photo_gap": 1.544
+        }
+      ]
+    },
+    {
+      "name": "contact_angle_at_least_20_deg_included",
+      "passed": true,
+      "expected": "slope of the closed gap 1 to 2 mm behind the point, as an included angle",
+      "included_deg": 24.54
+    },
+    {
+      "name": "flat_bottom_and_one_sided_taper",
+      "passed": true,
+      "expected": "bottom face y=-6.0 at every station; thickness 12 behind the taper start, then to 2.4 at the point",
+      "taper_z": 82.11,
+      "tip_z": 124.31,
+      "rows": [
+        {
+          "z_mm": 20,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 60,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 80.11,
+          "bottom_y": -6.0,
+          "thick_mm": 12.0,
+          "want_mm": 12.0
+        },
+        {
+          "z_mm": 94.77,
+          "bottom_y": -6.0,
+          "thick_mm": 11.135,
+          "want_mm": 11.066
+        },
+        {
+          "z_mm": 107.43,
+          "bottom_y": -6.0,
+          "thick_mm": 8.543,
+          "want_mm": 8.406
+        },
+        {
+          "z_mm": 117.98,
+          "bottom_y": -6.0,
+          "thick_mm": 5.063,
+          "want_mm": 4.869
+        },
+        {
+          "z_mm": 121.31,
+          "bottom_y": -6.0,
+          "thick_mm": 3.715,
+          "want_mm": 3.504
+        }
+      ]
+    },
+    {
+      "name": "handle_seated_clears_the_finger",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "handle_held_outboard_by_both_prongs_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 327\nGeometry cache size in bytes: 2285656\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.049\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:       76\n   Facets:        144"
+    },
+    {
+      "name": "handle_held_toward_the_base_hook_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 327\nGeometry cache size in bytes: 2285656\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.052\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      166\n   Facets:        324"
+    },
+    {
+      "name": "handle_held_toward_the_top_hook_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 327\nGeometry cache size in bytes: 2285656\nCGAL Polyhedrons in cache: 10\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.054\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -2\n   Vertices:      218\n   Facets:        424"
+    },
+    {
+      "name": "side_gears_mesh_without_interference_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "side_gears_interfere_when_one_turns_half_a_tooth_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 118\nGeometry cache size in bytes: 2043792\nCGAL Polyhedrons in cache: 13\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.042\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -2\n   Vertices:      112\n   Facets:        212"
+    },
+    {
+      "name": "pinion_meshes_the_right_gear_without_interference_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "pinion_interferes_when_turned_half_a_tooth_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 146\nGeometry cache size in bytes: 2402848\nCGAL Polyhedrons in cache: 19\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.037\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -2\n   Vertices:      106\n   Facets:        200"
+    },
+    {
+      "name": "pinion_never_touches_the_left_side_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "pinion_never_touches_the_right_finger_or_handle_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "handle_gear_clears_its_seated_finger",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "finger_rests_on_the_web_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 372\nGeometry cache size in bytes: 3246792\nCGAL Polyhedrons in cache: 7\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.069\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:      342\n   Facets:        692"
+    },
+    {
+      "name": "handle_gear_drives_the_finger_open_turned_1_deg_it_hits_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 372\nGeometry cache size in bytes: 3246792\nCGAL Polyhedrons in cache: 7\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.067\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:       72\n   Facets:        136"
+    },
+    {
+      "name": "handle_gear_drives_the_finger_closed_turned_1_deg_it_hits_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 372\nGeometry cache size in bytes: 3246792\nCGAL Polyhedrons in cache: 7\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.065\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:       78\n   Facets:        148"
+    },
+    {
+      "name": "finger_drops_into_its_handle_gear_from_above_without_touching",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "handle_gear_is_one_solid_handle_fused_to_the_hub_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 103\nGeometry cache size in bytes: 1905008\nCGAL Polyhedrons in cache: 3\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.025\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      438\n   Facets:        868"
+    },
+    {
+      "name": "handle_gear_turns_on_its_post_without_touching_it_0_to_30_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "handle_gear_held_by_its_post_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 184\nGeometry cache size in bytes: 2390448\nCGAL Polyhedrons in cache: 17\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.045\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       90\n   Facets:        176"
+    },
+    {
+      "name": "post_top_clears_the_finger_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "strap_tunnel_mouths_clear_of_everything_but_their_handle_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "strap_keepout_sits_at_the_tunnel_mouths_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 63\nGeometry cache size in bytes: 948152\nCGAL Polyhedrons in cache: 11\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.012\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      2\n   Vertices:      197\n   Facets:        398"
+    },
+    {
+      "name": "flange_bolts_reachable_from_above_the_pinion_0_to_30_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "nothing_that_swings_hits_the_base_or_motor_0_to_30_deg",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "left_and_right_sides_never_collide_1_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "motor_output_screws_clear_the_pinion_holes",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "motor_front_screws_and_dowels_clear_the_base_holes",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "motor_sits_on_the_base_without_overlap",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "nothing_that_turns_touches_the_top_plate_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "handle_gear_lifted_0.5mm_hits_the_top_plate_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 193\nGeometry cache size in bytes: 2537408\nCGAL Polyhedrons in cache: 13\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.067\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:     1268\n   Facets:       2532"
+    },
+    {
+      "name": "finger_lifted_0.5mm_hits_the_top_plate_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 374\nGeometry cache size in bytes: 2038120\nCGAL Polyhedrons in cache: 11\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.079\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:      550\n   Facets:       1108"
+    },
+    {
+      "name": "top_ring_holds_the_handle_gear_shifted_0.5mm_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 193\nGeometry cache size in bytes: 2537408\nCGAL Polyhedrons in cache: 13\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.063\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      198\n   Facets:        388"
+    },
+    {
+      "name": "top_ring_holds_the_left_handle_gear_shifted_0.5mm_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 187\nGeometry cache size in bytes: 2419472\nCGAL Polyhedrons in cache: 14\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.063\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      192\n   Facets:        376"
+    },
+    {
+      "name": "top_plate_and_base_meet_only_at_the_pillar_feet",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "top_plate_clears_the_motor",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "servo_rails_seat_on_the_base",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "servo_pushed_0.5mm_into_the_base_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 171\nGeometry cache size in bytes: 875384\nCGAL Polyhedrons in cache: 14\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.026\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      3\n   Vertices:      172\n   Facets:        352"
+    },
+    {
+      "name": "servo_hump_held_by_its_window_shifted_0.5mm_across_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 171\nGeometry cache size in bytes: 875384\nCGAL Polyhedrons in cache: 15\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.027\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      141\n   Facets:        274"
+    },
+    {
+      "name": "servo_hump_held_by_its_window_shifted_0.5mm_the_other_way_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 171\nGeometry cache size in bytes: 875384\nCGAL Polyhedrons in cache: 15\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.025\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      -1\n   Vertices:      140\n   Facets:        272"
+    },
+    {
+      "name": "m2_heads_below_everything_that_turns_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "m2_heads_sit_in_their_recesses",
+      "passed": true,
+      "expected": "touch only",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "m2_screws_bite_the_case_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 102\nGeometry cache size in bytes: 430968\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.015\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      1\n   Vertices:      192\n   Facets:        384"
+    },
+    {
+      "name": "bus_cable_plugs_clear_of_every_part_0_to_30_deg",
+      "passed": true,
+      "expected": "empty",
+      "log": "Current top level object is empty."
+    },
+    {
+      "name": "bus_cable_keepout_sits_on_the_connectors_positive_control",
+      "passed": true,
+      "expected": "contact",
+      "log": "Geometries in cache: 99\nGeometry cache size in bytes: 395040\nCGAL Polyhedrons in cache: 4\nCGAL cache size in bytes: 0\nTotal rendering time: 0:00:00.017\n   Top level object is a 3D object (manifold):\n   Status:     NoError\n   Genus:      0\n   Vertices:       16\n   Facets:         28"
+    },
+    {
+      "name": "left_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "right_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "left_gear_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "right_gear_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "pinion_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "base_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "top_plate_prints_flat_without_supports",
+      "passed": true,
+      "expected": "on the bed (z 0), one solid, no face past 45 deg",
+      "z_min": 0.0,
+      "overhang_mm2": 0,
+      "overhang_at_z": [],
+      "components": 1
+    },
+    {
+      "name": "pinion_upside_down_overhangs_positive_control",
+      "passed": true,
+      "expected": "the spigot-down pinion overhangs (its teeth hang out past the spigot)",
+      "overhang_mm2": 378.0,
+      "overhang_at_z": [
+        1.8,
+        3.5
+      ]
+    }
+  ],
+  "limitations": [
+    "Integer-degree samples only, not continuous motion.",
+    "Closed gap read from one blurred perspective photo (~0.5 mm/px); sub-pixel widths come from seam darkness.",
+    "The 4 deg wedge is a design choice (Jake: too much contact before the tip), not a measurement: the photo cannot resolve it.",
+    "1.18: the point is 2.4 mm thick, all of it on the flat ventral side, and about 0.6 mm wide in plan; not printed.",
+    "2.5: the fit (0.2 mm per side) and the strap / digit sizes are nominal; nothing is printed or measured.",
+    "Base 4: the finger rests on its gear web (which replaces the stop strip); only friction keeps it from lifting back out the way it came (+y). The drop-in check samples 0.5 mm steps, not continuous motion.",
+    "2.5: the hook prongs are 1.19 base-hook size (about 2.2 mm deep along the edge) and have not been pull-tested.",
+    "2.6: the top step fills the outer side out to the hook crest (6.6 mm) from u 54 to where the beak edge regains it (~u 77), up to ~3 mm wider than 1.20 there; only the swing checks above cover it, nothing checks it against a hand.",
+    "Plan shape traced from one photo at an assumed 0.2 mm/px; no Generalist part was measured.",
+    "3.1-3.3: the drive is checked as solids only: gear mesh at 31 integer angles, no loads, no tooth strength, no motor torque. The RS00 dimensions come from its drawing (Seeed 100083284) and RS00.step, not from a motor in hand; the second dowel hole is assumed opposite the first.",
+    "Base 7: overhangs are measured on the exported meshes (faces past 45.5 deg anywhere above the bed); bridging, first-layer adhesion, warping, elephant foot and tolerances of a real printer are not modelled. Nothing was sliced or printed.",
+    "Base 7: each handle-gear turns on a printed post only web_t (3 mm) long, with its flat underside riding stack_gap over the base; no wear or wobble test.",
+    "3.3/Base 4: both side gears turn in plain printed bushings in the base (Base 7: on printed posts) and nothing holds them down axially; the finger sits in its handle-gear with a 0.2 mm fit (0.4 round the hub) and only gravity/friction keeps it from lifting out (+y); untested under load.",
+    "Base 4/7: 3 of 6 M3 (Base 7: countersunk) hold the pinion to the RS00 flange and 3 of 6 hold the base to the front ring; shear is estimated (~350 N per bolt at 14 N m peak), not tested in printed plastic.",
+    "3.3: the strap keep-out is a box strap_clear (3 mm) past each tunnel mouth, from the plate outer face to the boss outer face plus strap_clear round it; the webbing itself and the digit are not modelled.",
+    "3.3: the left gear carries only the teeth the right gear meets over 0-30 deg (plus gear_extra), so it cannot reach the pinion; driving past 30 deg runs the gears off their teeth. No stops limit the swing; the motor must.",
+    "3.1-Base 4: the fingers have no pivot pin: each finger is held by its handle-gear only (both hooks, the tail and the hub pocket).",
+    "Base 9: each handle-gear is held radially at the top by a C-shaped printed rib (ring_clear 0.25 mm) in a groove round its pivot, not a full axle: the finger's base hook covers the pivot. The C is open for about 110 deg where the finger is; the rib and the post are coaxial only as far as the pillar sockets locate the plate (0.15 mm fit). No load, wear or wobble test.",
+    "Base 9: the top plate is held by M3 self-tapped into printed pillars from below (Base 12: 2 pillars, plus the C rings in the handle-gears); pull-out strength in printed plastic is not tested.",
+    "Base 10: the wrist interface copies Seeed's Connector A and B (STEP files at reBot-DevArm 9e8634c, measured with OCCT); no reBot Arm or stock connector was in hand. The arm is checked only as exported (one pose, decimated meshes, 1-3 mm off Seeed's): it must stay below the hub's arm face; other poses, cable runs and J6 roll limits are not checked.",
+    "Base 10: the gripper hangs on the RS00's back face (4 M3, 3 mm of thread each) and the bracket's foot carries it ~70 mm across to the J6 axis (mount_axis_y 0); no load, stiffness or fatigue test. The radial and tool screws self-tap into printed plastic.",
+    "Base 10: the RS00 connectors are a box per side measured from Seeed's motor_7 mesh, and their real direction on our motor (motor_conn_deg) is assumed, not seen.",
+    "Base 11: the STS3215 is The Robot Studio's STEP (SO-ARM100, STS3215_03a), not a servo in hand. The base bears on its rails with 4 M2 (M2x8, self-tapped into the case as the SO-101 does with M2x6) and the pinion on its horn with 4 M3 (as the SO-101 fixes its links); no torque, backlash or stall test. Its far case screws sit 2 mm from the base's edge.",
+    "Base 10: the Aero Hand's insert positions come from the guide's left palm mesh (third_party/aero_hand/guide/anim41), not from the hand itself or its Onshape CAD."
+  ]
+}
