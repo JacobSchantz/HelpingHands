@@ -97,3 +97,7 @@ with more gap at the base, and the side gears (pitch radius = half the spacing),
 between the fingers are gone (two corner pillars + the two C rings). A 16-tooth pinion (2.1:1, Base 11: 34) meets the right gear 55 deg
 below the pivots' line (pinion_mesh_deg), just clear of the left gear; the servo's body points up under the base (sts_body_deg 90), so
 nothing hangs below it. Lowest point 55 mm below the pivots (Base 11: 82); 69 mm tall overall (113). 7 printed + STS3215 + 10 screws.
+v313_generalist_aero_full_hand — Base 13 (voice-c0e340c7), Gripper 21: Base 11 on the RobStride RS00 (motor_sts 0, the reBot wrist mount and
+arm) with the whole left Aero Hand beside the arm: palm, thumb, index, middle, ring and pinky, each a separate part, placed by forward kinematics
+from the Aero Hand URDF (third_party/aero_hand/hand_pose.py) and posed by three Tune sliders (aero_curl_deg 15, aero_thumb_abd_deg 45,
+aero_thumb_flex_deg 10). No printed part changes.
