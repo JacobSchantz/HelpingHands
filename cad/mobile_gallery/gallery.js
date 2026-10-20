@@ -29,9 +29,10 @@ const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actu
 // slide or handle, a finger says finger, and the rest of a Base design (arms, gears, base, motor) is its base.
 // Fingers that only exist inside a later design come from the catalog's 'fingers' field (Handle 6 and Base 1-3
 // carry Gripper 21, from VERSIONS.txt). It opens on the newest of each (Gripper 21 + Handle 6 + Base 3).
-// ?gripper=21&handles=6|none&base=3|none presets it.
+// ?gripper=21&handles=6|none&base=3|none presets it. A Base whose own parts include a handle-gear (Base 8 on: the geared
+// pieces are the handles) is a base part, and the Handle picker sits out while it is chosen, so no second handle is drawn.
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
-const HANDLE = /strap slide|handle/i, FINGER = /finger/i;
+const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR = /handle-gear/i;
 const part = model => model.name.split(' — ')[0];
 const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base']];
 const query = new URLSearchParams(location.search);
@@ -159,10 +160,12 @@ function buildMix() {
     chosen[key] = key !== 'gripper' && mix[key] === 'none' ? null : options[key].find(item => item.version === mix[key]) || options[key].at(-1) || null;
     mix[key] = chosen[key] ? chosen[key].version : 'none';
   }
+  const handlesInBase = !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
+  if (handlesInBase) chosen.handles = null;   // mix.handles keeps the pick for when another Base is chosen
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
   // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
   const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
-  return {...MIX, options, pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
+  return {...MIX, options, handlesInBase, pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
     name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
@@ -402,6 +405,8 @@ async function updateView(view, design) {
   if (design.mix) {
     PICKERS.forEach(([key, label], index) => {
       const choice = view.select.children[index];
+      choice.disabled = key === 'handles' && design.handlesInBase;
+      if (choice.disabled) { choice.replaceChildren(new Option('Handle in Base', 'in-base')); choice.value = 'in-base'; return; }
       choice.replaceChildren(...(key === 'gripper' ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
         ...design.options[key].map(item => new Option(label + ' ' + item.version, item.version)));
       choice.value = mix[key];

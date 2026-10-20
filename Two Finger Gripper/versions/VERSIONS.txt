@@ -70,3 +70,7 @@ down, handle-gears web face down, pinion teeth face down, base underside down. T
 web's underside to the top (Handle 7's handle is 15.2 mm edge-on here, not 12); pivot posts on the base replace the gears' axles; the hub is a
 full disc round its post; the pinion's and base's M3 are countersunk on 45 deg cones (one screw type). check_geometry.py fails any face past 45 deg
 above the bed. Same 13 pieces as Base 4 (6 printed + RS00 + 6 M3). Not built on Base 5 or Base 6.
+v308_generalist_handle_gear — Base 8 (voice-1f4d3de1), Gripper 21: Base 7 with no separate Handle part. Each handle-gear is the handle (plate, hooks'
+feet, tail curling round the base hook, hub, teeth: one print, named "handle-gear", so the live preview drops the Handle picker for it). Two
+strap-loop slots per handle-gear (strap_slots, strap_rib, slots_shift), each cut straight through so it prints with no bridge. Base 7's
+print rules unchanged; 13 pieces (6 printed + RS00 + 6 M3).
