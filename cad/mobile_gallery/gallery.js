@@ -51,6 +51,13 @@ const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3
 const PRESETS = {top:[0, -1, 0], front:[0, -.002, 1], side:[1, 0, 0], iso:[.8, -1, .65]};
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
+function makeMesh(model, geometry, motion) {
+  const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
+  mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
+  mesh.userData.shift = new THREE.Vector3(...(model.shift || [0, 0, 0]));
+  mesh.userData.motion = motion; mesh.userData.name = model.name; mesh.userData.color = model.color || '#cbd9e2';
+  return mesh;
+}
 function disposeMeshes(view) {
   for (const mesh of [...view.group.children]) {
     view.group.remove(mesh); mesh.geometry.dispose(); mesh.material.map?.dispose(); mesh.material.dispose();
@@ -272,7 +279,7 @@ function setFocus(id, updateHash = true) {
     view.element.setAttribute('role', focused ? 'img' : 'button');
   }
   if (updateHash) history.replaceState(null, '', location.pathname + location.search + (focused ? '#' + encodeURIComponent(focused) : ''));
-  updateExplodeControl(); updatePoseControl(); updateTuneControl();
+  updateExplodeControl(); updatePoseControl(); updateTuneControl(); updatePartsControl();
   requestAnimationFrame(fitVisible);
   document.title = focused ? 'HelpingHands · ' + views.get(focused).design.name : 'HelpingHands · ' + currentProject;
 }
@@ -419,7 +426,7 @@ function createView(design) {
   const group = new THREE.Group(); scene.add(group);
   const controls = renderer ? new OrbitControls(camera, element) : null;
   if (controls) controls.enableDamping = true;
-  const view = {design, element, preview, label, loading, select, scene, camera, group, controls, token:0, signature:null};
+  const view = {design, element, preview, label, loading, select, scene, camera, group, controls, token:0, signature:null, hiddenParts:new Set()};
   let start = null, moved = false; const pointers = new Set();
   element.addEventListener('pointerdown', event => {
     pointers.add(event.pointerId);
@@ -488,15 +495,11 @@ async function updateView(view, design) {
     for (const model of design.models) {
       const geometry = await loader.loadAsync(model.path);
       if (token !== view.token) { geometry.dispose(); for (const mesh of meshes) { mesh.geometry.dispose(); mesh.material.dispose(); } return; }
-      const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
-      mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
-      mesh.userData.shift = new THREE.Vector3(...(model.shift || [0, 0, 0]));
-      mesh.userData.motion = motionFor(design, model.name);
-      meshes.push(mesh);
+      meshes.push(makeMesh(model, geometry, motionFor(design, model.name)));
     }
     for (const mesh of meshes) view.group.add(mesh);
-    applyExplosion(view);
-    updateExplodeControl(); updatePoseControl();
+    applyExplosion(view); showParts(view);
+    updateExplodeControl(); updatePoseControl(); updatePartsControl();
     frame(view); view.element.classList.add('has-model'); view.loading.hidden = !design.export_error;
     if (PRESETS[startView]) alignAll(startView);
     view.loading.textContent = design.export_error ? 'Latest export failed; showing last model' : '';
@@ -618,7 +621,7 @@ $('tune-open').onclick = () => {
   if (!$('tune').hidden) return closeTune();
   const view = tuneTarget(); if (!view) return;
   if (view.design.id !== focused) setFocus(view.design.id);
-  openTune(view); updateTuneControl();
+  closeParts(); openTune(view); updateTuneControl();
 };
 $('tune-close').onclick = closeTune;
 $('tune-reset').onclick = () => { tune.values = {}; openTune(tune.view); requestTune(); };
@@ -640,14 +643,10 @@ async function requestTune() {
     const meshes = [];
     for (const model of result.models) {
       const geometry = await loader.loadAsync(model.path);
-      const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
-      mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
-      mesh.userData.shift = new THREE.Vector3(...(model.shift || [0, 0, 0]));
-      mesh.userData.motion = motionFor(view.design, model.name, result.pivot ?? null);
-      meshes.push(mesh);
+      meshes.push(makeMesh(model, geometry, motionFor(view.design, model.name, result.pivot ?? null)));
     }
     // Swapped in even when newer values are waiting: mid-drag the model keeps up instead of freezing.
-    disposeMeshes(view); for (const mesh of meshes) view.group.add(mesh); applyExplosion(view);
+    disposeMeshes(view); for (const mesh of meshes) view.group.add(mesh); applyExplosion(view); showParts(view);
     view.tuned = Object.keys(values).length > 0; view.signature = view.tuned ? 'tuned' : view.signature;
     view.element.classList.add('has-model'); view.loading.hidden = true;
     const count = Object.keys(values).length;
@@ -659,6 +658,71 @@ async function requestTune() {
     if (tune.again) requestTune();
   }
 }
+
+// Parts (voice-2308ade1): one row per part of the focused tile; the eye hides or shows it, Only isolates it (tap again for
+// every part). Hiding only sets mesh.visible, so Open/Close and Explode keep moving the hidden parts and the camera stays
+// put: hide the Top plate and watch the gears mesh. Each tile keeps its hidden names across picker changes, catalog refreshes
+// and Tune re-renders (meshes are rebuilt, the names stay). ?hide=top plate,base presets it: any part whose name contains one.
+const hideQuery = (query.get('hide') || '').toLowerCase().split(',').map(word => word.trim()).filter(Boolean);
+const parts = {view:null};
+const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.7.7 5.1 1.6M22 12s-3.6 7-10 7c-2 0-3.7-.7-5.1-1.6M3 3l18 18"/></svg>';
+function partNames(view) { return [...new Set(view.group.children.map(mesh => mesh.userData.name).filter(Boolean))]; }
+function showParts(view) {
+  if (hideQuery.length && !view.hideApplied && partNames(view).some(name => hideQuery.some(word => name.toLowerCase().includes(word)))) {
+    view.hideApplied = true;
+    for (const name of partNames(view)) if (hideQuery.some(word => name.toLowerCase().includes(word))) view.hiddenParts.add(name);
+  }
+  for (const mesh of view.group.children) mesh.visible = !view.hiddenParts.has(mesh.userData.name);
+  if (parts.view === view && !$('parts').hidden) renderParts();
+}
+// The focused tile, else the first one on screen with more than one part (the mix tile on a plain load).
+function partsTarget() {
+  const view = focused && views.get(focused);
+  if (view) return partNames(view).length > 1 ? view : null;
+  return [...views.values()].find(other => !other.element.hidden && partNames(other).length > 1) || null;
+}
+function updatePartsControl() {
+  const view = partsTarget();
+  $('parts-open').hidden = !view;
+  if (!$('parts').hidden && parts.view?.design.id !== focused) closeParts();
+}
+function renderParts() {
+  const view = parts.view, names = partNames(view), shown = names.filter(name => !view.hiddenParts.has(name));
+  $('parts-title').textContent = 'Parts · ' + (view.design.name || shortLabel(view.design));
+  $('parts-status').textContent = shown.length === names.length ? 'Tap an eye to hide a part. Open/Close still moves everything.'
+    : names.length - shown.length + ' of ' + names.length + ' hidden. Open/Close still moves them.';
+  $('parts-all').disabled = shown.length === names.length;
+  $('parts-list').replaceChildren(...names.map(name => {
+    const row = document.createElement('div'), eye = document.createElement('button'), swatch = document.createElement('span');
+    const label = document.createElement('span'), only = document.createElement('button'), off = view.hiddenParts.has(name);
+    const color = view.group.children.find(mesh => mesh.userData.name === name).userData.color;
+    row.className = 'part-row' + (off ? ' off' : ''); swatch.className = 'swatch'; swatch.style.background = color;
+    label.className = 'name'; label.textContent = part({name}); label.title = name;
+    eye.className = 'eye'; eye.innerHTML = off ? EYE_OFF : EYE; eye.setAttribute('aria-pressed', String(!off));
+    eye.setAttribute('aria-label', (off ? 'Show ' : 'Hide ') + part({name}));
+    eye.onclick = () => { if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); };
+    const alone = shown.length === 1 && shown[0] === name;
+    only.className = 'only'; only.textContent = 'Only'; only.setAttribute('aria-pressed', String(alone));
+    only.title = alone ? 'Show every part again' : 'Show just this part';
+    only.onclick = () => { view.hiddenParts = new Set(alone ? [] : names.filter(other => other !== name)); showParts(view); };
+    row.append(eye, swatch, label, only); return row;
+  }));
+}
+function openParts(view) {
+  parts.view = view; $('parts').hidden = false; $('parts-open').setAttribute('aria-expanded', 'true');
+  renderParts(); requestAnimationFrame(fitVisible);
+}
+function closeParts() { if ($('parts').hidden) return; $('parts').hidden = true; $('parts-open').setAttribute('aria-expanded', 'false'); requestAnimationFrame(fitVisible); }
+$('parts-open').onclick = () => {
+  if (!$('parts').hidden) return closeParts();
+  const view = partsTarget(); if (!view) return;
+  if (view.design.id !== focused) setFocus(view.design.id);
+  closeTune(); openParts(view); updatePartsControl();
+};
+$('parts-close').onclick = closeParts;
+$('parts-all').onclick = () => { parts.view.hiddenParts.clear(); showParts(parts.view); };
+for (const type of ['pointerdown', 'pointerup', 'click', 'keydown', 'wheel']) $('parts').addEventListener(type, event => event.stopPropagation());
 
 $('refresh').onclick = refresh;
 await refresh();
