@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Base 7 still has separate base and handle pieces, so the curl-around part should merge with the handle. Drop the standalone Handle so each finger's gear and strap-loop handle print as one part, keeping FDM rules.",
+  "summary_sha": "1f4d3de1c6f43af2"
 }
