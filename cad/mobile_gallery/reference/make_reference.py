@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Stage the Generalist reference photos for the gallery's "Actual (Generalist)" tile.
+"""Stage the reference photos the live preview's photo toggle shows beside a family's views (voice-c68a1812).
 
 actual_top.png is the left-hand device of cad/reference/generalist_gripper_gen6_two_hands.png
 resampled into gripper CAD millimetres (X across, Z along the fingers, viewed from +Y), using
 the same photo->mm frame Gens 9-11 traced their fingers in (gripper.scad: mm_per_px, px_pivot,
-axis_deg, and the right hinge pivot). gallery.js lays it on a plane at Y=0 spanning BOUNDS, so
-the Top view of the photo and of every model share one camera. The other photos are copied
-downscaled and shown flat. Re-run after changing the frame: python3 cad/mobile_gallery/reference/make_reference.py"""
+axis_deg, and the right hinge pivot), spanning BOUNDS. The other photos are copied downscaled.
+photos.js maps each design family to its photos; a family with none still gets the toggle, greyed out.
+Re-run after changing the frame or adding photos: python3 cad/mobile_gallery/reference/make_reference.py"""
 from pathlib import Path
 import json, math
 from PIL import Image
@@ -40,7 +40,8 @@ def main():
         image.thumbnail((1000, 1000))
         image.save(HERE / f'{key}.png', optimize=True)
         photos.append(dict(id=key, label=label, src=f'reference/{key}.png'))
-    (HERE / 'photos.js').write_text('// Written by make_reference.py.\nexport default ' + json.dumps(photos, indent=1) + ';\n')
+    families = {'Generalist Gripper': photos}
+    (HERE / 'photos.js').write_text('// Written by make_reference.py: design family -> its reference photos.\nexport default ' + json.dumps(families, indent=1) + ';\n')
 
 
 if __name__ == '__main__':

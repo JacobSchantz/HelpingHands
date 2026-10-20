@@ -120,6 +120,7 @@ class LandingPageTests(unittest.TestCase):
         root.mkdir()
         for name in ('index.html', 'gallery.js', 'model.js', 'poses.js'):
             shutil.copy2(GALLERY / name, root / name)
+        shutil.copytree(GALLERY / 'reference', root / 'reference', ignore=shutil.ignore_patterns('*.py'))
         shutil.copytree(REPO / 'cad/compare/vendor', root / 'vendor')
         (root / 'catalog.json').write_text(json.dumps(CATALOG))
         with socket.socket() as probe:
@@ -163,6 +164,23 @@ class LandingPageTests(unittest.TestCase):
     def test_a_mount_that_does_not_fit_the_arm_is_flagged_in_its_row(self):
         dom = self.dom('?arm=2&mount=1')
         self.assertIn('⚠ Mount 1 fits Arm 1, not Arm 2.', dom)
+
+    def test_every_design_has_a_reference_photo_toggle_off_by_default(self):
+        dom = self.dom()
+        self.assertIn('aria-label="Show reference photo"', dom)
+        self.assertNotIn('class="viewport photo-tile"', dom)
+
+    def test_photo_on_shows_it_inline_beside_the_views(self):
+        dom = self.dom('?photo=side')
+        self.assertIn('aria-label="Hide reference photo"', dom)
+        self.assertIn('data-photo="side"', dom)
+        self.assertIn('src="reference/side.png"', dom)
+        self.assertLess(dom.index('data-design-id="generalist-mix"'), dom.index('class="viewport photo-tile"'))
+
+    def test_a_family_with_no_photo_still_has_the_toggle_greyed(self):
+        dom = self.dom('?photo=1#glove-hand-glove-hand-gen-01-·-fit-tray')
+        self.assertIn('No reference photo yet', dom)
+        self.assertNotIn('class="viewport photo-tile"', dom)
 
 
 if __name__ == '__main__':

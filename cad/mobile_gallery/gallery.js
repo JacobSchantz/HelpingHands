@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
+import PHOTOS from './reference/photos.js';
 import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
 // The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
@@ -28,6 +29,12 @@ const picks = initialPicks(query);
 // View presets: the direction the camera looks from, in CAD axes (Z along the fingers).
 const PRESETS = {top:[0, -1, 0], front:[0, -.002, 1], side:[1, 0, 0], iso:[.8, -1, .65]};
 const mixFamily = project => MIXES.find(item => item.project === project);
+// Reference photo (voice-c68a1812): every design has a toggle at the top of its parts list; on, the family's real photo
+// (reference/photos.js, make_reference.py) is one more tile beside the 3D views, with a picker for which photo. It stays on
+// across families and versions; a family with no photo greys the toggle. ?photo=1 (or ?photo=<id>, e.g. side) presets it.
+const photoQuery = query.get('photo');
+let photoOn = !!photoQuery && photoQuery !== '0', photoId = photoOn && photoQuery !== '1' ? photoQuery : '';
+let photoTile = null;
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
 function makeMesh(model, geometry, motion) {
@@ -84,6 +91,38 @@ function alignAll(name) {
   for (const view of shown) bounds.expandByObject(view.group);
   if (!bounds.isEmpty()) for (const view of shown) placeCamera(view, PRESETS[name], bounds);
 }
+// The photo tile sits after the shown views; the grid counts it as one more tile (focused: the one view and the photo side by side).
+function placePhoto() {
+  const photos = PHOTOS[currentProject] || [], show = photoOn && photos.length > 0;
+  if (show && !photoTile) {
+    photoTile = document.createElement('section'); photoTile.className = 'viewport photo-tile'; photoTile.dataset.photo = '';
+    const label = document.createElement('span'), img = document.createElement('img'), select = document.createElement('select');
+    label.className = 'label'; label.textContent = 'Reference photo'; select.setAttribute('aria-label', 'Which reference photo');
+    select.onchange = () => { photoId = select.value; placePhoto(); };
+    photoTile.append(img, label, select);
+  }
+  if (photoTile) {
+    if (show) {
+      const photo = photos.find(item => item.id === photoId) || photos[0], [img, , select] = photoTile.children;
+      select.replaceChildren(...photos.map(item => new Option(item.label, item.id))); select.value = photo.id;
+      if (img.getAttribute('src') !== photo.src) img.src = photo.src;
+      img.alt = currentProject + ' reference photo: ' + photo.label; photoTile.dataset.photo = photo.id;
+      grid.append(photoTile);
+    } else photoTile.remove();
+  }
+  const count = (focused ? 1 : views.size) + (show ? 1 : 0) || 1;
+  grid.style.setProperty('--columns', count === 4 ? 2 : Math.min(count, 3));
+  grid.style.setProperty('--rows', count);
+}
+function photoRow() {
+  const photos = PHOTOS[currentProject] || [], row = document.createElement('div'), label = document.createElement('span');
+  row.className = 'part-row photo-row'; label.className = 'name'; label.textContent = 'Reference photo';
+  const eye = eyeButton(!photoOn || !photos.length, 'reference photo', () => { photoOn = !photoOn; placePhoto(); renderPanel(); });
+  eye.disabled = !photos.length;
+  if (!photos.length) { label.textContent = 'No reference photo yet'; row.title = 'Add ' + currentProject + ' photos in cad/mobile_gallery/reference/make_reference.py'; }
+  row.append(eye, label);
+  return row;
+}
 function fitVisible() { for (const view of views.values()) if (!view.element.hidden) frame(view); }
 
 try {
@@ -139,7 +178,7 @@ function setFocus(id, updateHash = true) {
     view.element.setAttribute('role', focused ? 'img' : 'button');
   }
   if (updateHash) history.replaceState(null, '', location.pathname + location.search + (focused ? '#' + encodeURIComponent(focused) : ''));
-  updateExplodeControl(); updatePoseControl(); updateTuneControl(); renderPanel();
+  placePhoto(); updateExplodeControl(); updatePoseControl(); updateTuneControl(); renderPanel();
   requestAnimationFrame(fitVisible);
   document.title = focused ? 'HelpingHands · ' + views.get(focused).design.name : 'HelpingHands · ' + currentProject;
 }
@@ -323,8 +362,6 @@ function showProject(project, focusId = null) {
   if (single) list = [single];
   const ids = new Set(list.map(design => design.id));
   for (const [id, view] of views) if (!ids.has(id)) { removeView(view); views.delete(id); }
-  grid.style.setProperty('--columns', list.length === 4 ? 2 : Math.min(list.length || 1, 3));
-  grid.style.setProperty('--rows', list.length || 1);
   for (const design of list) {
     let view = views.get(design.id);
     if (!view) { view = createView(design); views.set(design.id, view); }
@@ -435,7 +472,7 @@ function linkRow(text, onclick, current = false) {
 function renderPanel() {
   if (!catalog) return;
   const view = focused && views.get(focused), design = view?.design, which = mixFamily(currentProject);
-  const rows = [];
+  const rows = [photoRow()];
   if (design?.mix) rows.push(...design.rows.flatMap(row => partRow(view, row)));
   else {
     if (which && design) rows.push(linkRow('‹ ' + (buildMix(catalog, picks, which)?.name || which.project), () => showProject(currentProject, which.id)));

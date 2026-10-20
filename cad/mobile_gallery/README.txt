@@ -54,4 +54,8 @@ plate, Aero Hand tool plate, Aero Hand (left)…) and the rest of a Base design 
 later design come from the catalog's "fingers" field (VERSIONS.txt ", Gripper 21"). Open/Close moves parts by
 cad/mobile_gallery/poses.js. ?open=0..100 and ?view=top|front|side|iso preset the pose and camera for screenshots.
 
-reference/ holds the real gripper's photos resampled into CAD millimetres (make_reference.py); the page no longer shows them.
+Reference photo (voice-c68a1812): every design's parts list starts with a Reference photo row and an eye. On, the family's real
+photo is one more tile beside the 3D view(s) (focused: the model and the photo side by side), with a picker for which photo; it
+stays on across versions and families. reference/photos.js maps family -> photos (written by reference/make_reference.py, which
+also resamples the top photo into gripper CAD millimetres); a family with none still shows the row, greyed ("No reference photo
+yet"). Add a family's photos in make_reference.py and re-run it. ?photo=1 or ?photo=<id> (side, cup, ...) presets it on.
