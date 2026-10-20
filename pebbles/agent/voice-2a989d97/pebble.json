@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Research which camera glasses suit Jake's open-source egocentric data collection system, paired with a handheld gripper, and what buyers want and pay. Write findings into the repo docs, building on the existing dataset pebbles, ending with a recommendation for glasses, format, and minimum spec.",
+  "summary_sha": "2a989d97c0a714d2"
 }
