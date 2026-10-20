@@ -107,3 +107,8 @@ has no screw ring for Base 10's leg, so the base takes the arm: a wrist tab on i
 wrist_screw_z); a new wrist bracket whose leg lies flat under the tab beside the servo (2 M3) and whose foot takes Mount 1's tool plate across the
 J6 axis, gussets inboard of the screws, a zip-tie point under the servo's bus connectors. Mount 1 (hub + tool plate) unchanged, so this, Base 10
 and the Aero Hand swap on one hub. Nothing between the fingers. Hub arm face 80 mm below the pivots. 10 printed + STS3215 + 25 screws.
+v315_generalist_so101_mount — Mount 2 (voice-790aa455), Arm 2, Gripper 21: Mount 1 with a new hub on the SO-101's wrist-roll horn, in place of
+the stock fixed jaw. Arm 2 is The Robot Studio's SO-101 follower (SO-ARM100 a758567, Apache-2.0, in cad/arm/so101/). The hub takes the horn's own
+4 M3 holes (countersunk from the tool face) with a socket round the Ø20 horn, steps in to a Ø25 neck that turns inside the wrist part's collar,
+and is Mount 1's hub outside, so Mount 1's tool plate slips over it: Base 14, unchanged with its bracket, rides on the SO-101 here, and Base 10 or
+the Aero Hand plate fit it too. Not a Base change (this folder is the Mount 2 assembly). Prints tool face down; 1 new print + 4 M3x6 countersunk.

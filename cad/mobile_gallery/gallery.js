@@ -45,7 +45,7 @@ const mixOf = design => MIXES.find(item => item.id === design?.id);
 const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR = /handle-gear/i;
 const part = model => model.name.split(' — ')[0];
 const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base'], ['arm', 'Arm'], ['mount', 'Mount'], ['aero', 'Aero Hand']];
-const CARRIED = /^(reBot Arm|Wrist hub|Tool plate|Aero Hand)/;   // Arm, Mount and Aero Hand parts inside a Base design
+const CARRIED = /^(reBot Arm|SO-101 Arm|Wrist hub|Tool plate|Aero Hand)/;   // Arm, Mount and Aero Hand parts inside a Base design
 const TOOL_PLATE = /^Tool plate/, AERO_PLATE = /^Aero Hand tool plate/;   // the Mount's plate for each tool
 const OFF_BY_DEFAULT = new Set(['arm', 'mount', 'aero']);
 const query = new URLSearchParams(location.search);
@@ -192,12 +192,15 @@ function mixFlags(chosen) {
   if (handles?.design.fingers && gripper && handles.design.fingers !== gripper.version) flags.push(name('handles') + ' was built on Gripper ' + handles.design.fingers + '; ' + name('gripper') + "'s hinges may not line up.");
   if (arm && base && !mount) flags.push(name('base') + ' needs a Mount to sit on ' + name('arm') + '.');
   if (arm && aero && !mount) flags.push(name('aero') + ' needs a Mount to sit on ' + name('arm') + '.');
-  if (mount && base && base.design.carries?.Mount !== mount.version) flags.push(base.design.carries?.Mount
+  // A Mount takes the tool plates of its own number or of the one it names (catalog tool_plate: Mount 2 takes Mount 1's), so a
+  // Base or Aero Hand built for Mount 1 fits Mount 2's hub (voice-790aa455).
+  const takes = (item, wanted) => wanted === item.version || wanted === item.design.tool_plate;
+  if (mount && base && !takes(mount, base.design.carries?.Mount)) flags.push(base.design.carries?.Mount
     ? name('base') + ' was built for Mount ' + base.design.carries.Mount + ', not ' + name('mount') + '.'
     : name('base') + ' has no wrist bracket (hand-held), so it does not fit ' + name('mount') + "'s tool plate.");
   for (const [key, kind] of [['mount', 'Arm'], ['aero', 'Mount'], ['aero', 'Arm']]) {
     const other = chosen[kind.toLowerCase()], wants = chosen[key]?.design.fits?.[kind];
-    if (other && wants && wants !== other.version) flags.push(name(key) + ' fits ' + kind + ' ' + wants + ', not ' + name(kind.toLowerCase()) + '.');
+    if (other && wants && !(kind === 'Mount' ? takes(other, wants) : wants === other.version)) flags.push(name(key) + ' fits ' + kind + ' ' + wants + ', not ' + name(kind.toLowerCase()) + '.');
   }
   return flags;
 }

@@ -64,12 +64,30 @@ def finger_version(folder):
 # Parts that ride inside a Base design but count on their own (AGENTS.md: Arm N, Mount N, Aero Hand N). A heading naming
 # ', Arm 1, Mount 1, Aero Hand 1' publishes those of its parts as their own catalog designs (the first heading to name a
 # version owns it), so each part is published separately and the gallery picks it independently (voice-a5d65841).
-CARRIED = {'Arm': r'^reBot Arm', 'Mount': r'^(Wrist hub|Tool plate|Aero Hand tool plate)\b', 'Aero Hand': r'^Aero Hand \(left\)'}
+CARRIED = {'Arm': r'^(reBot Arm|SO-101 Arm)', 'Mount': r'^(Wrist hub|Tool plate|Aero Hand tool plate)\b', 'Aero Hand': r'^Aero Hand \(left\)'}
+
+
+def own_part(folder):
+    """The part a folder's VERSIONS.txt heading leads with: ('Base', '14'), ('Mount', '2') (v315: Mount 2 on the SO-101), or None."""
+    m = re.match(r'\W*(Gripper|Handle|Base|Arm|Mount|Aero Hand) (\d+[a-z]?)\b', version_entry(folder).split(':')[0])
+    return (m.group(1), m.group(2)) if m else None
+
+
+def tool_plates_of(folder):
+    """'Mount 1's tool plate' in the entry of a folder that leads with a new Mount: that Mount takes Mount 1's tool plates, so
+    every tool built for Mount 1 fits it (the gallery's compatibility flags)."""
+    own = own_part(folder)
+    m = re.search(r"\bMount (\d+[a-z]?)['’]s\s+tool\s+plates?\b", version_entry(folder))
+    return m.group(1) if own and own[0] == 'Mount' and m and m.group(1) != own[1] else None
 
 
 def carried_parts(folder):
+    """', Arm 1, Mount 1' in the heading, and the part it leads with when that is one of them (v315: 'Mount 2 (…), Arm 2')."""
     heading = version_entry(folder).split(':')[0]
-    return {kind: m.group(1) for kind in CARRIED if (m := re.search(r',\s*' + kind + r' (\d+[a-z]?)\b', heading))}
+    found = {kind: m.group(1) for kind in CARRIED if (m := re.search(r',\s*' + kind + r' (\d+[a-z]?)\b', heading))}
+    if (own := own_part(folder)) and own[0] in CARRIED:
+        found[own[0]] = own[1]
+    return {kind: found[kind] for kind in CARRIED if kind in found}   # Arm, Mount, Aero Hand: the order fits leans on
 
 
 def param_value(folder, name):
@@ -84,7 +102,7 @@ def lineage(folder):
     -> ('Base 11', 'on the STS3215 only'). The first other '<Kind> N' after the heading is the parent; the words after it,
     up to the next stop, say what changed. ('', '') when the entry names none (Base 1, Base 3)."""
     heading, _, body = version_entry(folder).partition(':')
-    own = re.search(r'\b(Gripper|Handle|Base) (\d+[a-z]?)\b', heading)
+    own = re.search(r'\b(Gripper|Handle|Base|Arm|Mount) (\d+[a-z]?)\b', heading)
     if not own:
         return '', ''
     body = ' '.join(re.sub(r'\([^)]*\)', '', body).split())   # '(Base 2: 29)' is a comparison, not the parent
@@ -100,7 +118,7 @@ def lineage(folder):
 
 def public_fields(row):
     fields = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
-    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist', 'on_mount'):
+    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist', 'on_mount', 'tool_plate'):
         if row.get(key):
             fields[key] = row[key]
     return fields
@@ -224,7 +242,7 @@ def discover(repo=REPO):
                    "two-finger-gripper-v311-generalist-motor-choice": "Base 11",
                    "two-finger-gripper-v312-generalist-compact-drive": "Base 12",
                    "two-finger-gripper-v313-generalist-aero-full-hand": "Base 13",
-                   "two-finger-gripper-v314-generalist-sts-arm-mount": "Base 14"}
+                   "two-finger-gripper-v314-generalist-sts-arm-mount": "Base 14"}   # v315 leads with Mount 2: "Mount 2 assembly" below
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',
@@ -241,6 +259,11 @@ def discover(repo=REPO):
         if row["id"] in generations:
             kind, number = generations[row["id"]].split()
             row.update(name=f"{kind} {number}", version=f"{kind.lower()}_{number:0>2}")   # "11b": the Astra pass beside Gripper 11
+    # A folder that leads with an Arm or a Mount (v315: Mount 2, Base 14 on the SO-101) changed only those parts: it is their
+    # assembly, not a Base, so it keeps its tile but no Base number (AGENTS.md: never bump one part for another).
+    for row in result:
+        if (own := own_part(row['folder'])) and own[0] in ('Arm', 'Mount'):
+            row.update(name=f'{own[0]} {own[1]} assembly', version=f'{own[0].lower()}_{own[1]:0>2}_assembly')
     # The Aero Hand is its own end effector (AGENTS.md), so a folder whose heading carries one (v313) is that hand's assembly, not
     # a Base: it keeps its tile and Tune panel but leaves the Base picker (voice-a5d65841).
     for row in result:
@@ -254,9 +277,12 @@ def discover(repo=REPO):
                 continue
             claimed.add((kind, number))
             name = f'{kind} {number}'
+            own = own_part(row['folder']) == (kind, number)   # Mount 2's folder leads with it, so its lineage is Mount 2's
             result.append(dict(row, id=slug(row['project'] + '-' + name), name=name, version=f"{slug(kind).replace('-', '_')}_{number:0>2}",
                                notes=f"{name}, published from {row['name']} ({Path(row['folder']).name}). " + row['notes'],
-                               existing=existing, fingers=None, carries={}, builds_on='', gist='', carried_from=row['id'],
+                               existing=existing, fingers=None, carries={}, carried_from=row['id'],
+                               builds_on=row['builds_on'] if own else '', gist=row['gist'] if own else '',
+                               tool_plate=tool_plates_of(row['folder']) if own and kind == 'Mount' else None,
                                # what it sits on, as carried beside it: Mount 1 on Arm 1, Aero Hand 1 on Mount 1 + Arm 1
                                fits={k: v for k, v in row['carries'].items() if list(CARRIED).index(k) < list(CARRIED).index(kind)}))
             if kind == 'Aero Hand' and (x := param_value(row['folder'], 'aero_view_x')) is not None:

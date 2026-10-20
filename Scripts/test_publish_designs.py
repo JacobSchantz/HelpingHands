@@ -88,6 +88,30 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(rows['Aero Hand 1']['id'], 'generalist-gripper-aero-hand-1')
         self.assertEqual({rows[n]['project'] for n in ('Arm 1', 'Mount 1', 'Base 12', 'v312 compact') if n in rows}, {'Generalist Gripper'})
 
+    def test_a_folder_leading_with_a_mount_publishes_that_mount_and_its_arm(self):
+        base = self.repo / 'Two Finger Gripper/versions'
+        for name in ('v310_arm_mount', 'v315_so101'):
+            folder = base / name / 'exports'
+            folder.mkdir(parents=True)
+            (base / name / 'gripper.scad').write_text('cube(1);')
+            names = ['Left finger — yellow', 'Base — plate', 'Wrist hub — on the arm', 'Tool plate — on the base',
+                     ('SO-101 Arm (printed) — ref' if name == 'v315_so101' else 'reBot Arm B601-RS (silver) — ref')]
+            for i, part in enumerate(names):
+                (folder / f'{i}.stl').write_text('solid x\nendsolid x\n')
+            (base / name / 'viewer_parts.json').write_text(json.dumps({'parts': [{'path': f'exports/{i}.stl', 'name': n} for i, n in enumerate(names)]}))
+        (base / 'VERSIONS.txt').write_text(
+            'v310_arm_mount — Base 10 (voice-x), Gripper 21, Arm 1, Mount 1: Base 9 on the reBot arm.\n'
+            "v315_so101 — Mount 2 (voice-790aa455), Arm 2, Gripper 21: Mount 1 with a new hub on the SO-101's horn, so Mount 1's tool\n"
+            '  plate slips over it. Base 14 rides on it.\n')
+        rows = {r['name']: r for r in publisher.discover(self.repo)}
+        self.assertNotIn('Base 15', rows)   # a Mount change is never a Base
+        assembly = rows['Mount 2 assembly']
+        self.assertEqual(assembly['carries'], {'Arm': '2', 'Mount': '2'})
+        mount = publisher.public_fields(rows['Mount 2'])
+        self.assertEqual((mount['fits'], mount['tool_plate'], mount['builds_on']), ({'Arm': '2'}, '1', 'Mount 1'))
+        self.assertEqual([m['name'] for m in rows['Arm 2']['existing']], ['SO-101 Arm (printed) — ref'])
+        self.assertNotIn('tool_plate', publisher.public_fields(rows['Mount 1']))
+
     def test_public_families_keep_versions_and_exclude_deleted_prototypes(self):
         for project in ('ORCA CC-BY Prototype', 'Two Finger Gripper', 'Three Finger Gripper'):
             folder = self.repo / project / 'versions/v001_study'

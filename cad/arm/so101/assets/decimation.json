@@ -1,0 +1,83 @@
+{
+ "source": "https://github.com/TheRobotStudio/SO-ARM100/tree/a758567c3978dfeefe282ede0500085a48fe8f78/Simulation/SO101/assets",
+ "rows": [
+  {
+   "mesh": "assets/base_motor_holder_so101_v1.stl",
+   "source_triangles": 37540,
+   "triangles": 7508,
+   "preview_triangles": 7110
+  },
+  {
+   "mesh": "assets/base_so101_v2.stl",
+   "source_triangles": 9430,
+   "triangles": 9430,
+   "preview_triangles": 1760
+  },
+  {
+   "mesh": "assets/motor_holder_so101_base_v1.stl",
+   "source_triangles": 22586,
+   "triangles": 6000,
+   "preview_triangles": 4964
+  },
+  {
+   "mesh": "assets/motor_holder_so101_wrist_v1.stl",
+   "source_triangles": 21042,
+   "triangles": 6000,
+   "preview_triangles": 4638
+  },
+  {
+   "mesh": "assets/moving_jaw_so101_v1.stl",
+   "source_triangles": 28270,
+   "triangles": 10186,
+   "preview_triangles": 9630
+  },
+  {
+   "mesh": "assets/rotation_pitch_so101_v1.stl",
+   "source_triangles": 17672,
+   "triangles": 6896,
+   "preview_triangles": 6398
+  },
+  {
+   "mesh": "assets/sts3215_03a_no_horn_v1.stl",
+   "source_triangles": 17316,
+   "triangles": 6368,
+   "preview_triangles": 6178
+  },
+  {
+   "mesh": "assets/sts3215_03a_v1.stl",
+   "source_triangles": 19080,
+   "triangles": 6384,
+   "preview_triangles": 6348
+  },
+  {
+   "mesh": "assets/under_arm_so101_v1.stl",
+   "source_triangles": 39516,
+   "triangles": 9456,
+   "preview_triangles": 8536
+  },
+  {
+   "mesh": "assets/upper_arm_so101_v1.stl",
+   "source_triangles": 26068,
+   "triangles": 8544,
+   "preview_triangles": 7406
+  },
+  {
+   "mesh": "assets/waveshare_mounting_plate_so101_v2.stl",
+   "source_triangles": 1254,
+   "triangles": 1254,
+   "preview_triangles": 1254
+  },
+  {
+   "mesh": "assets/wrist_roll_follower_so101_v1.stl",
+   "source_triangles": 28796,
+   "triangles": 14120,
+   "preview_triangles": 13662
+  },
+  {
+   "mesh": "assets/wrist_roll_pitch_so101_v2.stl",
+   "source_triangles": 53994,
+   "triangles": 13290,
+   "preview_triangles": 12316
+  }
+ ]
+}
