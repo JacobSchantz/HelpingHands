@@ -13,6 +13,10 @@ into, single motor underneath, gear linkage to the handles). The old dotted "1.x
 - An assembly is just a selection of part versions (e.g. Arm 1 + Mount 1 + Base 10 + Gripper 21 + Handle 6). It is never
   a version itself; never bump one part to record a change in another, and never name a combined version.
 - Each time Jake asks for a design change, make a new version of the part that changed instead of editing it in place.
+- A new version builds on the **newest** version of that part (re-check `git pull` / `VERSIONS.txt` right before you
+  copy: a parallel pebble may have landed one while you worked) unless the pebble names another base. Its `VERSIONS.txt`
+  entry must start by stating what it builds on (`Base 13 (voice-…): Base 11 …`), and the preview picker shows it
+  ("Base 13 (from Base 11, …)"). Base 13 builds on Base 11, not Base 12, because both were in flight at once.
 - Parts meet through shared interfaces (arm flange to Mount, Mount tool plate to Base or Aero Hand, Handle to Base) so
   any version of one fits any version of its neighbor where possible; the live preview flags incompatible combos.
 - Any Handle must fit any Base through the shared handle–base interface.
