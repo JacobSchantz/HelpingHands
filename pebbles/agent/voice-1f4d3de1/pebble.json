@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T12:54:11.000Z",
-  "updated_at": "2026-10-20T12:54:11.000Z",
+  "updated_at": "2026-10-20T12:54:39Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Base 7 still has separate base and handle pieces, so the curl-around part should merge with the handle. Drop the standalone Handle so each finger's gear and strap-loop handle print as one part, keeping FDM rules.",
-  "summary_sha": "1f4d3de1c6f43af2"
+  "summary_sha": "1f4d3de1c6f43af2",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-1f4d3de1",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-1f4d3de1",
+  "claimed_at": "2026-10-20T12:54:39.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
