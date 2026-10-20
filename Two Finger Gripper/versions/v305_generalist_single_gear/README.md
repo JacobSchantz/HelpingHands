@@ -1,5 +1,7 @@
 # Generalist Gripper · Base 5: single gear (Gripper 21, Handle 7)
 
+> **Rejected 2026-10-20.** Jake: *"Wrong approach. Going with Base 7 (Base 4 simplified for printability) instead. Keep the Base 5 design folder; do not build further on Base 5."* This folder stays as a record only.
+
 voice-01ab1486. Jake: *"Look at the most recent design and see if you can come up with one that uses a single gear ...
 open and close both fingers from the one RobStride RS00 using only one gear. Pick the simplest approach and briefly
 explain why."*
