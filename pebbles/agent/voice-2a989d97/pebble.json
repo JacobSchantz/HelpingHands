@@ -1,0 +1,16 @@
+{
+  "id": "voice-2a989d97",
+  "commit_id": "",
+  "description": "Research pebble; write findings into the repo docs. Related existing pebbles: egocentric datasets research voice-50a87f8c and robotics datasets research voice-c7c6c5dc (build on them, don't duplicate). Jake's plan: an open-source data collection system. A handheld gripper (easy to use by hand, logging motor and finger positions) plus camera glasses for egocentric video. He and others use the grippers and glasses, or just the glasses, to collect egocentric manipulation data. The hardware is sold cheaply or given away, and the data is sold. Research: (a) which camera glasses work for this: open access to raw video, frame rate and resolution, field of view, IMU, stereo or depth, eye tracking, battery, price, and whether data can be pulled off without vendor lock-in, e.g. Meta Project Aria Gen 2, Ray-Ban Meta, Snap Spectacles, Brilliant Labs, Xreal, or head-mounted GoPro/fisheye cameras as in UMI; (b) what companies buying robotics or egocentric data look for and pay: format (LeRobot, RLDS, MCAP), fidelity (fps, resolution, calibration, time sync, action/proprio labels, depth, hand pose, language annotations), task diversity, licensing and consent and PII, volume, and who is buying (labs, data brokers such as Scale, Encord, and the newer egocentric data marketplaces) at what prices; (c) prior art to learn from: UMI (Universal Manipulation Interface), DexUMI, Project Aria / Ego-Exo4D, and any open data-collection hardware projects. End with a concrete recommendation for glasses, data format, and a minimum spec.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T13:16:26.000Z",
+  "updated_at": "2026-10-20T13:16:26.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
