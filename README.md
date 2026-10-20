@@ -84,6 +84,7 @@ The split gives us two properties:
 | Model choice and deployment | 1 | `plans/world_action_model.md`, `plans/molmoact2_deployment.md`, `plans/robot_model_scouting.md` |
 | External human data (egocentric datasets) | 1 | `plans/egocentric_datasets.md` |
 | External robot data (open robot datasets) | 1 | `plans/robot_datasets.md` |
+| Selling data: camera glasses, buyer spec, collection rig | 1 | `plans/egocentric_data_collection.md` |
 | Scoring models, the tool contract | 1 ↔ 2 | `robot_eval/` |
 | Agent harness | 2 | not built yet |
 | The app (instruction, eyes, stop button) | the person ↔ 2 | `HelpingHands/` |
