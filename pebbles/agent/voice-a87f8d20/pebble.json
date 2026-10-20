@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T15:56:44.000Z",
-  "updated_at": "2026-10-20T15:56:44.000Z",
+  "updated_at": "2026-10-20T16:07:06Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Aero Hand is currently filed as Base 13 under the Generalist Gripper line, but it should be its own family in the live preview's top-level design dropdown. It must still attach to the reBot arm via Mount 1 as an end effector, with AGENTS.md updated to list its own versions and note Base 13 as an Aero Hand assembly.",
-  "summary_sha": "a87f8d20180d75fa"
+  "summary_sha": "a87f8d20180d75fa",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-a87f8d20",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-a87f8d20",
+  "claimed_at": "2026-10-20T16:07:06.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
