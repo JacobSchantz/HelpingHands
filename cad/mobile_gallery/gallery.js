@@ -2,60 +2,32 @@ import * as THREE from 'three';
 import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
-import PHOTOS from './reference/photos.js';
+import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
+// The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
+// (Generalist Gripper, Aero Hand) shows its assembly, one row per part with the version it is at and a selector to switch it
+// (model.js builds the assembly and follows or flags the parts a change affects). Any other family lists its versions; tapping
+// one shows it alone. Each part's own pieces hang under its row with an eye to hide them.
 const $ = id => document.getElementById(id);
 const stage = $('stage'), grid = $('viewports');
 const views = new Map();
-// Design ids hidden from the comparison: hidden.json beside the catalog, written
-// by the Shown checklist (through serve_designs.py) and by design_visibility.py.
+// Design ids hidden from a family's comparison: hidden.json beside the catalog, written by Scripts/design_visibility.py.
 let hidden = new Set();
 let renderer, catalog, focused = null, currentProject = '', webglError = '', refreshing = false, exploded = false;
 // How far apart the parts are right now: 0 assembled, 1 exploded. The Explode button eases it between the two.
 let explodeAmount = 0, explodeRun = 0;
-// Open/Closed slider: 0 = closed, 1 = fully open, the same fraction for every generation shown.
-// ?open=0..100 presets it (screenshots, links).
-const preset = new URLSearchParams(location.search).get('open');
+const query = new URLSearchParams(location.search);
+// Open/Closed: 0 = closed, 1 = fully open, the same fraction for every design shown. ?open=0..100 presets it (screenshots, links).
+const preset = query.get('open');
 // ?view=top|front|side|iso lines every model up once each one loads (screenshots, links).
-const startView = new URLSearchParams(location.search).get('view');
+const startView = query.get('view');
 let openness = preset !== null && isFinite(preset) ? Math.max(0, Math.min(100, +preset)) / 100 : 1;
 const loader = new STLLoader();
-// The real Generalist gripper, shown as one more tile in its project. Its first photo is
-// resampled into the gripper's CAD millimetres (reference/make_reference.py) and laid on the
-// Y=0 plane, so the Top view lines the photo up with every model; the others show flat.
-const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actual (Generalist)', actual:true};
-// Mix and match (Generalist Gripper; Aero Hand has its own, AERO_MIX): any Gripper N (fingers) with any Handle N's handles and any Base N,
-// assembled in one tile. A part's kind comes from its name before ' — ': a handle is named like a strap
-// slide or handle, a finger says finger, and the rest of a Base design (arms, gears, base, motor) is its base.
-// Fingers that only exist inside a later design come from the catalog's 'fingers' field (Handle 6 and Base 1-3
-// carry Gripper 21, from VERSIONS.txt). It opens on the newest of each (Gripper 21 + Handle 6 + Base 3).
-// ?gripper=21&handles=6|none&base=3|none presets it. A Base whose own parts include a handle-gear (Base 8 on: the geared
-// pieces are the handles) is a base part, and the Handle picker sits out while it is chosen, so no second handle is drawn.
-// Arm N, Mount N and Aero Hand N are their own catalog designs (the publisher splits them out of the Base whose VERSIONS.txt
-// heading names ', Arm 1, Mount 1, Aero Hand 1'), so a Base option never draws them; they start off (?arm=1&mount=1&aero=1).
-// Aero Hand is an end effector beside Base + Gripper: ?base=none&aero=1 puts it on the Mount in their place (buildMix).
-// Each option says what it builds on ('Base 12 (from Base 11, on the STS3215 only)', the catalog's builds_on + gist from
-// VERSIONS.txt), and the tile lists every pair of picks that do not share an interface (mixFlags) (voice-a5d65841).
-// The Aero Hand is its own family (voice-a87f8d20): its tile set opens on a second mix of Arm + Mount + Aero Hand, the hand on the
-// Mount's hub, and the Generalist mix still offers it as the arm's end effector. Each mix keeps its own picks.
-const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
-const AERO_MIX = {id:'aero-mix', project:'Aero Hand', mix:true, parts:['arm', 'mount', 'aero']};
-const MIXES = [MIX, AERO_MIX];
-const mixOf = design => MIXES.find(item => item.id === design?.id);
-const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR = /handle-gear/i;
-const part = model => model.name.split(' — ')[0];
-const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base'], ['arm', 'Arm'], ['mount', 'Mount'], ['aero', 'Aero Hand']];
-const CARRIED = /^(reBot Arm|SO-101 Arm|Wrist hub|Tool plate|Aero Hand)/;   // Arm, Mount and Aero Hand parts inside a Base design
-const TOOL_PLATE = /^Tool plate/, AERO_PLATE = /^Aero Hand tool plate/;   // the Mount's plate for each tool
-const OFF_BY_DEFAULT = new Set(['arm', 'mount', 'aero']);
-const query = new URLSearchParams(location.search);
-const mix = Object.fromEntries(PICKERS.map(([key]) => [key, query.get(key) || (OFF_BY_DEFAULT.has(key) ? 'none' : null)]));
-const picks = {[MIX.id]:mix, [AERO_MIX.id]:Object.fromEntries(AERO_MIX.parts.map(key => [key, query.get(key) || null]))};
-const mixPickers = which => PICKERS.filter(([key]) => !which.parts || which.parts.includes(key));
-const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3(40, 6, 116));
+// Each mix's picks, per part key: a version, 'none', or null for the newest. ?gripper=21&handles=6&base=none&arm=1 presets them.
+const picks = initialPicks(query);
 // View presets: the direction the camera looks from, in CAD axes (Z along the fingers).
-// Top is the photo's viewpoint: from -Y, +X to the right, fingertips up.
 const PRESETS = {top:[0, -1, 0], front:[0, -.002, 1], side:[1, 0, 0], iso:[.8, -1, .65]};
+const mixFamily = project => MIXES.find(item => item.project === project);
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
 function makeMesh(model, geometry, motion) {
@@ -74,7 +46,6 @@ function removeView(view) {
   view.token++; view.controls?.dispose(); disposeMeshes(view); view.element.remove();
 }
 function frame(view) {
-  if (view.design.actual) { if (view.group.children.length) placeCamera(view, PRESETS.top, FINGERS); return; }
   if (!view.group.children.length || !view.element.clientWidth || !view.element.clientHeight) return;
   view.camera.aspect = view.element.clientWidth / view.element.clientHeight;
   const bounds = new THREE.Box3().setFromObject(view.group);
@@ -106,17 +77,13 @@ function placeCamera(view, direction, bounds) {
   camera.near = Math.max(.01, distance / 1000); camera.far = distance * 30;
   camera.updateProjectionMatrix(); view.controls?.target.copy(center); view.controls?.update();
 }
-// Snap every tile on screen to one camera: same direction, centre and scale, framed on all the
-// models together. Top also closes the jaws, the pose the photo was traced in.
+// ?view=: snap every tile on screen to one camera, same direction, centre and scale, framed on all the models together.
 function alignAll(name) {
   const shown = [...views.values()].filter(view => !view.element.hidden && view.group.children.length);
-  if (name === 'top' && shown.some(view => view.design.actual) && openness) setOpenness(0);
   const bounds = new THREE.Box3();
-  for (const view of shown) if (!view.design.actual) bounds.expandByObject(view.group);
-  if (bounds.isEmpty()) bounds.copy(FINGERS);
-  for (const view of shown) placeCamera(view, PRESETS[name], bounds);
+  for (const view of shown) bounds.expandByObject(view.group);
+  if (!bounds.isEmpty()) for (const view of shown) placeCamera(view, PRESETS[name], bounds);
 }
-for (const button of document.querySelectorAll('#presets button')) button.onclick = () => alignAll(button.dataset.view);
 function fitVisible() { for (const view of views.values()) if (!view.element.hidden) frame(view); }
 
 try {
@@ -142,108 +109,20 @@ try {
 } catch (error) { webglError = '3D is unavailable on this device. Showing exported previews.'; }
 
 function shortLabel(design) {
-  if (partVersion(design)) return design.name;
   const match = (design.name || '').match(/(?:generation|gen)\s+(\d+[a-z]?)\b/i);
   return match ? 'Gen ' + match[1] : design.name || design.version || design.id;
 }
-// 'Gripper 16' -> {kind:'gripper', version:'16'}, 'Handle 6' -> handles, 'Base 3' -> base. Each part counts on its own (AGENTS.md).
-const KINDS = {gripper:'gripper', handle:'handles', base:'base', arm:'arm', mount:'mount', 'aero hand':'aero'};
-function partVersion(design) {
-  const match = (design.name || '').match(/^(gripper|handle|base|arm|mount|aero hand)\s+(\d+[a-z]?)$/i);
-  return match ? {kind:KINDS[match[1].toLowerCase()], version:match[2]} : null;
-}
-function versionOrder(version) { return parseFloat(version); }
-// Grippers, then Handles, then Bases, each by number: the order the parts were designed in.
-function partOrder(design) {
-  const part = partVersion(design);
-  return part ? PICKERS.findIndex(([key]) => key === part.kind) * 1000 + versionOrder(part.version) : -1;
-}
-// Each option is {version, design, models}: the version shown in its picker and the parts it adds.
-function mixOptions() {
-  const family = catalog.designs.filter(design => MIXES.some(item => item.project === design.project) && partVersion(design) && design.models?.length)
-    .sort((a, b) => partOrder(a) - partOrder(b) || a.id.localeCompare(b.id));
-  const option = (version, design, keep) => ({version, design, models:design.models.filter(keep)});
-  const of = kind => family.filter(design => partVersion(design).kind === kind);
-  const grippers = of('gripper').map(design => option(partVersion(design).version, design, model => !HANDLE.test(part(model))));
-  for (const design of family) {   // a later design's own fingers (Handle 6 -> Gripper 21), once per finger version
-    if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push(option(design.fingers, design, model => FINGER.test(part(model))));
-  }
-  const handles = of('handles').map(design => option(partVersion(design).version, design, model => HANDLE.test(part(model))));
-  const bases = of('base').map(design => option(partVersion(design).version, design,
-    model => !HANDLE.test(part(model)) && !FINGER.test(part(model)) && !CARRIED.test(part(model))));
-  const whole = kind => of(kind).map(design => option(partVersion(design).version, design, () => true));
-  const order = (a, b) => versionOrder(a.version) - versionOrder(b.version) || a.version.localeCompare(b.version);
-  return {gripper:grippers.filter(item => item.models.length).sort(order), handles:handles.filter(item => item.models.length),
-          base:bases.filter(item => item.models.length), arm:whole('arm'), mount:whole('mount'), aero:whole('aero')};
-}
-// 'Base 12 (from Base 11, on the STS3215 only)': a picked part's own design says what it builds on. Fingers offered from a
-// later design (Gripper 21 from Handle 6) are not that design's lineage, so they show bare.
-function optionLabel(label, item) {
-  const own = partVersion(item.design)?.version === item.version && item.design.builds_on;
-  return label + ' ' + item.version + (own ? ' (from ' + item.design.builds_on + (item.design.gist ? ', ' + item.design.gist : '') + ')' : '');
-}
-// Picks that do not share an interface (AGENTS.md: arm flange -> Mount, Mount tool plate -> Base or Aero Hand, Handle -> Base,
-// fingers -> the hinges a Handle/Base was built on). Each comes from the catalog (fingers, carries, fits), not from names.
-function mixFlags(chosen) {
-  const name = key => PICKERS.find(([k]) => k === key)[1] + ' ' + chosen[key].version;
-  const flags = [];
-  const {gripper, handles, base, arm, mount, aero} = chosen;
-  if (base?.design.fingers && gripper && base.design.fingers !== gripper.version) flags.push(name('base') + ' was built on Gripper ' + base.design.fingers + '; ' + name('gripper') + "'s hinges may not line up.");
-  if (handles?.design.fingers && gripper && handles.design.fingers !== gripper.version) flags.push(name('handles') + ' was built on Gripper ' + handles.design.fingers + '; ' + name('gripper') + "'s hinges may not line up.");
-  if (arm && base && !mount) flags.push(name('base') + ' needs a Mount to sit on ' + name('arm') + '.');
-  if (arm && aero && !mount) flags.push(name('aero') + ' needs a Mount to sit on ' + name('arm') + '.');
-  // A Mount takes the tool plates of its own number or of the one it names (catalog tool_plate: Mount 2 takes Mount 1's), so a
-  // Base or Aero Hand built for Mount 1 fits Mount 2's hub (voice-790aa455).
-  const takes = (item, wanted) => wanted === item.version || wanted === item.design.tool_plate;
-  if (mount && base && !takes(mount, base.design.carries?.Mount)) flags.push(base.design.carries?.Mount
-    ? name('base') + ' was built for Mount ' + base.design.carries.Mount + ', not ' + name('mount') + '.'
-    : name('base') + ' has no wrist bracket (hand-held), so it does not fit ' + name('mount') + "'s tool plate.");
-  for (const [key, kind] of [['mount', 'Arm'], ['aero', 'Mount'], ['aero', 'Arm']]) {
-    const other = chosen[kind.toLowerCase()], wants = chosen[key]?.design.fits?.[kind];
-    if (other && wants && !(kind === 'Mount' ? takes(other, wants) : wants === other.version)) flags.push(name(key) + ' fits ' + kind + ' ' + wants + ', not ' + name(kind.toLowerCase()) + '.');
-  }
-  return flags;
-}
-function buildMix(which = MIX) {
-  const options = mixOptions(), state = picks[which.id], pickers = mixPickers(which);
-  if (!options[pickers[0][0]].length) return null;
-  const chosen = {};
-  for (const [key] of PICKERS) {
-    if (!pickers.some(([k]) => k === key)) { chosen[key] = null; continue; }
-    chosen[key] = key !== pickers[0][0] && state[key] === 'none' ? null : options[key].find(item => item.version === state[key]) || options[key].at(-1) || null;
-    state[key] = chosen[key] ? chosen[key].version : 'none';
-  }
-  const handlesInBase = !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
-  if (handlesInBase) chosen.handles = null;   // mix.handles keeps the pick for when another Base is chosen
-  // Aero Hand is an end effector of its own: with no Base it replaces Base + Gripper on the Mount, so the Gripper and Handle
-  // pickers sit out and the hand moves off the rack onto the hub (catalog on_mount). Beside a Base it stays on the rack.
-  // The Mount draws a tool's plate only with that tool (the gripper's when no Aero Hand stands in for it).
-  const aeroOnHub = !!chosen.aero && !chosen.base;
-  if (aeroOnHub) { chosen.gripper = null; chosen.handles = null; }
-  const shift = model => aeroOnHub && chosen.aero.design.on_mount ? {...model, shift:chosen.aero.design.on_mount} : model;
-  if (chosen.aero) chosen.aero = {...chosen.aero, models:chosen.aero.models.map(shift)};
-  if (chosen.mount) chosen.mount = {...chosen.mount, models:chosen.mount.models
-    .filter(model => AERO_PLATE.test(part(model)) ? !!chosen.aero : !(TOOL_PLATE.test(part(model)) && aeroOnHub))
-    .map(model => AERO_PLATE.test(part(model)) ? shift(model) : model)};
-  // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
-  // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
-  const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
-  return {...which, options, handlesInBase, aeroOnHub, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper?.design.id,
-    name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
-    models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
-}
+// What a family shows: a mix family its assembly (its versions are reached through the part rows), any other every version
+// that is not hidden, oldest generation first.
 function projectDesigns(project) {
-  const list = catalog.designs.filter(design => design.project === project);
-  if (list.every(partVersion)) list.sort((a, b) => partOrder(a) - partOrder(b) || a.id.localeCompare(b.id));
-  else if (list.every(design => /(?:generation|gen)\s+\d+/i.test(design.name || ''))) {
+  const which = mixFamily(project), mixed = which && buildMix(catalog, picks, which);
+  if (mixed) return [mixed];
+  const list = catalog.designs.filter(design => design.project === project && !hidden.has(design.id));
+  if (list.every(design => /(?:generation|gen)\s+\d+/i.test(design.name || ''))) {
     list.sort((a, b) => Number(a.name.match(/(?:generation|gen)\s+(\d+)/i)[1]) - Number(b.name.match(/(?:generation|gen)\s+(\d+)/i)[1]));
   }
-  if (project === ACTUAL.project) list.unshift(ACTUAL);
-  const which = MIXES.find(item => item.project === project), mixed = which && buildMix(which);
-  if (mixed) list.unshift(mixed);
   return list;
 }
-function visibleDesigns(project) { return projectDesigns(project).filter(design => !hidden.has(design.id)); }
 async function loadHidden() {
   try {
     const response = await fetch('hidden.json', {cache:'no-store'});
@@ -251,71 +130,24 @@ async function loadHidden() {
     hidden = new Set(Array.isArray(list) ? list : []);
   } catch { hidden = new Set(); }
 }
-async function saveHidden() {
-  try {
-    const response = await fetch('hidden.json', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({hidden:[...hidden]})});
-    if (!response.ok) throw Error('server said ' + response.status);
-    status();
-  } catch (error) { message('Could not save which generations are hidden (' + error.message + '). It will reset on refresh.'); }
-}
-function status() {
-  message(visibleDesigns(currentProject).length ? webglError
-    : 'Every ' + currentProject + ' generation is hidden. Tap “' + $('shown').textContent + '” to bring one back.');
-}
-function updateShownButton() {
-  const count = projectDesigns(currentProject).filter(design => hidden.has(design.id)).length;
-  $('shown').textContent = count ? count + ' hidden' : 'Hide…';
-}
-function openVisibility() {
-  $('visibility-list').replaceChildren(...projectDesigns(currentProject).map(design => {
-    const row = document.createElement('label'), box = document.createElement('input');
-    box.type = 'checkbox'; box.checked = !hidden.has(design.id);
-    box.onchange = () => {
-      if (box.checked) hidden.delete(design.id); else hidden.add(design.id);
-      showProject(currentProject, focused && !hidden.has(focused) ? focused : null);
-      saveHidden();
-    };
-    row.append(box, shortLabel(design) === design.name ? design.name : shortLabel(design) + ' · ' + design.name);
-    return row;
-  }));
-  $('visibility').showModal();
-}
-$('shown').onclick = openVisibility;
 function setFocus(id, updateHash = true) {
   focused = views.has(id) ? id : null;
-  grid.classList.toggle('focused', !!focused); $('back').hidden = !focused;
+  grid.classList.toggle('focused', !!focused);
   for (const [key, view] of views) {
     view.element.hidden = !!focused && key !== focused;
     view.element.setAttribute('aria-label', (focused ? '' : 'Open ') + (view.design.name || key));
     view.element.setAttribute('role', focused ? 'img' : 'button');
   }
   if (updateHash) history.replaceState(null, '', location.pathname + location.search + (focused ? '#' + encodeURIComponent(focused) : ''));
-  updateExplodeControl(); updatePoseControl(); updateTuneControl(); updatePartsControl();
+  updateExplodeControl(); updatePoseControl(); updateTuneControl(); renderPanel();
   requestAnimationFrame(fitVisible);
   document.title = focused ? 'HelpingHands · ' + views.get(focused).design.name : 'HelpingHands · ' + currentProject;
-}
-$('back').onclick = () => setFocus(null);
-function showPhoto(view, id) {
-  const photo = PHOTOS.find(item => item.id === id) || PHOTOS[0];
-  view.photo = view.select.value = photo.id;
-  disposeMeshes(view); view.loading.hidden = true;
-  if (photo.bounds && renderer) {
-    const [x0, x1, z0, z1] = photo.bounds;
-    const texture = new THREE.TextureLoader().load(photo.src); texture.colorSpace = THREE.SRGBColorSpace;
-    const geometry = new THREE.PlaneGeometry(x1 - x0, z1 - z0).rotateX(Math.PI / 2).translate((x0 + x1) / 2, 0, (z0 + z1) / 2);
-    const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({map:texture, transparent:true, side:THREE.DoubleSide}));
-    mesh.userData.explode = new THREE.Vector3();
-    view.group.add(mesh); view.preview.hidden = true; view.element.classList.add('has-model'); frame(view);
-  } else {
-    view.preview.src = photo.src; view.preview.hidden = false; view.element.classList.remove('has-model');
-  }
 }
 function updateExplodeControl() {
   $('explode').hidden = ![...views.values()].some(view => !view.element.hidden && view.group.children.some(mesh => mesh.userData.explode?.lengthSq() > 0));
 }
-// How one model moves with the slider (cad/mobile_gallery/poses.js): a hinge turns
-// it about Y through its pivot, a slide or crank follows the drive. Null = fixed.
-// pivot: the right hinge's X when a Tune render moved it (the outline sets it), else poses.js's.
+// How one model moves with Open/Close (cad/mobile_gallery/poses.js): a hinge turns it about Y through its pivot, a slide or
+// crank follows the drive. Null = fixed. pivot: the right hinge's X when a Tune render moved it (the outline sets it), else poses.js's.
 function motionFor(design, name, pivot = null) {
   const pose = POSES[design.pose || design.id];
   if (!pose) return null;
@@ -351,10 +183,6 @@ function updatePoseControl() {
 // One tap toggles the jaws: the button names the move it will make, and the fingers swing there smoothly.
 // Tapping mid-swing turns them round from wherever they are.
 let openTarget = openness, openRun = 0;
-function setOpenness(to) {
-  ++openRun; openness = openTarget = to; showOpenTarget();
-  for (const view of views.values()) applyExplosion(view);
-}
 function showOpenTarget() {
   $('pose').textContent = openTarget ? 'Close' : 'Open';
   $('pose').setAttribute('aria-pressed', String(!openTarget));
@@ -410,26 +238,6 @@ function createView(design) {
   const label = document.createElement('span'); label.className = 'label';
   const loading = document.createElement('span'); loading.className = 'loading'; loading.textContent = 'Loading 3D…'; loading.setAttribute('role','status');
   element.append(preview, label, loading); grid.append(element);
-  let select = null;
-  if (design.actual) {
-    select = document.createElement('select'); select.className = 'photo'; select.setAttribute('aria-label', 'Reference photo');
-    select.append(...PHOTOS.map(photo => new Option(photo.label, photo.id)));
-    for (const type of ['pointerdown', 'pointerup', 'click', 'keydown']) select.addEventListener(type, event => event.stopPropagation());
-    select.onchange = () => showPhoto(view, select.value);
-    element.append(select); preview.alt = 'Generalist reference photo';
-  }
-  if (design.mix) {
-    select = document.createElement('div'); select.className = 'mixer';
-    for (const [key, label] of mixPickers(design)) {
-      const choice = document.createElement('select'); choice.setAttribute('aria-label', label + ' version'); choice.dataset.part = key;
-      for (const type of ['pointerdown', 'pointerup', 'click', 'keydown']) choice.addEventListener(type, event => event.stopPropagation());
-      choice.onchange = () => { picks[design.id][key] = choice.value; updateView(view, buildMix(mixOf(design))); };
-      select.append(choice);
-    }
-    const flags = document.createElement('div'); flags.className = 'flags'; flags.setAttribute('role', 'status');
-    select.append(flags);
-    element.append(select);
-  }
   const scene = new THREE.Scene(); scene.background = new THREE.Color('#13232f');
   scene.add(new THREE.HemisphereLight(0xffffff, 0x51687a, 2.5));
   const light = new THREE.DirectionalLight(0xffffff, 3); light.position.set(150, -200, 300); scene.add(light);
@@ -437,7 +245,7 @@ function createView(design) {
   const group = new THREE.Group(); scene.add(group);
   const controls = renderer ? new OrbitControls(camera, element) : null;
   if (controls) controls.enableDamping = true;
-  const view = {design, element, preview, label, loading, select, scene, camera, group, controls, token:0, signature:null, hiddenParts:new Set()};
+  const view = {design, element, preview, label, loading, scene, camera, group, controls, token:0, signature:null, hiddenParts:new Set()};
   let start = null, moved = false; const pointers = new Set();
   element.addEventListener('pointerdown', event => {
     pointers.add(event.pointerId);
@@ -457,7 +265,7 @@ function createView(design) {
   element.addEventListener('pointercancel', () => { pointers.clear(); start = null; moved = true; });
   element.addEventListener('keydown', event => {
     if (!focused && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); setFocus(design.id); }
-    else if (event.key === 'Escape') setFocus(null);
+    else if (event.key === 'Escape' && views.size > 1) setFocus(null);
   });
   element.addEventListener('dblclick', () => frame(view));
   return view;
@@ -465,24 +273,8 @@ function createView(design) {
 
 async function updateView(view, design) {
   view.design = design; view.label.textContent = shortLabel(design);
-  if (design.actual) { if (!view.photo) showPhoto(view, PHOTOS[0].id); return; }
+  if (design.mix) { view.element.setAttribute('aria-label', design.name); if (focused === design.id) document.title = 'HelpingHands · ' + design.name; }
   if (view.tuned) return;   // Tune meshes stay until Reset; a catalog refresh must not swap them for the exported ones
-  if (design.mix) {
-    mixPickers(design).forEach(([key, label], index) => {
-      const choice = view.select.children[index];
-      const sitsOut = design.aeroOnHub && (key === 'gripper' || key === 'handles') ? 'Aero Hand instead'
-        : key === 'handles' && design.handlesInBase ? 'Handle in Base' : '';
-      choice.disabled = !!sitsOut;
-      if (sitsOut) { choice.replaceChildren(new Option(sitsOut, 'sits-out')); choice.value = 'sits-out'; return; }
-      choice.replaceChildren(...(index === 0 ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
-        ...design.options[key].map(item => new Option(optionLabel(label, item), item.version)));
-      choice.value = picks[design.id][key];
-      choice.title = choice.selectedOptions[0]?.textContent || '';
-    });
-    const flags = view.select.querySelector('.flags');
-    flags.textContent = design.flags.map(flag => '⚠ ' + flag).join('\n'); flags.hidden = !design.flags.length;
-    view.element.setAttribute('aria-label', design.name); if (focused === design.id) document.title = 'HelpingHands · ' + design.name;
-  }
   const signature = JSON.stringify(design.models || []);
   if (design.preview) view.preview.src = design.preview;
   if (view.signature === signature) {
@@ -510,7 +302,7 @@ async function updateView(view, design) {
     }
     for (const mesh of meshes) view.group.add(mesh);
     applyExplosion(view); showParts(view);
-    updateExplodeControl(); updatePoseControl(); updatePartsControl();
+    updateExplodeControl(); updatePoseControl();
     frame(view); view.element.classList.add('has-model'); view.loading.hidden = !design.export_error;
     if (PRESETS[startView]) alignAll(startView);
     view.loading.textContent = design.export_error ? 'Latest export failed; showing last model' : '';
@@ -522,10 +314,13 @@ async function updateView(view, design) {
   }
 }
 
+// Show a family: its assembly (a mix family) or every version side by side, or one design alone when `focusId` names one
+// that is not in that list (a link to a version of a mix family, or Tune from its row): the panel's first row then returns.
 function showProject(project, focusId = null) {
   currentProject = project; $('project').value = project;
-  const list = visibleDesigns(project);
-  updateShownButton(); status();
+  let list = projectDesigns(project);
+  const single = focusId && !list.some(design => design.id === focusId) && catalog.designs.find(design => design.id === focusId);
+  if (single) list = [single];
   const ids = new Set(list.map(design => design.id));
   for (const [id, view] of views) if (!ids.has(id)) { removeView(view); views.delete(id); }
   grid.style.setProperty('--columns', list.length === 4 ? 2 : Math.min(list.length || 1, 3));
@@ -535,7 +330,8 @@ function showProject(project, focusId = null) {
     if (!view) { view = createView(design); views.set(design.id, view); }
     grid.append(view.element); updateView(view, design);
   }
-  setFocus(focusId);
+  message(list.length ? webglError : 'Every ' + project + ' version is hidden (hidden.json). Scripts/design_visibility.py show all brings them back.');
+  setFocus(focusId || (list.length === 1 ? list[0].id : null));
 }
 $('project').onchange = () => showProject($('project').value);
 function hashDesign() { try { return decodeURIComponent(location.hash.slice(1)); } catch { return ''; } }
@@ -553,23 +349,110 @@ async function refresh() {
     if (!Array.isArray(next.designs)) throw Error('Invalid catalog');
     const initial = !catalog; catalog = next;
     await loadHidden();
-    const projects = [...new Set(catalog.designs.map(design => design.project))];
-    $('project').replaceChildren(...projects.map(project => { const option = document.createElement('option'); option.value = option.textContent = project; return option; }));
-    // A first load with no #design opens on the mix-and-match tile (the newest of each unless ?gripper/?handles/?base say otherwise).
+    // The mix families first (the Generalist assembly is the landing), then the rest as the catalog lists them.
+    const projects = [...new Set([...MIXES.map(item => item.project), ...catalog.designs.map(design => design.project)])]
+      .filter(project => catalog.designs.some(design => design.project === project));
+    $('project').replaceChildren(...projects.map(project => new Option(project, project)));
+    // A first load with no #design opens on the Generalist assembly (the newest of each part unless ?gripper/?handles/?base say otherwise).
     const wanted = focused || (initial ? hashDesign() || MIX.id : '');
     const target = mixOf({id:wanted}) || catalog.designs.find(design => design.id === wanted);
-    const project = target?.project || (projects.includes(currentProject) ? currentProject : projects.find(p => p === 'Generalist Gripper') || projects[0]);
-    const sameLayout = !initial && project === currentProject && JSON.stringify([...views.keys()]) === JSON.stringify(visibleDesigns(project).map(d => d.id));
+    const project = target?.project || (projects.includes(currentProject) ? currentProject : projects[0]);
+    const sameLayout = !initial && project === currentProject && JSON.stringify([...views.keys()]) === JSON.stringify(projectDesigns(project).map(d => d.id));
     if (sameLayout) {
-      $('project').value = project;
-      for (const view of views.values()) updateView(view, view.design.actual ? ACTUAL : view.design.mix ? buildMix(mixOf(view.design)) : catalog.designs.find(d => d.id === view.design.id));
-      // No layout/frame reset: preserve focused model and camera on unchanged refresh.
-      updateShownButton();
+      for (const view of views.values()) updateView(view, view.design.mix ? buildMix(catalog, picks, mixOf(view.design)) : catalog.designs.find(d => d.id === view.design.id) || view.design);
+      renderPanel();   // No layout/frame reset: preserve focused model and camera on unchanged refresh.
     } else showProject(project, target?.id || null);
-    status();
   } catch (error) { message('Could not refresh. ' + error.message); }
   finally { refreshing = false; }
 }
+
+// The panel: the parts list, and the way around. For a mix it is one row per part (eye, version selector, Tune when that version
+// has parameters, then any note model.js attached: a part that followed the change, or a pair that does not fit) with the part's
+// own pieces under it. For one design alone it is a row back to the assembly (mix families) or the family's versions, then its
+// pieces. The eye hides a piece (mesh.visible only, so Open/Close and Explode keep moving it); Only isolates it, tap again for every
+// piece back. Each tile keeps its hidden names across picker changes, catalog refreshes and Tune re-renders. ?hide=top plate,base
+// presets it: any piece whose name contains one of the words (voice-2308ade1).
+const hideQuery = (query.get('hide') || '').toLowerCase().split(',').map(word => word.trim()).filter(Boolean);
+const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.7.7 5.1 1.6M22 12s-3.6 7-10 7c-2 0-3.7-.7-5.1-1.6M3 3l18 18"/></svg>';
+const pieceNames = models => [...new Set((models || []).map(model => model.name).filter(Boolean))];
+function showParts(view) {
+  const names = pieceNames(view.design.models);
+  if (hideQuery.length && !view.hideApplied && names.some(name => hideQuery.some(word => name.toLowerCase().includes(word)))) {
+    view.hideApplied = true;
+    for (const name of names) if (hideQuery.some(word => name.toLowerCase().includes(word))) view.hiddenParts.add(name);
+  }
+  for (const mesh of view.group.children) mesh.visible = !view.hiddenParts.has(mesh.userData.name);
+  renderPanel();
+}
+function eyeButton(off, what, onclick) {
+  const eye = document.createElement('button');
+  eye.className = 'eye'; eye.innerHTML = off ? EYE_OFF : EYE; eye.setAttribute('aria-pressed', String(!off));
+  eye.setAttribute('aria-label', (off ? 'Show ' : 'Hide ') + what); eye.onclick = onclick;
+  return eye;
+}
+function pieceRows(view, models) {
+  const names = pieceNames(models), all = pieceNames(view.design.models), shown = all.filter(name => !view.hiddenParts.has(name));
+  return names.map(name => {
+    const row = document.createElement('div'), swatch = document.createElement('span'), label = document.createElement('span'), only = document.createElement('button');
+    const off = view.hiddenParts.has(name);
+    row.className = 'piece-row' + (off ? ' off' : ''); swatch.className = 'swatch'; swatch.style.background = models.find(model => model.name === name).color || '#cbd9e2';
+    label.className = 'name'; label.textContent = part({name}); label.title = name;
+    const alone = shown.length === 1 && shown[0] === name;
+    only.className = 'only'; only.textContent = 'Only'; only.setAttribute('aria-pressed', String(alone));
+    only.title = alone ? 'Show every piece again' : 'Show just this piece';
+    only.onclick = () => { view.hiddenParts = new Set(alone ? [] : all.filter(other => other !== name)); showParts(view); };
+    row.append(eyeButton(off, part({name}), () => { if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); }), swatch, label, only);
+    return row;
+  });
+}
+function partRow(view, row) {
+  const design = view.design, models = design.models.filter(model => model.part === row.key), names = pieceNames(models);
+  const head = document.createElement('div'), select = document.createElement('select');
+  head.className = 'part-row';
+  const off = names.length > 0 && names.every(name => view.hiddenParts.has(name));
+  const eye = eyeButton(off, row.label, () => { for (const name of names) if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); });
+  eye.disabled = !names.length;
+  select.setAttribute('aria-label', row.label + ' version');
+  if (row.sitsOut) { select.append(new Option(row.sitsOut, 'sits-out')); select.disabled = true; }
+  else {
+    select.append(...(row.optional ? [new Option('No ' + row.label.toLowerCase(), 'none')] : []), ...row.options.map(item => new Option(optionLabel(row.label, item), item.version)));
+    select.value = row.chosen ? row.chosen.version : 'none';
+    select.onchange = () => { picks[design.id][row.key] = select.value; updateView(view, buildMix(catalog, picks, mixOf(design), row.key)); renderPanel(); };
+  }
+  select.title = select.selectedOptions[0]?.textContent || '';
+  head.append(eye, select);
+  if (tuneParams(row.chosen?.design).length) {
+    const tuneButton = document.createElement('button'); tuneButton.className = 'tune'; tuneButton.textContent = 'Tune';
+    tuneButton.title = 'Slide ' + row.label + ' ' + row.chosen.version + "'s parameters";
+    tuneButton.onclick = () => { showProject(currentProject, row.chosen.design.id); openTune(views.get(row.chosen.design.id)); };
+    head.append(tuneButton);
+  }
+  const notes = row.notes.map(note => { const line = document.createElement('div'); line.className = 'note' + (note.follow ? ' follow' : ''); line.textContent = (note.follow ? '✓ ' : '⚠ ') + note.text; return line; });
+  return [head, ...notes, ...pieceRows(view, models)];
+}
+function linkRow(text, onclick, current = false) {
+  const row = document.createElement('button'); row.className = 'version-row'; row.textContent = text;
+  if (current) row.setAttribute('aria-current', 'true'); row.onclick = onclick;
+  return row;
+}
+function renderPanel() {
+  if (!catalog) return;
+  const view = focused && views.get(focused), design = view?.design, which = mixFamily(currentProject);
+  const rows = [];
+  if (design?.mix) rows.push(...design.rows.flatMap(row => partRow(view, row)));
+  else {
+    if (which && design) rows.push(linkRow('‹ ' + (buildMix(catalog, picks, which)?.name || which.project), () => showProject(currentProject, which.id)));
+    if (!which) {
+      const list = projectDesigns(currentProject);
+      if (list.length > 1) rows.push(linkRow('All ' + currentProject + ' versions', () => setFocus(null), !focused));
+      rows.push(...list.map(item => linkRow(item.name, () => setFocus(item.id), focused === item.id)));
+    }
+    if (design) rows.push(...pieceRows(view, design.models || []));
+  }
+  $('panel-list').replaceChildren(...rows);
+}
+
 // Tune (Handle 4 on): a design whose catalog entry carries `params` (its params.json) gets a slider per parameter. Each change
 // posts {design, values} to serve_designs.py /tune, which renders the real OpenSCAD parts with those values (a solid-only
 // change is ~0.1 s, an outline change ~1 s) and the view swaps them in, camera untouched. One request is in flight at a
@@ -578,8 +461,7 @@ async function refresh() {
 const tune = {view:null, values:{}, busy:false, again:false};
 const tuneQuery = query.get('tune');
 function tuneParams(design) { return (design?.params || []).flatMap(group => group.params); }
-// The focused design when it has params, else the newest tunable one on screen: the phone opens on the mix tile or the
-// grid, neither of which has params, so Tune must not wait for a tap to focus a tunable design first.
+// The focused design when it has params, else the newest tunable one on screen (a family compared side by side).
 function tuneTarget() {
   const view = focused && views.get(focused);
   if (view && tuneParams(view.design).length) return view;
@@ -601,8 +483,7 @@ function writeTuneQuery() {
   history.replaceState(null, '', location.pathname + (params.toString() ? '?' + params : '') + location.hash);
 }
 function openTune(view) {
-  tune.view = view; $('tune').hidden = false; $('tune-open').setAttribute('aria-expanded', 'true');
-  requestAnimationFrame(fitVisible);   // a phone's sheet takes the bottom half
+  tune.view = view; $('tune').hidden = false; $('panel').hidden = true; $('tune-open').setAttribute('aria-expanded', 'true');
   $('tune-title').textContent = 'Tune ' + shortLabel(view.design);
   if (tuneQuery && !Object.keys(tune.values).length) for (const pair of tuneQuery.split(',')) {
     const [k, v] = pair.split(':'); if (tuneParams(view.design).some(p => p.name === k) && isFinite(v)) tune.values[k] = +v;
@@ -624,15 +505,14 @@ function openTune(view) {
       show(); row.append(name, out, input); return row;
     })];
   }));
-  for (const type of ['pointerdown', 'pointerup', 'click', 'keydown', 'wheel']) $('tune').addEventListener(type, event => event.stopPropagation());
   if (Object.keys(tune.values).length) requestTune(); else tuneStatus('Drag a slider: the real CAD re-renders. Tap a value to reset it.');
 }
-function closeTune() { $('tune').hidden = true; $('tune-open').setAttribute('aria-expanded', 'false'); requestAnimationFrame(fitVisible); }
+function closeTune() { $('tune').hidden = true; $('panel').hidden = false; $('tune-open').setAttribute('aria-expanded', 'false'); }
 $('tune-open').onclick = () => {
   if (!$('tune').hidden) return closeTune();
   const view = tuneTarget(); if (!view) return;
   if (view.design.id !== focused) setFocus(view.design.id);
-  closeParts(); openTune(view); updateTuneControl();
+  openTune(view); updateTuneControl();
 };
 $('tune-close').onclick = closeTune;
 $('tune-reset').onclick = () => { tune.values = {}; openTune(tune.view); requestTune(); };
@@ -670,72 +550,6 @@ async function requestTune() {
   }
 }
 
-// Parts (voice-2308ade1): one row per part of the focused tile; the eye hides or shows it, Only isolates it (tap again for
-// every part). Hiding only sets mesh.visible, so Open/Close and Explode keep moving the hidden parts and the camera stays
-// put: hide the Top plate and watch the gears mesh. Each tile keeps its hidden names across picker changes, catalog refreshes
-// and Tune re-renders (meshes are rebuilt, the names stay). ?hide=top plate,base presets it: any part whose name contains one.
-const hideQuery = (query.get('hide') || '').toLowerCase().split(',').map(word => word.trim()).filter(Boolean);
-const parts = {view:null};
-const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-const EYE_OFF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7c2 0 3.7.7 5.1 1.6M22 12s-3.6 7-10 7c-2 0-3.7-.7-5.1-1.6M3 3l18 18"/></svg>';
-function partNames(view) { return [...new Set(view.group.children.map(mesh => mesh.userData.name).filter(Boolean))]; }
-function showParts(view) {
-  if (hideQuery.length && !view.hideApplied && partNames(view).some(name => hideQuery.some(word => name.toLowerCase().includes(word)))) {
-    view.hideApplied = true;
-    for (const name of partNames(view)) if (hideQuery.some(word => name.toLowerCase().includes(word))) view.hiddenParts.add(name);
-  }
-  for (const mesh of view.group.children) mesh.visible = !view.hiddenParts.has(mesh.userData.name);
-  if (parts.view === view && !$('parts').hidden) renderParts();
-}
-// The focused tile, else the first one on screen with more than one part (the mix tile on a plain load).
-function partsTarget() {
-  const view = focused && views.get(focused);
-  if (view) return partNames(view).length > 1 ? view : null;
-  return [...views.values()].find(other => !other.element.hidden && partNames(other).length > 1) || null;
-}
-function updatePartsControl() {
-  const view = partsTarget();
-  $('parts-open').hidden = !view;
-  if (!$('parts').hidden && parts.view?.design.id !== focused) closeParts();
-}
-function renderParts() {
-  const view = parts.view, names = partNames(view), shown = names.filter(name => !view.hiddenParts.has(name));
-  $('parts-title').textContent = 'Parts · ' + (view.design.name || shortLabel(view.design));
-  $('parts-status').textContent = shown.length === names.length ? 'Tap an eye to hide a part. Open/Close still moves everything.'
-    : names.length - shown.length + ' of ' + names.length + ' hidden. Open/Close still moves them.';
-  $('parts-all').disabled = shown.length === names.length;
-  $('parts-list').replaceChildren(...names.map(name => {
-    const row = document.createElement('div'), eye = document.createElement('button'), swatch = document.createElement('span');
-    const label = document.createElement('span'), only = document.createElement('button'), off = view.hiddenParts.has(name);
-    const color = view.group.children.find(mesh => mesh.userData.name === name).userData.color;
-    row.className = 'part-row' + (off ? ' off' : ''); swatch.className = 'swatch'; swatch.style.background = color;
-    label.className = 'name'; label.textContent = part({name}); label.title = name;
-    eye.className = 'eye'; eye.innerHTML = off ? EYE_OFF : EYE; eye.setAttribute('aria-pressed', String(!off));
-    eye.setAttribute('aria-label', (off ? 'Show ' : 'Hide ') + part({name}));
-    eye.onclick = () => { if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); };
-    const alone = shown.length === 1 && shown[0] === name;
-    only.className = 'only'; only.textContent = 'Only'; only.setAttribute('aria-pressed', String(alone));
-    only.title = alone ? 'Show every part again' : 'Show just this part';
-    only.onclick = () => { view.hiddenParts = new Set(alone ? [] : names.filter(other => other !== name)); showParts(view); };
-    row.append(eye, swatch, label, only); return row;
-  }));
-}
-function openParts(view) {
-  parts.view = view; $('parts').hidden = false; $('parts-open').setAttribute('aria-expanded', 'true');
-  renderParts(); requestAnimationFrame(fitVisible);
-}
-function closeParts() { if ($('parts').hidden) return; $('parts').hidden = true; $('parts-open').setAttribute('aria-expanded', 'false'); requestAnimationFrame(fitVisible); }
-$('parts-open').onclick = () => {
-  if (!$('parts').hidden) return closeParts();
-  const view = partsTarget(); if (!view) return;
-  if (view.design.id !== focused) setFocus(view.design.id);
-  closeTune(); openParts(view); updatePartsControl();
-};
-$('parts-close').onclick = closeParts;
-$('parts-all').onclick = () => { parts.view.hiddenParts.clear(); showParts(parts.view); };
-for (const type of ['pointerdown', 'pointerup', 'click', 'keydown', 'wheel']) $('parts').addEventListener(type, event => event.stopPropagation());
-
-$('refresh').onclick = refresh;
 await refresh();
 if (tuneQuery && tuneTarget()) $('tune-open').click();
 setInterval(refresh, 300000);

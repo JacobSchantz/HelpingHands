@@ -16,34 +16,42 @@ On export failures, retained successful artifacts remain available and the catal
 
 Live remote access requires this Mac to be awake, online and logged in. This is not cloud hosting or guaranteed offline synchronization. Physical-phone rendering must be verified on the phone; desktop mobile-viewport tests alone cannot establish it.
 
-The default view compares all generations for the selected family as interactive
-3D viewports. Tap a generation to focus; All returns to comparison. The one top
-row contains the family selector and refresh. A floating bottom-right
-Explode/Assemble button appears when positioned parts are available. There is no bottom metadata panel. Double-click a model
-to frame it; drag to orbit and pinch to zoom.
+The page (voice-1a2680b8, Jake's spec): the landing is the parts list beside the 3D view, and nothing else. The list is
+the Generalist assembly top to bottom — Gripper, Handle, Base, Mount, Arm — one row per part showing the version it is at and a
+selector to switch it to any other version of that part (AGENTS.md: each part counts on its own; the Aero Hand stays its own
+family and is never a Generalist option). Under each row hang that part's own pieces with an eye to hide one (mesh.visible only,
+so Open/Close and Explode keep moving it) and Only to isolate it. Open/Close and Explode float on the 3D view. The family
+dropdown at the top of the list switches to the Aero Hand (its assembly: Aero Hand, Mount, Arm, the hand on the Mount's hub),
+Glove Hand or Orca Hand; a family with no assembly lists its versions, tap one to see it alone.
 
-Exploded views use authored per-part offsets from the CAD export manifests.
-Version-folder projects can provide viewer_parts.json with a parts array of
-{path, name, color, explode:[x,y,z]}; paths are relative to the version folder,
-STLs retain assembled coordinates, and offsets are millimetres. Single merged
-assemblies without part metadata are not arbitrarily split or displaced.
+Swapping a part can affect the others, so the list handles the dependencies (cad/mobile_gallery/model.js, buildMix): an adapter
+part — the Mount to the arm, the Handle to the fingers — moves to the newest version that fits the new pick and says so under its
+row ("✓ Mount 2 follows Arm 2."); any other part that no longer fits, or an adapter with no fitting version, gets a flag under the
+affected row instead ("⚠ Base 3 has no wrist bracket (hand-held), so it does not fit Mount 1's tool plate."). Fit comes from the
+catalog (fingers, carries, fits, tool_plate: Mount 2 takes Mount 1's tool plates), never from names. Nothing is ever switched off
+for you: dropping the Mount under an Arm flags the Arm. The first load settles the adapters the same way, silently; a catalog
+refresh never moves a pick. Picks: ?gripper=21&handles=6&base=none&mount=1&arm=1 presets them; #generalist-mix and #aero-mix
+open an assembly, #<design id> opens one version alone (its first row returns to the assembly). Arm and Mount start off
+(the arm dwarfs the gripper). Scripts/test_gallery.py checks the rows, the Aero Hand's absence and the dependency rules under
+Node, and renders the landing page in headless Chrome through serve_designs.py.
 
-Hiding generations: the header's "Hide…" button (it reads "2 hidden" once some are) opens a checklist of the selected family's generations. Unchecked ones drop out of the comparison on every device. The list is hidden.json in the curated directory, saved through serve_designs.py's one POST endpoint (JSON only, design ids only); publishing never touches it. Voice/CLI: python3 Scripts/design_visibility.py hide gripper 1 2 | hide handle 3 | show base 1 | show all | list
+Tune (Handle 4 on): a version whose folder has params.json + live_render.py publishes its parameters into the catalog (params)
+and gets a Tune button on its row (or at the top of the list when it is shown alone). It shows that version alone with one
+slider per parameter. Each change POSTs {design, values} to serve_designs.py /tune, which renders the real OpenSCAD parts into
+tune/<id>/<hash>/ under the served directory (80 kept per design) and the view swaps them in. ?tune=name:value,... presets the
+values; Copy puts the changed ones on the clipboard for the next version's params.json. This is the one place the server runs
+CAD on request; values are numbers only, checked against params.json and clamped to slider range.
 
-Actual (Generalist): the Generalist Gripper family gets an extra first tile, the real gripper. Its default photo is the left device of cad/reference/generalist_gripper_gen6_two_hands.png resampled into the gripper's CAD millimetres (the same photo->mm frame Gens 9-11 were traced in) and laid on the Y=0 plane; the tile's dropdown swaps to the other reference photos, shown flat. Regenerate with python3 cad/mobile_gallery/reference/make_reference.py. It hides like any generation (id generalist-actual).
+Hidden versions: hidden.json in the curated directory (design ids) keeps versions out of a family's side-by-side list. Only the
+CLI writes it now: python3 Scripts/design_visibility.py hide gripper 1 2 | hide handle 3 | show base 1 | show all | list (through
+serve_designs.py's one POST endpoint, JSON only, design ids only); publishing never touches it.
 
-Top / Front / Side / Iso (bottom right) snap every tile on screen to one camera: same direction, centre and scale, framed on all shown models together. Top is the photo's viewpoint and also closes the jaws to the photo's pose. ?view=top does the same once the models load.
+Exploded views use authored per-part offsets from the CAD export manifests. Version-folder projects can provide
+viewer_parts.json with a parts array of {path, name, color, explode:[x,y,z]}; paths are relative to the version folder, STLs
+retain assembled coordinates, and offsets are millimetres. A part's kind comes from its name before " — ": a handle says
+"strap slide" or "handle", a finger says "finger", Arm/Mount/Aero Hand pieces are named for them (reBot Arm…, Wrist hub, Tool
+plate, Aero Hand tool plate, Aero Hand (left)…) and the rest of a Base design is its base. Fingers that only exist inside a
+later design come from the catalog's "fingers" field (VERSIONS.txt ", Gripper 21"). Open/Close moves parts by
+cad/mobile_gallery/poses.js. ?open=0..100 and ?view=top|front|side|iso preset the pose and camera for screenshots.
 
-Mix and match (Generalist Gripper): the family's first tile, and the view a plain load opens on. Three pickers in the tile choose any Gripper N (fingers), any Handle N's handles (or No handle) and any Base N (or No base), and show them assembled; each part counts on its own (AGENTS.md: Gripper N, Handle N, Base N — the old 1.x/2.x/3.x and Gen N names are retired). A part's kind comes from its name before " — ": a handle says "strap slide" or "handle", a finger says "finger", and the rest of a Base design (arms, gears, base plate, motor) is its base. The catalog names each design "Gripper N", "Handle N" or "Base N" (Scripts/publish_designs.py generations; design ids keep the folder names so saved links and hidden.json still work). Grippers are the Gripper designs plus the fingers of any later design whose VERSIONS.txt heading names ", Gripper NN" (the publisher copies it into the catalog's "fingers" field; Handle 6 and Base 1-3 give Gripper 21). Handles and base keep their own design's coordinates and ride the gripper's ^Left/^Right hinges, so they are only truly fitted on the fingers their version was built on. Defaults are the newest of each (Gripper 21 + Handle 6 + Base 3); ?gripper=21&handles=6&base=none presets it; #generalist-mix links to it.
-
-Tune (Handle 4 on): a version folder with params.json + live_render.py publishes its parameters into the catalog (params).
-Focus that design and tap Tune: one slider per parameter. Each change POSTs {design, values} to serve_designs.py /tune,
-which renders the real OpenSCAD parts into tune/<id>/<hash>/ under the served directory (80 kept per design) and the
-view swaps them in. ?tune=name:value,... presets the values; Copy puts the changed ones on the clipboard. This is the one
-place the server runs CAD on request; values are numbers only, checked against params.json and clamped to slider range.
-
-Per-part pickers (voice-a5d65841): the mix tile has one picker per part — Gripper, Handle, Base, Arm, Mount, Aero Hand — and assembles the selection. Arm N, Mount N and Aero Hand N are published as their own catalog designs (their own tiles too): a Base whose VERSIONS.txt heading names ", Arm 1, Mount 1, Aero Hand 1" gives those of its parts (reBot Arm…, Wrist hub / Tool plate / Aero Hand tool plate, Aero Hand (left)…) to the part, the first heading to name a version owns it, and a Base option no longer draws them. Arm, Mount and Aero Hand start off; ?arm=1&mount=1&aero=1 turns them on. Each option shows what it builds on, "Base 12 (from Base 11, on the STS3215 only)": the publisher reads the first other "<Kind> N" in the version's VERSIONS.txt entry (parentheses skipped) and the words after it (catalog builds_on, gist). Picks that don't share an interface are listed in an amber bar in the tile: fingers other than the ones a Handle/Base was built on (fingers), a Base without the Mount it was built for (carries.Mount; hand-held Bases have none), a Base or Aero Hand on an Arm with no Mount, and a Mount/Aero Hand built for another Arm/Mount version (fits). Aero Hand is an end effector of its own, an alternative to Base + Gripper: a folder whose heading carries an Aero Hand (v313) is published as "Aero Hand 1 assembly", not as a Base. With an Aero Hand and no Base, the Gripper and Handle pickers read "Aero Hand instead" and the hand moves off the rack onto the Mount's hub (catalog on_mount, from aero_view_x), so Arm 1 + Mount 1 + Aero Hand 1 assembles with no warning (?base=none&arm=1&mount=1&aero=1). Beside a Base it stays on the rack. The Mount draws each tool's plate only with that tool.
-
-Parts (voice-2308ade1): the header's Parts button opens a side sheet (bottom half on a phone) listing every part of the focused tile, or of the first tile with more than one part. The eye hides or shows a part; Only shows just that part, and tapping it again brings every part back; Show all clears it. Hiding only sets the mesh invisible, so Open/Close and Explode keep moving hidden parts and the camera does not move: hide the Top plate and Motor and press Close to watch the gears mesh. Each tile remembers what is hidden (by part name) across picker changes, catalog refreshes and Tune re-renders, until the page reloads. ?hide=top plate,motor presets it (any part whose name contains one of the words). Parts and Tune share the sheet; opening one closes the other.
-
-Aero Hand family (voice-a87f8d20): the Aero Hand is its own family in the top dropdown, beside Generalist Gripper, Glove Hand and Orca Hand, not a Base. The publisher files a folder whose heading carries an Aero Hand (v313, "Aero Hand 1 assembly") and the Aero Hand N it splits out under project "Aero Hand"; ids are unchanged, so old links still open. The family opens on its own mix tile (#aero-mix): Arm, Mount and Aero Hand pickers, the hand on the Mount's hub (Arm 1 + Mount 1 + Aero Hand 1). The Generalist mix still reads Aero Hand versions from that family, so ?base=none&arm=1&mount=1&aero=1 works as before. The two mixes keep separate picks.
+reference/ holds the real gripper's photos resampled into CAD millimetres (make_reference.py); the page no longer shows them.
