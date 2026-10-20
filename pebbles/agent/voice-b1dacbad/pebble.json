@@ -9,7 +9,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T23:37:09.000Z",
-  "updated_at": "2026-10-20T23:37:09.000Z",
+  "updated_at": "2026-10-20T23:37:34Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Helping Hands live page shows labels or badges reading \"only\", each paired with a small checkmark indicator. Remove every \"only\" label on the page and also remove the checkmark shown alongside them.",
-  "summary_sha": "b1dacbad31f9b0ce"
+  "summary_sha": "b1dacbad31f9b0ce",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-b1dacbad",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-b1dacbad",
+  "claimed_at": "2026-10-20T23:37:34.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
