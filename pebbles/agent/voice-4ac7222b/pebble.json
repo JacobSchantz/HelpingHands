@@ -1,0 +1,16 @@
+{
+  "id": "voice-4ac7222b",
+  "commit_id": "",
+  "description": "Base 14: next generalist gripper base, built on Base 12 (voice-98af07a6: compact gearbox, STS3215 smaller motor, wider finger spacing). Use the smaller STS3215 motor and attach the gripper to the reBot arm through the Mount part (Mount 1, the reBot wrist mount). Redesign the arm-side interface for the compact STS3215 base; keep it parameterized and printable without supports, with a clear center gripping area. Related: voice-3cd78d20 (Mount 1 / Base 10 arm mount), voice-a5d65841 (per-part picker).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:56:47.000Z",
+  "updated_at": "2026-10-20T15:56:47.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
