@@ -44,7 +44,7 @@ into, single motor underneath, gear linkage to the handles). The old dotted "1.x
 | 3.3 | Base 3 | `v303_generalist_inplane` |
 | reBot B601-RS import (voice-3cd78d20) | Arm 1 | `cad/arm/rebot_b601_rs/` |
 | reBot wrist mount: J6 hub + tool plates, first in Base 10 (voice-3cd78d20) | Mount 1 | carried in `v310_generalist_arm_mount` |
-| Aero Hand (left), first posed in Base 13 (voice-c0e340c7) | Aero Hand 1 | `third_party/aero_hand/` |
+| Aero Hand (left), its own end effector on Mount 1 (voice-c0e340c7); old "Base 13" is its assembly, not a Base | Aero Hand 1 | `third_party/aero_hand/`, assembly `v313_generalist_aero_full_hand` |
 
 - **From Handle 4 (old 2.4) on, a version is its `params.json`.** `v204_generalist_parametric` names every dimension there (finger outline,
   solid, handles, tongue/pocket). To make the next version, copy the latest parametric folder, change values in `params.json`

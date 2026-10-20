@@ -33,6 +33,7 @@ const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actu
 // pieces are the handles) is a base part, and the Handle picker sits out while it is chosen, so no second handle is drawn.
 // Arm N, Mount N and Aero Hand N are their own catalog designs (the publisher splits them out of the Base whose VERSIONS.txt
 // heading names ', Arm 1, Mount 1, Aero Hand 1'), so a Base option never draws them; they start off (?arm=1&mount=1&aero=1).
+// Aero Hand is an end effector beside Base + Gripper: ?base=none&aero=1 puts it on the Mount in their place (buildMix).
 // Each option says what it builds on ('Base 12 (from Base 11, on the STS3215 only)', the catalog's builds_on + gist from
 // VERSIONS.txt), and the tile lists every pair of picks that do not share an interface (mixFlags) (voice-a5d65841).
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
@@ -40,6 +41,7 @@ const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR =
 const part = model => model.name.split(' — ')[0];
 const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base'], ['arm', 'Arm'], ['mount', 'Mount'], ['aero', 'Aero Hand']];
 const CARRIED = /^(reBot Arm|Wrist hub|Tool plate|Aero Hand)/;   // Arm, Mount and Aero Hand parts inside a Base design
+const TOOL_PLATE = /^Tool plate/, AERO_PLATE = /^Aero Hand tool plate/;   // the Mount's plate for each tool
 const OFF_BY_DEFAULT = new Set(['arm', 'mount', 'aero']);
 const query = new URLSearchParams(location.search);
 const mix = Object.fromEntries(PICKERS.map(([key]) => [key, query.get(key) || (OFF_BY_DEFAULT.has(key) ? 'none' : null)]));
@@ -195,10 +197,20 @@ function buildMix() {
   }
   const handlesInBase = !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
   if (handlesInBase) chosen.handles = null;   // mix.handles keeps the pick for when another Base is chosen
+  // Aero Hand is an end effector of its own: with no Base it replaces Base + Gripper on the Mount, so the Gripper and Handle
+  // pickers sit out and the hand moves off the rack onto the hub (catalog on_mount). Beside a Base it stays on the rack.
+  // The Mount draws a tool's plate only with that tool (the gripper's when no Aero Hand stands in for it).
+  const aeroOnHub = !!chosen.aero && !chosen.base;
+  if (aeroOnHub) { chosen.gripper = null; chosen.handles = null; }
+  const shift = model => aeroOnHub && chosen.aero.design.on_mount ? {...model, shift:chosen.aero.design.on_mount} : model;
+  if (chosen.aero) chosen.aero = {...chosen.aero, models:chosen.aero.models.map(shift)};
+  if (chosen.mount) chosen.mount = {...chosen.mount, models:chosen.mount.models
+    .filter(model => AERO_PLATE.test(part(model)) ? !!chosen.aero : !(TOOL_PLATE.test(part(model)) && aeroOnHub))
+    .map(model => AERO_PLATE.test(part(model)) ? shift(model) : model)};
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
   // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
   const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
-  return {...MIX, options, handlesInBase, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
+  return {...MIX, options, handlesInBase, aeroOnHub, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper?.design.id,
     name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
@@ -312,7 +324,7 @@ function applyExplosion(view) {
     mesh.rotation.set(0, THREE.MathUtils.degToRad(move.deg), 0);
     const pivot = new THREE.Vector3(...move.pivot);
     mesh.position.copy(pivot).sub(pivot.clone().applyEuler(mesh.rotation)).add(new THREE.Vector3(...move.offset))
-      .addScaledVector(mesh.userData.explode, explodeAmount);
+      .add(mesh.userData.shift || new THREE.Vector3()).addScaledVector(mesh.userData.explode, explodeAmount);
   }
 }
 function updatePoseControl() {
@@ -440,8 +452,10 @@ async function updateView(view, design) {
   if (design.mix) {
     PICKERS.forEach(([key, label], index) => {
       const choice = view.select.children[index];
-      choice.disabled = key === 'handles' && design.handlesInBase;
-      if (choice.disabled) { choice.replaceChildren(new Option('Handle in Base', 'in-base')); choice.value = 'in-base'; return; }
+      const sitsOut = design.aeroOnHub && (key === 'gripper' || key === 'handles') ? 'Aero Hand instead'
+        : key === 'handles' && design.handlesInBase ? 'Handle in Base' : '';
+      choice.disabled = !!sitsOut;
+      if (sitsOut) { choice.replaceChildren(new Option(sitsOut, 'sits-out')); choice.value = 'sits-out'; return; }
       choice.replaceChildren(...(key === 'gripper' ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
         ...design.options[key].map(item => new Option(optionLabel(label, item), item.version)));
       choice.value = mix[key];
@@ -476,6 +490,7 @@ async function updateView(view, design) {
       if (token !== view.token) { geometry.dispose(); for (const mesh of meshes) { mesh.geometry.dispose(); mesh.material.dispose(); } return; }
       const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
       mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
+      mesh.userData.shift = new THREE.Vector3(...(model.shift || [0, 0, 0]));
       mesh.userData.motion = motionFor(design, model.name);
       meshes.push(mesh);
     }
@@ -627,6 +642,7 @@ async function requestTune() {
       const geometry = await loader.loadAsync(model.path);
       const mesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({color:model.color || '#cbd9e2', roughness:.65, metalness:.08}));
       mesh.userData.explode = new THREE.Vector3(...(model.explode || [0, 0, 0]));
+      mesh.userData.shift = new THREE.Vector3(...(model.shift || [0, 0, 0]));
       mesh.userData.motion = motionFor(view.design, model.name, result.pivot ?? null);
       meshes.push(mesh);
     }

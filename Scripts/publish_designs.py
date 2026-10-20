@@ -72,6 +72,13 @@ def carried_parts(folder):
     return {kind: m.group(1) for kind in CARRIED if (m := re.search(r',\s*' + kind + r' (\d+[a-z]?)\b', heading))}
 
 
+def param_value(folder, name):
+    """A params.json value (Handle 4 on), or None when the folder has no such parameter."""
+    path = Path(folder) / 'params.json'
+    groups = json.loads(path.read_text())['groups'] if path.is_file() else []
+    return next((q['value'] for g in groups for q in g['params'] if q['name'] == name), None)
+
+
 def lineage(folder):
     """What this version builds on, from its VERSIONS.txt entry: 'Base 12 (…): Base 11 on the STS3215 only, made compact.'
     -> ('Base 11', 'on the STS3215 only'). The first other '<Kind> N' after the heading is the parent; the words after it,
@@ -93,7 +100,7 @@ def lineage(folder):
 
 def public_fields(row):
     fields = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
-    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist'):
+    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist', 'on_mount'):
         if row.get(key):
             fields[key] = row[key]
     return fields
@@ -233,8 +240,13 @@ def discover(repo=REPO):
         if row["id"] in generations:
             kind, number = generations[row["id"]].split()
             row.update(name=f"{kind} {number}", version=f"{kind.lower()}_{number:0>2}")   # "11b": the Astra pass beside Gripper 11
+    # The Aero Hand is its own end effector (AGENTS.md), so a folder whose heading carries one (v313) is that hand's assembly, not
+    # a Base: it keeps its tile and Tune panel but leaves the Base picker (voice-a5d65841).
+    for row in result:
+        if hand := (row.get('carries') or {}).get('Aero Hand'):
+            row.update(name=f'Aero Hand {hand} assembly', version=f'aero_hand_{hand:0>2}_assembly')
     claimed = set()
-    for row in sorted(result, key=lambda row: row['version']):   # Base 10 owns Arm 1 and Mount 1; Base 13 adds Aero Hand 1
+    for row in sorted(result, key=lambda row: Path(row['folder']).name):   # Base 10 owns Arm 1 and Mount 1; v313 adds Aero Hand 1
         for kind, number in (row.get('carries') or {}).items():
             existing = [m for m in row['existing'] if re.search(CARRIED[kind], m['name'])]
             if (kind, number) in claimed or not existing:
@@ -246,6 +258,8 @@ def discover(repo=REPO):
                                existing=existing, fingers=None, carries={}, builds_on='', gist='', carried_from=row['id'],
                                # what it sits on, as carried beside it: Mount 1 on Arm 1, Aero Hand 1 on Mount 1 + Arm 1
                                fits={k: v for k, v in row['carries'].items() if list(CARRIED).index(k) < list(CARRIED).index(kind)}))
+            if kind == 'Aero Hand' and (x := param_value(row['folder'], 'aero_view_x')) is not None:
+                result[-1]['on_mount'] = [-x, 0, 0]   # exported on the rack beside the arm; this moves it (and its plate) onto the hub
     # Latest generations first; source folders retain original version names.
     return sorted(result, key=lambda row: (row['project'], row['version']), reverse=True)
 
