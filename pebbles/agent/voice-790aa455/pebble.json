@@ -1,0 +1,16 @@
+{
+  "id": "voice-790aa455",
+  "commit_id": "",
+  "description": "Make the arm swappable too. Bring in the SO-101 arm's CAD (official TheRobotStudio/SO-ARM100 repo has SO-101 STEP/STL files; record the source URL and license) as a new Arm version, Arm 2, converted for the live preview. Then design a new Mount version that attaches our latest custom gripper base to the SO-101's wrist, replacing its stock gripper/jaw: match the SO-101 wrist bolt pattern and the STS3215 wrist servo horn. In the live preview Jake can switch between arms (Arm 1 reBot B601-RS, Arm 2 SO-101) the same way he switches grippers and mounts, with each mount's compatibility flagged per arm. Keep it parameterized and printable without supports. Related pebbles: per-part picker voice-a5d65841, Base 14 voice-4ac7222b (STS3215 base on the arm), STS3215 variant voice-e82254ec.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T17:02:51.000Z",
+  "updated_at": "2026-10-20T17:02:51.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
