@@ -1,0 +1,3 @@
+# Seeed's source meshes (the URDF needs them), not exports: keep them despite the repo-wide *.stl rule
+!*.stl
+!*.STL
