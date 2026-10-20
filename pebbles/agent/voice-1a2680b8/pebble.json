@@ -1,0 +1,19 @@
+{
+  "id": "voice-1a2680b8",
+  "commit_id": "",
+  "description": "Design preview (Scripts/serve_designs.py on 127.0.0.1:8768, gallery.js, publish_designs.py) -- two asks from Jake:\n\n1. AERO HAND OUT OF THE GRIPPER. The Aero Hand is its own separate family/folder (per AGENTS.md it attaches to the arm). Right now it also shows up as an option inside the generalist gripper. Remove it from the gripper's options so it only appears under its own Aero Hand family.\n\n2. SIMPLIFY THE LANDING PAGE. Jake: 'It's getting a little out of hand.' When you first land on the Helping Hands live site it should be just a file-selector-style sidebar on the side (part families -> versions as a tree) plus the main view. Strip the clutter from the landing page. Jake is still deciding what the main area should say on landing -- leave a simple placeholder; the landing text will come in a follow-up reply on this pebble.\n\nTESTS/CHECKS: add a test or check that the Aero Hand is not listed under the gripper's options, and that the landing page renders the sidebar selector (tree of families/versions).",
+  "test_instructions": [
+    "Open the live design preview landing page: only a sidebar tree of part families/versions plus a placeholder main area",
+    "Expand the generalist gripper: Aero Hand is not among its options; it appears only under its own family"
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T20:49:18.000Z",
+  "updated_at": "2026-10-20T20:49:18.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
