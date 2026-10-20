@@ -24,7 +24,7 @@ const loader = new STLLoader();
 // resampled into the gripper's CAD millimetres (reference/make_reference.py) and laid on the
 // Y=0 plane, so the Top view lines the photo up with every model; the others show flat.
 const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actual (Generalist)', actual:true};
-// Mix and match (Generalist Gripper only): any Gripper N (fingers) with any Handle N's handles and any Base N,
+// Mix and match (Generalist Gripper; Aero Hand has its own, AERO_MIX): any Gripper N (fingers) with any Handle N's handles and any Base N,
 // assembled in one tile. A part's kind comes from its name before ' — ': a handle is named like a strap
 // slide or handle, a finger says finger, and the rest of a Base design (arms, gears, base, motor) is its base.
 // Fingers that only exist inside a later design come from the catalog's 'fingers' field (Handle 6 and Base 1-3
@@ -36,7 +36,12 @@ const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actu
 // Aero Hand is an end effector beside Base + Gripper: ?base=none&aero=1 puts it on the Mount in their place (buildMix).
 // Each option says what it builds on ('Base 12 (from Base 11, on the STS3215 only)', the catalog's builds_on + gist from
 // VERSIONS.txt), and the tile lists every pair of picks that do not share an interface (mixFlags) (voice-a5d65841).
+// The Aero Hand is its own family (voice-a87f8d20): its tile set opens on a second mix of Arm + Mount + Aero Hand, the hand on the
+// Mount's hub, and the Generalist mix still offers it as the arm's end effector. Each mix keeps its own picks.
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
+const AERO_MIX = {id:'aero-mix', project:'Aero Hand', mix:true, parts:['arm', 'mount', 'aero']};
+const MIXES = [MIX, AERO_MIX];
+const mixOf = design => MIXES.find(item => item.id === design?.id);
 const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR = /handle-gear/i;
 const part = model => model.name.split(' — ')[0];
 const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base'], ['arm', 'Arm'], ['mount', 'Mount'], ['aero', 'Aero Hand']];
@@ -45,6 +50,8 @@ const TOOL_PLATE = /^Tool plate/, AERO_PLATE = /^Aero Hand tool plate/;   // the
 const OFF_BY_DEFAULT = new Set(['arm', 'mount', 'aero']);
 const query = new URLSearchParams(location.search);
 const mix = Object.fromEntries(PICKERS.map(([key]) => [key, query.get(key) || (OFF_BY_DEFAULT.has(key) ? 'none' : null)]));
+const picks = {[MIX.id]:mix, [AERO_MIX.id]:Object.fromEntries(AERO_MIX.parts.map(key => [key, query.get(key) || null]))};
+const mixPickers = which => PICKERS.filter(([key]) => !which.parts || which.parts.includes(key));
 const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3(40, 6, 116));
 // View presets: the direction the camera looks from, in CAD axes (Z along the fingers).
 // Top is the photo's viewpoint: from -Y, +X to the right, fingertips up.
@@ -153,7 +160,7 @@ function partOrder(design) {
 }
 // Each option is {version, design, models}: the version shown in its picker and the parts it adds.
 function mixOptions() {
-  const family = catalog.designs.filter(design => design.project === MIX.project && partVersion(design) && design.models?.length)
+  const family = catalog.designs.filter(design => MIXES.some(item => item.project === design.project) && partVersion(design) && design.models?.length)
     .sort((a, b) => partOrder(a) - partOrder(b) || a.id.localeCompare(b.id));
   const option = (version, design, keep) => ({version, design, models:design.models.filter(keep)});
   const of = kind => family.filter(design => partVersion(design).kind === kind);
@@ -194,13 +201,14 @@ function mixFlags(chosen) {
   }
   return flags;
 }
-function buildMix() {
-  const options = mixOptions();
-  if (!options.gripper.length) return null;
+function buildMix(which = MIX) {
+  const options = mixOptions(), state = picks[which.id], pickers = mixPickers(which);
+  if (!options[pickers[0][0]].length) return null;
   const chosen = {};
   for (const [key] of PICKERS) {
-    chosen[key] = key !== 'gripper' && mix[key] === 'none' ? null : options[key].find(item => item.version === mix[key]) || options[key].at(-1) || null;
-    mix[key] = chosen[key] ? chosen[key].version : 'none';
+    if (!pickers.some(([k]) => k === key)) { chosen[key] = null; continue; }
+    chosen[key] = key !== pickers[0][0] && state[key] === 'none' ? null : options[key].find(item => item.version === state[key]) || options[key].at(-1) || null;
+    state[key] = chosen[key] ? chosen[key].version : 'none';
   }
   const handlesInBase = !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
   if (handlesInBase) chosen.handles = null;   // mix.handles keeps the pick for when another Base is chosen
@@ -217,7 +225,7 @@ function buildMix() {
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
   // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
   const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
-  return {...MIX, options, handlesInBase, aeroOnHub, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper?.design.id,
+  return {...which, options, handlesInBase, aeroOnHub, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper?.design.id,
     name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
@@ -228,7 +236,7 @@ function projectDesigns(project) {
     list.sort((a, b) => Number(a.name.match(/(?:generation|gen)\s+(\d+)/i)[1]) - Number(b.name.match(/(?:generation|gen)\s+(\d+)/i)[1]));
   }
   if (project === ACTUAL.project) list.unshift(ACTUAL);
-  const mixed = project === MIX.project && buildMix();
+  const which = MIXES.find(item => item.project === project), mixed = which && buildMix(which);
   if (mixed) list.unshift(mixed);
   return list;
 }
@@ -409,10 +417,10 @@ function createView(design) {
   }
   if (design.mix) {
     select = document.createElement('div'); select.className = 'mixer';
-    for (const [key, label] of PICKERS) {
+    for (const [key, label] of mixPickers(design)) {
       const choice = document.createElement('select'); choice.setAttribute('aria-label', label + ' version'); choice.dataset.part = key;
       for (const type of ['pointerdown', 'pointerup', 'click', 'keydown']) choice.addEventListener(type, event => event.stopPropagation());
-      choice.onchange = () => { mix[key] = choice.value; updateView(view, buildMix()); };
+      choice.onchange = () => { picks[design.id][key] = choice.value; updateView(view, buildMix(mixOf(design))); };
       select.append(choice);
     }
     const flags = document.createElement('div'); flags.className = 'flags'; flags.setAttribute('role', 'status');
@@ -457,20 +465,20 @@ async function updateView(view, design) {
   if (design.actual) { if (!view.photo) showPhoto(view, PHOTOS[0].id); return; }
   if (view.tuned) return;   // Tune meshes stay until Reset; a catalog refresh must not swap them for the exported ones
   if (design.mix) {
-    PICKERS.forEach(([key, label], index) => {
+    mixPickers(design).forEach(([key, label], index) => {
       const choice = view.select.children[index];
       const sitsOut = design.aeroOnHub && (key === 'gripper' || key === 'handles') ? 'Aero Hand instead'
         : key === 'handles' && design.handlesInBase ? 'Handle in Base' : '';
       choice.disabled = !!sitsOut;
       if (sitsOut) { choice.replaceChildren(new Option(sitsOut, 'sits-out')); choice.value = 'sits-out'; return; }
-      choice.replaceChildren(...(key === 'gripper' ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
+      choice.replaceChildren(...(index === 0 ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
         ...design.options[key].map(item => new Option(optionLabel(label, item), item.version)));
-      choice.value = mix[key];
+      choice.value = picks[design.id][key];
       choice.title = choice.selectedOptions[0]?.textContent || '';
     });
     const flags = view.select.querySelector('.flags');
     flags.textContent = design.flags.map(flag => '⚠ ' + flag).join('\n'); flags.hidden = !design.flags.length;
-    view.element.setAttribute('aria-label', design.name); if (focused === MIX.id) document.title = 'HelpingHands · ' + design.name;
+    view.element.setAttribute('aria-label', design.name); if (focused === design.id) document.title = 'HelpingHands · ' + design.name;
   }
   const signature = JSON.stringify(design.models || []);
   if (design.preview) view.preview.src = design.preview;
@@ -529,7 +537,7 @@ function showProject(project, focusId = null) {
 $('project').onchange = () => showProject($('project').value);
 function hashDesign() { try { return decodeURIComponent(location.hash.slice(1)); } catch { return ''; } }
 window.addEventListener('hashchange', () => {
-  const target = hashDesign() === MIX.id ? MIX : catalog?.designs.find(design => design.id === hashDesign());
+  const target = mixOf({id:hashDesign()}) || catalog?.designs.find(design => design.id === hashDesign());
   if (target) showProject(target.project, target.id); else setFocus(null, false);
 });
 
@@ -546,12 +554,12 @@ async function refresh() {
     $('project').replaceChildren(...projects.map(project => { const option = document.createElement('option'); option.value = option.textContent = project; return option; }));
     // A first load with no #design opens on the mix-and-match tile (the newest of each unless ?gripper/?handles/?base say otherwise).
     const wanted = focused || (initial ? hashDesign() || MIX.id : '');
-    const target = wanted === MIX.id ? MIX : catalog.designs.find(design => design.id === wanted);
+    const target = mixOf({id:wanted}) || catalog.designs.find(design => design.id === wanted);
     const project = target?.project || (projects.includes(currentProject) ? currentProject : projects.find(p => p === 'Generalist Gripper') || projects[0]);
     const sameLayout = !initial && project === currentProject && JSON.stringify([...views.keys()]) === JSON.stringify(visibleDesigns(project).map(d => d.id));
     if (sameLayout) {
       $('project').value = project;
-      for (const view of views.values()) updateView(view, view.design.actual ? ACTUAL : view.design.mix ? buildMix() : catalog.designs.find(d => d.id === view.design.id));
+      for (const view of views.values()) updateView(view, view.design.actual ? ACTUAL : view.design.mix ? buildMix(mixOf(view.design)) : catalog.designs.find(d => d.id === view.design.id));
       // No layout/frame reset: preserve focused model and camera on unchanged refresh.
       updateShownButton();
     } else showProject(project, target?.id || null);

@@ -260,6 +260,11 @@ def discover(repo=REPO):
                                fits={k: v for k, v in row['carries'].items() if list(CARRIED).index(k) < list(CARRIED).index(kind)}))
             if kind == 'Aero Hand' and (x := param_value(row['folder'], 'aero_view_x')) is not None:
                 result[-1]['on_mount'] = [-x, 0, 0]   # exported on the rack beside the arm; this moves it (and its plate) onto the hub
+    # The Aero Hand is its own design family beside Generalist Gripper, Glove Hand and Orca Hand (voice-a87f8d20): its versions
+    # and its assembly leave the Generalist line. Ids stay as published, so saved links keep working.
+    for row in result:
+        if 'Aero Hand' in (row.get('carries') or {}) or row['name'].startswith('Aero Hand '):
+            row['project'] = 'Aero Hand'
     # Latest generations first; source folders retain original version names.
     return sorted(result, key=lambda row: (row['project'], row['version']), reverse=True)
 

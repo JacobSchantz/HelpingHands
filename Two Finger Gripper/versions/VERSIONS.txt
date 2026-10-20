@@ -100,4 +100,5 @@ nothing hangs below it. Lowest point 55 mm below the pivots (Base 11: 82); 69 mm
 v313_generalist_aero_full_hand — Base 13 (voice-c0e340c7), Gripper 21, Arm 1, Mount 1, Aero Hand 1: Base 11 on the RobStride RS00 (motor_sts 0, the reBot wrist mount and
 arm) with the whole left Aero Hand beside the arm: palm, thumb, index, middle, ring and pinky, each a separate part, placed by forward kinematics
 from the Aero Hand URDF (third_party/aero_hand/hand_pose.py) and posed by three Tune sliders (aero_curl_deg 15, aero_thumb_abd_deg 45,
-aero_thumb_flex_deg 10). No printed part changes.
+aero_thumb_flex_deg 10). No printed part changes. Not a Base change: this folder is the Aero Hand 1 assembly, published in
+the Aero Hand family (voice-a87f8d20); its heading keeps the old Base number for history.

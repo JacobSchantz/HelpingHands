@@ -83,6 +83,10 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(rows['Aero Hand 1']['carried_from'], 'two-finger-gripper-v313-aero')
         self.assertEqual(publisher.public_fields(rows['Aero Hand 1'])['fits'], {'Arm': '1', 'Mount': '1'})
         self.assertEqual(publisher.public_fields(rows['Aero Hand 1'])['on_mount'], [-230, 0, 0])   # off the rack onto the hub
+        # its own family beside Generalist Gripper, with stable ids; Arm and Mount stay Generalist parts
+        self.assertEqual((assembly['project'], rows['Aero Hand 1']['project']), ('Aero Hand', 'Aero Hand'))
+        self.assertEqual(rows['Aero Hand 1']['id'], 'generalist-gripper-aero-hand-1')
+        self.assertEqual({rows[n]['project'] for n in ('Arm 1', 'Mount 1', 'Base 12', 'v312 compact') if n in rows}, {'Generalist Gripper'})
 
     def test_public_families_keep_versions_and_exclude_deleted_prototypes(self):
         for project in ('ORCA CC-BY Prototype', 'Two Finger Gripper', 'Three Finger Gripper'):
