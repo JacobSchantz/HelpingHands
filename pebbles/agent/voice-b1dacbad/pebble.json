@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Helping Hands live page shows labels or badges reading \"only\", each paired with a small checkmark indicator. Remove every \"only\" label on the page and also remove the checkmark shown alongside them.",
+  "summary_sha": "b1dacbad31f9b0ce"
 }
