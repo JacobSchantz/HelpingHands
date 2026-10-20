@@ -1,0 +1,16 @@
+{
+  "id": "voice-a5d65841",
+  "commit_id": "",
+  "description": "Restructure the designs so every part is independently versioned (Arm, Mount, Base, Gripper, Handle, Aero Hand) and published separately. The live preview has one version dropdown per part and assembles the current selection, with shared interfaces between parts so any version of one fits any version of its neighbor where possible, and it flags incompatible combos. Per-part scheme is in AGENTS.md (Arm 1 = reBot B601-RS import, Mount 1 = reBot wrist mount from Base 10, Aero Hand 1). Related: voice-bbe0e945 (mix-and-match picker), voice-bed52066 (rename), voice-3cd78d20 (reBot arm mount), voice-c0e340c7 (Aero Hand assembly).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:49:50.000Z",
+  "updated_at": "2026-10-20T15:49:50.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
