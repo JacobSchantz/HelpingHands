@@ -53,8 +53,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Each design part (Arm, Mount, Base, Gripper, Handle, Aero Hand) needs its own independent versioning and separate publishing. The live preview should offer a per-part version dropdown, assemble the selection, use shared interfaces so versions fit neighbors, and flag incompatible combinations.",
-  "summary_sha": "a5d65841355dad77",
+  "summary": "The live preview's per-part picker wrongly lists Base 13 as a Base option, and Aero Hand cannot be chosen directly as the Arm's end effector on Mount 1. Aero Hand should be its own part (Base 13 becomes its assembly), selectable instead of Base+Gripper, with Arm 1 + Mount 1 + Aero Hand 1 passing the compatibility check.",
+  "summary_sha": "d09ef982cc1ccc9d",
   "solved_by_agent": "jarvis",
   "solved_by_device": "jakes-macbook-pro",
   "solved_at": "2026-10-20T15:56:39Z",

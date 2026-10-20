@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Base 14 is a new gripper base using the smaller STS3215 motor, mounting to the reBot arm through Mount 1. The arm-side interface must be redesigned, parameterized, and printable without supports, with a clear center gripping area.",
+  "summary_sha": "4ac7222bec46e28b"
 }
