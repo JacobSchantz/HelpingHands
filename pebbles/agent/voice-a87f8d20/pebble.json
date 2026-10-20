@@ -1,0 +1,16 @@
+{
+  "id": "voice-a87f8d20",
+  "commit_id": "",
+  "description": "Make the Aero Hand its own design family in the live preview's top-level design dropdown, alongside Generalist Gripper, Glove Hand and Orca Hand, not a Base version. Move the left Aero Hand assembly out of the generalist Base line (Base 13, voice-c0e340c7, put it there). It must still attach directly to the reBot arm through the Mount part (Mount 1), selectable as the arm's end effector. Fix AGENTS.md so the Aero Hand is its own family with its own versions, and note Base 13 as an Aero Hand assembly, not a base change. Related: voice-a5d65841 (per-part picker; its worker was steered to treat Aero Hand as an end-effector part on the Mount and drop Base 13 as a Base option).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:56:44.000Z",
+  "updated_at": "2026-10-20T15:56:44.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
