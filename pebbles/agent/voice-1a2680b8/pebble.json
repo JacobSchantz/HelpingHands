@@ -15,5 +15,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Aero Hand appears as an option inside the generalist gripper in the design preview, though it is its own separate family. The landing page should be simplified to a families-to-versions tree sidebar plus a placeholder main view, with the Aero Hand only under its own family.",
+  "summary_sha": "1a2680b855cf5f58"
 }
