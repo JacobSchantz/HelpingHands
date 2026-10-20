@@ -369,8 +369,8 @@ async function refresh() {
 // The panel: the parts list, and the way around. For a mix it is one row per part (eye, version selector, Tune when that version
 // has parameters, then any note model.js attached: a part that followed the change, or a pair that does not fit) with the part's
 // own pieces under it. For one design alone it is a row back to the assembly (mix families) or the family's versions, then its
-// pieces. The eye hides a piece (mesh.visible only, so Open/Close and Explode keep moving it); Only isolates it, tap again for every
-// piece back. Each tile keeps its hidden names across picker changes, catalog refreshes and Tune re-renders. ?hide=top plate,base
+// pieces. The eye hides a piece (mesh.visible only, so Open/Close and Explode keep moving it; the Only isolate button and the ✓ on
+// follow notes are gone, voice-b1dacbad). Each tile keeps its hidden names across picker changes, catalog refreshes and Tune re-renders. ?hide=top plate,base
 // presets it: any piece whose name contains one of the words (voice-2308ade1).
 const hideQuery = (query.get('hide') || '').toLowerCase().split(',').map(word => word.trim()).filter(Boolean);
 const EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
@@ -392,17 +392,13 @@ function eyeButton(off, what, onclick) {
   return eye;
 }
 function pieceRows(view, models) {
-  const names = pieceNames(models), all = pieceNames(view.design.models), shown = all.filter(name => !view.hiddenParts.has(name));
+  const names = pieceNames(models);
   return names.map(name => {
-    const row = document.createElement('div'), swatch = document.createElement('span'), label = document.createElement('span'), only = document.createElement('button');
+    const row = document.createElement('div'), swatch = document.createElement('span'), label = document.createElement('span');
     const off = view.hiddenParts.has(name);
     row.className = 'piece-row' + (off ? ' off' : ''); swatch.className = 'swatch'; swatch.style.background = models.find(model => model.name === name).color || '#cbd9e2';
     label.className = 'name'; label.textContent = part({name}); label.title = name;
-    const alone = shown.length === 1 && shown[0] === name;
-    only.className = 'only'; only.textContent = 'Only'; only.setAttribute('aria-pressed', String(alone));
-    only.title = alone ? 'Show every piece again' : 'Show just this piece';
-    only.onclick = () => { view.hiddenParts = new Set(alone ? [] : all.filter(other => other !== name)); showParts(view); };
-    row.append(eyeButton(off, part({name}), () => { if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); }), swatch, label, only);
+    row.append(eyeButton(off, part({name}), () => { if (off) view.hiddenParts.delete(name); else view.hiddenParts.add(name); showParts(view); }), swatch, label);
     return row;
   });
 }
@@ -428,7 +424,7 @@ function partRow(view, row) {
     tuneButton.onclick = () => { showProject(currentProject, row.chosen.design.id); openTune(views.get(row.chosen.design.id)); };
     head.append(tuneButton);
   }
-  const notes = row.notes.map(note => { const line = document.createElement('div'); line.className = 'note' + (note.follow ? ' follow' : ''); line.textContent = (note.follow ? '✓ ' : '⚠ ') + note.text; return line; });
+  const notes = row.notes.map(note => { const line = document.createElement('div'); line.className = 'note' + (note.follow ? ' follow' : ''); line.textContent = (note.follow ? '' : '⚠ ') + note.text; return line; });
   return [head, ...notes, ...pieceRows(view, models)];
 }
 function linkRow(text, onclick, current = false) {
