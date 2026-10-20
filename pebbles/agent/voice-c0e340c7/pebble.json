@@ -1,0 +1,16 @@
+{
+  "id": "voice-c0e340c7",
+  "commit_id": "",
+  "description": "Assemble the full left Aero Hand in the live preview: attach every finger (thumb plus 4 fingers) from the existing STLs at their correct joints and poses, as separable parts, and use that full-hand model in the reBot arm mount design. Jake: \"Attach all the fingers to the Aero Hand. Since we have those STL files, we might as well.\" Today the Base 10/11 preview (gripper.scad aero_hand(), export_models.py REFS) shows only the palm, left_base_link.STL; the finger link meshes are in third_party/aero_hand/guide/anim41/left_*_link.STL (joint origins in the Aero Hand URDF). Follows voice-3cd78d20.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:28:33.000Z",
+  "updated_at": "2026-10-20T15:28:33.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
