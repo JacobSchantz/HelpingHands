@@ -87,7 +87,7 @@ function placeCamera(view, direction, bounds) {
 // models together. Top also closes the jaws, the pose the photo was traced in.
 function alignAll(name) {
   const shown = [...views.values()].filter(view => !view.element.hidden && view.group.children.length);
-  if (name === 'top' && shown.some(view => view.design.actual) && openness) { $('openness').value = 0; $('openness').oninput(); }
+  if (name === 'top' && shown.some(view => view.design.actual) && openness) setOpenness(0);
   const bounds = new THREE.Box3();
   for (const view of shown) if (!view.design.actual) bounds.expandByObject(view.group);
   if (bounds.isEmpty()) bounds.copy(FINGERS);
@@ -282,13 +282,31 @@ function applyExplosion(view) {
 function updatePoseControl() {
   $('pose').hidden = ![...views.values()].some(view => !view.element.hidden && view.group.children.some(mesh => mesh.userData.motion));
 }
-$('openness').value = openness * 100;
-$('openness').oninput = () => {
-  openness = $('openness').value / 100;
-  $('openness-value').textContent = openness ? Math.round(openness * 100) + '% open' : 'Closed';
+// One tap toggles the jaws: the button names the move it will make, and the fingers swing there smoothly.
+// Tapping mid-swing turns them round from wherever they are.
+let openTarget = openness, openRun = 0;
+function setOpenness(to) {
+  ++openRun; openness = openTarget = to; showOpenTarget();
   for (const view of views.values()) applyExplosion(view);
+}
+function showOpenTarget() {
+  $('pose').textContent = openTarget ? 'Close' : 'Open';
+  $('pose').setAttribute('aria-pressed', String(!openTarget));
+}
+$('pose').onclick = () => {
+  const from = openness, to = openTarget = openTarget ? 0 : 1, run = ++openRun;
+  showOpenTarget();
+  const ms = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900 * Math.abs(to - from), began = performance.now();
+  const step = now => {
+    if (run !== openRun) return;
+    const t = ms ? Math.min(1, (now - began) / ms) : 1, ease = t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+    openness = from + (to - from) * ease;
+    for (const view of views.values()) applyExplosion(view);
+    if (t < 1) requestAnimationFrame(step);
+  };
+  step(began);
 };
-$('openness').oninput();
+showOpenTarget();
 $('explode').onclick = () => {
   exploded = !exploded;
   $('explode').textContent = exploded ? 'Assemble' : 'Explode';
