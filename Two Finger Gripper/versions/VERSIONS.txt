@@ -85,3 +85,9 @@ Connector B) that slips over it and locks with 3 radial M3. The gripper's tool p
 (4 M3 on 38) and whose foot lies across the J6 axis, so the fingers point straight out along it, centred. The left Aero Hand's wrist pad has the same
 4 M3 on 38, so its plate is the tool plate plus an 8 mm spacer with a cable channel: one hub on the arm, either tool on it. Zip-tie point for the RS00
 cable. Arm CAD from Seeed's URDF (cad/arm/rebot_b601_rs/, CERN-OHL-W-2.0) in the preview. 11 printed (Base 9's 7 + bracket, tool plate, Aero plate, hub).
+v311_generalist_motor_choice — Base 11 (voice-e82254ec), Gripper 21: Base 10 with a choice of motor, motor_sts in params.json (0 = RobStride RS00,
+Base 10 exactly with its reBot wrist mount; 1 = Feetech STS3215, the SO-101 servo, the default). The STS3215 (The Robot Studio's STEP): the pinion's
+spigot sits on its round horn, 4 M3 down into the horn; the base bears on its front rails with 4 M2 into the case, the label hump in a window cut
+straight through (no bridge), the body straight down from the pinion; the bus cable leaves its back face away from every part. No wrist mount
+with the STS3215 (hand-held). record_grip.py reads the back-driven servo through LeRobot's Feetech bus and logs finger angle (data collection).
+7 printed + STS3215 + 11 screws.

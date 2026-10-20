@@ -1,0 +1,84 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left handle-gear \u2014 black, the left handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), turns on the base\u2019s left post",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right handle-gear \u2014 black, the right handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), driven by the pinion, turns on the right post",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 black, centred, full-height teeth, 4 countersunk M3 into the STS3215\u2019s horn",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -40,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black flat plate with a pivot post for each handle-gear; bears on the STS3215\u2019s rails, 4 M2 into its case, a window over its hump",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/top_plate.stl",
+      "name": "Top plate \u2014 black, over the handle-gears and fingers on 3 pillars; a C-shaped ring round each pivot runs in its handle-gear\u2019s groove, so each axle is held top and bottom",
+      "color": "#26272b",
+      "explode": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 Feetech STS3215 (the SO-101 servo), reference only (not printed): read back-driven as the grip encoder",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    }
+  ]
+}
