@@ -42,6 +42,8 @@ class GripperPoseTests(unittest.TestCase):
         for design in json.loads(CATALOG.read_text())['designs']:
             if design['project'] != 'Generalist Gripper' or not design.get('models') or design['id'].startswith('three-finger'):
                 continue
+            if re.match(r'(Arm|Mount|Aero Hand) \d', design['name']):
+                continue   # Arm N, Mount N, Aero Hand N have no jaws to open (voice-a5d65841)
             with self.subTest(design['id']):
                 self.assertTrue(design['id'] in table, 'no hinge entry in poses.js, so its fingers will not move')
                 names = [m['name'] for m in design['models']]

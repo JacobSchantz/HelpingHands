@@ -31,12 +31,18 @@ const ACTUAL = {id:'generalist-actual', project:'Generalist Gripper', name:'Actu
 // carry Gripper 21, from VERSIONS.txt). It opens on the newest of each (Gripper 21 + Handle 6 + Base 3).
 // ?gripper=21&handles=6|none&base=3|none presets it. A Base whose own parts include a handle-gear (Base 8 on: the geared
 // pieces are the handles) is a base part, and the Handle picker sits out while it is chosen, so no second handle is drawn.
+// Arm N, Mount N and Aero Hand N are their own catalog designs (the publisher splits them out of the Base whose VERSIONS.txt
+// heading names ', Arm 1, Mount 1, Aero Hand 1'), so a Base option never draws them; they start off (?arm=1&mount=1&aero=1).
+// Each option says what it builds on ('Base 12 (from Base 11, on the STS3215 only)', the catalog's builds_on + gist from
+// VERSIONS.txt), and the tile lists every pair of picks that do not share an interface (mixFlags) (voice-a5d65841).
 const MIX = {id:'generalist-mix', project:'Generalist Gripper', mix:true};
 const HANDLE = /strap slide|handle(?!-gear)/i, FINGER = /finger/i, HANDLE_GEAR = /handle-gear/i;
 const part = model => model.name.split(' — ')[0];
-const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base']];
+const PICKERS = [['gripper', 'Gripper'], ['handles', 'Handle'], ['base', 'Base'], ['arm', 'Arm'], ['mount', 'Mount'], ['aero', 'Aero Hand']];
+const CARRIED = /^(reBot Arm|Wrist hub|Tool plate|Aero Hand)/;   // Arm, Mount and Aero Hand parts inside a Base design
+const OFF_BY_DEFAULT = new Set(['arm', 'mount', 'aero']);
 const query = new URLSearchParams(location.search);
-const mix = {gripper:query.get('gripper'), handles:query.get('handles'), base:query.get('base')};
+const mix = Object.fromEntries(PICKERS.map(([key]) => [key, query.get(key) || (OFF_BY_DEFAULT.has(key) ? 'none' : null)]));
 const FINGERS = new THREE.Box3(new THREE.Vector3(-40, -6, -4), new THREE.Vector3(40, 6, 116));
 // View presets: the direction the camera looks from, in CAD axes (Z along the fingers).
 // Top is the photo's viewpoint: from -Y, +X to the right, fingertips up.
@@ -125,9 +131,9 @@ function shortLabel(design) {
   return match ? 'Gen ' + match[1] : design.name || design.version || design.id;
 }
 // 'Gripper 16' -> {kind:'gripper', version:'16'}, 'Handle 6' -> handles, 'Base 3' -> base. Each part counts on its own (AGENTS.md).
-const KINDS = {gripper:'gripper', handle:'handles', base:'base'};
+const KINDS = {gripper:'gripper', handle:'handles', base:'base', arm:'arm', mount:'mount', 'aero hand':'aero'};
 function partVersion(design) {
-  const match = (design.name || '').match(/^(gripper|handle|base)\s+(\d+[a-z]?)$/i);
+  const match = (design.name || '').match(/^(gripper|handle|base|arm|mount|aero hand)\s+(\d+[a-z]?)$/i);
   return match ? {kind:KINDS[match[1].toLowerCase()], version:match[2]} : null;
 }
 function versionOrder(version) { return parseFloat(version); }
@@ -147,10 +153,37 @@ function mixOptions() {
     if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push(option(design.fingers, design, model => FINGER.test(part(model))));
   }
   const handles = of('handles').map(design => option(partVersion(design).version, design, model => HANDLE.test(part(model))));
-  const bases = of('base').map(design => option(partVersion(design).version, design, model => !HANDLE.test(part(model)) && !FINGER.test(part(model))));
+  const bases = of('base').map(design => option(partVersion(design).version, design,
+    model => !HANDLE.test(part(model)) && !FINGER.test(part(model)) && !CARRIED.test(part(model))));
+  const whole = kind => of(kind).map(design => option(partVersion(design).version, design, () => true));
   const order = (a, b) => versionOrder(a.version) - versionOrder(b.version) || a.version.localeCompare(b.version);
   return {gripper:grippers.filter(item => item.models.length).sort(order), handles:handles.filter(item => item.models.length),
-          base:bases.filter(item => item.models.length)};
+          base:bases.filter(item => item.models.length), arm:whole('arm'), mount:whole('mount'), aero:whole('aero')};
+}
+// 'Base 12 (from Base 11, on the STS3215 only)': a picked part's own design says what it builds on. Fingers offered from a
+// later design (Gripper 21 from Handle 6) are not that design's lineage, so they show bare.
+function optionLabel(label, item) {
+  const own = partVersion(item.design)?.version === item.version && item.design.builds_on;
+  return label + ' ' + item.version + (own ? ' (from ' + item.design.builds_on + (item.design.gist ? ', ' + item.design.gist : '') + ')' : '');
+}
+// Picks that do not share an interface (AGENTS.md: arm flange -> Mount, Mount tool plate -> Base or Aero Hand, Handle -> Base,
+// fingers -> the hinges a Handle/Base was built on). Each comes from the catalog (fingers, carries, fits), not from names.
+function mixFlags(chosen) {
+  const name = key => PICKERS.find(([k]) => k === key)[1] + ' ' + chosen[key].version;
+  const flags = [];
+  const {gripper, handles, base, arm, mount, aero} = chosen;
+  if (base?.design.fingers && gripper && base.design.fingers !== gripper.version) flags.push(name('base') + ' was built on Gripper ' + base.design.fingers + '; ' + name('gripper') + "'s hinges may not line up.");
+  if (handles?.design.fingers && gripper && handles.design.fingers !== gripper.version) flags.push(name('handles') + ' was built on Gripper ' + handles.design.fingers + '; ' + name('gripper') + "'s hinges may not line up.");
+  if (arm && base && !mount) flags.push(name('base') + ' needs a Mount to sit on ' + name('arm') + '.');
+  if (arm && aero && !mount) flags.push(name('aero') + ' needs a Mount to sit on ' + name('arm') + '.');
+  if (mount && base && base.design.carries?.Mount !== mount.version) flags.push(base.design.carries?.Mount
+    ? name('base') + ' was built for Mount ' + base.design.carries.Mount + ', not ' + name('mount') + '.'
+    : name('base') + ' has no wrist bracket (hand-held), so it does not fit ' + name('mount') + "'s tool plate.");
+  for (const [key, kind] of [['mount', 'Arm'], ['aero', 'Mount'], ['aero', 'Arm']]) {
+    const other = chosen[kind.toLowerCase()], wants = chosen[key]?.design.fits?.[kind];
+    if (other && wants && wants !== other.version) flags.push(name(key) + ' fits ' + kind + ' ' + wants + ', not ' + name(kind.toLowerCase()) + '.');
+  }
+  return flags;
 }
 function buildMix() {
   const options = mixOptions();
@@ -165,7 +198,7 @@ function buildMix() {
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design), placed where their own design put them.
   // A Base whose fingers slide instead (Base 5's racks) moves everything with its own slides.
   const slides = chosen.base && POSES[chosen.base.design.id]?.slides;
-  return {...MIX, options, handlesInBase, pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
+  return {...MIX, options, handlesInBase, flags:mixFlags(chosen), pose:slides ? chosen.base.design.id : chosen.gripper.design.id,
     name:PICKERS.filter(([key]) => chosen[key]).map(([key, label]) => label + ' ' + chosen[key].version).join(' + '),
     models:PICKERS.flatMap(([key]) => chosen[key] ? chosen[key].models : [])};
 }
@@ -363,6 +396,8 @@ function createView(design) {
       choice.onchange = () => { mix[key] = choice.value; updateView(view, buildMix()); };
       select.append(choice);
     }
+    const flags = document.createElement('div'); flags.className = 'flags'; flags.setAttribute('role', 'status');
+    select.append(flags);
     element.append(select);
   }
   const scene = new THREE.Scene(); scene.background = new THREE.Color('#13232f');
@@ -408,9 +443,12 @@ async function updateView(view, design) {
       choice.disabled = key === 'handles' && design.handlesInBase;
       if (choice.disabled) { choice.replaceChildren(new Option('Handle in Base', 'in-base')); choice.value = 'in-base'; return; }
       choice.replaceChildren(...(key === 'gripper' ? [] : [new Option('No ' + label.toLowerCase(), 'none')]),
-        ...design.options[key].map(item => new Option(label + ' ' + item.version, item.version)));
+        ...design.options[key].map(item => new Option(optionLabel(label, item), item.version)));
       choice.value = mix[key];
+      choice.title = choice.selectedOptions[0]?.textContent || '';
     });
+    const flags = view.select.querySelector('.flags');
+    flags.textContent = design.flags.map(flag => '⚠ ' + flag).join('\n'); flags.hidden = !design.flags.length;
     view.element.setAttribute('aria-label', design.name); if (focused === MIX.id) document.title = 'HelpingHands · ' + design.name;
   }
   const signature = JSON.stringify(design.models || []);

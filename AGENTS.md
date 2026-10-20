@@ -23,6 +23,10 @@ into, single motor underneath, gear linkage to the handles). The old dotted "1.x
 - Each part is published separately; the live preview has one version picker per part and assembles the selection.
 - A `VERSIONS.txt` entry that combines parts names the others it carries (e.g. `Base 3 (voice-…), Gripper 21, Handle 6:`).
   The publisher copies these to the catalog so the live preview's pickers select each part independently.
+- Arm, Mount and Aero Hand ride inside a Base folder: its heading names them (`Base 13 (…), Gripper 21, Arm 1, Mount 1, Aero Hand 1:`)
+  and the publisher splits those parts out as their own catalog designs. Start each entry's text after the `:` with what it
+  builds on (`Base 12 (…), Gripper 21: Base 11 on the STS3215 only, …`): the picker shows it as "Base 12 (from Base 11, on the
+  STS3215 only)".
 - Existing `versions/vNNN_*` folders still carry the old numbering; renaming them is pebble work (keep history intact).
 
 | Old name | New name | Folder |

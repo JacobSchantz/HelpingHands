@@ -56,6 +56,30 @@ class PublisherTests(unittest.TestCase):
         self.assertEqual(publisher.public_fields(rows['v301_base'])['fingers'], '21')
         self.assertNotIn('fingers', publisher.public_fields(rows['v206_single_step'] | {'fingers': None}))
 
+    def test_carried_parts_publish_on_their_own_and_lineage_comes_from_versions_txt(self):
+        base = self.repo / 'Two Finger Gripper/versions'
+        for name in ('v310_arm_mount', 'v312_compact', 'v313_aero'):
+            folder = base / name / 'exports'
+            folder.mkdir(parents=True)
+            (base / name / 'gripper.scad').write_text('cube(1);')
+            names = ['Left finger — yellow', 'Base — plate', 'Wrist hub — on J6', 'reBot Arm B601-RS (silver) — ref']
+            names += ['Aero Hand (left) palm — ref'] if name == 'v313_aero' else []
+            for i, part in enumerate(names):
+                (folder / f'{i}.stl').write_text('solid x\nendsolid x\n')
+            (base / name / 'viewer_parts.json').write_text(json.dumps({'parts': [{'path': f'exports/{i}.stl', 'name': n} for i, n in enumerate(names)]}))
+        (base / 'VERSIONS.txt').write_text(
+            'v310_arm_mount — Base 10 (voice-x), Gripper 21, Arm 1, Mount 1: Base 9 on the reBot arm. More.\n'
+            'v312_compact — Base 12 (voice-y), Gripper 21: Base 11 on the STS3215 only, made compact. Base 13 next.\n'
+            'v313_aero — Base 13 (voice-z), Gripper 21, Arm 1, Mount 1, Aero Hand 1: Base 11 on the RS00 (motor_sts 0, Base 12 no) with a hand.\n')
+        rows = {r['name']: r for r in publisher.discover(self.repo)}
+        self.assertEqual((rows['v312 compact']['builds_on'], rows['v312 compact']['gist']), ('Base 11', 'on the STS3215 only'))
+        self.assertEqual((rows['v313 aero']['builds_on'], rows['v313 aero']['gist']), ('Base 11', 'on the RS00 with a hand'))
+        self.assertEqual(rows['v313 aero']['carries'], {'Arm': '1', 'Mount': '1', 'Aero Hand': '1'})
+        self.assertEqual(rows['Arm 1']['carried_from'], 'two-finger-gripper-v310-arm-mount')   # the first to name it owns it
+        self.assertEqual([m['name'] for m in rows['Mount 1']['existing']], ['Wrist hub — on J6'])
+        self.assertEqual(rows['Aero Hand 1']['carried_from'], 'two-finger-gripper-v313-aero')
+        self.assertEqual(publisher.public_fields(rows['Aero Hand 1'])['fits'], {'Arm': '1', 'Mount': '1'})
+
     def test_public_families_keep_versions_and_exclude_deleted_prototypes(self):
         for project in ('ORCA CC-BY Prototype', 'Two Finger Gripper', 'Three Finger Gripper'):
             folder = self.repo / project / 'versions/v001_study'

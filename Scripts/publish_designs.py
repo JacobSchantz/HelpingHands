@@ -46,20 +46,56 @@ def read_notes(folder):
     return 'OpenSCAD geometry study; mechanical operation and print readiness are not established.'
 
 
-def finger_version(folder):
-    """', Gripper 21' in this folder's VERSIONS.txt heading (up to its first ':'): the fingers a Handle/Base design carries,
-    so the gallery's mix-and-match can offer fingers that exist only inside a later design (voice-bbe0e945)."""
+def version_entry(folder):
+    """This folder's VERSIONS.txt entry (its heading line and the lines under it), or ''."""
     path = Path(folder).parent / 'VERSIONS.txt'
     text = path.read_text(errors='replace') if path.is_file() else ''
     found = re.search(r'^' + re.escape(Path(folder).name) + r'\b(.*?)(?=^v\d|\Z)', text, re.M | re.S)
-    match = found and re.search(r',\s*Gripper (\d+[a-z]?)\b', found.group(1).split(':')[0])
+    return found.group(1) if found else ''
+
+
+def finger_version(folder):
+    """', Gripper 21' in this folder's VERSIONS.txt heading (up to its first ':'): the fingers a Handle/Base design carries,
+    so the gallery's mix-and-match can offer fingers that exist only inside a later design (voice-bbe0e945)."""
+    match = re.search(r',\s*Gripper (\d+[a-z]?)\b', version_entry(folder).split(':')[0])
     return match.group(1) if match else None
+
+
+# Parts that ride inside a Base design but count on their own (AGENTS.md: Arm N, Mount N, Aero Hand N). A heading naming
+# ', Arm 1, Mount 1, Aero Hand 1' publishes those of its parts as their own catalog designs (the first heading to name a
+# version owns it), so each part is published separately and the gallery picks it independently (voice-a5d65841).
+CARRIED = {'Arm': r'^reBot Arm', 'Mount': r'^(Wrist hub|Tool plate|Aero Hand tool plate)\b', 'Aero Hand': r'^Aero Hand \(left\)'}
+
+
+def carried_parts(folder):
+    heading = version_entry(folder).split(':')[0]
+    return {kind: m.group(1) for kind in CARRIED if (m := re.search(r',\s*' + kind + r' (\d+[a-z]?)\b', heading))}
+
+
+def lineage(folder):
+    """What this version builds on, from its VERSIONS.txt entry: 'Base 12 (…): Base 11 on the STS3215 only, made compact.'
+    -> ('Base 11', 'on the STS3215 only'). The first other '<Kind> N' after the heading is the parent; the words after it,
+    up to the next stop, say what changed. ('', '') when the entry names none (Base 1, Base 3)."""
+    heading, _, body = version_entry(folder).partition(':')
+    own = re.search(r'\b(Gripper|Handle|Base) (\d+[a-z]?)\b', heading)
+    if not own:
+        return '', ''
+    body = ' '.join(re.sub(r'\([^)]*\)', '', body).split())   # '(Base 2: 29)' is a comparison, not the parent
+    for m in re.finditer(r'\b' + own.group(1) + r' (\d+[a-z]?)\b', body):
+        if m.group(1) != own.group(2):
+            gist = re.split(r'[,;:]|\.(?=\s|$)', body[m.end():])[0].strip()
+            gist = re.sub(r"^['’]s\s+", '', gist)
+            if len(gist) > 48:
+                gist = gist[:48].rsplit(' ', 1)[0] + '…'
+            return f'{own.group(1)} {m.group(1)}', gist
+    return '', ''
 
 
 def public_fields(row):
     fields = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
-    if row.get('fingers'):
-        fields['fingers'] = row['fingers']
+    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist'):
+        if row.get(key):
+            fields[key] = row[key]
     return fields
 
 
@@ -97,7 +133,9 @@ def discover(repo=REPO):
             if source is None:
                 direct = list(folder.glob('*.scad'))
                 source = direct[0] if len(direct) == 1 else None
-            row = entry(project, folder.name, source, folder, fingers=finger_version(folder))
+            builds_on, gist = lineage(folder)
+            row = entry(project, folder.name, source, folder, fingers=finger_version(folder),
+                        carries=carried_parts(folder), builds_on=builds_on, gist=gist)
             if project == 'ORCA CC-BY Prototype':
                 row['license'] = 'CC BY 4.0 — ORCA Dexterity, Inc.'
                 if 'shell' in folder.name:
@@ -195,6 +233,19 @@ def discover(repo=REPO):
         if row["id"] in generations:
             kind, number = generations[row["id"]].split()
             row.update(name=f"{kind} {number}", version=f"{kind.lower()}_{number:0>2}")   # "11b": the Astra pass beside Gripper 11
+    claimed = set()
+    for row in sorted(result, key=lambda row: row['version']):   # Base 10 owns Arm 1 and Mount 1; Base 13 adds Aero Hand 1
+        for kind, number in (row.get('carries') or {}).items():
+            existing = [m for m in row['existing'] if re.search(CARRIED[kind], m['name'])]
+            if (kind, number) in claimed or not existing:
+                continue
+            claimed.add((kind, number))
+            name = f'{kind} {number}'
+            result.append(dict(row, id=slug(row['project'] + '-' + name), name=name, version=f"{slug(kind).replace('-', '_')}_{number:0>2}",
+                               notes=f"{name}, published from {row['name']} ({Path(row['folder']).name}). " + row['notes'],
+                               existing=existing, fingers=None, carries={}, builds_on='', gist='', carried_from=row['id'],
+                               # what it sits on, as carried beside it: Mount 1 on Arm 1, Aero Hand 1 on Mount 1 + Arm 1
+                               fits={k: v for k, v in row['carries'].items() if list(CARRIED).index(k) < list(CARRIED).index(kind)}))
     # Latest generations first; source folders retain original version names.
     return sorted(result, key=lambda row: (row['project'], row['version']), reverse=True)
 
@@ -320,7 +371,7 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     public = public_fields(row)
     public.update(models=[], source=None, source_bundle=None, preview=None, export_status='no CAD source')
     tuning = Path(row['folder']) / 'params.json'
-    if tuning.is_file() and (Path(row['folder']) / 'live_render.py').is_file():
+    if tuning.is_file() and (Path(row['folder']) / 'live_render.py').is_file() and not row.get('carried_from'):
         # Handle 4 on: the gallery's Tune panel draws a slider for each of these; serve_designs.py POST /tune renders them
         public['params'] = [dict(name=g['name'], params=[q for q in g['params'] if q['stage'] != 'calibration'])
                             for g in json.loads(tuning.read_text())['groups'] if any(q['stage'] != 'calibration' for q in g['params'])]
