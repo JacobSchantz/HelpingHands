@@ -64,3 +64,9 @@ same distance (a parallel gripper, 20 mm each way; Base 4 swung 30 deg). Each ra
 handle-gears were. A tongue under each rack runs in a groove in the base, and the groove ends are the travel stops. The side gears,
 axles and bushings are gone. 12 pieces: 6 printed (2 fingers, 2 handle-racks, pinion, base) + RS00 + 5 M3 (Base 4: 13 = 6 + 1 + 6).
 Rejected 2026-10-20 (Jake: wrong approach). Kept for reference; do not build on Base 5. Base 7 (Base 4 simplified for printability) replaces it.
+v307_generalist_printable — Base 7 (voice-fef42307), Gripper 21, Handle 7: Base 4 made printable on an FDM printer without supports. Every printed
+part is one flat-bottomed extrusion (or two, the upper narrower) and lies on the bed in exports/print/ in its print orientation: fingers ventral face
+down, handle-gears web face down, pinion teeth face down, base underside down. The handle plate, boss, tail, hub and teeth now all run from the
+web's underside to the top (Handle 7's handle is 15.2 mm edge-on here, not 12); pivot posts on the base replace the gears' axles; the hub is a
+full disc round its post; the pinion's and base's M3 are countersunk on 45 deg cones (one screw type). check_geometry.py fails any face past 45 deg
+above the bed. Same 13 pieces as Base 4 (6 printed + RS00 + 6 M3). Not built on Base 5 or Base 6.

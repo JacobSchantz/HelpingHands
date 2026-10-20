@@ -1,0 +1,74 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left gear \u2014 black, one print with the left handle (both hooks, strap tunnel, tail fused into the hub), turns on the base\u2019s left post",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right gear \u2014 black, one print with the right handle (both hooks, strap tunnel, tail fused into the hub), driven by the pinion, turns on the right post",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 black, centred, full-height teeth, 3 countersunk M3 to the motor flange",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -40,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black flat plate with a pivot post for each handle-gear, 3 countersunk M3 to the motor",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 RobStride RS00, reference only (not printed)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    }
+  ]
+}
