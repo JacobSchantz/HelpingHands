@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T15:23:59.000Z",
-  "updated_at": "2026-10-20T15:23:59.000Z",
+  "updated_at": "2026-10-20T15:24:20Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Redesign the Base 12 gripper around the STS3215 motor mounted flush at the bottom, with a halved gearbox and a clear center. Re-gear compactly, such as one large motor gear driving smaller finger gears, while staying parameterized and printable without supports.",
-  "summary_sha": "98af07a6e11764ea"
+  "summary_sha": "98af07a6e11764ea",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-98af07a6",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-98af07a6",
+  "claimed_at": "2026-10-20T15:24:20.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
