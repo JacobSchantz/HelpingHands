@@ -34,7 +34,7 @@
         "Two Finger Gripper/versions/VERSIONS.txt",
         "AGENTS.md"
       ],
-      "detailed_description": "Arm 1, Mount 1 and Aero Hand 1 are now published as their own designs, so they get their own tiles and their own pickers in the mix-and-match tile. Base 10's heading in VERSIONS.txt now ends with ', Arm 1, Mount 1' and Base 13's with ', Arm 1, Mount 1, Aero Hand 1'. The publisher reads that and takes those parts out of the Base by name (reBot Arm…, Wrist hub / Tool plate / Aero Hand tool plate, Aero Hand (left)…). That means choosing a Base no longer pulls in the arm or the hand. Arm, Mount and Aero Hand start out turned off so the tile still opens on the gripper; ?arm=1&mount=1&aero=1 turns them on.\n\nLineage, as you asked: each option shows what it builds on, read from VERSIONS.txt rather than typed in by hand. You'll see 'Base 12 (from Base 11, on the STS3215 only)' and 'Base 13 (from Base 11, on the RobStride RS00 with the whole left Aero…)', which makes clear 13 comes from 11 and not from 12. The rule is the first other '<Kind> N' after the colon in each entry, skipping anything in parentheses, plus the words up to the next stop. Entries that don't name a parent (Base 1, Base 3, Gripper 13) show just the bare name. No versions were renumbered.\n\nInterface warnings show in an amber bar in the tile. They come from catalog data, not part names: fingers that aren't the ones a Handle or Base was built on; a Base that doesn't fit the chosen Mount (hand-held Bases such as 12 have no wrist bracket); a Base or Aero Hand on an Arm with no Mount; and a Mount or Aero Hand built for a different Arm or Mount version. I checked it in headless Chrome: Arm 1 + Mount 1 + Base 13 + Aero Hand 1 assembles with no warning, and Base 12 on Mount 1 shows the bracket warning (screenshot).\n\nTests: publisher tests pass, including a new one. test_gripper_poses now skips Arm, Mount and Aero Hand, which have no jaws. It still fails on Base 6 (v306, kept unfinished with no poses.js entry); that failure was there before this change. Known limits: Handle↔Base has no check because every Handle is meant to fit every Base. A Handle picked while a Base with handle-gears is chosen still shows 'Handle in Base'. When the warning bar is showing it covers the tile's name label.",
+      "detailed_description": "Arm 1, Mount 1 and Aero Hand 1 are now published as their own designs, so they get their own tiles and their own pickers in the mix-and-match tile. Base 10's heading in VERSIONS.txt now ends with ', Arm 1, Mount 1' and Base 13's with ', Arm 1, Mount 1, Aero Hand 1'. The publisher reads that and takes those parts out of the Base by name (reBot Arm\u2026, Wrist hub / Tool plate / Aero Hand tool plate, Aero Hand (left)\u2026). That means choosing a Base no longer pulls in the arm or the hand. Arm, Mount and Aero Hand start out turned off so the tile still opens on the gripper; ?arm=1&mount=1&aero=1 turns them on.\n\nLineage, as you asked: each option shows what it builds on, read from VERSIONS.txt rather than typed in by hand. You'll see 'Base 12 (from Base 11, on the STS3215 only)' and 'Base 13 (from Base 11, on the RobStride RS00 with the whole left Aero\u2026)', which makes clear 13 comes from 11 and not from 12. The rule is the first other '<Kind> N' after the colon in each entry, skipping anything in parentheses, plus the words up to the next stop. Entries that don't name a parent (Base 1, Base 3, Gripper 13) show just the bare name. No versions were renumbered.\n\nInterface warnings show in an amber bar in the tile. They come from catalog data, not part names: fingers that aren't the ones a Handle or Base was built on; a Base that doesn't fit the chosen Mount (hand-held Bases such as 12 have no wrist bracket); a Base or Aero Hand on an Arm with no Mount; and a Mount or Aero Hand built for a different Arm or Mount version. I checked it in headless Chrome: Arm 1 + Mount 1 + Base 13 + Aero Hand 1 assembles with no warning, and Base 12 on Mount 1 shows the bracket warning (screenshot).\n\nTests: publisher tests pass, including a new one. test_gripper_poses now skips Arm, Mount and Aero Hand, which have no jaws. It still fails on Base 6 (v306, kept unfinished with no poses.js entry); that failure was there before this change. Known limits: Handle\u2194Base has no check because every Handle is meant to fit every Base. A Handle picked while a Base with handle-gears is chosen still shows 'Handle in Base'. When the warning bar is showing it covers the tile's name label.",
       "image_urls": [
         "pebbles/agent/voice-a5d65841/per_part_pickers.png"
       ],
@@ -46,7 +46,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-20T15:49:50.000Z",
-  "updated_at": "2026-10-20T15:57:00.000Z",
+  "updated_at": "2026-10-20T15:57:29Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -86,5 +86,10 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-20T15:57:00.000Z"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-a5d65841",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-a5d65841",
+  "claimed_at": "2026-10-20T15:57:29.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
