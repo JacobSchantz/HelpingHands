@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Each design part (Arm, Mount, Base, Gripper, Handle, Aero Hand) needs its own independent versioning and separate publishing. The live preview should offer a per-part version dropdown, assemble the selection, use shared interfaces so versions fit neighbors, and flag incompatible combinations.",
+  "summary_sha": "a5d65841355dad77"
 }
