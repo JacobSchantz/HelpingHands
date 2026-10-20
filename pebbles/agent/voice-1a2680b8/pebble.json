@@ -9,7 +9,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T20:49:18.000Z",
-  "updated_at": "2026-10-20T20:49:18.000Z",
+  "updated_at": "2026-10-20T20:49:31Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "The Aero Hand appears as an option inside the generalist gripper in the design preview, though it is its own separate family. The landing page should be simplified to a families-to-versions tree sidebar plus a placeholder main view, with the Aero Hand only under its own family.",
-  "summary_sha": "1a2680b855cf5f58"
+  "summary_sha": "1a2680b855cf5f58",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-1a2680b8",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-1a2680b8",
+  "claimed_at": "2026-10-20T20:49:31.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
