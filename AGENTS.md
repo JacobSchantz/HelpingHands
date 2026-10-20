@@ -1,17 +1,24 @@
 # HelpingHands agent conventions
 
-## Gripper design versions
+## Part design versions
 
-Each part has its own simple counter: **Gripper N** (fingers), **Handle N** (strap-loop handles), **Base N** (base/drive
-assembly: common base the handles plug into, single motor underneath, gear linkage to the handles). The old dotted
-"1.x / 2.x / 3.x" names (and the older "Gen N") are retired; use the new names in pebbles, `VERSIONS.txt`, the catalog
-and the live preview.
+Each part has its own simple counter: **Arm N** (the robot arm, imported CAD), **Mount N** (the wrist mounting plate:
+hub on the arm's last joint plus a tool plate per end effector), **Aero Hand N** (the Aero Hand as its own end effector),
+**Gripper N** (fingers), **Handle N** (strap-loop handles), **Base N** (base/drive assembly: common base the handles plug
+into, single motor underneath, gear linkage to the handles). The old dotted "1.x / 2.x / 3.x" names (and the older
+"Gen N") are retired; use the new names in pebbles, `VERSIONS.txt`, the catalog and the live preview.
 
-- A new version of a part bumps only that part's number (next Gripper after 21 is Gripper 22, independent of Handle/Base).
+- Every part has its own counter. A change bumps only that part's number (next Gripper after 21 is Gripper 22,
+  independent of Arm/Mount/Handle/Base/Aero Hand).
+- An assembly is just a selection of part versions (e.g. Arm 1 + Mount 1 + Base 10 + Gripper 21 + Handle 6). It is never
+  a version itself; never bump one part to record a change in another, and never name a combined version.
 - Each time Jake asks for a design change, make a new version of the part that changed instead of editing it in place.
+- Parts meet through shared interfaces (arm flange to Mount, Mount tool plate to Base or Aero Hand, Handle to Base) so
+  any version of one fits any version of its neighbor where possible; the live preview flags incompatible combos.
 - Any Handle must fit any Base through the shared handle–base interface.
+- Each part is published separately; the live preview has one version picker per part and assembles the selection.
 - A `VERSIONS.txt` entry that combines parts names the others it carries (e.g. `Base 3 (voice-…), Gripper 21, Handle 6:`).
-  The publisher copies these to the catalog so the live preview's pickers select Gripper, Handle and Base independently.
+  The publisher copies these to the catalog so the live preview's pickers select each part independently.
 - Existing `versions/vNNN_*` folders still carry the old numbering; renaming them is pebble work (keep history intact).
 
 | Old name | New name | Folder |
@@ -27,6 +34,9 @@ and the live preview.
 | 3.1 | Base 1 | `v301_generalist_base` |
 | 3.2 | Base 2 | `v302_generalist_simple` |
 | 3.3 | Base 3 | `v303_generalist_inplane` |
+| reBot B601-RS import (voice-3cd78d20) | Arm 1 | `cad/arm/rebot_b601_rs/` |
+| reBot wrist mount: J6 hub + tool plates, first in Base 10 (voice-3cd78d20) | Mount 1 | carried in `v310_generalist_arm_mount` |
+| Aero Hand (left), first posed in Base 13 (voice-c0e340c7) | Aero Hand 1 | `third_party/aero_hand/` |
 
 - **From Handle 4 (old 2.4) on, a version is its `params.json`.** `v204_generalist_parametric` names every dimension there (finger outline,
   solid, handles, tongue/pocket). To make the next version, copy the latest parametric folder, change values in `params.json`
