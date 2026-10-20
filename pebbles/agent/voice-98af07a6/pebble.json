@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Redesign the Base 12 gripper around the STS3215 motor mounted flush at the bottom, with a halved gearbox and a clear center. Re-gear compactly, such as one large motor gear driving smaller finger gears, while staying parameterized and printable without supports.",
+  "summary_sha": "98af07a6e11764ea"
 }
