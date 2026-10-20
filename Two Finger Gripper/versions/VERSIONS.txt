@@ -79,3 +79,9 @@ pillars) sits top_gap over the handle-gears, fingers and pinion, on three pillar
 The finger's base hook covers the pivot, so the post cannot run through; instead a C-shaped ring under the plate runs in a groove round
 each pivot in its handle-gear's hub: each gear turns on the base post below and the plate's ring above, one axis held at both ends, and
 nothing can lift out. A hole over the pinion keeps its screws reachable. Prints top face down; 17 pieces (7 printed + RS00 + 9 M3).
+v310_generalist_arm_mount — Base 10 (voice-3cd78d20), Gripper 21: Base 9 on the Seeed reBot Arm B601-RS, in place of the stock gripper. It keeps
+Seeed's own wrist interface: a hub (twin of Seeed's Connector A) stays bolted to J6's RS00 output, and every tool carries a tool plate (twin of
+Connector B) that slips over it and locks with 3 radial M3. The gripper's tool plate screws to an L bracket whose leg bolts to the RS00's back face
+(4 M3 on 38) and whose foot lies across the J6 axis, so the fingers point straight out along it, centred. The left Aero Hand's wrist pad has the same
+4 M3 on 38, so its plate is the tool plate plus an 8 mm spacer with a cable channel: one hub on the arm, either tool on it. Zip-tie point for the RS00
+cable. Arm CAD from Seeed's URDF (cad/arm/rebot_b601_rs/, CERN-OHL-W-2.0) in the preview. 11 printed (Base 9's 7 + bracket, tool plate, Aero plate, hub).

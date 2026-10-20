@@ -44,8 +44,11 @@ what I checked or still need to confirm. Nothing here has been built yet.
   J4–J6 and the gripper (motor 7) are RobStride RS00 (Ø57 × 51 mm, 310 g,
   5 / 14 N·m). Output flange 6× M3 on Ø27 PCD. Details and sources in
   `AGENTS.md` → Hardware.
-- Get the M3 hole spacing from the Aero Onshape CAD. The docs' mechanical
-  page is still a placeholder.
+- **Done (2026-10-20, voice-3cd78d20):** the Aero's 4 M3 inserts sit on a 26.9 mm square
+  (Ø38 at 45°), the same pattern as the RS00 back face that Seeed's stock "Connector B" bolts
+  to. Base 10 (`Two Finger Gripper/versions/v310_generalist_arm_mount`) has the plate: a
+  printed Connector-B twin plus an 8 mm cable spacer, on the same J6 hub as our gripper, swapped
+  with 3 radial screws. Measured from the guide's left palm mesh, not the hand itself.
 - **Payload on the RS:** 2.5 kg rated, minus ~0.4 kg for the hand and
   ~0.05 kg for the plate and cables, leaves **≈ 2 kg** for the object within
   ~70 % of reach. That's double the DM's ≈ 1 kg (§3). The wrist-torque check
@@ -172,7 +175,7 @@ what I checked or still need to confirm. Nothing here has been built yet.
 | Adapter plate, forearm cuff | print |
 | Linux host for SocketCAN, or Seeed's Mac answer | **confirm** |
 | Does the RS structure kit include the wrist plate / J6 flange (+ STEP)? | **ask Seeed** |
-| Aero M3 hole spacing | pull from Onshape |
+| Aero M3 hole spacing | 4 inserts on a 26.9 mm square = Ø38 at 45°, the RS00 back-face pattern (left palm mesh; Base 10, voice-3cd78d20) |
 
 ---
 

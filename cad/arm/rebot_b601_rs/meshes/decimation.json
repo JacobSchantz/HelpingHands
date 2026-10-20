@@ -1,0 +1,197 @@
+{
+ "source": "https://github.com/Seeed-Projects/reBot-DevArm/tree/9e8634ca0b20403c580903b771da952b17361c27/Rebot_Arm_description/RS/meshes",
+ "rows": [
+  {
+   "mesh": "meshes/shared/base_link.STL",
+   "seeed_triangles": 81816,
+   "triangles": 16362,
+   "preview_triangles": 4090
+  },
+  {
+   "mesh": "meshes/shared/gripper_end.STL",
+   "seeed_triangles": 80756,
+   "triangles": 16150,
+   "preview_triangles": 4036
+  },
+  {
+   "mesh": "meshes/shared/gripper_left.STL",
+   "seeed_triangles": 17246,
+   "triangles": 6000,
+   "preview_triangles": 2146
+  },
+  {
+   "mesh": "meshes/shared/gripper_right.STL",
+   "seeed_triangles": 17246,
+   "triangles": 6000,
+   "preview_triangles": 2140
+  },
+  {
+   "mesh": "meshes/shared/link1.STL",
+   "seeed_triangles": 31640,
+   "triangles": 6328,
+   "preview_triangles": 1582
+  },
+  {
+   "mesh": "meshes/shared/link2.STL",
+   "seeed_triangles": 129550,
+   "triangles": 25910,
+   "preview_triangles": 6476
+  },
+  {
+   "mesh": "meshes/shared/link3.STL",
+   "seeed_triangles": 164258,
+   "triangles": 32850,
+   "preview_triangles": 8212
+  },
+  {
+   "mesh": "meshes/shared/link4.STL",
+   "seeed_triangles": 103580,
+   "triangles": 20715,
+   "preview_triangles": 5178
+  },
+  {
+   "mesh": "meshes/shared/link5.STL",
+   "seeed_triangles": 80866,
+   "triangles": 16172,
+   "preview_triangles": 4042
+  },
+  {
+   "mesh": "meshes/shared/link6.STL",
+   "seeed_triangles": 24498,
+   "triangles": 6000,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/cnc2.STL",
+   "seeed_triangles": 22956,
+   "triangles": 6000,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/cnc3.STL",
+   "seeed_triangles": 67288,
+   "triangles": 13456,
+   "preview_triangles": 3364
+  },
+  {
+   "mesh": "meshes/visual/cnc4.STL",
+   "seeed_triangles": 28624,
+   "triangles": 5999,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/cnc5.STL",
+   "seeed_triangles": 6106,
+   "triangles": 6106,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/cnc7.STL",
+   "seeed_triangles": 4086,
+   "triangles": 4086,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/cnc_left.STL",
+   "seeed_triangles": 2544,
+   "triangles": 2544,
+   "preview_triangles": 1954
+  },
+  {
+   "mesh": "meshes/visual/cnc_right.STL",
+   "seeed_triangles": 2544,
+   "triangles": 2544,
+   "preview_triangles": 1954
+  },
+  {
+   "mesh": "meshes/visual/motor_2_3.STL",
+   "seeed_triangles": 91422,
+   "triangles": 18284,
+   "preview_triangles": 4570
+  },
+  {
+   "mesh": "meshes/visual/motor_4.STL",
+   "seeed_triangles": 84116,
+   "triangles": 16822,
+   "preview_triangles": 4204
+  },
+  {
+   "mesh": "meshes/visual/motor_5.STL",
+   "seeed_triangles": 75410,
+   "triangles": 15082,
+   "preview_triangles": 3770
+  },
+  {
+   "mesh": "meshes/visual/motor_6.STL",
+   "seeed_triangles": 73594,
+   "triangles": 14718,
+   "preview_triangles": 3678
+  },
+  {
+   "mesh": "meshes/visual/motor_7.STL",
+   "seeed_triangles": 75660,
+   "triangles": 15132,
+   "preview_triangles": 3782
+  },
+  {
+   "mesh": "meshes/visual/pla2_black.STL",
+   "seeed_triangles": 13116,
+   "triangles": 6000,
+   "preview_triangles": 2106
+  },
+  {
+   "mesh": "meshes/visual/pla2_green.STL",
+   "seeed_triangles": 2056,
+   "triangles": 2056,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/pla3_black_without_seeed_badge.STL",
+   "seeed_triangles": 4864,
+   "triangles": 4864,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/pla3_green.STL",
+   "seeed_triangles": 2056,
+   "triangles": 2056,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/pla3_seeed_badge_with_counters.STL",
+   "seeed_triangles": 5934,
+   "triangles": 5934,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/pla3_seeed_wordmark_backing.STL",
+   "seeed_triangles": 400,
+   "triangles": 400,
+   "preview_triangles": 400
+  },
+  {
+   "mesh": "meshes/visual/pla5_green.STL",
+   "seeed_triangles": 1166,
+   "triangles": 1166,
+   "preview_triangles": 1166
+  },
+  {
+   "mesh": "meshes/visual/pla7_green.STL",
+   "seeed_triangles": 1010,
+   "triangles": 1010,
+   "preview_triangles": 1010
+  },
+  {
+   "mesh": "meshes/visual/pla_left.STL",
+   "seeed_triangles": 14702,
+   "triangles": 6000,
+   "preview_triangles": 1500
+  },
+  {
+   "mesh": "meshes/visual/pla_right.STL",
+   "seeed_triangles": 14702,
+   "triangles": 6000,
+   "preview_triangles": 1500
+  }
+ ]
+}

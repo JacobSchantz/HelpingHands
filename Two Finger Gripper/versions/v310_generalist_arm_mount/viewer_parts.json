@@ -1,0 +1,194 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow, mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left handle-gear \u2014 black, the left handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), turns on the base\u2019s left post",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right handle-gear \u2014 black, the right handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), driven by the pinion, turns on the right post",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 black, centred, full-height teeth, 3 countersunk M3 to the motor flange",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -40,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black flat plate with a pivot post for each handle-gear, 3 countersunk M3 to the motor",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/top_plate.stl",
+      "name": "Top plate \u2014 black, over the handle-gears and fingers on 3 pillars; a C-shaped ring round each pivot runs in its handle-gear\u2019s groove, so each axle is held top and bottom",
+      "color": "#26272b",
+      "explode": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/bracket.stl",
+      "name": "Wrist bracket \u2014 black L: its leg bolts to the RS00\u2019s back face (4 M3), its foot lies across the arm\u2019s J6 axis and takes the tool plate; a zip-tie point for the motor\u2019s cable",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -30,
+        -50
+      ]
+    },
+    {
+      "path": "exports/parts/tool_plate.stl",
+      "name": "Tool plate \u2014 the gripper\u2019s side of the wrist interface (twin of Seeed\u2019s Connector B): 4 M3 up into the bracket, slips over the hub, 3 radial M3",
+      "color": "#3a3b40",
+      "explode": [
+        0,
+        0,
+        -80
+      ]
+    },
+    {
+      "path": "exports/parts/hub.stl",
+      "name": "Wrist hub \u2014 stays on the arm: bolted to J6\u2019s RS00 output (twin of Seeed\u2019s Connector A; Seeed\u2019s aluminium one fits too)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        0,
+        -110
+      ]
+    },
+    {
+      "path": "exports/parts/aero_plate.stl",
+      "name": "Aero Hand tool plate \u2014 the same tool plate plus an 8 mm spacer with a cable channel: 4 M3 straight into the Aero Hand\u2019s wrist inserts",
+      "color": "#3a3b40",
+      "explode": [
+        0,
+        0,
+        -40
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 RobStride RS00, reference only (not printed)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/aero_hand.stl",
+      "name": "Aero Hand (left) \u2014 reference: its palm only (third_party/aero_hand, guide meshes), standing on its tool plate beside the arm",
+      "color": "#d9dce1",
+      "explode": [
+        0,
+        0,
+        40
+      ]
+    },
+    {
+      "path": "exports/parts/arm_anodized_silver.stl",
+      "name": "reBot Arm B601-RS (anodized silver) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#b8c2ba",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_base_black.stl",
+      "name": "reBot Arm B601-RS (base black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#1d2120",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_motor_black.stl",
+      "name": "reBot Arm B601-RS (motor black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#2b2f2e",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_pla_black.stl",
+      "name": "reBot Arm B601-RS (pla black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#2f3533",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_seeed_green.stl",
+      "name": "reBot Arm B601-RS (seeed green) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#b9d51e",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_wordmark_black.stl",
+      "name": "reBot Arm B601-RS (wordmark black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#111311",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    }
+  ]
+}
