@@ -1,0 +1,16 @@
+{
+  "id": "voice-98af07a6",
+  "commit_id": "",
+  "description": "Base 12: build on Base 11 (v311_generalist_motor_choice) with the STS3215 (motor_sts 1) as the motor. Jake's feedback on Base 11, now that we have the smaller motor:\n1. Remove the small piece that sticks out into the central gripping area between the fingers. Keep the center as clear as possible, since objects get gripped there. The four corner connection points are enough.\n2. Shrink the gearbox area significantly, by about half, so it doesn't extend far over the forearm.\n3. Mount the motor flush with the bottom of the gripper, right there, and re-gear from that position, e.g. one larger gear on the motor driving smaller gears on each finger, or whatever is most compact.\nKeep it parameterized, printable without supports, and keep the strap slots clear.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:23:59.000Z",
+  "updated_at": "2026-10-20T15:23:59.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
