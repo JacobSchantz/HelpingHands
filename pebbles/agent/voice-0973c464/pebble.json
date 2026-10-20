@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Base 6 should combine Base 4 and Handle 7, driven by the single RS00, with fewer parts and gears. It must sit comfortably in the hand, with rounded edges, no protrusions, and a compact base.",
+  "summary_sha": "0973c4642d67c169"
 }
