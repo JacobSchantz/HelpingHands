@@ -1,0 +1,16 @@
+{
+  "id": "voice-1f4d3de1",
+  "commit_id": "",
+  "description": "Base 8: build on Base 7 (voice-fef42307). Jake: Base 7 is going in the right direction but not passed. It has two separate handle pieces, which isn't right. The base and handle are starting to become one piece; go further that way. The part that curls around should be one piece with the handle. Ditch the separate Handle part entirely: the geared pieces become the handles. Each finger's gear and handle (with its strap-loop slots) is a single printed part. Keep Base 7's printability rules (FDM, no supports, overhangs <=45 deg, a print orientation noted per part), fewer parts, parameterized, driven by the single RobStride RS00.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T12:54:11.000Z",
+  "updated_at": "2026-10-20T12:54:11.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
