@@ -102,3 +102,8 @@ arm) with the whole left Aero Hand beside the arm: palm, thumb, index, middle, r
 from the Aero Hand URDF (third_party/aero_hand/hand_pose.py) and posed by three Tune sliders (aero_curl_deg 15, aero_thumb_abd_deg 45,
 aero_thumb_flex_deg 10). No printed part changes. Not a Base change: this folder is the Aero Hand 1 assembly, published in
 the Aero Hand family (voice-a87f8d20); its heading keeps the old Base number for history.
+v314_generalist_sts_arm_mount — Base 14 (voice-4ac7222b), Gripper 21, Arm 1, Mount 1: Base 12 on the reBot Arm through Mount 1. The STS3215's back face
+has no screw ring for Base 10's leg, so the base takes the arm: a wrist tab on its lower edge, 2 mm under the servo, with 2 M3 pilots (wrist_screw_x,
+wrist_screw_z); a new wrist bracket whose leg lies flat under the tab beside the servo (2 M3) and whose foot takes Mount 1's tool plate across the
+J6 axis, gussets inboard of the screws, a zip-tie point under the servo's bus connectors. Mount 1 (hub + tool plate) unchanged, so this, Base 10
+and the Aero Hand swap on one hub. Nothing between the fingers. Hub arm face 80 mm below the pivots. 10 printed + STS3215 + 25 screws.
