@@ -1,0 +1,19 @@
+{
+  "id": "voice-3cd78d20",
+  "commit_id": "",
+  "description": "Make our gripper attach to the Seeed reBot Arm B601-RS (gripper motor: RobStride RS00; see AGENTS.md hardware section and the Gripper N / Handle N / Base N scheme). Design the mounting interface so the latest gripper base (Base 9, voice-d96cd30d, built on Base 8; if a newer Base exists when you claim this, build on the latest) bolts onto the arm's wrist / end-effector flange in place of the stock reBot gripper. Use Seeed's reBot-DevArm repo (https://github.com/Seeed-Projects/reBot-DevArm) for the B601_RS hardware CAD and the stock gripper's mount, and match its bolt pattern and how the stock gripper mounts. Deliver a parameterized adapter (or an integrated mount on the base, whichever is cleaner) that prints without supports, with the RS00 cabling (CAN and power) routed cleanly. Don't break existing Base versions; this becomes the next Base N per the scheme.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T13:03:40.000Z",
+  "updated_at": "2026-10-20T13:03:40.000Z",
+  "user_request": {
+    "name": "Jake"
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
