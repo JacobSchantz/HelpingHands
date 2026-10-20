@@ -1,0 +1,16 @@
+{
+  "id": "voice-2308ade1",
+  "commit_id": "",
+  "description": "In the live preview, let me hide or show individual pieces, e.g. hide the top plate or a housing to see how the gears mesh inside, without needing the full exploded view. Use a per-part visibility toggle (eye icon) in a parts list, plus optional 'isolate this part', and keep it working with the open/close animation so I can watch the gears move. Related: voice-a5d65841 (per-part version pickers, same preview UI).",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-20T15:52:37.000Z",
+  "updated_at": "2026-10-20T15:52:37.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
