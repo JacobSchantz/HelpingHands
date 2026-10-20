@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T15:49:50.000Z",
-  "updated_at": "2026-10-20T15:49:50.000Z",
+  "updated_at": "2026-10-20T15:50:59Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Each design part (Arm, Mount, Base, Gripper, Handle, Aero Hand) needs its own independent versioning and separate publishing. The live preview should offer a per-part version dropdown, assemble the selection, use shared interfaces so versions fit neighbors, and flag incompatible combinations.",
-  "summary_sha": "a5d65841355dad77"
+  "summary_sha": "a5d65841355dad77",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-a5d65841",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-a5d65841",
+  "claimed_at": "2026-10-20T15:50:59.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
