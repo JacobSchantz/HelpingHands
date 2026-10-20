@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-20T13:16:26.000Z",
-  "updated_at": "2026-10-20T13:16:26.000Z",
+  "updated_at": "2026-10-20T14:23:00Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Research which camera glasses suit Jake's open-source egocentric data collection system, paired with a handheld gripper, and what buyers want and pay. Write findings into the repo docs, building on the existing dataset pebbles, ending with a recommendation for glasses, format, and minimum spec.",
-  "summary_sha": "2a989d97c0a714d2"
+  "summary_sha": "2a989d97c0a714d2",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-2a989d97",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-2a989d97",
+  "claimed_at": "2026-10-20T14:23:00.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
