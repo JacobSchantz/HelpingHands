@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Add the SO-101 arm CAD from the official SO-ARM100 repo (recording source URL and license) as swappable Arm 2 in the live preview, plus a new Mount that fits its wrist. The mount must replace the stock jaw, match the SO-101 bolt pattern and STS3215 horn, be parameterized and support-free printable, and flag each mount's compatibility per arm.",
+  "summary_sha": "790aa455d706cf74"
 }
