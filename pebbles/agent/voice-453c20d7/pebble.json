@@ -9,7 +9,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-21T02:34:19.000Z",
-  "updated_at": "2026-10-21T02:34:19.000Z",
+  "updated_at": "2026-10-21T03:02:51Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -17,5 +17,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Make the Two Finger Gripper's next base version (after Gripper 21 / v315) have one gear-sandwiching plate carrying all four pivot posts, with the other plate only capping them. Give both fingers the same rounded shape, possibly joined by a loop, reading \"both\" as whichever choice reduces part count and noting it in the reply.",
-  "summary_sha": "453c20d722ab6cc3"
+  "summary_sha": "453c20d722ab6cc3",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-453c20d7",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-453c20d7",
+  "claimed_at": "2026-10-21T03:02:51.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
