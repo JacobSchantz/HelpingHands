@@ -108,6 +108,74 @@ class ModelTests(unittest.TestCase):
         self.assertEqual((rows('refresh')['mount']['version'], rows('refresh')['mount']['notes']), ('1', ['Mount 1 fits Arm 1, not Arm 2.']))
 
 
+# Runs under Node: the real hand (its GLB parsed from disk instead of fetched) holding Base 14's handles, its solids as boxes.
+GRIP_SCRIPT = '''
+import fs from 'fs';
+import * as THREE from 'three';
+globalThis.readGlb = side => { const b = fs.readFileSync(%r + side + '.glb'); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); };
+const {makeHand, sizeHand, gripHand} = await import('./human_hand.js');
+const box = (a, b) => new THREE.Box3(new THREE.Vector3(...a), new THREE.Vector3(...b));
+const solids = [box([-11.5, -12.7, -54.2], [21.3, 6, -21.3]), box([-42.4, -15.5, -62], [42.4, -6.4, 11]),
+  box([-42.8, -11, -55.3], [42.8, 10.3, 11.5]), box([-7.5, -49.4, -48], [17.3, -11.2, -2.6])];
+const spot = x => ({point: new THREE.Vector3(x, -1.6, 28), normal: new THREE.Vector3(Math.sign(x), 0, 0)});
+const out = [];
+for (const [side, x] of [['right', 46], ['right', 33], ['left', 46]]) {
+  const root = await makeHand(side), scene = new THREE.Scene(); scene.add(root); sizeHand(root, 187.2);
+  const near = side === 'right' ? x : -x, miss = gripHand(root, spot(near), spot(-near), solids);
+  scene.updateMatrixWorld(true);
+  const joint = name => new THREE.Vector3().setFromMatrixPosition(root.userData.bones[name].matrixWorld);
+  const buried = Object.keys(root.userData.bones).filter(name => solids.some(b => b.clone().expandByScalar(-3).containsPoint(joint(name))));
+  out.push({side, x, miss, buried, thumb: joint('thumb-tip').x, index: joint('index-finger-tip').x});
+}
+console.log(JSON.stringify(out));
+'''
+
+
+class HandGripTests(unittest.TestCase):
+    """human_hand.js's gripHand (Holding the gripper): thumb and index pads on the two handles' outer faces, no joint in the base."""
+
+    @classmethod
+    def setUpClass(cls):
+        if not shutil.which('node'):
+            raise unittest.SkipTest('node is not installed')
+        cls.tmp = tempfile.TemporaryDirectory()
+        root = Path(cls.tmp.name)
+        three = root / 'node_modules/three'
+        (three / 'addons').mkdir(parents=True)
+        vendor = REPO / 'cad/compare/vendor'
+        for name in ('three.module.min.js', 'three.core.min.js'):
+            shutil.copy2(vendor / name, three / name)
+        for name in ('loaders', 'utils'):
+            shutil.copytree(vendor / name, three / 'addons' / name)
+        (three / 'package.json').write_text(json.dumps({'name': 'three', 'type': 'module', 'exports': {'.': './three.module.min.js', './addons/*': './addons/*'}}))
+        (root / 'package.json').write_text('{"type": "module"}')
+        source = (GALLERY / 'human_hand.js').read_text()
+        fetch = "loader.loadAsync('reference/human_hand/' + side + '.glb')"
+        assert fetch in source
+        (root / 'human_hand.js').write_text(source.replace(fetch, "loader.parseAsync(globalThis.readGlb(side), '')"))
+        script = GRIP_SCRIPT % (str(GALLERY / 'reference/human_hand') + '/')
+        run = subprocess.run(['node', '--input-type=module', '-e', script], capture_output=True, text=True, cwd=root, timeout=120)
+        assert run.returncode == 0, run.stderr
+        cls.out = json.loads(run.stdout)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_the_pads_land_on_the_handles_open_and_closed_either_hand(self):
+        for grip in self.out:
+            self.assertLess(grip['miss'], 6, grip)
+
+    def test_thumb_and_fingers_are_on_opposite_handles(self):
+        for grip in self.out:
+            sign = 1 if grip['side'] == 'right' else -1
+            self.assertGreater(sign * grip['index'], 30, grip)
+            self.assertLess(sign * grip['thumb'], -25, grip)
+
+    def test_no_joint_is_inside_the_base(self):
+        for grip in self.out:
+            self.assertEqual(grip['buried'], [], grip)
+
 class LandingPageTests(unittest.TestCase):
     """serve_designs.py serving the real page over a fixture catalog, rendered by headless Chrome."""
 
@@ -190,6 +258,12 @@ class LandingPageTests(unittest.TestCase):
         self.assertIn('aria-label="Hide average human hand"', dom)
         for finger in ('All fingers', 'Thumb', 'Index', 'Middle', 'Ring', 'Pinky'):
             self.assertIn(f'aria-label="{finger} bend"', dom)
+
+    def test_holding_the_gripper_swaps_the_bend_sliders_for_a_note(self):
+        dom = self.dom('?hand=1&handat=grip')
+        self.assertIn('Holding the gripper', dom)
+        self.assertIn('class="hand-note"', dom)
+        self.assertNotIn('aria-label="Thumb bend"', dom)
 
 
 if __name__ == '__main__':

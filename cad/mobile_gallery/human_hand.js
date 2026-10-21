@@ -56,20 +56,127 @@ export async function makeHand(side) {
 }
 export function sizeHand(root, length) { root.userData.inner.scale.setScalar(length / root.userData.reach); }
 
-// curls: {thumb, index, ...} each 0 (straight) to 1 (fist). Each bending joint turns everything past it about its own X axis.
-const step = new THREE.Matrix4(), spin = new THREE.Matrix4(), posed = new THREE.Matrix4(), axis = new THREE.Vector3(), pivot = new THREE.Vector3(), quat = new THREE.Quaternion(), scale = new THREE.Vector3();
-export function poseHand(root, curls) {
-  const {bones, rest} = root.userData;
-  for (const finger of FINGERS) {
-    const chain = new THREE.Matrix4(), amount = Math.max(0, Math.min(1, curls[finger] || 0));
-    CHAINS[finger].forEach((name, i) => {
-      if (i < 3) {
-        rest[name].decompose(pivot, quat, scale); axis.set(1, 0, 0).applyQuaternion(quat);
-        spin.makeRotationAxis(axis, -THREE.MathUtils.degToRad(CURL[finger][i] * amount));
-        step.makeTranslation(pivot.x, pivot.y, pivot.z).multiply(spin).multiply(new THREE.Matrix4().makeTranslation(-pivot.x, -pivot.y, -pivot.z));
-        chain.multiply(step);
-      }
-      posed.multiplyMatrices(chain, rest[name]).decompose(bones[name].position, bones[name].quaternion, bones[name].scale);
-    });
+// curls: {thumb, index, ...} each 0 (straight) to 1 (fist). turns: extra turns {joint: [x, y, z] degrees} about a joint's own axes
+// (negative x bends toward the palm), for poses the curls cannot make, like the thumb swinging across to hold the gripper.
+// Each bending joint turns everything past it about its own rest axes.
+const step = new THREE.Matrix4(), spin = new THREE.Matrix4(), axis = new THREE.Vector3(), pivot = new THREE.Vector3(), quat = new THREE.Quaternion(), scale = new THREE.Vector3();
+const delta = new THREE.Quaternion(), euler = new THREE.Euler(), deg = THREE.MathUtils.degToRad;
+// A finger's posed joint matrices in Armature space, by joint name.
+function chainPose(root, finger, curl, turns) {
+  const {rest} = root.userData, chain = new THREE.Matrix4(), out = {}, amount = Math.max(0, Math.min(1, curl || 0));
+  CHAINS[finger].forEach((name, i) => {
+    if (i < 3) {
+      const turn = turns[name] || [0, 0, 0];
+      rest[name].decompose(pivot, quat, scale);
+      euler.set(deg(turn[0] - CURL[finger][i] * amount), deg(turn[1]), deg(turn[2]));
+      delta.setFromEuler(euler); spin.makeRotationFromQuaternion(quat.clone().multiply(delta).multiply(quat.invert()));
+      step.makeTranslation(pivot.x, pivot.y, pivot.z).multiply(spin).multiply(new THREE.Matrix4().makeTranslation(-pivot.x, -pivot.y, -pivot.z));
+      chain.multiply(step);
+    }
+    out[name] = new THREE.Matrix4().multiplyMatrices(chain, rest[name]);
+  });
+  return out;
+}
+export function poseHand(root, curls, turns = {}) {
+  const {bones} = root.userData;
+  for (const finger of FINGERS) for (const [name, matrix] of Object.entries(chainPose(root, finger, curls[finger], turns)))
+    matrix.decompose(bones[name].position, bones[name].quaternion, bones[name].scale);
+}
+
+// Holding the gripper (the crow gripper's grip, plans/crow_gripper.md): index and middle along one handle's outer face (where
+// its strap loop goes), the thumb along the other's, so squeezing closes the jaws and spreading opens them; ring and pinky curl
+// beside, the palm rests on the base. The hand's place and turn, the index and middle bends and the thumb's joints are solved
+// (coordinate descent) so the pads sit on the faces, no joint goes into the base, and the palm touches it.
+const THUMB = CHAINS.thumb, RING = {ring:[85, 100, 65], pinky:[90, 100, 65]};
+// Unknowns: x, y, z (mm), turn about x, y, z (degrees, on the seed), index knuckle and middle joints, middle the same, thumb base
+// x, y, z, thumb knuckle and end; each with its limits and the relaxed value it is pulled toward.
+const LIMITS = [[-1e4, 1e4], [-1e4, 1e4], [-1e4, 1e4], [-90, 90], [-90, 90], [-90, 90],
+  [-95, 0], [-80, 0], [-95, 0], [-80, 0], [-60, 40], [-70, 70], [-70, 70], [-60, 15], [-70, 15]];
+const RELAXED = [0, 0, 0, 0, 0, 0, -70, -20, -70, -25, -10, 0, 0, -10, -10];
+const PULL = [0, 0, 0, 0, 0, 0, .01, .02, .01, .02, .02, .02, .02, .02, .02];
+const point = matrix => new THREE.Vector3().setFromMatrixPosition(matrix), towards = (matrix, x, y, z) => new THREE.Vector3(x, y, z).transformDirection(matrix);
+// fingers, thumb: {point, normal} in world mm, a spot on a handle's outer face and its outward normal; solids: world Box3s the
+// hand must stay out of (base, top plate, servo). Places the hand (root) and bends it; returns the worst pad miss in mm.
+export function gripHand(root, fingers, thumb, solids) {
+  const {bones} = root.userData, turns = {};
+  for (const finger in RING) CHAINS[finger].slice(0, 3).forEach((name, i) => { turns[name] = [-RING[finger][i], 0, 0]; });
+  root.position.set(0, 0, 0); root.quaternion.identity(); root.updateMatrixWorld(true);
+  // Armature space -> the hand's own frame (root space, mm); `unit` turns mm into Armature units.
+  const toRoot = bones.wrist.parent.matrixWorld.clone().premultiply(root.matrixWorld.clone().invert()), unit = toRoot.getMaxScaleOnAxis();
+  const inRoot = (v, isPoint) => isPoint ? v.applyMatrix4(toRoot) : v.transformDirection(toRoot);
+  // A phalanx's pad: `along` its length from this joint to the next, 8 mm to the palm side, with its palm-side normal.
+  const pad = (posed, joint, next, along) => {
+    const normal = towards(posed[joint], 0, -1, 0);
+    return {at: inRoot(point(posed[joint]).lerp(point(posed[next]), along).addScaledVector(normal, 8 / unit), true), normal: inRoot(normal)};
+  };
+  const flex = (chain, knuckle, middle) => { turns[chain[0]] = [knuckle, 0, 0]; turns[chain[1]] = [middle, 0, 0]; turns[chain[2]] = [middle * .7, 0, 0]; };
+  // Palm skin over the middle finger's metacarpal, its palm-side normal, and the hand's own axes for the seed.
+  const rest = chainPose(root, 'middle', 0, {}), knuckle = rest['middle-finger-phalanx-proximal'];
+  const palmNormal = inRoot(towards(knuckle, 0, -1, 0)), palmAt = inRoot(point(knuckle).lerp(point(bones.wrist.matrix), .35).addScaledVector(towards(knuckle, 0, -1, 0), 15 / unit), true);
+  const reach = inRoot(point(knuckle).sub(point(bones.wrist.matrix)).normalize());
+  // Flesh kept out of the solids: balls on the palm (radius 12 mm) and on every finger joint and mid-phalanx (8 mm).
+  const fixed = chainPose(root, 'ring', 0, turns), little = chainPose(root, 'pinky', 0, turns);
+  const palmBalls = [point(bones.wrist.matrix), ...['index', 'middle', 'ring', 'pinky'].flatMap(finger => {
+    const from = point(bones[finger + '-finger-metacarpal'].matrix), to = point(bones[finger + '-finger-phalanx-proximal'].matrix);
+    return [from.clone().lerp(to, .5), to];
+  }), ...Object.values(fixed).concat(Object.values(little)).map(point)].map(v => inRoot(v, true));
+  const balls = posed => { const joints = Object.values(posed).map(point); return joints.concat(joints.slice(1).map((v, i) => v.clone().lerp(joints[i], .5))).map(v => inRoot(v, true)); };
+  const inside = (v, radius) => {
+    let worst = 0;
+    for (const box of solids) {
+      const depth = Math.min(v.x - box.min.x, box.max.x - v.x, v.y - box.min.y, box.max.y - v.y, v.z - box.min.z, box.max.z - v.z) + radius;
+      worst = Math.max(worst, depth);
+    }
+    return worst;
+  };
+  const near = v => solids.length ? Math.min(...solids.map(box => box.distanceToPoint(v))) : 0;
+  // Seed: palm facing the base, fingers reaching from the thumb's handle toward theirs.
+  const basis = (a, b) => { const y = b.clone().addScaledVector(a, -b.dot(a)).normalize(); return new THREE.Matrix4().makeBasis(a, y, new THREE.Vector3().crossVectors(a, y)); };
+  const across = fingers.point.clone().sub(thumb.point);
+  const seed = new THREE.Quaternion().setFromRotationMatrix(basis(new THREE.Vector3(0, -1, 0), across).multiply(basis(palmNormal, reach).transpose()));
+  const placed = new THREE.Quaternion(), turn = new THREE.Quaternion(), position = new THREE.Vector3(), world = v => v.applyQuaternion(placed).add(position);
+  const misses = [];
+  const cost = a => {
+    turn.setFromEuler(new THREE.Euler(deg(a[3]), deg(a[4]), deg(a[5]))); placed.copy(turn).multiply(seed); position.set(a[0], a[1], a[2]);
+    flex(CHAINS.index, a[6], a[7]); flex(CHAINS.middle, a[8], a[9]);
+    for (let i = 0; i < 3; i++) turns[THUMB[i]] = i ? [a[i + 12], 0, 0] : [a[10], a[11], a[12]];
+    const indexPose = chainPose(root, 'index', 0, turns), middlePose = chainPose(root, 'middle', 0, turns), thumbPose = chainPose(root, 'thumb', 0, turns);
+    const index = pad(indexPose, 'index-finger-phalanx-intermediate', 'index-finger-phalanx-distal', .5);
+    const middle = pad(middlePose, 'middle-finger-phalanx-intermediate', 'middle-finger-phalanx-distal', .5);
+    const tip = pad(thumbPose, 'thumb-phalanx-distal', 'thumb-tip', .5);
+    const into = n => n.dot(fingers.normal);
+    let c = 0;
+    // Index pad on its spot, middle pad on the same face, thumb pad on its spot, each facing its face.
+    misses[0] = world(index.at).distanceTo(fingers.point);
+    misses[1] = Math.abs(world(middle.at.clone()).sub(fingers.point).dot(fingers.normal));
+    c += Math.max(0, world(middle.at).distanceTo(fingers.point) - 20) ** 2;   // beside the index, in the same strap
+    misses[2] = world(tip.at).distanceTo(thumb.point);
+    c += misses[0] ** 2 + misses[1] ** 2 + misses[2] ** 2;
+    c += 150 * (2 + into(index.normal.applyQuaternion(placed)) + into(middle.normal.applyQuaternion(placed))) + 150 * (1 + tip.normal.applyQuaternion(placed).dot(thumb.normal));
+    // Nothing inside the solids; the palm touching one.
+    for (const v of palmBalls) c += 5 * inside(world(v.clone()), 12) ** 2;
+    for (const v of [indexPose, middlePose, thumbPose].flatMap(balls)) c += 5 * inside(world(v), 8) ** 2;
+    c += .3 * Math.max(0, near(world(palmAt.clone())) - 2) ** 2;
+    return c + a.reduce((sum, v, i) => sum + PULL[i] * (v - RELAXED[i]) ** 2, 0);
+  };
+  // Start from the last solution (so Open/Close glides), else the seed with the palm on the base; halve the step until settled.
+  let a = root.userData.grip;
+  if (!a) {
+    a = RELAXED.slice(); cost(a);
+    const body = solids.reduce((all, box) => all.union(box), new THREE.Box3().expandByPoint(fingers.point).expandByPoint(thumb.point));
+    const at = body.getCenter(new THREE.Vector3()).setY(body.max.y + 15).sub(palmAt.clone().applyQuaternion(placed)); a[0] = at.x; a[1] = at.y; a[2] = at.z;
   }
+  a = a.slice();
+  let best = cost(a);
+  for (let size = 16; size > .2; size /= 2) for (let again = true, rounds = 0; again && rounds < 40; rounds++) {
+    again = false;
+    for (let i = 0; i < a.length; i++) for (const sign of [1, -1]) {
+      const was = a[i]; a[i] = Math.max(LIMITS[i][0], Math.min(LIMITS[i][1], was + sign * size));
+      const c = cost(a); if (c < best - 1e-6) { best = c; again = true; } else a[i] = was;
+    }
+  }
+  root.userData.grip = a; cost(a);
+  root.quaternion.copy(placed); root.position.copy(position);
+  poseHand(root, {}, turns);
+  return Math.max(...misses);
 }

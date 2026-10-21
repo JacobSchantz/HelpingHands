@@ -3,7 +3,7 @@ import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
 import PHOTOS from './reference/photos.js';
-import {SIZES, FINGERS, makeHand, sizeHand, poseHand} from './human_hand.js';
+import {SIZES, FINGERS, makeHand, sizeHand, poseHand, gripHand} from './human_hand.js';
 import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
 // The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
@@ -37,12 +37,13 @@ const photoQuery = query.get('photo');
 let photoOn = !!photoQuery && photoQuery !== '0', photoId = photoOn && photoQuery !== '1' ? photoQuery : '';
 let photoTile = null;
 // Average human hand (voice-bf770cd7, human_hand.js): a row under the reference photo puts it in every 3D view, its fingertips
-// level with the gripper's, beside it or over it. On, its controls hang under the row: size (ANSUR II means), which hand, where
+// level with the gripper's, beside it or over it, or holding it (gripHand: index and middle on one handle, thumb on the other,
+// re-solved as the gripper opens and closes). On, its controls hang under the row: size (ANSUR II means), which hand, where
 // it sits, Open/Close, a slider per finger, and Follow, which bends it with the gripper's Open/Close (curl = 1 - openness).
-// ?hand=1|right|left presets it on, ?curl=0..100 the bend (and Follow off), ?handsize=man|woman, ?handat=over.
+// ?hand=1|right|left presets it on, ?curl=0..100 the bend (and Follow off), ?handsize=man|woman, ?handat=over|grip.
 const handQuery = query.get('hand'), curlQuery = query.get('curl'), curlPreset = curlQuery !== null && isFinite(curlQuery);
 const hand = {on: !!handQuery && handQuery !== '0', side: handQuery === 'left' ? 'left' : 'right',
-  size: SIZES.some(size => size.id === query.get('handsize')) ? query.get('handsize') : 'adult', at: query.get('handat') === 'over' ? 'over' : 'beside',
+  size: SIZES.some(size => size.id === query.get('handsize')) ? query.get('handsize') : 'adult', at: ['over', 'grip'].includes(query.get('handat')) ? query.get('handat') : 'beside',
   follow: !curlPreset, curls: {}, sliders: [], run: 0};
 for (const finger of FINGERS) hand.curls[finger] = curlPreset ? Math.max(0, Math.min(100, +curlQuery)) / 100 : 1 - openness;
 
@@ -148,14 +149,43 @@ async function placeHand(view) {
     if (!hand.on) { made.visible = false; return; }
   }
   const root = view.hand, length = SIZES.find(size => size.id === hand.size).length;
-  root.visible = true; sizeHand(root, length); poseHand(root, hand.curls);
+  root.visible = true; sizeHand(root, length);
   root.userData.material.opacity = hand.at === 'over' ? .55 : 1;
+  if (hand.at === 'grip') { root.userData.grip = null; if (holdGripper(view)) return; }
+  poseHand(root, hand.curls); root.quaternion.identity();
   const fingers = view.group.children.filter(mesh => mesh.visible && /finger/i.test(mesh.userData.name || ''));
   const bounds = new THREE.Box3();
   for (const mesh of fingers.length ? fingers : view.group.children) bounds.expandByObject(mesh);
   if (bounds.isEmpty()) bounds.setFromCenterAndSize(new THREE.Vector3(), new THREE.Vector3());
   const center = bounds.getCenter(new THREE.Vector3());
   root.position.set(hand.at === 'over' ? center.x : bounds.max.x + 110, center.y, bounds.max.z - length);
+}
+// Holding: the right hand's index and middle go along the right handle's outer face (where its strap loop is), its thumb along
+// the left's, the palm on the top-plate side; a left hand the other way round. A version without handles is held by its
+// fingers' outer edges. False: nothing to hold.
+function holdGripper(view) {
+  const shown = view.group.children.filter(mesh => mesh.visible && mesh.geometry), named = (side, part) => shown.find(mesh => {
+    const name = mesh.userData.name || ''; return name.startsWith(side) && part.test(name);
+  });
+  const near = hand.side === 'right' ? 'Right' : 'Left', far = near === 'Right' ? 'Left' : 'Right';
+  view.group.updateMatrixWorld(true);
+  const out = near === 'Right' ? 1 : -1, spots = [/handle|strap slide/i, /finger|jaw/i].map(part => [named(near, part), named(far, part)])
+    .map(([a, b]) => a && b && [handleSpot(a, out, 45), handleSpot(b, -out, 45)]).find(pair => pair?.[0] && pair[1]);
+  if (!spots) return false;
+  const [fingers, thumb] = spots;
+  // What the hand must not go into: the gripper's other parts (the arm and its mount left out), each as its box.
+  const solids = shown.filter(mesh => !/finger|handle|arm|hub|tool plate|bracket/i.test(mesh.userData.name || '')).map(mesh => new THREE.Box3().setFromObject(mesh));
+  gripHand(view.hand, fingers, thumb, solids);
+  return true;
+}
+// Where a ray from outside (outward +1 = from +X) at mid-thickness, `below` mm under the handle's top, meets its outer face,
+// and that face's outward normal, in world mm. Null when it misses.
+const faceRay = new THREE.Raycaster();
+function handleSpot(mesh, outward, below) {
+  const box = new THREE.Box3().setFromObject(mesh), y = (box.min.y + box.max.y) / 2, z = box.max.z - below;
+  faceRay.set(new THREE.Vector3(outward > 0 ? box.max.x + 50 : box.min.x - 50, y, z), new THREE.Vector3(-outward, 0, 0));
+  const hit = faceRay.intersectObject(mesh, false)[0];
+  return hit && {point: hit.point, normal: hit.face.normal.clone().transformDirection(mesh.matrixWorld)};
 }
 async function showHand(reframe = false) {
   await Promise.all([...views.values()].map(placeHand));
@@ -195,7 +225,7 @@ function handRows() {
   const pick = (name, options, key, reframe = false) => {
     const select = document.createElement('select'); select.setAttribute('aria-label', name);
     select.append(...options.map(([value, text]) => new Option(text, value))); select.value = hand[key];
-    select.onchange = () => { hand[key] = select.value; showHand(reframe); };
+    select.onchange = () => { hand[key] = select.value; if (key === 'at') renderPanel(); showHand(reframe); };
     return select;
   };
   const follow = document.createElement('label'), box = document.createElement('input'), pose = document.createElement('button');
@@ -204,7 +234,13 @@ function handRows() {
   pose.className = 'hand-pose'; pose.onclick = animateHand;
   controls.append(pick('Hand size', SIZES.map(size => [size.id, size.label]), 'size'),
     pick('Which hand', [['right', 'Right hand'], ['left', 'Left hand']], 'side'),
-    pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)']], 'at', true), follow, pose);
+    pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)'], ['grip', 'Holding the gripper']], 'at', true));
+  if (hand.at === 'grip') {
+    const note = document.createElement('p'); note.className = 'hand-note';
+    note.textContent = 'Index and middle on one handle, thumb on the other. It follows the gripper’s Open/Close.';
+    controls.append(note); return [row, controls];
+  }
+  controls.append(follow, pose);
   for (const finger of [null, ...FINGERS]) {
     const knob = document.createElement('label'), name = document.createElement('span'), out = document.createElement('output'), input = document.createElement('input');
     knob.className = 'knob'; name.textContent = finger ? finger[0].toUpperCase() + finger.slice(1) : 'All fingers';
@@ -326,7 +362,8 @@ $('pose').onclick = () => {
     const t = ms ? Math.min(1, (now - began) / ms) : 1, ease = t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
     openness = from + (to - from) * ease;
     for (const view of views.values()) applyExplosion(view);
-    if (hand.on && hand.follow) { hand.run++; for (const finger of FINGERS) hand.curls[finger] = 1 - openness; bendHand(); }
+    if (hand.on && hand.at === 'grip') { for (const view of views.values()) if (view.hand?.visible) holdGripper(view); }
+    else if (hand.on && hand.follow) { hand.run++; for (const finger of FINGERS) hand.curls[finger] = 1 - openness; bendHand(); }
     if (t < 1) requestAnimationFrame(step);
   };
   step(began);

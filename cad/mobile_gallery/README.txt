@@ -67,4 +67,13 @@ axis on the jaws' axis) or over them, see-through. Its controls hang under the r
 thumb, and "Bend with the gripper's Open/Close" (on by default: the gripper's button bends the hand too). The mesh is the WebXR
 Input Profiles generic hand (MIT); source, sizes and joint limits are in reference/human_hand/SOURCE.txt. GLTFLoader and
 SkeletonUtils (three r185) are vendored under cad/compare/vendor/loaders and utils. ?hand=1|right|left presets it on, ?curl=0..100
-its bend (Follow off), ?handsize=man|woman, ?handat=over.
+its bend (Follow off), ?handsize=man|woman, ?handat=over|grip.
+
+Holding the gripper (the third "where" choice, ?handat=grip): the hand holds the gripper the way the strap loops are meant
+for (plans/crow_gripper.md): a right hand's index and middle along the right handle's outer face, its thumb along the left's,
+palm resting on the top-plate side, ring and pinky curled; a left hand mirrors it. gripHand (human_hand.js) solves the hand's
+place and turn, the index/middle bends and the thumb's joints by coordinate descent: the pads land on spots raycast onto each
+handle's outer face 45 mm under its top, and no joint goes into the boxes of the base, top plate, servo or pinion (the arm, mount
+and wrist bracket are ignored). It re-solves on every frame of the gripper's Open/Close (about 4 ms warm). A version without
+handles is held by its fingers' outer edges. Scripts/test_gallery.py checks it under Node with the real hand: pads within 6 mm,
+thumb and index on opposite handles, no joint inside the base, open, closed and left-handed.
