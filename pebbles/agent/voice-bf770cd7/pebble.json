@@ -1,0 +1,20 @@
+{
+  "id": "voice-bf770cd7",
+  "commit_id": "",
+  "description": "Helping Hands live viewer: add a toggleable 'average human hand' reference model. Find a real, proportionally accurate 3D hand model online with a license that allows use (e.g. MANO hand model mean shape, or an openly licensed rigged anthropometric hand; check license, record source/attribution), scaled to average adult dimensions. Show it in the three.js viewer with an on/off toggle so grippers can be compared/mapped against a human hand. The fingers must be articulated: controls (sliders and an open/close animation) to bend each finger and the thumb so we can practice fingers opening and closing alongside the gripper. Jake (voice, 2026-10-20): 'include as an option to turn on or off an average human hand, proportionally accurate, a real 3D model from online... so we can map this thing to the human hand. We should be able to articulate the fingers too.'",
+  "test_instructions": [
+    "Open the live viewer, toggle the human hand on: a realistic average-size hand appears next to the gripper at correct scale.",
+    "Use the finger controls: each finger and the thumb bend; open/close animates the whole hand.",
+    "Toggle off: it disappears."
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-21T01:55:10.000Z",
+  "updated_at": "2026-10-21T01:55:10.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
