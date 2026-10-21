@@ -65,8 +65,8 @@ Generalist GEN-0 (UMI-style pincers) and Xiaomi-Robotics-1 (100k+ h). See `handh
 For scale: our Aero Hand is 198 × 95 × 53.5 mm and under 400 g (`aero_hand_on_b601.md`),
 about the same length and weight as the YUBI Glove.
 
-**Answer:** YUBI is the smallest gripper and ranks second for data; it is also the largest dataset whose
-data has actually started to come out. RDT2's UMI has slightly more hours, but I could not
+**Answer:** YUBI is the smallest gripper and ranks second for data. Of the corpora that have started to
+release, it is the largest in total hours, though only ≈580 h is out (gated), and HiFi-UMI-2K's 2,000 h is the biggest fully public set. RDT2's UMI has slightly more hours, but I could not
 confirm its full release, and it is a heavier pistol grip.
 
 ## 4. What fits Helping Hands
