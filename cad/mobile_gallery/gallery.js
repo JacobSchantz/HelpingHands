@@ -19,6 +19,8 @@ let renderer, catalog, focused = null, currentProject = '', webglError = '', ref
 // How far apart the parts are right now: 0 assembled, 1 exploded. The Explode button eases it between the two.
 let explodeAmount = 0, explodeRun = 0;
 const query = new URLSearchParams(location.search);
+// ?only=1 shows just the 3D view (Pebbles' Live tile, voice-c78e2494): with #<design id>, that one design fills the page.
+if (query.get('only') === '1') document.body.classList.add('only');
 // Open/Closed: 0 = closed, 1 = fully open, the same fraction for every design shown. ?open=0..100 presets it (screenshots, links).
 const preset = query.get('open');
 // ?view=top|front|side|iso lines every model up once each one loads (screenshots, links).
