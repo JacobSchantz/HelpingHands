@@ -1,0 +1,19 @@
+{
+  "id": "voice-453c20d7",
+  "commit_id": "",
+  "description": "Two Finger Gripper: next base version (after Gripper 21 / v315). Of the two plates that sandwich and hold the gears, make ONE plate carry all four posts sticking out; those four posts are the pivots the gripper fingers rotate around, so the other plate just caps them. Also from Jake's review of the latest gripper in the live viewer: both parts (he said 'they should both just have that kind of rounded thing', likely both fingers/links getting the same rounded profile) should share the rounded shape, and they may be connected with a loop; changing the finger/gripper design to make that work is allowed. If 'both' is ambiguous after looking at Gripper 21, pick the reading that simplifies the part count and note it in the reply. Goal: simplify the gripper. Jake (voice, 2026-10-20).",
+  "test_instructions": [
+    "Open the new version in the live viewer: one gear plate has all four pivot posts; the fingers rotate on them.",
+    "The paired parts share the rounded shape; part count is equal or lower than Gripper 21."
+  ],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-21T02:34:19.000Z",
+  "updated_at": "2026-10-21T02:34:19.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
