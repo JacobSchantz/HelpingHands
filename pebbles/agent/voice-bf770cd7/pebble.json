@@ -16,5 +16,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "The Helping Hands live viewer lacks a human hand reference, so grippers can't be compared against real hand proportions. Add a toggleable, openly licensed average-adult 3D hand model (with source recorded) whose fingers and thumb bend via sliders and an open/close animation.",
+  "summary_sha": "bf770cd7d185e8f8"
 }
