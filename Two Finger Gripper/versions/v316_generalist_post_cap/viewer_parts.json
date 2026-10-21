@@ -1,0 +1,174 @@
+{
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Generalist yellow (Gripper 22: a loop round its pivot post), mirror of the right",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Generalist yellow (Gripper 22: a loop round its pivot post)",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left handle-gear \u2014 black, the left handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), turns on the base\u2019s left post",
+      "color": "#26272b",
+      "explode": [
+        -30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right handle-gear \u2014 black, the right handle: one print with its gear (both hooks, two strap-loop slots, tail fused into the hub), driven by the pinion, turns on the right post",
+      "color": "#26272b",
+      "explode": [
+        30,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 black, centred, full-height teeth, 4 countersunk M3 into the STS3215\u2019s horn",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -40,
+        -30
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 black flat plate carrying all four posts (a full-height pivot post for each handle-gear and finger, two corner pillars); bears on the STS3215\u2019s rails, 4 M2 into its case, a window over its hump; a wrist tab below the servo takes the wrist bracket (2 M3)",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/top_plate.stl",
+      "name": "Top plate \u2014 black, a flat cap on the base\u2019s four posts: a socket over each pivot post\u2019s tip holds the axle\u2019s top end, 2 countersunk M3 down into the base\u2019s pillars (no C rings)",
+      "color": "#26272b",
+      "explode": [
+        0,
+        45,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/bracket.stl",
+      "name": "Wrist bracket \u2014 black L: its leg clamps flat under the base\u2019s wrist tab (2 M3, beside the STS3215, not on it), its foot lies across the arm\u2019s J6 axis and takes the tool plate; a zip-tie point for the servo\u2019s bus cable",
+      "color": "#26272b",
+      "explode": [
+        0,
+        -30,
+        -50
+      ]
+    },
+    {
+      "path": "exports/parts/tool_plate.stl",
+      "name": "Tool plate \u2014 the gripper\u2019s side of the wrist interface (twin of Seeed\u2019s Connector B): 4 M3 up into the bracket, slips over the hub, 3 radial M3",
+      "color": "#3a3b40",
+      "explode": [
+        0,
+        0,
+        -80
+      ]
+    },
+    {
+      "path": "exports/parts/hub.stl",
+      "name": "Wrist hub \u2014 stays on the arm: bolted to J6\u2019s RS00 output (twin of Seeed\u2019s Connector A; Seeed\u2019s aluminium one fits too)",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        0,
+        -110
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 Feetech STS3215 (the SO-101 servo), reference only (not printed): read back-driven as the grip encoder",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -95,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/arm_anodized_silver.stl",
+      "name": "reBot Arm B601-RS (anodized silver) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#b8c2ba",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_base_black.stl",
+      "name": "reBot Arm B601-RS (base black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#1d2120",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_motor_black.stl",
+      "name": "reBot Arm B601-RS (motor black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#2b2f2e",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_pla_black.stl",
+      "name": "reBot Arm B601-RS (pla black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#2f3533",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_seeed_green.stl",
+      "name": "reBot Arm B601-RS (seeed green) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#b9d51e",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    },
+    {
+      "path": "exports/parts/arm_wordmark_black.stl",
+      "name": "reBot Arm B601-RS (wordmark black) \u2014 reference, Seeed\u2019s URDF and meshes (CERN-OHL-W-2.0), stock gripper removed",
+      "color": "#111311",
+      "explode": [
+        0,
+        0,
+        -160
+      ]
+    }
+  ]
+}

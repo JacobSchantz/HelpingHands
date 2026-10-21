@@ -112,3 +112,9 @@ the stock fixed jaw. Arm 2 is The Robot Studio's SO-101 follower (SO-ARM100 a758
 4 M3 holes (countersunk from the tool face) with a socket round the Ø20 horn, steps in to a Ø25 neck that turns inside the wrist part's collar,
 and is Mount 1's hub outside, so Mount 1's tool plate slips over it: Base 14, unchanged with its bracket, rides on the SO-101 here, and Base 10 or
 the Aero Hand plate fit it too. Not a Base change (this folder is the Mount 2 assembly). Prints tool face down; 1 new print + 4 M3x6 countersunk.
+v316_generalist_post_cap — Base 15 (voice-453c20d7), Gripper 22, Arm 1, Mount 1: Base 14 with all four posts on the base and the top plate a plain cap.
+The base carries the two pivot posts, now full height, and the two corner pillars (Base 14: on the top plate); the top plate caps them: a blind
+socket over each pivot post's tip holds the axle's top end, and 2 countersunk M3 go down through it into the pillars. The C rings and their
+grooves are gone. Gripper 22 is Gripper 21 with its base J-hook (which lay over the pivot) replaced by a loop round the post (loop_r 10),
+concentric with the handle-gear's hub, so finger and handle-gear share the round hub and both turn on the post (two honeycomb holes that
+would cut the loop dropped). Older Grippers cover the post and do not fit Base 15. Mount 1 and the STS3215 seat unchanged. 10 printed + STS3215 + 25 screws (Base 14's).
