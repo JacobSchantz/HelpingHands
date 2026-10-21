@@ -1,0 +1,16 @@
+{
+  "id": "voice-7b719c5b",
+  "commit_id": "",
+  "description": "Research (report only, no code): Jake saw a product called 'UB' (his spoken word; maybe UMI or similar), described as an open platform for large-scale robotics data collection. Identify the exact platform. Then go through its different gripper designs and report (1) which grippers have the most collected data (episodes, hours, tasks), and (2) which are the smallest and most compact (dimensions, weight). Give a ranked table for each, with sources, and note which fit Helping Hands (Aero Hand, VLA / MolmoAct2 zero-shot manipulation direction). Jake (voice, 2026-10-21): 'a product called UB, an open platform for large-scale robotics collection\u2026 go through the different gripper designs and see which ones have the most data, and which ones are the smallest or most compact.'",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-21T19:31:42.000Z",
+  "updated_at": "2026-10-21T19:31:42.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
