@@ -59,3 +59,12 @@ photo is one more tile beside the 3D view(s) (focused: the model and the photo s
 stays on across versions and families. reference/photos.js maps family -> photos (written by reference/make_reference.py, which
 also resamples the top photo into gripper CAD millimetres); a family with none still shows the row, greyed ("No reference photo
 yet"). Add a family's photos in make_reference.py and re-run it. ?photo=1 or ?photo=<id> (side, cup, ...) presets it on.
+
+Average human hand (voice-bf770cd7): under the Reference photo row, an eye puts a proportionally accurate adult hand in every 3D
+view (human_hand.js), fingertips level with the gripper's fingers, beside them in +X with the palm facing the gripper (its grasp
+axis on the jaws' axis) or over them, see-through. Its controls hang under the row: size (ANSUR II mean hand length: adult
+187 mm, man 193, woman 181), right or left, beside or over, Open/Close, a bend slider for all fingers and one per finger and the
+thumb, and "Bend with the gripper's Open/Close" (on by default: the gripper's button bends the hand too). The mesh is the WebXR
+Input Profiles generic hand (MIT); source, sizes and joint limits are in reference/human_hand/SOURCE.txt. GLTFLoader and
+SkeletonUtils (three r185) are vendored under cad/compare/vendor/loaders and utils. ?hand=1|right|left presets it on, ?curl=0..100
+its bend (Follow off), ?handsize=man|woman, ?handat=over.

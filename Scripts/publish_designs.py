@@ -556,7 +556,7 @@ def publish(repo=REPO, out=DEFAULT_OUT, build=True, workers=2, timeout=180):
         viewer = repo / 'cad/mobile_gallery'
         if viewer.is_dir():
             for path in viewer.rglob('*'):
-                if path.is_file() and not path.is_symlink() and path.suffix.lower() in ('.html', '.js', '.css', '.svg', '.png', '.ico'):
+                if path.is_file() and not path.is_symlink() and path.suffix.lower() in ('.html', '.js', '.css', '.svg', '.png', '.ico', '.glb'):
                     copy_changed(path, out / path.relative_to(viewer))
         vendor = repo / 'cad/compare/vendor'
         if vendor.is_dir():

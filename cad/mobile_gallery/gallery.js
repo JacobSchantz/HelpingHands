@@ -3,6 +3,7 @@ import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
 import PHOTOS from './reference/photos.js';
+import {SIZES, FINGERS, makeHand, sizeHand, poseHand} from './human_hand.js';
 import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
 // The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
@@ -35,6 +36,15 @@ const mixFamily = project => MIXES.find(item => item.project === project);
 const photoQuery = query.get('photo');
 let photoOn = !!photoQuery && photoQuery !== '0', photoId = photoOn && photoQuery !== '1' ? photoQuery : '';
 let photoTile = null;
+// Average human hand (voice-bf770cd7, human_hand.js): a row under the reference photo puts it in every 3D view, its fingertips
+// level with the gripper's, beside it or over it. On, its controls hang under the row: size (ANSUR II means), which hand, where
+// it sits, Open/Close, a slider per finger, and Follow, which bends it with the gripper's Open/Close (curl = 1 - openness).
+// ?hand=1|right|left presets it on, ?curl=0..100 the bend (and Follow off), ?handsize=man|woman, ?handat=over.
+const handQuery = query.get('hand'), curlQuery = query.get('curl'), curlPreset = curlQuery !== null && isFinite(curlQuery);
+const hand = {on: !!handQuery && handQuery !== '0', side: handQuery === 'left' ? 'left' : 'right',
+  size: SIZES.some(size => size.id === query.get('handsize')) ? query.get('handsize') : 'adult', at: query.get('handat') === 'over' ? 'over' : 'beside',
+  follow: !curlPreset, curls: {}, sliders: [], run: 0};
+for (const finger of FINGERS) hand.curls[finger] = curlPreset ? Math.max(0, Math.min(100, +curlQuery)) / 100 : 1 - openness;
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
 function makeMesh(model, geometry, motion) {
@@ -56,6 +66,7 @@ function frame(view) {
   if (!view.group.children.length || !view.element.clientWidth || !view.element.clientHeight) return;
   view.camera.aspect = view.element.clientWidth / view.element.clientHeight;
   const bounds = new THREE.Box3().setFromObject(view.group);
+  if (view.hand?.visible) bounds.expandByObject(view.hand);
   const center = bounds.getCenter(new THREE.Vector3());
   const radius = Math.max(bounds.getSize(new THREE.Vector3()).length() / 2, 1);
   const distance = radius / Math.sin(THREE.MathUtils.degToRad(17.5)) / Math.min(view.camera.aspect, 1) * 1.08;
@@ -88,7 +99,7 @@ function placeCamera(view, direction, bounds) {
 function alignAll(name) {
   const shown = [...views.values()].filter(view => !view.element.hidden && view.group.children.length);
   const bounds = new THREE.Box3();
-  for (const view of shown) bounds.expandByObject(view.group);
+  for (const view of shown) { bounds.expandByObject(view.group); if (view.hand?.visible) bounds.expandByObject(view.hand); }
   if (!bounds.isEmpty()) for (const view of shown) placeCamera(view, PRESETS[name], bounds);
 }
 // The photo tile sits after the shown views; the grid counts it as one more tile (focused: the one view and the photo side by side).
@@ -122,6 +133,86 @@ function photoRow() {
   if (!photos.length) { label.textContent = 'No reference photo yet'; row.title = 'Add ' + currentProject + ' photos in cad/mobile_gallery/reference/make_reference.py'; }
   row.append(eye, label);
   return row;
+}
+// Put the hand in one view (loading its own clone the first time, or when the side changes), sized, bent and lined up: fingertips
+// level with the gripper's fingers (the whole model when it has none), beside them in +X with a gap for a fist, or over them.
+async function placeHand(view) {
+  if (!hand.on || !renderer) { if (view.hand) view.hand.visible = false; return; }
+  if (view.hand?.userData.side !== hand.side) {
+    const token = view.handToken = (view.handToken || 0) + 1;
+    let made;
+    try { made = await makeHand(hand.side); } catch (error) { message('Could not load the human hand. ' + error.message); return; }
+    if (token !== view.handToken) return;
+    if (view.hand) view.scene.remove(view.hand);
+    view.hand = made; view.scene.add(made);
+    if (!hand.on) { made.visible = false; return; }
+  }
+  const root = view.hand, length = SIZES.find(size => size.id === hand.size).length;
+  root.visible = true; sizeHand(root, length); poseHand(root, hand.curls);
+  root.userData.material.opacity = hand.at === 'over' ? .55 : 1;
+  const fingers = view.group.children.filter(mesh => mesh.visible && /finger/i.test(mesh.userData.name || ''));
+  const bounds = new THREE.Box3();
+  for (const mesh of fingers.length ? fingers : view.group.children) bounds.expandByObject(mesh);
+  if (bounds.isEmpty()) bounds.setFromCenterAndSize(new THREE.Vector3(), new THREE.Vector3());
+  const center = bounds.getCenter(new THREE.Vector3());
+  root.position.set(hand.at === 'over' ? center.x : bounds.max.x + 110, center.y, bounds.max.z - length);
+}
+async function showHand(reframe = false) {
+  await Promise.all([...views.values()].map(placeHand));
+  if (reframe) { if (PRESETS[startView]) alignAll(startView); else fitVisible(); }
+}
+function bendHand() { for (const view of views.values()) if (view.hand?.visible) poseHand(view.hand, hand.curls); showCurls(); }
+function showCurls() {
+  for (const {finger, input, out} of hand.sliders) {
+    const value = finger ? hand.curls[finger] : FINGERS.reduce((sum, name) => sum + hand.curls[name], 0) / FINGERS.length;
+    input.value = Math.round(value * 100); out.textContent = Math.round(value * 100) + '%';
+  }
+  const button = $('panel-list').querySelector('.hand-pose');
+  if (button) button.textContent = handClosed() ? 'Open hand' : 'Close hand';
+}
+const handClosed = () => FINGERS.reduce((sum, name) => sum + hand.curls[name], 0) / FINGERS.length > .5;
+// The hand's own Open/Close: every finger eases from where it is to straight or to a fist.
+function animateHand() {
+  const from = {...hand.curls}, to = handClosed() ? 0 : 1, run = ++hand.run;
+  const ms = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900, began = performance.now();
+  const step = now => {
+    if (run !== hand.run) return;
+    const t = ms ? Math.min(1, (now - began) / ms) : 1, ease = t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+    for (const finger of FINGERS) hand.curls[finger] = from[finger] + (to - from[finger]) * ease;
+    bendHand();
+    if (t < 1) requestAnimationFrame(step);
+  };
+  step(began);
+}
+function handRows() {
+  const row = document.createElement('div'), label = document.createElement('span');
+  row.className = 'part-row photo-row'; label.className = 'name'; label.textContent = 'Average human hand';
+  row.title = 'WebXR generic hand (MIT), scaled to the ANSUR II mean hand length';
+  row.append(eyeButton(!hand.on, 'average human hand', () => { hand.on = !hand.on; renderPanel(); showHand(true); }), label);
+  hand.sliders = [];
+  if (!hand.on) return [row];
+  const controls = document.createElement('div'); controls.className = 'hand-controls';
+  const pick = (name, options, key, reframe = false) => {
+    const select = document.createElement('select'); select.setAttribute('aria-label', name);
+    select.append(...options.map(([value, text]) => new Option(text, value))); select.value = hand[key];
+    select.onchange = () => { hand[key] = select.value; showHand(reframe); };
+    return select;
+  };
+  const follow = document.createElement('label'), box = document.createElement('input'), pose = document.createElement('button');
+  follow.className = 'check'; box.type = 'checkbox'; box.checked = hand.follow; box.onchange = () => { hand.follow = box.checked; };
+  follow.append(box, 'Bend with the gripper’s Open/Close');
+  pose.className = 'hand-pose'; pose.onclick = animateHand;
+  controls.append(pick('Hand size', SIZES.map(size => [size.id, size.label]), 'size'),
+    pick('Which hand', [['right', 'Right hand'], ['left', 'Left hand']], 'side'),
+    pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)']], 'at', true), follow, pose);
+  for (const finger of [null, ...FINGERS]) {
+    const knob = document.createElement('label'), name = document.createElement('span'), out = document.createElement('output'), input = document.createElement('input');
+    knob.className = 'knob'; name.textContent = finger ? finger[0].toUpperCase() + finger.slice(1) : 'All fingers';
+    Object.assign(input, {type:'range', min:0, max:100, step:1}); input.setAttribute('aria-label', name.textContent + ' bend');
+    input.oninput = () => { hand.run++; for (const which of finger ? [finger] : FINGERS) hand.curls[which] = input.value / 100; bendHand(); };
+    knob.append(name, out, input); controls.append(knob); hand.sliders.push({finger, input, out});
+  }
+  return [row, controls];
 }
 function fitVisible() { for (const view of views.values()) if (!view.element.hidden) frame(view); }
 
@@ -235,6 +326,7 @@ $('pose').onclick = () => {
     const t = ms ? Math.min(1, (now - began) / ms) : 1, ease = t < .5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
     openness = from + (to - from) * ease;
     for (const view of views.values()) applyExplosion(view);
+    if (hand.on && hand.follow) { hand.run++; for (const finger of FINGERS) hand.curls[finger] = 1 - openness; bendHand(); }
     if (t < 1) requestAnimationFrame(step);
   };
   step(began);
@@ -342,6 +434,7 @@ async function updateView(view, design) {
     for (const mesh of meshes) view.group.add(mesh);
     applyExplosion(view); showParts(view);
     updateExplodeControl(); updatePoseControl();
+    await placeHand(view); if (token !== view.token) return;
     frame(view); view.element.classList.add('has-model'); view.loading.hidden = !design.export_error;
     if (PRESETS[startView]) alignAll(startView);
     view.loading.textContent = design.export_error ? 'Latest export failed; showing last model' : '';
@@ -472,7 +565,7 @@ function linkRow(text, onclick, current = false) {
 function renderPanel() {
   if (!catalog) return;
   const view = focused && views.get(focused), design = view?.design, which = mixFamily(currentProject);
-  const rows = [photoRow()];
+  const rows = [photoRow(), ...handRows()];
   if (design?.mix) rows.push(...design.rows.flatMap(row => partRow(view, row)));
   else {
     if (which && design) rows.push(linkRow('‹ ' + (buildMix(catalog, picks, which)?.name || which.project), () => showProject(currentProject, which.id)));
@@ -483,7 +576,7 @@ function renderPanel() {
     }
     if (design) rows.push(...pieceRows(view, design.models || []));
   }
-  $('panel-list').replaceChildren(...rows);
+  $('panel-list').replaceChildren(...rows); showCurls();
 }
 
 // Tune (Handle 4 on): a design whose catalog entry carries `params` (its params.json) gets a slider per parameter. Each change
@@ -570,7 +663,7 @@ async function requestTune() {
       meshes.push(makeMesh(model, geometry, motionFor(view.design, model.name, result.pivot ?? null)));
     }
     // Swapped in even when newer values are waiting: mid-drag the model keeps up instead of freezing.
-    disposeMeshes(view); for (const mesh of meshes) view.group.add(mesh); applyExplosion(view); showParts(view);
+    disposeMeshes(view); for (const mesh of meshes) view.group.add(mesh); applyExplosion(view); showParts(view); placeHand(view);
     view.tuned = Object.keys(values).length > 0; view.signature = view.tuned ? 'tuned' : view.signature;
     view.element.classList.add('has-model'); view.loading.hidden = true;
     const count = Object.keys(values).length;

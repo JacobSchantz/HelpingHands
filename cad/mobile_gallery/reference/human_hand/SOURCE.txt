@@ -1,0 +1,24 @@
+Average human hand for the live preview (voice-bf770cd7)
+
+Mesh: left.glb / right.glb, the "generic-hand" profile of the W3C Immersive Web WebXR Input Profiles
+  npm @webxr-input-profiles/assets@1.0.20, dist/profiles/generic-hand/{left,right}.glb
+  https://github.com/immersive-web/webxr-input-profiles/tree/main/packages/assets/profiles/generic-hand
+  License: MIT, Copyright (c) 2019 Amazon (LICENSE.md beside this file). Used unmodified.
+  sha256 left.glb  bc67783144944ea1cda54d9247885825ea5fb9d4651469fe7d00be517a5c2b87
+  sha256 right.glb 291790c14f7f88a7f9bd35330c47392ed8e8d395ae6728f4bb7089f1bc1f2b96
+  A skinned hand on the 25 WebXR hand joints (wrist, 4 thumb, 5 per finger), metres, rest pose flat.
+  As shipped: wrist joint to the farthest skin along the middle finger 189.7 mm; index-to-pinky knuckle centres 58.6 mm
+  (about 79 mm across the knuckles), a slightly narrow hand for its length.
+
+Size: ANSUR II (US Army 2012 anthropometric survey, public data, 4,082 men / 1,986 women), handlength = wrist crease
+  (stylion) to the middle fingertip (dactylion):
+    men   193.3 mm (sd 9.9)   hand breadth 88.3 mm
+    women 181.1 mm (sd 10.1)  hand breadth 78.2 mm
+    "average adult" = their unweighted mean, 187.2 mm
+  The viewer scales the mesh uniformly (proportions kept) so wrist joint to fingertip is the chosen length. Breadth then
+  comes out ~78 mm for the adult size, a few mm under the ANSUR means.
+  Data: https://www.openlab.psu.edu/ansur2/ (mirror used: github.com/senihberkay/US-Army-ANSUR-II).
+
+Articulation (human_hand.js): each finger bends at its three joints about the joint's own X axis (WebXR: -Z along the bone,
+  +Y out of the back of the hand). Full curl, degrees: thumb 30/40/65 (base, knuckle, end), index 80/100/70, middle 85/100/70,
+  ring 88/100/70, pinky 90/100/70 (knuckle, middle, end joint). No sideways spread or thumb opposition yet.

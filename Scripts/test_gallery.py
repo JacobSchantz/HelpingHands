@@ -118,7 +118,7 @@ class LandingPageTests(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory()
         root = Path(cls.tmp.name) / 'gallery'
         root.mkdir()
-        for name in ('index.html', 'gallery.js', 'model.js', 'poses.js'):
+        for name in ('index.html', 'gallery.js', 'model.js', 'poses.js', 'human_hand.js'):
             shutil.copy2(GALLERY / name, root / name)
         shutil.copytree(GALLERY / 'reference', root / 'reference', ignore=shutil.ignore_patterns('*.py'))
         shutil.copytree(REPO / 'cad/compare/vendor', root / 'vendor')
@@ -181,6 +181,15 @@ class LandingPageTests(unittest.TestCase):
         dom = self.dom('?photo=1#glove-hand-glove-hand-gen-01-·-fit-tray')
         self.assertIn('No reference photo yet', dom)
         self.assertNotIn('class="viewport photo-tile"', dom)
+
+    def test_the_average_human_hand_is_off_by_default_and_its_controls_show_when_on(self):
+        dom = self.dom()
+        self.assertIn('aria-label="Show average human hand"', dom)
+        self.assertNotIn('aria-label="Thumb bend"', dom)
+        dom = self.dom('?hand=left&curl=40')
+        self.assertIn('aria-label="Hide average human hand"', dom)
+        for finger in ('All fingers', 'Thumb', 'Index', 'Middle', 'Ring', 'Pinky'):
+            self.assertIn(f'aria-label="{finger} bend"', dom)
 
 
 if __name__ == '__main__':
