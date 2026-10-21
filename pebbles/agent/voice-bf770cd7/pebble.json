@@ -59,8 +59,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "The Helping Hands live viewer lacks a human hand reference, so grippers can't be compared against real hand proportions. Add a toggleable, openly licensed average-adult 3D hand model (with source recorded) whose fingers and thumb bend via sliders and an open/close animation.",
-  "summary_sha": "bf770cd7d185e8f8",
+  "summary": "The Helping Hands live viewer's average human hand model needs a new pose where the hand grips the gripper. The hand should wrap realistically around the gripper's handle or body so users can see how a hand holds it.",
+  "summary_sha": "8258b8aeae51a976",
   "visual": {
     "path": "visual.png",
     "alt": "Gripper open beside an open hand; gripper closed beside a fist"
