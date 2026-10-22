@@ -117,8 +117,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Recommend where the self-building robot's gripper sits between a single pinch gripper and a human hand, with a complexity floor requiring it to assemble off-the-shelf parts. Also explain why two arms and how far the design scales, one size step per generation.",
-  "summary_sha": "fba11495e4ef303a",
+  "summary": "Jake reframed the plan as a self-building robot, needing a gripper between a single pinch and a human hand, with a defined floor. It leans toward needle-nose pliers, and must cover scaling physics, stepwise size generations, and raw-material replication.",
+  "summary_sha": "41159c1dab78b2d7",
   "visual": {
     "path": "visual.png",
     "alt": "Press crossed out; printers building printers"
