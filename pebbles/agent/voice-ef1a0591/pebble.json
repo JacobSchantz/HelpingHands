@@ -12,5 +12,7 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "summary": "Jake wants a clean, modern single-page local website mock-up of the self-building robot plan, with many original illustrations of the two-armed legless robot, pliers gripper, sibling assembly, replication ladder and doubling curve. It should be served on localhost with a URL and start command, and a screenshot attached so he can see it without opening anything.",
+  "summary_sha": "ef1a0591ef3b3794"
 }
