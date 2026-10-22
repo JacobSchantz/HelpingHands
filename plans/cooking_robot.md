@@ -1,7 +1,9 @@
 # Cooking robot — a two-armed torso that its own gripper can build
 
 Status: PLAN ONLY (2026-10-22, voice-fc9b0f77). No code, CAD or purchases.
-Written from a voice discussion with Jake. Builds on `plans/gripper_bet.md`
+Written from a voice discussion with Jake. **A living plan:** Jake keeps adding
+to it; each addition is folded into the sections it changes and logged under
+"Additions" at the end. Builds on `plans/gripper_bet.md`
 (humans drive the hardware), `plans/hand_1_0.md` (mirror a human; stereo at
 eye height), `plans/handheld_gripper.md` (UMI method) and
 `plans/shared_stereo_glasses.md`.
@@ -47,6 +49,8 @@ The one design everything depends on. Requirements:
    it is small enough to run at a desk.
 4. **Wipe-clean and food-safe** fingers or finger covers, since the end use is
    a kitchen.
+5. **Printed** (see "Materials"): every structural part of the gripper comes
+   off the printers, so the gripper is also the first test of the print rules.
 
 Exit: a gripper that passes rule 3 on a timed run, and a measured answer to
 the force question.
@@ -76,14 +80,17 @@ Exit: the cell does N stage-1 steps at a set success rate.
 ### Stage 3 — the line
 
 Replace people one station at a time with cells, so a line of identical
-two-armed cells passes work down. Cells also tend the part-making machines
-(load and unload presses, molding machines and die-casters), wind motors,
-inspect and pack. The part-making processes stay as they are; robots take over
-assembly and handling. People move to exceptions, teleop rescue and repair.
+two-armed cells passes work down. Parts come from a **printer farm** (see
+"Materials"): cells clear finished prints, swap build plates, feed pellets,
+wind motors, inspect and pack. The cells also **build more printers**, mostly
+from printed parts, so the farm grows itself (RepRap-style, robot-assembled)
+instead of waiting on presses and molds that only outside suppliers can make.
+Robots take over assembly, handling and printer-building. People move to exceptions, teleop rescue and repair.
 Robots repair robots by swapping modules (a whole arm, a whole actuator).
 
-Ceiling: what robots cannot make in this line: chips, magnets, raw materials
-(resin, steel/aluminium stock, copper). Lock those supply chains early.
+Ceiling: what robots cannot make in this line: chips, magnets, bearings,
+motor wire, fasteners, printer motion parts (steppers, rails, hotends) and
+the polymer pellets themselves. Lock those supply chains early.
 
 ### Stage 4 — the product
 
@@ -150,15 +157,61 @@ we already chose).
 - **Actuators are the cost.** Two designs, reused at every joint, so volume
   on one part drives the cost down. Each actuator is a sealed drop-in module
   with one plug-in connector (power + CAN), which is also the repair unit.
-- **Structure:** stamped steel or die-cast aluminium links, injection-molded
-  outer shell (the cute part), snap-fit from one direction, no loose wires:
-  every module plugs into the one beside it.
+- **Structure:** printed links and a printed outer shell (the cute part,
+  smoothed), snap-fit from one direction, no loose wires: every module plugs
+  into the one beside it. Stamping, die-casting or molding only where a part's
+  volume pays for the tooling (see "Materials").
 - **Head:** the stereo pair at human eye spacing (~63 mm) and a height
   matched to a seated or standing person by the stool/counter choice.
 - **Base:** weighted, so it can't tip over with a full payload at full reach;
   it sets the robot's mass and shipping cost (see open questions).
 - **Price:** appliance-level. A bill-of-materials (BOM) model per stage (1k / 100k / 10M units) is a first
   pebble; without it "appliance price" is a hope.
+
+## Materials: print by default (Jake, 2026-10-22)
+
+**Default to 3D printing, not stamping or molding.** Presses, die-casters and
+injection molders are huge machines the robots cannot build, so they cap how
+fast the factory can grow. A 3D printer is mostly printable parts plus a short
+list of bought ones, and a robot cell can assemble it, so the printer farm can
+copy itself and grow exponentially. Growth rate is set by printer-hours per
+printer, robot-hours per printer assembly, and the bought-parts supply.
+
+Constraints the design has to respect:
+
+- **Pellet extrusion at scale**, not filament. Pellets are the raw form
+  filament is made from, roughly 10× cheaper per kg, and pellet extruders
+  print faster and larger. Filament printers are fine for stages 0–1.
+- **Heat-rated materials near cooking.** PETG (softens ~80 °C), ASA (~100 °C)
+  or PA-CF (nylon with carbon fibre, stiffer, higher still) by zone. **No PLA**
+  anywhere warm: it softens around 55 °C, which a dishwasher, a hot car or a
+  pan handle beats. A heat map of the robot (arm near a hob, base on a
+  counter) picks the material per part.
+- **Food-contact surfaces are sealed, smoothed or covered.** Layer lines trap
+  bacteria and survive washing. Fingers, finger covers and anything that
+  touches food get a food-grade coating, vapour/heat smoothing, or a bought
+  cover (silicone sleeve, stainless pad). Most of the robot never touches
+  food; list the parts that do and keep that list short.
+- **Still bought:** motors (or at least magnets and winding wire), bearings,
+  electronics, cameras, fasteners and the printers' own motion parts.
+- **Switch a part to molding or stamping only when its volume clearly pays
+  for the tooling**, or print the mold (printed molds for short silicone or
+  resin runs, printed press tooling for soft metals). The per-part rule:
+  print cost × volume vs tooling + molded cost × volume, and whether the
+  tooling is a machine the robots can build.
+
+Design consequences:
+
+- **Print rules join the gripper-only rule.** Every part prints without
+  support in a set orientation, fits the farm's build volume, and lands where
+  a gripper can lift it off the plate. Snap-fits are sized for the printed
+  material's creep and layer direction (snaps across layers break).
+- **Printed is weaker and less stiff** than stamped steel. Links get thicker
+  sections or a bought tube/rod as a spine (carbon or aluminium tube is cheap
+  and gripper-friendly to insert). The actuators carry the precision; printed
+  parts mostly locate and enclose.
+- **Print time is a cost.** Printer-hours per robot is a line in the BOM model
+  next to grams of pellet, and sets how many printers each line needs.
 
 ## Ideas to evaluate (not decided)
 
@@ -188,6 +241,10 @@ we already chose).
    time become the real limit?
 8. Is cooking the right first market, or does the factory (robots building
    robots) come first and cooking follow?
+9. Printer-farm doubling time: how many printer-hours and cell-hours does one
+   printer take, and what bought part (steppers, hotends, boards) runs out first?
+10. Which parts genuinely touch food, and is a bought cover or a coating the
+    cheaper way to make each one safe?
 
 ## First pebbles to file (gripper and actuator first)
 
@@ -211,7 +268,23 @@ Not filed yet; listed for Jake's sign-off. Each would go to `agent/`.
 6. **Torso sizing.** Reach, payload, base mass and tip-over for counter and
    stool heights; output is a block layout, not CAD.
 7. **BOM cost model** at 1k / 100k / 10M for two actuator designs plus shell,
-   head, compute and base.
+   head, compute and base, with printer-hours and grams of pellet per part
+   and the print-vs-tooling switch point for each.
 8. **Cooking task list and kitchen safety requirements**, including the
    cooking-service option.
 9. **Cable-driven vs joint-motor arm** research note.
+10. **Print rules and material map.** A short doc: orientation, support-free,
+    snap sizing per material, and which material (PETG / ASA / PA-CF) each
+    zone of the robot gets from a heat map; apply it first to the gripper.
+11. **Self-replicating printer pick.** Choose an open printer design whose
+    printed share is high and whose bought parts are few, ideally pellet-fed;
+    list the bought parts and do a gripper-only assembly audit of it (same
+    method as pebble 3).
+
+## Additions
+
+- 2026-10-22, first plan.
+- 2026-10-22, materials: default to 3D printing so the printer farm can
+  self-replicate; pellets at scale, heat-rated materials, sealed food-contact
+  surfaces, mold/stamp only where volume pays. Changed stages 0 and 3, the
+  ceiling, structure, open questions 9–10, pebbles 7, 10 and 11.
