@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Robot That Builds Itself</title>
+<link rel="stylesheet" href="style.css">
+<script src="robot.js"></script>
+</head>
+<body>
+
+<header class="nav">
+  <span class="mark"><i></i>Helping Hands</span>
+  <nav><a href="#rule">Idea</a><a href="#gripper">Gripper</a><a href="#loop">Loop</a><a href="#grow">Growth</a></nav>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="kicker">A plan, 2026</p>
+    <h1>The robot that<br>builds itself.</h1>
+    <p class="lede">Two arms. Two eyes. No legs. Its only job is to put together another one of itself, and the parts and printers that make it.</p>
+    <div class="pills"><span>2 arms</span><span>stereo eyes</span><span>pliers grippers</span><span>weighted base</span></div>
+  </div>
+  <div id="hero-art" class="art hero-art"></div>
+</section>
+
+<section id="rule" class="band reveal">
+  <p class="kicker">The bootstrap</p>
+  <h2>If a person with the gripper can build it, the robot can.</h2>
+  <p class="body">Start with no automation at all. People build the whole robot, gripper included, and pack it, holding one copy of the robot's gripper in each hand. Nothing else. Every build is also training data, filmed from cameras at eye height.</p>
+  <div id="rule-art" class="art"></div>
+</section>
+
+<section id="gripper" class="split reveal">
+  <div>
+    <p class="kicker">The one design that matters</p>
+    <h2>Needle-nose pliers, not a hand.</h2>
+    <p class="body">Small enough to stay out of a person's way, simple enough to make by the million. One joint, used in pairs. The tips do the extra work: pads to pinch, a notch for screws, a pocket for a screwdriver bit, a cutter for wire. The robot's wrist turns, so it can drive a screw.</p>
+  </div>
+  <div id="gripper-art" class="art card"></div>
+</section>
+
+<section class="grid2 reveal">
+  <article class="card">
+    <div id="eyes-art" class="art"></div>
+    <h3>Eyes at eye level</h3>
+    <p>Two cameras, spaced like a person's eyes, at the height a person sees from. What people record is what the robot will see.</p>
+  </article>
+  <article class="card">
+    <div id="force-art" class="art"></div>
+    <h3>Feels through its motors</h3>
+    <p>No force sensor. When the jaws touch the part, the motor works harder, and its current says how hard it is squeezing.</p>
+  </article>
+</section>
+
+<section class="band wide reveal">
+  <p class="kicker">Stage 2</p>
+  <h2>Then it builds its sibling.</h2>
+  <p class="body">The robot repeats the steps people taught it: arms onto a torso, a head onto a neck, screws into holes. It must also build a printer kit nobody designed for it, so it can't cheat by making its own parts too easy.</p>
+  <div id="sibling-art" class="art"></div>
+</section>
+
+<section class="split reverse reveal">
+  <div>
+    <p class="kicker">Printers that build printers</p>
+    <h2>The factory grows itself.</h2>
+    <p class="body">Presses and molds need machines robots can't build. Printers are mostly printed parts. So the robots tend a printer farm, and build more printers from what it prints. One becomes two becomes four.</p>
+  </div>
+  <div id="printer-art" class="art card"></div>
+</section>
+
+<section id="loop" class="split reveal">
+  <div>
+    <p class="kicker">Closing the loop</p>
+    <h2>Push the start line down.</h2>
+    <p class="body">Today the robots start from bought motors, screws and electronics plus printed parts. Each step down removes one thing from the shopping list, until they start at the mine. A pliers gripper won't dig; the robots build the excavators that do. Chips are always bought.</p>
+    <label class="slider"><span>Stage <b id="stage-label">C0</b></span><input id="stage" type="range" min="0" max="4" value="0"></label>
+  </div>
+  <ol id="layers" class="layers card"></ol>
+</section>
+
+<section class="band reveal">
+  <p class="kicker">Materials</p>
+  <h2>Mostly iron. No rare earths.</h2>
+  <p class="body">Steel structure and iron cores. Aluminium wire. Plant-based plastic. Big joints use switched reluctance motors, just steel and coils. The gripper gets ferrite magnets, made from iron oxide, arranged in a Halbach ring to make the most of them.</p>
+  <div id="motor-art" class="art"></div>
+  <div class="chips-row"><span>Iron</span><span>Ferrite</span><span>Aluminium</span><span>Plant plastic</span><span class="bought">Chips · bought</span></div>
+</section>
+
+<section class="band wide reveal">
+  <p class="kicker">How it ships</p>
+  <h2>One robot and a box of parts.</h2>
+  <p class="body">The customer gets a built robot and a kit. The first thing it does at home is build the second one.</p>
+  <div id="ship-art" class="art"></div>
+</section>
+
+<section class="band wide reveal">
+  <p class="kicker">Sizes</p>
+  <h2>Bigger or smaller, one step at a time.</h2>
+  <p class="body">A large robot can't build a tiny one in one go. Large builds medium, medium builds small, small builds tiny, about half the size each time. The same design stretches from a quarter of human size to a few times bigger before it has to change.</p>
+  <div id="size-art" class="art"></div>
+</section>
+
+<section id="grow" class="dark reveal">
+  <p class="kicker">The penny that doubles</p>
+  <h2>A penny doubled every day for 30 days is $5.4 million.</h2>
+  <p class="body">Robots that build robots grow the same way. One robot, doubling 33 times, is 8.6 billion.</p>
+  <div id="double-art" class="art"></div>
+  <label class="slider light"><span>A new robot every</span><input id="dweeks" type="range" min="1" max="26" value="8"></label>
+  <p id="double-out" class="out"></p>
+</section>
+
+<footer>
+  <p>The robot that builds itself. A mock-up of <code>plans/self_building_robot.md</code>. All illustrations drawn in code.</p>
+</footer>
+
+</body>
+</html>
