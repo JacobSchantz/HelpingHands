@@ -44,8 +44,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Write a staged plan, with no code or CAD changes, for a legless two-armed cooking robot that humans first build using only the handheld gripper. Everything hinges on the gripper design, including whether servo-current force sensing at about 300:1 is clean enough or quasi-direct-drive is needed.",
-  "summary_sha": "fc9b0f77fe2e70d7",
+  "summary": "Plan a legless two-armed cooking robot that humans first build using only its handheld gripper, then robot cells and a line take over manufacturing. Update the living plan to default to 3D printing, with pellet extrusion and heat-rated, food-safe materials, instead of stamping or molding.",
+  "summary_sha": "919d585a9109708d",
   "visual": {
     "path": "visual.png",
     "alt": "gripper to people building to robot cell to line"
