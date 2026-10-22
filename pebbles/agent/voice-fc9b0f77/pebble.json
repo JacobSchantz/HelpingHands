@@ -6,6 +6,17 @@
   "results": [
     {
       "kind": "test_result",
+      "at": "2026-10-22T04:50:04.000Z",
+      "result": "failed",
+      "notes": "Jake adds (materials from raw): since it must go from raw material up, what is the simplest material set? Avoid rare earths: all-ferrite magnets, perhaps in a Halbach array (Jake cites Tesla's recent motor work). Also evaluate: switched-reluctance motors (no magnets at all, just steel laminations and copper or aluminum windings); an iron-centric design (steel structure, iron cores, ferrite from iron oxide); aluminum versus copper conductors; where plastics come from (petrochemical versus bio-based such as PLA) versus metal-only parts; electronics as the long-term bought-in item. Recommend the smallest material set that closes the loop.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "test_result",
       "at": "2026-10-22T04:49:07.000Z",
       "result": "failed",
       "notes": "Jake adds: full self-replication must go from raw materials up, literally starting with mining, so the plan must cover mining, refining and processing too. To evaluate: the staged-closure path (assembly, then printing from recycled or pellet plastic, then metals from scrap and casting, then mining and refining, chips last); the 1980 NASA self-replicating lunar factory study as prior art; and that a small pliers gripper won't mine directly, so the robots instead build the bigger machines (excavators, crushers, furnaces) that do, tying into the stepwise scale-up idea.",
@@ -109,7 +120,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-22T04:36:56.000Z",
-  "updated_at": "2026-10-22T04:49:07.000Z",
+  "updated_at": "2026-10-22T04:50:04.000Z",
   "work_kind": "plan",
   "created_by": {
     "kind": "human",
