@@ -84,8 +84,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Plan a legless two-armed cooking robot that humans first build using only its handheld gripper, then robot cells and a line take over manufacturing. Update the living plan to default to 3D printing, with pellet extrusion and heat-rated, food-safe materials, instead of stamping or molding.",
-  "summary_sha": "919d585a9109708d",
+  "summary": "The plan for a self-building robot needs reframing: the robot's only job is assembling itself, not cooking, so the gripper's place between a single pinch and a human hand must be decided. Recommend a complexity floor, such as assembling off-the-shelf parts not designed for it, explain why two arms, and cover how far the design scales up or down by square-cube physics.",
+  "summary_sha": "cd198332955d57bf",
   "visual": {
     "path": "visual.png",
     "alt": "Press crossed out; printers building printers"
