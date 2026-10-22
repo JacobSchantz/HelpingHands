@@ -1,0 +1,17 @@
+{
+  "id": "voice-fc9b0f77",
+  "commit_id": "",
+  "description": "PLAN ONLY (no code/CAD changes): a cute, legless, two-armed cooking robot designed to scale to billions of units and to bootstrap its own manufacturing. Write the plan from this voice discussion with Jake (2026-10-22):\n- Form: stationary torso with two arms, no legs; stands on its own on a weighted base and can be set on a stool or counter (no fixed height); manipulates nearly any object within arm's reach; primary use is cooking. Cute, molded outer shell.\n- Bootstrap idea (Jake's core insight): start with zero automation. Humans assemble the entire robot, gripper included, and do the packaging using ONLY the handheld version of the robot's gripper. If humans with the gripper can build it, a robot with the gripper can too. So everything reduces to the gripper design, and every human build is also training data (UMI-style).\n- Sensing: binocular stereo cameras at eye level (on the demonstrator's head, and at matching height and spacing on the robot; already in plans/handheld_gripper.md); force from servo current or load rather than a dedicated force sensor. Note: the current Two Finger Gripper (v316, STS3215 plus a 16:34 external stage) is about 300:1 overall including the internal servo gearbox. Evaluate whether current-based force is clean enough, or whether to move to quasi-direct-drive / low-ratio actuators. Today nothing reads Present_Load.\n- Scale: actuators are the cost driver, so use one or two actuator designs reused at every joint. Stamped and die-cast structure, molded shell, snap-fit assembly from one direction, plug-in connectors, drop-in modules (whole arm, whole actuator). Appliance-level price target.\n- Self-manufacturing: phase 1, buy parts from high-volume suppliers and assemble with humans plus grippers. Phase 2, swap each human for a robot cell, so a line of identical two-armed cells passes work down; robots also tend presses and molding machines, wind motors, inspect, pack. Part-making processes (stamping, molding, casting) stay; robots take over assembly and handling. Ceiling: chips, magnets, raw materials, so secure those supply chains early.\n- Ideas to evaluate: start as a cooking service for revenue and data; the factory cell and the consumer robot are the same machine; cable-driven arms with motors in the base; robots repair robots via swappable modules.\nDeliverable: a staged plan (gripper \u2192 handheld bootstrap build \u2192 robot cell \u2192 line), the open questions, and the first concrete pebbles to file, gripper/actuator first.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-22T04:36:56.000Z",
+  "updated_at": "2026-10-22T04:36:56.000Z",
+  "work_kind": "plan",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
