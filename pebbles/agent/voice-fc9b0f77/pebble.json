@@ -1,0 +1,91 @@
+{
+  "id": "voice-fc9b0f77",
+  "commit_id": "8837621ee0dbefbb330dfa65fb2b69f4a8dc1c81",
+  "description": "PLAN ONLY (no code/CAD changes): a cute, legless, two-armed cooking robot designed to scale to billions of units and to bootstrap its own manufacturing. Write the plan from this voice discussion with Jake (2026-10-22):\n- Form: stationary torso with two arms, no legs; stands on its own on a weighted base and can be set on a stool or counter (no fixed height); manipulates nearly any object within arm's reach; primary use is cooking. Cute, molded outer shell.\n- Bootstrap idea (Jake's core insight): start with zero automation. Humans assemble the entire robot, gripper included, and do the packaging using ONLY the handheld version of the robot's gripper. If humans with the gripper can build it, a robot with the gripper can too. So everything reduces to the gripper design, and every human build is also training data (UMI-style).\n- Sensing: binocular stereo cameras at eye level (on the demonstrator's head, and at matching height and spacing on the robot; already in plans/handheld_gripper.md); force from servo current or load rather than a dedicated force sensor. Note: the current Two Finger Gripper (v316, STS3215 plus a 16:34 external stage) is about 300:1 overall including the internal servo gearbox. Evaluate whether current-based force is clean enough, or whether to move to quasi-direct-drive / low-ratio actuators. Today nothing reads Present_Load.\n- Scale: actuators are the cost driver, so use one or two actuator designs reused at every joint. Stamped and die-cast structure, molded shell, snap-fit assembly from one direction, plug-in connectors, drop-in modules (whole arm, whole actuator). Appliance-level price target.\n- Self-manufacturing: phase 1, buy parts from high-volume suppliers and assemble with humans plus grippers. Phase 2, swap each human for a robot cell, so a line of identical two-armed cells passes work down; robots also tend presses and molding machines, wind motors, inspect, pack. Part-making processes (stamping, molding, casting) stay; robots take over assembly and handling. Ceiling: chips, magnets, raw materials, so secure those supply chains early.\n- Ideas to evaluate: start as a cooking service for revenue and data; the factory cell and the consumer robot are the same machine; cable-driven arms with motors in the base; robots repair robots via swappable modules.\nDeliverable: a staged plan (gripper → handheld bootstrap build → robot cell → line), the open questions, and the first concrete pebbles to file, gripper/actuator first.",
+  "test_instructions": [],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-22T04:40:39.000Z",
+      "result": "failed",
+      "notes": "Jake adds (materials): default to 3D printing rather than stamping or molding. Reason: presses and molds need huge external machines the robots can't build, while robots can build 3D printers mostly from printed parts, so the printer farm can self-replicate exponentially (RepRap-style, robot-assembled). Plan around the constraints: pellet extrusion instead of filament at scale (about 10x cheaper material); heat-rated materials near cooking (PETG, ASA, PA-CF, not PLA, which softens around 55 C); food-contact surfaces sealed, smoothed or covered because layer lines trap bacteria; motors, magnets, bearings, electronics and fasteners still bought. Switch a part to molding or stamping only when its volume clearly pays for tooling, or print the molds. Jake will keep adding to this plan, so treat new replies as additions and keep one living plan.",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "agent_action",
+      "at": "2026-10-22T04:40:19Z",
+      "commit_id": "8837621ee0dbefbb330dfa65fb2b69f4a8dc1c81",
+      "model": "claude-opus-5-5",
+      "model_display": "Claude Opus 5.5",
+      "identified_issue": "Plan only; nothing built. Facts checked in repo: 16-tooth pinion and 34-tooth handle-gears in v316 params.json; record_grip.py reads only Present_Position with torque off; no code reads Present_Load/Present_Current. The ~6.5 mA per count STS3215 current unit and the friction/hysteresis expectations are from general knowledge, not measured — pebble 1 measures them. Follow-up pebbles deliberately not filed until Jake signs off on the list.",
+      "summary": "Wrote plans/cooking_robot.md: a staged plan (gripper → people build robots using only the gripper → one robot cell → a line), the force/actuator question, open questions, and 9 first pebbles to file, gripper and actuator first. Plan only, no code or CAD.",
+      "description_sha": "fc9b0f77fe2e70d7",
+      "changes": [
+        "plans/cooking_robot.md"
+      ],
+      "detailed_description": "The plan turns your bootstrap idea into one design rule: every step of building, packing and repairing the robot must be doable by a person with one copy of the robot's gripper in each hand, wearing the stereo cameras, and nothing else. A step that fails becomes a design change to the robot, not a tool for the person. Stages: 0 the gripper (identical handheld and robot, force from the actuator, and it must be able to assemble itself as the first desk-sized test), 1 people build whole robots with grippers and every build is recorded as data, 2 one robot cell (the robot itself on a bench) repeats those steps, 3 cells replace people one station at a time on a line and also tend presses and molders, 4 the appliance. On force: the 16:34 stage is 2.125:1, so the 'about 300:1' holds only with the C046 1:147 STS3215; the C001 follower gearbox makes it about 733:1. At those ratios gearbox friction will likely swamp current-based force, and in handheld mode (torque off) there is no force reading at all, which affects the data too. I recommend measuring first (pebble 1: read Present_Current/Present_Load against a scale). If it is noisy as expected, build the gripper around a small quasi-direct-drive actuator and reuse it in the wrist, with a larger one for shoulder and elbow. That is the RS00/RS06 class we already chose for the reBot. Cooking-service-first, cell = consumer robot, cable-driven arms and robots repairing robots are in a for/against table, not decided. I have not filed the 9 pebbles; say which to file and I'll put them in agent/.",
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-22T04:40:19Z",
+      "commit_count": 1005
+    }
+  ],
+  "image_urls": [],
+  "created_at": "2026-10-22T04:36:56.000Z",
+  "updated_at": "2026-10-22T04:40:39.000Z",
+  "work_kind": "plan",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "summary": "Write a staged plan, with no code or CAD changes, for a legless two-armed cooking robot that humans first build using only the handheld gripper. Everything hinges on the gripper design, including whether servo-current force sensing at about 300:1 is clean enough or quasi-direct-drive is needed.",
+  "summary_sha": "fc9b0f77fe2e70d7",
+  "visual": {
+    "path": "visual.png",
+    "alt": "gripper to people building to robot cell to line"
+  },
+  "artifacts": [
+    {
+      "kind": "file",
+      "path": "plans/cooking_robot.md"
+    }
+  ],
+  "solved_by_agent": "jarvis",
+  "solved_by_device": "jakes-macbook-pro",
+  "solved_at": "2026-10-22T04:40:19Z",
+  "cost": {
+    "runs": [
+      {
+        "session": "816dc2a1-cb27-482a-b829-9b4b262bade4",
+        "harness": "claude",
+        "model": "claude-opus-5-5",
+        "input_tokens": 42,
+        "output_tokens": 28615,
+        "cache_read_tokens": 1229422,
+        "cache_write_tokens": 74695,
+        "turns": 21,
+        "at": "2026-10-22T04:40:18Z",
+        "priced": true,
+        "usd": 5.3914
+      }
+    ],
+    "input_tokens": 42,
+    "output_tokens": 28615,
+    "cache_read_tokens": 1229422,
+    "cache_write_tokens": 74695,
+    "total_usd": 5.3914
+  },
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-22T04:40:39.000Z"
+  }
+}
