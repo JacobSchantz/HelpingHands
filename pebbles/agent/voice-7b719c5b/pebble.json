@@ -43,8 +43,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Identify the open large-scale robotics data collection platform Jake called \"UB\" (maybe UMI), then compare its gripper designs. Rank grippers in tables by most collected data and by smallest size and weight, noting which fit Helping Hands' Aero Hand.",
-  "summary_sha": "7b719c5b21e88f6f",
+  "summary": "Jake wants the \"UB\" open robotics data-collection platform identified, with its gripper designs ranked by collected data and by compactness. The earlier YUBI answer used year-old releases, so redo it with the newest ones and note which grippers fit Helping Hands.",
+  "summary_sha": "b48ea20b51df5062",
   "visual": {
     "path": "visual.png",
     "alt": "YUBI vs UMI-family: data hours and weight"
