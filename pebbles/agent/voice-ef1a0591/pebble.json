@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-22T13:06:41.000Z",
-  "updated_at": "2026-10-22T13:06:41.000Z",
+  "updated_at": "2026-10-22T13:07:17Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -14,5 +14,10 @@
   },
   "owner": "JacobSchantz",
   "summary": "Jake wants a clean, modern single-page local website mock-up of the self-building robot plan, with many original illustrations of the two-armed legless robot, pliers gripper, sibling assembly, replication ladder and doubling curve. It should be served on localhost with a URL and start command, and a screenshot attached so he can see it without opening anything.",
-  "summary_sha": "ef1a0591ef3b3794"
+  "summary_sha": "ef1a0591ef3b3794",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-ef1a0591",
+  "agent_id": "vigil:jarvis:claude:tmux:pebbles-HelpingHands-f7b9e72b:voice-ef1a0591",
+  "claimed_at": "2026-10-22T13:07:17.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
