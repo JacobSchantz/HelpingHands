@@ -128,8 +128,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Jake reframed the plan as a self-building robot, needing a gripper between a single pinch and a human hand, with a defined floor. It leans toward needle-nose pliers, and must cover scaling physics, stepwise size generations, and raw-material replication.",
-  "summary_sha": "41159c1dab78b2d7",
+  "summary": "Plan a self-assembling robot, not a cooking one, and place its gripper between pinch and human hand, likely small pliers. Recommend the smallest rare-earth-free, iron-centric material set that closes the loop from mining, with electronics bought in.",
+  "summary_sha": "c221333689695900",
   "visual": {
     "path": "visual.png",
     "alt": "Press crossed out; printers building printers"
