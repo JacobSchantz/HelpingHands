@@ -139,8 +139,8 @@
     "github_login": "JacobSchantz"
   },
   "owner": "JacobSchantz",
-  "summary": "Plan a self-assembling robot, not a cooking one, and place its gripper between pinch and human hand, likely small pliers. Recommend the smallest rare-earth-free, iron-centric material set that closes the loop from mining, with electronics bought in.",
-  "summary_sha": "c221333689695900",
+  "summary": "The living plan now targets a robot whose only job is building itself from raw materials, with chips bought in, and needs a gripper recommendation between pinch and human hand. The plan should define a minimum complexity floor, such as assembling parts not designed for it, and cover stepwise size scaling.",
+  "summary_sha": "2e9a32ac83be9256",
   "visual": {
     "path": "visual.png",
     "alt": "Press crossed out; printers building printers"
