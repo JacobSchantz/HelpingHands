@@ -1,0 +1,100 @@
+{
+  "no_handles": true,
+  "finger_lineage": {
+    "builds_on": "Gripper 24",
+    "gist": "Gripper 24 with smaller pivot, integral short hex boss and no handles"
+  },
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#efb83b",
+      "explode": [
+        -15.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#efb83b",
+      "explode": [
+        15.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left drive gear \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#26272b",
+      "explode": [
+        -15.0,
+        -20.0,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right drive gear \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#26272b",
+      "explode": [
+        15.0,
+        -20.0,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#26272b",
+      "explode": [
+        0.0,
+        -20.0,
+        -15.0
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#26272b",
+      "explode": [
+        0.0,
+        -32.5,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/top_plate.stl",
+      "name": "Top plate \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#26272b",
+      "explode": [
+        0.0,
+        22.5,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#a3a8ad",
+      "explode": [
+        0.0,
+        -47.5,
+        0.0
+      ]
+    },
+    {
+      "path": "exports/parts/stock_plate.stl",
+      "name": "Stock aluminum spline plate \u2014 Base 20 compact overhead HLS3606M drive, Gripper 25",
+      "color": "#a3a8ad",
+      "explode": [
+        0,
+        -30,
+        0
+      ]
+    }
+  ],
+  "preview": "previews/comparison.png"
+}

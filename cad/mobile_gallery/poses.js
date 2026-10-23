@@ -7,6 +7,7 @@ export default {
     {"match": "^Right", "pivot": [31.35, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1},
     {"match": "^Pinion", "pivot": [4.906439295, 0, -37.765318512], "sign": -2.125}]},
+  "two-finger-gripper-v321-generalist-compact-overhead": {"exported": 15, "min": 0, "max": 30, "uniform_scale": true, "hinges": [{"match": "^Right", "pivot": [15.675, 0, 0], "sign": 1}, {"match": "^Left", "pivot": [-15.675, 0, 0], "sign": -1}, {"match": "^(Pinion|Stock aluminum)", "pivot": [15.675, 0, -28.215], "sign": -1.25}]},
   "two-finger-gripper-v319-generalist-hls3606m": {"exported": 15, "min": 0, "max": 30, "uniform_scale": true, "hinges": [{"match": "^Right", "pivot": [15.675, 0, 0], "sign": 1}, {"match": "^Left", "pivot": [-15.675, 0, 0], "sign": -1}, {"match": "^(Pinion|Stock aluminum)", "pivot": [15.675, 0, -28.215], "sign": -1.25}]},
   "two-finger-gripper-v318-generalist-tiny-v2": {"exported": 15, "min": 0, "max": 30, "uniform_scale": true, "hinges": [{"match": "^Right", "pivot": [15.675, 0, 0], "sign": 1}, {"match": "^Left", "pivot": [-15.675, 0, 0], "sign": -1}, {"match": "^Pinion", "pivot": [15.675, 0, -28.215], "sign": -1.25}]},
   "two-finger-gripper-v317-generalist-micro-tweezers": {"exported": 0, "min": 0, "max": 9, "hinges": [

@@ -1,0 +1,434 @@
+{
+  "tool_access": {
+    "passed": true,
+    "straight_case_access_passed": false,
+    "straight_case_overlap_mm3": 5.30383099428755,
+    "near_ear_driver_tilt_deg": 10,
+    "failures": [],
+    "angles": 121,
+    "shaft_d_mm": 2.5,
+    "length_mm": 45,
+    "limitation": "Driver shaft envelopes: near ear screws require 10 degree tilt; straight access fails. Physical engagement of tilted PH0 driver unverified. Install plate/spline retaining screw before pinion; finger bosses seat before cap. Physical tool handles, resin fits and real cable bend unverified."
+  },
+  "clearances": {
+    "passed": true,
+    "finger_band_y_mm": [
+      -3.0,
+      3.0
+    ],
+    "gear_to_band_gap_mm": 0.7999999523162842,
+    "hardware": [
+      {
+        "part": "motor",
+        "rigid_inversion_error_mm": 3.814697265625e-06,
+        "passed": true
+      },
+      {
+        "part": "stock_plate",
+        "rigid_inversion_error_mm": 4.76837158203125e-07,
+        "passed": true
+      },
+      {
+        "part": "pinion",
+        "rigid_inversion_error_mm": 2.384185791015625e-07,
+        "passed": true
+      }
+    ],
+    "description": "Teeth entirely above band; only smaller finger roots and 3 mm pivot posts enter band; short hex bosses couple overhead gears. No long transmission shafts."
+  },
+  "hardware_controls": {
+    "passed": true,
+    "unscaled_hardware": true,
+    "case_ear_screw_engagement_mm": 4.5,
+    "case_pilot_tip_clearance_mm": 0.2999999999999998
+  },
+  "meshes": [
+    {
+      "path": "exports/parts/left.stl",
+      "passed": true,
+      "genus": 33,
+      "volume_mm3": 1541.722077703369,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "passed": true,
+      "genus": 33,
+      "volume_mm3": 1541.722077703369,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 1133.7094804623841,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 2436.8952058805953,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "passed": true,
+      "genus": 4,
+      "volume_mm3": 3530.431388763358,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 11479.882460908664,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/parts/top_plate.stl",
+      "passed": true,
+      "genus": 3,
+      "volume_mm3": 6738.991111310079,
+      "min_print_z_mm": null
+    },
+    {
+      "path": "exports/print/left.stl",
+      "passed": true,
+      "genus": 33,
+      "volume_mm3": 1541.7221369438073,
+      "min_print_z_mm": 8.881784197001252e-16
+    },
+    {
+      "path": "exports/print/right.stl",
+      "passed": true,
+      "genus": 33,
+      "volume_mm3": 1541.7221369438073,
+      "min_print_z_mm": 8.881784197001252e-16
+    },
+    {
+      "path": "exports/print/left_gear.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 1133.7094457157318,
+      "min_print_z_mm": 0.0
+    },
+    {
+      "path": "exports/print/right_gear.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 2436.895148511083,
+      "min_print_z_mm": 0.0
+    },
+    {
+      "path": "exports/print/pinion.stl",
+      "passed": true,
+      "genus": 4,
+      "volume_mm3": 3530.4311536692817,
+      "min_print_z_mm": 0.0
+    },
+    {
+      "path": "exports/print/base.stl",
+      "passed": true,
+      "genus": 1,
+      "volume_mm3": 11479.882489758222,
+      "min_print_z_mm": 0.0
+    },
+    {
+      "path": "exports/print/top_plate.stl",
+      "passed": true,
+      "genus": 3,
+      "volume_mm3": 6738.990576014174,
+      "min_print_z_mm": 0.0
+    }
+  ],
+  "fidelity": [
+    {
+      "part": "left",
+      "passed": true,
+      "distal_surface_error_mm": 2.0847770676096766e-12,
+      "region": "Exported Z > 40 mm, beyond the retired handle hooks"
+    },
+    {
+      "part": "right",
+      "passed": true,
+      "distal_surface_error_mm": 2.0847770676096766e-12,
+      "region": "Exported Z > 40 mm, beyond the retired handle hooks"
+    }
+  ],
+  "lattice": {
+    "passed": true,
+    "minimum_plan_ligament_mm": 0.4047255892852292,
+    "required_mm": 0.4,
+    "process": "Fine resin prototype allowance; not ordinary FDM or a strength rating."
+  },
+  "overall_envelope": {
+    "x_y_z_bounds_mm": [
+      [
+        -35.01615103627406,
+        35.01615103627406
+      ],
+      [
+        -6.300000190734863,
+        46.900001525878906
+      ],
+      [
+        -51.04999923706055,
+        63.464080044131876
+      ]
+    ],
+    "width_depth_height_mm": [
+      70.03230207254812,
+      53.20000171661377,
+      114.51407928119242
+    ],
+    "per_part_bounds": {
+      "left": [
+        [
+          -35.01615103627406,
+          -0.0009777650806963578
+        ],
+        [
+          -3.0,
+          6.300000190734863
+        ],
+        [
+          -3.500000129799766,
+          63.464080044131876
+        ]
+      ],
+      "right": [
+        [
+          0.0009777650806963578,
+          35.01615103627406
+        ],
+        [
+          -3.0,
+          6.300000190734863
+        ],
+        [
+          -3.500000129799766,
+          63.464080044131876
+        ]
+      ],
+      "left_gear": [
+        [
+          -20.175000897714863,
+          1.0450000124228251
+        ],
+        [
+          3.799999952316284,
+          11.5
+        ],
+        [
+          -9.611275367919264,
+          10.051806704831733
+        ]
+      ],
+      "right_gear": [
+        [
+          -1.0450000124228271,
+          25.286276123817405
+        ],
+        [
+          3.799999952316284,
+          11.5
+        ],
+        [
+          -16.7200004391221,
+          9.611275367919264
+        ]
+      ],
+      "pinion": [
+        [
+          2.0899998788148064,
+          29.260000762442505
+        ],
+        [
+          3.799999952316284,
+          13.800000190734863
+        ],
+        [
+          -41.80000158316806,
+          -14.62999962413833
+        ]
+      ],
+      "base": [
+        [
+          -25.0,
+          30.760000228881836
+        ],
+        [
+          -4.150000095367432,
+          24.899999618530273
+        ],
+        [
+          -51.04999923706055,
+          3.5
+        ]
+      ],
+      "top_plate": [
+        [
+          -25.0,
+          30.760000228881836
+        ],
+        [
+          -6.300000190734863,
+          -3.299999952316284
+        ],
+        [
+          -51.04999923706055,
+          3.75
+        ]
+      ],
+      "motor": [
+        [
+          9.675000190734863,
+          21.67500114440918
+        ],
+        [
+          15.0,
+          46.900001525878906
+        ],
+        [
+          -38.42499923706055,
+          -6.42500114440918
+        ]
+      ],
+      "stock_plate": [
+        [
+          6.674999833013757,
+          24.67500173858937
+        ],
+        [
+          13.799999237060547,
+          18.299999237060547
+        ],
+        [
+          -37.215001774265545,
+          -19.214998914180065
+        ]
+      ],
+      "plate_screws": [
+        [
+          9.579665308668137,
+          23.473485741231087
+        ],
+        [
+          9.949999809265137,
+          13.800000190734863
+        ],
+        [
+          -36.013484998236706,
+          -20.3611896759461
+        ]
+      ],
+      "case_screws": [
+        [
+          10.175000190734863,
+          21.174999237060547
+        ],
+        [
+          24.899999618530273,
+          28.399999618530273
+        ],
+        [
+          -38.17499923706055,
+          -6.675000190734863
+        ]
+      ],
+      "cap_screws": [
+        [
+          -23.0,
+          23.0
+        ],
+        [
+          -6.300000190734863,
+          -3.299999952316284
+        ],
+        [
+          -49.04999923706055,
+          -43.04999923706055
+        ]
+      ],
+      "center_screw": [
+        [
+          13.1749997802458,
+          18.17500058097939
+        ],
+        [
+          11.739999771118164,
+          13.800000190734863
+        ],
+        [
+          -30.7150008487166,
+          -25.714999455805778
+        ]
+      ],
+      "cable": [
+        [
+          11.675000190734863,
+          19.674999237060547
+        ],
+        [
+          24.899999618530273,
+          34.900001525878906
+        ],
+        [
+          -6.425000190734863,
+          11.574999809265137
+        ]
+      ]
+    },
+    "method": "Analytic continuous X/Z vertex extrema, fixed Y; includes real servo, screw probes and cable clearance."
+  },
+  "gear_phase_control": {
+    "passed": true,
+    "wrong_pinion_phase_overlap_mm3": 16.7523875776442,
+    "description": "A 4 degree phase error intersects the right gear; correct full motion has no penetrating tooth volume."
+  },
+  "fasteners": {
+    "passed": true,
+    "plate_grip_mm": 2.2499992847442627,
+    "plate_engagement_mm": 1.7500007152557373,
+    "plate": "3 \u00d7 M2\u00d74, reuses 2 mm disk threaded thickness; actual thread depth unmeasured"
+  },
+  "motion_collisions": {
+    "passed": true,
+    "step_deg": 0.25,
+    "angles": 121,
+    "pairs_per_angle": 91,
+    "failures": [],
+    "worst": {
+      "pinion/stock_plate": {
+        "volume_mm3": 2.113239047665966e-05,
+        "angle_deg": 25.0
+      },
+      "base/top_plate": {
+        "volume_mm3": 2.8900493109773606e-15,
+        "angle_deg": 0.0
+      },
+      "motor/case_screws": {
+        "volume_mm3": 3.495027346960694e-16,
+        "angle_deg": 0.0
+      },
+      "stock_plate/plate_screws": {
+        "volume_mm3": 2.0016145113177995e-12,
+        "angle_deg": 29.75
+      },
+      "stock_plate/center_screw": {
+        "volume_mm3": 3.1706077756916402e-06,
+        "angle_deg": 29.75
+      },
+      "pinion/plate_screws": {
+        "volume_mm3": 2.1559157375188058e-15,
+        "angle_deg": 20.75
+      },
+      "motor/stock_plate": {
+        "volume_mm3": 3.755161329457857e-15,
+        "angle_deg": 24.5
+      }
+    },
+    "limitation": "Sampled 0\u201330 degree stroke, not continuous collision proof. Probes omit intentional spline/thread engagement; center probe covers only exposed retaining head. No pair exclusions. Volume tolerance 0.0001 mm^3 covers STL face rounding at seated planes."
+  }
+}

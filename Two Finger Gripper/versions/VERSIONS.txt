@@ -151,3 +151,11 @@ The base's fixed posts become bored shaft journals; the original cap supports th
 Full 0–30 degree jaw stroke, 34:16 ratio and actual STS3215 rail/horn interfaces retained; horn hole phase corrected to CAD's 45 degrees.
 No new Handle interface: the cradles remain integral Base parts. Side comparison, parameters, STLs and sampled motion/tool checks are in the folder.
 CAD prototype only; long-shaft bending, resin/FDM process, bearing friction, screw pullout, real cable bend, whole-arm motion and hand ergonomics unverified.
+
+v321_generalist_compact_overhead — Base 20 (voice-550038ca), Gripper 25: Base 18 with inverted HLS3606M-C001 drive immediately above compact fingers, no handles or handle interface.
+Gripper 25 builds on Gripper 24: same curved lattice working outline, 7 mm pivot root (was 10), 3 mm post (was 6), short integral hex boss into separate overhead gear.
+Gear teeth start 0.8 mm above the measured 6 mm finger band, 2.5 mm hex engagement, 0.15 mm radial key allowance; purchased motor and spline plate rigidly inverted, never scaled.
+Seven printed parts. No long shafts, separate shaft retainers or strap cradles. Thumb/index contact opposing OUTSIDE faces directly; no hand fixture in grasp gap.
+30:30:24 involute gears, 0–30 degree jaw stroke; actual M2 ear/plate screws, cap M3 and spline center screw retained. 53.20 mm total Y stack including assumed cable corridor, 114.514 mm along fingers.
+This deliberately follows compact Base 18 rather than full-size Base 19; hand-held only, no SO-101/Mount 2 wrist interface or legacy Handle/Gripper compatibility claimed.
+CAD motion, straight and angled driver access and mesh checks (two ear screws require 10 degree driver tilt, physical engagement unverified); physical ergonomics, resin key/post strength, spline/threads, printing and cable bend unverified. Fit study voice-3f6ae8e1 owns hand overlay; this item owns CAD/catalog.
