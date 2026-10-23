@@ -1,0 +1,21 @@
+{
+  "id": "voice-550038ca",
+  "commit_id": "",
+  "description": "Create a NEW version of the Generalist Gripper assembly used with SO-101 Arm 2 / Mount 2. Jake wants the finger/gripper working plane as clear as possible: his thumb/index finger and gripper fingers occupy that roughly 10\u201320mm vertical band (illustrative, measure actual geometry; not a fixed dimension). Relocate servo, drive gears and as much supporting hardware as feasible UP ABOVE the human hand/finger plane, separating the drivetrain plane from the gripper finger plane. Preserve geared actuation, useful opening/stroke, and real servo/horn/fastener interfaces. Use vertical shafts/posts or another justified transmission arrangement to reach the fingers, minimize obstructions in their plane, and check full motion plus screw/tool/cable access. This is a separate new SO-101-compatible version, not the concurrent HLS3606M small-servo task voice-d01680be. Identify correct newest compatible SO-101 base/gripper source, preserve Arm 2 / Mount 2 interface, bump only changed part counters, preserve existing versions. Publish live preview with side-view comparison highlighting occupied finger band and overhead drivetrain. Parameterize clearances; report CAD vs unverified physical ergonomics/strength. Coordinate with other HelpingHands worker before editing shared catalog or version registry. Use GPT-6.1 Sol medium.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-23T14:01:28.000Z",
+  "updated_at": "2026-10-23T14:01:28.000Z",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": ""
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
