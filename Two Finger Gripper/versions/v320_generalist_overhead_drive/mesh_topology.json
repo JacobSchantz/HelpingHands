@@ -1,0 +1,58 @@
+[
+  {
+    "part": "base",
+    "genus": 9
+  },
+  {
+    "part": "bracket",
+    "genus": 6
+  },
+  {
+    "part": "hub",
+    "genus": 5
+  },
+  {
+    "part": "left",
+    "genus": 32
+  },
+  {
+    "part": "left_driver",
+    "genus": 3
+  },
+  {
+    "part": "left_gear",
+    "genus": 0
+  },
+  {
+    "part": "left_washer",
+    "genus": 1
+  },
+  {
+    "part": "pinion",
+    "genus": 4
+  },
+  {
+    "part": "right",
+    "genus": 32
+  },
+  {
+    "part": "right_driver",
+    "genus": 3
+  },
+  {
+    "part": "right_gear",
+    "genus": 0
+  },
+  {
+    "part": "right_washer",
+    "genus": 1
+  },
+  {
+    "part": "tool_plate",
+    "genus": 8
+  },
+  {
+    "part": "top_plate",
+    "genus": 3
+  }
+]

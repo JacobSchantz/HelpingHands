@@ -142,3 +142,12 @@ Pinion bolts to three original spool attachment holes (M2x4). Four M2x6 self-tap
 Ear pilots are short slots covering 0.25 mm manufacturer/CAD hole-location discrepancy. Servo points toward pivots, below base, with cable service corridor.
 Continuous envelope 70.032 W × 114.514 H × 46.400 D mm including assumed cable corridor; Base 17 was 62.900 mm deep. Fine-resin CAD prototype only.
 No separate Handle or wrist mount compatibility. Physical servo/fastener fit, cable bend, standoff pullout and force unverified; no load rating or physical actuation.
+
+v320_generalist_overhead_drive — Base 19 (voice-550038ca), Gripper 22, Arm 2, Mount 2: Base 15 with the STS3215 drivetrain above the finger working plane.
+Builds on newest full-size wrist-compatible Base 15 / Gripper 22; miniature Bases 16–18 lack this interface. Gripper 22, Arm 2 and Mount 2 unchanged.
+Actual finger slab is 12 mm thick; overhead_gap 8 mm reserves clearance above it including the inherited cable corridor. Lift 77.1 mm is derived from the servo/cable stack.
+Two overhead involute sectors drive stepped vertical shafts into removable hex-keyed original-size strap cradles, retained by washers and M3 screws below.
+The base's fixed posts become bored shaft journals; the original cap supports the upper tips. Extended wrist-bracket foot reaches the existing Mount 2 tool plate at its unchanged location.
+Full 0–30 degree jaw stroke, 34:16 ratio and actual STS3215 rail/horn interfaces retained; horn hole phase corrected to CAD's 45 degrees.
+No new Handle interface: the cradles remain integral Base parts. Side comparison, parameters, STLs and sampled motion/tool checks are in the folder.
+CAD prototype only; long-shaft bending, resin/FDM process, bearing friction, screw pullout, real cable bend, whole-arm motion and hand ergonomics unverified.

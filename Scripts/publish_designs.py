@@ -176,6 +176,8 @@ def discover(repo=REPO):
             if parts_file.is_file():
                 part_data = json.loads(parts_file.read_text())
                 parts = part_data['parts']
+                if part_data.get('preview'):
+                    row['existing_preview'] = inside(folder / part_data['preview'], repo)
                 row['no_handles'] = bool(part_data.get('no_handles'))
                 row['finger_lineage'] = part_data.get('finger_lineage')
                 row['existing'] = [dict(path=inside(folder / p['path'], repo), name=p['name'],
@@ -249,7 +251,8 @@ def discover(repo=REPO):
                    "two-finger-gripper-v316-generalist-post-cap": "Base 15",
                    "two-finger-gripper-v317-generalist-micro-tweezers": "Base 16",
                    "two-finger-gripper-v318-generalist-tiny-v2": "Base 17",
-                   "two-finger-gripper-v319-generalist-hls3606m": "Base 18"}   # v315 leads with Mount 2: "Mount 2 assembly" below
+                   "two-finger-gripper-v319-generalist-hls3606m": "Base 18",
+                   "two-finger-gripper-v320-generalist-overhead-drive": "Base 19"}   # v315 leads with Mount 2: "Mount 2 assembly" below
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',
@@ -433,6 +436,8 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     asset.mkdir(parents=True, exist_ok=True)
     deps = dependencies(source, repo)
     docs = documentation(row, repo)
+    if row.get('existing_preview'):
+        docs.append(row['existing_preview'])
     files = sorted(set(deps + docs))
     h = hashlib.sha256(json.dumps([CACHE_VERSION, row['defines']]).encode())
     for p in deps:
@@ -462,7 +467,9 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
     if previous_models and all((out / m['path']).is_file() for m in previous_models):
         public['models'] = previous_models
         public['last_success_at'] = cache.get('last_success_at')
-    previous_preview = out / cache['preview'] if cache.get('preview') else asset / 'preview.png'
+    if row.get('existing_preview'):
+        copy_changed(row['existing_preview'], asset / 'preview.png')
+    previous_preview = asset / 'preview.png' if row.get('existing_preview') else out / cache['preview'] if cache.get('preview') else asset / 'preview.png'
     if previous_preview.is_file():
         public['preview'] = url(previous_preview)
     for p in files:
@@ -511,7 +518,7 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
             public['models'] = [dict(name=public['name'], path=url(mesh), kind=kind, color='#aab6c8')]
         for model in public['models']:
             compact_stl(out / model['path'])
-        if (not cached or not preview.exists()) and build:
+        if (not cached or not preview.exists()) and build and not row.get('existing_preview'):
             # Preview the very same exported geometry the mobile viewer loads.
             wrapper = asset / '_preview.scad'
             wrapper.write_text('\n'.join('import(' + json.dumps(str(out / m['path'])) + ');' for m in public['models']))
@@ -519,7 +526,7 @@ def publish_entry(row, out, repo=REPO, build=True, timeout=180):
                 run_scad(wrapper, preview, [], timeout, preview=True)
             finally:
                 wrapper.unlink(missing_ok=True)
-        if preview.is_file():
+        if preview.is_file() and not row.get('existing_preview'):
             public['preview'] = url(preview)
         public['export_status'] = 'ready'
         public['last_success_at'] = (cache.get('last_success_at') if cached else None) or datetime.now(timezone.utc).isoformat()

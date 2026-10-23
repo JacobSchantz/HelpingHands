@@ -3,6 +3,10 @@ export default {
   "two-finger-gripper-v008-pollen-grabette": {"exported": 90, "min": 0, "max": 90, "single_finger": true, "hinges": [
     {"match": "^Grabette finger", "pivot": [0, 0, 0], "sign": 1},
     {"match": "^Gripette finger", "pivot": [320, 0, 0], "sign": 1}]},
+  "two-finger-gripper-v320-generalist-overhead-drive": {"exported": 15, "min": 0, "max": 30, "hinges": [
+    {"match": "^Right", "pivot": [31.35, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1},
+    {"match": "^Pinion", "pivot": [4.906439295, 0, -37.765318512], "sign": -2.125}]},
   "two-finger-gripper-v319-generalist-hls3606m": {"exported": 15, "min": 0, "max": 30, "uniform_scale": true, "hinges": [{"match": "^Right", "pivot": [15.675, 0, 0], "sign": 1}, {"match": "^Left", "pivot": [-15.675, 0, 0], "sign": -1}, {"match": "^(Pinion|Stock aluminum)", "pivot": [15.675, 0, -28.215], "sign": -1.25}]},
   "two-finger-gripper-v318-generalist-tiny-v2": {"exported": 15, "min": 0, "max": 30, "uniform_scale": true, "hinges": [{"match": "^Right", "pivot": [15.675, 0, 0], "sign": 1}, {"match": "^Left", "pivot": [-15.675, 0, 0], "sign": -1}, {"match": "^Pinion", "pivot": [15.675, 0, -28.215], "sign": -1.25}]},
   "two-finger-gripper-v317-generalist-micro-tweezers": {"exported": 0, "min": 0, "max": 9, "hinges": [
@@ -10,7 +14,8 @@ export default {
     {"match": "^Left", "pivot": [0, 0, 0], "sign": -1}]},
   "two-finger-gripper-v316-generalist-post-cap": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [31.35, 0, 0], "sign": 1},
-    {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1}]},
+    {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1},
+    {"match": "^Pinion", "pivot": [4.906439295, 0, -37.765318512], "sign": -2.125}]},
   "two-finger-gripper-v315-generalist-so101-mount": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [31.35, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1}]},
