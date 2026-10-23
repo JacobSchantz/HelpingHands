@@ -167,3 +167,13 @@ Steel M2x25 screws reinforce 3 mm OD printed sleeves (2.2 mm bore); two 5 mm was
 Projected support material in Y=-3..3 falls from 103.808 to 12.799 mm2, excluding jaws; conservative outer pivot discs total 14.114 mm2. Broad lower plate area is zero; local washer/head footprint remains below band.
 Unchanged inverted HLS3606M, purchased spline plate, 30:30:24 gears, 0–30 degree stroke and 0.8 mm overhead tooth gap. Hand-held only: no legacy handles or SO-101/Mount 2 interface.
 121 sampled motion poses plus hardware/tool checks and axial-retention escape controls. Whole-reference-hand animation/tests exist but FAIL reach/skin screening; this is not ergonomically accepted or strength-qualified. See cad/validation/voice-550038ca.
+
+
+v323_generalist_centered_drive — Base 22 (voice-550038ca), Gripper 26: Base 21 with centered HLS3606M motor, 19.6 mm pivot spacing and integral jaw sectors.
+Gripper 26 builds on Gripper 25: unchanged traced working outline/lattice, re-toed for closer pivots and 0.2 mm closed-tip allowance, integral stepped sectors replacing two separate keyed gears.
+Four actual printed parts (was six); 20 discrete printed/purchased parts (was 22), with all screws, washers and nuts included in the manifest/exploded view.
+Motor output and case mid-width are on X=0; main jaw solids mirror in their 6 mm finger band. Lower gears counter-rotate; upper right-only sector meshes the centered pinion without driving both jaws the same way.
+30:30:42 involute gears; original 0–30 degree jaw stroke, 21.43 degree servo travel. Split 7.7 mm tooth slab retains 0.8 mm overhead gap and original overall Y stack.
+Rear finger clearance minimum 0.827 mm at closed pose; 19.5 mm pivot spacing fails the 0.8 mm assumed manufacturing/deflection budget. Continuous rear-outline extrema plus sampled full-body motion, not strength certification or a global minimum.
+Two original 3 mm sleeves, M2x25 bolts, local washers and overhead nuts retain the jaws; no lower plate, large handles or SO-101/Mount 2 bracket. Hand-held branch retained as requested in subsequent steering.
+CAD tools/retention/full motion tested; actual cable routing, angled PH0 engagement, resin print/strength and human ergonomics unverified. Whole-hand skin/reach screening remains a separate explicit acceptance result, never inferred from CAD pass.

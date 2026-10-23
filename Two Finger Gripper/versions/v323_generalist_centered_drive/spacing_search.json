@@ -1,0 +1,31 @@
+{
+  "candidates": [
+    {
+      "pivot_spacing_mm": 19,
+      "minimum_gap_mm": 0.3159431219100952,
+      "angle_deg": 0.0,
+      "passed": false
+    },
+    {
+      "pivot_spacing_mm": 19.4,
+      "minimum_gap_mm": 0.6560124158859253,
+      "angle_deg": 0.0,
+      "passed": false
+    },
+    {
+      "pivot_spacing_mm": 19.5,
+      "minimum_gap_mm": 0.7412359118461609,
+      "angle_deg": 0.0,
+      "passed": false
+    },
+    {
+      "pivot_spacing_mm": 19.6,
+      "minimum_gap_mm": 0.8265089392662048,
+      "angle_deg": 0.0,
+      "passed": true
+    }
+  ],
+  "chosen_mm": 19.6,
+  "resolution_mm": 0.1,
+  "qualification": "Smallest passing 0.1 mm pitch in this re-exported bracket for inherited jaw outline, 0\u201330 degree stroke and 0.8 mm assumed tolerance/deflection budget. Further root reshaping was not searched; not a global minimum."
+}
