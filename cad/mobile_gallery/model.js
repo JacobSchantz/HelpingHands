@@ -103,7 +103,8 @@ export function buildMix(catalog, picks, which = MIX, changed = null) {
   }
   // A Base whose own parts include a handle-gear (Base 8 on: the geared pieces are the handles) carries its handles, so the Handle
   // row sits out while it is chosen and no second handle is drawn (the pick waits for another Base).
-  const handlesInBase = !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
+  // Miniature bases explicitly declare no_handles when the shared full-size handle interface cannot fit.
+  const handlesInBase = !!chosen.base?.design.no_handles || !!chosen.base?.models.some(model => HANDLE_GEAR.test(part(model)));
   if (handlesInBase) chosen.handles = null;
   const follows = [], settle = changed || (which.parts.some(key => state[key] === null) ? first : null);
   if (settle) for (const flag of mixFlags(chosen)) {
@@ -127,7 +128,7 @@ export function buildMix(catalog, picks, which = MIX, changed = null) {
     .map(model => AERO_PLATE.test(part(model)) ? shift(model) : model)};
   const flags = mixFlags(chosen), shownOn = flag => flag.key === changed ? flag.other : flag.key;
   const rows = which.parts.map(key => ({key, label:LABELS[key], chosen:chosen[key], options:options[key], optional:key !== first,
-    sitsOut:key === 'handles' && handlesInBase ? 'Handle in Base' : '',
+    sitsOut:key === 'handles' && handlesInBase ? (chosen.base?.design.no_handles ? 'No handle interface' : 'Handle in Base') : '',
     notes:[...follows.filter(item => item.key === key).map(item => ({text:item.text, follow:true})),
            ...flags.filter(flag => shownOn(flag) === key).map(flag => ({text:flag.text}))]}));
   // Handles, arms and gears ride the gripper's hinges (poses.js, keyed by the gripper's design). A Base whose fingers slide

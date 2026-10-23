@@ -118,7 +118,7 @@ def lineage(folder):
 
 def public_fields(row):
     fields = {k: row[k] for k in ('id', 'project', 'version', 'name', 'status', 'notes', 'license')}
-    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist', 'on_mount', 'tool_plate'):
+    for key in ('fingers', 'carries', 'fits', 'builds_on', 'gist', 'on_mount', 'tool_plate', 'no_handles'):
         if row.get(key):
             fields[key] = row[key]
     return fields
@@ -174,7 +174,9 @@ def discover(repo=REPO):
                 row['existing'] = [dict(path=assembly, name='OpenSCAD assembly')]
             parts_file = folder / 'viewer_parts.json'
             if parts_file.is_file():
-                parts = json.loads(parts_file.read_text())['parts']
+                part_data = json.loads(parts_file.read_text())
+                parts = part_data['parts']
+                row['no_handles'] = bool(part_data.get('no_handles'))
                 row['existing'] = [dict(path=inside(folder / p['path'], repo), name=p['name'],
                                         color=p.get('color'), explode=p.get('explode', [0, 0, 0]))
                                    for p in parts]
@@ -243,7 +245,8 @@ def discover(repo=REPO):
                    "two-finger-gripper-v312-generalist-compact-drive": "Base 12",
                    "two-finger-gripper-v313-generalist-aero-full-hand": "Base 13",
                    "two-finger-gripper-v314-generalist-sts-arm-mount": "Base 14",
-                   "two-finger-gripper-v316-generalist-post-cap": "Base 15"}   # v315 leads with Mount 2: "Mount 2 assembly" below
+                   "two-finger-gripper-v316-generalist-post-cap": "Base 15",
+                   "two-finger-gripper-v317-generalist-micro-tweezers": "Base 16"}   # v315 leads with Mount 2: "Mount 2 assembly" below
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',

@@ -118,3 +118,10 @@ socket over each pivot post's tip holds the axle's top end, and 2 countersunk M3
 grooves are gone. Gripper 22 is Gripper 21 with its base J-hook (which lay over the pivot) replaced by a loop round the post (loop_r 10),
 concentric with the handle-gear's hub, so finger and handle-gear share the round hub and both turn on the post (two honeycomb holes that
 would cut the loop dropped). Older Grippers cover the post and do not fit Base 15. Mount 1 and the STS3215 seat unchanged. 10 printed + STS3215 + 25 screws (Base 14's).
+v317_generalist_micro_tweezers — Base 16 (voice-dd73161d), Gripper 23: Base 15 reduced to a purpose-designed miniature geared tweezer study on the STS3215.
+Gripper 23 builds on Gripper 22. Preserves the captured axle/plain-cap architecture and involute tooth construction; uses two 20-tooth module-0.38 gears, one driven directly through
+the stock 20 mm horn, the other counter-rotating 1:1. Gripper 23 replaces Gripper 22's large loop finger with a 42 mm slender integral geared jaw.
+All fixed and moving parts fit inside the servo's 24.8 mm narrow case width over 0–9 degrees per jaw. Closed rounded tips touch; maximum opening
+about 13 mm. Base 16 is a standalone miniature prototype, not compatible with full-size Handles or Grippers 1–22, and has no arm mount.
+Fine resin or machined parts; not ordinary FDM or force-qualified. Exact servo and fastener dimensions retained, not scaled. Five printed parts plus servo and screws.
+Hardware head and cable envelopes included; exact continuous vertex extrema prove width over the commanded stroke. The horn uses CAD-correct 45 degree holes and flush countersunk screws; no mechanical stops or strength rating.

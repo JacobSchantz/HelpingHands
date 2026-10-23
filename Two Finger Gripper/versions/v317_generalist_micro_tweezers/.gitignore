@@ -1,0 +1,4 @@
+# This small, reviewable prototype ships its generated CAD for fresh checkouts.
+!exports/assembly.stl
+!exports/parts/*.stl
+!exports/print/*.stl

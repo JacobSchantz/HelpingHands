@@ -1,0 +1,400 @@
+{
+  "continuous_envelope": {
+    "passed": true,
+    "method": "Analytic extrema of every STL vertex over continuous rotation; includes modeled screw heads and cable keep-out.",
+    "stroke_deg": [
+      0,
+      9
+    ],
+    "per_part_x_mm": {
+      "base": [
+        -12.199999809265137,
+        12.199999809265137
+      ],
+      "cable": [
+        -11.199999809265137,
+        11.199999809265137
+      ],
+      "cap": [
+        -12.199999809265137,
+        12.199999809265137
+      ],
+      "cap_heads": [
+        -12.0,
+        12.0
+      ],
+      "case_heads": [
+        -12.25,
+        12.25
+      ],
+      "coupler": [
+        -9.75,
+        9.75
+      ],
+      "horn_heads": [
+        -8.760729028517675,
+        8.760729028517675
+      ],
+      "left": [
+        -4.179999766756598,
+        4.179999766756598
+      ],
+      "motor": [
+        -12.399999618530273,
+        12.399999618530273
+      ],
+      "right": [
+        3.4199999543522392,
+        11.779999856607217
+      ]
+    },
+    "width_mm": 24.799999237060547
+  },
+  "servo_width_mm": 24.8,
+  "sweep": [
+    {
+      "angle": 0.0,
+      "left_x": [
+        -4.17883,
+        4.17883
+      ],
+      "right_x": [
+        3.45713,
+        11.74287
+      ],
+      "coupler_x": [
+        -9.75,
+        9.75
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 0.5,
+      "left_x": [
+        -4.17953,
+        4.17953
+      ],
+      "right_x": [
+        3.45244,
+        11.74756
+      ],
+      "coupler_x": [
+        -9.74963,
+        9.74963
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 1.0,
+      "left_x": [
+        -4.17992,
+        4.17992
+      ],
+      "right_x": [
+        3.44806,
+        11.75194
+      ],
+      "coupler_x": [
+        -9.74852,
+        9.74852
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 1.5,
+      "left_x": [
+        -4.17999,
+        4.17999
+      ],
+      "right_x": [
+        3.444,
+        11.756
+      ],
+      "coupler_x": [
+        -9.74666,
+        9.74666
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 2.0,
+      "left_x": [
+        -4.17974,
+        4.17974
+      ],
+      "right_x": [
+        3.44025,
+        11.75975
+      ],
+      "coupler_x": [
+        -9.74406,
+        9.74406
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 2.5,
+      "left_x": [
+        -4.17917,
+        4.17917
+      ],
+      "right_x": [
+        3.43683,
+        11.76317
+      ],
+      "coupler_x": [
+        -9.74072,
+        9.74072
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 3.0,
+      "left_x": [
+        -4.17828,
+        4.17828
+      ],
+      "right_x": [
+        3.43371,
+        11.76628
+      ],
+      "coupler_x": [
+        -9.73977,
+        9.73977
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 3.5,
+      "left_x": [
+        -4.17708,
+        4.17708
+      ],
+      "right_x": [
+        3.43092,
+        11.76908
+      ],
+      "coupler_x": [
+        -9.74329,
+        9.74329
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 4.0,
+      "left_x": [
+        -4.17555,
+        4.17555
+      ],
+      "right_x": [
+        3.42844,
+        11.77155
+      ],
+      "coupler_x": [
+        -9.74608,
+        9.74608
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 4.5,
+      "left_x": [
+        -4.17371,
+        4.17371
+      ],
+      "right_x": [
+        3.42629,
+        11.77371
+      ],
+      "coupler_x": [
+        -9.74812,
+        9.74812
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 5.0,
+      "left_x": [
+        -4.17156,
+        4.17156
+      ],
+      "right_x": [
+        3.42445,
+        11.77555
+      ],
+      "coupler_x": [
+        -9.74942,
+        9.74942
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 5.5,
+      "left_x": [
+        -4.16908,
+        4.16908
+      ],
+      "right_x": [
+        3.42292,
+        11.77708
+      ],
+      "coupler_x": [
+        -9.74998,
+        9.74998
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 6.0,
+      "left_x": [
+        -4.16629,
+        4.16629
+      ],
+      "right_x": [
+        3.42172,
+        11.77828
+      ],
+      "coupler_x": [
+        -9.74979,
+        9.74979
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 6.5,
+      "left_x": [
+        -4.16317,
+        4.16317
+      ],
+      "right_x": [
+        3.42083,
+        11.77917
+      ],
+      "coupler_x": [
+        -9.74886,
+        9.74886
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 7.0,
+      "left_x": [
+        -4.15975,
+        4.15975
+      ],
+      "right_x": [
+        3.42026,
+        11.77974
+      ],
+      "coupler_x": [
+        -9.74719,
+        9.74719
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 7.5,
+      "left_x": [
+        -4.156,
+        4.156
+      ],
+      "right_x": [
+        3.42001,
+        11.77999
+      ],
+      "coupler_x": [
+        -9.74478,
+        9.74478
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 8.0,
+      "left_x": [
+        -4.15194,
+        4.15194
+      ],
+      "right_x": [
+        3.42008,
+        11.77992
+      ],
+      "coupler_x": [
+        -9.74162,
+        9.74162
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 8.5,
+      "left_x": [
+        -4.14756,
+        4.14756
+      ],
+      "right_x": [
+        3.42047,
+        11.77953
+      ],
+      "coupler_x": [
+        -9.73877,
+        9.73877
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    },
+    {
+      "angle": 9.0,
+      "left_x": [
+        -4.14287,
+        4.14287
+      ],
+      "right_x": [
+        3.42117,
+        11.77883
+      ],
+      "coupler_x": [
+        -9.74248,
+        9.74248
+      ],
+      "collision_jaws": 0,
+      "collision_frame": 0,
+      "collision_hardware": 0
+    }
+  ],
+  "passed": true,
+  "limitations": "CAD clearance only; no strength, print-tolerance or hardware fit validation."
+}

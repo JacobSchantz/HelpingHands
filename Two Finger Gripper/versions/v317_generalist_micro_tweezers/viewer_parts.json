@@ -1,0 +1,105 @@
+{
+  "no_handles": true,
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger \u2014 miniature tweezer \u2014 Gripper 23, integral 20-tooth gear",
+      "color": "#e7b842",
+      "explode": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger \u2014 miniature tweezer \u2014 Gripper 23, integral 20-tooth gear",
+      "color": "#e7b842",
+      "explode": [
+        0,
+        -10,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base 16 \u2014 narrow servo frame and captured follower axle",
+      "color": "#353e48",
+      "explode": [
+        0,
+        -20,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/cap.stl",
+      "name": "Base 16 cap \u2014 supports both gear axes",
+      "color": "#697581",
+      "explode": [
+        0,
+        -30,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/coupler.stl",
+      "name": "Left drive coupler \u2014 4 M3 into stock servo horn",
+      "color": "#cc8e32",
+      "explode": [
+        0,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/horn_heads.stl",
+      "name": "Left horn screws \u2014 four M3 countersunk, head envelope",
+      "color": "#999999",
+      "explode": [
+        0,
+        -50,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/case_heads.stl",
+      "name": "Case screws \u2014 four M2 head envelopes",
+      "color": "#999999",
+      "explode": [
+        0,
+        -60,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/cap_heads.stl",
+      "name": "Cap screws \u2014 two M2 head envelopes",
+      "color": "#999999",
+      "explode": [
+        0,
+        -70,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/cable.stl",
+      "name": "Cable plug and bend \u2014 keep-out, not printed",
+      "color": "#586b64",
+      "explode": [
+        0,
+        -80,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "STS3215 servo envelope \u2014 reference only, not printed",
+      "color": "#353535",
+      "explode": [
+        0,
+        -90,
+        0
+      ]
+    }
+  ]
+}

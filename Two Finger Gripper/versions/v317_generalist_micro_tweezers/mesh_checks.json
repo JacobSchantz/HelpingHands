@@ -1,0 +1,172 @@
+{
+  "cap_heads": {
+    "triangles": 504,
+    "watertight": true,
+    "volume_mm3": 50.1848,
+    "bounds": [
+      [
+        -12.0,
+        -16.1,
+        -20.0
+      ],
+      [
+        12.0,
+        -14.1,
+        -2.0
+      ]
+    ]
+  },
+  "coupler": {
+    "triangles": 2528,
+    "watertight": true,
+    "volume_mm3": 847.6099,
+    "bounds": [
+      [
+        -9.75,
+        -12.6,
+        -9.75
+      ],
+      [
+        9.75,
+        -2.8,
+        9.75
+      ]
+    ]
+  },
+  "horn_heads": {
+    "triangles": 1008,
+    "watertight": true,
+    "volume_mm3": 107.4581,
+    "bounds": [
+      [
+        -8.04975,
+        -6.2,
+        -8.04975
+      ],
+      [
+        8.04975,
+        -4.7,
+        8.04975
+      ]
+    ]
+  },
+  "motor": {
+    "triangles": 268,
+    "watertight": true,
+    "volume_mm3": 36682.4895,
+    "bounds": [
+      [
+        -12.4,
+        -2.8,
+        -35.2
+      ],
+      [
+        12.4,
+        31.8,
+        10.2
+      ]
+    ]
+  },
+  "case_heads": {
+    "triangles": 1008,
+    "watertight": true,
+    "volume_mm3": 100.3695,
+    "bounds": [
+      [
+        -12.25,
+        -10.5,
+        -31.0
+      ],
+      [
+        12.25,
+        -8.5,
+        -6.3
+      ]
+    ]
+  },
+  "cable": {
+    "triangles": 12,
+    "watertight": true,
+    "volume_mm3": 5456.64,
+    "bounds": [
+      [
+        -11.2,
+        31.8,
+        -30.0
+      ],
+      [
+        11.2,
+        45.8,
+        -12.6
+      ]
+    ]
+  },
+  "left": {
+    "triangles": 2204,
+    "watertight": true,
+    "volume_mm3": 246.6117,
+    "bounds": [
+      [
+        -4.17883,
+        -11.8,
+        -4.17883
+      ],
+      [
+        4.17883,
+        -8.8,
+        42.35
+      ]
+    ]
+  },
+  "base": {
+    "triangles": 3624,
+    "watertight": true,
+    "volume_mm3": 1992.1459,
+    "bounds": [
+      [
+        -12.2,
+        -12.6,
+        -32.0
+      ],
+      [
+        12.2,
+        0.0,
+        5.0
+      ]
+    ]
+  },
+  "cap": {
+    "triangles": 1044,
+    "watertight": true,
+    "volume_mm3": 1198.4958,
+    "bounds": [
+      [
+        -12.2,
+        -14.1,
+        -20.0
+      ],
+      [
+        12.2,
+        -12.1,
+        5.0
+      ]
+    ]
+  },
+  "right": {
+    "triangles": 2248,
+    "watertight": true,
+    "volume_mm3": 271.8444,
+    "bounds": [
+      [
+        3.45713,
+        -11.8,
+        -4.14287
+      ],
+      [
+        11.74287,
+        -8.8,
+        42.35
+      ]
+    ]
+  }
+}

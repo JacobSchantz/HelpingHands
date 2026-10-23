@@ -1,0 +1,631 @@
+{
+  "_about": "Base 16 / Gripper 23 miniature branch from Base 15 / Gripper 22: same captured axle/cap and involute gear method, purpose-designed narrow jaws and frame. No scaling of servo or fasteners. All dimensions in mm. Resin/machined light-load prototype; not a drop-in full-size handle interface.",
+  "groups": [
+    {
+      "name": "Miniature geared tweezers",
+      "params": [
+        {
+          "name": "servo_w",
+          "label": "Servo w",
+          "value": 24.8,
+          "min": 24.8,
+          "max": 24.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Narrowest case dimension from STS3215 STEP in Base 15.",
+          "unit": "mm"
+        },
+        {
+          "name": "servo_len",
+          "label": "Servo len",
+          "value": 45.4,
+          "min": 45.4,
+          "max": 45.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Case length, same measured STEP.",
+          "unit": "mm"
+        },
+        {
+          "name": "servo_depth",
+          "label": "Servo depth",
+          "value": 31.8,
+          "min": 31.8,
+          "max": 31.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Case depth behind front rails.",
+          "unit": "mm"
+        },
+        {
+          "name": "servo_near",
+          "label": "Servo near",
+          "value": 10.2,
+          "min": 10.2,
+          "max": 10.2,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Axis to near end of case.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_d",
+          "label": "Horn d",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Existing round horn diameter.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_pcd",
+          "label": "Horn pcd",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Four M3 horn screws on this pitch circle.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_top",
+          "label": "Horn top",
+          "value": 2.8,
+          "min": 2.8,
+          "max": 2.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Horn top above mounting rails.",
+          "unit": "mm"
+        },
+        {
+          "name": "case_holes_x",
+          "label": "Case holes x",
+          "value": 20.5,
+          "min": 20.5,
+          "max": 20.5,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Case M2 hole spacing across the servo.",
+          "unit": "mm"
+        },
+        {
+          "name": "case_hole_near",
+          "label": "Case hole near",
+          "value": 8.3,
+          "min": 8.3,
+          "max": 8.3,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Near M2 row behind output axis.",
+          "unit": "mm"
+        },
+        {
+          "name": "case_hole_far",
+          "label": "Case hole far",
+          "value": 29,
+          "min": 29,
+          "max": 29,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Far M2 row behind output axis.",
+          "unit": "mm"
+        },
+        {
+          "name": "case_hole_d",
+          "label": "Case hole d",
+          "value": 2.3,
+          "min": 2.3,
+          "max": 2.3,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "M2 clearance through standoffs.",
+          "unit": "mm"
+        },
+        {
+          "name": "gear_m",
+          "label": "Gear m",
+          "value": 0.38,
+          "min": 0.304,
+          "max": 0.456,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Fine-pitch prototype module; resin or fine machining, not ordinary FDM.",
+          "unit": "mm"
+        },
+        {
+          "name": "gear_teeth",
+          "label": "Gear teeth",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 1,
+          "stage": "calibration",
+          "doc": "Equal gears, 1:1 opposite rotation, avoids low-tooth-count undercut.",
+          "unit": ""
+        },
+        {
+          "name": "gear_pressure_deg",
+          "label": "Gear pressure deg",
+          "value": 20,
+          "min": 16.0,
+          "max": 24.0,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Involute pressure angle, inherited from Base 15.",
+          "unit": "deg"
+        },
+        {
+          "name": "gear_backlash",
+          "label": "Gear backlash",
+          "value": 0.06,
+          "min": 0.048,
+          "max": 0.072,
+          "step": 0.01,
+          "stage": "solid",
+          "doc": "Circumferential tooth thinning, total mesh backlash about twice this.",
+          "unit": "mm"
+        },
+        {
+          "name": "gear_t",
+          "label": "Gear t",
+          "value": 3,
+          "min": 2.4,
+          "max": 3.6,
+          "step": 0.01,
+          "stage": "solid",
+          "doc": "Jaw and gear thickness.",
+          "unit": "mm"
+        },
+        {
+          "name": "jaw_len",
+          "label": "Jaw len",
+          "value": 42,
+          "min": 33.6,
+          "max": 50.4,
+          "step": 0.01,
+          "stage": "solid",
+          "doc": "Pivot to rounded tweezer tip, along jaw.",
+          "unit": "mm"
+        },
+        {
+          "name": "jaw_root_r",
+          "label": "Jaw root r",
+          "value": 1.0,
+          "min": 0.8,
+          "max": 1.2,
+          "step": 0.01,
+          "stage": "solid",
+          "doc": "Jaw root half-width.",
+          "unit": "mm"
+        },
+        {
+          "name": "tip_r",
+          "label": "Tip r",
+          "value": 0.35,
+          "min": 0.28,
+          "max": 0.42,
+          "step": 0.01,
+          "stage": "solid",
+          "doc": "Tip radius; contact occurs on centerline when closed.",
+          "unit": "mm"
+        },
+        {
+          "name": "max_angle",
+          "label": "Max angle",
+          "value": 9,
+          "min": 7.2,
+          "max": 10.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Each jaw swing; complete sweep stays within servo width.",
+          "unit": "deg"
+        },
+        {
+          "name": "plate_w",
+          "label": "Plate w",
+          "value": 24.4,
+          "min": 19.52,
+          "max": 29.28,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Fixed frame width, 0.4 mm under servo width.",
+          "unit": "mm"
+        },
+        {
+          "name": "plate_front",
+          "label": "Plate front",
+          "value": 5,
+          "min": 4.0,
+          "max": 6.0,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Frame extends this far ahead of gear axes.",
+          "unit": "mm"
+        },
+        {
+          "name": "plate_back",
+          "label": "Plate back",
+          "value": 32,
+          "min": 25.6,
+          "max": 38.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Frame length behind gear axes.",
+          "unit": "mm"
+        },
+        {
+          "name": "plate_z",
+          "label": "Plate z",
+          "value": 6.5,
+          "min": 5.2,
+          "max": 7.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Frame underside above servo mounting rails.",
+          "unit": "mm"
+        },
+        {
+          "name": "plate_t",
+          "label": "Plate t",
+          "value": 2,
+          "min": 1.6,
+          "max": 2.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Frame thickness.",
+          "unit": "mm"
+        },
+        {
+          "name": "axial_gap",
+          "label": "Axial gap",
+          "value": 0.3,
+          "min": 0.24,
+          "max": 0.36,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Gear-to-frame and gear-to-cap running clearance.",
+          "unit": "mm"
+        },
+        {
+          "name": "post_d",
+          "label": "Post d",
+          "value": 2,
+          "min": 1.6,
+          "max": 2.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Follower axle; light-load prototype, replace with metal for durability.",
+          "unit": "mm"
+        },
+        {
+          "name": "post_fit",
+          "label": "Post fit",
+          "value": 0.2,
+          "min": 0.16,
+          "max": 0.24,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Radial running clearance on follower post and drive journal.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_t",
+          "label": "Cap t",
+          "value": 2,
+          "min": 1.6,
+          "max": 2.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Cap thickness, flat top for printing.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_back",
+          "label": "Cap back",
+          "value": 20,
+          "min": 16.0,
+          "max": 24.0,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Cap reaches rear fastener.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_socket",
+          "label": "Cap socket",
+          "value": 0.7,
+          "min": 0.56,
+          "max": 0.84,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Blind support sockets for axle/journal ends.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_post_r",
+          "label": "Cap post r",
+          "value": 1.8,
+          "min": 1.44,
+          "max": 2.16,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Cap support post radius.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_screw_d",
+          "label": "Cap screw d",
+          "value": 2.2,
+          "min": 1.76,
+          "max": 2.64,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Cap screw clearance, M2.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_pilot_d",
+          "label": "Cap pilot d",
+          "value": 1.6,
+          "min": 1.28,
+          "max": 1.92,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Printed M2 pilot; tune for process.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_post_x",
+          "label": "Cap post x",
+          "value": 10,
+          "min": 8.0,
+          "max": 12.0,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Cap post X offset, inside case width.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_left_y",
+          "label": "Cap left y",
+          "value": -4,
+          "min": -3.2,
+          "max": -4.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Left post behind jaw, clear of left gear.",
+          "unit": "mm"
+        },
+        {
+          "name": "cap_right_y",
+          "label": "Cap right y",
+          "value": -18,
+          "min": -14.4,
+          "max": -21.6,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Right post behind follower gear.",
+          "unit": "mm"
+        },
+        {
+          "name": "coupler_d",
+          "label": "Coupler d",
+          "value": 19.5,
+          "min": 15.6,
+          "max": 23.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Coupler flange fits existing 20 mm horn.",
+          "unit": "mm"
+        },
+        {
+          "name": "coupler_t",
+          "label": "Coupler t",
+          "value": 3.4,
+          "min": 2.72,
+          "max": 4.08,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Horn flange thickness.",
+          "unit": "mm"
+        },
+        {
+          "name": "drive_d",
+          "label": "Drive d",
+          "value": 4,
+          "min": 3.2,
+          "max": 4.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "D-drive shaft nominal diameter.",
+          "unit": "mm"
+        },
+        {
+          "name": "drive_flat",
+          "label": "Drive flat",
+          "value": 1.5,
+          "min": 1.2,
+          "max": 1.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "D flat offset from shaft center.",
+          "unit": "mm"
+        },
+        {
+          "name": "drive_fit",
+          "label": "Drive fit",
+          "value": 0.12,
+          "min": 0.096,
+          "max": 0.144,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Radial D socket allowance.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_screw_d",
+          "label": "Horn screw d",
+          "value": 3.2,
+          "min": 3.2,
+          "max": 3.2,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Four M3 clearance holes.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_head_d",
+          "label": "Horn head d",
+          "value": 6.2,
+          "min": 6.2,
+          "max": 6.2,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Center horn screw head relief.",
+          "unit": "mm"
+        },
+        {
+          "name": "horn_head_depth",
+          "label": "Horn head depth",
+          "value": 2.2,
+          "min": 1.8,
+          "max": 1.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Blind clearance for imported stock centre screw head (~2 mm proud), plus 0.2 mm clearance.",
+          "unit": "mm"
+        },
+        {
+          "name": "rail_r",
+          "label": "Rail r",
+          "value": 1.9,
+          "min": 1.52,
+          "max": 2.28,
+          "step": 0.01,
+          "stage": "calibration",
+          "doc": "Case mounting stand-off radius.",
+          "unit": "mm"
+        }
+      ]
+    },
+    {
+      "name": "Hardware and cable envelopes",
+      "params": [
+        {
+          "name": "horn_bolt_phase",
+          "label": "Horn bolt phase",
+          "value": 45,
+          "min": 45,
+          "max": 45,
+          "step": 0.1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Imported STS3215 CAD holes at plus/minus4.95 mm in both plane axes."
+        },
+        {
+          "name": "horn_csk_d",
+          "label": "Horn csk d",
+          "value": 6.2,
+          "min": 6.2,
+          "max": 6.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M3 countersunk screw head diameter, flush with coupler top."
+        },
+        {
+          "name": "case_head_d",
+          "label": "Case head d",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 case screw head envelope."
+        },
+        {
+          "name": "case_head_h",
+          "label": "Case head h",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 case screw head height."
+        },
+        {
+          "name": "cap_head_d",
+          "label": "Cap head d",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 cap screw head envelope."
+        },
+        {
+          "name": "cap_head_h",
+          "label": "Cap head h",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 cap screw head height."
+        },
+        {
+          "name": "plug_w",
+          "label": "Plug w",
+          "value": 22.4,
+          "min": 22.4,
+          "max": 22.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Conservative plug/cable-bend width, retained within servo case width."
+        },
+        {
+          "name": "plug_back",
+          "label": "Plug back",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Cable-bend allowance behind case."
+        },
+        {
+          "name": "plug_len",
+          "label": "Plug len",
+          "value": 17.4,
+          "min": 17.4,
+          "max": 17.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Connector keep-out length along case."
+        },
+        {
+          "name": "plug_y",
+          "label": "Plug y",
+          "value": -30,
+          "min": -30,
+          "max": -30,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Far edge of plug keep-out along case."
+        }
+      ]
+    }
+  ]
+}

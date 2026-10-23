@@ -3,6 +3,9 @@ export default {
   "two-finger-gripper-v008-pollen-grabette": {"exported": 90, "min": 0, "max": 90, "single_finger": true, "hinges": [
     {"match": "^Grabette finger", "pivot": [0, 0, 0], "sign": 1},
     {"match": "^Gripette finger", "pivot": [320, 0, 0], "sign": 1}]},
+  "two-finger-gripper-v317-generalist-micro-tweezers": {"exported": 0, "min": 0, "max": 9, "hinges": [
+    {"match": "^Right", "pivot": [7.6, 0, 0], "sign": 1},
+    {"match": "^Left", "pivot": [0, 0, 0], "sign": -1}]},
   "two-finger-gripper-v316-generalist-post-cap": {"exported": 15, "min": 0, "max": 30, "hinges": [
     {"match": "^Right", "pivot": [31.35, 0, 0], "sign": 1},
     {"match": "^Left", "pivot": [-31.35, 0, 0], "sign": -1}]},
