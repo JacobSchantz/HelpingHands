@@ -1,0 +1,21 @@
+{
+  "id": "voice-d01680be",
+  "commit_id": "",
+  "description": "Make a NEW Generalist Gripper version using the Aero Hand servos (Jake said arrow hand). Confirmed upstream firmware README specifies Feetech HLS3606M. Build on latest Base 17 / Gripper 24 v318_generalist_tiny_v2 unless newer lands: recognizable curved lattice fingers, separate geared drive, compact as feasible, actual servo mounting. Preserve old versions. Gear sizes/ratio may change per Jake earlier authorization. Use manufacturer HLS3606M drawing https://www.feetechrc.com/Data/feetechrc/upload/file/20240807/6385862508379674057566108.pdf and vendored Aero Hand CAD/parts to verify exact single/double shaft variant, screw pattern, horn/spline, cable and assembly clearance; do not invent scaled mounting hardware. Nominal body 23x12x27.5mm is not mounting evidence. Reuse actual Aero Hand horn/pulley interface if suitable. Bump only changed part counters, params.json source of truth, export CAD and run geometry/genus/full-stroke hardware clearance checks, publish live preview and comparison render. Identify measured vs assumed fit dimensions and no unproven force rating. No physical motor actuation. Use GPT-6.1 Sol medium.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-23T13:58:46.000Z",
+  "updated_at": "2026-10-23T13:58:46.000Z",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": ""
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz"
+}
