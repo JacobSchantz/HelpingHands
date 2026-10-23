@@ -1,0 +1,13 @@
+# Original-tip closure evidence — voice-550038ca
+
+Base24 from23, Gripper28 from27. No other part counters changed. The latest human correction supersedes the added noses: this version removes both additions and trimming and uses wider opposing bases plus rigid blade orientation. `comparison.png` shows actual STL sections at closure and full open, and the overhead integral transmission.
+
+Red-first: `ORIGINAL_TIP_FOLDER` pointing at v324 fails the original-blade symmetric-volume test (8.069 mm³ difference beyond the pivot region). v325 passes. Original `finger()` is exported independently at the current rigid pose and compared beyond Z12; the root bore is an intentional existing difference and excluded. Actual tip region contact, middle clearance, hashed full-stroke/hardware reports and catalog/pose lineage are regression contracts in `Scripts/test_original_tip_closure.py`.
+
+Mechanical reports in the version folder: all 121 ×78 body-pair checks pass at .25° samples, with no exclusions; continuous rear outline has 10.330 mm minimum gap. Mesh/print, tools, local-retention and wrong-phase controls pass. Sources for servo/plate remain pinned, copied unchanged and remeasured. Hole/thread/head and real plate-revision uncertainty remains explicit in hardware report and version README. No physical actuator motion or strength trial.
+
+The whole-hand study reuses `contact_case.js` and unchanged `human_hand.js`; `original_tip_case.js` supplies only the new version axes. Right hands181.1/193.3 mm have worst misses23.667/18.782 mm and1/6 skin-collision poses out of13 respectively. Both FAIL acceptance. This is a sampled generic narrow reference model, not Jake's measured hand or a proof of anatomical impossibility. Vertex containment can miss surface crossings; conservative boxes affect hand IK. Physical ergonomics remain unresolved.
+
+`browser-smoke.json` records Chrome at187.2 mm,13 poses, no page errors and working Copy fit report. `whole-hand-0.png`, `whole-hand-15.png`, `whole-hand-30.png` show actual scene states. The page has the same hand-length/side/curl controls as the preceding review. No phone or physical trial.
+
+Reproduce hardware/motion/closure/mesh checks using version README commands. From repo root: `HAND_CASE_FOLDER='Two Finger Gripper/versions/v325_generalist_original_tip_closure' HAND_CASE_MODULE=original_tip_case.js HAND_CASE_OUT=cad/validation/voice-550038ca-original-tip cad/blender/.venv/bin/python -m Scripts.check_contact_hand`. Exit1 is expected while hand acceptance fails. `cad/blender/.venv/bin/python cad/validation/voice-550038ca-original-tip/render_evidence.py` recreates the comparison.

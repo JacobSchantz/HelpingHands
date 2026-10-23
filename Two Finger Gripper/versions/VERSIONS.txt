@@ -185,3 +185,9 @@ Four printed pieces retained; 19 total physical parts instead of20. No added mou
 Pinned HLS3606M-C001 manufacturer drawing distinguishes25T/4.95mm output spline and center screw from four case-ear screws; Aero plate STEP has eight smooth2mm holes on12.007619mm PCD. Two opposite M2x4 plate screws use1.75mm of the2mm disk; not STS3215's four M3 on14mm.
 Actual production plate revision/thread/head dimensions remain unmeasured; do not declare physical fit from CAD. Four motor-ear screws retained; tilted driver shaft paths pass but actual Torx/drive engagement remains unverified.
 Centered motor, two sleeve pivots only in finger plane, overhead split sectors and0–30 degree CAD stroke retained. Rear clearance, true closure, non-overtravel, sourced hardware alignment and whole-hand screening documented in the version folder and cad/validation/voice-550038ca-contact.
+
+
+v325_generalist_original_tip_closure — Base 24 (voice-550038ca), Gripper 28: Base 23 with 30 mm opposing pivot spacing, centered HLS3606M and scaled integral split-level gears.
+Gripper 28 builds on Gripper 27: delete added distal noses and tip trimming; restore original rounded blade tips, rigidly reoriented to meet at closure. No extensions, tabs or bridge.
+Four printed /19 total parts; original servo spline plate, two opposed plate screws, integral center capture and four case-ear screws retained. Actual plate revision/threads/head and driver engagement remain physically unverified.
+Full 0–30 degree sampled motion, continuous rear-outline clearance, original-blade volume comparison, tip closure, tool/retention checks and source STEP hardware checks in the version folder. Hand-held branch; no Mount2 compatibility or ergonomic/strength approval.

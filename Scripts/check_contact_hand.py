@@ -2,12 +2,13 @@
 No product hand solver modifications. Vertex containment is sampled and cannot prove clearance.
 """
 from pathlib import Path
-import json,shutil,subprocess,tempfile,sys,hashlib
+import json,shutil,subprocess,tempfile,sys,hashlib,os
 import numpy as np
 import trimesh
 from Scripts.check_finger_plane_constraints import ROOT,load
 
-FOLDER=ROOT/'Two Finger Gripper/versions/v324_generalist_contact_close'
+FOLDER=ROOT/os.environ.get('HAND_CASE_FOLDER','Two Finger Gripper/versions/v324_generalist_contact_close')
+CASE_MODULE=os.environ.get('HAND_CASE_MODULE','contact_case.js')
 def pose(m,k,angle,contract):
  import math
  p=contract['pivot'];ratio=contract['ratio']
@@ -17,10 +18,10 @@ def pose(m,k,angle,contract):
  else:return m
  a=math.radians((angle-15)*r);R=np.array([[math.cos(a),0,math.sin(a)],[0,1,0],[-math.sin(a),0,math.cos(a)]])
  out=m.copy();out.vertices=(out.vertices-c)@R.T+c;return out
-OUT=ROOT/'cad/validation/voice-550038ca-contact'
+OUT=ROOT/os.environ.get('HAND_CASE_OUT','cad/validation/voice-550038ca-contact')
 SCRIPT=r'''
 import fs from 'node:fs';import * as THREE from 'three';import {STLLoader} from 'three/addons/loaders/STLLoader.js';
-const root=process.argv[1],folder=root+'/Two Finger Gripper/versions/v324_generalist_contact_close';
+const root=process.argv[1],folder=process.argv[2];
 globalThis.readGlb = side => {const b=fs.readFileSync(root+'/cad/mobile_gallery/reference/human_hand/'+side+'.glb');return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);};
 const {makeCase,CASE}=await import('./contact_case.js');
 const manifest=JSON.parse(fs.readFileSync(folder+'/viewer_parts.json'));
@@ -48,7 +49,8 @@ def sample():
   gallery=ROOT/'cad/mobile_gallery'
   source=(gallery/'human_hand.js').read_text().replace("loader.loadAsync('reference/human_hand/' + side + '.glb')","loader.parseAsync(globalThis.readGlb(side), '')")
   (work/'human_hand.js').write_text(source);shutil.copy2(gallery/'contact_case.js',work/'contact_case.js')
-  run=subprocess.run(['node','--input-type=module','-e',SCRIPT,str(ROOT)],cwd=work,capture_output=True,text=True,timeout=180)
+  shutil.copy2(gallery/CASE_MODULE,work/'selected_case.js')
+  run=subprocess.run(['node','--input-type=module','-e',SCRIPT,str(ROOT),str(FOLDER)],cwd=work,capture_output=True,text=True,timeout=180)
   if run.returncode:raise RuntimeError(run.stderr)
   return json.loads(run.stdout)
 def main():
@@ -67,7 +69,7 @@ def main():
    samples.append(dict(angle=frame['angle'],contact_miss_mm=frame['fit']['miss'],skin_vertices_inside_cad=hits,passed=frame['fit']['miss']<=2 and not hits))
   report['cases'].append(dict(length_mm=case['length_mm'],joint_names=case['joint_names'],samples=samples,passed=all(s['passed'] for s in samples)))
  report['assumptions']['contact_selection']='Actual working-band triangles only for inherited fingerContacts raycaster; full physical solids retained in all collision screening. Conservative full-part boxes affect IK cost, especially integral jaw/gears.'
- report['input_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in list((FOLDER/'exports/parts').glob('*.stl'))+[FOLDER/f'exports/reference/{k}.stl' for k in ('pivot_screws','pivot_washers','pivot_nuts','plate_screws','case_screws','center_screw')]+[ROOT/'cad/mobile_gallery/human_hand.js',ROOT/'cad/mobile_gallery/contact_case.js',ROOT/'cad/mobile_gallery/reference/human_hand/right.glb']}
+ report['input_sha256']={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in list((FOLDER/'exports/parts').glob('*.stl'))+[FOLDER/f'exports/reference/{k}.stl' for k in ('pivot_screws','pivot_washers','pivot_nuts','plate_screws','case_screws','center_screw')]+[ROOT/'cad/mobile_gallery/human_hand.js',ROOT/'cad/mobile_gallery/contact_case.js',ROOT/('cad/mobile_gallery/'+CASE_MODULE),ROOT/'cad/mobile_gallery/reference/human_hand/right.glb']}
  report['passed']=all(c['passed'] for c in report['cases']);OUT.mkdir(parents=True,exist_ok=True)
  (OUT/'whole-hand.json').write_text(json.dumps(report,indent=2)+'\n')
  # Store actual skinned surfaces for the three review frames, independently of browser rendering.

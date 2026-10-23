@@ -1,0 +1,3425 @@
+{
+  "_about": "Base 24 builds on Base 23; Gripper 28 builds on Gripper 27. Original blade tips, widened bases, no tip additions or trimming.",
+  "groups": [
+    {
+      "name": "HLS3606M actual hardware and designed clearances",
+      "params": [
+        {
+          "name": "hls_body_length",
+          "label": "Hls Body Length",
+          "value": 23,
+          "min": 23,
+          "max": 23,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer page 6; CAD body length."
+        },
+        {
+          "name": "hls_body_width",
+          "label": "Hls Body Width",
+          "value": 12,
+          "min": 12,
+          "max": 12,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer page 6 and CAD."
+        },
+        {
+          "name": "hls_body_height",
+          "label": "Hls Body Height",
+          "value": 27.5,
+          "min": 27.5,
+          "max": 27.5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer page 6 and CAD; excludes spline."
+        },
+        {
+          "name": "hls_ear_top",
+          "label": "Hls Ear Top",
+          "value": 22,
+          "min": 22,
+          "max": 22,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer ear upper surface from bottom; CAD agrees."
+        },
+        {
+          "name": "hls_ear_thickness",
+          "label": "Hls Ear Thickness",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer 22 minus 20.5; CAD agrees."
+        },
+        {
+          "name": "hls_near",
+          "label": "Hls Near",
+          "value": 5.71,
+          "min": 5.71,
+          "max": 5.71,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer shaft axis to near body end; CAD agrees."
+        },
+        {
+          "name": "hls_mount_u0",
+          "label": "Hls Mount U0",
+          "value": -8.21,
+          "min": -8.21,
+          "max": -8.21,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer shaft-to-near ear hole; CAD is -7.96."
+        },
+        {
+          "name": "hls_mount_u1",
+          "label": "Hls Mount U1",
+          "value": 19.79,
+          "min": 19.79,
+          "max": 19.79,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer shaft-to-far ear hole; CAD is 19.54."
+        },
+        {
+          "name": "hls_mount_span_w",
+          "label": "Hls Mount Span W",
+          "value": 7,
+          "min": 7,
+          "max": 7,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "CAD hole centers across case; manufacturer drawing omits this dimension."
+        },
+        {
+          "name": "hls_mount_hole_d",
+          "label": "Hls Mount Hole D",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer and CAD ear clearance diameter, NOT a tapped case hole."
+        },
+        {
+          "name": "hls_mount_slot_travel",
+          "label": "Hls Mount Slot Travel",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Design allowance: accommodates 0.25 mm CAD/drawing difference plus positioning margin."
+        },
+        {
+          "name": "hls_mount_clear_d",
+          "label": "Hls Mount Clear D",
+          "value": 1.7,
+          "min": 1.7,
+          "max": 1.7,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed 1.7 mm pilot for M2 self-tapping ear screws; pullout untested."
+        },
+        {
+          "name": "hls_mount_boss_d",
+          "label": "Hls Mount Boss D",
+          "value": 4.4,
+          "min": 4.4,
+          "max": 4.4,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed standoff OD; actual hardware is not scaled."
+        },
+        {
+          "name": "hls_plate_d",
+          "label": "Hls Plate D",
+          "value": 18,
+          "min": 18,
+          "max": 18,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured purchased aluminum disk STEP, solid 248."
+        },
+        {
+          "name": "hls_plate_h",
+          "label": "Hls Plate H",
+          "value": 4.5,
+          "min": 4.5,
+          "max": 4.5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured stock plate total axial envelope."
+        },
+        {
+          "name": "hls_plate_above_ear",
+          "label": "Hls Plate Above Ear",
+          "value": 11.1,
+          "min": 11.1,
+          "max": 11.1,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured plate top -20.125 minus ear top -31.225."
+        },
+        {
+          "name": "hls_plate_face",
+          "label": "Hls Plate Face",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed plate top above underside of base; retains original pinion seating elevation."
+        },
+        {
+          "name": "hls_plate_pcd",
+          "label": "Hls Plate Pcd",
+          "value": 12.007619,
+          "min": 12.007619,
+          "max": 12.007619,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "STEP 8-hole circle, radius 6.0038095."
+        },
+        {
+          "name": "hls_plate_clear_d",
+          "label": "Hls Plate Clear D",
+          "value": 2.2,
+          "min": 2.2,
+          "max": 2.2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Reuse spool clearance diameter for M2 plate screws."
+        },
+        {
+          "name": "hls_plate_head_d",
+          "label": "Hls Plate Head D",
+          "value": 4.2,
+          "min": 4.2,
+          "max": 4.2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed conservative clearance for original approximately 4 mm M2 heads."
+        },
+        {
+          "name": "hls_plate_head_h",
+          "label": "Hls Plate Head H",
+          "value": 1.6,
+          "min": 1.6,
+          "max": 1.6,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Conservative M2 head envelope assumption; measure purchased heads."
+        },
+        {
+          "name": "hls_plate_head_recess",
+          "label": "Hls Plate Head Recess",
+          "value": 6.15,
+          "min": 6.15,
+          "max": 6.15,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed recess below gear top; leaves plate screw grip."
+        },
+        {
+          "name": "hls_plate_screw_length",
+          "label": "Hls Plate Screw Length",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Reuse Aero Hand BOM M2x4, under head."
+        },
+        {
+          "name": "hls_center_access_d",
+          "label": "Hls Center Access D",
+          "value": 6.4,
+          "min": 6.4,
+          "max": 6.4,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed access to original M2.3 screw and approximately 5 mm head, retaining it unchanged."
+        },
+        {
+          "name": "hls_case_screw_length",
+          "label": "Hls Case Screw Length",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Use Aero Hand guide M2x6 self-tapping ear screws, heads below ears, 4.5 mm bite in printed standoffs."
+        },
+        {
+          "name": "hls_case_head_d",
+          "label": "Hls Case Head D",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Conservative M2 screw head envelope assumption."
+        },
+        {
+          "name": "hls_case_head_h",
+          "label": "Hls Case Head H",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Conservative M2 screw head envelope assumption."
+        },
+        {
+          "name": "hls_cable_w",
+          "label": "Hls Cable W",
+          "value": 8,
+          "min": 8,
+          "max": 8,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ASSUMED cable/service envelope across body, not manufacturer evidence."
+        },
+        {
+          "name": "hls_cable_len",
+          "label": "Hls Cable Len",
+          "value": 18,
+          "min": 18,
+          "max": 18,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ASSUMED free cable exit/bend corridor beyond far end; physical harness confirmation required."
+        },
+        {
+          "name": "hls_cable_h",
+          "label": "Hls Cable H",
+          "value": 10,
+          "min": 10,
+          "max": 10,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ASSUMED cable corridor height below ears."
+        },
+        {
+          "name": "hls_spline_d",
+          "label": "Hls Spline D",
+          "value": 4.95,
+          "min": 4.95,
+          "max": 4.95,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Manufacturer 25T spline nominal OD; stock aluminum disk supplies real mating spline."
+        },
+        {
+          "name": "hls_ref_x",
+          "label": "Hls Ref X",
+          "value": 8.999952,
+          "min": 8.999952,
+          "max": 8.999952,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Native pinned STEP output-axis X."
+        },
+        {
+          "name": "hls_ref_y",
+          "label": "Hls Ref Y",
+          "value": 8.29128,
+          "min": 8.29128,
+          "max": 8.29128,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Native pinned STEP output-axis Y."
+        },
+        {
+          "name": "hls_ref_ear_z",
+          "label": "Hls Ref Ear Z",
+          "value": -31.22498756,
+          "min": -31.22498756,
+          "max": -31.22498756,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Native STEP ear top Z."
+        },
+        {
+          "name": "hls_plate_angles",
+          "label": "Hls Plate Angles",
+          "value": [
+            45,
+            225
+          ],
+          "min": [
+            45,
+            225
+          ],
+          "max": [
+            45,
+            225
+          ],
+          "step": 0.01,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 23: two diametrically opposed holes from the eight-hole Aero metal plate; native coordinates, not STS3215."
+        },
+        {
+          "name": "hls_m2_shank_d",
+          "label": "Hls M2 Shank D",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Nominal M2 bolt shank envelope."
+        },
+        {
+          "name": "hls_center_head_d",
+          "label": "Hls Center Head D",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured stock spline-retaining screw maximum head diameter."
+        },
+        {
+          "name": "hls_center_head_h",
+          "label": "Hls Center Head H",
+          "value": 2.06,
+          "min": 2.06,
+          "max": 2.06,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured stock retaining head protrusion above plate top, rounded up."
+        },
+        {
+          "name": "hls_case_pilot_depth",
+          "label": "Hls Case Pilot Depth",
+          "value": 4.8,
+          "min": 4.8,
+          "max": 4.8,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed blind pilot for M2x6 self-tapping ear screws, 4.5 mm engagement, 0.3 mm tip allowance. Prototype pullout untested."
+        },
+        {
+          "name": "hls_body_deg",
+          "label": "Hls Body Deg",
+          "value": -90,
+          "min": -90,
+          "max": -90,
+          "step": 0.01,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Servo case points toward finger pivots below base; cable corridor fits underneath existing finger height."
+        },
+        {
+          "name": "hls_mount_cad_u0",
+          "label": "Hls Mount Cad U0",
+          "value": -7.96,
+          "min": -7.96,
+          "max": -7.96,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured CAD near mounting hole relative to output axis."
+        },
+        {
+          "name": "hls_mount_cad_u1",
+          "label": "Hls Mount Cad U1",
+          "value": 19.54,
+          "min": 19.54,
+          "max": 19.54,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Measured CAD far mounting hole relative to output axis."
+        }
+      ]
+    },
+    {
+      "name": "Tiny V2 \u2014 hardware-fitting reduction",
+      "params": [
+        {
+          "name": "scale_factor",
+          "label": "Scale Factor",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.001,
+          "stage": "solid",
+          "unit": "x",
+          "doc": "Gripper 24 unchanged at 50%; this version changes only Base 18."
+        },
+        {
+          "name": "min_screw_rim",
+          "label": "Minimum pinion screw rim",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Minimum solid wall outside the full-size 6.4 mm countersink and inside the pinion tooth root. Governs minimum scale."
+        },
+        {
+          "name": "actual_m3_head_d",
+          "label": "Actual M3 Head D",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Conservative M3 countersunk head diameter used for clearance verification."
+        },
+        {
+          "name": "actual_m3_head_h",
+          "label": "Actual M3 Head H",
+          "value": 1.7,
+          "min": 1.7,
+          "max": 1.7,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Nominal M3 countersunk head height; candidate hardware must be measured before printing."
+        },
+        {
+          "name": "actual_m2_head_d",
+          "label": "Actual M2 Head D",
+          "value": 3.8,
+          "min": 3.8,
+          "max": 3.8,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "M2 cap-head envelope, below the 4 mm source recess."
+        },
+        {
+          "name": "actual_m2_head_h",
+          "label": "Actual M2 Head H",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "M2 cap-head envelope height."
+        },
+        {
+          "name": "min_lattice_web",
+          "label": "Min Lattice Web",
+          "value": 0.4,
+          "min": 0.4,
+          "max": 0.4,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Adopted minimum ventral-plan ligament for fine resin prototype; not an FDM or strength rating."
+        },
+        {
+          "name": "min_gear_module",
+          "label": "Min Gear Module",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Minimum involute module used in candidate selection."
+        },
+        {
+          "name": "min_base_rim",
+          "label": "Min Base Rim",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Base material beyond the pinion addendum."
+        },
+        {
+          "name": "cap_pillar_x",
+          "label": "Cap Pillar X",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Actual cap-post half-spacing; moved behind the larger stock-horn pinion."
+        },
+        {
+          "name": "pillar_motion_clear",
+          "label": "Pillar Motion Clear",
+          "value": 0.25,
+          "min": 0.25,
+          "max": 0.25,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Required separation of rear cap pillars from pinion teeth."
+        },
+        {
+          "name": "horn_screw_length",
+          "label": "Horn Screw Length",
+          "value": 12,
+          "min": 12,
+          "max": 12,
+          "step": 1,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Candidate overall countersunk M3 length: CAD clears case, 2.5 mm horn engagement. Confirm purchased horn and screw head."
+        },
+        {
+          "name": "case_screw_length",
+          "label": "Case Screw Length",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 1,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Candidate M2 length under head: 4 mm modeled case engagement, same unmeasured depth assumption as large source."
+        },
+        {
+          "name": "cap_screw_length",
+          "label": "Cap Screw Length",
+          "value": 10,
+          "min": 10,
+          "max": 10,
+          "step": 1,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "Candidate overall countersunk M3 length: 7 mm into pillar, 0.3 mm modeled pilot-bottom clearance."
+        },
+        {
+          "name": "actual_m3_shank_d",
+          "label": "Actual M3 Shank D",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "M3 unthreaded clearance probe diameter."
+        },
+        {
+          "name": "actual_m2_shank_d",
+          "label": "Actual M2 Shank D",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.01,
+          "stage": "calibration",
+          "unit": "mm",
+          "doc": "M2 unthreaded clearance probe diameter."
+        }
+      ]
+    },
+    {
+      "name": "Finger outline",
+      "params": [
+        {
+          "name": "beak_stretch",
+          "label": "Beak length",
+          "value": 1.7,
+          "min": 1.7,
+          "max": 1.7,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "calibration",
+          "doc": "How many times the photo's beak (black dot to point) is stretched along the finger. 1.70 makes dot to point a third of the finger (Gen 15)."
+        },
+        {
+          "name": "outer_lean_deg",
+          "label": "Outer edge lean at the dot",
+          "value": 15,
+          "min": 15,
+          "max": 15,
+          "step": 0.5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "The outer edge leaves the black dot this far outboard of the finger axis. 2.5: 15, 1.19's wide beak (2.4: 0)."
+        },
+        {
+          "name": "outer_start_handle",
+          "label": "Outer edge: fullness behind",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.01,
+          "unit": "x chord",
+          "stage": "calibration",
+          "doc": "Bezier handle at the dot end of the outer edge, as a fraction of dot-to-point. Longer keeps the beak full further out. 2.5: 0.50, 1.19's (2.4: 0.30)."
+        },
+        {
+          "name": "outer_end_handle",
+          "label": "Outer edge: fullness at the point",
+          "value": 0.25,
+          "min": 0.25,
+          "max": 0.25,
+          "step": 0.01,
+          "unit": "x chord",
+          "stage": "calibration",
+          "doc": "Bezier handle at the point end of the outer edge. Longer rounds in later, giving a blunter nose. 2.5: 0.25, 1.19's (2.4: 0.30)."
+        },
+        {
+          "name": "outer_bow",
+          "label": "Outer edge bow",
+          "value": 0.2,
+          "min": 0.2,
+          "max": 0.2,
+          "step": 0.005,
+          "unit": "x chord",
+          "stage": "calibration",
+          "doc": "How far the outer edge bows outboard of the straight dot-to-point line, as a fraction of its length. 2.5: 0.20, 1.19's (2.4: 0.04)."
+        },
+        {
+          "name": "jaw_open_power",
+          "label": "Jaw convergence (opening shape)",
+          "value": 0.85,
+          "min": 0.85,
+          "max": 0.85,
+          "step": 0.01,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Closed, each jaw edge sits H (d/D)^p off the centreline, d mm behind the point. Below 1 the gap opens fastest right at the point (sharper convergence angle); 1 is a straight triangle; above 1 the jaws run nearly parallel near the tip."
+        },
+        {
+          "name": "knob_swell",
+          "label": "Inner bump-out height",
+          "value": 1.2,
+          "min": 1.2,
+          "max": 1.2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the two rounded swells on the inner edge, mid-shank, stand proud of the ramp."
+        },
+        {
+          "name": "knob1_halfwidth",
+          "label": "Bump 1 half-width (near the head)",
+          "value": 6.0,
+          "min": 6.0,
+          "max": 6.0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Half-width along the edge of the first swell's cos^2 window. Wider is rounder."
+        },
+        {
+          "name": "knob2_halfwidth",
+          "label": "Bump 2 half-width (near the dot)",
+          "value": 5.6,
+          "min": 5.6,
+          "max": 5.6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Half-width of the second swell, just behind the black dot. Its crest also sets where the closed jaw triangle starts."
+        },
+        {
+          "name": "knob_ramp_smooth",
+          "label": "Bump ramp smoothing",
+          "value": 1.2,
+          "min": 1.2,
+          "max": 1.2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Gaussian smoothing of the inner-edge ramp under the swells, so its own bends put no corners at their feet."
+        },
+        {
+          "name": "outline_smooth",
+          "label": "Outline smoothing",
+          "value": 0.8,
+          "min": 0.8,
+          "max": 0.8,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Gaussian smoothing along the traced photo contour (Gen 9 / Gen 16 roundness)."
+        },
+        {
+          "name": "dot_join_smooth",
+          "label": "Smoothing at the dot joins",
+          "value": 2.0,
+          "min": 2.0,
+          "max": 2.0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Where the generated beak meets the traced shank, both edges are smoothed with this sigma."
+        },
+        {
+          "name": "dot_join_span",
+          "label": "Dot join span",
+          "value": 8.0,
+          "min": 8.0,
+          "max": 8.0,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Half-length of arc smoothed either side of each dot join."
+        },
+        {
+          "name": "hook_depth",
+          "label": "Base hook depth",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "calibration",
+          "doc": "Scales the base J-hook's bowl and toe away from the line between its two ends (1 = Gen 9's hook). The handle's foot is trimmed to whatever notch this makes."
+        },
+        {
+          "name": "top_notch_u",
+          "label": "Top hook position",
+          "value": 54,
+          "min": 54,
+          "max": 54,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "2.6: u (along the straight outer edge from the rail origin) of the top hook's notch floor. The edge runs straight up to it, the base J-hook mirrored end for end curls round there, its notch open toward the base, and the handle spans floor to floor (base floor u -11.4), so this sets the handle's length. 54: where 1.20's edge started going out again (2.5: top_hook_mirror_u 8.5, floor 28.4)."
+        },
+        {
+          "name": "top_step_back",
+          "label": "Top step: back dips by",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "2.6: from the top hook's crest (6.6 mm out) the outer edge fills on to the beak's outer edge where it is back up to the crest's height less this. 0 = a level shoulder, one jump out (Jake: no double indent); larger meets the edge sooner, lower down the blade-root curve, and dips behind the crest."
+        },
+        {
+          "name": "slot_count",
+          "label": "Beak slot count",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "How many slanted slots run up the beak (the photo shows six on the upper finger)."
+        },
+        {
+          "name": "groove_pitch",
+          "label": "Groove pitch",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Spacing of the inner-edge grooves. Off-pitch values can land a groove wall on the tip-zone cut; the render reports it."
+        },
+        {
+          "name": "groove_width",
+          "label": "Groove width",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Width of each groove across its station."
+        },
+        {
+          "name": "groove_depth",
+          "label": "Groove depth",
+          "value": 0.4,
+          "min": 0.4,
+          "max": 0.4,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Depth of each groove, measured in from the finished edge. 0 = no grooves."
+        },
+        {
+          "name": "groove_stop",
+          "label": "Grooves stop short of the point",
+          "value": 3.4,
+          "min": 3.4,
+          "max": 3.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Arc length from the point with no grooves."
+        },
+        {
+          "name": "groove_min_width",
+          "label": "Grooves stop where the beak is narrower than",
+          "value": 1.8,
+          "min": 1.8,
+          "max": 1.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Below this width across the beak a groove would leave a pinhole; the row stops there."
+        }
+      ]
+    },
+    {
+      "name": "Finger solid",
+      "params": [
+        {
+          "name": "plate",
+          "label": "Finger thickness",
+          "value": 12,
+          "min": 12,
+          "max": 12,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The finger's thickness along Y (the 12 mm side), centred on the hand plane."
+        },
+        {
+          "name": "tip_thick",
+          "label": "Thickness at the point (taper)",
+          "value": 2.4,
+          "min": 2.4,
+          "max": 2.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "At or above the finger thickness there is no taper (2.3). Below it, the dorsal (+Y) face slopes down from the black dot to this at the point and the ventral face stays flat (1.18's print-flat taper; 1.18 used 2.4). 2.5: 2.4, 1.18's flat-bottom taper (2.4: 12, none)."
+        },
+        {
+          "name": "taper_power",
+          "label": "Taper curve",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Thickness drops as f^power from the taper start to the point: 1 is a straight wedge, 2 Gen 16's parabola (full near the dot, steep at the point)."
+        },
+        {
+          "name": "taper_start",
+          "label": "Taper start past the dot",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Where along the finger the taper begins, relative to the black dot (negative = toward the base)."
+        },
+        {
+          "name": "tip_r",
+          "label": "Point rounding",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Plan-view radius of the point. The closed fingers touch here."
+        },
+        {
+          "name": "tip_zone",
+          "label": "Point rounding zone",
+          "value": 6.25,
+          "min": 6.25,
+          "max": 6.25,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "tip_r applies within this many mm of the point; elsewhere edge_round. Keep it off the groove pitch (at 6 a groove wall sat on the cut: non-manifold)."
+        },
+        {
+          "name": "edge_round",
+          "label": "Convex corner rounding",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Radius on every convex corner of the plan outline (photo blur to smooth edges)."
+        },
+        {
+          "name": "fillet_r",
+          "label": "Concave fillet",
+          "value": 1.2,
+          "min": 1.2,
+          "max": 1.2,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Radius in every concave corner of the plan outline (the shoulder)."
+        },
+        {
+          "name": "min_hole",
+          "label": "Smallest honeycomb hole",
+          "value": 1.8,
+          "min": 1.8,
+          "max": 1.8,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Blurred small holes are read no smaller than this."
+        },
+        {
+          "name": "hole_scale",
+          "label": "Honeycomb hole size",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "calibration",
+          "doc": "Multiplies every traced honeycomb hole's diameter."
+        },
+        {
+          "name": "dot_scale",
+          "label": "Black dot size",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.01,
+          "unit": "x",
+          "stage": "calibration",
+          "doc": "Multiplies the black dot's traced 3.4 mm diameter."
+        },
+        {
+          "name": "slot_len",
+          "label": "Beak slot length",
+          "value": 3.0,
+          "min": 3.0,
+          "max": 3.0,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Length of each slanted beak slot."
+        },
+        {
+          "name": "slot_width",
+          "label": "Beak slot width",
+          "value": 1.35,
+          "min": 1.35,
+          "max": 1.35,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Width of each beak slot (round ends)."
+        },
+        {
+          "name": "last_slot_scale",
+          "label": "Last slot size",
+          "value": 0.7,
+          "min": 0.7,
+          "max": 0.7,
+          "step": 0.05,
+          "unit": "x",
+          "stage": "calibration",
+          "doc": "The slot nearest the point is this fraction of the others."
+        },
+        {
+          "name": "slot_angle_deg",
+          "label": "Slot slant (photo)",
+          "value": 120,
+          "min": 120,
+          "max": 120,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Slot direction in the photo's image degrees (a forward slash, ~35 deg off the row)."
+        },
+        {
+          "name": "groove_wall",
+          "label": "Wall between grooves and holes",
+          "value": 0.6,
+          "min": 0.6,
+          "max": 0.6,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Least wall kept between a groove and any hole, so no groove opens into one."
+        },
+        {
+          "name": "tip_gap",
+          "label": "Closed gap at the points",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Original rounded tips meet at nominal closed command; no positive gap."
+        }
+      ]
+    },
+    {
+      "name": "Handle plate",
+      "params": [
+        {
+          "name": "fit",
+          "label": "Fit clearance (per side)",
+          "value": 0.2,
+          "min": 0.2,
+          "max": 0.2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Clearance per side between handle and finger: the plate against the outer edge and each foot in its hook's notch."
+        },
+        {
+          "name": "slide_t",
+          "label": "Plate thickness",
+          "value": 3.5,
+          "min": 3.5,
+          "max": 3.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The black handle plate's thickness (outboard of the finger)."
+        },
+        {
+          "name": "handle_over",
+          "label": "Handle past each finger face",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Handle 7 / Base 4: the plate stands this far past the finger on each face (dorsal and ventral), so it is plate + 2x this tall across the finger: 0 = the finger's 12 mm (Base 3: 1.5, 15 mm)."
+        },
+        {
+          "name": "span_over",
+          "label": "Plate run past each notch floor",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "2.5: the plate spans the finger's outer edge from the base hook's notch floor to the top hook's, plus this at each end; the finger outline grown by fit then trims both ends into feet that fill the two notches. Its length follows the hooks (top_hook_mirror_u)."
+        },
+        {
+          "name": "slide_w0",
+          "label": "Plate stand-off from the finger",
+          "value": 0.45,
+          "min": 0.45,
+          "max": 0.45,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The plate's inboard face sits this far outboard of the rail line; the finger's outer edge reaches +0.17 at most."
+        },
+        {
+          "name": "plate_corner_r",
+          "label": "Plate corner radius",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 7: rounding on the plate's two ends, in plan (seen from the dorsal side), so every wall stays vertical as it prints. Under half slide_t. (Base 4: 3, rounded edge-on, which overhung at the bed.)"
+        }
+      ]
+    },
+    {
+      "name": "Strap slots",
+      "params": [
+        {
+          "name": "strap_width",
+          "label": "Strap (webbing) width",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Nominal loop webbing width (not measured; straps are not modelled)."
+        },
+        {
+          "name": "strap_thick",
+          "label": "Strap thickness",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Nominal webbing thickness; documented only (the slot width below sets the opening)."
+        },
+        {
+          "name": "strap_slot_clearance",
+          "label": "Slot length over strap width",
+          "value": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The strap tunnel is the strap width plus this long (along the finger)."
+        },
+        {
+          "name": "strap_slot_width",
+          "label": "Strap slot width",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.3: the tunnel's gap (outboard of the plate) that the webbing runs through, across the finger from one face to the other. 2.5 (3.2: a 3.5 mm slot through the plate either side of the finger)."
+        },
+        {
+          "name": "strap_slots",
+          "label": "Strap-loop slots",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 8: how many strap-loop slots each handle-gear has, side by side along the handle plate, each a tunnel right through the part (y) under the strap boss, so it prints as a straight hole with no bridge. One loop per slot wraps the boss and the digit lying on it. 1 = Base 7's single tunnel."
+        },
+        {
+          "name": "strap_rib",
+          "label": "Rib between slots",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 8: the solid rib of boss between neighbouring strap-loop slots, along the finger. The slots and ribs together are centred on the plate."
+        },
+        {
+          "name": "slots_shift",
+          "label": "Slots shift toward the top hook",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 8: moves the strap-loop slots (and their boss) this far along the plate toward the top hook from centred. At 3 the lower slot's ventral mouth clears the base plate at every swing with 20 mm webbing (centred, the base sits in it); check_geometry.py checks it."
+        },
+        {
+          "name": "slot_wall",
+          "label": "Tunnel wall",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.3: the strap boss's outer wall over the tunnel (the digit lies on it) and its end walls, along the finger."
+        },
+        {
+          "name": "slot_corner_r",
+          "label": "Slot corner radius",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Rounding on the tunnel's and the boss's corners (less than half the tunnel gap)."
+        },
+        {
+          "name": "strap_clear",
+          "label": "Strap keep-out round the slots",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.2/3.3: nothing but the handle itself may come within this of either tunnel mouth (the webbing leaves the tunnel there, past each face of the plate), at any swing. check_geometry.py checks it."
+        }
+      ]
+    },
+    {
+      "name": "Handle tail, gear hub and pivot post (Base 7: one print each)",
+      "params": [
+        {
+          "name": "tail_gap",
+          "label": "Tail gap off the finger",
+          "value": 0.4,
+          "min": 0.4,
+          "max": 0.4,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.3: the handle's tail is a band that follows the finger's outline this far off it: up the outer edge, over the base hook's prong, round the hook and under the finger. Base 4: inside the gear hub the finger's pocket is cut fit off it, so tail and hub are one solid."
+        },
+        {
+          "name": "tail_top_u",
+          "label": "Tail top (along the edge)",
+          "value": -4,
+          "min": -4,
+          "max": -4,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.3: the band starts on the plate this far along the outer edge (rail u; the base hook's prong tip is at -9.2), so it covers the prong."
+        },
+        {
+          "name": "tail_reach",
+          "label": "Tail reach under the finger",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "3.3: the band runs on under the finger's base until it is this far inboard of the outer edge line (rail w). Its end is the key the gear's cradle drives. Base 4: it fuses into the gear hub (no key)."
+        },
+        {
+          "name": "hub_r",
+          "label": "Gear hub radius",
+          "value": 9,
+          "min": 14,
+          "max": 14,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 4: each side gear's hub disc round its pivot. The handle's tail runs into it and the finger's base sits in a pocket cut fit off the finger, on the web (3.3: a separate cradle with a key notch). Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "loop_r",
+          "label": "Finger loop radius",
+          "value": 7,
+          "min": 10,
+          "max": 10,
+          "step": 0.25,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15 / Gripper 22: the ring round the pivot post that replaces Gripper 21's base J-hook, concentric with the handle-gear's hub and sitting in its pocket on the web; its bore is base_clear off the post, like the web's. Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "hub_top",
+          "label": "Hub top",
+          "value": 9,
+          "min": 14,
+          "max": 14,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The hub is cut off this far above the pivot (finger-frame z). Base 7: 14 (= hub_r), a whole disc, so the web is a full ring round the pivot post's bore and the post bears all the way round (Base 4: 0 cut the hub at the pivot, which left half the bore open under the finger). Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "web_t",
+          "label": "Gear web",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The floor of each handle-gear under the finger (it sits fit above it); the finger drops in from the dorsal side and rests on it, so it is also the stop. Base 7: it is the print's bed face, and the handle plate, strap boss, tail, hub and teeth all run down to it, so the whole handle-gear is one flat-bottomed extrusion (handle plate+fit+web_t = 15.2 mm tall)."
+        },
+        {
+          "name": "post_d",
+          "label": "Pivot post",
+          "value": 6,
+          "min": 12,
+          "max": 12,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 7: the post that stands up out of the base at each pivot; its handle-gear turns on it through a bore in its web. Base 15: it runs on up through the finger's loop into a socket in the top plate (Base 7-14: it stopped fit under the finger). Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "screw_clear_d",
+          "label": "M3 clearance hole",
+          "value": 3.4,
+          "min": 3.4,
+          "max": 3.4,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Every M3 through-hole in a printed part (the motor flange and front ring screws)."
+        },
+        {
+          "name": "stack_gap",
+          "label": "Gap between stacked parts",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Running clearance between each gear (and the pinion) and the base plate."
+        }
+      ]
+    },
+    {
+      "name": "Gears (Base 7: full height, in the finger plane)",
+      "params": [
+        {
+          "name": "pivot_spacing",
+          "label": "Pivot spacing (finger bases apart)",
+          "value": 60,
+          "min": 60,
+          "max": 60,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 24: widened 30 mm physical pivot pitch lets original blade tips converge without added material."
+        },
+        {
+          "name": "gear_teeth",
+          "label": "Teeth (full circle)",
+          "value": 30,
+          "min": 30,
+          "max": 30,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Teeth on the full gear circle. The pitch radius is fixed to the pivot half-spacing (pivot_spacing/2), so this sets the module: 34 = module 1.60."
+        },
+        {
+          "name": "gear_pressure_deg",
+          "label": "Pressure angle",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Involute pressure angle."
+        },
+        {
+          "name": "gear_backlash",
+          "label": "Backlash",
+          "value": 0.2,
+          "min": 0.2,
+          "max": 0.2,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Tooth thickness taken off at the pitch circle, so the printed pair runs free."
+        },
+        {
+          "name": "gear_extra",
+          "label": "Extra teeth past the swing",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.1,
+          "unit": "teeth",
+          "stage": "calibration",
+          "doc": "3.3: each gear carries teeth only where its mates meet it over the 0-30 deg swing, plus this many tooth pitches at each end. The left one must stay clear of the pinion."
+        },
+        {
+          "name": "pinion_teeth",
+          "label": "Pinion teeth",
+          "value": 42,
+          "min": 42,
+          "max": 42,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 22 centered motor / 19.6 mm pivot pair; fixed verified prototype geometry."
+        },
+        {
+          "name": "pinion_mesh_deg",
+          "label": "Pinion position round the right gear",
+          "value": 65.37568164783592,
+          "min": 65.37568164783592,
+          "max": 65.37568164783592,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 22 centered motor / 19.6 mm pivot pair; fixed verified prototype geometry."
+        },
+        {
+          "name": "gear_bolt_phase_deg",
+          "label": "Gear-to-flange bolt angle",
+          "value": 45,
+          "min": 45,
+          "max": 45,
+          "step": 5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "STS3215 CAD stock horn four-hole phase at neutral, corrected from the large source RS00-era 30 degrees. Servo zero/assembly phase must follow this mounting orientation."
+        },
+        {
+          "name": "gear_bolt_head_d",
+          "label": "Pinion screw countersink",
+          "value": 6.4,
+          "min": 6.4,
+          "max": 6.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 7: the pinion's 3 screws are M3 countersunk (DIN 7991, 6 mm head, 90 deg). Each hole opens this wide at the pinion's top face, which is its bed face, and narrows at 45 deg to the M3 clearance hole, so the head seats on a cone that prints without support (Base 4: a flat-floored counterbore, a 1 mm ledge hanging in the air printed this way up)."
+        },
+        {
+          "name": "gear_bolt_head_h",
+          "label": "Pinion screw recess",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Shallow 0.3 mm pinion screw head recess; countersink remains 6.4 mm diameter for real M3 heads. Removes the large source unnecessary 5 mm deep access wells."
+        }
+      ]
+    },
+    {
+      "name": "Base (3.3)",
+      "params": [
+        {
+          "name": "base_t",
+          "label": "Base plate thickness",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The black plate under both gears and the pinion; the motor bolts under it."
+        },
+        {
+          "name": "base_r",
+          "label": "Base radius round the motor",
+          "value": 17.5,
+          "min": 17.5,
+          "max": 17.5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 12: 17.5 (Base 11: 29). The plate is the hull of a disc this big round the pinion's axis, one round each pivot post and the two pillars. Just past the 16-tooth pinion's tip circle (16.6)."
+        },
+        {
+          "name": "bush_r",
+          "label": "Base radius round each post",
+          "value": 7,
+          "min": 11,
+          "max": 11,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The base's disc round each pivot post. Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "base_clear",
+          "label": "Post clearance (per side)",
+          "value": 0.25,
+          "min": 0.25,
+          "max": 0.25,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Between each pivot post and its bore in the handle-gear, and the pinion spigot and its hole in the plate."
+        },
+        {
+          "name": "motor_screw_head_d",
+          "label": "Base screw countersink",
+          "value": 6.4,
+          "min": 6.4,
+          "max": 6.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 7: the base's 3 motor screws are the same M3 countersunk; the hole opens this wide at the plate's top and narrows at 45 deg (one screw type for the whole gripper)."
+        },
+        {
+          "name": "motor_screw_head_h",
+          "label": "Base screw recess",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the heads' tops sit under the plate's top face (the pinion turns over them). At 0.3 an M3x10 countersunk screw engages the front ring 4.3 mm."
+        }
+      ]
+    },
+    {
+      "name": "Motor choice (Base 11)",
+      "params": [
+        {
+          "name": "motor_sts",
+          "label": "Motor: 0 RS00, 1 STS3215",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 14 (as Base 12) is the Feetech STS3215 (the SO-101 servo) only: its horn takes the pinion, its case screws to the base, and the base's wrist tab takes the reBot wrist mount. 0 (RobStride RS00, Base 10/11) is not carried: its 50 mm screw ring does not fit the compact base."
+        }
+      ]
+    },
+    {
+      "name": "Motor: RobStride RS00 (3.1)",
+      "params": [
+        {
+          "name": "motor_d",
+          "label": "Body diameter",
+          "value": 57,
+          "min": 57,
+          "max": 57,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "RS00 (the B601-RS gripper motor): 57 mm. Source: RobStride RS00 drawing (Seeed 100083284) and RS00.step. 14 N m peak, 5 N m rated, 315 rpm no-load at 48 V, CAN."
+        },
+        {
+          "name": "motor_len",
+          "label": "Body length",
+          "value": 51,
+          "min": 51,
+          "max": 51,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "51 +-1 mm, front face to back (drawing); the output boss adds motor_boss_h."
+        },
+        {
+          "name": "motor_boss_d",
+          "label": "Output boss diameter",
+          "value": 35,
+          "min": 35,
+          "max": 35,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The turning output boss on the front face. The pinion's spigot sits on it."
+        },
+        {
+          "name": "motor_boss_h",
+          "label": "Output boss height",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the output boss stands proud of the front face (drawing: 1)."
+        },
+        {
+          "name": "motor_out_pcd",
+          "label": "Output flange bolt circle",
+          "value": 27,
+          "min": 27,
+          "max": 27,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "6 x M3, 5 deep, on 27 +-0.1 (drawing). 3.3: the pinion bolts here."
+        },
+        {
+          "name": "motor_out_holes",
+          "label": "Output flange bolts",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Number of M3 holes on the output flange."
+        },
+        {
+          "name": "motor_out_depth",
+          "label": "Output thread depth",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Thread depth of those holes."
+        },
+        {
+          "name": "motor_out_screws",
+          "label": "Pinion bolts used",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 4: how many of the output flange's motor_out_holes the pinion is bolted through, evenly spaced (3 = every other hole, 120 deg apart; Base 3: all 6). Must divide motor_out_holes. 3 x M3 at 13.5 mm carry the RS00's 14 N m peak with margin (~350 N shear each)."
+        },
+        {
+          "name": "motor_front_pcd",
+          "label": "Front ring bolt circle",
+          "value": 50,
+          "min": 50,
+          "max": 50,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "6 x M3 on 50 +-0.1 on the fixed front ring (drawing). The base plate bolts here."
+        },
+        {
+          "name": "motor_front_holes",
+          "label": "Front ring bolts",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Number of M3 holes on the front ring."
+        },
+        {
+          "name": "motor_front_phase_deg",
+          "label": "Front ring bolt angle",
+          "value": 30,
+          "min": 30,
+          "max": 30,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Angle of the first front-ring hole from +x (drawing: 30 deg off the vertical centreline)."
+        },
+        {
+          "name": "motor_front_depth",
+          "label": "Front thread depth",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Thread depth on the front ring (the drawing does not give it for this ring; 5 assumed like the output)."
+        },
+        {
+          "name": "motor_front_screws",
+          "label": "Base-to-motor bolts used",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 4: how many of the front ring's motor_front_holes hold the base plate on, evenly spaced (3 = every other hole; Base 3: all 6). The two dowels still locate it. Must divide motor_front_holes."
+        },
+        {
+          "name": "motor_dowel_d",
+          "label": "Dowel hole diameter",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "2 x 3 (+0.02/+0.04), 5 deep, on the front ring circle (drawing)."
+        },
+        {
+          "name": "motor_dowel_depth",
+          "label": "Dowel hole depth",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Depth of the two dowel holes."
+        },
+        {
+          "name": "motor_dowel_phase_deg",
+          "label": "Dowel angle",
+          "value": 15,
+          "min": 15,
+          "max": 15,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Angle of the first dowel from +x (drawing: 15 deg); the second is assumed opposite it."
+        },
+        {
+          "name": "motor_back_pcd",
+          "label": "Back face bolt circle",
+          "value": 38,
+          "min": 38,
+          "max": 38,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "4 x M3, 4 deep, on 38 +-0.1 on the back face (drawing). 3.2: the wrist mount (the base plate has no wrist tab)."
+        },
+        {
+          "name": "motor_back_holes",
+          "label": "Back face bolts",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Number of holes on the back face."
+        },
+        {
+          "name": "motor_back_depth",
+          "label": "Back thread depth",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Thread depth on the back face."
+        },
+        {
+          "name": "motor_back_phase_deg",
+          "label": "Back face bolt angle",
+          "value": 45,
+          "min": 45,
+          "max": 45,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Angle of the first back-face hole (drawing: 45)."
+        },
+        {
+          "name": "motor_conn_deg",
+          "label": "Connector direction",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 60,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: the RS00's two cable connectors (CAN + 48 V in, and out for the daisy chain) stand out of its body side by side-opposite at its back end. Measured from Seeed's motor_7 mesh. This is their direction from +x in the plan (0: across, +-x). The base takes 3 of the front ring's 6 screws, so the motor can be clocked in 60 deg steps; set this to where they really point. The wrist bracket must clear them."
+        },
+        {
+          "name": "motor_conn_r",
+          "label": "Connector reach",
+          "value": 41.5,
+          "min": 41.5,
+          "max": 41.5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: how far the connectors reach from the motor axis (Seeed motor_7 mesh: 41.5)."
+        },
+        {
+          "name": "motor_conn_w",
+          "label": "Connector width",
+          "value": 26,
+          "min": 26,
+          "max": 26,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the connectors' width across (Seeed mesh: 25.8)."
+        },
+        {
+          "name": "motor_conn_len",
+          "label": "Connector length",
+          "value": 13,
+          "min": 13,
+          "max": 13,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: how far the connectors run along the body from its back face (Seeed mesh: ~13)."
+        }
+      ]
+    },
+    {
+      "name": "Motor: Feetech STS3215 (Base 11)",
+      "params": [
+        {
+          "name": "sts_body_deg",
+          "label": "Servo body direction",
+          "value": 180,
+          "min": 180,
+          "max": 180,
+          "step": 5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Real servo body runs left under the gearbox; avoids its full-size label hump cutting the right pivot support."
+        },
+        {
+          "name": "sts_near",
+          "label": "Axis to the near end",
+          "value": 10.2,
+          "min": 10.2,
+          "max": 10.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "From the output axis to the body's near end (the output end). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_len",
+          "label": "Body length",
+          "value": 45.4,
+          "min": 45.4,
+          "max": 45.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The case's long side. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_w",
+          "label": "Body width",
+          "value": 24.8,
+          "min": 24.8,
+          "max": 24.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The case across. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_depth",
+          "label": "Body depth",
+          "value": 31.8,
+          "min": 31.8,
+          "max": 31.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "From the mounting face (the two rails the case screws are in) to the back face. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_face_drop",
+          "label": "Output face below the rails",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The output end of the case's front face sits this far below the rails, so the base bears only on the rails. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_rail_u",
+          "label": "Rails start",
+          "value": 5.7,
+          "min": 5.7,
+          "max": 5.7,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Where the rails begin, from the output axis toward the far end. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_hump_u",
+          "label": "Hump start",
+          "value": 8.9,
+          "min": 8.9,
+          "max": 8.9,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The raised middle of the front face (the label hump) begins here from the axis. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_hump_w",
+          "label": "Hump width",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The hump's width across the case (the rails are either side of it). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_hump_h",
+          "label": "Hump height",
+          "value": 1.1,
+          "min": 1.1,
+          "max": 1.1,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the hump stands above the rails. The base has a window over it, cut straight through, so it prints with no bridge. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_boss_d",
+          "label": "Output boss",
+          "value": 9,
+          "min": 9,
+          "max": 9,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The output spline boss under the horn. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_d",
+          "label": "Horn diameter",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The stock round horn on the output (top horn, the one with the M3 centre screw). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_y0",
+          "label": "Horn underside",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The horn's underside above the rails. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_top",
+          "label": "Horn top",
+          "value": 2.8,
+          "min": 2.8,
+          "max": 2.8,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The horn's top face above the rails: the pinion's spigot sits on it. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_pcd",
+          "label": "Horn screw circle",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The horn's 4 holes (2.5 mm, M3 cut into the horn) on this circle. SO-101 assembly: 4 M3x6 into the horn. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_holes",
+          "label": "Horn holes",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "The horn's screw holes; the pinion uses all of them. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_horn_screw_head_d",
+          "label": "Horn centre screw head",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The horn's centre M3 screw (SO-101: M3x6) stands proud of the horn; the pinion's spigot has a recess this wide for its head."
+        },
+        {
+          "name": "sts_horn_screw_head_h",
+          "label": "Horn centre screw head height",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the centre screw's head stands above the horn (the STEP: 1.5). The recess is 0.3 deeper."
+        },
+        {
+          "name": "sts_screw_u0",
+          "label": "Near case screws",
+          "value": 8.3,
+          "min": 8.3,
+          "max": 8.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The front face's two near M2 holes, from the axis toward the far end. SO-101 assembly: M2x6 into the case. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_screw_u1",
+          "label": "Far case screws",
+          "value": 29.0,
+          "min": 29.0,
+          "max": 29.0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The two far M2 holes, from the axis. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_screw_w",
+          "label": "Case screw spacing",
+          "value": 20.5,
+          "min": 20.5,
+          "max": 20.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Across the case between each pair of M2 holes. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_screw_d",
+          "label": "M2 clearance",
+          "value": 2.3,
+          "min": 2.3,
+          "max": 2.3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The base's clearance holes for the 4 M2 case screws."
+        },
+        {
+          "name": "sts_screw_head_d",
+          "label": "M2 head recess",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The recess round each M2 head in the base's top face (M2 pan head 3.8): the heads sit below the handle-gears."
+        },
+        {
+          "name": "sts_screw_head_h",
+          "label": "M2 head recess depth",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The recess depth; the screw is M2x8 (base_t - this + 4 mm into the case)."
+        },
+        {
+          "name": "sts_idler_d",
+          "label": "Idler horn diameter",
+          "value": 20,
+          "min": 20,
+          "max": 20,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The free horn on the back face (no screw; SO-101 fits both horns). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_idler_h",
+          "label": "Idler horn height",
+          "value": 2.1,
+          "min": 2.1,
+          "max": 2.1,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the idler horn stands off the back face (with its boss, 2.4). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_conn_u0",
+          "label": "Connectors from",
+          "value": 16.5,
+          "min": 16.5,
+          "max": 16.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The two 3-pin bus connectors on the back face run from here (from the axis toward the far end)... STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_conn_u1",
+          "label": "Connectors to",
+          "value": 29.9,
+          "min": 29.9,
+          "max": 29.9,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "... to here. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_conn_w",
+          "label": "Connector block width",
+          "value": 18.4,
+          "min": 18.4,
+          "max": 18.4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "The connector block across the case. STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_conn_h",
+          "label": "Connector block height",
+          "value": 1.8,
+          "min": 1.8,
+          "max": 1.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far the block stands off the back face (its pins 1.7 more). STS3215 from The Robot Studio's SO-ARM100 CAD (STEP/SO100/STS3215_03a.step, Apache-2.0), measured with OCCT."
+        },
+        {
+          "name": "sts_plug_len",
+          "label": "Cable plug keep-out",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Room behind the connectors for the plugs and the bend of the bus cable (checked clear of every part): the cable leaves the back of the servo, away from the base, to the bus adapter."
+        }
+      ]
+    },
+    {
+      "name": "Top plate (Base 9; Base 15: a cap on the base's four posts)",
+      "params": [
+        {
+          "name": "top_t",
+          "label": "Top plate thickness",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 9: the flat plate over the handle-gears, fingers and pinion. Base 15: a plain cap on the base's four posts (sockets over the pivot posts, M3 down into the pillars). Prints top face down."
+        },
+        {
+          "name": "top_bush_r",
+          "label": "Top plate radius round each pivot",
+          "value": 7.5,
+          "min": 11.5,
+          "max": 11.5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 9: the top plate's disc round each pivot (Base 15: round each post's socket). Over 11.5 its corners reach the lower strap slot's keep-out (strap_clear) as the handle swings. Base 20/Gripper 25: reduced direct-contact pivot; no handle interface."
+        },
+        {
+          "name": "top_gap",
+          "label": "Gap under the top plate",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 9: running clearance between the top plate and the handle-gears, fingers and pinion under it. It is all that keeps them from lifting: they are captured top and bottom."
+        },
+        {
+          "name": "pillar_d",
+          "label": "Top plate pillar",
+          "value": 8,
+          "min": 8,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15: the two pillars that stand up out of the base at its lower corners to the top plate's underside (Base 9-14: on the top plate, socketed into the base). Each takes an M3 countersunk down through the top plate."
+        },
+        {
+          "name": "pillar_rim",
+          "label": "Plate rim round a pillar",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 9: how far both plates reach past each pillar."
+        },
+        {
+          "name": "pillar_x",
+          "label": "Pillars across",
+          "value": 28,
+          "min": 28,
+          "max": 28,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 12: the two pillars the top plate stands on sit this far either side of the centreline, at the base's lower corners (Base 11 had a third pillar on a tab between the fingers; gone, to keep the gripping area clear)."
+        },
+        {
+          "name": "pillar_z",
+          "label": "Pillars down",
+          "value": -42,
+          "min": -42,
+          "max": -42,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 12: the pillars' height along the fingers from the pivots' line (negative: below it), clear of the handle-gears' teeth at every swing and of the pinion."
+        },
+        {
+          "name": "cap_socket",
+          "label": "Cap socket depth",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.25,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15: how deep each pivot post's tip runs up into a blind socket in the top plate's underside. The sockets hold the axles' top ends and locate the cap on the base."
+        },
+        {
+          "name": "cap_fit",
+          "label": "Cap socket fit",
+          "value": 0.15,
+          "min": 0.15,
+          "max": 0.15,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15: each post socket over its post, each side, and how far short of the socket's floor the post's tip stops."
+        },
+        {
+          "name": "pillar_floor",
+          "label": "Pillar screw floor",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15: the pilot down each pillar stops this far above the base's top face (blind)."
+        },
+        {
+          "name": "pillar_pilot_d",
+          "label": "Pillar screw pilot",
+          "value": 2.6,
+          "min": 2.6,
+          "max": 2.6,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 15: the hole down each pillar the cap's M3 cuts its own thread in (blind, pillar_floor over the base)."
+        },
+        {
+          "name": "top_access_clear",
+          "label": "Pinion screw access clearance",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 9: the top plate's hole over the pinion clears its 3 flange screw heads by this much, so the pinion comes off with the plate on."
+        }
+      ]
+    },
+    {
+      "name": "Wrist interface (Base 10): hub on the arm, tool plate on each tool",
+      "params": [
+        {
+          "name": "hub_d",
+          "label": "Hub diameter",
+          "value": 35.6,
+          "min": 35.6,
+          "max": 35.6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the wrist hub, a disc bolted to the B601-RS J6 output (an RS00, the same flange as our motor: motor_out_pcd). Seeed's aluminium \"Gripper Connector A\" (2-M6-ROTOR.step) is 35.6; this printed one is its twin, so either fits every tool plate."
+        },
+        {
+          "name": "hub_t",
+          "label": "Hub thickness",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: Connector A is 6 thick. It sits on J6's 1 mm output boss (its arm face is the boss top, link6 z 0 in Seeed's URDF)."
+        },
+        {
+          "name": "hub_bore_d",
+          "label": "Hub centre bore",
+          "value": 14,
+          "min": 14,
+          "max": 14,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the centre hole (Connector A: 14)."
+        },
+        {
+          "name": "hub_screws",
+          "label": "Hub screws to J6",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 10: how many of the J6 output's motor_out_holes the hub is bolted through (Connector A: 4; the printed hub takes all 6). Must divide motor_out_holes."
+        },
+        {
+          "name": "hub_screw_phase_deg",
+          "label": "Hub screw angle",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: the first J6 screw's angle from +x. J6 turns anyway, so only the hub's own features care."
+        },
+        {
+          "name": "hub_cbore_d",
+          "label": "Hub screw counterbore",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: M3 socket heads sit in these, from the hub's tool face (Connector A: 6.0)."
+        },
+        {
+          "name": "hub_cbore_h",
+          "label": "Hub counterbore depth",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: depth of those counterbores; the rest is the screw grip (M3 x 6: 3 grip + 3 into J6's 5 deep holes)."
+        },
+        {
+          "name": "hub_relief_d",
+          "label": "Hub relief holes",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: 3 holes on 24.46 that clear the RS00 output's 3 x 3 mm features (Connector A: 4.0). 0 = none."
+        },
+        {
+          "name": "hub_relief_pcd",
+          "label": "Hub relief circle",
+          "value": 24.46,
+          "min": 24.46,
+          "max": 24.46,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the RS00 drawing's 24.46 circle."
+        },
+        {
+          "name": "hub_scallop_d",
+          "label": "Hub scallops",
+          "value": 7.06,
+          "min": 7.06,
+          "max": 7.06,
+          "step": 0.01,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: 4 notches round the hub's edge on the tool screws' circle (motor_back_pcd, 45 deg) clear those screws' heads, which stand in the tool plate's bore (Connector A: 7.06)."
+        },
+        {
+          "name": "radial_n",
+          "label": "Radial screws",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 1,
+          "unit": "",
+          "stage": "calibration",
+          "doc": "Base 10: how a tool locks onto the hub: M3 screws in from the tool plate's side into the hub's rim, as Seeed's stock gripper does (Connector B to A: 3 at 120 deg). Loosen 3 screws, lift the tool off, slide the next one on."
+        },
+        {
+          "name": "radial_phase_deg",
+          "label": "Radial screw angle",
+          "value": 30,
+          "min": 30,
+          "max": 30,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: the first radial screw's angle from +x (Connector A: 30, 150, 270). Kept 45 deg off the tool screws, and the Aero plate's cable channel sits between two of them."
+        },
+        {
+          "name": "radial_pilot_d",
+          "label": "Radial pilot (hub)",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the printed hub's radial holes; the M3 cuts its own thread (Connector A is tapped M3)."
+        },
+        {
+          "name": "radial_pilot_len",
+          "label": "Radial pilot depth",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: how deep they run in from the hub's rim."
+        },
+        {
+          "name": "tool_d",
+          "label": "Tool plate diameter",
+          "value": 56.8,
+          "min": 56.8,
+          "max": 56.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the tool plate, every tool's side of the interface: the twin of Seeed's \"Gripper Connector B\" (2-M7-STATOR.step, 56.8), the RS00's own diameter."
+        },
+        {
+          "name": "tool_t",
+          "label": "Tool plate thickness",
+          "value": 9.5,
+          "min": 9.5,
+          "max": 9.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: Connector B: 9.5, of which tool_floor is the floor and the rest the socket the hub drops into."
+        },
+        {
+          "name": "tool_floor",
+          "label": "Tool plate floor",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the floor between the socket and the tool (Connector B: 3). The hub's tool face seats on it."
+        },
+        {
+          "name": "tool_bore_d",
+          "label": "Socket bore",
+          "value": 36,
+          "min": 36,
+          "max": 36,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the socket for the hub (Connector B: 36.0, so the 35.6 hub has 0.2 a side)."
+        },
+        {
+          "name": "tool_center_d",
+          "label": "Tool plate centre hole",
+          "value": 26.2,
+          "min": 26.2,
+          "max": 26.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the floor's centre hole (Connector B: 26.2)."
+        },
+        {
+          "name": "tool_screw_pcd",
+          "label": "Tool screw circle",
+          "value": 38,
+          "min": 38,
+          "max": 38,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: 4 x M3 on 38 at 45 deg, through the floor into the tool. The RS00's back face has exactly this (motor_back_pcd), and so does the Aero Hand's wrist pad (4 M3 inserts on a 26.9 square, measured from its CAD): one tool plate fits both."
+        },
+        {
+          "name": "tool_screw_phase_deg",
+          "label": "Tool screw angle",
+          "value": 45,
+          "min": 45,
+          "max": 45,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: the first tool screw's angle (Connector B: 45)."
+        },
+        {
+          "name": "tool_head_d",
+          "label": "Tool screw head pocket",
+          "value": 6.2,
+          "min": 6.2,
+          "max": 6.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the 4 tool screws' heads stand on the floor in pockets half in the socket wall (Connector B: 6.2, 3.5 high); the hub's scallops clear them. Printed, each pocket runs on up to the socket's mouth, so nothing hangs over it."
+        },
+        {
+          "name": "radial_h",
+          "label": "Radial screw height",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the radial screws' axis above the floor top: the hub's mid-thickness (Connector B: 3)."
+        },
+        {
+          "name": "radial_clear_d",
+          "label": "Radial clearance hole",
+          "value": 3.5,
+          "min": 3.5,
+          "max": 3.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the radial screws' clearance in the tool plate (Connector B: 3.5)."
+        },
+        {
+          "name": "radial_head_d",
+          "label": "Radial screw head counterbore",
+          "value": 5.8,
+          "min": 5.8,
+          "max": 5.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: counterbore for the radial screws' heads, from the rim in to radial_seat_r (Connector B: 5.8)."
+        },
+        {
+          "name": "radial_seat_r",
+          "label": "Radial head seat",
+          "value": 21.9,
+          "min": 21.9,
+          "max": 21.9,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the heads seat this far from the axis (Connector B: spot faces at 21.9), so M3 x 8 reaches 4 mm into the hub."
+        }
+      ]
+    },
+    {
+      "name": "Wrist bracket (Base 10, Base 14 on the STS3215): gripper to tool plate",
+      "params": [
+        {
+          "name": "mount_axis_y",
+          "label": "J6 axis offset (dorsal)",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: where the arm's roll axis (J6) runs, along the fingers (Z), dorsal of the finger mid-plane. 0: through the fingers' mid-plane and between the fingers, as the stock gripper's fingers are, so rolling the wrist turns the fingers about their own centre line. -30 puts it nearer the motor (the centre of mass) and shortens the bracket."
+        },
+        {
+          "name": "mount_gap",
+          "label": "Gap under the gripper",
+          "value": 1,
+          "min": 1,
+          "max": 1,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: clearance between the bracket's foot and the gripper's lowest part (Base 14: the base's wrist tab)."
+        },
+        {
+          "name": "foot_t",
+          "label": "Foot thickness",
+          "value": 8,
+          "min": 8,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the bracket's foot, the flat plate across the J6 axis that the tool plate screws to. It carries the gripper ~70 mm out from the leg (mount_axis_y 0), so it is thick: 8."
+        },
+        {
+          "name": "foot_pilot_d",
+          "label": "Foot pilot holes",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.05,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the 4 tool screws come up through the tool plate's floor into these (self-tapped, right through the foot: M3 x 10 = 3 floor + 7)."
+        },
+        {
+          "name": "leg_t",
+          "label": "Leg thickness",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the bracket's leg, a plate up the motor's back face, bolted to its 4 M3 (motor_back_pcd); M3 x 8 = 5 + 3 of the 4 mm thread. Base 14: the leg lies flat under the base's wrist tab instead; M3 x 10 = 5 through the leg + 5 into the 6 mm tab."
+        },
+        {
+          "name": "leg_boss_r",
+          "label": "Leg rim round each screw",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the leg is the hull of a disc this big round each leg screw and the foot. Base 14: the base's wrist tab is the same discs."
+        },
+        {
+          "name": "gusset_t",
+          "label": "Gusset thickness",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: two ribs between leg and foot, on the leg's outer side at its edges."
+        },
+        {
+          "name": "gusset_len",
+          "label": "Gusset size",
+          "value": 10,
+          "min": 10,
+          "max": 10,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: each gusset's legs (a 45 deg triangle, so it prints without support). Base 14: 10 (Base 10: 15), so the gussets stay under the servo's near end."
+        },
+        {
+          "name": "wrist_screw_x",
+          "label": "Wrist tab screws across",
+          "value": 13,
+          "min": 13,
+          "max": 13,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 14: the two M3 that clamp the bracket's leg under the base's wrist tab sit this far either side of the centreline. The STS3215's back face has no screw ring (Base 10's leg bolted to the RS00's), so the base takes the arm's load, not the servo case."
+        },
+        {
+          "name": "wrist_screw_z",
+          "label": "Wrist tab screws height",
+          "value": -56,
+          "min": -56,
+          "max": -56,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 14: their height along the fingers from the pivots' line (negative: below it). -56 puts the tab (leg_boss_r round each) 2 mm under the servo's near end and just under the base's disc round the pinion, so the leg lies flat under the base beside the servo, never on it."
+        },
+        {
+          "name": "wrist_pilot_d",
+          "label": "Wrist tab pilot hole",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 14: the tab's holes, straight through the base (vertical as it prints); the M3 cut their own thread."
+        },
+        {
+          "name": "gusset_x",
+          "label": "Gussets across",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 14: the two gussets sit this far either side of the centreline, inboard of the leg screws so their heads and the hex key stay clear (Base 10 put them at the leg's edges)."
+        },
+        {
+          "name": "tie_x",
+          "label": "Cable tie x",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the motor cable is zip-tied to the foot here, then drops past the tool plate to J6, as the stock gripper's does. Base 14: 5 (Base 10: 30), under the STS3215's bus connectors."
+        },
+        {
+          "name": "tie_dy",
+          "label": "Cable tie y (from the motor back)",
+          "value": 7,
+          "min": 7,
+          "max": 7,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the tie point's y, measured in from the motor's back face (Base 14: the STS3215's back face)."
+        },
+        {
+          "name": "tie_gap",
+          "label": "Tie slot spacing",
+          "value": 9,
+          "min": 9,
+          "max": 9,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the two zip-tie slots straddle the cable this far apart (centre to centre)."
+        },
+        {
+          "name": "tie_w",
+          "label": "Tie slot length",
+          "value": 4.5,
+          "min": 4.5,
+          "max": 4.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: each slot's long side (a 3.6 mm zip tie)."
+        },
+        {
+          "name": "tie_slot_t",
+          "label": "Tie slot width",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: each slot's short side."
+        }
+      ]
+    },
+    {
+      "name": "Aero Hand plate (Base 10)",
+      "params": [
+        {
+          "name": "aero_spacer",
+          "label": "Aero plate spacer",
+          "value": 8,
+          "min": 8,
+          "max": 8,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the Aero Hand's tool plate is a tool plate plus this much more below the floor, so the hand's USB and 6 V leads leave its wrist pad's 15 mm centre hole sideways in a channel instead of being pinched by the 3 mm floor. M3 x 14: 3 floor + 8 spacer + 3 into the hand's inserts."
+        },
+        {
+          "name": "aero_channel_w",
+          "label": "Cable channel width",
+          "value": 10,
+          "min": 10,
+          "max": 10,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: the channel in the plate's hand face, from the centre to the rim."
+        },
+        {
+          "name": "aero_channel_h",
+          "label": "Cable channel depth",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "step": 0.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: its straight walls' height; the roof above them peaks at 45 deg (aero_channel_w/2 higher), so it prints open side down without support. Walls + roof must stay inside the spacer and floor."
+        },
+        {
+          "name": "aero_channel_deg",
+          "label": "Cable channel direction",
+          "value": 90,
+          "min": 90,
+          "max": 90,
+          "step": 15,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: from +x; kept between two radial screws and clear of the four tool screws."
+        }
+      ]
+    },
+    {
+      "name": "Arm pose in the preview (Base 10)",
+      "params": [
+        {
+          "name": "arm_roll_deg",
+          "label": "Wrist roll shown",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 15,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Base 10: the reBot Arm's J6 roll in the preview (arm_pose.py, at export; not live)."
+        },
+        {
+          "name": "aero_view_x",
+          "label": "Aero Hand shown at x",
+          "value": 230,
+          "min": 230,
+          "max": 230,
+          "step": 5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 10: in the preview the Aero Hand and its plate stand beside the arm, as the other tool on the rack."
+        }
+      ]
+    },
+    {
+      "name": "Calibration (traced, not on a slider)",
+      "params": [
+        {
+          "name": "mm_per_px",
+          "value": 0.2,
+          "unit": "mm/px",
+          "stage": "calibration",
+          "doc": "Photo scale: ~110 mm pivot to tip. No measured scale.",
+          "min": 0.2,
+          "max": 0.2
+        },
+        {
+          "name": "px_pivot",
+          "value": [
+            337,
+            395
+          ],
+          "unit": "px",
+          "stage": "calibration",
+          "doc": "Frame origin in the two-hands photo.",
+          "min": [
+            337,
+            395
+          ],
+          "max": [
+            337,
+            395
+          ]
+        },
+        {
+          "name": "axis_deg",
+          "value": 36.5,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Bisector of the two closed fingers in the photo (27 and 46 deg).",
+          "min": 36.5,
+          "max": 36.5
+        },
+        {
+          "name": "contact_back",
+          "value": -0.017,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Base 12: -0.017. How far the smoothed point sits outboard of the traced one; sets the toe-in (gripper.scad toe) so closed the points meet with no overlap. Toed in, the solid meets 0.6 mm behind the traced point, where the rounding sits 0.019 mm further out than at the point; -0.017 leaves ~0.002 mm per side, inside the 0.01 mm push of the contact checks. (2.5-Base 11: 0.0005, which set the pivot spacing.)",
+          "min": -0.017,
+          "max": -0.017
+        },
+        {
+          "name": "rail_p",
+          "value": [
+            [
+              -5.06,
+              12.79
+            ],
+            [
+              -9.54,
+              36.26
+            ]
+          ],
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Two outer-edge points of the traced outline where the edge is straight within 0.3 mm (the handle's rail).",
+          "min": [
+            [
+              -5.06,
+              12.79
+            ],
+            [
+              -9.54,
+              36.26
+            ]
+          ],
+          "max": [
+            [
+              -5.06,
+              12.79
+            ],
+            [
+              -9.54,
+              36.26
+            ]
+          ]
+        },
+        {
+          "name": "round_back",
+          "value": 1.5,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "How far tip_r rounds the triangle point back from the trace (trace_photo.py ROUND_BACK).",
+          "min": 1.5,
+          "max": 1.5
+        },
+        {
+          "name": "max_angle",
+          "value": 30,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Each finger's largest swing about its pivot.",
+          "min": 30,
+          "max": 30
+        }
+      ]
+    },
+    {
+      "name": "Compact overhead clearance",
+      "params": [
+        {
+          "name": "drive_gap",
+          "label": "Gear to finger clearance",
+          "value": 0.8,
+          "min": 0.5,
+          "max": 3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "drive",
+          "doc": "Axial air gap between the 6 mm Gripper 24 band and the inverted overhead gear teeth. Adds to overall depth; CAD motion only, physical hand clearance unverified."
+        },
+        {
+          "name": "key_r",
+          "label": "Hex boss radius",
+          "value": 3.3,
+          "min": 3.3,
+          "max": 3.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Circumradius of short integral finger-to-gear hex boss; 3 mm post with 0.25 mm radial bore clearance, minimum hex wall about 1.1 mm."
+        },
+        {
+          "name": "key_fit",
+          "label": "Hex radial allowance",
+          "value": 0.15,
+          "min": 0.15,
+          "max": 0.15,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Radial socket offset; resin fit requires physical calibration."
+        },
+        {
+          "name": "key_depth",
+          "label": "Hex engagement",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Boss engagement inside the overhead gear, captured axially by base and cap."
+        },
+        {
+          "name": "key_end_gap",
+          "label": "Hex tip clearance",
+          "value": 0.2,
+          "min": 0.2,
+          "max": 0.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Boss tip clearance in gear socket; cap limits axial travel."
+        },
+        {
+          "name": "tool_d",
+          "label": "Driver shaft envelope",
+          "value": 2.5,
+          "min": 2.5,
+          "max": 2.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Straight 2.5 mm shaft probe for small screw drivers; handle outside assembly, not an L-key swing proof."
+        },
+        {
+          "name": "tool_len",
+          "label": "Driver access length",
+          "value": 45,
+          "min": 45,
+          "max": 45,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Axial shaft access outside stack; assemble servo and purchased plate first."
+        },
+        {
+          "name": "case_tool_tilt",
+          "label": "Near ear driver tilt",
+          "value": 10,
+          "min": 10,
+          "max": 10,
+          "step": 1,
+          "unit": "deg",
+          "stage": "calibration",
+          "doc": "Near ear screws need 10 degree PH0 shaft tilt away from motor output-end overhang. Straight driver is blocked; physical screw-drive engagement at this angle unverified."
+        },
+        {
+          "name": "contact_edge_w",
+          "label": "Direct outside edge",
+          "value": 0,
+          "min": 0,
+          "max": 0,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Trim the retired strap-hook protrusions back to the original straight outside rail, for direct thumb/index contact."
+        },
+        {
+          "name": "contact_trim_u0",
+          "label": "Hook trim start",
+          "value": -12,
+          "min": -12,
+          "max": -12,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Extent along original rail including lower hook."
+        },
+        {
+          "name": "contact_trim_u1",
+          "label": "Hook trim end",
+          "value": 34,
+          "min": 34,
+          "max": 34,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Extent along original rail including upper hook; distal working blade preserved."
+        }
+      ]
+    },
+    {
+      "name": "Two local pivot retainers",
+      "params": [
+        {
+          "name": "pivot_bore",
+          "label": "Pivot Bore",
+          "value": 2.2,
+          "min": 2.2,
+          "max": 2.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Sleeve axial bore; M2 bolt reinforces printed 3 mm smooth journal, 0.4 mm radial sleeve wall."
+        },
+        {
+          "name": "retainer_gap",
+          "label": "Retainer Gap",
+          "value": 0.2,
+          "min": 0.2,
+          "max": 0.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Designed axial gap below finger; total stack endplay adds inherited 0.3 mm upper gear clearance."
+        },
+        {
+          "name": "washer_d",
+          "label": "Washer D",
+          "value": 5,
+          "min": 5,
+          "max": 5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 washer OD, ISO 7089 nominal supplier dimensions; verify purchased part."
+        },
+        {
+          "name": "washer_bore",
+          "label": "Washer Bore",
+          "value": 2.2,
+          "min": 2.2,
+          "max": 2.2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 washer clearance bore."
+        },
+        {
+          "name": "washer_t",
+          "label": "Washer T",
+          "value": 0.5,
+          "min": 0.5,
+          "max": 0.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2 washer thickness."
+        },
+        {
+          "name": "pivot_screw_d",
+          "label": "Pivot Screw D",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2x25 ISO 4762 nominal thread envelope; smooth printed sleeve isolates finger from threads."
+        },
+        {
+          "name": "pivot_screw_len",
+          "label": "Pivot Screw Len",
+          "value": 25,
+          "min": 25,
+          "max": 25,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2x25 under-head length, nut above overhead base; excess thread stays overhead."
+        },
+        {
+          "name": "pivot_head_d",
+          "label": "Pivot Head D",
+          "value": 3.8,
+          "min": 3.8,
+          "max": 3.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ISO 4762 M2 socket head diameter, Accu/Westfield dimensions."
+        },
+        {
+          "name": "pivot_head_h",
+          "label": "Pivot Head H",
+          "value": 2,
+          "min": 2,
+          "max": 2,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ISO 4762 M2 socket head height."
+        },
+        {
+          "name": "pivot_socket_af",
+          "label": "Pivot Socket Af",
+          "value": 1.5,
+          "min": 1.5,
+          "max": 1.5,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "ISO 4762 M2 hex drive across flats."
+        },
+        {
+          "name": "pivot_nut_af",
+          "label": "Pivot Nut Af",
+          "value": 4,
+          "min": 4,
+          "max": 4,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "DIN 934 M2 nut across flats."
+        },
+        {
+          "name": "pivot_nut_h",
+          "label": "Pivot Nut H",
+          "value": 1.6,
+          "min": 1.6,
+          "max": 1.6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "DIN 934 M2 nut height; manual locking/inspection needed."
+        },
+        {
+          "name": "pivot_nut_bore",
+          "label": "Pivot Nut Bore",
+          "value": 2.05,
+          "min": 2.05,
+          "max": 2.05,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Nominal nut core envelope hole for collision models; actual internal thread omitted."
+        },
+        {
+          "name": "nut_tool_d",
+          "label": "Nut Tool D",
+          "value": 6,
+          "min": 6,
+          "max": 6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Nut-driver shaft/socket outside envelope; verify actual tool."
+        }
+      ]
+    },
+    {
+      "name": "Centered integral drive",
+      "params": [
+        {
+          "name": "mesh_split",
+          "label": "Mesh Split",
+          "value": 7.3,
+          "min": 7.3,
+          "max": 7.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Y top of lower counter-rotation gear level; actual mm after inversion."
+        },
+        {
+          "name": "mesh_layer_gap",
+          "label": "Mesh Layer Gap",
+          "value": 0.6,
+          "min": 0.6,
+          "max": 0.6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Axial separation to upper pinion/right drive level."
+        },
+        {
+          "name": "rear_gap_budget",
+          "label": "Rear Gap Budget",
+          "value": 0.8,
+          "min": 0.8,
+          "max": 0.8,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Required nominal rear clearance: 0.3 mm manufacturing + 0.5 mm deflection reserve; assumed, no strength proof."
+        },
+        {
+          "name": "gear_join_r",
+          "label": "Gear Join R",
+          "value": 3.3,
+          "min": 3.3,
+          "max": 3.3,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Integral jaw to sector circular neck radius; replaces removable hex connection."
+        }
+      ]
+    },
+    {
+      "name": "Original tip closure and center capture",
+      "params": [
+        {
+          "name": "closure_toe_adjust",
+          "value": -0.0020201040306150725,
+          "label": "Closure Toe Adjust",
+          "min": -2,
+          "max": 2,
+          "step": 1e-06,
+          "unit": "deg",
+          "stage": "solid",
+          "doc": "Original-tip contact correction from actual rounded blade mesh at widened pivot pitch; gear phase unchanged."
+        },
+        {
+          "name": "center_capture_t",
+          "value": 1,
+          "label": "Center Capture T",
+          "min": 1,
+          "max": 1,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Integral pinion web under the center screw, reducing screw projection by 1 mm to clear sourced CAD bore floor."
+        },
+        {
+          "name": "center_clear_d",
+          "value": 2.6,
+          "label": "Center Clear D",
+          "min": 2.6,
+          "max": 2.6,
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "M2.3 center screw clearance in integral capture web; printed physical fit unverified."
+        },
+        {
+          "name": "body_closure_gap",
+          "value": 0.6,
+          "label": "Body Closure Gap",
+          "min": 0.6,
+          "max": 0.6,
+          "unit": "mm",
+          "step": 0.1,
+          "stage": "calibration",
+          "doc": "Minimum nominal middle-blade separation; achieved with base spacing and blade orientation, no added tip material."
+        },
+        {
+          "name": "tip_contact_zone",
+          "value": 0.3,
+          "min": 0.3,
+          "max": 0.3,
+          "label": "Tip Contact Zone",
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Original rounded-tip region measured back from the farthest closed blade vertex; contact must be inside this region."
+        },
+        {
+          "name": "body_contact_setback",
+          "value": 3,
+          "min": 3,
+          "max": 3,
+          "label": "Body Contact Setback",
+          "step": 0.1,
+          "unit": "mm",
+          "stage": "calibration",
+          "doc": "Exclude only the last 3 mm of rounded tip when checking minimum middle-blade separation."
+        }
+      ]
+    }
+  ],
+  "version": "Base 24 + Gripper 28"
+}

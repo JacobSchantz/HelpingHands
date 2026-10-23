@@ -1,0 +1,274 @@
+{
+  "assumptions": {
+    "source": "Unmodified WebXR generic-hand mesh, MIT; existing human_hand.js outside fingerContacts + fixed-wrist local IK",
+    "hand_length_mm": [
+      181.1,
+      193.3
+    ],
+    "breadth": "Uniform scaling retains narrow generic mesh (~78 mm at 187.2 mm length), not Jake measured hand",
+    "station_percent": 50,
+    "pad_radius_mm": 8,
+    "stroke_positions": 13,
+    "max_contact_miss_budget_mm": 2,
+    "collision": "Complete deformed skin vertices inside actual closed CAD meshes, no body exclusions; surface sampling may miss edge crossings",
+    "qualification": "Exploratory right-hand reference; no continuous clearance, skin pressure or physical ergonomic/strength certification",
+    "contact_selection": "Actual working-band triangles only for inherited fingerContacts raycaster; full physical solids retained in all collision screening. Conservative full-part boxes affect IK cost, especially integral jaw/gears."
+  },
+  "cases": [
+    {
+      "length_mm": 181.1,
+      "joint_names": [
+        "wrist",
+        "thumb-metacarpal",
+        "thumb-phalanx-proximal",
+        "thumb-phalanx-distal",
+        "thumb-tip",
+        "index-finger-metacarpal",
+        "index-finger-phalanx-proximal",
+        "index-finger-phalanx-intermediate",
+        "index-finger-phalanx-distal",
+        "index-finger-tip",
+        "middle-finger-metacarpal",
+        "middle-finger-phalanx-proximal",
+        "middle-finger-phalanx-intermediate",
+        "middle-finger-phalanx-distal",
+        "middle-finger-tip",
+        "ring-finger-metacarpal",
+        "ring-finger-phalanx-proximal",
+        "ring-finger-phalanx-intermediate",
+        "ring-finger-phalanx-distal",
+        "ring-finger-tip",
+        "pinky-finger-metacarpal",
+        "pinky-finger-phalanx-proximal",
+        "pinky-finger-phalanx-intermediate",
+        "pinky-finger-phalanx-distal",
+        "pinky-finger-tip"
+      ],
+      "samples": [
+        {
+          "angle": 0,
+          "contact_miss_mm": 19.418999244664633,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 2.5,
+          "contact_miss_mm": 19.028566242286306,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 5,
+          "contact_miss_mm": 18.563513843619305,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 7.5,
+          "contact_miss_mm": 18.21768526633509,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 10,
+          "contact_miss_mm": 18.260995244147214,
+          "skin_vertices_inside_cad": {
+            "left": 5
+          },
+          "passed": false
+        },
+        {
+          "angle": 12.5,
+          "contact_miss_mm": 18.376988043783136,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 15,
+          "contact_miss_mm": 18.34964821580999,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 17.5,
+          "contact_miss_mm": 19.117593147552345,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 20,
+          "contact_miss_mm": 20.00506557658937,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 22.5,
+          "contact_miss_mm": 20.898946727594936,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 25,
+          "contact_miss_mm": 21.828205365183877,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 27.5,
+          "contact_miss_mm": 22.74881891772712,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 30,
+          "contact_miss_mm": 23.666586721931555,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "length_mm": 193.3,
+      "joint_names": [
+        "wrist",
+        "thumb-metacarpal",
+        "thumb-phalanx-proximal",
+        "thumb-phalanx-distal",
+        "thumb-tip",
+        "index-finger-metacarpal",
+        "index-finger-phalanx-proximal",
+        "index-finger-phalanx-intermediate",
+        "index-finger-phalanx-distal",
+        "index-finger-tip",
+        "middle-finger-metacarpal",
+        "middle-finger-phalanx-proximal",
+        "middle-finger-phalanx-intermediate",
+        "middle-finger-phalanx-distal",
+        "middle-finger-tip",
+        "ring-finger-metacarpal",
+        "ring-finger-phalanx-proximal",
+        "ring-finger-phalanx-intermediate",
+        "ring-finger-phalanx-distal",
+        "ring-finger-tip",
+        "pinky-finger-metacarpal",
+        "pinky-finger-phalanx-proximal",
+        "pinky-finger-phalanx-intermediate",
+        "pinky-finger-phalanx-distal",
+        "pinky-finger-tip"
+      ],
+      "samples": [
+        {
+          "angle": 0,
+          "contact_miss_mm": 15.841386664382728,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 2.5,
+          "contact_miss_mm": 15.279473048331882,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 5,
+          "contact_miss_mm": 14.342342808294912,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 7.5,
+          "contact_miss_mm": 14.014247251196814,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 10,
+          "contact_miss_mm": 14.334638082726249,
+          "skin_vertices_inside_cad": {
+            "left": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 12.5,
+          "contact_miss_mm": 14.757414220904161,
+          "skin_vertices_inside_cad": {
+            "left": 4
+          },
+          "passed": false
+        },
+        {
+          "angle": 15,
+          "contact_miss_mm": 15.263302766136842,
+          "skin_vertices_inside_cad": {
+            "left": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 17.5,
+          "contact_miss_mm": 15.81324070383686,
+          "skin_vertices_inside_cad": {
+            "right": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 20,
+          "contact_miss_mm": 16.46727714759365,
+          "skin_vertices_inside_cad": {
+            "right": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 22.5,
+          "contact_miss_mm": 17.162285315915966,
+          "skin_vertices_inside_cad": {
+            "right": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 25,
+          "contact_miss_mm": 17.907374804252917,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 27.5,
+          "contact_miss_mm": 18.00734264990999,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 30,
+          "contact_miss_mm": 18.78243973809259,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        }
+      ],
+      "passed": false
+    }
+  ],
+  "input_sha256": {
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/motor.stl": "12a21ac8c99458e48add764c276988aeaa61a9f6ba579dbb9476a526c4cbb76b",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/left.stl": "3b71c0f0c31bf542fc77761b1647bcb983a1049a619234151db5fca72bb1f497",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/base.stl": "9a2a3a15c90d957c9f83cee0789dff4be1493c055f1a11e87674354ac25bb280",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/pinion.stl": "c01219bd10493c9452185f7fb5ae47e655130b0cd9faa4f33979a31edb079b25",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/stock_plate.stl": "3611a9b03a87b72600fa3200a515f17bf51bc1e2c6b196586e0dd70f02dc1f41",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/parts/right.stl": "3f13d80b9dbe9f236d38515277ee82318cab3512cb147face478f910ee1de436",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/pivot_screws.stl": "95d0f17db8e7779c4ee1989c85d68682bf0257fb69f40c5c3e4a785036bcd934",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/pivot_washers.stl": "ad927f508a784546a9be718c5d7208e69eae39e571a0026a94eb3fc4b4e7d71c",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/pivot_nuts.stl": "ae6748239723f2202a8a6ac463e3036fb5714e9509108fdebe3d5104a985b0fa",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/plate_screws.stl": "f72edd9288074e6c7ce4ae74b4b1216eb6c6ef2237db84961919173762590ccd",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/case_screws.stl": "15a619de24f4023681e4d2b186b89240659ece70a423bed057f87ebadba6b92e",
+    "Two Finger Gripper/versions/v325_generalist_original_tip_closure/exports/reference/center_screw.stl": "08dca2f26d73a8ac8ece19e39c598d2a0d8c54d712efe1511dc1e43c36c63028",
+    "cad/mobile_gallery/human_hand.js": "625a1a2b0b75ef6cddfc4a159c6c7e90d8eb4dc6f24150df685fd32139ec5621",
+    "cad/mobile_gallery/contact_case.js": "6a6969517a79ac11c2d57ef4e2826899b4e2d62d23f62807777da0abc0e98d90",
+    "cad/mobile_gallery/original_tip_case.js": "77ee442cda95d332f8c6661201d986fb2dd1a94868b472f5ff803ee576167304",
+    "cad/mobile_gallery/reference/human_hand/right.glb": "291790c14f7f88a7f9bd35330c47392ed8e8d395ae6728f4bb7089f1bc1f2b96"
+  },
+  "passed": false
+}
