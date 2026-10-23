@@ -113,7 +113,7 @@ GRIP_SCRIPT = '''
 import fs from 'fs';
 import * as THREE from 'three';
 globalThis.readGlb = side => { const b = fs.readFileSync(%r + side + '.glb'); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); };
-const {makeHand, sizeHand, gripHand} = await import('./human_hand.js');
+const {makeHand, sizeHand, gripHand, fingerContacts} = await import('./human_hand.js');
 const box = (a, b) => new THREE.Box3(new THREE.Vector3(...a), new THREE.Vector3(...b));
 const solids = [box([-11.5, -12.7, -54.2], [21.3, 6, -21.3]), box([-42.4, -15.5, -62], [42.4, -6.4, 11]),
   box([-42.8, -11, -55.3], [42.8, 10.3, 11.5]), box([-7.5, -49.4, -48], [17.3, -11.2, -2.6])];
@@ -136,6 +136,28 @@ for (const [side, x] of [['right', 46], ['right', 33], ['left', 46]]) {
   out[out.length - 1].buriedFit = root.userData.fit;
 
 }
+// Real contact selection contract: outside each finger, never the bulky handle;
+// same material station and normal through motion, mirrored for the left hand.
+const namedBox = (name, x, width) => {
+  const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, 12, 100));
+  mesh.position.x = x; mesh.userData.name = name; return mesh;
+};
+const right = namedBox('Right finger — test', 20, 10), left = namedBox('Left finger — test', -20, 10);
+const decoy = namedBox('Right handle — must never target', 60, 30);
+const meshes = [decoy, right, left], contacts = [];
+for (const angle of [0, .3, -.4]) {
+  right.rotation.y = angle; left.rotation.y = -angle;
+  for (const side of ['right', 'left']) {
+    const pair = fingerContacts(meshes, side, 30);
+    contacts.push({side, angle, local:pair.map((spot,i) => {
+      const mesh = side === 'right' ? [right,left][i] : [left,right][i];
+      return {point:mesh.worldToLocal(spot.point.clone()).toArray(),
+        normal:spot.normal.clone().transformDirection(mesh.matrixWorld.clone().invert()).toArray()};
+    })});
+  }
+}
+out[0].contacts = contacts;
+out[0].missingFinger = fingerContacts([decoy, left], 'right', 30);
 console.log(JSON.stringify(out));
 '''
 
@@ -180,6 +202,17 @@ class HandGripTests(unittest.TestCase):
             sign = 1 if grip['side'] == 'right' else -1
             self.assertGreater(sign * grip['index'], 30, grip)
             self.assertLess(sign * grip['thumb'], -25, grip)
+
+    def test_contacts_follow_outer_finger_faces_without_handles(self):
+        for sample in self.out[0]['contacts']:
+            sign = 1 if sample['side'] == 'right' else -1
+            for i, contact in enumerate(sample['local']):
+                outward = sign if i == 0 else -sign
+                self.assertAlmostEqual(contact['point'][0], outward * 5)
+                self.assertAlmostEqual(contact['point'][1], 0)
+                self.assertAlmostEqual(contact['point'][2], 20)
+                self.assertAlmostEqual(contact['normal'][0], outward)
+        self.assertIsNone(self.out[0]['missingFinger'])
 
     def test_fixed_wrist_exposes_unreachable_opening(self):
         for grip in self.out:
@@ -286,7 +319,7 @@ class LandingPageTests(unittest.TestCase):
         self.assertIn('Holding the gripper', dom)
         self.assertIn('class="hand-note"', dom)
         self.assertNotIn('aria-label="Thumb bend"', dom)
-        for label in ('Hand length (mm)', 'Digit pad radius (mm)', 'Contact down attachment (%)'):
+        for label in ('Hand length (mm)', 'Digit pad radius (mm)', 'Contact down finger (%)'):
             self.assertIn(f'aria-label="{label}"', dom)
         self.assertIn('Check 13 stroke positions', dom)
         self.assertIn('Copy fit report', dom)

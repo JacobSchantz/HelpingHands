@@ -83,10 +83,9 @@ export function poseHand(root, curls, turns = {}) {
     matrix.decompose(bones[name].position, bones[name].quaternion, bones[name].scale);
 }
 
-// Holding the gripper (the crow gripper's grip, plans/crow_gripper.md): index and middle along one handle's outer face (where
-// its strap loop goes), the thumb along the other's, so squeezing closes the jaws and spreading opens them; ring and pinky curl
-// beside, the palm rests on the base. The hand's place and turn, the index and middle bends and the thumb's joints are solved
-// (coordinate descent) so the pads sit on the faces, no joint goes into the base, and the palm touches it.
+// Solve thumb/index contact with opposing outer finger faces. The legacy
+// two-finger handle mode remains available to callers without indexOnly.
+// Generic joint limits and local coordinate descent provide screening, not fit certification.
 const THUMB = CHAINS.thumb, RING = {ring:[85, 100, 65], pinky:[90, 100, 65]};
 // Unknowns: x, y, z (mm), turn about x, y, z (degrees, on the seed), index knuckle and middle joints, middle the same, thumb base
 // x, y, z, thumb knuckle and end; each with its limits and the relaxed value it is pulled toward.
@@ -95,7 +94,7 @@ const LIMITS = [[-1e4, 1e4], [-1e4, 1e4], [-1e4, 1e4], [-90, 90], [-90, 90], [-9
 const RELAXED = [0, 0, 0, 0, 0, 0, -70, -20, -70, -25, -10, 0, 0, -10, -10];
 const PULL = [0, 0, 0, 0, 0, 0, .01, .02, .01, .02, .02, .02, .02, .02, .02];
 const point = matrix => new THREE.Vector3().setFromMatrixPosition(matrix), towards = (matrix, x, y, z) => new THREE.Vector3(x, y, z).transformDirection(matrix);
-// fingers, thumb: {point, normal} in world mm, a spot on a handle's outer face and its outward normal; solids: world Box3s the
+// fingers, thumb: {point, normal} in world mm, a spot on a finger's outer face and its outward normal; solids: world Box3s the
 // hand must stay out of (base, top plate, servo). Places the hand (root) and bends it; returns the worst pad miss in mm.
 export function gripHand(root, fingers, thumb, solids, options = {}) {
   const {bones} = root.userData, turns = {};
@@ -132,7 +131,7 @@ export function gripHand(root, fingers, thumb, solids, options = {}) {
     return worst;
   };
   const near = v => solids.length ? Math.min(...solids.map(box => box.distanceToPoint(v))) : 0;
-  // Seed: palm facing the base, fingers reaching from the thumb's handle toward theirs.
+  // Seed: palm facing the mechanism, fingers reaching across the opposing contacts.
   const basis = (a, b) => { const y = b.clone().addScaledVector(a, -b.dot(a)).normalize(); return new THREE.Matrix4().makeBasis(a, y, new THREE.Vector3().crossVectors(a, y)); };
   const across = fingers.point.clone().sub(thumb.point);
   const seed = locked && root.userData.gripSeed ? root.userData.gripSeed.clone() :
@@ -158,12 +157,12 @@ export function gripHand(root, fingers, thumb, solids, options = {}) {
     misses[2] = world(tip.at).distanceTo(thumb.point);
     c += misses[0] ** 2 + (indexOnly ? 0 : misses[1] ** 2) + misses[2] ** 2;
     c += 150 * (1 + into(index.normal.applyQuaternion(placed)) + (indexOnly ? 0 : 1 + into(middle.normal.applyQuaternion(placed)))) + 150 * (1 + tip.normal.applyQuaternion(placed).dot(thumb.normal));
-    // Nothing inside the solids; the palm touching one.
+    // Penalize overlap; direct finger contact does not require palm contact on a base.
     penetration = 0;
     for (const [points, r] of [[palmBalls.map(v => v.clone()), 12], [[indexPose, middlePose, thumbPose].flatMap(balls), radius]]) {
       for (const v of points) { const depth = inside(world(v), r); penetration = Math.max(penetration, depth); c += 5 * depth ** 2; }
     }
-    c += .3 * Math.max(0, near(world(palmAt.clone())) - 2) ** 2;
+    if (!indexOnly) c += .3 * Math.max(0, near(world(palmAt.clone())) - 2) ** 2;
     return c + a.reduce((sum, v, i) => sum + PULL[i] * (v - RELAXED[i]) ** 2, 0);
   };
   // Start from the last solution (so Open/Close glides), else the seed with the palm on the base; halve the step until settled.
@@ -191,12 +190,26 @@ export function gripHand(root, fingers, thumb, solids, options = {}) {
   return miss;
 }
 
-// Where a ray from outside at mid-thickness and a percentage down the attachment meets its outer face,
-// and that face's outward normal, in world mm. Null when it misses.
+// Raycast the outer finger surface in mesh-local coordinates, so the contact
+// station follows the finger through its stroke rather than sliding along a world box.
 const faceRay = new THREE.Raycaster();
-export function attachmentSpot(mesh, outward, percent) {
-  const box = new THREE.Box3().setFromObject(mesh), y = (box.min.y + box.max.y) / 2, z = box.max.z - (box.max.z - box.min.z) * percent / 100;
-  faceRay.set(new THREE.Vector3(outward > 0 ? box.max.x + 50 : box.min.x - 50, y, z), new THREE.Vector3(-outward, 0, 0));
+export function outerFingerSpot(mesh, outward, percent) {
+  mesh.updateWorldMatrix(true, false);
+  mesh.geometry.computeBoundingBox();
+  const box = mesh.geometry.boundingBox;
+  const origin = new THREE.Vector3(outward > 0 ? box.max.x + 50 : box.min.x - 50,
+    (box.min.y + box.max.y) / 2, box.max.z - (box.max.z - box.min.z) * percent / 100);
+  const direction = new THREE.Vector3(-outward, 0, 0).transformDirection(mesh.matrixWorld);
+  faceRay.set(origin.applyMatrix4(mesh.matrixWorld), direction);
   const hit = faceRay.intersectObject(mesh, false)[0];
   return hit && {point: hit.point, normal: hit.face.normal.clone().transformDirection(mesh.matrixWorld)};
+}
+
+// Handles/cradles never participate in contact selection. Missing fingers stay explicit.
+export function fingerContacts(meshes, side, percent) {
+  const near = side === 'right' ? 'Right' : 'Left', far = near === 'Right' ? 'Left' : 'Right';
+  const find = side => meshes.find(mesh => new RegExp('^' + side + ' finger(?:\\s|$)', 'i').test(mesh.userData.name || ''));
+  const a = find(near), b = find(far), out = near === 'Right' ? 1 : -1;
+  const index = a && outerFingerSpot(a, out, percent), thumb = b && outerFingerSpot(b, -out, percent);
+  return index && thumb ? [index, thumb] : null;
 }

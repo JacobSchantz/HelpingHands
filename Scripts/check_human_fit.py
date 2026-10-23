@@ -18,7 +18,7 @@ import * as THREE from 'three';
 import {STLLoader} from 'three/addons/loaders/STLLoader.js';
 import POSES from './poses.js';
 globalThis.readGlb = side => {const b = fs.readFileSync(process.argv[1]+'/cad/mobile_gallery/reference/human_hand/'+side+'.glb'); return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);};
-const {makeHand,sizeHand,gripHand,attachmentSpot} = await import('./human_hand.js');
+const {makeHand,sizeHand,gripHand,fingerContacts} = await import('./human_hand.js');
 const folders = JSON.parse(process.argv[2]), output = [];
 for (const folder of folders) {
   const path=process.argv[1]+'/Two Finger Gripper/versions/'+folder;
@@ -28,8 +28,6 @@ for (const folder of folders) {
     const b=fs.readFileSync(path+'/'+p.path), g=new STLLoader().parse(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));
     const m=new THREE.Mesh(g);m.userData.name=p.name;return m;
   });
-  const near=meshes.find(m=>/^Right.*(handle|strap slide|_Driver.*cradle)/i.test(m.userData.name));
-  const far=meshes.find(m=>/^Left.*(handle|strap slide|_Driver.*cradle)/i.test(m.userData.name));
   for (const length of [181.1,193.3]) {
     const hand=await makeHand('right');sizeHand(hand,length);
     const row={folder,length_mm:length,samples:[]}; output.push(row);
@@ -41,8 +39,8 @@ for (const folder of folders) {
         if(h) {m.rotation.y=THREE.MathUtils.degToRad(h.sign*(angle-pose.exported));const p=new THREE.Vector3(...h.pivot);m.position.copy(p).sub(p.clone().applyEuler(m.rotation));}
         m.updateMatrixWorld(true);
       }
-      const a=near&&attachmentSpot(near,1,50),b=far&&attachmentSpot(far,-1,50);
-      if(!a||!b) {row.samples.push({angle,error:'No attachment face at 50% station'});continue;}
+      const [a,b]=fingerContacts(meshes,'right',50)||[];
+      if(!a||!b) {row.samples.push({angle,error:'No outer finger surface at 50% station'});continue;}
       const solids=meshes.filter(m=>!/arm/i.test(m.userData.name)).map(m=>new THREE.Box3().setFromObject(m));
       gripHand(hand,a,b,solids,{indexOnly:true,lockWrist:true,radius:8});
       const now=hand.userData.grip.slice(0,6);
@@ -54,7 +52,7 @@ for (const folder of folders) {
     }
   }
 }
-console.log(JSON.stringify({assumptions:{side:'right',radius_mm:8,station_percent:50,positions:13,wrist:'fixed from first available contact',collision:'Conservative world boxes and sampled joint/phalanx spheres; no skin or pressure model',qualification:'Exploratory local IK only; missing contacts and box overlap require investigation, not comfort claims'},designs:output},null,2));
+console.log(JSON.stringify({assumptions:{contact_surface:'outer finger; no handle or strap',side:'right',radius_mm:8,station_percent:50,positions:13,wrist:'fixed from first available contact',collision:'Conservative world boxes and sampled joint/phalanx spheres; no skin or pressure model',qualification:'Exploratory local IK only; missing contacts and box overlap require investigation, not comfort claims'},designs:output},null,2));
 '''
 
 
@@ -86,4 +84,4 @@ if __name__ == '__main__':
         args.output.write_text(json.dumps(report,indent=2)+'\n')
     for row in report['designs']:
         available=[s for s in row['samples'] if 'miss' in s]
-        print(row['folder'],row['length_mm'],f"{len(available)}/13 contacts",f"worst miss {max(s['miss'] for s in available):.1f} mm; box overlap {max(s['penetration'] for s in available):.1f} mm" if available else 'adapter needed')
+        print(row['folder'],row['length_mm'],f"{len(available)}/13 contacts",f"worst miss {max(s['miss'] for s in available):.1f} mm; box overlap {max(s['penetration'] for s in available):.1f} mm" if available else 'contact station unavailable')

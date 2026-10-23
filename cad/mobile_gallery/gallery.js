@@ -3,7 +3,7 @@ import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
 import PHOTOS from './reference/photos.js';
-import {SIZES, FINGERS, makeHand, sizeHand, poseHand, gripHand, attachmentSpot} from './human_hand.js';
+import {SIZES, FINGERS, makeHand, sizeHand, poseHand, gripHand, fingerContacts} from './human_hand.js';
 import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
 // The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
@@ -39,7 +39,7 @@ const photoQuery = query.get('photo');
 let photoOn = !!photoQuery && photoQuery !== '0', photoId = photoOn && photoQuery !== '1' ? photoQuery : '';
 let photoTile = null;
 // Average human hand (voice-bf770cd7, human_hand.js): a row under the reference photo puts it in every 3D view, its fingertips
-// level with the gripper's, beside it or over it, or holding it (thumb/index on opposed attachments, fixed wrist by default). On, its controls hang under the row: size (ANSUR II means), which hand, where
+// level with the gripper's, beside it or over it, or holding it (thumb/index on outer finger surfaces, fixed wrist by default). On, its controls hang under the row: size (ANSUR II means), which hand, where
 // it sits, Open/Close, a slider per finger, and Follow, which bends it with the gripper's Open/Close (curl = 1 - openness).
 // ?hand=1|right|left presets it on, ?curl=0..100 the bend (and Follow off), ?handsize=man|woman, ?handat=over|grip.
 const handQuery = query.get('hand'), curlQuery = query.get('curl'), curlPreset = curlQuery !== null && isFinite(curlQuery);
@@ -161,18 +161,13 @@ async function placeHand(view, preserveWrist = false) {
   const center = bounds.getCenter(new THREE.Vector3());
   root.position.set(hand.at === 'over' ? center.x : bounds.max.x + 110, center.y, bounds.max.z - length);
 }
-// Holding: thumb and index on opposing attachment faces. Never substitute a jaw for a missing attachment.
-// The fixed wrist exposes reach lost over the stroke; unsupported combinations stay explicitly unverified.
+// Thumb and index sit outside the jaws; the grasping gap stays available for objects.
 function holdGripper(view) {
-  const shown = view.group.children.filter(mesh => mesh.visible && mesh.geometry), named = (side, part) => shown.find(mesh => {
-    const name = mesh.userData.name || ''; return name.startsWith(side) && part.test(name);
-  });
-  const near = hand.side === 'right' ? 'Right' : 'Left', far = near === 'Right' ? 'Left' : 'Right';
+  const shown = view.group.children.filter(mesh => mesh.visible && mesh.geometry);
   view.group.updateMatrixWorld(true);
   if (explodeAmount) { view.fit = {error:'Assemble the parts before checking fit.'}; fitReadout(); return false; }
-  const out = near === 'Right' ? 1 : -1, spots = [/handle|strap slide|_Driver.*cradle/i].map(part => [named(near, part), named(far, part)])
-    .map(([a, b]) => a && b && [attachmentSpot(a, out, hand.contact), attachmentSpot(b, -out, hand.contact)]).find(pair => pair?.[0] && pair[1]);
-  if (!spots) { view.fit = {error:'No thumb/index attachment pair at this station. This combination needs a dedicated adapter.'}; fitReadout(); return false; }
+  const spots = fingerContacts(shown, hand.side, hand.contact);
+  if (!spots) { view.fit = {error:'No outer finger surface at this station. Show both fingers or adjust the contact station.'}; fitReadout(); return false; }
   const [fingers, thumb] = spots;
   // Check all physical tool parts, even hidden ones, including jaws and wrist brackets; omit the remote arm reference.
   const solids = view.group.children.filter(mesh => mesh.geometry).filter(mesh => !/arm/i.test(mesh.userData.name || '')).map(mesh => new THREE.Box3().setFromObject(mesh));
@@ -210,7 +205,7 @@ function animateHand() {
 function fitReadout() {
   const output = document.querySelector('.hand-fit'); if (!output) return;
   output.textContent = hand.summary || [...views.values()].filter(v => v.hand?.visible).map(v => v.fit?.error || (v.fit ?
-    `Pad span ${v.fit.span.toFixed(1)} mm; miss ${v.fit.miss.toFixed(1)} mm; box overlap ${v.fit.penetration.toFixed(1)} mm. Fit unverified.` : 'Choose an attachment station.')).join(' ');
+    `Pad span ${v.fit.span.toFixed(1)} mm; miss ${v.fit.miss.toFixed(1)} mm; box overlap ${v.fit.penetration.toFixed(1)} mm. Fit unverified.` : 'Choose an outer finger contact station.')).join(' ');
 }
 function handRows() {
   const row = document.createElement('div'), label = document.createElement('span');
@@ -235,7 +230,7 @@ function handRows() {
     pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)'], ['grip', 'Holding the gripper']], 'at', true));
   if (hand.at === 'grip') {
     const note = document.createElement('p'); note.className = 'hand-note';
-    note.textContent = 'Thumb and index on opposing attachments. The wrist stays fixed through Open/Close. Generic hand and box envelopes are a fit study; pressure, retention and release need a physical trial.';
+    note.textContent = 'Thumb and index outside opposing fingers; the inner gap is reserved for objects. The wrist stays fixed through Open/Close. Generic hand and box envelopes are a fit study; pressure, slipping and release need a physical trial.';
     const number = (label, value, min, max, change) => {
       const row = document.createElement('label'), input = document.createElement('input');
       row.className = 'fit-number'; input.type = 'number'; input.min = min; input.max = max; input.step = .1; input.value = value;
@@ -265,8 +260,8 @@ function handRows() {
           }
           await new Promise(resolve => setTimeout(resolve, 0));
         }
-        hand.report = JSON.stringify({assumptions:{length:hand.length || SIZES.find(s => s.id === hand.size).length, radius:hand.radius, contact:hand.contact, fixedWrist:hand.lockWrist, side:hand.side}, samples:results}, null, 2);
-        hand.summary = !results.length ? 'Enable a hand on a loaded assembly first.' : results.some(r => r.error) ? 'Missing attachment at one or more positions; copy the report.' :
+        hand.report = JSON.stringify({assumptions:{length:hand.length || SIZES.find(s => s.id === hand.size).length, radius:hand.radius, contact:hand.contact, fixedWrist:hand.lockWrist, side:hand.side, contactSurface:"outer finger; no handle or strap"}, samples:results}, null, 2);
+        hand.summary = !results.length ? 'Enable a hand on a loaded assembly first.' : results.some(r => r.error) ? 'Missing outer finger contact at one or more positions; copy the report.' :
           `13 positions: worst pad miss ${Math.max(...results.map(r => r.miss)).toFixed(1)} mm; box overlap ${Math.max(...results.map(r => r.penetration)).toFixed(1)} mm. Physical fit unverified.`;
       readout.textContent = hand.summary;
       } finally { openness = saved; for (const view of views.values()) applyExplosion(view); await showHand(false, true); inputs.forEach((input, i) => { input.disabled = disabled[i]; }); }
@@ -275,7 +270,7 @@ function handRows() {
     copy.onclick = async () => { try { await navigator.clipboard.writeText(hand.report || 'Run the stroke check first.'); copy.textContent = 'Copied'; } catch { message('Clipboard unavailable. Run in Pebbles or a secure browser.'); } };
     controls.append(note, number('Hand length (mm)', hand.length || SIZES.find(s => s.id === hand.size).length, 140, 230, v => { hand.length = v; }),
       number('Digit pad radius (mm)', hand.radius, 4, 14, v => { hand.radius = v; }),
-      number('Contact down attachment (%)', hand.contact, 10, 90, v => { hand.contact = v; }), lock, readout, sweep, copy);
+      number('Contact down finger (%)', hand.contact, 10, 90, v => { hand.contact = v; }), lock, readout, sweep, copy);
     return [row, controls];
   }
   controls.append(follow, pose);
