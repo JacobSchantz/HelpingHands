@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-labelledby="title desc">
+<title id="title">Fine-motion exploration beside the current print candidate</title><desc id="desc">Base 25 and Gripper 29 remain unchanged. An unbuilt cable and spring concept would retain the original jaw tips and lower synchronizing gears, with the servo centered overhead on its actual mounting hardware.</desc>
+<rect width="1600" height="1200" fill="#101e29"/>
+<g font-family="Arial,sans-serif" fill="#edf5fa">
+<text x="80" y="100" font-size="52" font-weight="bold">Fine motion: learn first, print separately</text>
+<rect x="70" y="150" width="1460" height="140" rx="22" fill="#204c43"/>
+<text x="110" y="210" font-size="38">Current print candidate: Base 25 + Gripper 29</text><text x="110" y="260" font-size="30">Unchanged. Printing approval ≠ measured fit or strength.</text>
+<rect x="70" y="330" width="720" height="690" rx="22" fill="#1d3344"/>
+<text x="110" y="390" font-size="35">Proposed cable + return spring</text><text x="110" y="434" font-size="25" fill="#ffc981">Original schematic • not CAD • not to scale</text>
+<!-- Original tips, synchronizing lower gears and in-plane sleeves -->
+<path d="M290 790 L305 640 Q330 560 422 520 L430 535 Q355 580 355 655 L350 790 Z" fill="#8bc5ed"/>
+<path d="M570 790 L555 640 Q530 560 438 520 L430 535 Q505 580 505 655 L510 790 Z" fill="#8bc5ed"/>
+<circle cx="320" cy="790" r="75" fill="#7d9bb0" stroke="#d5e6ef" stroke-width="5"/><circle cx="540" cy="790" r="145" fill="none" stroke="#70dfbc" stroke-width="7"/>
+<circle cx="540" cy="790" r="75" fill="#7d9bb0" stroke="#d5e6ef" stroke-width="5"/>
+<path d="M385 790 H475" stroke="#d5e6ef" stroke-width="18"/>
+<circle cx="320" cy="790" r="16" fill="#14232d"/><circle cx="540" cy="790" r="16" fill="#14232d"/>
+<!-- centered elevated servo is an overlay, deliberately schematic -->
+<rect x="375" y="874" width="110" height="90" rx="8" fill="#e6b86a"/>
+<circle cx="430" cy="919" r="32" fill="#293f4c" stroke="#ffe4b0" stroke-width="4"/>
+<path d="M430 919 L456 900 L650 920 L683 790" fill="none" stroke="#ffc981" stroke-width="6"/>
+<path d="M550 633 l-12 -16 20 -12 -20 -12 20 -12 -10 -15" fill="none" stroke="#ee9ba8" stroke-width="5"/>
+<text x="120" y="560" font-size="23">Original tips</text><path d="M260 553 L400 529" stroke="#edf5fa" fill="none"/>
+<text x="110" y="875" font-size="22">Lower gear pair</text><text x="110" y="905" font-size="22">+ local sleeves</text>
+<text x="570" y="980" font-size="22" fill="#ffc981">Cable path TBD</text>
+<rect x="830" y="330" width="700" height="690" rx="22" fill="#1d3344"/>
+<text x="875" y="398" font-size="35">What carries over</text>
+<text x="875" y="465" font-size="29">Original finger contact surfaces</text><text x="875" y="520" font-size="29">Motor centered above finger plane</text><text x="875" y="575" font-size="29">Bought spline plate + real case ears</text><text x="875" y="630" font-size="29">Low support around both pivots</text>
+<text x="875" y="725" font-size="35" fill="#ffc981">What must be proved</text>
+<text x="875" y="790" font-size="28">Cable clearance and spring load</text><text x="875" y="845" font-size="28">Reversal loss, stiffness, tip force</text><text x="875" y="900" font-size="28">Full stroke and servo travel</text><text x="875" y="955" font-size="28">No new part version issued yet</text>
+<text x="80" y="1090" font-size="33">Tiny tips do not establish positioning accuracy.</text><text x="80" y="1145" font-size="27" fill="#b0c8d8">Reference study for robot assembly and fine manipulation • no clinical or micron-accuracy claim</text>
+</g></svg>

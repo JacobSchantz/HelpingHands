@@ -30,7 +30,7 @@ body.only aside,body.only #explode,body.only #pose{display:none!important}
 </head>
 <body>
 <main id="stage" aria-label="3D view"><div id="viewports"></div><div id="message" role="status" hidden></div><button id="explode" aria-pressed="false" title="Separate model parts">Explode</button><button id="pose" hidden aria-pressed="false" title="Open or close the gripper">Close</button></main>
-<aside id="panel" aria-label="Parts"><div class="head"><select id="project" aria-label="Design family"></select><button id="tune-open" hidden aria-controls="tune" aria-expanded="false" title="Slide this design's parameters">Tune</button></div><div id="panel-list"></div></aside>
+<aside id="panel" aria-label="Parts"><div class="head"><select id="project" aria-label="Design family"></select><button id="tune-open" hidden aria-controls="tune" aria-expanded="false" title="Slide this design's parameters">Tune</button></div><div id="panel-list"></div><a href="./micro_grippers/" style="padding:10px;color:#a9dcff">Surgical micro-gripper references ↗</a></aside>
 <aside id="tune" hidden aria-label="Tune parameters"><div class="head"><b id="tune-title">Tune</b><button id="tune-reset" title="Every slider back to this version's value">Reset</button><button id="tune-copy" title="Copy the changed values as JSON, for the next version's params.json">Copy</button><button id="tune-close" aria-label="Close" title="Close">×</button></div><div id="tune-status" role="status">Drag a slider: the real CAD re-renders.</div><div id="tune-list"></div></aside>
 <script type="module" src="./gallery.js"></script>
 </body>
