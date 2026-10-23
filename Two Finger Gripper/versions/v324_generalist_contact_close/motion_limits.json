@@ -1,0 +1,14 @@
+{
+  "mode": "Design/calibration contract only, not executable motor control",
+  "jaw_deg": [
+    0,
+    30
+  ],
+  "closed_tick_nominal": 2048,
+  "open_tick_not_past_limit": 1805,
+  "closed_deg_nominal": 180.0,
+  "open_deg": 158.642578125,
+  "jaw_open_with_integer_ticks_deg": 29.900390625,
+  "manufacturer_mechanical_stop": "No limit: no physical servo end stop to rely on",
+  "qualification": "Require real plate/gear phase calibration and gentle contact teaching with limited force/current; do not blindly drive to these absolute ticks or command negative jaw angles. Encoder quantization, gearbox backlash and resin compliance mean nominal CAD contact is not physical fit approval."
+}

@@ -1,0 +1,54 @@
+{
+  "nominal_tip_gap_mm": 0.0,
+  "tip_contact_z_mm": [
+    61.5,
+    63
+  ],
+  "closed_intersection_area_mm2": 2.665209817658292e-07,
+  "closed_jaw_intersection_volume_mm3": 3.765910619293926e-08,
+  "opening_at_point_one_degree_mm": 0.21470685303211212,
+  "overclose_control_detected": true,
+  "overclose_control_volume_mm3": 0.5619372938551795,
+  "uncommanded_control_angle_deg": -0.1,
+  "body_gap_mm": 0.5999992489814758,
+  "rear_minimum_mm": 1.2291371822357178,
+  "servo_index_margin_to_wrap_deg": 158.642578125,
+  "jaw_command_limits_deg": [
+    0,
+    30
+  ],
+  "motion_limits": {
+    "mode": "Design/calibration contract only, not executable motor control",
+    "jaw_deg": [
+      0,
+      30
+    ],
+    "closed_tick_nominal": 2048,
+    "open_tick_not_past_limit": 1805,
+    "closed_deg_nominal": 180.0,
+    "open_deg": 158.642578125,
+    "jaw_open_with_integer_ticks_deg": 29.900390625,
+    "manufacturer_mechanical_stop": "No limit: no physical servo end stop to rely on",
+    "qualification": "Require real plate/gear phase calibration and gentle contact teaching with limited force/current; do not blindly drive to these absolute ticks or command negative jaw angles. Encoder quantization, gearbox backlash and resin compliance mean nominal CAD contact is not physical fit approval."
+  },
+  "tolerances": {
+    "assumed_print_error_per_side_mm": 0.3,
+    "designed_middle_blade_gap_mm": 0.6,
+    "servo_encoder_step_deg": 0.087890625,
+    "jaw_step_deg": 0.123046875,
+    "half_lsb_tip_separation_mm": 0.13529707949152536,
+    "manufacturer_servo_backlash_bound_deg": 0.5,
+    "compliance": "No stiffness/contact-force model or qualified flexure. Nominal rigid contact faces need physical tolerance/force-limited calibration; never close farther to hide error."
+  },
+  "qualification": "Actual CAD tips contact at jaw0 on integral1.5mm distal faces; 20mm pivots keep rear clearance. Whole-hand and physical hardware-fit/strength acceptance are separate and unverified.",
+  "minimum_plan_ligament_mm": 0.4047252297103181,
+  "passed": true,
+  "input_sha256": {
+    "params.json": "e871f9fd4a2de023b842c7a7efca5f85b45c65123512c30365ac4d9709df4778",
+    "gripper.scad": "eef73ff3da437c53942c6ff9b05985e1546ee13644047580e1af5f684369c331",
+    "geometry_checks.json": "eebf407a63cda29c9576b0fd94069186ad629791388ff88137cc33e6c26f85ed",
+    "hardware_checks.json": "1b2b84972b5f9c6e1d06f65e9736dd0a973b11959db7ca804bad44d0be6b6e9f",
+    "exports/parts/left.stl": "2594c806a718ba5998f741fb79edd5325b1de1b7293fda77112bb2a3c19c71d0",
+    "exports/parts/right.stl": "f840de644e2e30a11554c85c8d68450a94def28cce140ec2e05ce937f7b4c7d4"
+  }
+}
