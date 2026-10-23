@@ -188,7 +188,7 @@
   ],
   "image_urls": [],
   "created_at": "2026-10-23T14:01:28.000Z",
-  "updated_at": "2026-10-23T22:33:45Z",
+  "updated_at": "2026-10-23T22:33:53Z",
   "dispatch_target": {
     "harness": "codex",
     "model": "gpt-6.1-sol",
@@ -275,5 +275,10 @@
     "from": "human",
     "to": "agent",
     "at": "2026-10-23T21:47:49.000Z"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-550038ca",
+  "agent_id": "vigil:jarvis:codex:tmux:pebbles-HelpingHands-f7b9e72b:voice-550038ca",
+  "claimed_at": "2026-10-23T22:33:53.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
