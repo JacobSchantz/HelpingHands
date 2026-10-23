@@ -276,10 +276,11 @@ At those ratios, current-based force is poor:
   encoder.
 
 The alternative is a **quasi-direct-drive (QDD) actuator**: a large-diameter
-brushless motor, one planetary stage around 6–10:1, field-oriented control
-and a magnetic encoder. Current then maps to torque well enough to sense force
-(the MIT Cheetah approach), the joint back-drives by hand, and it can act like
-a spring. The **RobStride RS00** (10:1, 5 N·m rated, 310 g, CAN) is one;
+motor with a low-ratio stage (often around 6–10:1), torque control
+and an encoder. This is Jake’s preferred long-term joint architecture. It can
+improve backdrivability and force estimation; both still need calibration
+against gearbox friction, temperature and the chosen motor topology. The
+**RobStride RS00** (10:1, 5 N·m rated, 310 g, CAN) is one;
 it is heavy and costly for a pliers-sized hand tool. Pliers tips need little
 force, so a small gimbal motor on the jaw pivot with one small stage may do.
 
@@ -287,9 +288,12 @@ QDD also helps handheld mode: a back-drivable motor in light impedance mode
 reads the person's squeeze from its current. A fallback with no motor:
 compliant jaws whose bend the cameras or encoder read.
 
-The motor type interacts with materials (below): a QDD needs magnets, and the
-choice of ferrite vs no-magnet switched reluctance changes how clean the
-current-to-force map is (reluctance torque is non-linear in current).
+QDD describes the drive architecture and does not require magnets. The
+[actuator research decision](rare_earth_free_qdd_actuators.md) prioritizes
+La-free ferrite spoke/IPM and ferrite-assisted synchronous reluctance, with
+magnet-free synchronous reluctance as a comparator. Current-to-force accuracy
+requires measured torque maps and transmission calibration. Existing prototypes
+and interfaces stay in place while we evaluate our own actuator designs.
 
 **Recommendation:** measure first. If the STS3215 gives a clean, repeatable
 force signal on a scale test, keep it for stages 0 and 1. If not (expected),
@@ -344,10 +348,12 @@ The candidates:
 - **Magnets: ferrite or none.** Ferrite is iron oxide plus a little strontium
   (or barium) carbonate, sintered in a kiln, so it is *not* pure iron: it adds
   one mineral. Its field is about a third of NdFeB's (~0.4 T vs ~1.3 T),
-  which a Halbach arrangement partly makes up by concentrating flux on the
-  working side. Tesla said in 2023 that its next drive unit would use no rare
-  earths, which shows the ferrite route working at scale (in a car-sized
-  motor, which has more room than a pliers joint).
+  so flux concentration needs evaluation rather than assuming a direct magnet
+  substitution. Ferrite Halbach is one candidate, not the selected architecture.
+  Require supplier-certified La-free ferrite; some high-performance grades add
+  rare-earth lanthanum. The [actuator research](rare_earth_free_qdd_actuators.md)
+  separates demonstrated traction prototypes from unverified robot performance;
+  Cybercab ferrite Halbach claims are not a verified design basis.
 - **Switched-reluctance motors (SRM): no magnets at all**, only steel
   laminations and copper or aluminium windings. Simple to make and wind;
   costs: torque ripple, noise, lower torque density, and a non-linear
@@ -376,10 +382,12 @@ plus bought chips.**
   shafts, fasteners, bearings.
 - **Aluminium**: windings (anodised, no enamel), castings, light structure.
 - **PLA (bio) or recycled plastic**: printed parts and shell.
-- **Motors: switched reluctance for the big joints** (no magnets at all), and
-  **ferrite (Halbach) for the gripper/wrist QDD** where clean force sensing
-  matters. Ferrite's strontium is the one extra mineral; if SRM force sensing
-  proves good enough, drop ferrite and the set is three materials plus chips.
+- **Motors:** prefer QDD and compare ferrite spoke/IPM, ferrite-assisted
+  synchronous reluctance and magnet-free synchronous reluctance first. Keep
+  Halbach and switched reluctance as secondary candidates. Select each size
+  using continuous/stall torque, thermal tests, backdrive and complete cost,
+  following the [research roadmap](rare_earth_free_qdd_actuators.md). Own
+  manufacturing is the cost-reduction goal; its savings remain unproven.
 
 The research pebble below checks the pieces (laminations from plain vs silicon
 steel, ferrite kiln temperatures, anodised-winding feasibility, PLA heat limits
