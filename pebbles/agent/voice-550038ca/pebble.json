@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-23T14:01:28.000Z",
-  "updated_at": "2026-10-23T14:01:28.000Z",
+  "updated_at": "2026-10-23T14:16:19Z",
   "dispatch_target": {
     "harness": "codex",
     "model": "gpt-6.1-sol",
@@ -17,5 +17,10 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-550038ca",
+  "agent_id": "vigil:jarvis:codex:tmux:pebbles-HelpingHands-f7b9e72b:voice-550038ca",
+  "claimed_at": "2026-10-23T14:16:19.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
