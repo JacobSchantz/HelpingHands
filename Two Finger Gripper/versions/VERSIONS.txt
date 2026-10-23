@@ -134,3 +134,11 @@ Measured continuous moving envelope 70.032 W × 114.514 H × 62.900 D mm includi
 18–40 teeth; 50% / 30:24 chosen with module ≥1 mm, screw rim ≥1 mm and unchanged lattice ligament ≥0.4 mm. Fine resin prototype, not FDM/load-qualified.
 Minimum lattice ligament 0.4047 mm and pinion screw rim 1.0338 mm; smaller tested candidates fail material or mounting. No global minimum claim.
 Parts, comparisons and checks in folder; no physical print/fit/strength test yet. Base 16 / Gripper 23 (Tiny V1) and large source preserved.
+
+v319_generalist_hls3606m — Base 18 (voice-d01680be), Gripper 24: Base 17 with the Aero Hand HLS3606M-C001 single-shaft servo and purchased aluminum spline plate.
+Gripper 24 unchanged, as are side gears and cap. Original 50% curved lattice fingers, 30:30:24 gears and 0–30 degree jaw stroke (37.5 degree servo travel).
+Manufacturer drawing and pinned Aero Hand STEP verify the single output, 25T/4.95 mm spline, M2.3 retaining screw, ear mounting and bought 18 mm aluminum plate.
+Pinion bolts to three original spool attachment holes (M2x4). Four M2x6 self-tapping ear screws enter from below into blind printed standoffs; no scaled hardware.
+Ear pilots are short slots covering 0.25 mm manufacturer/CAD hole-location discrepancy. Servo points toward pivots, below base, with cable service corridor.
+Continuous envelope 70.032 W × 114.514 H × 46.400 D mm including assumed cable corridor; Base 17 was 62.900 mm deep. Fine-resin CAD prototype only.
+No separate Handle or wrist mount compatibility. Physical servo/fastener fit, cable bend, standoff pullout and force unverified; no load rating or physical actuation.
