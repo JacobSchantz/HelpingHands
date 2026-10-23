@@ -70,3 +70,9 @@ SkeletonUtils (three r185) are vendored under cad/compare/vendor/loaders and uti
 its bend (Follow off), ?handsize=man|woman, ?handat=over|grip.
 
 Holding the gripper (?handat=grip, voice-3f6ae8e1): thumb and index contact the OUTER surfaces of opposing fingers, leaving the inner grasping gap for objects. Handles/cradles are never contact targets; missing or hidden fingers produce a warning. Local-space surface rays follow each finger through its stroke. The generic hand solver uses thumb/index contacts, with a fixed wrist through Open/Close by default. Hand length, digit collision radius and Contact down finger (%) are exploratory assumptions. Check 13 stroke positions samples closed to open; Copy fit report includes assumptions and diagnostics. Box overlap is conservative and pad miss is a local IK residual; neither certifies physical fit. Scripts/check_human_fit.py screens four actual saved CAD assemblies; plans/human_hand_interface.md records the revised direct-contact study. There is no default saddle/strap proposal. CAD changes and catalog publication for the new handle-free geometry belong to voice-550038ca; this pass changes no part geometry or versions.
+
+Whole-hand fit (voice-3f6ae8e1): Holding the gripper now reports every posed skin
+triangle against tool boxes, split into wrist/palm/five digits. Other digits curl
+open/closed (%) sets illustrative posture endpoints. two_pivot_acceptance.html
+reuses two_pivot_case.js for Base 21 + Gripper 25, with the complete hand animated
+and copyable diagnostics. See plans/human_hand_interface.md for limitations.

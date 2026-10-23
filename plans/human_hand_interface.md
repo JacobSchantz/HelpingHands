@@ -1,40 +1,37 @@
-# Direct thumb/index contact study
+# Whole-hand direct-contact study
 
-2026-10-23 · voice-3f6ae8e1 · revised to Jake’s outside-the-fingers clarification.
+2026-10-23 · voice-3f6ae8e1
 
-The thumb rests outside one gripper finger and the index outside the other, directly manipulating the tweezer mechanism. The inner grasping gap is reserved for objects. Large handles, saddles and straps are no longer the proposed default. This is the human hand interface, not an Aero Hand robot redesign.
+Thumb outside one gripper finger, index outside the other; the mechanism sits between them. The inner grasping gap is reserved for objects. No default handles, saddles or straps. This is the human interface, not an Aero Hand robot redesign.
 
-## Geometry ownership
+## Shared geometry and acceptance view
 
-voice-550038ca owns the new CAD: removing handles, shrinking pivots/hubs where mechanically feasible, reducing the overhead gap and moving the motor to the opposite side above the hand edge. This study changes no CAD, part versions, poses, publisher registry or catalog. It preserves historical Handle/Base versions without requiring their interfaces on the new design. Existing bulky hardware remains visible and participates in clearance screening; selecting finger contacts does not remove that hardware.
+voice-550038ca owns CAD, part numbers and catalog. Its Base 21 + Gripper 25 two-pivot design (`v322_generalist_two_pivot_support`) supplies the actual saved meshes. `cad/mobile_gallery/two_pivot_case.js` is the shared contact/motion/pose case used by its acceptance page and this saved-mesh checker. This pass changes no CAD, part versions, motion registry or catalog.
 
-The preview identifies “Right finger” and “Left finger” meshes, independent of Base or Handle numbers. Thus new geometry can use the same study when published with those semantic names and its own authored motion. Missing/hidden fingers or a ray that misses the selected station produce an explicit warning; there is no handle/cradle fallback and no claim of universal fit. Coordinate shared catalog edits through the CAD task; this pass needs none.
+Open `two_pivot_acceptance.html` beside the published gallery's index. It shows the complete skinned hand: wrist, palm, thumb and four fingers. Play animates the mechanism and hand together with the wrist fixed; drag to inspect either side. Choose hand side/length and the other three digits' open/closed curl. Copy fit report includes per-region skin/box intersections and the assumptions. `?angle=15` pauses at a repeatable pose; `&view=palm` selects the opposite camera.
 
-## Screening of saved meshes
+In the regular Live Preview choose **Average human hand → Holding the gripper**. Adjust length, side, pad radius, contact station and **Other digits curl open/closed (%)**. Open/Close animates thumb/index contact and the other three digits together. Keep **Fix wrist through stroke** enabled. Run **Check 13 stroke positions**, then **Copy fit report**. Missing/hidden fingers warn instead of selecting a handle. Hidden physical tool parts still participate in clearance screening.
 
-`python3 Scripts/check_human_fit.py --output plans/human_hand_fit.json` reads actual exported STLs and existing motion definitions. At 13 positions, including closed and fully open, it raycasts from outside each finger at mid-thickness. The station is measured from the local finger bounding-box top toward its tip; the ray and its outward normal rotate with that finger. The first surface hit is the intended contact. Thumb/index pads aim at these surfaces with one fixed wrist; the middle finger has no required contact. The solver no longer pulls the palm toward a base plate for this mode.
+## Anthropometric and posture assumptions
 
-| Geometry | Parts examined | Worst pad miss, 181 / 193 mm hands | Worst box overlap, 181 / 193 mm hands |
-| --- | --- | --- | --- |
-| Large | Base 11 / Gripper 21 | 25.4 / 26.9 mm | 12.1 / 4.4 mm |
-| Compact | Base 12 / Gripper 21 | 26.2 / 29.2 mm | 12.5 / 11.4 mm |
-| Aero-servo | Base 18 / Gripper 24 | 15.6 / 13.2 mm | 4.8 / 2.5 mm |
-| Overhead | Base 19 / Gripper 22 | 33.3 / 32.2 mm | 3.2 / 2.3 mm |
+The existing MIT WebXR generic hand is a complete skin mesh on 25 joints, not contact spheres. Every pose screens all 1,360 skin vertices / 2,314 skin triangles. The viewer uniformly scales wrist-to-middle-tip length: 187.2 mm default; saved checks use 181.1 and 193.3 mm. These reference lengths are documented with the ANSUR II source in `cad/mobile_gallery/reference/human_hand/SOURCE.txt`. The resulting adult hand breadth is about 78 mm: narrow for its length. Uniform scaling preserves that generic shape; it does not independently fit breadth, digit lengths or Jake's hand.
 
-All four have outer-surface ray hits at all 13 positions for both hand sizes. None demonstrates human fit. These values replace the earlier attachment/cradle study; do not compare them as a CAD improvement. The new handle-free geometry from voice-550038ca must be screened when available.
+Thumb/index use generic joint limits and local inverse kinematics aimed at actual outer finger surfaces. Contact station follows each finger's local mesh through the stroke, never a handle/cradle. The other digits interpolate from 20% curl open to 80% closed by default; these are adjustable illustrative posture assumptions, not measured natural motion. Thumb/index do not automatically escape a large reach residual. Wrist pose is held after the first available closed-stroke solve; check the displayed contact misses.
 
-A miss is a local inverse-kinematics residual, not proven anatomical impossibility. World-axis boxes conservatively enclose rotated parts and can count empty space as interference; sparse joint/phalanx spheres can also miss real skin collisions. All tool meshes, even hidden ones, participate, including jaws, old cradles, shafts, screws and wrist brackets; remote arm reference meshes do not. Sampling is not continuous clearance proof. The model does not measure pressure, grip force, friction, soft-tissue deformation, fatigue or release. Generic joint limits and uniform hand scaling are adjustable assumptions, not Jake’s measured anatomy. No physical test was performed.
+## What the collision report measures
 
-## Direct contact and physical review
+Sparse joint/phalanx spheres still guide the IK search and produce the legacy box-overlap depth. After posing, a separate screen evaluates every rendered skin triangle against each conservative world-axis tool box. It reports total intersecting triangles plus wrist, palm and individual-digit regions, identified by dominant skin-bone weights. Triangles spanning region boundaries can count in several regions. Surface intersection catches thin obstacles between vertices; it is not an exact collision test against CAD solids, and can report empty corners of tool boxes. A tool wholly enclosed inside the skin without crossing its surface can be missed. Skin containment, self-collision, soft-tissue compression and continuous motion are not evaluated.
 
-Start with the existing outer finger surfaces and minimum added bulk. Assess rounded edges and a broad contact patch before considering a thin removable friction pad. Do not select pad thickness, reshape fingers or create a new Handle from this screening alone: those would need physical feedback and a new version of the changed part.
+The full skin is diagnostic only: the solver still optimizes sparse envelopes. Therefore a pose may look plausible while the new skin check flags interference, or may have zero flagged skin triangles while missing its contacts. Neither is an acceptance pass. There is no pressure, friction, force, fatigue or comfort model.
 
-Direct contact supports inward squeezing. Active opening/back-driving depends on friction and the actual mechanism; this study does not establish it. Check slipping, required opening effort and whether the fingers return as intended without adding retention by default. Release should be possible simply by lifting the digits outward, without threading through a loop. Keep thumb web and folded digits away from hubs, moving shafts and the overhead drive; machine slab clearance alone does not establish hand clearance.
+## Reproducible screening
 
-Keep fingertips and working tips visible, with the inner jaw gap available to the object throughout the stroke. Check wrist posture, thumb/index reach and joint trajectory, edge pressure, unintended rubbing, opening effort and outward release using a loose, unpowered mock-up. Record wrist-to-middle-tip length, thumb/index widths, comfortable opposed-pad span and the station of first strain or slip. A thin contact treatment is optional only if that trial shows a need.
+`python3 -m unittest Scripts.test_gallery` covers real GLB skin, every named region, a thin obstacle between vertices, a distant negative control, other-digit movement with fixed wrist, outer-surface contact selection, unreachable targets and collision positive controls. The new whole-skin regression was run failing before implementation.
 
-## Review in Live Preview
+`python3 Scripts/check_human_fit.py --output plans/human_hand_fit.json` screens five geometries (large, compact, Aero-servo, overhead, two-pivot), two lengths, both sides and 13 positions: 260 samples. The two-pivot case uses the same `makeCase` as the acceptance viewer. All contacts are available, but fit remains unresolved: two-pivot worst pad misses range 12.7–17.7 mm across the four hand/side cases, and the larger left hand flags up to 338 skin/box triangles. The saved JSON carries all per-region counts and residuals. The earlier direct-contact table is superseded because unused-digit posture and collision coverage changed.
 
-Enable **Average human hand → Holding the gripper**. Try the assemblies above; adjust hand length (140–230 mm), digit pad radius (4–14 mm), side and **Contact down finger (%)** (10–90%). Radius affects the collision/contact model, not displayed skin thickness. Contact station follows the local finger, not a handle. Check the displayed pose: a large residual means the rendered pad may not actually reach the target.
+## Physical review still required
 
-Keep **Fix wrist through stroke** enabled, run **Check 13 stroke positions**, then **Copy fit report**. The report identifies outer-finger contact with no handle/strap assumption. The saved report uses a 50% station and 8 mm pad radius. Existing publication copies the viewer changes; no CAD regeneration is required. Phone rendering and physical comfort remain unverified.
+Use a loose, unpowered mock-up. Record hand length/breadth, thumb/index widths, comfortable opposed-pad span and where strain or slipping first occurs. Check rounded outer finger surfaces, pinch/open range, visibility, palm/web/folded-digit clearance, back-driving effort and outward lift to release. Direct contact supports inward squeeze; active opening depends on actual friction and mechanism behavior. Start without added retention; only consider a thin removable friction pad if physical feedback calls for one.
+
+Desktop browser screenshots verify the complete hand renders; phone rendering and physical fit/comfort remain unverified. No printed part or physical acceptance is claimed.

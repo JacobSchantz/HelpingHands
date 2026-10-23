@@ -45,7 +45,7 @@ let photoTile = null;
 const handQuery = query.get('hand'), curlQuery = query.get('curl'), curlPreset = curlQuery !== null && isFinite(curlQuery);
 const hand = {on: !!handQuery && handQuery !== '0', side: handQuery === 'left' ? 'left' : 'right',
   size: SIZES.some(size => size.id === query.get('handsize')) ? query.get('handsize') : 'adult', at: ['over', 'grip'].includes(query.get('handat')) ? query.get('handat') : 'beside',
-  follow: !curlPreset, curls: {}, sliders: [], run: 0, length: null, radius: 8, contact: 50, lockWrist: true};
+  follow: !curlPreset, curls: {}, sliders: [], run: 0, length: null, radius: 8, contact: 50, curlOpen:20, curlClosed:80, lockWrist: true};
 for (const finger of FINGERS) hand.curls[finger] = curlPreset ? Math.max(0, Math.min(100, +curlQuery)) / 100 : 1 - openness;
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
@@ -171,7 +171,7 @@ function holdGripper(view) {
   const [fingers, thumb] = spots;
   // Check all physical tool parts, even hidden ones, including jaws and wrist brackets; omit the remote arm reference.
   const solids = view.group.children.filter(mesh => mesh.geometry).filter(mesh => !/arm/i.test(mesh.userData.name || '')).map(mesh => new THREE.Box3().setFromObject(mesh));
-  gripHand(view.hand, fingers, thumb, solids, {indexOnly:true, radius:hand.radius, lockWrist:hand.lockWrist});
+  gripHand(view.hand, fingers, thumb, solids, {indexOnly:true, radius:hand.radius, lockWrist:hand.lockWrist, freeCurl:(hand.curlClosed + (hand.curlOpen-hand.curlClosed)*openness)/100});
   view.fit = {...view.hand.userData.fit}; fitReadout();
   return true;
 }
@@ -205,7 +205,7 @@ function animateHand() {
 function fitReadout() {
   const output = document.querySelector('.hand-fit'); if (!output) return;
   output.textContent = hand.summary || [...views.values()].filter(v => v.hand?.visible).map(v => v.fit?.error || (v.fit ?
-    `Pad span ${v.fit.span.toFixed(1)} mm; miss ${v.fit.miss.toFixed(1)} mm; box overlap ${v.fit.penetration.toFixed(1)} mm. Fit unverified.` : 'Choose an outer finger contact station.')).join(' ');
+    `Pad span ${v.fit.span.toFixed(1)} mm; miss ${v.fit.miss.toFixed(1)} mm; box overlap ${v.fit.penetration.toFixed(1)} mm. skin/box triangles ${v.fit.wholeHand.intersectingTriangles} (${Object.entries(v.fit.wholeHand.regions).filter(([,n])=>n).map(([r,n])=>r+": "+n).join(", ") || "none"}). Fit unverified.` : 'Choose an outer finger contact station.')).join(' ');
 }
 function handRows() {
   const row = document.createElement('div'), label = document.createElement('span');
@@ -230,7 +230,7 @@ function handRows() {
     pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)'], ['grip', 'Holding the gripper']], 'at', true));
   if (hand.at === 'grip') {
     const note = document.createElement('p'); note.className = 'hand-note';
-    note.textContent = 'Thumb and index outside opposing fingers; the inner gap is reserved for objects. The wrist stays fixed through Open/Close. Generic hand and box envelopes are a fit study; pressure, slipping and release need a physical trial.';
+    note.textContent = 'Thumb and index outside opposing fingers; the inner gap is reserved for objects. The wrist stays fixed through Open/Close. Wrist, palm and all five digits are shown; the other three digits follow adjustable open/closed curl assumptions. Every posed skin triangle is screened against tool boxes. This is a fit study; pressure, slipping and release need a physical trial.';
     const number = (label, value, min, max, change) => {
       const row = document.createElement('label'), input = document.createElement('input');
       row.className = 'fit-number'; input.type = 'number'; input.min = min; input.max = max; input.step = .1; input.value = value;
@@ -260,9 +260,9 @@ function handRows() {
           }
           await new Promise(resolve => setTimeout(resolve, 0));
         }
-        hand.report = JSON.stringify({assumptions:{length:hand.length || SIZES.find(s => s.id === hand.size).length, radius:hand.radius, contact:hand.contact, fixedWrist:hand.lockWrist, side:hand.side, contactSurface:"outer finger; no handle or strap"}, samples:results}, null, 2);
+        hand.report = JSON.stringify({assumptions:{length:hand.length || SIZES.find(s => s.id === hand.size).length, radius:hand.radius, contact:hand.contact, fixedWrist:hand.lockWrist, side:hand.side, contactSurface:"outer finger; no handle or strap", freeDigitCurlPercent:{open:hand.curlOpen,closed:hand.curlClosed}, collision:"All posed skin triangles against conservative tool boxes; no solid containment, pressure or comfort proof"}, samples:results}, null, 2);
         hand.summary = !results.length ? 'Enable a hand on a loaded assembly first.' : results.some(r => r.error) ? 'Missing outer finger contact at one or more positions; copy the report.' :
-          `13 positions: worst pad miss ${Math.max(...results.map(r => r.miss)).toFixed(1)} mm; box overlap ${Math.max(...results.map(r => r.penetration)).toFixed(1)} mm. Physical fit unverified.`;
+          `13 positions: worst pad miss ${Math.max(...results.map(r => r.miss)).toFixed(1)} mm; box overlap ${Math.max(...results.map(r => r.penetration)).toFixed(1)} mm. skin/box triangles ${Math.max(...results.map(r => r.wholeHand.intersectingTriangles))}. Physical fit unverified.`;
       readout.textContent = hand.summary;
       } finally { openness = saved; for (const view of views.values()) applyExplosion(view); await showHand(false, true); inputs.forEach((input, i) => { input.disabled = disabled[i]; }); }
     };
@@ -270,6 +270,8 @@ function handRows() {
     copy.onclick = async () => { try { await navigator.clipboard.writeText(hand.report || 'Run the stroke check first.'); copy.textContent = 'Copied'; } catch { message('Clipboard unavailable. Run in Pebbles or a secure browser.'); } };
     controls.append(note, number('Hand length (mm)', hand.length || SIZES.find(s => s.id === hand.size).length, 140, 230, v => { hand.length = v; }),
       number('Digit pad radius (mm)', hand.radius, 4, 14, v => { hand.radius = v; }),
+      number('Other digits curl open (%)', hand.curlOpen, 0, 100, v => { hand.curlOpen = v; }),
+      number('Other digits curl closed (%)', hand.curlClosed, 0, 100, v => { hand.curlClosed = v; }),
       number('Contact down finger (%)', hand.contact, 10, 90, v => { hand.contact = v; }), lock, readout, sweep, copy);
     return [row, controls];
   }

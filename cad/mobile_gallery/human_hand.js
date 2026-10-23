@@ -98,9 +98,10 @@ const point = matrix => new THREE.Vector3().setFromMatrixPosition(matrix), towar
 // hand must stay out of (base, top plate, servo). Places the hand (root) and bends it; returns the worst pad miss in mm.
 export function gripHand(root, fingers, thumb, solids, options = {}) {
   const {bones} = root.userData, turns = {};
+  const freeCurl = options.freeCurl;
   const radius = options.radius ?? 8, indexOnly = options.indexOnly ?? false;
   const locked = options.lockWrist && root.userData.grip ? root.userData.grip.slice(0, 6) : null;
-  for (const finger in RING) CHAINS[finger].slice(0, 3).forEach((name, i) => { turns[name] = [-RING[finger][i], 0, 0]; });
+  for (const finger in RING) CHAINS[finger].slice(0, 3).forEach((name, i) => { turns[name] = [-(freeCurl === undefined ? RING[finger][i] : CURL[finger][i] * freeCurl), 0, 0]; });
   root.position.set(0, 0, 0); root.quaternion.identity(); root.updateMatrixWorld(true);
   // Armature space -> the hand's own frame (root space, mm); `unit` turns mm into Armature units.
   const toRoot = bones.wrist.parent.matrixWorld.clone().premultiply(root.matrixWorld.clone().invert()), unit = toRoot.getMaxScaleOnAxis();
@@ -142,7 +143,7 @@ export function gripHand(root, fingers, thumb, solids, options = {}) {
   let penetration = 0;
   const cost = a => {
     turn.setFromEuler(new THREE.Euler(deg(a[3]), deg(a[4]), deg(a[5]))); placed.copy(turn).multiply(seed); position.set(a[0], a[1], a[2]);
-    flex(CHAINS.index, a[6], a[7]); flex(CHAINS.middle, a[8], a[9]);
+    flex(CHAINS.index, a[6], a[7]); flex(CHAINS.middle, freeCurl === undefined ? a[8] : -CURL.middle[0] * freeCurl, freeCurl === undefined ? a[9] : -CURL.middle[1] * freeCurl);
     for (let i = 0; i < 3; i++) turns[THUMB[i]] = i ? [a[i + 12], 0, 0] : [a[10], a[11], a[12]];
     const indexPose = chainPose(root, 'index', 0, turns), middlePose = chainPose(root, 'middle', 0, turns), thumbPose = chainPose(root, 'thumb', 0, turns);
     const index = pad(indexPose, 'index-finger-phalanx-intermediate', 'index-finger-phalanx-distal', .5);
@@ -186,7 +187,7 @@ export function gripHand(root, fingers, thumb, solids, options = {}) {
   root.quaternion.copy(placed); root.position.copy(position);
   poseHand(root, {}, turns);
   const miss = Math.max(misses[0], misses[2], indexOnly ? 0 : misses[1]);
-  root.userData.fit = {miss, penetration, span: fingers.point.distanceTo(thumb.point), wristLocked: !!locked};
+  root.userData.fit = {miss, penetration, span: fingers.point.distanceTo(thumb.point), wristLocked: !!locked, freeCurl:freeCurl ?? null, wholeHand:handClearance(root, solids)};
   return miss;
 }
 
@@ -212,4 +213,38 @@ export function fingerContacts(meshes, side, percent) {
   const a = find(near), b = find(far), out = near === 'Right' ? 1 : -1;
   const index = a && outerFingerSpot(a, out, percent), thumb = b && outerFingerSpot(b, -out, percent);
   return index && thumb ? [index, thumb] : null;
+}
+
+// Screen every triangle of the SAME posed skin shown in the viewer against
+// conservative tool boxes. Finds thin obstacles between vertices, unlike joint balls.
+// This is surface/box intersection, not solid containment or soft-tissue physics.
+export function handClearance(root, solids) {
+  root.updateWorldMatrix(true, true);
+  const regions = {wrist:0,palm:0,thumb:0,index:0,middle:0,ring:0,pinky:0};
+  let vertices = 0, triangles = 0, intersectingTriangles = 0;
+  root.traverse(mesh => {
+    if (!mesh.isSkinnedMesh) return;
+    mesh.skeleton.update();
+    const geometry = mesh.geometry, points = [], labels = [];
+    const indices = geometry.attributes.skinIndex, weights = geometry.attributes.skinWeight;
+    for (let i = 0; i < geometry.attributes.position.count; i++) {
+      points.push(mesh.getVertexPosition(i, new THREE.Vector3()).applyMatrix4(mesh.matrixWorld));
+      let best = 0;
+      for (let j = 1; j < 4; j++) if (weights.getComponent(i,j) > weights.getComponent(i,best)) best = j;
+      const name = mesh.skeleton.bones[indices.getComponent(i,best)].name;
+      labels.push(name === 'wrist' ? 'wrist' : /metacarpal/.test(name) && !/^thumb/.test(name) ? 'palm' : FINGERS.find(f => name.startsWith(f)) || 'palm');
+    }
+    vertices += points.length;
+    const count = geometry.index ? geometry.index.count : points.length;
+    for (let i = 0; i < count; i += 3) {
+      const ids = [0,1,2].map(j => geometry.index ? geometry.index.getX(i+j) : i+j);
+      const triangle = new THREE.Triangle(...ids.map(j => points[j]));
+      triangles++;
+      if (solids.some(box => box.intersectsTriangle(triangle))) {
+        intersectingTriangles++;
+        for (const label of new Set(ids.map(j => labels[j]))) regions[label]++;
+      }
+    }
+  });
+  return {vertices,triangles,intersectingTriangles,regions};
 }

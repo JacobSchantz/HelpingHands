@@ -11,7 +11,7 @@ import argparse
 ROOT = Path(__file__).resolve().parents[1]
 GALLERY = ROOT / 'cad/mobile_gallery'
 FOLDERS = ['v311_generalist_motor_choice', 'v312_generalist_compact_drive',
-           'v319_generalist_hls3606m', 'v320_generalist_overhead_drive']
+           'v319_generalist_hls3606m', 'v320_generalist_overhead_drive', 'v322_generalist_two_pivot_support']
 SCRIPT = r'''
 import fs from 'node:fs';
 import * as THREE from 'three';
@@ -19,6 +19,7 @@ import {STLLoader} from 'three/addons/loaders/STLLoader.js';
 import POSES from './poses.js';
 globalThis.readGlb = side => {const b = fs.readFileSync(process.argv[1]+'/cad/mobile_gallery/reference/human_hand/'+side+'.glb'); return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);};
 const {makeHand,sizeHand,gripHand,fingerContacts} = await import('./human_hand.js');
+const {makeCase,CASE} = await import('./two_pivot_case.js');
 const folders = JSON.parse(process.argv[2]), output = [];
 for (const folder of folders) {
   const path=process.argv[1]+'/Two Finger Gripper/versions/'+folder;
@@ -28,9 +29,10 @@ for (const folder of folders) {
     const b=fs.readFileSync(path+'/'+p.path), g=new STLLoader().parse(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));
     const m=new THREE.Mesh(g);m.userData.name=p.name;return m;
   });
-  for (const length of [181.1,193.3]) {
-    const hand=await makeHand('right');sizeHand(hand,length);
-    const row={folder,length_mm:length,samples:[]}; output.push(row);
+  for (const side of ['right','left']) for (const length of [181.1,193.3]) {
+    const hand=await makeHand(side);sizeHand(hand,length);
+    const row={folder,side,length_mm:length,samples:[]}; output.push(row);
+    const study=id===CASE.id ? await makeCase(meshes,{side,length}) : null;
     let wrist;
     for(let i=0;i<=12;i++) {
       const angle=pose.min+(pose.max-pose.min)*i/12;
@@ -39,20 +41,20 @@ for (const folder of folders) {
         if(h) {m.rotation.y=THREE.MathUtils.degToRad(h.sign*(angle-pose.exported));const p=new THREE.Vector3(...h.pivot);m.position.copy(p).sub(p.clone().applyEuler(m.rotation));}
         m.updateMatrixWorld(true);
       }
-      const [a,b]=fingerContacts(meshes,'right',50)||[];
+      const [a,b]=fingerContacts(meshes,side,50)||[];
       if(!a||!b) {row.samples.push({angle,error:'No outer finger surface at 50% station'});continue;}
       const solids=meshes.filter(m=>!/arm/i.test(m.userData.name)).map(m=>new THREE.Box3().setFromObject(m));
-      gripHand(hand,a,b,solids,{indexOnly:true,lockWrist:true,radius:8});
-      const now=hand.userData.grip.slice(0,6);
+      if(!study) gripHand(hand,a,b,solids,{indexOnly:true,lockWrist:true,radius:8,freeCurl:.8-.6*i/12});
+      const fit=study ? study.solve(angle) : hand.userData.fit;
+      const now=study ? fit.wrist : hand.userData.grip.slice(0,6);
       if(wrist&&JSON.stringify(wrist)!==JSON.stringify(now))throw Error('Wrist moved');
       wrist=now;
-      const fit=hand.userData.fit;
       if(![fit.miss,fit.penetration,fit.span].every(Number.isFinite))throw Error('Nonfinite diagnostic');
       row.samples.push({angle,...fit});
     }
   }
 }
-console.log(JSON.stringify({assumptions:{contact_surface:'outer finger; no handle or strap',side:'right',radius_mm:8,station_percent:50,positions:13,wrist:'fixed from first available contact',collision:'Conservative world boxes and sampled joint/phalanx spheres; no skin or pressure model',qualification:'Exploratory local IK only; missing contacts and box overlap require investigation, not comfort claims'},designs:output},null,2));
+console.log(JSON.stringify({assumptions:{contact_surface:'outer finger; no handle or strap',sides:['right','left'],free_digit_curl:{open:.2,closed:.8},radius_mm:8,station_percent:50,positions:13,wrist:'fixed from first available contact',collision:'All posed skin triangles against conservative world tool boxes; joint spheres guide IK. No solid containment or pressure model',qualification:'Exploratory local IK only; missing contacts and box overlap require investigation, not comfort claims'},designs:output},null,2));
 '''
 
 
@@ -72,6 +74,7 @@ def check():
         source = (GALLERY / 'human_hand.js').read_text().replace("loader.loadAsync('reference/human_hand/' + side + '.glb')", "loader.parseAsync(globalThis.readGlb(side), '')")
         (root / 'human_hand.js').write_text(source)
         shutil.copy2(GALLERY / 'poses.js', root / 'poses.js')
+        shutil.copy2(GALLERY / 'two_pivot_case.js', root / 'two_pivot_case.js')
         run = subprocess.run(['node','--input-type=module','-e',SCRIPT,str(ROOT),json.dumps(FOLDERS)],cwd=root,capture_output=True,text=True,check=True,timeout=120)
         return json.loads(run.stdout)
 
@@ -84,4 +87,4 @@ if __name__ == '__main__':
         args.output.write_text(json.dumps(report,indent=2)+'\n')
     for row in report['designs']:
         available=[s for s in row['samples'] if 'miss' in s]
-        print(row['folder'],row['length_mm'],f"{len(available)}/13 contacts",f"worst miss {max(s['miss'] for s in available):.1f} mm; box overlap {max(s['penetration'] for s in available):.1f} mm" if available else 'contact station unavailable')
+        print(row['folder'],row['side'],row['length_mm'],f"{len(available)}/13 contacts",f"worst miss {max(s['miss'] for s in available):.1f} mm; box overlap {max(s['penetration'] for s in available):.1f} mm" if available else 'contact station unavailable')

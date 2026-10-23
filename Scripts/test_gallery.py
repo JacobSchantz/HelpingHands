@@ -113,7 +113,7 @@ GRIP_SCRIPT = '''
 import fs from 'fs';
 import * as THREE from 'three';
 globalThis.readGlb = side => { const b = fs.readFileSync(%r + side + '.glb'); return b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength); };
-const {makeHand, sizeHand, gripHand, fingerContacts} = await import('./human_hand.js');
+const {makeHand, sizeHand, gripHand, fingerContacts, handClearance} = await import('./human_hand.js');
 const box = (a, b) => new THREE.Box3(new THREE.Vector3(...a), new THREE.Vector3(...b));
 const solids = [box([-11.5, -12.7, -54.2], [21.3, 6, -21.3]), box([-42.4, -15.5, -62], [42.4, -6.4, 11]),
   box([-42.8, -11, -55.3], [42.8, 10.3, 11.5]), box([-7.5, -49.4, -48], [17.3, -11.2, -2.6])];
@@ -156,6 +156,23 @@ for (const angle of [0, .3, -.4]) {
     })});
   }
 }
+// Whole posed skin, including wrist/palm and unused digits, must be screened.
+const complete = await makeHand('right'); sizeHand(complete,187.2);
+const {poseHand} = await import('./human_hand.js');
+poseHand(complete,{thumb:.2,index:.3,middle:.4,ring:.5,pinky:.6});
+complete.updateMatrixWorld(true);
+const skin=[]; complete.traverse(m=>{if(m.isSkinnedMesh){m.skeleton.update();for(let i=0;i<m.geometry.attributes.position.count;i++)skin.push(m.getVertexPosition(i,new THREE.Vector3()).applyMatrix4(m.matrixWorld));}});
+const envelope=new THREE.Box3().setFromPoints(skin).expandByScalar(1);
+out[0].whole=handClearance(complete,[envelope]);
+// Thin obstacle in a triangle interior, away from all its vertices.
+let thin;
+complete.traverse(m=>{if(m.isSkinnedMesh&&!thin){const g=m.geometry,ix=g.index;for(let i=0;i<(ix?ix.count:skin.length);i+=3){const ids=[0,1,2].map(j=>ix?ix.getX(i+j):i+j);const center=new THREE.Vector3().add(skin[ids[0]]).add(skin[ids[1]]).add(skin[ids[2]]).multiplyScalar(1/3);const b=new THREE.Box3().setFromCenterAndSize(center,new THREE.Vector3(.001,.001,.001));if(!skin.some(v=>b.containsPoint(v))){thin=b;break;}}}});
+out[0].thin=handClearance(complete,[thin]);
+const contact=x=>({point:new THREE.Vector3(x,0,30),normal:new THREE.Vector3(Math.sign(x),0,0)});
+const curled=[];
+for(const freeCurl of [.2,.8]){gripHand(complete,contact(30),contact(-30),[],{indexOnly:true,lockWrist:true,freeCurl});complete.updateMatrixWorld(true);curled.push({wrist:complete.userData.grip.slice(0,6),tips:['middle','ring','pinky'].map(f=>new THREE.Vector3().setFromMatrixPosition(complete.userData.bones[f+'-finger-tip'].matrixWorld).toArray())});}
+out[0].curled=curled;
+out[0].clear=handClearance(complete,[box([10000,10000,10000],[10001,10001,10001])]);
 out[0].contacts = contacts;
 out[0].missingFinger = fingerContacts([decoy, left], 'right', 30);
 console.log(JSON.stringify(out));
@@ -222,6 +239,24 @@ class HandGripTests(unittest.TestCase):
             self.assertGreater(fit['miss'], 100)
             self.assertAlmostEqual(fit['span'], ((grip['x'] * 20) ** 2 + 100 ** 2) ** .5)
             self.assertEqual(fit['rotationBefore'], fit['rotationAfter'])
+
+    def test_complete_skin_is_screened_by_region(self):
+        whole = self.out[0]['whole']
+        self.assertGreater(whole['vertices'], 100)
+        self.assertGreater(whole['triangles'], 100)
+        self.assertEqual(whole['intersectingTriangles'], whole['triangles'])
+        for region in ('wrist', 'palm', 'thumb', 'index', 'middle', 'ring', 'pinky'):
+            self.assertGreater(whole['regions'][region], 0, region)
+        self.assertEqual(self.out[0]['clear']['intersectingTriangles'], 0)
+
+    def test_thin_obstacle_between_skin_vertices_is_detected(self):
+        self.assertGreater(self.out[0]['thin']['intersectingTriangles'], 0)
+
+    def test_other_three_digits_move_without_moving_wrist(self):
+        before, after = self.out[0]['curled']
+        self.assertEqual(before['wrist'], after['wrist'])
+        for a, b in zip(before['tips'], after['tips']):
+            self.assertGreater(sum((x-y)**2 for x,y in zip(a,b)), 25)
 
     def test_collision_diagnostic_has_a_positive_control(self):
         for grip in self.out:
@@ -319,7 +354,7 @@ class LandingPageTests(unittest.TestCase):
         self.assertIn('Holding the gripper', dom)
         self.assertIn('class="hand-note"', dom)
         self.assertNotIn('aria-label="Thumb bend"', dom)
-        for label in ('Hand length (mm)', 'Digit pad radius (mm)', 'Contact down finger (%)'):
+        for label in ('Hand length (mm)', 'Digit pad radius (mm)', 'Contact down finger (%)', 'Other digits curl open (%)', 'Other digits curl closed (%)'):
             self.assertIn(f'aria-label="{label}"', dom)
         self.assertIn('Check 13 stroke positions', dom)
         self.assertIn('Copy fit report', dom)
