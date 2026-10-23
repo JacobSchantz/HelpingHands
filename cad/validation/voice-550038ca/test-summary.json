@@ -1,0 +1,12 @@
+{
+  "regression_tests": 11,
+  "compact_overhead_and_gallery_tests": 18,
+  "publisher_tests": 15,
+  "initial_combined_run": "29 tests passed; publisher module import failed because its existing imports require Scripts on PYTHONPATH",
+  "publisher_rerun": "...............\n----------------------------------------------------------------------\nRan 15 tests in 0.153s\n\nOK\n",
+  "cad_geometry": "passed; 121 poses x 105 pairs; retention/mesh/tool controls pass",
+  "whole_hand": "FAILED acceptance; 26 reference poses, worst ~12 mm miss; 5/13 and 7/13 skin collision poses",
+  "tune": "passed isolated 1.2 mm gap regeneration and unchanged purchased motor extents",
+  "browser": "Chrome desktop smoke, no page errors; complete-hand animation and screenshots saved",
+  "passed_regression_tests_total": 44
+}

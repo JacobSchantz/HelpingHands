@@ -1,0 +1,121 @@
+{
+  "folder": "v322_generalist_two_pivot_support",
+  "cap_footprint": {
+    "passed": true,
+    "plate_area_mm2": 0.0,
+    "plate_x_z_mm": [
+      0,
+      0
+    ],
+    "support_hull_budget_mm2": 236.95723580525694,
+    "avoidable_overhang_mm2": 0.0,
+    "axle_socket_wall_budget_mm": 1.6,
+    "m3_head_rim_budget_mm": 0.5,
+    "tessellation_allowance_mm": 0.01,
+    "description": "Cap projection must fit the hull of its actual supports plus declared socket/head material. Does not require four pegs or prove structural minimality."
+  },
+  "minimal_in_plane_support": {
+    "passed": true,
+    "band_support_area_mm2": 12.798765447379992,
+    "retainer_projected_area_mm2": 39.206853430283445,
+    "off_pivot_band_area_mm2": 0.0,
+    "off_pivot_retention_area_mm2": 0.0,
+    "description": "Exclude jaws. Only 3 mm pivot sleeves through Y=-3..3; local retainers within diameter 5 mm below, including 0.01 mm tessellation allowance. No lower connecting plate/rear pillars. Strength and true structural minimum unverified."
+  },
+  "outside_contacts": {
+    "passed": true,
+    "probes": 726,
+    "failures": [],
+    "description": "8 mm outward X approach, 3 mm patch at Z=15/25/35, Y=-2.5..2.5, over 121 poses. CAD access only; no hand model, skin pressure or ergonomics claim."
+  },
+  "peg_placement": {
+    "status": "unverified",
+    "outside_corridor_clear": true,
+    "band_support_area_mm2": 6.533509048288408,
+    "band_supports": [
+      {
+        "x": -15.674999713897705,
+        "z": 0.0,
+        "radius": 1.4999995231628418
+      },
+      {
+        "x": 15.674999713897705,
+        "z": 0.0,
+        "radius": 1.4999995231628418
+      }
+    ],
+    "description": "Support orientation/removal has no prescribed direction or peg count. Measured occupied band and outside contact collisions are the evidence; redundant load paths require stiffness/strength evidence."
+  },
+  "overhead_drive": {
+    "passed": true,
+    "finger_band_mm": [
+      -3,
+      3
+    ],
+    "minimum_drive_y_mm": {
+      "motor": 15.0,
+      "stock_plate": 13.799999237060547,
+      "pinion": 3.799999952316284,
+      "left_gear": 3.799999952316284,
+      "right_gear": 3.799999952316284
+    },
+    "minimum_gap_mm": 0.7999999523162842
+  },
+  "full_stroke": {
+    "passed": true,
+    "step_deg": 0.25,
+    "angles": 121,
+    "pairs_per_angle": 105,
+    "failures": [],
+    "worst": {
+      "motor/base": {
+        "volume_mm3": 3.761258272612193e-16,
+        "angle_deg": 0.0
+      },
+      "motor/case_screws": {
+        "volume_mm3": 3.495027346960694e-16,
+        "angle_deg": 0.0
+      },
+      "pinion/stock_plate": {
+        "volume_mm3": 2.113239047665966e-05,
+        "angle_deg": 25.0
+      },
+      "stock_plate/plate_screws": {
+        "volume_mm3": 2.0016145113177995e-12,
+        "angle_deg": 29.75
+      },
+      "stock_plate/center_screw": {
+        "volume_mm3": 3.1706077756916402e-06,
+        "angle_deg": 29.75
+      },
+      "motor/stock_plate": {
+        "volume_mm3": 3.755161329457857e-15,
+        "angle_deg": 24.5
+      },
+      "pinion/plate_screws": {
+        "volume_mm3": 2.1559157375188058e-15,
+        "angle_deg": 20.75
+      }
+    },
+    "limitation": "Sampled 0\u201330 degree stroke, not continuous collision proof. Probes omit intentional spline/thread engagement; center probe covers only exposed retaining head. No pair exclusions. Volume tolerance 0.0001 mm^3 covers STL face rounding at seated planes."
+  },
+  "tool_access": {
+    "passed": true,
+    "straight_case_access_passed": false,
+    "straight_case_overlap_mm3": 5.30383099428755,
+    "near_ear_driver_tilt_deg": 10,
+    "failures": [],
+    "angles": 121,
+    "shaft_d_mm": 2.5,
+    "length_mm": 45,
+    "limitation": "Driver shaft envelopes: near ear screws require 10 degree tilt; straight access fails. Physical engagement of tilted PH0 driver unverified. Install plate/spline retaining screw before pinion; finger bosses seat before local washer/bolt retainers. Physical tool handles, resin fits and real cable bend unverified."
+  },
+  "retention": {
+    "status": "unverified",
+    "description": "Blind pivot sockets and two M3 pillars retained. Stiffness, post bending, screw pullout and axial endplay need physical/load tests."
+  },
+  "human_contact": {
+    "status": "unverified",
+    "description": "Finger band unchanged; no measured human hand or pressure model. CAD corridor success is not human fit."
+  }
+}

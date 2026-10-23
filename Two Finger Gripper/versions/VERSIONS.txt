@@ -159,3 +159,11 @@ Seven printed parts. No long shafts, separate shaft retainers or strap cradles. 
 30:30:24 involute gears, 0–30 degree jaw stroke; actual M2 ear/plate screws, cap M3 and spline center screw retained. 53.20 mm total Y stack including assumed cable corridor, 114.514 mm along fingers.
 This deliberately follows compact Base 18 rather than full-size Base 19; hand-held only, no SO-101/Mount 2 wrist interface or legacy Handle/Gripper compatibility claimed.
 CAD motion, straight and angled driver access and mesh checks (two ear screws require 10 degree driver tilt, physical engagement unverified); physical ergonomics, resin key/post strength, spline/threads, printing and cable bend unverified. Fit study voice-3f6ae8e1 owns hand overlay; this item owns CAD/catalog.
+
+
+v322_generalist_two_pivot_support — Base 21 (voice-550038ca), Gripper 25: Base 20 with only two pivot sleeves through the unchanged 6 mm finger slab and local washer retainers below.
+Gripper 25 unchanged, including working surfaces, lattice, bore and keyed torque bosses. No new Gripper counter. Delete the lower cap and rear through-slab pillars; all connecting plate material stays overhead.
+Steel M2x25 screws reinforce 3 mm OD printed sleeves (2.2 mm bore); two 5 mm washers capture the fingers with 0.2 mm lower gap and M2 nuts above the base. 0.4 mm sleeve walls and clamping need physical trials.
+Projected support material in Y=-3..3 falls from 103.808 to 12.799 mm2, excluding jaws; conservative outer pivot discs total 14.114 mm2. Broad lower plate area is zero; local washer/head footprint remains below band.
+Unchanged inverted HLS3606M, purchased spline plate, 30:30:24 gears, 0–30 degree stroke and 0.8 mm overhead tooth gap. Hand-held only: no legacy handles or SO-101/Mount 2 interface.
+121 sampled motion poses plus hardware/tool checks and axial-retention escape controls. Whole-reference-hand animation/tests exist but FAIL reach/skin screening; this is not ergonomically accepted or strength-qualified. See cad/validation/voice-550038ca.

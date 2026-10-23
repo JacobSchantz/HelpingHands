@@ -1,0 +1,2141 @@
+{
+  "folder": "voice-550038ca-four-post-cap",
+  "cap_footprint": {
+    "passed": true,
+    "plate_area_mm2": 1704.217284522555,
+    "plate_x_z_mm": [
+      47.0,
+      40.75
+    ],
+    "support_hull_budget_mm2": 1722.239241286145,
+    "avoidable_overhang_mm2": 0.0,
+    "axle_socket_wall_budget_mm": 1.6,
+    "m3_head_rim_budget_mm": 0.5,
+    "tessellation_allowance_mm": 0.01,
+    "description": "Cap projection must fit the hull of its actual supports plus declared socket/head material. Does not require four pegs or prove structural minimality."
+  },
+  "minimal_in_plane_support": {
+    "passed": false,
+    "band_support_area_mm2": 59.95129974470109,
+    "retainer_projected_area_mm2": 1711.6184969125143,
+    "off_pivot_band_area_mm2": 45.836829205960385,
+    "off_pivot_retention_area_mm2": 1672.034794715336,
+    "description": "Exclude jaws. Only 3 mm pivot sleeves through Y=-3..3; local retainers within diameter 5 mm below, including 0.01 mm tessellation allowance. No lower connecting plate/rear pillars. Strength and true structural minimum unverified."
+  },
+  "outside_contacts": {
+    "passed": true,
+    "probes": 726,
+    "failures": [],
+    "description": "8 mm outward X approach, 3 mm patch at Z=15/25/35, Y=-2.5..2.5, over 121 poses. CAD access only; no hand model, skin pressure or ergonomics claim."
+  },
+  "peg_placement": {
+    "status": "unverified",
+    "outside_corridor_clear": true,
+    "band_support_area_mm2": 59.95129974470109,
+    "band_supports": [
+      {
+        "x": -20.0,
+        "z": -34.0,
+        "radius": 3.0
+      },
+      {
+        "x": -15.674999713897705,
+        "z": 0.0,
+        "radius": 1.4999995231628418
+      },
+      {
+        "x": 20.0,
+        "z": -34.0,
+        "radius": 3.0
+      },
+      {
+        "x": 15.674999713897705,
+        "z": 0.0,
+        "radius": 1.4999995231628418
+      }
+    ],
+    "description": "Support orientation/removal has no prescribed direction or peg count. Measured occupied band and outside contact collisions are the evidence; redundant load paths require stiffness/strength evidence."
+  },
+  "overhead_drive": {
+    "passed": true,
+    "finger_band_mm": [
+      -3,
+      3
+    ],
+    "minimum_drive_y_mm": {
+      "motor": 15.0,
+      "stock_plate": 13.799999237060547,
+      "pinion": 3.799999952316284,
+      "left_gear": 3.799999952316284,
+      "right_gear": 3.799999952316284
+    },
+    "minimum_gap_mm": 0.7999999523162842
+  },
+  "full_stroke": {
+    "passed": false,
+    "step_deg": 0.25,
+    "angles": 121,
+    "pairs_per_angle": 91,
+    "failures": [
+      {
+        "pair": "base/pinion",
+        "volume_mm3": 186.78249353916087,
+        "angle_deg": 28.75
+      },
+      {
+        "pair": "base/plate_screws",
+        "volume_mm3": 13.937022810348203,
+        "angle_deg": 0.0
+      }
+    ],
+    "worst": {
+      "motor/base": {
+        "volume_mm3": 3.3254089992730204e-16,
+        "angle_deg": 0.0
+      },
+      "motor/case_screws": {
+        "volume_mm3": 3.495027346960694e-16,
+        "angle_deg": 0.0
+      },
+      "base/pinion": {
+        "volume_mm3": 186.78249353916087,
+        "angle_deg": 28.75
+      },
+      "base/top_plate": {
+        "volume_mm3": 7.892991815694472e-17,
+        "angle_deg": 0.0
+      },
+      "base/plate_screws": {
+        "volume_mm3": 13.937022810348203,
+        "angle_deg": 0.0
+      },
+      "pinion/stock_plate": {
+        "volume_mm3": 2.113239047665966e-05,
+        "angle_deg": 25.0
+      },
+      "stock_plate/plate_screws": {
+        "volume_mm3": 2.0016145113177995e-12,
+        "angle_deg": 29.75
+      },
+      "stock_plate/center_screw": {
+        "volume_mm3": 3.1706077756916402e-06,
+        "angle_deg": 29.75
+      },
+      "motor/stock_plate": {
+        "volume_mm3": 3.755161329457857e-15,
+        "angle_deg": 24.5
+      },
+      "pinion/plate_screws": {
+        "volume_mm3": 2.1559157375188058e-15,
+        "angle_deg": 20.75
+      }
+    },
+    "limitation": "Sampled 0\u201330 degree stroke, not continuous collision proof. Probes omit intentional spline/thread engagement; center probe covers only exposed retaining head. No pair exclusions. Volume tolerance 0.0001 mm^3 covers STL face rounding at seated planes."
+  },
+  "tool_access": {
+    "passed": false,
+    "straight_case_access_passed": false,
+    "straight_case_overlap_mm3": 5.30383099428755,
+    "near_ear_driver_tilt_deg": 10,
+    "failures": [
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 0.0,
+        "volume": 45.93130290393937
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 0.0,
+        "volume": 34.16905548726529
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 0.0,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 0.25,
+        "volume": 46.52420430273914
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 0.25,
+        "volume": 34.30119262168741
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 0.25,
+        "volume": 14.63177370270369
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 0.5,
+        "volume": 47.123107398458295
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 0.5,
+        "volume": 34.43713865361909
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 0.5,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 0.75,
+        "volume": 47.727687588524816
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 0.75,
+        "volume": 34.57685283725132
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 0.75,
+        "volume": 14.631773702703688
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 1.0,
+        "volume": 48.33797398558427
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 1.0,
+        "volume": 34.720044217179925
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 1.0,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 1.25,
+        "volume": 48.95399725298611
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 1.25,
+        "volume": 34.86669268181231
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 1.25,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 1.5,
+        "volume": 49.57578961217
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 1.5,
+        "volume": 35.01652276837135
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 1.5,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 1.75,
+        "volume": 50.202131262325665
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 1.75,
+        "volume": 35.169412583341604
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 1.75,
+        "volume": 14.631773702703684
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 2.0,
+        "volume": 50.82813613138973
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 2.0,
+        "volume": 35.32538860983707
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 2.0,
+        "volume": 14.63177370270369
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 2.25,
+        "volume": 51.42400485823559
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 2.25,
+        "volume": 35.48447461443287
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 2.25,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 2.5,
+        "volume": 51.85522899188782
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 2.5,
+        "volume": 35.64669414502318
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 2.5,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 2.75,
+        "volume": 52.17504151180993
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 2.75,
+        "volume": 35.81202412549108
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 2.75,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 3.0,
+        "volume": 52.42143882201632
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 3.0,
+        "volume": 35.98009939631913
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 3.0,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 3.25,
+        "volume": 52.60298816574379
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 3.25,
+        "volume": 36.15083912648129
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 3.25,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 3.5,
+        "volume": 52.72152750466086
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 3.5,
+        "volume": 36.32424754522394
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 3.5,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 3.75,
+        "volume": 52.79521359044173
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 3.75,
+        "volume": 36.50032594874533
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 3.75,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 4.0,
+        "volume": 52.81995158457401
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 4.0,
+        "volume": 36.67903208229851
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 4.0,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 4.25,
+        "volume": 52.78998067910161
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 4.25,
+        "volume": 36.86006101918574
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 4.25,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 4.5,
+        "volume": 52.717343472515374
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 4.5,
+        "volume": 37.04270077551121
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 4.5,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 4.75,
+        "volume": 52.60264078892648
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 4.75,
+        "volume": 37.22639987059051
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 4.75,
+        "volume": 14.631773702703684
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 5.0,
+        "volume": 52.44579421943734
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 5.0,
+        "volume": 37.410937095046094
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 5.0,
+        "volume": 14.63177370270369
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 5.25,
+        "volume": 52.251801088023605
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 5.25,
+        "volume": 37.59616372917111
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 5.25,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 5.5,
+        "volume": 52.0214387502944
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 5.5,
+        "volume": 37.781945873033685
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 5.5,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 5.75,
+        "volume": 51.74948914873719
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 5.75,
+        "volume": 37.968164193653635
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 5.75,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 6.0,
+        "volume": 51.435008159872766
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 6.0,
+        "volume": 38.15448169375146
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 6.0,
+        "volume": 14.631773702703697
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 6.25,
+        "volume": 51.08432369274753
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 6.25,
+        "volume": 38.3406038659505
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 6.25,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 6.5,
+        "volume": 50.69556464883089
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 6.5,
+        "volume": 38.5264292971152
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 6.5,
+        "volume": 14.63177370270369
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 6.75,
+        "volume": 50.266960716594525
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 6.75,
+        "volume": 38.71186970544178
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 6.75,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 7.0,
+        "volume": 49.799302857333
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 7.0,
+        "volume": 38.896836209623444
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 7.0,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 7.25,
+        "volume": 49.295176878535116
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 7.25,
+        "volume": 39.081221515837186
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 7.25,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 7.5,
+        "volume": 48.755072057166046
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 7.5,
+        "volume": 39.264755410835356
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 7.5,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 7.75,
+        "volume": 48.17430726299804
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 7.75,
+        "volume": 39.44696358828082
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 7.75,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 8.0,
+        "volume": 47.546011915858934
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 8.0,
+        "volume": 39.62773440862395
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 8.0,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 8.25,
+        "volume": 46.86591474404942
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 8.25,
+        "volume": 39.80674306986017
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 8.25,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 8.5,
+        "volume": 46.13430417179121
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 8.5,
+        "volume": 39.98365127267434
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 8.5,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 8.75,
+        "volume": 45.33473031480484
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 8.75,
+        "volume": 40.158332563493616
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 8.75,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 9.0,
+        "volume": 44.45415396379872
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 9.0,
+        "volume": 40.330350729329794
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 9.0,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 9.25,
+        "volume": 43.43787962188422
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 9.25,
+        "volume": 40.49931920495796
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 9.25,
+        "volume": 14.631773702703669
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 9.5,
+        "volume": 42.41276522146312
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 9.5,
+        "volume": 40.6651512604337
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 9.5,
+        "volume": 14.631773702703692
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 9.75,
+        "volume": 41.38112762738394
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 9.75,
+        "volume": 40.827766509345565
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 9.75,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 10.0,
+        "volume": 40.346612676710194
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 10.0,
+        "volume": 40.987093158216254
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 10.0,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 10.25,
+        "volume": 39.30929553588647
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 10.25,
+        "volume": 41.142848862493
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 10.25,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 10.5,
+        "volume": 38.26905278967416
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 10.5,
+        "volume": 41.29442617490451
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 10.5,
+        "volume": 14.631773702703692
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 10.75,
+        "volume": 37.225759058126876
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 10.75,
+        "volume": 41.44157952379403
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 10.75,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 11.0,
+        "volume": 36.1792869379059
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 11.0,
+        "volume": 41.58404730083259
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 11.0,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 11.25,
+        "volume": 35.13173443023325
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 11.25,
+        "volume": 41.72082717267074
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 11.25,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 11.5,
+        "volume": 34.085411018175165
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 11.5,
+        "volume": 41.850965564552574
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 11.5,
+        "volume": 14.631773702703667
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 11.75,
+        "volume": 33.04027908562374
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 11.75,
+        "volume": 41.97271187288769
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 11.75,
+        "volume": 14.631773702703688
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 12.0,
+        "volume": 31.996254214068905
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 12.0,
+        "volume": 42.084054309645275
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 12.0,
+        "volume": 14.631773702703692
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 12.25,
+        "volume": 30.953251386835312
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 12.25,
+        "volume": 42.17975917794014
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 12.25,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 12.5,
+        "volume": 29.911363475638556
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 12.5,
+        "volume": 42.26650214305713
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 12.5,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 12.75,
+        "volume": 28.873095220889663
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 12.75,
+        "volume": 42.35093928807418
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 12.75,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 13.0,
+        "volume": 27.840846305764405
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 13.0,
+        "volume": 42.43305719739117
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 13.0,
+        "volume": 14.631773702703688
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 13.25,
+        "volume": 26.81456732642346
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 13.25,
+        "volume": 42.51284257308646
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 13.25,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 13.5,
+        "volume": 25.794195655035377
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 13.5,
+        "volume": 42.59028217885841
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 13.5,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 13.75,
+        "volume": 24.779669266511256
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 13.75,
+        "volume": 42.66536259801154
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 13.75,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 14.0,
+        "volume": 23.77092672276192
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 14.0,
+        "volume": 42.738072737588915
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 14.0,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 14.25,
+        "volume": 22.768678735508566
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 14.25,
+        "volume": 42.8084094886448
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 14.25,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 14.5,
+        "volume": 21.77571845446911
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 14.5,
+        "volume": 42.87637128660076
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 14.5,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 14.75,
+        "volume": 20.792247306311907
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 14.75,
+        "volume": 42.94195683942137
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 14.75,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 15.0,
+        "volume": 19.81820044376716
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 15.0,
+        "volume": 43.005166077657115
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 15.0,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 15.25,
+        "volume": 18.853514462694385
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 15.25,
+        "volume": 43.0659996480866
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 15.25,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 15.5,
+        "volume": 17.89873647655217
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 15.5,
+        "volume": 43.124459487197214
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 15.5,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 15.75,
+        "volume": 16.954573346718533
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 15.75,
+        "volume": 43.18055455736178
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 15.75,
+        "volume": 14.631773702703688
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 16.0,
+        "volume": 16.023655007457105
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 16.0,
+        "volume": 43.23429648639138
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 16.0,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 16.25,
+        "volume": 15.106984908234697
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 16.25,
+        "volume": 43.28569706593355
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 16.25,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 16.5,
+        "volume": 14.204499986819544
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 16.5,
+        "volume": 43.33476827579073
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 16.5,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 16.75,
+        "volume": 13.316140035196112
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 16.75,
+        "volume": 43.38152227134331
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 16.75,
+        "volume": 14.631773702703667
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 17.0,
+        "volume": 12.441847682662567
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 17.0,
+        "volume": 43.42597166999908
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 17.0,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 17.25,
+        "volume": 11.581576840179183
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 17.25,
+        "volume": 43.46813452318958
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 17.25,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 17.5,
+        "volume": 10.737544284323759
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 17.5,
+        "volume": 43.508033436446304
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 17.5,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 17.75,
+        "volume": 9.912244598077606
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 17.75,
+        "volume": 43.54569171624852
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 17.75,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 18.0,
+        "volume": 9.106229477967524
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 18.0,
+        "volume": 43.581134293835845
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 18.0,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 18.25,
+        "volume": 8.321513774944455
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 18.25,
+        "volume": 43.61439017107222
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 18.25,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 18.5,
+        "volume": 7.5582698924166225
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 18.5,
+        "volume": 43.645492821401895
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 18.5,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 18.75,
+        "volume": 6.816481215219842
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 18.75,
+        "volume": 43.67448032906203
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 18.75,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 19.0,
+        "volume": 6.099202407423242
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 19.0,
+        "volume": 43.701397629052956
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 19.0,
+        "volume": 14.631773702703669
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 19.25,
+        "volume": 5.4084476643445845
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 19.25,
+        "volume": 43.7262900573591
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 19.25,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 19.5,
+        "volume": 4.744081673269191
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 19.5,
+        "volume": 43.749202737528876
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 19.5,
+        "volume": 14.631773702703693
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 19.75,
+        "volume": 4.105980054448472
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 19.75,
+        "volume": 43.77018059965618
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 19.75,
+        "volume": 14.631773702703684
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 20.0,
+        "volume": 3.4943872445785775
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 20.0,
+        "volume": 43.78926942393251
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 20.0,
+        "volume": 14.631773702703684
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 20.25,
+        "volume": 2.9141539310040963
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 20.25,
+        "volume": 43.80652303515876
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 20.25,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 20.5,
+        "volume": 2.3695649944579555
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 20.5,
+        "volume": 43.8220033829294
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 20.5,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 20.75,
+        "volume": 1.8629551566975107
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 20.75,
+        "volume": 43.83577282642252
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 20.75,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 21.0,
+        "volume": 1.3960581381206258
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 21.0,
+        "volume": 43.84789350493633
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 21.0,
+        "volume": 14.631773702703688
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 21.25,
+        "volume": 0.9732859690304514
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 21.25,
+        "volume": 43.8584273770215
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 21.25,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 21.5,
+        "volume": 0.6091682494203969
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 21.5,
+        "volume": 43.86743713527757
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 21.5,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 21.75,
+        "volume": 0.3098047371751194
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 21.75,
+        "volume": 43.87499525798501
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 21.75,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "base",
+        "angle": 22.0,
+        "volume": 0.08029515549543548
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 22.0,
+        "volume": 43.88118466683226
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 22.0,
+        "volume": 14.631773702703677
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 22.25,
+        "volume": 43.886090123978775
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 22.25,
+        "volume": 14.631773702703665
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 22.5,
+        "volume": 43.8898033054264
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 22.5,
+        "volume": 14.631773702703684
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 22.75,
+        "volume": 43.89243545839024
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 22.75,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 23.0,
+        "volume": 43.894124801681784
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 23.0,
+        "volume": 14.63177370270369
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 23.25,
+        "volume": 43.89502177102894
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 23.25,
+        "volume": 14.631773702703669
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 23.5,
+        "volume": 43.89531965522341
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 23.5,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 23.75,
+        "volume": 43.895329352892155
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 23.75,
+        "volume": 14.631773702703699
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 24.0,
+        "volume": 43.89532935289217
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 24.0,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 24.25,
+        "volume": 43.89532935289219
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 24.25,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 24.5,
+        "volume": 43.89532935289217
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 24.5,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 24.75,
+        "volume": 43.895329352892205
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 24.75,
+        "volume": 14.63177370270367
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 25.0,
+        "volume": 43.89532935289221
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 25.0,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 25.25,
+        "volume": 43.89532935289218
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 25.25,
+        "volume": 14.631773702703683
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 25.5,
+        "volume": 43.89532935289214
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 25.5,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 25.75,
+        "volume": 43.895329352892176
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 25.75,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 26.0,
+        "volume": 43.895329352892176
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 26.0,
+        "volume": 14.631773702703674
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 26.25,
+        "volume": 43.895329352892155
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 26.25,
+        "volume": 14.631773702703667
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 26.5,
+        "volume": 43.89532935289216
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 26.5,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 26.75,
+        "volume": 43.8953293528922
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 26.75,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 27.0,
+        "volume": 43.89532935289217
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 27.0,
+        "volume": 14.631773702703681
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 27.25,
+        "volume": 43.89532935289214
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 27.25,
+        "volume": 14.631773702703667
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 27.5,
+        "volume": 43.89532935289218
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 27.5,
+        "volume": 14.631773702703669
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 27.75,
+        "volume": 43.89532935289216
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 27.75,
+        "volume": 14.631773702703665
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 28.0,
+        "volume": 43.89532935289215
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 28.0,
+        "volume": 14.631773702703695
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 28.25,
+        "volume": 43.89532935289214
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 28.25,
+        "volume": 14.631773702703672
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 28.5,
+        "volume": 43.895329352892176
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 28.5,
+        "volume": 14.631773702703663
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 28.75,
+        "volume": 43.89532935289217
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 28.75,
+        "volume": 14.631773702703665
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 29.0,
+        "volume": 43.895329352892155
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 29.0,
+        "volume": 14.631773702703686
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 29.25,
+        "volume": 43.89532935289216
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 29.25,
+        "volume": 14.631773702703665
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 29.5,
+        "volume": 43.88980264578025
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 29.5,
+        "volume": 14.631773702703676
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 29.75,
+        "volume": 43.880358123246765
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 29.75,
+        "volume": 14.63177370270368
+      },
+      {
+        "tool": "plate_tools",
+        "body": "top_plate",
+        "angle": 30.0,
+        "volume": 43.868727186614954
+      },
+      {
+        "tool": "center_tools",
+        "body": "top_plate",
+        "angle": 30.0,
+        "volume": 14.63177370270368
+      }
+    ],
+    "angles": 121,
+    "shaft_d_mm": 2.5,
+    "length_mm": 45,
+    "limitation": "Driver shaft envelopes: near ear screws require 10 degree tilt; straight access fails. Physical engagement of tilted PH0 driver unverified. Install plate/spline retaining screw before pinion; finger bosses seat before cap. Physical tool handles, resin fits and real cable bend unverified."
+  },
+  "retention": {
+    "status": "unverified",
+    "description": "Blind pivot sockets and two M3 pillars retained. Stiffness, post bending, screw pullout and axial endplay need physical/load tests."
+  },
+  "human_contact": {
+    "status": "unverified",
+    "description": "Finger band unchanged; no measured human hand or pressure model. CAD corridor success is not human fit."
+  }
+}
