@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-23T01:34:57.000Z",
-  "updated_at": "2026-10-23T01:34:57.000Z",
+  "updated_at": "2026-10-23T01:35:54Z",
   "created_by": {
     "kind": "human",
     "name": "Jacob Schantz",
@@ -17,5 +17,10 @@
     "harness": "codex",
     "model": "gpt-6.1-sol",
     "effort": "medium"
-  }
+  },
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-44e6c4d2",
+  "agent_id": "vigil:jarvis:codex:tmux:pebbles-HelpingHands-f7b9e72b:voice-44e6c4d2",
+  "claimed_at": "2026-10-23T01:35:54.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
