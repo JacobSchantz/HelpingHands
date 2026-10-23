@@ -3,7 +3,7 @@ import {STLLoader} from 'three/addons/STLLoader.js';
 import {OrbitControls} from 'three/addons/OrbitControls.js';
 import POSES from './poses.js';
 import PHOTOS from './reference/photos.js';
-import {SIZES, FINGERS, makeHand, sizeHand, poseHand, gripHand} from './human_hand.js';
+import {SIZES, FINGERS, makeHand, sizeHand, poseHand, gripHand, attachmentSpot} from './human_hand.js';
 import {MIX, MIXES, mixOf, initialPicks, buildMix, optionLabel, partOrder, part} from './model.js';
 
 // The page is two things (voice-1a2680b8): the 3D view, and beside it the parts list, which is also the navigation. A mix family
@@ -39,14 +39,13 @@ const photoQuery = query.get('photo');
 let photoOn = !!photoQuery && photoQuery !== '0', photoId = photoOn && photoQuery !== '1' ? photoQuery : '';
 let photoTile = null;
 // Average human hand (voice-bf770cd7, human_hand.js): a row under the reference photo puts it in every 3D view, its fingertips
-// level with the gripper's, beside it or over it, or holding it (gripHand: index and middle on one handle, thumb on the other,
-// re-solved as the gripper opens and closes). On, its controls hang under the row: size (ANSUR II means), which hand, where
+// level with the gripper's, beside it or over it, or holding it (thumb/index on opposed attachments, fixed wrist by default). On, its controls hang under the row: size (ANSUR II means), which hand, where
 // it sits, Open/Close, a slider per finger, and Follow, which bends it with the gripper's Open/Close (curl = 1 - openness).
 // ?hand=1|right|left presets it on, ?curl=0..100 the bend (and Follow off), ?handsize=man|woman, ?handat=over|grip.
 const handQuery = query.get('hand'), curlQuery = query.get('curl'), curlPreset = curlQuery !== null && isFinite(curlQuery);
 const hand = {on: !!handQuery && handQuery !== '0', side: handQuery === 'left' ? 'left' : 'right',
   size: SIZES.some(size => size.id === query.get('handsize')) ? query.get('handsize') : 'adult', at: ['over', 'grip'].includes(query.get('handat')) ? query.get('handat') : 'beside',
-  follow: !curlPreset, curls: {}, sliders: [], run: 0};
+  follow: !curlPreset, curls: {}, sliders: [], run: 0, length: null, radius: 8, contact: 50, lockWrist: true};
 for (const finger of FINGERS) hand.curls[finger] = curlPreset ? Math.max(0, Math.min(100, +curlQuery)) / 100 : 1 - openness;
 
 function message(text = '') { $('message').textContent = text; $('message').hidden = !text; }
@@ -139,7 +138,7 @@ function photoRow() {
 }
 // Put the hand in one view (loading its own clone the first time, or when the side changes), sized, bent and lined up: fingertips
 // level with the gripper's fingers (the whole model when it has none), beside them in +X with a gap for a fist, or over them.
-async function placeHand(view) {
+async function placeHand(view, preserveWrist = false) {
   if (!hand.on || !renderer) { if (view.hand) view.hand.visible = false; return; }
   if (view.hand?.userData.side !== hand.side) {
     const token = view.handToken = (view.handToken || 0) + 1;
@@ -150,10 +149,10 @@ async function placeHand(view) {
     view.hand = made; view.scene.add(made);
     if (!hand.on) { made.visible = false; return; }
   }
-  const root = view.hand, length = SIZES.find(size => size.id === hand.size).length;
+  const root = view.hand, length = hand.length || SIZES.find(size => size.id === hand.size).length;
   root.visible = true; sizeHand(root, length);
   root.userData.material.opacity = hand.at === 'over' ? .55 : 1;
-  if (hand.at === 'grip') { root.userData.grip = null; if (holdGripper(view)) return; }
+  if (hand.at === 'grip') { if (!preserveWrist) root.userData.grip = null; if (holdGripper(view)) return; }
   poseHand(root, hand.curls); root.quaternion.identity();
   const fingers = view.group.children.filter(mesh => mesh.visible && /finger/i.test(mesh.userData.name || ''));
   const bounds = new THREE.Box3();
@@ -162,35 +161,27 @@ async function placeHand(view) {
   const center = bounds.getCenter(new THREE.Vector3());
   root.position.set(hand.at === 'over' ? center.x : bounds.max.x + 110, center.y, bounds.max.z - length);
 }
-// Holding: the right hand's index and middle go along the right handle's outer face (where its strap loop is), its thumb along
-// the left's, the palm on the top-plate side; a left hand the other way round. A version without handles is held by its
-// fingers' outer edges. False: nothing to hold.
+// Holding: thumb and index on opposing attachment faces. Never substitute a jaw for a missing attachment.
+// The fixed wrist exposes reach lost over the stroke; unsupported combinations stay explicitly unverified.
 function holdGripper(view) {
   const shown = view.group.children.filter(mesh => mesh.visible && mesh.geometry), named = (side, part) => shown.find(mesh => {
     const name = mesh.userData.name || ''; return name.startsWith(side) && part.test(name);
   });
   const near = hand.side === 'right' ? 'Right' : 'Left', far = near === 'Right' ? 'Left' : 'Right';
   view.group.updateMatrixWorld(true);
-  const out = near === 'Right' ? 1 : -1, spots = [/handle|strap slide/i, /finger|jaw/i].map(part => [named(near, part), named(far, part)])
-    .map(([a, b]) => a && b && [handleSpot(a, out, 45), handleSpot(b, -out, 45)]).find(pair => pair?.[0] && pair[1]);
-  if (!spots) return false;
+  if (explodeAmount) { view.fit = {error:'Assemble the parts before checking fit.'}; fitReadout(); return false; }
+  const out = near === 'Right' ? 1 : -1, spots = [/handle|strap slide|_Driver.*cradle/i].map(part => [named(near, part), named(far, part)])
+    .map(([a, b]) => a && b && [attachmentSpot(a, out, hand.contact), attachmentSpot(b, -out, hand.contact)]).find(pair => pair?.[0] && pair[1]);
+  if (!spots) { view.fit = {error:'No thumb/index attachment pair at this station. This combination needs a dedicated adapter.'}; fitReadout(); return false; }
   const [fingers, thumb] = spots;
-  // What the hand must not go into: the gripper's other parts (the arm and its mount left out), each as its box.
-  const solids = shown.filter(mesh => !/finger|handle|arm|hub|tool plate|bracket/i.test(mesh.userData.name || '')).map(mesh => new THREE.Box3().setFromObject(mesh));
-  gripHand(view.hand, fingers, thumb, solids);
+  // Check all physical tool parts, even hidden ones, including jaws and wrist brackets; omit the remote arm reference.
+  const solids = view.group.children.filter(mesh => mesh.geometry).filter(mesh => !/arm/i.test(mesh.userData.name || '')).map(mesh => new THREE.Box3().setFromObject(mesh));
+  gripHand(view.hand, fingers, thumb, solids, {indexOnly:true, radius:hand.radius, lockWrist:hand.lockWrist});
+  view.fit = {...view.hand.userData.fit}; fitReadout();
   return true;
 }
-// Where a ray from outside (outward +1 = from +X) at mid-thickness, `below` mm under the handle's top, meets its outer face,
-// and that face's outward normal, in world mm. Null when it misses.
-const faceRay = new THREE.Raycaster();
-function handleSpot(mesh, outward, below) {
-  const box = new THREE.Box3().setFromObject(mesh), y = (box.min.y + box.max.y) / 2, z = box.max.z - below;
-  faceRay.set(new THREE.Vector3(outward > 0 ? box.max.x + 50 : box.min.x - 50, y, z), new THREE.Vector3(-outward, 0, 0));
-  const hit = faceRay.intersectObject(mesh, false)[0];
-  return hit && {point: hit.point, normal: hit.face.normal.clone().transformDirection(mesh.matrixWorld)};
-}
-async function showHand(reframe = false) {
-  await Promise.all([...views.values()].map(placeHand));
+async function showHand(reframe = false, preserveWrist = false) {
+  await Promise.all([...views.values()].map(view => placeHand(view, preserveWrist)));
   if (reframe) { if (PRESETS[startView]) alignAll(startView); else fitVisible(); }
 }
 function bendHand() { for (const view of views.values()) if (view.hand?.visible) poseHand(view.hand, hand.curls); showCurls(); }
@@ -216,6 +207,11 @@ function animateHand() {
   };
   step(began);
 }
+function fitReadout() {
+  const output = document.querySelector('.hand-fit'); if (!output) return;
+  output.textContent = hand.summary || [...views.values()].filter(v => v.hand?.visible).map(v => v.fit?.error || (v.fit ?
+    `Pad span ${v.fit.span.toFixed(1)} mm; miss ${v.fit.miss.toFixed(1)} mm; box overlap ${v.fit.penetration.toFixed(1)} mm. Fit unverified.` : 'Choose an attachment station.')).join(' ');
+}
 function handRows() {
   const row = document.createElement('div'), label = document.createElement('span');
   row.className = 'part-row photo-row'; label.className = 'name'; label.textContent = 'Average human hand';
@@ -227,7 +223,7 @@ function handRows() {
   const pick = (name, options, key, reframe = false) => {
     const select = document.createElement('select'); select.setAttribute('aria-label', name);
     select.append(...options.map(([value, text]) => new Option(text, value))); select.value = hand[key];
-    select.onchange = () => { hand[key] = select.value; if (key === 'at') renderPanel(); showHand(reframe); };
+    select.onchange = () => { hand[key] = select.value; if (key === 'size') hand.length = null; hand.summary = null; hand.report = null; if (key === 'at') renderPanel(); showHand(reframe); };
     return select;
   };
   const follow = document.createElement('label'), box = document.createElement('input'), pose = document.createElement('button');
@@ -239,8 +235,48 @@ function handRows() {
     pick('Where the hand sits', [['beside', 'Beside the gripper'], ['over', 'Over the gripper (see-through)'], ['grip', 'Holding the gripper']], 'at', true));
   if (hand.at === 'grip') {
     const note = document.createElement('p'); note.className = 'hand-note';
-    note.textContent = 'Index and middle on one handle, thumb on the other. It follows the gripper’s Open/Close.';
-    controls.append(note); return [row, controls];
+    note.textContent = 'Thumb and index on opposing attachments. The wrist stays fixed through Open/Close. Generic hand and box envelopes are a fit study; pressure, retention and release need a physical trial.';
+    const number = (label, value, min, max, change) => {
+      const row = document.createElement('label'), input = document.createElement('input');
+      row.className = 'fit-number'; input.type = 'number'; input.min = min; input.max = max; input.step = .1; input.value = value;
+      input.setAttribute('aria-label', label); row.append(label + ' ', input);
+      input.onchange = () => { const v = +input.value; if (Number.isFinite(v) && v >= min && v <= max) { change(v); hand.summary = null; hand.report = null; showHand(); } };
+      return row;
+    };
+    const lock = document.createElement('label'), checked = document.createElement('input');
+    lock.className = 'check'; checked.type = 'checkbox'; checked.checked = hand.lockWrist;
+    checked.onchange = () => { hand.lockWrist = checked.checked; hand.summary = null; hand.report = null; showHand(); };
+    lock.append(checked, 'Fix wrist through stroke');
+    const readout = document.createElement('p'); readout.className = 'hand-fit hand-note'; readout.setAttribute('role', 'status');
+    const sweep = document.createElement('button'); sweep.textContent = 'Check 13 stroke positions';
+    sweep.onclick = async () => {
+      openRun++; hand.summary = null; hand.report = null;
+      const inputs = [...document.querySelectorAll('button, select, input')];
+      const disabled = inputs.map(input => input.disabled); inputs.forEach(input => { input.disabled = true; });
+      const saved = openness, results = [];
+      const checkedViews = [...views.values()].filter(v => v.hand?.visible && !v.element.hidden);
+      try {
+        for (const view of checkedViews) view.hand.userData.grip = null;
+        for (let i = 0; i <= 12; i++) {
+          openness = i / 12;
+          for (const view of checkedViews) {
+            applyExplosion(view);
+            if (view.hand?.visible) { holdGripper(view); results.push({design:view.design.name, open:Math.round(100 * openness), ...view.fit}); }
+          }
+          await new Promise(resolve => setTimeout(resolve, 0));
+        }
+        hand.report = JSON.stringify({assumptions:{length:hand.length || SIZES.find(s => s.id === hand.size).length, radius:hand.radius, contact:hand.contact, fixedWrist:hand.lockWrist, side:hand.side}, samples:results}, null, 2);
+        hand.summary = !results.length ? 'Enable a hand on a loaded assembly first.' : results.some(r => r.error) ? 'Missing attachment at one or more positions; copy the report.' :
+          `13 positions: worst pad miss ${Math.max(...results.map(r => r.miss)).toFixed(1)} mm; box overlap ${Math.max(...results.map(r => r.penetration)).toFixed(1)} mm. Physical fit unverified.`;
+      readout.textContent = hand.summary;
+      } finally { openness = saved; for (const view of views.values()) applyExplosion(view); await showHand(false, true); inputs.forEach((input, i) => { input.disabled = disabled[i]; }); }
+    };
+    const copy = document.createElement('button'); copy.textContent = 'Copy fit report';
+    copy.onclick = async () => { try { await navigator.clipboard.writeText(hand.report || 'Run the stroke check first.'); copy.textContent = 'Copied'; } catch { message('Clipboard unavailable. Run in Pebbles or a secure browser.'); } };
+    controls.append(note, number('Hand length (mm)', hand.length || SIZES.find(s => s.id === hand.size).length, 140, 230, v => { hand.length = v; }),
+      number('Digit pad radius (mm)', hand.radius, 4, 14, v => { hand.radius = v; }),
+      number('Contact down attachment (%)', hand.contact, 10, 90, v => { hand.contact = v; }), lock, readout, sweep, copy);
+    return [row, controls];
   }
   controls.append(follow, pose);
   for (const finger of [null, ...FINGERS]) {
@@ -356,6 +392,7 @@ function showOpenTarget() {
   $('pose').setAttribute('aria-pressed', String(!openTarget));
 }
 $('pose').onclick = () => {
+  hand.summary = null; hand.report = null;
   const from = openness, to = openTarget = openTarget ? 0 : 1, run = ++openRun;
   showOpenTarget();
   const ms = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900 * Math.abs(to - from), began = performance.now();
@@ -372,7 +409,9 @@ $('pose').onclick = () => {
 };
 showOpenTarget();
 $('explode').onclick = () => {
+  hand.summary = null; hand.report = null;
   exploded = !exploded;
+  if (hand.on && hand.at === 'grip') message(exploded ? 'Assemble the parts before checking human fit.' : '');
   $('explode').textContent = exploded ? 'Assemble' : 'Explode';
   $('explode').setAttribute('aria-pressed', String(exploded));
   animateExplosion(exploded ? 1 : 0);
@@ -473,6 +512,7 @@ async function updateView(view, design) {
     for (const mesh of meshes) view.group.add(mesh);
     applyExplosion(view); showParts(view);
     updateExplodeControl(); updatePoseControl();
+    hand.summary = null; hand.report = null;
     await placeHand(view); if (token !== view.token) return;
     frame(view); view.element.classList.add('has-model'); view.loading.hidden = !design.export_error;
     if (PRESETS[startView]) alignAll(startView);

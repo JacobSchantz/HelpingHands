@@ -1,0 +1,789 @@
+{
+  "assumptions": {
+    "side": "right",
+    "radius_mm": 8,
+    "station_percent": 50,
+    "positions": 13,
+    "wrist": "fixed from first available contact",
+    "collision": "Conservative world boxes and sampled joint/phalanx spheres; no skin or pressure model",
+    "qualification": "Exploratory local IK only; missing contacts and box overlap require investigation, not comfort claims"
+  },
+  "designs": [
+    {
+      "folder": "v311_generalist_motor_choice",
+      "length_mm": 181.1,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 18.745415867963313,
+          "penetration": 2.945728575709296,
+          "span": 58.14081144872965,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 18.404519412730508,
+          "penetration": 3.0526601158243096,
+          "span": 59.71575352426152,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 18.174034698028912,
+          "penetration": 3.1229360562943214,
+          "span": 61.39312698250932,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 17.98845908843584,
+          "penetration": 3.192396341658167,
+          "span": 63.168067104975115,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 17.858900765616166,
+          "penetration": 3.261035682246259,
+          "span": 65.0361931812931,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 17.87430691080684,
+          "penetration": 3.2950458623114827,
+          "span": 66.9935885074947,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 17.757738015072473,
+          "penetration": 3.3958306834050234,
+          "span": 69.0367940907353,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 17.92556292987224,
+          "penetration": 3.442460119187899,
+          "span": 71.16281551255855,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 18.002589266642598,
+          "penetration": 3.501987956666767,
+          "span": 73.36914293439183,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 21.033384362859167,
+          "penetration": 3.5782534183025447,
+          "span": 75.65378477605283,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 26.48807275773063,
+          "penetration": 3.6339565702358954,
+          "span": 78.01531619652548,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 31.365236571919173,
+          "penetration": 4.971374322827856,
+          "span": 80.4529441975923,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 34.921377438519485,
+          "penetration": 4.8553288763954265,
+          "span": 82.96659200687297,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v311_generalist_motor_choice",
+      "length_mm": 193.3,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 16.237102277821652,
+          "penetration": 11.389455627388344,
+          "span": 58.14081144872965,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 15.28636674721809,
+          "penetration": 11.31293145375139,
+          "span": 59.71575352426152,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 17.577269614883562,
+          "penetration": 7.891722553329842,
+          "span": 61.39312698250932,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 17.419426979043976,
+          "penetration": 7.8657771890487,
+          "span": 63.168067104975115,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 17.266983480393556,
+          "penetration": 7.8657771890487,
+          "span": 65.0361931812931,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 17.27625919859763,
+          "penetration": 7.84013813337441,
+          "span": 66.9935885074947,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 15.911698453264869,
+          "penetration": 7.236729200019042,
+          "span": 69.0367940907353,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 15.111524905759603,
+          "penetration": 9.150081010065428,
+          "span": 71.16281551255855,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 17.445117138313996,
+          "penetration": 7.845180415274385,
+          "span": 73.36914293439183,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 18.317395376131167,
+          "penetration": 7.8628270052690965,
+          "span": 75.65378477605283,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 20.112107167619385,
+          "penetration": 7.8863799176329366,
+          "span": 78.01531619652548,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 21.839670405445506,
+          "penetration": 7.924862627080174,
+          "span": 80.4529441975923,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 25.18303467364815,
+          "penetration": 7.968909909469829,
+          "span": 82.96659200687297,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v312_generalist_compact_drive",
+      "length_mm": 181.1,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 23.300702647560588,
+          "penetration": 2.4572523780600335,
+          "span": 65.09623696738079,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 23.191125194542455,
+          "penetration": 2.4572523780600335,
+          "span": 67.01488757443077,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 23.045700584312613,
+          "penetration": 2.4572523780600335,
+          "span": 68.58713059969203,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 22.947467210691062,
+          "penetration": 2.4572523780600335,
+          "span": 70.2210572921528,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 22.911379176680807,
+          "penetration": 2.4572523780600335,
+          "span": 71.96143690187054,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 22.94020560216,
+          "penetration": 2.471400924465115,
+          "span": 73.8040388411719,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 23.036406751597834,
+          "penetration": 2.5952928119135805,
+          "span": 75.74514205140348,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 23.20208827844743,
+          "penetration": 2.702409961356146,
+          "span": 77.78152966770195,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 23.43898011762315,
+          "penetration": 2.8241117106196967,
+          "span": 79.91049805080338,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 23.74844291506802,
+          "penetration": 3.0751303506334366,
+          "span": 82.12988036038637,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 24.13150303488922,
+          "penetration": 3.0887177789813975,
+          "span": 84.43808543828845,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 24.5889153205892,
+          "penetration": 2.988115101893655,
+          "span": 86.83415343257676,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 25.12125129109265,
+          "penetration": 2.951953778114138,
+          "span": 89.31783037283675,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v312_generalist_compact_drive",
+      "length_mm": 193.3,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 29.307510809744066,
+          "penetration": 3.444833135805027,
+          "span": 65.09623696738079,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 29.786310103697016,
+          "penetration": 3.444833135805027,
+          "span": 67.01488757443077,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 30.03697086895891,
+          "penetration": 3.444833135805027,
+          "span": 68.58713059969203,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 30.320640581148076,
+          "penetration": 3.444833135805027,
+          "span": 70.2210572921528,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 30.668825450991974,
+          "penetration": 3.444833135805027,
+          "span": 71.96143690187054,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 31.08023789490646,
+          "penetration": 3.444833135805027,
+          "span": 73.8040388411719,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 31.553563723171308,
+          "penetration": 3.444833135805027,
+          "span": 75.74514205140348,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 32.087505278915,
+          "penetration": 3.444833135805027,
+          "span": 77.78152966770195,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 32.68083075028896,
+          "penetration": 3.444833135805027,
+          "span": 79.91049805080338,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 33.33242811194404,
+          "penetration": 3.444833135805027,
+          "span": 82.12988036038637,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 34.47205557924792,
+          "penetration": 3.444833135805027,
+          "span": 84.43808543828845,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 35.71178630243343,
+          "penetration": 3.444833135805027,
+          "span": 86.83415343257676,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 36.129501893989165,
+          "penetration": 3.22281927233907,
+          "span": 89.31783037283675,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v319_generalist_hls3606m",
+      "length_mm": 181.1,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 10.947838388580758,
+          "penetration": 1.7355345322880993,
+          "span": 33.14609667793891,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 11.0842801433225,
+          "penetration": 1.7355345322880993,
+          "span": 32.40469530038826,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 9.514821526723237,
+          "penetration": 1.7355345322880993,
+          "span": 34.29124456373885,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 9.511746817424577,
+          "penetration": 1.7355345322880993,
+          "span": 35.23180983779149,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 9.608323227583416,
+          "penetration": 1.7355345322880993,
+          "span": 36.07658748519096,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 9.719870253078213,
+          "penetration": 1.7355345322880993,
+          "span": 36.96919883726315,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 9.790409885418972,
+          "penetration": 1.7355345322880993,
+          "span": 37.91116263284137,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 9.945646163152784,
+          "penetration": 1.7355345322880993,
+          "span": 38.900948911640114,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 9.983060300816193,
+          "penetration": 1.7355345322880993,
+          "span": 39.937286587461,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 8.974143639943252,
+          "penetration": 1.8315321083905047,
+          "span": 41.01917473550596,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 10.63842307588773,
+          "penetration": 1.9369398453376334,
+          "span": 42.14590165299585,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 12.220882974461896,
+          "penetration": 2.45844027742271,
+          "span": 43.31707240982076,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 13.785069159790545,
+          "penetration": 3.0495238858233904,
+          "span": 44.53264599655675,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v319_generalist_hls3606m",
+      "length_mm": 193.3,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 14.429963585609052,
+          "penetration": 2.847986022709165,
+          "span": 33.14609667793891,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 14.364189597143541,
+          "penetration": 2.6954707695939604,
+          "span": 32.40469530038826,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 14.336811887132939,
+          "penetration": 2.654888350992671,
+          "span": 34.29124456373885,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 14.286644737349501,
+          "penetration": 2.591220191256234,
+          "span": 35.23180983779149,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 14.295922859702602,
+          "penetration": 2.5034615068205284,
+          "span": 36.07658748519096,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 14.292271391694111,
+          "penetration": 2.374210185452462,
+          "span": 36.96919883726315,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 14.380087179693044,
+          "penetration": 2.229905688008472,
+          "span": 37.91116263284137,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 14.399633226970174,
+          "penetration": 2.229905688008472,
+          "span": 38.900948911640114,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 14.457312900037643,
+          "penetration": 2.102652826125869,
+          "span": 39.937286587461,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 14.595049109463243,
+          "penetration": 2.0548433810973705,
+          "span": 41.01917473550596,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 12.239532667332684,
+          "penetration": 2.45764756996806,
+          "span": 42.14590165299585,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 12.009760652480276,
+          "penetration": 3.0505888883673293,
+          "span": 43.31707240982076,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 13.52303534311221,
+          "penetration": 3.323684881487985,
+          "span": 44.53264599655675,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v320_generalist_overhead_drive",
+      "length_mm": 181.1,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 22.501862159599956,
+          "penetration": 2.2867923102364216,
+          "span": 62.11517039746575,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 22.40306830419441,
+          "penetration": 2.1648601157773015,
+          "span": 64.25715388452403,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 22.315606597608635,
+          "penetration": 2.0430570440964573,
+          "span": 66.4476565165468,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 22.27206714327218,
+          "penetration": 1.9375139051059875,
+          "span": 68.68145517880689,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 22.266644926927295,
+          "penetration": 1.978086026621554,
+          "span": 70.95355452875638,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 22.252413886044998,
+          "penetration": 2.0176340185585957,
+          "span": 73.2591804774996,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 22.26688469809031,
+          "penetration": 1.766426445980514,
+          "span": 75.59377973334992,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 22.422900831354138,
+          "penetration": 1.6726190741803464,
+          "span": 77.95302500114309,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 22.579792365779245,
+          "penetration": 1.5500229082399386,
+          "span": 80.33282568087708,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 22.811451868436983,
+          "penetration": 2.6549833815926505,
+          "span": 82.72934414922975,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 23.047567208897267,
+          "penetration": 3.993504864582672,
+          "span": 85.13901795456584,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 23.445660270341733,
+          "penetration": 5.294822768965616,
+          "span": 87.55858852792016,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 25.714781065099203,
+          "penetration": 6.556459962148416,
+          "span": 89.98513732949662,
+          "wristLocked": true
+        }
+      ]
+    },
+    {
+      "folder": "v320_generalist_overhead_drive",
+      "length_mm": 193.3,
+      "samples": [
+        {
+          "angle": 0,
+          "miss": 23.366322100682357,
+          "penetration": 2.6624512904870983,
+          "span": 62.11517039746575,
+          "wristLocked": false
+        },
+        {
+          "angle": 2.5,
+          "miss": 23.264638881712948,
+          "penetration": 2.988900739157728,
+          "span": 64.25715388452403,
+          "wristLocked": true
+        },
+        {
+          "angle": 5,
+          "miss": 23.127166225565713,
+          "penetration": 3.2117278514034524,
+          "span": 66.4476565165468,
+          "wristLocked": true
+        },
+        {
+          "angle": 7.5,
+          "miss": 23.06537058446442,
+          "penetration": 3.522075026861856,
+          "span": 68.68145517880689,
+          "wristLocked": true
+        },
+        {
+          "angle": 10,
+          "miss": 23.26548171549722,
+          "penetration": 3.7312368079483207,
+          "span": 70.95355452875638,
+          "wristLocked": true
+        },
+        {
+          "angle": 12.5,
+          "miss": 23.43222559556423,
+          "penetration": 3.9173194099574005,
+          "span": 73.2591804774996,
+          "wristLocked": true
+        },
+        {
+          "angle": 15,
+          "miss": 23.63877198696106,
+          "penetration": 4.283633943885519,
+          "span": 75.59377973334992,
+          "wristLocked": true
+        },
+        {
+          "angle": 17.5,
+          "miss": 23.886381566188653,
+          "penetration": 4.451024090468607,
+          "span": 77.95302500114309,
+          "wristLocked": true
+        },
+        {
+          "angle": 20,
+          "miss": 24.861158614837546,
+          "penetration": 4.8142446560288334,
+          "span": 80.33282568087708,
+          "wristLocked": true
+        },
+        {
+          "angle": 22.5,
+          "miss": 25.56069577065084,
+          "penetration": 5.106806406090968,
+          "span": 82.72934414922975,
+          "wristLocked": true
+        },
+        {
+          "angle": 25,
+          "miss": 25.862540818402724,
+          "penetration": 5.614917964531898,
+          "span": 85.13901795456584,
+          "wristLocked": true
+        },
+        {
+          "angle": 27.5,
+          "miss": 26.13177957183246,
+          "penetration": 6.308001103806248,
+          "span": 87.55858852792016,
+          "wristLocked": true
+        },
+        {
+          "angle": 30,
+          "miss": 26.53724484227617,
+          "penetration": 6.308001103806248,
+          "span": 89.98513732949662,
+          "wristLocked": true
+        }
+      ]
+    }
+  ]
+}

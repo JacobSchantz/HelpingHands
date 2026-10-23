@@ -126,6 +126,15 @@ for (const [side, x] of [['right', 46], ['right', 33], ['left', 46]]) {
   const joint = name => new THREE.Vector3().setFromMatrixPosition(root.userData.bones[name].matrixWorld);
   const buried = Object.keys(root.userData.bones).filter(name => solids.some(b => b.clone().expandByScalar(-3).containsPoint(joint(name))));
   out.push({side, x, miss, buried, thumb: joint('thumb-tip').x, index: joint('index-finger-tip').x});
+  gripHand(root, spot(near), spot(-near), solids, {indexOnly:true, radius:8});
+  const wrist = root.userData.grip.slice(0, 6), rotation = root.quaternion.toArray();
+  const tilted = spot(-near * 10); tilted.point.z += 100;
+  gripHand(root, spot(near * 10), tilted, solids, {indexOnly:true, radius:8, lockWrist:true});
+  out[out.length - 1].fixed = {before:wrist, after:root.userData.grip.slice(0, 6), rotationBefore:rotation, rotationAfter:root.quaternion.toArray(), ...root.userData.fit};
+  // Deliberately bury the entire hand; diagnostic must report overlap, rather than claiming a fit.
+  gripHand(root, spot(near), spot(-near), [box([-1000,-1000,-1000],[1000,1000,1000])], {indexOnly:true, lockWrist:true});
+  out[out.length - 1].buriedFit = root.userData.fit;
+
 }
 console.log(JSON.stringify(out));
 '''
@@ -171,6 +180,19 @@ class HandGripTests(unittest.TestCase):
             sign = 1 if grip['side'] == 'right' else -1
             self.assertGreater(sign * grip['index'], 30, grip)
             self.assertLess(sign * grip['thumb'], -25, grip)
+
+    def test_fixed_wrist_exposes_unreachable_opening(self):
+        for grip in self.out:
+            fit = grip['fixed']
+            self.assertEqual(fit['before'], fit['after'])
+            self.assertTrue(fit['wristLocked'])
+            self.assertGreater(fit['miss'], 100)
+            self.assertAlmostEqual(fit['span'], ((grip['x'] * 20) ** 2 + 100 ** 2) ** .5)
+            self.assertEqual(fit['rotationBefore'], fit['rotationAfter'])
+
+    def test_collision_diagnostic_has_a_positive_control(self):
+        for grip in self.out:
+            self.assertGreater(grip['buriedFit']['penetration'], 100)
 
     def test_no_joint_is_inside_the_base(self):
         for grip in self.out:
@@ -264,6 +286,11 @@ class LandingPageTests(unittest.TestCase):
         self.assertIn('Holding the gripper', dom)
         self.assertIn('class="hand-note"', dom)
         self.assertNotIn('aria-label="Thumb bend"', dom)
+        for label in ('Hand length (mm)', 'Digit pad radius (mm)', 'Contact down attachment (%)'):
+            self.assertIn(f'aria-label="{label}"', dom)
+        self.assertIn('Check 13 stroke positions', dom)
+        self.assertIn('Copy fit report', dom)
+        self.assertIn('Fix wrist through stroke', dom)
 
 
 if __name__ == '__main__':

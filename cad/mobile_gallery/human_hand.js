@@ -97,8 +97,10 @@ const PULL = [0, 0, 0, 0, 0, 0, .01, .02, .01, .02, .02, .02, .02, .02, .02];
 const point = matrix => new THREE.Vector3().setFromMatrixPosition(matrix), towards = (matrix, x, y, z) => new THREE.Vector3(x, y, z).transformDirection(matrix);
 // fingers, thumb: {point, normal} in world mm, a spot on a handle's outer face and its outward normal; solids: world Box3s the
 // hand must stay out of (base, top plate, servo). Places the hand (root) and bends it; returns the worst pad miss in mm.
-export function gripHand(root, fingers, thumb, solids) {
+export function gripHand(root, fingers, thumb, solids, options = {}) {
   const {bones} = root.userData, turns = {};
+  const radius = options.radius ?? 8, indexOnly = options.indexOnly ?? false;
+  const locked = options.lockWrist && root.userData.grip ? root.userData.grip.slice(0, 6) : null;
   for (const finger in RING) CHAINS[finger].slice(0, 3).forEach((name, i) => { turns[name] = [-RING[finger][i], 0, 0]; });
   root.position.set(0, 0, 0); root.quaternion.identity(); root.updateMatrixWorld(true);
   // Armature space -> the hand's own frame (root space, mm); `unit` turns mm into Armature units.
@@ -107,7 +109,7 @@ export function gripHand(root, fingers, thumb, solids) {
   // A phalanx's pad: `along` its length from this joint to the next, 8 mm to the palm side, with its palm-side normal.
   const pad = (posed, joint, next, along) => {
     const normal = towards(posed[joint], 0, -1, 0);
-    return {at: inRoot(point(posed[joint]).lerp(point(posed[next]), along).addScaledVector(normal, 8 / unit), true), normal: inRoot(normal)};
+    return {at: inRoot(point(posed[joint]).lerp(point(posed[next]), along).addScaledVector(normal, radius / unit), true), normal: inRoot(normal)};
   };
   const flex = (chain, knuckle, middle) => { turns[chain[0]] = [knuckle, 0, 0]; turns[chain[1]] = [middle, 0, 0]; turns[chain[2]] = [middle * .7, 0, 0]; };
   // Palm skin over the middle finger's metacarpal, its palm-side normal, and the hand's own axes for the seed.
@@ -133,9 +135,12 @@ export function gripHand(root, fingers, thumb, solids) {
   // Seed: palm facing the base, fingers reaching from the thumb's handle toward theirs.
   const basis = (a, b) => { const y = b.clone().addScaledVector(a, -b.dot(a)).normalize(); return new THREE.Matrix4().makeBasis(a, y, new THREE.Vector3().crossVectors(a, y)); };
   const across = fingers.point.clone().sub(thumb.point);
-  const seed = new THREE.Quaternion().setFromRotationMatrix(basis(new THREE.Vector3(0, -1, 0), across).multiply(basis(palmNormal, reach).transpose()));
+  const seed = locked && root.userData.gripSeed ? root.userData.gripSeed.clone() :
+    new THREE.Quaternion().setFromRotationMatrix(basis(new THREE.Vector3(0, -1, 0), across).multiply(basis(palmNormal, reach).transpose()));
+  root.userData.gripSeed = seed.clone();
   const placed = new THREE.Quaternion(), turn = new THREE.Quaternion(), position = new THREE.Vector3(), world = v => v.applyQuaternion(placed).add(position);
   const misses = [];
+  let penetration = 0;
   const cost = a => {
     turn.setFromEuler(new THREE.Euler(deg(a[3]), deg(a[4]), deg(a[5]))); placed.copy(turn).multiply(seed); position.set(a[0], a[1], a[2]);
     flex(CHAINS.index, a[6], a[7]); flex(CHAINS.middle, a[8], a[9]);
@@ -149,13 +154,15 @@ export function gripHand(root, fingers, thumb, solids) {
     // Index pad on its spot, middle pad on the same face, thumb pad on its spot, each facing its face.
     misses[0] = world(index.at).distanceTo(fingers.point);
     misses[1] = Math.abs(world(middle.at.clone()).sub(fingers.point).dot(fingers.normal));
-    c += Math.max(0, world(middle.at).distanceTo(fingers.point) - 20) ** 2;   // beside the index, in the same strap
+    c += indexOnly ? 0 : Math.max(0, world(middle.at).distanceTo(fingers.point) - 20) ** 2;   // beside the index, in the same strap
     misses[2] = world(tip.at).distanceTo(thumb.point);
-    c += misses[0] ** 2 + misses[1] ** 2 + misses[2] ** 2;
-    c += 150 * (2 + into(index.normal.applyQuaternion(placed)) + into(middle.normal.applyQuaternion(placed))) + 150 * (1 + tip.normal.applyQuaternion(placed).dot(thumb.normal));
+    c += misses[0] ** 2 + (indexOnly ? 0 : misses[1] ** 2) + misses[2] ** 2;
+    c += 150 * (1 + into(index.normal.applyQuaternion(placed)) + (indexOnly ? 0 : 1 + into(middle.normal.applyQuaternion(placed)))) + 150 * (1 + tip.normal.applyQuaternion(placed).dot(thumb.normal));
     // Nothing inside the solids; the palm touching one.
-    for (const v of palmBalls) c += 5 * inside(world(v.clone()), 12) ** 2;
-    for (const v of [indexPose, middlePose, thumbPose].flatMap(balls)) c += 5 * inside(world(v), 8) ** 2;
+    penetration = 0;
+    for (const [points, r] of [[palmBalls.map(v => v.clone()), 12], [[indexPose, middlePose, thumbPose].flatMap(balls), radius]]) {
+      for (const v of points) { const depth = inside(world(v), r); penetration = Math.max(penetration, depth); c += 5 * depth ** 2; }
+    }
     c += .3 * Math.max(0, near(world(palmAt.clone())) - 2) ** 2;
     return c + a.reduce((sum, v, i) => sum + PULL[i] * (v - RELAXED[i]) ** 2, 0);
   };
@@ -167,10 +174,11 @@ export function gripHand(root, fingers, thumb, solids) {
     const at = body.getCenter(new THREE.Vector3()).setY(body.max.y + 15).sub(palmAt.clone().applyQuaternion(placed)); a[0] = at.x; a[1] = at.y; a[2] = at.z;
   }
   a = a.slice();
+  if (locked) a.splice(0, 6, ...locked);
   let best = cost(a);
   for (let size = 16; size > .2; size /= 2) for (let again = true, rounds = 0; again && rounds < 40; rounds++) {
     again = false;
-    for (let i = 0; i < a.length; i++) for (const sign of [1, -1]) {
+    for (let i = locked ? 6 : 0; i < a.length; i++) for (const sign of [1, -1]) {
       const was = a[i]; a[i] = Math.max(LIMITS[i][0], Math.min(LIMITS[i][1], was + sign * size));
       const c = cost(a); if (c < best - 1e-6) { best = c; again = true; } else a[i] = was;
     }
@@ -178,5 +186,17 @@ export function gripHand(root, fingers, thumb, solids) {
   root.userData.grip = a; cost(a);
   root.quaternion.copy(placed); root.position.copy(position);
   poseHand(root, {}, turns);
-  return Math.max(...misses);
+  const miss = Math.max(misses[0], misses[2], indexOnly ? 0 : misses[1]);
+  root.userData.fit = {miss, penetration, span: fingers.point.distanceTo(thumb.point), wristLocked: !!locked};
+  return miss;
+}
+
+// Where a ray from outside at mid-thickness and a percentage down the attachment meets its outer face,
+// and that face's outward normal, in world mm. Null when it misses.
+const faceRay = new THREE.Raycaster();
+export function attachmentSpot(mesh, outward, percent) {
+  const box = new THREE.Box3().setFromObject(mesh), y = (box.min.y + box.max.y) / 2, z = box.max.z - (box.max.z - box.min.z) * percent / 100;
+  faceRay.set(new THREE.Vector3(outward > 0 ? box.max.x + 50 : box.min.x - 50, y, z), new THREE.Vector3(-outward, 0, 0));
+  const hit = faceRay.intersectObject(mesh, false)[0];
+  return hit && {point: hit.point, normal: hit.face.normal.clone().transformDirection(mesh.matrixWorld)};
 }
