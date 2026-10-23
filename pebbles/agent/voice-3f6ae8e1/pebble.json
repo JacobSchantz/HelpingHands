@@ -1,0 +1,127 @@
+{
+  "id": "voice-3f6ae8e1",
+  "commit_id": "0a0a5054543b2fd642dc937ac98d53321088263f",
+  "description": "Separate ergonomics/integration task requested by Jake: make the HUMAN HAND interface work well with the different Generalist Gripper geometries. The gripper sits BETWEEN the thumb and index finger, with those digits connecting to/controlling its opposing sides. Interpret hand as the user hand/handle interface in this context, not automatically an Aero Hand robot redesign. Review existing Handle versions and handheld/self-building plans; develop comfortable thumb/index attachments and alignment across current large, compact, Aero-servo and overhead-drive geometries. Assess finger/thumb reach, joint trajectories, pinch/open range, contact pressure, retention and release, access/view, and clearance through full stroke. In particular coordinate with voice-550038ca which moves gears and servo ABOVE the human finger plane. Keep a shared adaptable handle-to-base interface where possible; label incompatible combinations instead of claiming universal fit. Create new Handle/other part versions only where changed, preserve prior versions, publish in live preview with hand-envelope/fit visualization and explicit adjustable assumptions pending Jake physical fit. Coordinate shared registry/catalog edits with voice-d01680be and voice-550038ca. User explicitly asked for a separate pebble; place in agent. Use GPT-6.1 Sol medium.",
+  "test_instructions": [
+    "In Live Preview enable Average human hand and choose Holding the gripper. Try Base 11/Gripper 21, Base 12/Gripper 21, Base 18/Gripper 24 and Base 19/Gripper 22. Thumb/index targets are the OUTER finger surfaces; handles/cradles are never selected.",
+    "Keep Fix wrist through stroke enabled. Adjust hand length, pad radius and Contact down finger (%); run Check 13 stroke positions, then Copy fit report. Review residuals and box overlap as screening only. Try either hand; hidden/missing fingers must warn rather than select a handle.",
+    "Review plans/human_hand_interface.md for the revised direct-contact study. Use an unpowered mock-up to check pressure, slipping, opening effort and lifting digits outward to release; no default saddles or straps. Screen voice-550038ca geometry when published.",
+    "Automated checks: python3 -m unittest Scripts.test_gallery; python3 Scripts/check_human_fit.py. Sixteen tests and 104 saved-mesh samples passed. Physical fit and phone rendering remain unverified."
+  ],
+  "results": [
+    {
+      "kind": "test_result",
+      "at": "2026-10-23T16:14:00.000Z",
+      "result": "failed",
+      "notes": "Jake now specifies acceptance test for minimum-support gripper: realistically proportioned complete human hand, gripper BETWEEN index/thumb with contacts on OUTSIDE fingers; show wrist, palm and remaining fingers and animate opening/closing with the mechanism so rest-of-hand interactions/collisions are visible. Active CAD voice-550038ca aims for only TWO pivot pegs and tiny axial retainers in finger/gripper plane, all connecting housing/drive above; jaw solids not counted in mounting-footprint minimization. Coordinate to reuse same geometry/contact/pose data, do not duplicate CAD edits. Existing direct-contact study is useful but check whether hand representation realistically tests whole-hand clearance rather than just contact spheres. Add tests before corrections; state anthropometric assumptions and no physical comfort claim. /Users/jakeschantz/HelpingHands",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "agent_action",
+      "at": "2026-10-23T15:46:10Z",
+      "commit_id": "902a2bbba976bf459f0efbd66860d44e268d5490",
+      "model": "gpt-6.1-sol",
+      "model_display": "GPT 6.1 Sol",
+      "identified_issue": "Jake clarified that the human thumb/index belong outside opposing gripper fingers, with no default handles, saddles or straps. The previous study targeted cradles and proposed added bulk. Both browser and saved-mesh screening now share fingerContacts, which selects only semantic Left/Right finger meshes and raycasts outer surfaces in local coordinates so contact stations rotate with the finger. Missing or hidden fingers warn instead of selecting handles. Direct-contact mode no longer attracts the palm toward a base plate. Existing physical hardware remains in collision screening. Removed the saddle proposal and superseded its metrics with the direct-contact report. CAD, poses, publisher registry and catalog are untouched; voice-550038ca owns handle removal, smaller pivots, overhead spacing and motor relocation. No new part version because no CAD changed. New regression covers decoy handles, left/right mirroring, rotation and missing fingers; all 16 tests pass. Actual saved CAD screening has 104 finite samples, with fixed wrist invariants, but significant residuals/box overlap persist. Generic local IK and conservative boxes cannot establish actual fit, free inner-gap clearance, opening force, pressure or comfort. No physical or phone test performed. New geometry must be screened once published.",
+      "summary": "Changed the hand-fit study to direct contact outside the gripper fingers.",
+      "description_sha": "3f6ae8e17edd03f1",
+      "changes": [
+        "Scripts/check_human_fit.py",
+        "Scripts/test_gallery.py",
+        "cad/mobile_gallery/README.txt",
+        "cad/mobile_gallery/gallery.js",
+        "cad/mobile_gallery/human_hand.js",
+        "plans/human_hand_fit.json",
+        "plans/human_hand_interface.md"
+      ],
+      "detailed_description": "The preview now targets the outer finger surfaces directly with thumb and index. Contact stations follow each finger through the stroke, with the wrist fixed; handles and cradles are never selected. I removed the saddle/strap proposal and the requirement for palm contact on the base.\n\nAll 16 tests and 104 saved-mesh samples passed, but reach misses and possible interference remain. Try Holding the gripper, adjust Contact down finger (%), then run the stroke check. Physical comfort and opening effort still need an unpowered trial; the separate geometry task owns the CAD changes.",
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-23T15:46:10Z",
+      "commit_count": 1076
+    },
+    {
+      "kind": "test_result",
+      "at": "2026-10-23T15:29:24.000Z",
+      "result": "failed",
+      "notes": "Jake clarification: human hand sits OUTSIDE the gripper fingers. Thumb outside one finger, index outside the other, directly manipulating the tweezer mechanism; inner grasping gap stays clear. Remove requirement for huge blue handles/handle interface in new design. Prior saddle/strap proposal is not the preferred default: prioritize direct comfortable contact with outer finger surfaces and minimal added bulk. Update hand-fit preview/study to this contact arrangement through full stroke. Coordinate against active geometry task voice-550038ca, which removes handles, shrinks pivot/hubs as mechanically feasible, minimizes overhead gap, and moves motor to opposite side above hand edge. Do not duplicate its CAD or overwrite shared catalog. Existing result was a fit study with concerns, not physically verified hand fit; maintain that distinction. /Users/jakeschantz/HelpingHands",
+      "image_urls": [],
+      "by": {
+        "github_login": "JacobSchantz",
+        "name": "Jacob Schantz"
+      }
+    },
+    {
+      "kind": "agent_action",
+      "at": "2026-10-23T14:42:10Z",
+      "commit_id": "0a0a5054543b2fd642dc937ac98d53321088263f",
+      "model": "gpt-6.1-sol",
+      "model_display": "GPT 6.1 Sol",
+      "identified_issue": "The old hand solver moved its wrist at every jaw position, constrained index and middle together, discarded its residual and substituted jaw edges when no attachment was found. This hid reach problems. The viewer now uses thumb/index contacts, actual cradle faces (including Base 19 Driver parts), frozen wrist translation/orientation during stroke, explicit hand assumptions and copyable sampled diagnostics. All physical tool boxes, including hidden meshes and jaws, participate; remote arm references do not. Conservative boxes, sparse joint/phalanx spheres and local IK cannot establish actual anatomical fit, contact pressure, retention, release or continuous clearance. Ray hits may be on an attachment wall instead of its boss. No geometry changed, so no new part versions, registry/catalog edits or claims of universal compatibility. Existing Handle 7 rail, integral Base cradles, mini Base 18 and Base 19 keyed cradles are different interfaces. Proposed webbing-mounted shallow thumb/index saddles, outward peel release and adjustable initial dimensions are documented, not print-ready CAD. This pass is assessment plus proposal; physical measurements/mock-up feedback are still needed before the first printable saddle. Tested 15 gallery tests, 104 actual CAD poses across four assemblies/two sizes, unreachable target and collision positive controls, and a real browser sweep plus screenshot. Source commits go through the existing publisher on its normal cycle; no CAD build/deploy was run.",
+      "summary": "Added a fixed-wrist thumb/index fit study and saddle proposal.",
+      "description_sha": "3f6ae8e17edd03f1",
+      "changes": [
+        "Scripts/check_human_fit.py",
+        "Scripts/test_gallery.py",
+        "cad/mobile_gallery/gallery.js",
+        "cad/mobile_gallery/human_hand.js",
+        "cad/mobile_gallery/index.html",
+        "cad/mobile_gallery/README.txt",
+        "plans/human_hand_fit.json",
+        "plans/human_hand_interface.md"
+      ],
+      "detailed_description": "The preview now holds the wrist fixed while thumb and index follow opposing attachments. Hand size, pad radius and contact position are adjustable; a 13-position check reports reach misses and possible interference, with Copy fit report. All four geometries still show fit concerns under these assumptions.\n\nThe attached study proposes separate padded thumb/index saddles with outward peel-open straps and identifies incompatible interfaces. No print-ready Handle was created: measure your hand and try the loose, unpowered mock-up before choosing dimensions. Fifteen tests and the browser stroke check passed; physical comfort remains unverified.",
+      "image_urls": [
+        "fit-preview.png"
+      ],
+      "solved_by_agent": "jarvis",
+      "solved_by_device": "jakes-macbook-pro",
+      "solved_at": "2026-10-23T14:42:10Z",
+      "commit_count": 1065
+    }
+  ],
+  "image_urls": [],
+  "created_at": "2026-10-23T14:01:49.000Z",
+  "updated_at": "2026-10-23T16:14:00.000Z",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": ""
+  },
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "visual": {
+    "path": "visual.png",
+    "alt": "Thumb and index outside the fingers, object space between; fixed-wrist screening without handles"
+  },
+  "artifacts": [
+    {
+      "kind": "file",
+      "path": "plans/human_hand_interface.md",
+      "label": "Direct outer-finger contact study"
+    },
+    {
+      "kind": "file",
+      "path": "plans/human_hand_fit.json",
+      "label": "Direct-contact screening across four geometries"
+    }
+  ],
+  "solved_by_agent": "jarvis",
+  "solved_by_device": "jakes-macbook-pro",
+  "solved_at": "2026-10-23T15:46:10Z",
+  "moved_by": {
+    "github_login": "JacobSchantz",
+    "name": "Jacob Schantz",
+    "from": "human",
+    "to": "agent",
+    "at": "2026-10-23T16:14:00.000Z"
+  }
+}
