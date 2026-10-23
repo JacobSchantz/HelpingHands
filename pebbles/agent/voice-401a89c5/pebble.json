@@ -6,7 +6,7 @@
   "results": [],
   "image_urls": [],
   "created_at": "2026-10-23T18:52:23.000Z",
-  "updated_at": "2026-10-23T18:52:23.000Z",
+  "updated_at": "2026-10-23T18:52:45Z",
   "work_kind": "plan",
   "dispatch_target": {
     "harness": "codex",
@@ -18,5 +18,10 @@
     "name": "Jacob Schantz",
     "github_login": "JacobSchantz"
   },
-  "owner": "JacobSchantz"
+  "owner": "JacobSchantz",
+  "working_on": "tmux:pebbles-HelpingHands-f7b9e72b:voice-401a89c5",
+  "agent_id": "vigil:jarvis:codex:tmux:pebbles-HelpingHands-f7b9e72b:voice-401a89c5",
+  "claimed_at": "2026-10-23T18:52:45.000Z",
+  "claimed_by_agent": "jarvis",
+  "claimed_by_device": "jakes-macbook-pro"
 }
