@@ -1,0 +1,100 @@
+[
+  {
+    "path": "exports/parts/left.stl",
+    "watertight": true,
+    "volume_mm3": 1690.4547150544588,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right.stl",
+    "watertight": true,
+    "volume_mm3": 1690.4547150544588,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/left_gear.stl",
+    "watertight": true,
+    "volume_mm3": 1724.1430809627054,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/right_gear.stl",
+    "watertight": true,
+    "volume_mm3": 2853.585378489166,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/pinion.stl",
+    "watertight": true,
+    "volume_mm3": 3626.4362478875482,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/base.stl",
+    "watertight": true,
+    "volume_mm3": 9301.852407855375,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/parts/top_plate.stl",
+    "watertight": true,
+    "volume_mm3": 7175.134205424284,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/left.stl",
+    "watertight": true,
+    "volume_mm3": 1690.4547024724855,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/right.stl",
+    "watertight": true,
+    "volume_mm3": 1690.4547024724855,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/left_gear.stl",
+    "watertight": true,
+    "volume_mm3": 1724.1431889210855,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/right_gear.stl",
+    "watertight": true,
+    "volume_mm3": 2853.585481161134,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/pinion.stl",
+    "watertight": true,
+    "volume_mm3": 3626.436190835968,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/base.stl",
+    "watertight": true,
+    "volume_mm3": 9301.852402367122,
+    "components": 1,
+    "passed": true
+  },
+  {
+    "path": "exports/print/top_plate.stl",
+    "watertight": true,
+    "volume_mm3": 7175.133642645832,
+    "components": 1,
+    "passed": true
+  }
+]

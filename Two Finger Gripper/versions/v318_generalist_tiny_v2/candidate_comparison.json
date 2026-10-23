@@ -1,0 +1,102 @@
+{
+  "scope": "Scale 20\u2013100% in 1% increments; integer 18\u201340 teeth per gear; original lattice/outline retained. Rank by scale, estimated width, then pinion radius. Analytical screening; only chosen CAD receives full mesh/motion validation.",
+  "selected": {
+    "scale": 0.5,
+    "side_teeth": 30,
+    "pinion_teeth": 24,
+    "passed": true,
+    "minimum_web_mm": 0.4047255892852286,
+    "gear_module_mm": 1.0450000000000002,
+    "pinion_rim_mm": 1.0337500000000022,
+    "pinion_pitch_radius_mm": 12.540000000000001,
+    "estimated_continuous_width_mm": 70.0323020725481,
+    "failures": []
+  },
+  "alternatives": [
+    {
+      "scale": 0.9,
+      "side_teeth": 34,
+      "pinion_teeth": 16,
+      "passed": true,
+      "minimum_web_mm": 0.7285060607134115,
+      "gear_module_mm": 1.6597058823529414,
+      "pinion_rim_mm": 1.0030147058823546,
+      "pinion_pitch_radius_mm": 13.277647058823531,
+      "estimated_continuous_width_mm": 126.0581437305866,
+      "failures": []
+    },
+    {
+      "scale": 0.5,
+      "side_teeth": 34,
+      "pinion_teeth": 16,
+      "passed": false,
+      "minimum_web_mm": 0.4047255892852286,
+      "gear_module_mm": 0.9220588235294118,
+      "pinion_rim_mm": -3.97610294117647,
+      "pinion_pitch_radius_mm": 7.376470588235295,
+      "estimated_continuous_width_mm": 70.0323020725481,
+      "failures": [
+        "stock horn countersink rim",
+        "gear module"
+      ]
+    },
+    {
+      "scale": 0.6,
+      "side_teeth": 30,
+      "pinion_teeth": 24,
+      "passed": true,
+      "minimum_web_mm": 0.48567070714227434,
+      "gear_module_mm": 1.254,
+      "pinion_rim_mm": 3.280499999999999,
+      "pinion_pitch_radius_mm": 15.047999999999998,
+      "estimated_continuous_width_mm": 84.03876248705772,
+      "failures": []
+    },
+    {
+      "scale": 0.5,
+      "side_teeth": 30,
+      "pinion_teeth": 24,
+      "passed": true,
+      "minimum_web_mm": 0.4047255892852286,
+      "gear_module_mm": 1.0450000000000002,
+      "pinion_rim_mm": 1.0337500000000022,
+      "pinion_pitch_radius_mm": 12.540000000000001,
+      "estimated_continuous_width_mm": 70.0323020725481,
+      "failures": []
+    },
+    {
+      "scale": 0.49,
+      "side_teeth": 28,
+      "pinion_teeth": 24,
+      "passed": false,
+      "minimum_web_mm": 0.39663107749952403,
+      "gear_module_mm": 1.09725,
+      "pinion_rim_mm": 1.5954375,
+      "pinion_pitch_radius_mm": 13.167000000000002,
+      "estimated_continuous_width_mm": 68.63165603109714,
+      "failures": [
+        "unchanged lattice ligament"
+      ]
+    },
+    {
+      "scale": 0.4,
+      "side_teeth": 22,
+      "pinion_teeth": 24,
+      "passed": false,
+      "minimum_web_mm": 0.3237804714281829,
+      "gear_module_mm": 1.1400000000000001,
+      "pinion_rim_mm": 2.0550000000000006,
+      "pinion_pitch_radius_mm": 13.680000000000001,
+      "estimated_continuous_width_mm": 56.87292082901924,
+      "failures": [
+        "unchanged lattice ligament"
+      ]
+    }
+  ],
+  "allowances": {
+    "min_lattice_web_mm": 0.4,
+    "min_gear_module_mm": 1,
+    "min_pinion_screw_rim_mm": 1
+  },
+  "limitations": "Fine resin prototype allowance, not FDM or strength-qualified. No claim of global optimum across other finger reinforcements, lattice edits, manufacturing processes, horns or architectures."
+}

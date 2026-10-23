@@ -325,7 +325,7 @@ function motionFor(design, name, pivot = null) {
   const hinge = find(pose.hinges), slide = find(pose.slides), turn = find(pose.cranks);
   if (!hinge && !slide && !turn) return null;
   return angle => {
-    if (hinge) return {deg: hinge.sign * (angle - pose.exported), pivot: pivot === null ? hinge.pivot : [Math.sign(hinge.pivot[0]) * pivot, 0, 0], offset: [0, 0, 0]};
+    if (hinge) return {deg: hinge.sign * (angle - pose.exported), pivot: pivot === null ? hinge.pivot : pose.uniform_scale ? hinge.pivot.map(v => v * pivot / pose.hinges[0].pivot[0]) : [Math.sign(hinge.pivot[0]) * pivot, 0, 0], offset: [0, 0, 0]};
     if (turn) return {deg: crank(turn, angle) - crank(turn, pose.exported), pivot: turn.pivot, offset: [0, 0, 0]};
     const k = sin(angle) - sin(pose.exported);
     return {deg: 0, pivot: [0, 0, 0], offset: slide.dir.map(v => v * k)};

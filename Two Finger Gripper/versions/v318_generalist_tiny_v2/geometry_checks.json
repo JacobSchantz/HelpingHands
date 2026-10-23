@@ -1,0 +1,379 @@
+{
+  "fasteners": {
+    "passed": true,
+    "horn": {
+      "candidate": "4 \u00d7 M3\u00d712 countersunk",
+      "tip_to_case_clearance_mm": 1.1999999999999993,
+      "thread_in_horn_mm": 2.5
+    },
+    "case": {
+      "candidate": "4 \u00d7 M2\u00d76 cap head",
+      "modeled_case_engagement_mm": 4,
+      "unverified_assumption": "Case tapped depth assumed 4 mm, as large source; physical depth must be measured."
+    },
+    "cap": {
+      "candidate": "2 \u00d7 M3\u00d710 countersunk",
+      "pillar_engagement_mm": 6.999999761581421,
+      "pilot_bottom_clearance_mm": 0.3000001907348633
+    },
+    "limitation": "Candidate stock lengths from CAD. Verify real screw/head and horn/case thread depths before assembly."
+  },
+  "overall_envelope": {
+    "x_y_z_bounds_mm": [
+      [
+        -35.01615103627406,
+        35.01615103627406
+      ],
+      [
+        -56.599998474121094,
+        6.300000190734863
+      ],
+      [
+        -51.04999923706055,
+        63.464080044131876
+      ]
+    ],
+    "width_depth_height_mm": [
+      70.03230207254812,
+      62.89999866485596,
+      114.51407928119242
+    ],
+    "per_part_bounds": {
+      "left": [
+        [
+          -35.01615103627406,
+          -0.0009777650806963578
+        ],
+        [
+          -3.0,
+          3.0
+        ],
+        [
+          -5.000000312283118,
+          63.464080044131876
+        ]
+      ],
+      "right": [
+        [
+          0.0009777650806963578,
+          35.01615103627406
+        ],
+        [
+          -3.0,
+          3.0
+        ],
+        [
+          -5.000000312283118,
+          63.464080044131876
+        ]
+      ],
+      "left_gear": [
+        [
+          -27.261784999180755,
+          1.0450000124228251
+        ],
+        [
+          -4.699999809265137,
+          3.0
+        ],
+        [
+          -9.611275367919264,
+          33.55267200938843
+        ]
+      ],
+      "right_gear": [
+        [
+          -1.0450000124228271,
+          27.261784999180755
+        ],
+        [
+          -4.699999809265137,
+          3.0
+        ],
+        [
+          -16.7200004391221,
+          33.55267200938843
+        ]
+      ],
+      "pinion": [
+        [
+          2.0899998788148064,
+          29.260000762442505
+        ],
+        [
+          -6.199999809265137,
+          3.0
+        ],
+        [
+          -41.80000158316806,
+          -14.62999962413833
+        ]
+      ],
+      "base": [
+        [
+          -25.0,
+          30.760000228881836
+        ],
+        [
+          -9.0,
+          4.150000095367432
+        ],
+        [
+          -51.04999923706055,
+          5.5
+        ]
+      ],
+      "top_plate": [
+        [
+          -25.0,
+          30.760000228881836
+        ],
+        [
+          3.299999952316284,
+          6.300000190734863
+        ],
+        [
+          -51.04999923706055,
+          5.75
+        ]
+      ],
+      "motor": [
+        [
+          -19.524999618530273,
+          25.875
+        ],
+        [
+          -42.900001525878906,
+          -4.699999809265137
+        ],
+        [
+          -40.6150016784668,
+          -15.8149995803833
+        ]
+      ],
+      "cable": [
+        [
+          -15.225000381469727,
+          0.17499999701976776
+        ],
+        [
+          -56.599998474121094,
+          -42.599998474121094
+        ],
+        [
+          -38.415000915527344,
+          -18.014999389648438
+        ]
+      ],
+      "horn_screws": [
+        [
+          5.741309300272862,
+          25.60869161057932
+        ],
+        [
+          -6.199999809265137,
+          2.700000047683716
+        ],
+        [
+          -38.14869236716227,
+          -18.2813099118729
+        ]
+      ],
+      "case_screws": [
+        [
+          -15.225000381469727,
+          9.274999618530273
+        ],
+        [
+          -9.0,
+          -5.0
+        ],
+        [
+          -40.3650016784668,
+          -16.065000534057617
+        ]
+      ],
+      "cap_screws": [
+        [
+          -23.0,
+          23.0
+        ],
+        [
+          3.299999952316284,
+          6.300000190734863
+        ],
+        [
+          -49.04999923706055,
+          -43.04999923706055
+        ]
+      ]
+    },
+    "method": "Analytic continuous X/Z vertex extrema, fixed Y; includes real servo, screw probes and cable clearance."
+  },
+  "contract": {
+    "passed": true,
+    "changed_finger_source_parameters": [],
+    "adjustable_drive_parameters": [
+      "base_t",
+      "gear_bolt_head_h",
+      "gear_bolt_phase_deg",
+      "gear_teeth",
+      "pillar_d",
+      "pinion_mesh_deg",
+      "pinion_teeth",
+      "sts_body_deg",
+      "top_t"
+    ]
+  },
+  "fit": {
+    "passed": true,
+    "scale": 0.5,
+    "gear_module_mm": 1.0450000000000002,
+    "pinion_root_radius_mm": 11.233750000000002,
+    "rim_mm": 1.0337500000000022,
+    "required_rim_mm": 1,
+    "ratio": 1.25
+  },
+  "lattice": {
+    "passed": true,
+    "minimum_plan_ligament_mm": 0.4047255892852292,
+    "required_mm": 0.4,
+    "process": "Fine resin prototype allowance; not ordinary FDM or a strength rating."
+  },
+  "mounting_controls": {
+    "servo_raised_half_mm_hits_base": true,
+    "pinion_lowered_half_mm_hits_horn": true
+  },
+  "gear_phase_control": {
+    "passed": true,
+    "wrong_pinion_phase_overlap_mm3": 16.752387058932467,
+    "description": "A 4 degree phase error intersects the right gear; correct full motion has no penetrating tooth volume."
+  },
+  "width": {
+    "passed": true,
+    "width_mm": 70.03230207254812,
+    "per_part_x_mm": {
+      "left": [
+        -35.01615103627406,
+        -0.0009777650806963578
+      ],
+      "right": [
+        0.0009777650806963578,
+        35.01615103627406
+      ],
+      "left_gear": [
+        -27.261784999180755,
+        1.0450000124228251
+      ],
+      "right_gear": [
+        -1.0450000124228271,
+        27.261784999180755
+      ],
+      "pinion": [
+        2.0899998788148064,
+        29.260000762442505
+      ],
+      "base": [
+        -25.0,
+        30.760000228881836
+      ],
+      "top_plate": [
+        -25.0,
+        30.760000228881836
+      ]
+    },
+    "method": "Analytic endpoint and stationary-point extrema of every exported STL vertex over the full continuous 0\u201330 degree stroke."
+  },
+  "fidelity": [
+    {
+      "part": "left",
+      "passed": true,
+      "outer_lattice_taper_error_mm": 0.0,
+      "exception": "Loop bore clearance held at original actual-size 0.25 mm."
+    },
+    {
+      "part": "right",
+      "passed": true,
+      "outer_lattice_taper_error_mm": 0.0,
+      "exception": "Loop bore clearance held at original actual-size 0.25 mm."
+    },
+    {
+      "part": "left_gear",
+      "passed": true,
+      "exception": "Source involute/handle construction; resized tooth counts and centres, full-size local hardware holes, seats and working clearances."
+    },
+    {
+      "part": "right_gear",
+      "passed": true,
+      "exception": "Source involute/handle construction; resized tooth counts and centres, full-size local hardware holes, seats and working clearances."
+    },
+    {
+      "part": "pinion",
+      "passed": true,
+      "exception": "Source involute/handle construction; resized tooth counts and centres, full-size local hardware holes, seats and working clearances."
+    },
+    {
+      "part": "base",
+      "passed": true,
+      "exception": "Source involute/handle construction; resized tooth counts and centres, full-size local hardware holes, seats and working clearances."
+    },
+    {
+      "part": "top_plate",
+      "passed": true,
+      "exception": "Source involute/handle construction; resized tooth counts and centres, full-size local hardware holes, seats and working clearances."
+    }
+  ],
+  "motion_collisions": {
+    "passed": true,
+    "step_deg": 0.25,
+    "angles": 121,
+    "pairs_per_angle": 66,
+    "failures": [],
+    "worst": {
+      "base/top_plate": {
+        "volume_mm3": 1.078998002057574e-15,
+        "angle_deg": 0.0
+      },
+      "base/cap_screws": {
+        "volume_mm3": 2.0816681711721685e-17,
+        "angle_deg": 0.0
+      },
+      "horn_screws/motor": {
+        "volume_mm3": 2.0218202112509687e-15,
+        "angle_deg": 28.5
+      },
+      "case_screws/motor": {
+        "volume_mm3": 5.551115123125783e-17,
+        "angle_deg": 0.0
+      },
+      "pinion/motor": {
+        "volume_mm3": 2.300416801492844e-14,
+        "angle_deg": 9.25
+      }
+    },
+    "limitation": "Full stroke sampled every 0.25 degree; Screw probes omit intentional threaded engagement. NOT a proof of continuous collision clearance, tooth strength, friction or manufacturability."
+  },
+  "hardware": {
+    "horn_d_mm": 20,
+    "horn_screw_pcd_mm": 14,
+    "m3_clearance_mm": 3.4,
+    "m2_clearance_mm": 2.3,
+    "servo_dimensions_mm": [
+      45.4,
+      24.8,
+      31.8
+    ],
+    "mount": "Original four-M2 case rail mounting and four-M3 stock-horn mounting; all dimensions unscaled. Original half-size fingers with resized 30:30:24 gears and actual-size hardware interfaces and clearances.",
+    "physical_validation": "CAD only, no print/servo/fastener measurement or load test."
+  },
+  "stroke_deg": [
+    0,
+    30
+  ],
+  "gear_teeth": [
+    30,
+    30,
+    24
+  ],
+  "scale_factor": 0.5
+}

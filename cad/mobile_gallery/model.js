@@ -47,7 +47,7 @@ export function mixOptions(catalog) {
   const of = kind => family.filter(design => partVersion(design).kind === kind);
   const grippers = of('gripper').map(design => option(partVersion(design).version, design, model => !HANDLE.test(part(model))));
   for (const design of family) {   // a later design's own fingers (Handle 6 -> Gripper 21), once per finger version
-    if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push(option(design.fingers, design, model => FINGER.test(part(model))));
+    if (design.fingers && !grippers.some(item => item.version === design.fingers)) grippers.push({...option(design.fingers, design, model => FINGER.test(part(model))), lineage:design.finger_lineage});
   }
   const handles = of('handles').map(design => option(partVersion(design).version, design, model => HANDLE.test(part(model))));
   const bases = of('base').map(design => option(partVersion(design).version, design,
@@ -61,7 +61,8 @@ export function mixOptions(catalog) {
 // later design (Gripper 21 from Handle 6) are not that design's lineage, so they show bare.
 export function optionLabel(label, item) {
   const own = partVersion(item.design)?.version === item.version && item.design.builds_on;
-  return label + ' ' + item.version + (own ? ' (from ' + item.design.builds_on + (item.design.gist ? ', ' + item.design.gist : '') + ')' : '');
+  const lineage = item.lineage || (own ? {builds_on:item.design.builds_on, gist:item.design.gist} : null);
+  return label + ' ' + item.version + (lineage?.builds_on ? ' (from ' + lineage.builds_on + (lineage.gist ? ', ' + lineage.gist : '') + ')' : '');
 }
 // Pairs of picks that do not share an interface (AGENTS.md: arm flange -> Mount, Mount tool plate -> Base or Aero Hand, Handle
 // -> Base, fingers -> the hinges a Handle/Base was built on), from the catalog (fingers, carries, fits), not from names. Each is

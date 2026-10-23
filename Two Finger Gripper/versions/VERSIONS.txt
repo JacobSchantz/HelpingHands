@@ -125,3 +125,12 @@ All fixed and moving parts fit inside the servo's 24.8 mm narrow case width over
 about 13 mm. Base 16 is a standalone miniature prototype, not compatible with full-size Handles or Grippers 1–22, and has no arm mount.
 Fine resin or machined parts; not ordinary FDM or force-qualified. Exact servo and fastener dimensions retained, not scaled. Five printed parts plus servo and screws.
 Hardware head and cable envelopes included; exact continuous vertex extrema prove width over the commanded stroke. The horn uses CAD-correct 45 degree holes and flush countersunk screws; no mechanical stops or strength rating.
+v318_generalist_tiny_v2 — Base 17 (voice-44e6c4d2), Gripper 24: Base 15 with half-size original lattice fingers and a compact resized drive, Tiny V2.
+Gripper 24 builds on Gripper 22: curved outline, lattice and taper at 50%, original full-size working bore clearance. Jake removed the 24.8 mm width cap
+and authorized changing all gear sizes. Separate handle-gears and pinion retained, now 30:30:24 teeth (1.25:1 servo/jaw), full 0–30 degree jaw stroke.
+Real STS3215 sits sideways under the gearbox; stock horn Ø20 / 14 mm screw PCD, 4 M3 horn screws and 4 M2 case-rail mounts stay actual size. Cap rear
+pillars repositioned around pinion, 4 mm base / 3 mm cap / 8 mm pillars; unused arm wrist tab and its two pilots omitted. No separate adapter needed.
+Measured continuous moving envelope 70.032 W × 114.514 H × 62.900 D mm including cable clearance. Bounded search: scales 20–100% by 1%, integer
+18–40 teeth; 50% / 30:24 chosen with module ≥1 mm, screw rim ≥1 mm and unchanged lattice ligament ≥0.4 mm. Fine resin prototype, not FDM/load-qualified.
+Minimum lattice ligament 0.4047 mm and pinion screw rim 1.0338 mm; smaller tested candidates fail material or mounting. No global minimum claim.
+Parts, comparisons and checks in folder; no physical print/fit/strength test yet. Base 16 / Gripper 23 (Tiny V1) and large source preserved.
