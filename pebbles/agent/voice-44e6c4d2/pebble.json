@@ -1,0 +1,21 @@
+{
+  "id": "voice-44e6c4d2",
+  "commit_id": "",
+  "description": "Jake requests tiny gripper version TWO: \"It should just be the same as the large grippers in every way, but just shrunk down.\" This explicitly corrects v1 Base 16/Gripper 23 v317_generalist_micro_tweezers, which redesigned the fingers as tweezers and replaced the large three-gear drive with direct two-gear drive. Create a NEW version and preserve v1. Source the large Base 15/Gripper 22 v316_generalist_post_cap explicitly (user-named large source overrides newest-part default): retain its actual curved/lattice finger outlines, loop pivots, separate handle-gears and pinion, tooth counts/ratios, captured posts/plain cap, proportions and kinematics. Prefer a uniform parametric scaling of the real source geometry, not another redesigned tweezer approximation. Carry forward original tiny target: no wider than STS3215 narrow dimension 24.8 mm, including full intended moving stroke. Publish as Tiny V2 with separate next Base and Gripper counters and unambiguous lineage. A real servo, horn and screws cannot be uniformly shrunk: do not scale hardware and claim it fits. Produce the faithful miniature CAD concept and clearly separate any minimum necessary full-size hardware adapter/interface from the scaled mechanism; if strict exact scaling plus hardware fit is infeasible, document exact measured interference and label concept/not build-ready rather than silently redesigning the requested shape. Scale factor and all dimensions in params.json, preview Tune support and correct pivots; maintain existing versions. Render side-by-side large versus tiny to show fidelity. Export parts, run manifold/volume and complete-motion collision/continuous-width checks, and add regressions that reject altered proportions/gear ratio, excessive stroke or width. Verify preview catalog and compatible picks. Use GPT-6.1 Sol medium; own the single reply, explicit-path commit and give-to-human. CAD exports are required; no application build. Shared checkout: unrelated Generated/GitInfo.swift is not yours. Voice session is doing no CAD edits, so there is no competing implementation this time.",
+  "test_instructions": [],
+  "results": [],
+  "image_urls": [],
+  "created_at": "2026-10-23T01:34:57.000Z",
+  "updated_at": "2026-10-23T01:34:57.000Z",
+  "created_by": {
+    "kind": "human",
+    "name": "Jacob Schantz",
+    "github_login": "JacobSchantz"
+  },
+  "owner": "JacobSchantz",
+  "dispatch_target": {
+    "harness": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "medium"
+  }
+}
