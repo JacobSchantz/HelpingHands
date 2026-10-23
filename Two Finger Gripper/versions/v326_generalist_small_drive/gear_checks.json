@@ -1,0 +1,896 @@
+{
+  "lower": {
+    "teeth": 30,
+    "module_mm": 1.0,
+    "pitch_diameter_mm": 30.0,
+    "addendum_diameter_mm": 32.0,
+    "root_diameter_mm": 27.5,
+    "base_diameter_mm": 28.190778623577252,
+    "root_chord_mm": 1.6654141666078235,
+    "tip_chord_mm": 0.524043198435567
+  },
+  "upper": {
+    "teeth": 18,
+    "module_mm": 0.8,
+    "pitch_diameter_mm": 14.4,
+    "addendum_diameter_mm": 16.0,
+    "root_diameter_mm": 12.4,
+    "base_diameter_mm": 13.531573739317082,
+    "root_chord_mm": 1.0932748715207687,
+    "tip_chord_mm": 0.32308684434152307
+  },
+  "pinion": {
+    "teeth": 28,
+    "module_mm": 0.8,
+    "pitch_diameter_mm": 22.400000000000002,
+    "addendum_diameter_mm": 24.000000000000004,
+    "root_diameter_mm": 20.400000000000002,
+    "base_diameter_mm": 21.04911470560435,
+    "root_chord_mm": 1.2655307680448455,
+    "tip_chord_mm": 0.3705191026481964
+  },
+  "upper_contact_ratio": 1.5838849180728354,
+  "lower_contact_ratio": 1.6535138809029617,
+  "minimum_unshifted_teeth": 18,
+  "pinion_root_radial_material_outside_plate_mm": 1.200000000000001,
+  "minimum_root_chord_assumption_mm": 1,
+  "minimum_plate_rim_assumption_mm": 1.2,
+  "assumed_process": "Fine resin prototype; 1.0mm tooth-root chord and1.2mm radial root material are design screens, not measured printer/material minima; FDM unqualified.",
+  "servo": {
+    "before_ratio": 0.7142857142857143,
+    "after_ratio": 0.6428571428571429,
+    "before_travel_deg": 21.428571428571427,
+    "after_travel_deg": 19.28571428571429,
+    "motor_axis_x_z_mm": [
+      -1.7763568394002505e-15,
+      -10.656453443805779
+    ],
+    "rated_6V_Nm": 0.14709975,
+    "source": "Pinned Feetech A/0 p4: rated1.5kg.cm at6V; stall6kg.cm is NOT continuous rating"
+  },
+  "load_screen": {
+    "finger_force_each_assumed_N": 1.0,
+    "tip_axial_lever_mm": 61.550449148071394,
+    "each_jaw_torque_Nm": 0.061550449148071396,
+    "servo_torque_ideal_Nm": 0.19149028623844433,
+    "required_efficiency_for_6V_rating": 1.3017716633675063,
+    "upper_tangential_force_N": 17.09734698557539,
+    "lower_tangential_force_N": 4.103363276538094,
+    "upper_face_mm": 3.6000000000000005,
+    "lewis_form_factor": 0.32455555555555554,
+    "lewis_nominal_bending_MPa": 18.291410246464594,
+    "qualification": "Ideal static only: no friction/backlash/dynamics/fillet/stress concentrations, actual resin fatigue or measured strength. The 1N-per-tip example exceeds continuous6V rating even at100% efficiency; do not imply that grip rating. No physical servo actuation."
+  },
+  "before": {
+    "whole_assembly_mm": [
+      69.85850388143305,
+      52.60000133514404,
+      119.69021233253731
+    ],
+    "pinion_mm": [
+      44.00000184067639,
+      5.900000095367432,
+      44.000002224637555
+    ],
+    "housing_mm": [
+      47.0,
+      28.09999966621399,
+      59.72613525390625
+    ],
+    "jaw_and_gears_mm": [
+      69.85850388143305,
+      16.800000190734863,
+      118.19021528866801
+    ],
+    "housing_volume_mm3": 8979.064294129785
+  },
+  "after": {
+    "whole_assembly_mm": [
+      69.85850388143305,
+      52.60000133514404,
+      86.12053131682039
+    ],
+    "pinion_mm": [
+      24.000000293958102,
+      5.900000095367432,
+      24.00000078112273
+    ],
+    "housing_mm": [
+      37.0,
+      28.09999966621399,
+      32.1899995803833
+    ],
+    "jaw_and_gears_mm": [
+      69.85850388143305,
+      16.800000190734863,
+      86.12053131682039
+    ],
+    "housing_volume_mm3": 2650.6614509887327
+  },
+  "gear_projection": {
+    "v325_generalist_original_tip_closure": {
+      "continuous_swept_bounds": {
+        "x_y_z_bounds_mm": [
+          [
+            -22.00000090525927,
+            22.00000093541712
+          ],
+          [
+            3.799999952316284,
+            11.5
+          ],
+          [
+            -54.72613821003695,
+            9.61528276734378
+          ]
+        ],
+        "width_depth_height_mm": [
+          44.00000184067639,
+          7.700000047683716,
+          64.34142097738074
+        ],
+        "per_part_bounds": {
+          "left": [
+            [
+              -18.300000340466877,
+              1.000000039320836
+            ],
+            [
+              3.799999952316284,
+              11.5
+            ],
+            [
+              -8.225844626978324,
+              9.61528276734378
+            ]
+          ],
+          "right": [
+            [
+              -1.000000039320835,
+              18.300000340466877
+            ],
+            [
+              3.799999952316284,
+              11.5
+            ],
+            [
+              -16.000000216367678,
+              8.225844626978324
+            ]
+          ],
+          "pinion": [
+            [
+              -22.00000090525927,
+              22.00000093541712
+            ],
+            [
+              7.900000095367432,
+              11.5
+            ],
+            [
+              -54.72613821003695,
+              -10.726135985399395
+            ]
+          ]
+        },
+        "method": "Analytic continuous X/Z vertex extrema, fixed Y; includes real servo, screw probes and cable clearance."
+      },
+      "exported_at_jaw_deg": 15,
+      "x_z_bounds_mm": [
+        -21.99797821044922,
+        -54.71185302734375,
+        21.99797821044922,
+        6.240230083465576
+      ],
+      "width_length_mm": [
+        43.99595642089844,
+        60.952083110809326
+      ],
+      "projected_area_mm2": 1604.1264186896199
+    },
+    "v326_generalist_small_drive": {
+      "continuous_swept_bounds": {
+        "x_y_z_bounds_mm": [
+          [
+            -18.300000340466877,
+            18.300000340466877
+          ],
+          [
+            3.799999952316284,
+            11.5
+          ],
+          [
+            -22.65645423818933,
+            9.61528276734378
+          ]
+        ],
+        "width_depth_height_mm": [
+          36.60000068093375,
+          7.700000047683716,
+          32.27173700553311
+        ],
+        "per_part_bounds": {
+          "left": [
+            [
+              -18.300000340466877,
+              1.000000039320836
+            ],
+            [
+              3.799999952316284,
+              11.5
+            ],
+            [
+              -8.225844626978324,
+              9.61528276734378
+            ]
+          ],
+          "right": [
+            [
+              -1.000000039320835,
+              18.300000340466877
+            ],
+            [
+              3.799999952316284,
+              11.5
+            ],
+            [
+              -9.61528276734378,
+              8.225844626978324
+            ]
+          ],
+          "pinion": [
+            [
+              -12.00000014106968,
+              12.000000152888422
+            ],
+            [
+              7.900000095367432,
+              11.5
+            ],
+            [
+              -22.65645423818933,
+              1.3435465429334013
+            ]
+          ]
+        },
+        "method": "Analytic continuous X/Z vertex extrema, fixed Y; includes real servo, screw probes and cable clearance."
+      },
+      "exported_at_jaw_deg": 15,
+      "x_z_bounds_mm": [
+        -18.296924591064453,
+        -22.64881706237793,
+        18.296924591064453,
+        6.240230083465576
+      ],
+      "width_length_mm": [
+        36.593849182128906,
+        28.889047145843506
+      ],
+      "projected_area_mm2": 492.4898161898659
+    }
+  },
+  "finite_sector_contact": {
+    "samples": [
+      {
+        "jaw_deg": 0.0,
+        "lower_mesh_gap_mm": 0.18895734891544327,
+        "upper_mesh_gap_mm": 0.18822156094287493
+      },
+      {
+        "jaw_deg": 0.25,
+        "lower_mesh_gap_mm": 0.18906100697038516,
+        "upper_mesh_gap_mm": 0.18823180992673164
+      },
+      {
+        "jaw_deg": 0.5,
+        "lower_mesh_gap_mm": 0.1890328418392095,
+        "upper_mesh_gap_mm": 0.18849861980911115
+      },
+      {
+        "jaw_deg": 0.75,
+        "lower_mesh_gap_mm": 0.18886783314400968,
+        "upper_mesh_gap_mm": 0.1886908464078658
+      },
+      {
+        "jaw_deg": 1.0,
+        "lower_mesh_gap_mm": 0.18882364867602988,
+        "upper_mesh_gap_mm": 0.1886414599197566
+      },
+      {
+        "jaw_deg": 1.25,
+        "lower_mesh_gap_mm": 0.18877811824383403,
+        "upper_mesh_gap_mm": 0.1886533722162496
+      },
+      {
+        "jaw_deg": 1.5,
+        "lower_mesh_gap_mm": 0.18857553483457865,
+        "upper_mesh_gap_mm": 0.1886167323166042
+      },
+      {
+        "jaw_deg": 1.75,
+        "lower_mesh_gap_mm": 0.188386981973546,
+        "upper_mesh_gap_mm": 0.18853220916869015
+      },
+      {
+        "jaw_deg": 2.0,
+        "lower_mesh_gap_mm": 0.1881758089821928,
+        "upper_mesh_gap_mm": 0.18852986735773247
+      },
+      {
+        "jaw_deg": 2.25,
+        "lower_mesh_gap_mm": 0.1880290872723854,
+        "upper_mesh_gap_mm": 0.18861182714112332
+      },
+      {
+        "jaw_deg": 2.5,
+        "lower_mesh_gap_mm": 0.1883423744208072,
+        "upper_mesh_gap_mm": 0.1881506543025965
+      },
+      {
+        "jaw_deg": 2.75,
+        "lower_mesh_gap_mm": 0.18880026819700282,
+        "upper_mesh_gap_mm": 0.188269901655649
+      },
+      {
+        "jaw_deg": 3.0,
+        "lower_mesh_gap_mm": 0.18932658804509062,
+        "upper_mesh_gap_mm": 0.18849716697275384
+      },
+      {
+        "jaw_deg": 3.25,
+        "lower_mesh_gap_mm": 0.18880030874164722,
+        "upper_mesh_gap_mm": 0.18869406196830463
+      },
+      {
+        "jaw_deg": 3.5,
+        "lower_mesh_gap_mm": 0.18834242749916713,
+        "upper_mesh_gap_mm": 0.1886930635540926
+      },
+      {
+        "jaw_deg": 3.75,
+        "lower_mesh_gap_mm": 0.18802914500788787,
+        "upper_mesh_gap_mm": 0.1885546671432438
+      },
+      {
+        "jaw_deg": 4.0,
+        "lower_mesh_gap_mm": 0.1881758819891791,
+        "upper_mesh_gap_mm": 0.18844694450662117
+      },
+      {
+        "jaw_deg": 4.25,
+        "lower_mesh_gap_mm": 0.18838707126987367,
+        "upper_mesh_gap_mm": 0.18832197345687235
+      },
+      {
+        "jaw_deg": 4.5,
+        "lower_mesh_gap_mm": 0.18857549417876304,
+        "upper_mesh_gap_mm": 0.1883002999861163
+      },
+      {
+        "jaw_deg": 4.75,
+        "lower_mesh_gap_mm": 0.18869822942768288,
+        "upper_mesh_gap_mm": 0.1882972041349472
+      },
+      {
+        "jaw_deg": 5.0,
+        "lower_mesh_gap_mm": 0.1884654145624205,
+        "upper_mesh_gap_mm": 0.18833232870070374
+      },
+      {
+        "jaw_deg": 5.25,
+        "lower_mesh_gap_mm": 0.18886816805550727,
+        "upper_mesh_gap_mm": 0.18846505074662498
+      },
+      {
+        "jaw_deg": 5.5,
+        "lower_mesh_gap_mm": 0.18903317051782456,
+        "upper_mesh_gap_mm": 0.1885704471000817
+      },
+      {
+        "jaw_deg": 5.75,
+        "lower_mesh_gap_mm": 0.18906127641216733,
+        "upper_mesh_gap_mm": 0.18871357638256842
+      },
+      {
+        "jaw_deg": 6.0,
+        "lower_mesh_gap_mm": 0.18895761822590507,
+        "upper_mesh_gap_mm": 0.18889199441954085
+      },
+      {
+        "jaw_deg": 6.25,
+        "lower_mesh_gap_mm": 0.18906127761364033,
+        "upper_mesh_gap_mm": 0.18910325132958472
+      },
+      {
+        "jaw_deg": 6.5,
+        "lower_mesh_gap_mm": 0.18903316390527145,
+        "upper_mesh_gap_mm": 0.18899882616088887
+      },
+      {
+        "jaw_deg": 6.75,
+        "lower_mesh_gap_mm": 0.18886816409576543,
+        "upper_mesh_gap_mm": 0.18875347284790833
+      },
+      {
+        "jaw_deg": 7.0,
+        "lower_mesh_gap_mm": 0.188465278941204,
+        "upper_mesh_gap_mm": 0.1885963706819007
+      },
+      {
+        "jaw_deg": 7.25,
+        "lower_mesh_gap_mm": 0.18869811437986778,
+        "upper_mesh_gap_mm": 0.18852541151773644
+      },
+      {
+        "jaw_deg": 7.5,
+        "lower_mesh_gap_mm": 0.18857544963817474,
+        "upper_mesh_gap_mm": 0.18853848068190876
+      },
+      {
+        "jaw_deg": 7.75,
+        "lower_mesh_gap_mm": 0.18838702805721624,
+        "upper_mesh_gap_mm": 0.1886334570978434
+      },
+      {
+        "jaw_deg": 8.0,
+        "lower_mesh_gap_mm": 0.1881758600175851,
+        "upper_mesh_gap_mm": 0.18864845696391846
+      },
+      {
+        "jaw_deg": 8.25,
+        "lower_mesh_gap_mm": 0.18802914312718477,
+        "upper_mesh_gap_mm": 0.18864432241851276
+      },
+      {
+        "jaw_deg": 8.5,
+        "lower_mesh_gap_mm": 0.1883424274388876,
+        "upper_mesh_gap_mm": 0.18870180259454197
+      },
+      {
+        "jaw_deg": 8.75,
+        "lower_mesh_gap_mm": 0.18880031316618148,
+        "upper_mesh_gap_mm": 0.18845588186856568
+      },
+      {
+        "jaw_deg": 9.0,
+        "lower_mesh_gap_mm": 0.1893265306700241,
+        "upper_mesh_gap_mm": 0.18822185149984538
+      },
+      {
+        "jaw_deg": 9.25,
+        "lower_mesh_gap_mm": 0.1888002086197932,
+        "upper_mesh_gap_mm": 0.1882303166939816
+      },
+      {
+        "jaw_deg": 9.5,
+        "lower_mesh_gap_mm": 0.1883423125651261,
+        "upper_mesh_gap_mm": 0.18830044669526616
+      },
+      {
+        "jaw_deg": 9.75,
+        "lower_mesh_gap_mm": 0.1880290229854385,
+        "upper_mesh_gap_mm": 0.1883683127003097
+      },
+      {
+        "jaw_deg": 10.0,
+        "lower_mesh_gap_mm": 0.18817574475670185,
+        "upper_mesh_gap_mm": 0.1884303293766242
+      },
+      {
+        "jaw_deg": 10.25,
+        "lower_mesh_gap_mm": 0.18838691787455464,
+        "upper_mesh_gap_mm": 0.1882855155287466
+      },
+      {
+        "jaw_deg": 10.5,
+        "lower_mesh_gap_mm": 0.18857547135298913,
+        "upper_mesh_gap_mm": 0.18815830549464227
+      },
+      {
+        "jaw_deg": 10.75,
+        "lower_mesh_gap_mm": 0.18869827088947605,
+        "upper_mesh_gap_mm": 0.1880508071390487
+      },
+      {
+        "jaw_deg": 11.0,
+        "lower_mesh_gap_mm": 0.1884654535952943,
+        "upper_mesh_gap_mm": 0.1879910780413789
+      },
+      {
+        "jaw_deg": 11.25,
+        "lower_mesh_gap_mm": 0.1888681170440738,
+        "upper_mesh_gap_mm": 0.1881678276260324
+      },
+      {
+        "jaw_deg": 11.5,
+        "lower_mesh_gap_mm": 0.1890331217960646,
+        "upper_mesh_gap_mm": 0.18839172315150973
+      },
+      {
+        "jaw_deg": 11.75,
+        "lower_mesh_gap_mm": 0.18906127624471786,
+        "upper_mesh_gap_mm": 0.1886365865106597
+      },
+      {
+        "jaw_deg": 12.0,
+        "lower_mesh_gap_mm": 0.18895761727618654,
+        "upper_mesh_gap_mm": 0.18890452184179388
+      },
+      {
+        "jaw_deg": 12.25,
+        "lower_mesh_gap_mm": 0.18906135534385934,
+        "upper_mesh_gap_mm": 0.1889913158229063
+      },
+      {
+        "jaw_deg": 12.5,
+        "lower_mesh_gap_mm": 0.18903319587048592,
+        "upper_mesh_gap_mm": 0.18914588455063094
+      },
+      {
+        "jaw_deg": 12.75,
+        "lower_mesh_gap_mm": 0.18886819068697638,
+        "upper_mesh_gap_mm": 0.1893913217909692
+      },
+      {
+        "jaw_deg": 13.0,
+        "lower_mesh_gap_mm": 0.1884655397623701,
+        "upper_mesh_gap_mm": 0.18914256552755096
+      },
+      {
+        "jaw_deg": 13.25,
+        "lower_mesh_gap_mm": 0.1886983413135345,
+        "upper_mesh_gap_mm": 0.18876735579205334
+      },
+      {
+        "jaw_deg": 13.5,
+        "lower_mesh_gap_mm": 0.18857546225921074,
+        "upper_mesh_gap_mm": 0.18826910008219885
+      },
+      {
+        "jaw_deg": 13.75,
+        "lower_mesh_gap_mm": 0.18838703976873872,
+        "upper_mesh_gap_mm": 0.18805071137126317
+      },
+      {
+        "jaw_deg": 14.0,
+        "lower_mesh_gap_mm": 0.1881758652763141,
+        "upper_mesh_gap_mm": 0.18833541366687534
+      },
+      {
+        "jaw_deg": 14.25,
+        "lower_mesh_gap_mm": 0.1880291423141939,
+        "upper_mesh_gap_mm": 0.18860203465447195
+      },
+      {
+        "jaw_deg": 14.5,
+        "lower_mesh_gap_mm": 0.18834243017341723,
+        "upper_mesh_gap_mm": 0.1886699727551427
+      },
+      {
+        "jaw_deg": 14.75,
+        "lower_mesh_gap_mm": 0.1888003200222884,
+        "upper_mesh_gap_mm": 0.18866320913988044
+      },
+      {
+        "jaw_deg": 15.0,
+        "lower_mesh_gap_mm": 0.18932663607389896,
+        "upper_mesh_gap_mm": 0.18856889820201708
+      },
+      {
+        "jaw_deg": 15.25,
+        "lower_mesh_gap_mm": 0.1888003200222884,
+        "upper_mesh_gap_mm": 0.18829928313530955
+      },
+      {
+        "jaw_deg": 15.5,
+        "lower_mesh_gap_mm": 0.18834243017341723,
+        "upper_mesh_gap_mm": 0.1880350068014953
+      },
+      {
+        "jaw_deg": 15.75,
+        "lower_mesh_gap_mm": 0.1880291423141939,
+        "upper_mesh_gap_mm": 0.18832350243618076
+      },
+      {
+        "jaw_deg": 16.0,
+        "lower_mesh_gap_mm": 0.1881758652763141,
+        "upper_mesh_gap_mm": 0.18884468364988052
+      },
+      {
+        "jaw_deg": 16.25,
+        "lower_mesh_gap_mm": 0.18838703976873872,
+        "upper_mesh_gap_mm": 0.18917212672741707
+      },
+      {
+        "jaw_deg": 16.5,
+        "lower_mesh_gap_mm": 0.18857546739873846,
+        "upper_mesh_gap_mm": 0.1893544498310915
+      },
+      {
+        "jaw_deg": 16.75,
+        "lower_mesh_gap_mm": 0.1886983413135345,
+        "upper_mesh_gap_mm": 0.18912087709366615
+      },
+      {
+        "jaw_deg": 17.0,
+        "lower_mesh_gap_mm": 0.1884655397623701,
+        "upper_mesh_gap_mm": 0.18897785967227443
+      },
+      {
+        "jaw_deg": 17.25,
+        "lower_mesh_gap_mm": 0.18886819068697638,
+        "upper_mesh_gap_mm": 0.1888688039992538
+      },
+      {
+        "jaw_deg": 17.5,
+        "lower_mesh_gap_mm": 0.18903319587048592,
+        "upper_mesh_gap_mm": 0.18860396945174607
+      },
+      {
+        "jaw_deg": 17.75,
+        "lower_mesh_gap_mm": 0.18906135534385934,
+        "upper_mesh_gap_mm": 0.1883619355510642
+      },
+      {
+        "jaw_deg": 18.0,
+        "lower_mesh_gap_mm": 0.18895763930587328,
+        "upper_mesh_gap_mm": 0.1881405977422658
+      },
+      {
+        "jaw_deg": 18.25,
+        "lower_mesh_gap_mm": 0.18906129801255706,
+        "upper_mesh_gap_mm": 0.18798681006385162
+      },
+      {
+        "jaw_deg": 18.5,
+        "lower_mesh_gap_mm": 0.18903314079067915,
+        "upper_mesh_gap_mm": 0.18806377237416563
+      },
+      {
+        "jaw_deg": 18.75,
+        "lower_mesh_gap_mm": 0.18886813522931287,
+        "upper_mesh_gap_mm": 0.1881739466153576
+      },
+      {
+        "jaw_deg": 19.0,
+        "lower_mesh_gap_mm": 0.1884654535952943,
+        "upper_mesh_gap_mm": 0.18830356092871864
+      },
+      {
+        "jaw_deg": 19.25,
+        "lower_mesh_gap_mm": 0.18869827088947605,
+        "upper_mesh_gap_mm": 0.18843861871916748
+      },
+      {
+        "jaw_deg": 19.5,
+        "lower_mesh_gap_mm": 0.1885754717651416,
+        "upper_mesh_gap_mm": 0.18835884445625095
+      },
+      {
+        "jaw_deg": 19.75,
+        "lower_mesh_gap_mm": 0.18838691787455464,
+        "upper_mesh_gap_mm": 0.1882929103091043
+      },
+      {
+        "jaw_deg": 20.0,
+        "lower_mesh_gap_mm": 0.18817574475670185,
+        "upper_mesh_gap_mm": 0.18822180779496317
+      },
+      {
+        "jaw_deg": 20.25,
+        "lower_mesh_gap_mm": 0.1880290229854385,
+        "upper_mesh_gap_mm": 0.18823205671512097
+      },
+      {
+        "jaw_deg": 20.5,
+        "lower_mesh_gap_mm": 0.1883423125651261,
+        "upper_mesh_gap_mm": 0.18849885993709495
+      },
+      {
+        "jaw_deg": 20.75,
+        "lower_mesh_gap_mm": 0.1888002086197932,
+        "upper_mesh_gap_mm": 0.18869098622606054
+      },
+      {
+        "jaw_deg": 21.0,
+        "lower_mesh_gap_mm": 0.1893265306700241,
+        "upper_mesh_gap_mm": 0.18864159999781485
+      },
+      {
+        "jaw_deg": 21.25,
+        "lower_mesh_gap_mm": 0.18880031316618148,
+        "upper_mesh_gap_mm": 0.1886535126288628
+      },
+      {
+        "jaw_deg": 21.5,
+        "lower_mesh_gap_mm": 0.1883424274388876,
+        "upper_mesh_gap_mm": 0.1886167775533471
+      },
+      {
+        "jaw_deg": 21.75,
+        "lower_mesh_gap_mm": 0.18802914312718477,
+        "upper_mesh_gap_mm": 0.18853225823591507
+      },
+      {
+        "jaw_deg": 22.0,
+        "lower_mesh_gap_mm": 0.1881758600175851,
+        "upper_mesh_gap_mm": 0.18852992098623061
+      },
+      {
+        "jaw_deg": 22.25,
+        "lower_mesh_gap_mm": 0.18838702805721624,
+        "upper_mesh_gap_mm": 0.18861188605894166
+      },
+      {
+        "jaw_deg": 22.5,
+        "lower_mesh_gap_mm": 0.18857545104139534,
+        "upper_mesh_gap_mm": 0.1887802672893857
+      },
+      {
+        "jaw_deg": 22.75,
+        "lower_mesh_gap_mm": 0.18869811437986778,
+        "upper_mesh_gap_mm": 0.18903717196831316
+      },
+      {
+        "jaw_deg": 23.0,
+        "lower_mesh_gap_mm": 0.188465278941204,
+        "upper_mesh_gap_mm": 0.1890744134814493
+      },
+      {
+        "jaw_deg": 23.25,
+        "lower_mesh_gap_mm": 0.18886816409576543,
+        "upper_mesh_gap_mm": 0.18886724183165365
+      },
+      {
+        "jaw_deg": 23.5,
+        "lower_mesh_gap_mm": 0.18903316390527145,
+        "upper_mesh_gap_mm": 0.18869322629300786
+      },
+      {
+        "jaw_deg": 23.75,
+        "lower_mesh_gap_mm": 0.18906127761364033,
+        "upper_mesh_gap_mm": 0.18855481601794136
+      },
+      {
+        "jaw_deg": 24.0,
+        "lower_mesh_gap_mm": 0.18895754067901394,
+        "upper_mesh_gap_mm": 0.18844629777999092
+      },
+      {
+        "jaw_deg": 24.25,
+        "lower_mesh_gap_mm": 0.18906120104325091,
+        "upper_mesh_gap_mm": 0.18832133417680066
+      },
+      {
+        "jaw_deg": 24.5,
+        "lower_mesh_gap_mm": 0.1890330535225563,
+        "upper_mesh_gap_mm": 0.18829966889274022
+      },
+      {
+        "jaw_deg": 24.75,
+        "lower_mesh_gap_mm": 0.18886805086513228,
+        "upper_mesh_gap_mm": 0.18829728607365834
+      },
+      {
+        "jaw_deg": 25.0,
+        "lower_mesh_gap_mm": 0.1884654145624205,
+        "upper_mesh_gap_mm": 0.18833241155190839
+      },
+      {
+        "jaw_deg": 25.25,
+        "lower_mesh_gap_mm": 0.18869822942768288,
+        "upper_mesh_gap_mm": 0.188464511051351
+      },
+      {
+        "jaw_deg": 25.5,
+        "lower_mesh_gap_mm": 0.18857549417876304,
+        "upper_mesh_gap_mm": 0.18856993608116565
+      },
+      {
+        "jaw_deg": 25.75,
+        "lower_mesh_gap_mm": 0.18838707126987367,
+        "upper_mesh_gap_mm": 0.18871309508051798
+      },
+      {
+        "jaw_deg": 26.0,
+        "lower_mesh_gap_mm": 0.1881758819891791,
+        "upper_mesh_gap_mm": 0.18867043202810624
+      },
+      {
+        "jaw_deg": 26.25,
+        "lower_mesh_gap_mm": 0.18802914500788787,
+        "upper_mesh_gap_mm": 0.18846975537041624
+      },
+      {
+        "jaw_deg": 26.5,
+        "lower_mesh_gap_mm": 0.18834242749916713,
+        "upper_mesh_gap_mm": 0.18823843685283947
+      },
+      {
+        "jaw_deg": 26.75,
+        "lower_mesh_gap_mm": 0.18880030874164722,
+        "upper_mesh_gap_mm": 0.188200759823136
+      },
+      {
+        "jaw_deg": 27.0,
+        "lower_mesh_gap_mm": 0.18932658804509062,
+        "upper_mesh_gap_mm": 0.18859672086158144
+      },
+      {
+        "jaw_deg": 27.25,
+        "lower_mesh_gap_mm": 0.18880026819700282,
+        "upper_mesh_gap_mm": 0.1885257643900957
+      },
+      {
+        "jaw_deg": 27.5,
+        "lower_mesh_gap_mm": 0.1883423744208072,
+        "upper_mesh_gap_mm": 0.18853883637091112
+      },
+      {
+        "jaw_deg": 27.75,
+        "lower_mesh_gap_mm": 0.1880290872723854,
+        "upper_mesh_gap_mm": 0.18863381572778376
+      },
+      {
+        "jaw_deg": 28.0,
+        "lower_mesh_gap_mm": 0.1881758089821928,
+        "upper_mesh_gap_mm": 0.18864883223858567
+      },
+      {
+        "jaw_deg": 28.25,
+        "lower_mesh_gap_mm": 0.188386981973546,
+        "upper_mesh_gap_mm": 0.18864469448585763
+      },
+      {
+        "jaw_deg": 28.5,
+        "lower_mesh_gap_mm": 0.18857553648662478,
+        "upper_mesh_gap_mm": 0.18870217146412857
+      },
+      {
+        "jaw_deg": 28.75,
+        "lower_mesh_gap_mm": 0.1887781200714062,
+        "upper_mesh_gap_mm": 0.18845607108759765
+      },
+      {
+        "jaw_deg": 29.0,
+        "lower_mesh_gap_mm": 0.18882364867602988,
+        "upper_mesh_gap_mm": 0.18822203377141616
+      },
+      {
+        "jaw_deg": 29.25,
+        "lower_mesh_gap_mm": 0.18886783314400968,
+        "upper_mesh_gap_mm": 0.18823047843297064
+      },
+      {
+        "jaw_deg": 29.5,
+        "lower_mesh_gap_mm": 0.1890328418392095,
+        "upper_mesh_gap_mm": 0.18830061717992222
+      },
+      {
+        "jaw_deg": 29.75,
+        "lower_mesh_gap_mm": 0.18906100697038516,
+        "upper_mesh_gap_mm": 0.188368476540503
+      },
+      {
+        "jaw_deg": 30.0,
+        "lower_mesh_gap_mm": 0.18895734891544327,
+        "upper_mesh_gap_mm": 0.18844986210416032
+      }
+    ],
+    "max_lower_gap_mm": 0.18932663607389896,
+    "max_upper_gap_mm": 0.1893913217909692,
+    "maximum_gap_budget_mm": 0.21000000000000002,
+    "method": "Actual STL slices through each gear level; gap sampled every0.25deg to reject missing sector teeth. Gap is consistent with backlash, not measured contact under load."
+  },
+  "references": [
+    "https://khkgears.net/gear-knowledge/gear-technical-reference/calculation-gear-dimensions/",
+    "https://khkgears.us/media/e5hdctid/gear-solutions_khk_addendum-modification-and-undercut.pdf"
+  ],
+  "passed": true,
+  "input_sha256": {
+    "params.json": "f5a0e577d0534f17fb8009eb96870c89036ecad22156fd305a3737929fdf40d7",
+    "check_gears.py": "963fd3fe4fd985497c300ed0e015a6b66270637b6326ec62e0fafa58c2ee3d23",
+    "geometry_checks.json": "e07619272520101e3d5a2949112aa2f3a7bede1abce233c648bff78c6c56700f",
+    "closure_checks.json": "45849d85ff54bb24077582d0e2ee78953d6338010819d2e3fe5290cb7160722e"
+  }
+}

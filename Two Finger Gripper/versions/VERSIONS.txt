@@ -191,3 +191,10 @@ v325_generalist_original_tip_closure — Base 24 (voice-550038ca), Gripper 28: B
 Gripper 28 builds on Gripper 27: delete added distal noses and tip trimming; restore original rounded blade tips, rigidly reoriented to meet at closure. No extensions, tabs or bridge.
 Four printed /19 total parts; original servo spline plate, two opposed plate screws, integral center capture and four case-ear screws retained. Actual plate revision/threads/head and driver engagement remain physically unverified.
 Full 0–30 degree sampled motion, continuous rear-outline clearance, original-blade volume comparison, tip closure, tool/retention checks and source STEP hardware checks in the version folder. Hand-held branch; no Mount2 compatibility or ergonomic/strength approval.
+
+
+v326_generalist_small_drive — Base 25 (voice-550038ca), Gripper 29: Base 24 with independent module0.8 upper drive, centered motor and smaller overhead housing.
+Gripper 29 builds on Gripper 28: upper integral sector becomes18 teeth/16mm addendum diameter; original blade band, 30mm pivots, original-tip contact and lower30-tooth counter-rotation sectors unchanged.
+Pinion28 teeth/24mm addendum diameter (was42 teeth/44mm); 18:28 ratio means19.286deg servo travel for unchanged0–30deg jaw stroke. Four printed /19 physical parts retained.
+Purchased HLS3606M-C001, 18mm metal spline plate, center capture and real fastener sizes unchanged; plate screws use existing opposed0/180deg holes for access. Hand-held only, no Mount2 interface.
+Full sampled motion, tools, retention, original-band identity and closure checks; analytical gear/load screening is not measured resin strength or physical fit/ergonomic qualification.

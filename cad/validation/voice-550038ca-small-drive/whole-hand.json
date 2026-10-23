@@ -1,0 +1,274 @@
+{
+  "assumptions": {
+    "source": "Unmodified WebXR generic-hand mesh, MIT; existing human_hand.js outside fingerContacts + fixed-wrist local IK",
+    "hand_length_mm": [
+      181.1,
+      193.3
+    ],
+    "breadth": "Uniform scaling retains narrow generic mesh (~78 mm at 187.2 mm length), not Jake measured hand",
+    "station_percent": 50,
+    "pad_radius_mm": 8,
+    "stroke_positions": 13,
+    "max_contact_miss_budget_mm": 2,
+    "collision": "Complete deformed skin vertices inside actual closed CAD meshes, no body exclusions; surface sampling may miss edge crossings",
+    "qualification": "Exploratory right-hand reference; no continuous clearance, skin pressure or physical ergonomic/strength certification",
+    "contact_selection": "Actual working-band triangles only for inherited fingerContacts raycaster; full physical solids retained in all collision screening. Conservative full-part boxes affect IK cost, especially integral jaw/gears."
+  },
+  "cases": [
+    {
+      "length_mm": 181.1,
+      "joint_names": [
+        "wrist",
+        "thumb-metacarpal",
+        "thumb-phalanx-proximal",
+        "thumb-phalanx-distal",
+        "thumb-tip",
+        "index-finger-metacarpal",
+        "index-finger-phalanx-proximal",
+        "index-finger-phalanx-intermediate",
+        "index-finger-phalanx-distal",
+        "index-finger-tip",
+        "middle-finger-metacarpal",
+        "middle-finger-phalanx-proximal",
+        "middle-finger-phalanx-intermediate",
+        "middle-finger-phalanx-distal",
+        "middle-finger-tip",
+        "ring-finger-metacarpal",
+        "ring-finger-phalanx-proximal",
+        "ring-finger-phalanx-intermediate",
+        "ring-finger-phalanx-distal",
+        "ring-finger-tip",
+        "pinky-finger-metacarpal",
+        "pinky-finger-phalanx-proximal",
+        "pinky-finger-phalanx-intermediate",
+        "pinky-finger-phalanx-distal",
+        "pinky-finger-tip"
+      ],
+      "samples": [
+        {
+          "angle": 0,
+          "contact_miss_mm": 16.76209078543431,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 2.5,
+          "contact_miss_mm": 16.430091409358095,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 5,
+          "contact_miss_mm": 16.303107993199337,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 7.5,
+          "contact_miss_mm": 17.13576806660084,
+          "skin_vertices_inside_cad": {
+            "left": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 10,
+          "contact_miss_mm": 17.769262103495052,
+          "skin_vertices_inside_cad": {
+            "left": 2
+          },
+          "passed": false
+        },
+        {
+          "angle": 12.5,
+          "contact_miss_mm": 18.63714885277557,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 15,
+          "contact_miss_mm": 19.53668068796428,
+          "skin_vertices_inside_cad": {
+            "right": 2
+          },
+          "passed": false
+        },
+        {
+          "angle": 17.5,
+          "contact_miss_mm": 20.420918768703984,
+          "skin_vertices_inside_cad": {
+            "right": 5
+          },
+          "passed": false
+        },
+        {
+          "angle": 20,
+          "contact_miss_mm": 21.349267373557996,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 22.5,
+          "contact_miss_mm": 22.313704628278444,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 25,
+          "contact_miss_mm": 23.31168175019143,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 27.5,
+          "contact_miss_mm": 24.289758334920784,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 30,
+          "contact_miss_mm": 25.326490714428036,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        }
+      ],
+      "passed": false
+    },
+    {
+      "length_mm": 193.3,
+      "joint_names": [
+        "wrist",
+        "thumb-metacarpal",
+        "thumb-phalanx-proximal",
+        "thumb-phalanx-distal",
+        "thumb-tip",
+        "index-finger-metacarpal",
+        "index-finger-phalanx-proximal",
+        "index-finger-phalanx-intermediate",
+        "index-finger-phalanx-distal",
+        "index-finger-tip",
+        "middle-finger-metacarpal",
+        "middle-finger-phalanx-proximal",
+        "middle-finger-phalanx-intermediate",
+        "middle-finger-phalanx-distal",
+        "middle-finger-tip",
+        "ring-finger-metacarpal",
+        "ring-finger-phalanx-proximal",
+        "ring-finger-phalanx-intermediate",
+        "ring-finger-phalanx-distal",
+        "ring-finger-tip",
+        "pinky-finger-metacarpal",
+        "pinky-finger-phalanx-proximal",
+        "pinky-finger-phalanx-intermediate",
+        "pinky-finger-phalanx-distal",
+        "pinky-finger-tip"
+      ],
+      "samples": [
+        {
+          "angle": 0,
+          "contact_miss_mm": 16.907949760295956,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 2.5,
+          "contact_miss_mm": 16.441175553097764,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 5,
+          "contact_miss_mm": 16.069839910287964,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 7.5,
+          "contact_miss_mm": 16.87948107630046,
+          "skin_vertices_inside_cad": {
+            "left": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 10,
+          "contact_miss_mm": 17.679805377440402,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 12.5,
+          "contact_miss_mm": 18.52572662524271,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 15,
+          "contact_miss_mm": 19.372968451515455,
+          "skin_vertices_inside_cad": {
+            "right": 5
+          },
+          "passed": false
+        },
+        {
+          "angle": 17.5,
+          "contact_miss_mm": 20.31635496061767,
+          "skin_vertices_inside_cad": {
+            "right": 1
+          },
+          "passed": false
+        },
+        {
+          "angle": 20,
+          "contact_miss_mm": 21.265477816186042,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 22.5,
+          "contact_miss_mm": 22.26945010046213,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 25,
+          "contact_miss_mm": 23.263287080423787,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 27.5,
+          "contact_miss_mm": 24.315409548007906,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        },
+        {
+          "angle": 30,
+          "contact_miss_mm": 25.344897724508186,
+          "skin_vertices_inside_cad": {},
+          "passed": false
+        }
+      ],
+      "passed": false
+    }
+  ],
+  "input_sha256": {
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/motor.stl": "e608b69807b0288852e16b8a51ceac154d1d3a19d82fe45ff99dc3e47a2b5ced",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/left.stl": "3b71c0f0c31bf542fc77761b1647bcb983a1049a619234151db5fca72bb1f497",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/base.stl": "24e539f8b16ec837302630be375a396c8f2a66620d201aa17a4f1c3146670060",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/pinion.stl": "16dda1f524b6422d809717073d9aee65a86fe13326c73d4698145bc1a24d1fe9",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/stock_plate.stl": "42e2824fcb52a41b74ae74d223fa41a48336b00038e48c57c9eafd1b796d9086",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/parts/right.stl": "a0d4934e98e644f674a5d35b42a218edf0ebf87f853e7886422cc4b23616bfeb",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/pivot_screws.stl": "95d0f17db8e7779c4ee1989c85d68682bf0257fb69f40c5c3e4a785036bcd934",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/pivot_washers.stl": "ad927f508a784546a9be718c5d7208e69eae39e571a0026a94eb3fc4b4e7d71c",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/pivot_nuts.stl": "ae6748239723f2202a8a6ac463e3036fb5714e9509108fdebe3d5104a985b0fa",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/plate_screws.stl": "a31fbc43c94a24f0de8029b7ffb4be332808f3975ef20b1e1965abfefaf426fc",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/case_screws.stl": "ecbbf155921018d2072d037056a96e4c030d766d7f89f666f60854ec9d7fda88",
+    "Two Finger Gripper/versions/v326_generalist_small_drive/exports/reference/center_screw.stl": "aad151b052081f9b28685cbe684929bd4f18681547cf484592031125dc420c30",
+    "cad/mobile_gallery/human_hand.js": "625a1a2b0b75ef6cddfc4a159c6c7e90d8eb4dc6f24150df685fd32139ec5621",
+    "cad/mobile_gallery/contact_case.js": "6a6969517a79ac11c2d57ef4e2826899b4e2d62d23f62807777da0abc0e98d90",
+    "cad/mobile_gallery/small_drive_case.js": "60d6bca6750a1c292b7227a1e5c48a247313ac0f1d37ae93e49bfb9f92cde313",
+    "cad/mobile_gallery/reference/human_hand/right.glb": "291790c14f7f88a7f9bd35330c47392ed8e8d395ae6728f4bb7089f1bc1f2b96"
+  },
+  "passed": false
+}

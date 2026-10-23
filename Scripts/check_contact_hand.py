@@ -23,7 +23,7 @@ SCRIPT=r'''
 import fs from 'node:fs';import * as THREE from 'three';import {STLLoader} from 'three/addons/loaders/STLLoader.js';
 const root=process.argv[1],folder=process.argv[2];
 globalThis.readGlb = side => {const b=fs.readFileSync(root+'/cad/mobile_gallery/reference/human_hand/'+side+'.glb');return b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength);};
-const {makeCase,CASE}=await import('./contact_case.js');
+const {makeCase,CASE}=await import('./selected_case.js');
 const manifest=JSON.parse(fs.readFileSync(folder+'/viewer_parts.json'));
 const meshes=manifest.parts.map(p=>{const b=fs.readFileSync(folder+'/'+p.path);const m=new THREE.Mesh(new STLLoader().parse(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength)));m.userData.name=p.name;return m;});
 let cases=[];

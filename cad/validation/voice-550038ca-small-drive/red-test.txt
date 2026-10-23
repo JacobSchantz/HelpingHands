@@ -1,0 +1,27 @@
+test_actual_drive_and_housing_envelope_reduction (Scripts.test_smaller_gear_train.SmallDrive.test_actual_drive_and_housing_envelope_reduction) ... FAIL
+test_gears_shrink_without_narrowing_jaws (Scripts.test_smaller_gear_train.SmallDrive.test_gears_shrink_without_narrowing_jaws) ... FAIL
+test_original_finger_band_unchanged (Scripts.test_smaller_gear_train.SmallDrive.test_original_finger_band_unchanged) ... ok
+test_verified_full_stroke_hardware_and_closure (Scripts.test_smaller_gear_train.SmallDrive.test_verified_full_stroke_hardware_and_closure) ... ok
+
+======================================================================
+FAIL: test_actual_drive_and_housing_envelope_reduction (Scripts.test_smaller_gear_train.SmallDrive.test_actual_drive_and_housing_envelope_reduction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jakeschantz/HelpingHands/Scripts/test_smaller_gear_train.py", line 42, in test_actual_drive_and_housing_envelope_reduction
+    self.assertLess(area,oldarea*.75,k+' must shrink by at least 25% in projected bounding area')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1936.0001788738177 not less than 1452.0001341553634 : pinion must shrink by at least 25% in projected bounding area
+
+======================================================================
+FAIL: test_gears_shrink_without_narrowing_jaws (Scripts.test_smaller_gear_train.SmallDrive.test_gears_shrink_without_narrowing_jaws)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jakeschantz/HelpingHands/Scripts/test_smaller_gear_train.py", line 20, in test_gears_shrink_without_narrowing_jaws
+    self.assertLessEqual(m*(n+2),21,'Shrink upper jaw gear independently of 30 mm jaw spacing')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 32.0 not less than or equal to 21 : Shrink upper jaw gear independently of 30 mm jaw spacing
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.225s
+
+FAILED (failures=2)

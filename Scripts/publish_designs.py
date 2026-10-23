@@ -257,7 +257,8 @@ def discover(repo=REPO):
                    "two-finger-gripper-v322-generalist-two-pivot-support": "Base 21",
                    "two-finger-gripper-v323-generalist-centered-drive": "Base 22",
                    "two-finger-gripper-v324-generalist-contact-close": "Base 23",
-                   "two-finger-gripper-v325-generalist-original-tip-closure": "Base 24"}   # v315 leads with Mount 2: "Mount 2 assembly" below
+                   "two-finger-gripper-v325-generalist-original-tip-closure": "Base 24",
+                   "two-finger-gripper-v326-generalist-small-drive": "Base 25"}   # v315 leads with Mount 2: "Mount 2 assembly" below
     # Public families group related studies; stable IDs preserve saved links
     # and the original numbered source versions.
     families = {'ORCA CC-BY Prototype': 'Orca Hand',

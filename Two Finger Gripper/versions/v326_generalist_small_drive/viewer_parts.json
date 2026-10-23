@@ -1,0 +1,130 @@
+{
+  "no_handles": true,
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger + integral gear \u2014 Base 25, Gripper 29",
+      "color": "#efb83b",
+      "explode": [
+        -20,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger + integral stepped gear \u2014 Base 25, Gripper 29",
+      "color": "#efb83b",
+      "explode": [
+        20,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 Base 25, Gripper 29",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 Base 25, Gripper 29",
+      "color": "#26272b",
+      "explode": [
+        0,
+        35,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor HLS3606M \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/stock_plate.stl",
+      "name": "Stock aluminum spline plate \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/reference/plate_screws.stl",
+      "name": "Plate screws (2) \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/reference/case_screws.stl",
+      "name": "Case screws (4) \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_screws.stl",
+      "name": "Pivot screws (2) \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        -35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_washers.stl",
+      "name": "Pivot washers (2) \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        -35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_nuts.stl",
+      "name": "Pivot nuts (2) \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/center_screw.stl",
+      "name": "Center screw \u2014 Base 25, Gripper 29",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    }
+  ],
+  "finger_lineage": {
+    "builds_on": "Gripper 28",
+    "gist": "Smaller independent upper sector; original blades and wider pivots retained"
+  },
+  "preview": "previews/comparison.png"
+}

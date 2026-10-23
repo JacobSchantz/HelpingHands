@@ -1,0 +1,51 @@
+test_actual_drive_and_housing_envelope_reduction (Scripts.test_smaller_gear_train.SmallDrive.test_actual_drive_and_housing_envelope_reduction) ... ok
+test_gears_shrink_without_narrowing_jaws (Scripts.test_smaller_gear_train.SmallDrive.test_gears_shrink_without_narrowing_jaws) ... ok
+test_original_finger_band_unchanged (Scripts.test_smaller_gear_train.SmallDrive.test_original_finger_band_unchanged) ... ok
+test_verified_full_stroke_hardware_and_closure (Scripts.test_smaller_gear_train.SmallDrive.test_verified_full_stroke_hardware_and_closure) ... ok
+test_lineage_published_and_correct_axes (Scripts.test_smaller_gear_train.SmallDriveGallery.test_lineage_published_and_correct_axes) ... ok
+test_published_version_lineage_and_pose (Scripts.test_original_tip_closure.OriginalTipGallery.test_published_version_lineage_and_pose) ... ok
+test_full_stroke_and_hardware_reports (Scripts.test_original_tip_closure.OriginalTips.test_full_stroke_and_hardware_reports) ... ok
+test_no_material_added_or_removed_from_original_blade (Scripts.test_original_tip_closure.OriginalTips.test_no_material_added_or_removed_from_original_blade) ... ok
+test_original_rounded_tip_contacts_first (Scripts.test_original_tip_closure.OriginalTips.test_original_rounded_tip_contacts_first) ... ok
+test_actual_tips_touch_at_zero_command (Scripts.test_closed_tips.ClosedTips.test_actual_tips_touch_at_zero_command) ... ok
+test_closed_and_open_motion_contract (Scripts.test_closed_tips.ClosedTips.test_closed_and_open_motion_contract) ... ok
+test_contact_is_at_the_distal_end (Scripts.test_closed_tips.ClosedTips.test_contact_is_at_the_distal_end) ... ok
+test_exact_hardware_and_new_center_stack (Scripts.test_closed_tips.ClosedTips.test_exact_hardware_and_new_center_stack) ... ok
+test_catalog_assembly_bom_and_pose (Scripts.test_closed_tips.ContactGallery.test_catalog_assembly_bom_and_pose) ... ok
+test_hardware_and_mechanical_reports_match_current_inputs (Scripts.test_closed_tips.ContactGallery.test_hardware_and_mechanical_reports_match_current_inputs) ... ok
+test_catalog_mix_and_motion (Scripts.test_centered_gripper.CenteredGallery.test_catalog_mix_and_motion) ... ok
+test_tune_gap_moves_drive_without_scaling_bought_motor (Scripts.test_centered_gripper.CenteredGallery.test_tune_gap_moves_drive_without_scaling_bought_motor) ... ok
+test_assembly_includes_all_physical_hardware (Scripts.test_centered_gripper.CenteredRevision.test_assembly_includes_all_physical_hardware) ... ok
+test_close_pivots (Scripts.test_centered_gripper.CenteredRevision.test_close_pivots) ... ok
+test_four_actual_prints_with_integral_jaw_gears (Scripts.test_centered_gripper.CenteredRevision.test_four_actual_prints_with_integral_jaw_gears) ... ok
+test_full_stroke_rear_gap_with_positive_controls (Scripts.test_centered_gripper.CenteredRevision.test_full_stroke_rear_gap_with_positive_controls) ... ok
+test_motor_output_axis_on_symmetry_plane (Scripts.test_centered_gripper.CenteredRevision.test_motor_output_axis_on_symmetry_plane) ... ok
+test_no_hidden_parts_and_exact_bom (Scripts.test_centered_gripper.CenteredRevision.test_no_hidden_parts_and_exact_bom) ... ok
+test_report_matches_actual_source_and_meshes (Scripts.test_centered_gripper.CenteredRevision.test_report_matches_actual_source_and_meshes) ... ok
+test_retention_tools_and_band_symmetry (Scripts.test_centered_gripper.CenteredRevision.test_retention_tools_and_band_symmetry) ... ok
+test_catalog_and_independent_motion_without_handles (Scripts.test_compact_overhead.CompactOverheadTests.test_catalog_and_independent_motion_without_handles) ... ok
+test_motion_and_minimal_stack_evidence (Scripts.test_compact_overhead.CompactOverheadTests.test_motion_and_minimal_stack_evidence) ... ok
+test_aero_hand_is_not_a_generalist_option (Scripts.test_gallery.ModelTests.test_aero_hand_is_not_a_generalist_option) ... ok
+test_landing_lists_gripper_handle_base_mount_arm_in_that_order (Scripts.test_gallery.ModelTests.test_landing_lists_gripper_handle_base_mount_arm_in_that_order) ... ok
+test_mount_follows_the_arm_and_other_parts_are_flagged (Scripts.test_gallery.ModelTests.test_mount_follows_the_arm_and_other_parts_are_flagged) ... ok
+test_a_folder_leading_with_a_mount_publishes_that_mount_and_its_arm (Scripts.test_publish_designs.PublisherTests.test_a_folder_leading_with_a_mount_publishes_that_mount_and_its_arm) ... ok
+test_binary_encoding_preserves_triangle_and_is_idempotent (Scripts.test_publish_designs.PublisherTests.test_binary_encoding_preserves_triangle_and_is_idempotent) ... ok
+test_bundle_contains_only_needed_source_and_not_private_repo_files (Scripts.test_publish_designs.PublisherTests.test_bundle_contains_only_needed_source_and_not_private_repo_files) ... ok
+test_cache_invalidates_dependency_not_readme_and_keeps_good_on_failure (Scripts.test_publish_designs.PublisherTests.test_cache_invalidates_dependency_not_readme_and_keeps_good_on_failure) ... ok
+test_carried_parts_publish_on_their_own_and_lineage_comes_from_versions_txt (Scripts.test_publish_designs.PublisherTests.test_carried_parts_publish_on_their_own_and_lineage_comes_from_versions_txt) ... ok
+test_declared_parts_survive_a_source_saved_after_export (Scripts.test_publish_designs.PublisherTests.test_declared_parts_survive_a_source_saved_after_export) ... ok
+test_discovers_new_versions_without_promoting_helpers (Scripts.test_publish_designs.PublisherTests.test_discovers_new_versions_without_promoting_helpers) ... ok
+test_every_posed_gripper_publishes_its_hinge_parts (Scripts.test_publish_designs.PublisherTests.test_every_posed_gripper_publishes_its_hinge_parts)
+Every poses.js gripper the repo publishes is served as parts its hinges move, under one id. ... ok
+test_failed_openscad_never_replaces_good_artifact (Scripts.test_publish_designs.PublisherTests.test_failed_openscad_never_replaces_good_artifact) ... ok
+test_positioned_parts_keep_authored_explode_offsets (Scripts.test_publish_designs.PublisherTests.test_positioned_parts_keep_authored_explode_offsets) ... ok
+test_preview_failure_keeps_previous_mesh_and_preview_pair (Scripts.test_publish_designs.PublisherTests.test_preview_failure_keeps_previous_mesh_and_preview_pair) ... ok
+test_public_families_keep_versions_and_exclude_deleted_prototypes (Scripts.test_publish_designs.PublisherTests.test_public_families_keep_versions_and_exclude_deleted_prototypes) ... ok
+test_recursive_dynamic_dependencies_and_reject_external_paths (Scripts.test_publish_designs.PublisherTests.test_recursive_dynamic_dependencies_and_reject_external_paths) ... ok
+test_retired_gripper_branches_stay_out_of_live (Scripts.test_publish_designs.PublisherTests.test_retired_gripper_branches_stay_out_of_live) ... ok
+test_versions_txt_fingers_reach_the_catalog_row (Scripts.test_publish_designs.PublisherTests.test_versions_txt_fingers_reach_the_catalog_row) ... ok
+
+----------------------------------------------------------------------
+Ran 45 tests in 3.678s
+
+OK
