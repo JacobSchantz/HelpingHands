@@ -1,0 +1,170 @@
+{
+  "source": "https://github.com/TheRobotStudio/SO-ARM100/blob/a758567c3978dfeefe282ede0500085a48fe8f78/STEP/SO100/STS3215_03a.step",
+  "sha256": "cacd717c2f22bec856fdace2c3bc9fa58084d54b6e70378eae90562f34df93ef",
+  "passed": true,
+  "front_horn": {
+    "holes": [
+      {
+        "radius_mm": 1.25,
+        "position_mm": [
+          17.4497474683058,
+          -4.94974746830583,
+          18.7
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "v_mm": [
+          0.0,
+          2.5
+        ]
+      },
+      {
+        "radius_mm": 1.25,
+        "position_mm": [
+          7.55025253169417,
+          -4.94974746830583,
+          18.7
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "v_mm": [
+          0.0,
+          2.5
+        ]
+      },
+      {
+        "radius_mm": 1.25,
+        "position_mm": [
+          7.55025253169417,
+          4.94974746830583,
+          18.7
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "v_mm": [
+          0.0,
+          2.5
+        ]
+      },
+      {
+        "radius_mm": 1.25,
+        "position_mm": [
+          17.4497474683058,
+          4.94974746830583,
+          18.7
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "v_mm": [
+          0.0,
+          2.5
+        ]
+      }
+    ],
+    "pcd_mm": 13.999999999999972,
+    "disk_thickness_mm": 2.5,
+    "modeled_hole_diameter_mm": 2.5
+  },
+  "front_case": {
+    "holes": [
+      {
+        "radius_mm": 0.75,
+        "position_mm": [
+          4.2,
+          -10.25,
+          14.4
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "v_mm": [
+          0.0,
+          1.5
+        ]
+      },
+      {
+        "radius_mm": 0.750000000000002,
+        "position_mm": [
+          -16.5,
+          -10.25,
+          14.4
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "v_mm": [
+          0.0,
+          1.5
+        ]
+      },
+      {
+        "radius_mm": 0.75,
+        "position_mm": [
+          4.2,
+          10.25,
+          14.4
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "v_mm": [
+          0.0,
+          1.5
+        ]
+      },
+      {
+        "radius_mm": 0.750000000000002,
+        "position_mm": [
+          -16.5,
+          10.25,
+          14.4
+        ],
+        "axis": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "v_mm": [
+          0.0,
+          1.5
+        ]
+      }
+    ],
+    "modeled_hole_diameter_mm": 1.5,
+    "modeled_axial_depth_mm": 1.5,
+    "rectangle_mm": [
+      20.7,
+      20.5
+    ]
+  },
+  "qualification": "Smooth cylinders only. M3 horn and M2 case fasteners / M3x6 center retention come from the LeRobot SO101 assembly guide. True thread depth, supplied horn revision, spline tooth form and physical fit not verified. SO100 STEP is the servo reference used by this repo; SO101 stock jaw uses the same14mm four-hole pattern, checked separately in its STEP. Not every hole on the motor is an assembly fastener.",
+  "so101_jaw": {
+    "source_path": "cad/arm/so101/interface/Wrist_Roll_Follower_SO101.step",
+    "sha256": "b7f9d59f7991f425fff784eab07f0bf65471903dd6d6177e7cb109bebcd02b35",
+    "clearance_hole_count": 4,
+    "clearance_hole_diameter_mm": 3.2,
+    "pcd_mm": 14.000000000000004,
+    "center_xy_mm": [
+      -5.0182080713057076e-14,
+      -0.21821447935362737
+    ]
+  }
+}
