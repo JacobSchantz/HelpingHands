@@ -1,0 +1,638 @@
+{
+  "passed": true,
+  "slice_y_mm": [
+    19.0,
+    23.200000000000003
+  ],
+  "samples": [
+    {
+      "angle_deg": 0.0,
+      "lower_gap_mm": 0.18895786120053373,
+      "upper_gap_mm": 0.18822157299359107
+    },
+    {
+      "angle_deg": 0.25,
+      "lower_gap_mm": 0.18906152854619143,
+      "upper_gap_mm": 0.18823181139690254
+    },
+    {
+      "angle_deg": 0.5,
+      "lower_gap_mm": 0.18903325928621018,
+      "upper_gap_mm": 0.1884986045755719
+    },
+    {
+      "angle_deg": 0.75,
+      "lower_gap_mm": 0.18886825066114868,
+      "upper_gap_mm": 0.18869061399699993
+    },
+    {
+      "angle_deg": 1.0,
+      "lower_gap_mm": 0.18882406621973408,
+      "upper_gap_mm": 0.1886412299104113
+    },
+    {
+      "angle_deg": 1.25,
+      "lower_gap_mm": 0.18877861466027934,
+      "upper_gap_mm": 0.18865314490067867
+    },
+    {
+      "angle_deg": 1.5,
+      "lower_gap_mm": 0.18857603372072496,
+      "upper_gap_mm": 0.1886165521618989
+    },
+    {
+      "angle_deg": 1.75,
+      "lower_gap_mm": 0.1883873648225556,
+      "upper_gap_mm": 0.18853203013804856
+    },
+    {
+      "angle_deg": 2.0,
+      "lower_gap_mm": 0.18817621423761688,
+      "upper_gap_mm": 0.18852968946035373
+    },
+    {
+      "angle_deg": 2.25,
+      "lower_gap_mm": 0.18802951331905135,
+      "upper_gap_mm": 0.18861165038615
+    },
+    {
+      "angle_deg": 2.5,
+      "lower_gap_mm": 0.1883427773008447,
+      "upper_gap_mm": 0.18815132039242072
+    },
+    {
+      "angle_deg": 2.75,
+      "lower_gap_mm": 0.18880065068598234,
+      "upper_gap_mm": 0.18827054593306344
+    },
+    {
+      "angle_deg": 3.0,
+      "lower_gap_mm": 0.18932682521141106,
+      "upper_gap_mm": 0.1884978162738786
+    },
+    {
+      "angle_deg": 3.25,
+      "lower_gap_mm": 0.18880051471603343,
+      "upper_gap_mm": 0.18869471625977743
+    },
+    {
+      "angle_deg": 3.5,
+      "lower_gap_mm": 0.18834263078716623,
+      "upper_gap_mm": 0.1886929654895998
+    },
+    {
+      "angle_deg": 3.75,
+      "lower_gap_mm": 0.18802936028533404,
+      "upper_gap_mm": 0.18855454897134713
+    },
+    {
+      "angle_deg": 4.0,
+      "lower_gap_mm": 0.18817606128204517,
+      "upper_gap_mm": 0.18844694450662117
+    },
+    {
+      "angle_deg": 4.25,
+      "lower_gap_mm": 0.18838721195465408,
+      "upper_gap_mm": 0.18832197345687235
+    },
+    {
+      "angle_deg": 4.5,
+      "lower_gap_mm": 0.18857592970533107,
+      "upper_gap_mm": 0.1883002999861163
+    },
+    {
+      "angle_deg": 4.75,
+      "lower_gap_mm": 0.18869854364195648,
+      "upper_gap_mm": 0.1882969663579624
+    },
+    {
+      "angle_deg": 5.0,
+      "lower_gap_mm": 0.18846570561788037,
+      "upper_gap_mm": 0.18833209105512386
+    },
+    {
+      "angle_deg": 5.25,
+      "lower_gap_mm": 0.1888684261351078,
+      "upper_gap_mm": 0.1884651639568194
+    },
+    {
+      "angle_deg": 5.5,
+      "lower_gap_mm": 0.18903343378983778,
+      "upper_gap_mm": 0.18857058173626876
+    },
+    {
+      "angle_deg": 5.75,
+      "lower_gap_mm": 0.18906159860188196,
+      "upper_gap_mm": 0.18871373326275703
+    },
+    {
+      "angle_deg": 6.0,
+      "lower_gap_mm": 0.18895771780871218,
+      "upper_gap_mm": 0.18889217436406044
+    },
+    {
+      "angle_deg": 6.25,
+      "lower_gap_mm": 0.18906138618489093,
+      "upper_gap_mm": 0.1891034551610015
+    },
+    {
+      "angle_deg": 6.5,
+      "lower_gap_mm": 0.18903311369088213,
+      "upper_gap_mm": 0.18899882616088887
+    },
+    {
+      "angle_deg": 6.75,
+      "lower_gap_mm": 0.188868100813456,
+      "upper_gap_mm": 0.18875347284790833
+    },
+    {
+      "angle_deg": 7.0,
+      "lower_gap_mm": 0.18846594625457783,
+      "upper_gap_mm": 0.1885963706819007
+    },
+    {
+      "angle_deg": 7.25,
+      "lower_gap_mm": 0.18869873915726212,
+      "upper_gap_mm": 0.18852541151773644
+    },
+    {
+      "angle_deg": 7.5,
+      "lower_gap_mm": 0.18857563628850849,
+      "upper_gap_mm": 0.18853848068190876
+    },
+    {
+      "angle_deg": 7.75,
+      "lower_gap_mm": 0.18838729241994473,
+      "upper_gap_mm": 0.1886334570978434
+    },
+    {
+      "angle_deg": 8.0,
+      "lower_gap_mm": 0.18817612774755146,
+      "upper_gap_mm": 0.1886485181766291
+    },
+    {
+      "angle_deg": 8.25,
+      "lower_gap_mm": 0.18802941335079948,
+      "upper_gap_mm": 0.18864438709023576
+    },
+    {
+      "angle_deg": 8.5,
+      "lower_gap_mm": 0.18834267804166907,
+      "upper_gap_mm": 0.18870187034483624
+    },
+    {
+      "angle_deg": 8.75,
+      "lower_gap_mm": 0.1888005558490751,
+      "upper_gap_mm": 0.1884555839453683
+    },
+    {
+      "angle_deg": 9.0,
+      "lower_gap_mm": 0.1893266925536898,
+      "upper_gap_mm": 0.1882215473363991
+    },
+    {
+      "angle_deg": 9.25,
+      "lower_gap_mm": 0.18880038567291874,
+      "upper_gap_mm": 0.18823001517075016
+    },
+    {
+      "angle_deg": 9.5,
+      "lower_gap_mm": 0.18834250539564182,
+      "upper_gap_mm": 0.18830016328978685
+    },
+    {
+      "angle_deg": 9.75,
+      "lower_gap_mm": 0.18802924349101122,
+      "upper_gap_mm": 0.1883680390996845
+    },
+    {
+      "angle_deg": 10.0,
+      "lower_gap_mm": 0.18817598190708243,
+      "upper_gap_mm": 0.18843106868334228
+    },
+    {
+      "angle_deg": 10.25,
+      "lower_gap_mm": 0.18838717160317592,
+      "upper_gap_mm": 0.18828625913483216
+    },
+    {
+      "angle_deg": 10.5,
+      "lower_gap_mm": 0.18857560580102123,
+      "upper_gap_mm": 0.18815905336188626
+    },
+    {
+      "angle_deg": 10.75,
+      "lower_gap_mm": 0.1886983848366103,
+      "upper_gap_mm": 0.18805155922902145
+    },
+    {
+      "angle_deg": 11.0,
+      "lower_gap_mm": 0.18846556712518753,
+      "upper_gap_mm": 0.1879918245583463
+    },
+    {
+      "angle_deg": 11.25,
+      "lower_gap_mm": 0.18886842581085994,
+      "upper_gap_mm": 0.1881685680625251
+    },
+    {
+      "angle_deg": 11.5,
+      "lower_gap_mm": 0.1890334493980868,
+      "upper_gap_mm": 0.188392467877383
+    },
+    {
+      "angle_deg": 11.75,
+      "lower_gap_mm": 0.18906174320850064,
+      "upper_gap_mm": 0.18863733548764589
+    },
+    {
+      "angle_deg": 12.0,
+      "lower_gap_mm": 0.18895767184566797,
+      "upper_gap_mm": 0.1889052750314094
+    },
+    {
+      "angle_deg": 12.25,
+      "lower_gap_mm": 0.18906132976746678,
+      "upper_gap_mm": 0.1889914633969365
+    },
+    {
+      "angle_deg": 12.5,
+      "lower_gap_mm": 0.18903338688765853,
+      "upper_gap_mm": 0.18914603480832104
+    },
+    {
+      "angle_deg": 12.75,
+      "lower_gap_mm": 0.18886839726383886,
+      "upper_gap_mm": 0.18939147507002707
+    },
+    {
+      "angle_deg": 13.0,
+      "lower_gap_mm": 0.18846573232679872,
+      "upper_gap_mm": 0.18914258349081176
+    },
+    {
+      "angle_deg": 13.25,
+      "lower_gap_mm": 0.18869853352417784,
+      "upper_gap_mm": 0.18876782271250692
+    },
+    {
+      "angle_deg": 13.5,
+      "lower_gap_mm": 0.1885756797649648,
+      "upper_gap_mm": 0.18826956629718625
+    },
+    {
+      "angle_deg": 13.75,
+      "lower_gap_mm": 0.18838755020005216,
+      "upper_gap_mm": 0.18805117317051062
+    },
+    {
+      "angle_deg": 14.0,
+      "lower_gap_mm": 0.18817642414256025,
+      "upper_gap_mm": 0.18833587447823197
+    },
+    {
+      "angle_deg": 14.25,
+      "lower_gap_mm": 0.18802974582770735,
+      "upper_gap_mm": 0.1886024954658291
+    },
+    {
+      "angle_deg": 14.5,
+      "lower_gap_mm": 0.18834300237359483,
+      "upper_gap_mm": 0.18866994844207682
+    },
+    {
+      "angle_deg": 14.75,
+      "lower_gap_mm": 0.18880088360705047,
+      "upper_gap_mm": 0.18866293291402092
+    },
+    {
+      "angle_deg": 15.0,
+      "lower_gap_mm": 0.18932668578615636,
+      "upper_gap_mm": 0.18856894123187976
+    },
+    {
+      "angle_deg": 15.25,
+      "lower_gap_mm": 0.188800362559674,
+      "upper_gap_mm": 0.1882993018795624
+    },
+    {
+      "angle_deg": 15.5,
+      "lower_gap_mm": 0.1883424654042465,
+      "upper_gap_mm": 0.1880350068014953
+    },
+    {
+      "angle_deg": 15.75,
+      "lower_gap_mm": 0.18802919555682468,
+      "upper_gap_mm": 0.18832350243618076
+    },
+    {
+      "angle_deg": 16.0,
+      "lower_gap_mm": 0.18817590492922182,
+      "upper_gap_mm": 0.18884468364988052
+    },
+    {
+      "angle_deg": 16.25,
+      "lower_gap_mm": 0.18838706388481352,
+      "upper_gap_mm": 0.189171867468986
+    },
+    {
+      "angle_deg": 16.5,
+      "lower_gap_mm": 0.1885757150467545,
+      "upper_gap_mm": 0.1893543511616216
+    },
+    {
+      "angle_deg": 16.75,
+      "lower_gap_mm": 0.18869863398920797,
+      "upper_gap_mm": 0.18912077474326167
+    },
+    {
+      "angle_deg": 17.0,
+      "lower_gap_mm": 0.18846586839349058,
+      "upper_gap_mm": 0.18897775405863185
+    },
+    {
+      "angle_deg": 17.25,
+      "lower_gap_mm": 0.18886828835251693,
+      "upper_gap_mm": 0.1888688039992538
+    },
+    {
+      "angle_deg": 17.5,
+      "lower_gap_mm": 0.18903328963474259,
+      "upper_gap_mm": 0.18860396945174607
+    },
+    {
+      "angle_deg": 17.75,
+      "lower_gap_mm": 0.18906137844583681,
+      "upper_gap_mm": 0.1883619355510642
+    },
+    {
+      "angle_deg": 18.0,
+      "lower_gap_mm": 0.18895771947431908,
+      "upper_gap_mm": 0.1881405977422658
+    },
+    {
+      "angle_deg": 18.25,
+      "lower_gap_mm": 0.18906165097358413,
+      "upper_gap_mm": 0.18798681006385162
+    },
+    {
+      "angle_deg": 18.5,
+      "lower_gap_mm": 0.18903358192813072,
+      "upper_gap_mm": 0.18806377237416563
+    },
+    {
+      "angle_deg": 18.75,
+      "lower_gap_mm": 0.18886858049699048,
+      "upper_gap_mm": 0.1881739466153576
+    },
+    {
+      "angle_deg": 19.0,
+      "lower_gap_mm": 0.18846568779107706,
+      "upper_gap_mm": 0.18830356092871864
+    },
+    {
+      "angle_deg": 19.25,
+      "lower_gap_mm": 0.1886984871408311,
+      "upper_gap_mm": 0.18843865173274058
+    },
+    {
+      "angle_deg": 19.5,
+      "lower_gap_mm": 0.1885754556901981,
+      "upper_gap_mm": 0.18835886822816464
+    },
+    {
+      "angle_deg": 19.75,
+      "lower_gap_mm": 0.18838682543300647,
+      "upper_gap_mm": 0.18829292504825648
+    },
+    {
+      "angle_deg": 20.0,
+      "lower_gap_mm": 0.18817567491907167,
+      "upper_gap_mm": 0.18822180779496317
+    },
+    {
+      "angle_deg": 20.25,
+      "lower_gap_mm": 0.18802897375835742,
+      "upper_gap_mm": 0.18823205671512097
+    },
+    {
+      "angle_deg": 20.5,
+      "lower_gap_mm": 0.18834223526770916,
+      "upper_gap_mm": 0.18849885042767744
+    },
+    {
+      "angle_deg": 20.75,
+      "lower_gap_mm": 0.1888001140567064,
+      "upper_gap_mm": 0.18869098622606054
+    },
+    {
+      "angle_deg": 21.0,
+      "lower_gap_mm": 0.1893264196048249,
+      "upper_gap_mm": 0.18864159999781485
+    },
+    {
+      "angle_deg": 21.25,
+      "lower_gap_mm": 0.18880032552254797,
+      "upper_gap_mm": 0.1886535126288628
+    },
+    {
+      "angle_deg": 21.5,
+      "lower_gap_mm": 0.18834241688546471,
+      "upper_gap_mm": 0.1886167775533471
+    },
+    {
+      "angle_deg": 21.75,
+      "lower_gap_mm": 0.18802913364668772,
+      "upper_gap_mm": 0.18853225823591507
+    },
+    {
+      "angle_deg": 22.0,
+      "lower_gap_mm": 0.1881758345484577,
+      "upper_gap_mm": 0.18852992098623061
+    },
+    {
+      "angle_deg": 22.25,
+      "lower_gap_mm": 0.18838698490824504,
+      "upper_gap_mm": 0.18861188605894166
+    },
+    {
+      "angle_deg": 22.5,
+      "lower_gap_mm": 0.18857588070085365,
+      "upper_gap_mm": 0.1887802672893857
+    },
+    {
+      "angle_deg": 22.75,
+      "lower_gap_mm": 0.18869802024949722,
+      "upper_gap_mm": 0.18903717196831316
+    },
+    {
+      "angle_deg": 23.0,
+      "lower_gap_mm": 0.18846518152086772,
+      "upper_gap_mm": 0.18907426626486218
+    },
+    {
+      "angle_deg": 23.25,
+      "lower_gap_mm": 0.188868113944152,
+      "upper_gap_mm": 0.18886711205832477
+    },
+    {
+      "angle_deg": 23.5,
+      "lower_gap_mm": 0.18903313716909098,
+      "upper_gap_mm": 0.18869311335978625
+    },
+    {
+      "angle_deg": 23.75,
+      "lower_gap_mm": 0.18906143310906065,
+      "upper_gap_mm": 0.18855471932332513
+    },
+    {
+      "angle_deg": 24.0,
+      "lower_gap_mm": 0.18895777285515428,
+      "upper_gap_mm": 0.1884469609824028
+    },
+    {
+      "angle_deg": 24.25,
+      "lower_gap_mm": 0.18906152687391464,
+      "upper_gap_mm": 0.18832200334683333
+    },
+    {
+      "angle_deg": 24.5,
+      "lower_gap_mm": 0.1890333452297529,
+      "upper_gap_mm": 0.18830034399600828
+    },
+    {
+      "angle_deg": 24.75,
+      "lower_gap_mm": 0.18886834209011646,
+      "upper_gap_mm": 0.18829728607365834
+    },
+    {
+      "angle_deg": 25.0,
+      "lower_gap_mm": 0.18846556262016848,
+      "upper_gap_mm": 0.18833241155190839
+    },
+    {
+      "angle_deg": 25.25,
+      "lower_gap_mm": 0.1886983552795824,
+      "upper_gap_mm": 0.18846504465372232
+    },
+    {
+      "angle_deg": 25.5,
+      "lower_gap_mm": 0.18857563471962965,
+      "upper_gap_mm": 0.1885704418429984
+    },
+    {
+      "angle_deg": 25.75,
+      "lower_gap_mm": 0.18838735898424505,
+      "upper_gap_mm": 0.1887135719389071
+    },
+    {
+      "angle_deg": 26.0,
+      "lower_gap_mm": 0.18817620720829095,
+      "upper_gap_mm": 0.1886706449631362
+    },
+    {
+      "angle_deg": 26.25,
+      "lower_gap_mm": 0.1880295047498614,
+      "upper_gap_mm": 0.1884699675311949
+    },
+    {
+      "angle_deg": 26.5,
+      "lower_gap_mm": 0.1883427678219098,
+      "upper_gap_mm": 0.1882386482284654
+    },
+    {
+      "angle_deg": 26.75,
+      "lower_gap_mm": 0.18880065338733423,
+      "upper_gap_mm": 0.18820097563161492
+    },
+    {
+      "angle_deg": 27.0,
+      "lower_gap_mm": 0.18932686714884644,
+      "upper_gap_mm": 0.1885966960080661
+    },
+    {
+      "angle_deg": 27.25,
+      "lower_gap_mm": 0.1888005406794146,
+      "upper_gap_mm": 0.18852573189621077
+    },
+    {
+      "angle_deg": 27.5,
+      "lower_gap_mm": 0.1883426401483812,
+      "upper_gap_mm": 0.18853879623832906
+    },
+    {
+      "angle_deg": 27.75,
+      "lower_gap_mm": 0.1880293637031115,
+      "upper_gap_mm": 0.1886337679585658
+    },
+    {
+      "angle_deg": 28.0,
+      "lower_gap_mm": 0.18817607812223094,
+      "upper_gap_mm": 0.18864879498200668
+    },
+    {
+      "angle_deg": 28.25,
+      "lower_gap_mm": 0.1883872426536762,
+      "upper_gap_mm": 0.18864465796953372
+    },
+    {
+      "angle_deg": 28.5,
+      "lower_gap_mm": 0.18857573094356797,
+      "upper_gap_mm": 0.1887021356066401
+    },
+    {
+      "angle_deg": 28.75,
+      "lower_gap_mm": 0.1887783053903446,
+      "upper_gap_mm": 0.18845607108759765
+    },
+    {
+      "angle_deg": 29.0,
+      "lower_gap_mm": 0.1888239647345355,
+      "upper_gap_mm": 0.18822203377141616
+    },
+    {
+      "angle_deg": 29.25,
+      "lower_gap_mm": 0.1888681308097881,
+      "upper_gap_mm": 0.18823047843297064
+    },
+    {
+      "angle_deg": 29.5,
+      "lower_gap_mm": 0.18903312223352892,
+      "upper_gap_mm": 0.18830061717992222
+    },
+    {
+      "angle_deg": 29.75,
+      "lower_gap_mm": 0.18906115819345343,
+      "upper_gap_mm": 0.188368476540503
+    },
+    {
+      "angle_deg": 30.0,
+      "lower_gap_mm": 0.18895749320222605,
+      "upper_gap_mm": 0.18844986210416032
+    }
+  ],
+  "wrong_phase_controls": [
+    {
+      "angle_deg": 0.0,
+      "lower_wrong_phase_area_mm2": 2.1503013059674783,
+      "upper_wrong_phase_area_mm2": 1.1226444678903156
+    },
+    {
+      "angle_deg": 15.0,
+      "lower_wrong_phase_area_mm2": 2.981211391937116,
+      "upper_wrong_phase_area_mm2": 1.744785126710397
+    },
+    {
+      "angle_deg": 30.0,
+      "lower_wrong_phase_area_mm2": 1.5738334823520173,
+      "upper_wrong_phase_area_mm2": 1.1904455051705802
+    }
+  ],
+  "jaw_stroke_deg": [
+    0,
+    30
+  ],
+  "servo_stroke_deg": 19.285714285714285,
+  "ratio": 0.6428571428571429,
+  "qualification": "Actual finite-sector mesh slices, sampled engagement and red controls; no wear or strength rating. Base26 involute profiles and tooth counts unchanged."
+}

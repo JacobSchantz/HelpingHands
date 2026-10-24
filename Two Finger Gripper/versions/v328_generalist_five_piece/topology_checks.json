@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "printed_parts": [
+    {
+      "part": "base",
+      "components": 1,
+      "watertight": true,
+      "genus": 2,
+      "volume_mm3": 6298.442105467943,
+      "passed": true
+    },
+    {
+      "part": "left",
+      "components": 1,
+      "watertight": true,
+      "genus": 1,
+      "volume_mm3": 3284.87515256501,
+      "passed": true
+    },
+    {
+      "part": "pinion",
+      "components": 1,
+      "watertight": true,
+      "genus": 3,
+      "volume_mm3": 1640.8972635450516,
+      "passed": true
+    },
+    {
+      "part": "retaining_plate",
+      "components": 1,
+      "watertight": true,
+      "genus": 2,
+      "volume_mm3": 649.6118869354796,
+      "passed": true
+    },
+    {
+      "part": "right",
+      "components": 1,
+      "watertight": true,
+      "genus": 1,
+      "volume_mm3": 3768.875746608317,
+      "passed": true
+    }
+  ],
+  "physical_assembly_components": 23
+}

@@ -206,3 +206,10 @@ Twelve prints /33 physical pieces: two blades, three sectors, pinion, flat captu
 Bored sleeves grow to4.4mm OD/2.2mm ID (1.1mm walls); only these two supports cross the finger slab, material area29.046mm2. Original gear sizes/ratio/stroke remain compact; outward spacer screws retain tool access.
 Supplied print STL orientations and arranged3MF sliced with0.4mm nozzle,0.1mm layers, supports OFF: zero support/bridge/overhang paths. Actual mesh walls and layer geometry checked. No physical print, fit, strength or ergonomic acceptance. Base25/Gripper29 is not support-free print-ready.
 Hand-held branch, no SO-101/Mount2 interface. Surgical-reference task must build on this manufacturing version and rerun its constraints. Prior versions preserved.
+
+
+v328_generalist_five_piece — Base 27 (voice-550038ca), Gripper 31: Base 26 with one integral overhead motor frame and one bottom retaining plate, no separate motor spacers or spacer screws.
+Gripper 31 builds on Gripper 30: solid original blades plus integral tapered supports, lower sectors and right upper sector; unchanged original rounded tips, 30mm pivots and0–30deg stroke. No tip connectors.
+Exactly five printed pieces and23 physical parts (was12/33). HLS3606M-C001 and its metal spline plate unchanged. Four actual ear screws, two plate screws, one center screw; three purchased washers, two cut80mm M2 rods and four nuts, all visible in exploded assembly.
+Support-free FDM trades height for integration: lower tooth plane13mm above unchanged6mm finger slab (was0.8); upper drive an additional2.6mm above prior split. Broad motor-back plate and integrated routed posts replace adapters. Local collars plus lower plate prevent axial escape; only two sleeve journals cross the finger slab.
+Hand-held branch, no SO-101/Mount2 compatibility. Slicer/geometry/hardware results and limitations in version README; no physical print, strength or ergonomic acceptance. Prior designs remain historical, not blanket print-ready. Surgical-reference work must coordinate against Base27/Gripper31 and rerun manufacturing constraints.

@@ -1,0 +1,45 @@
+{
+  "upstream_commit": "7bb2f23485a7d440960c21046da642de132b7745",
+  "assembly_sha256": "c970540df1230f40636b1ab57939e6aefc7ae868e5cc8a785a638afdb7a8f5c2",
+  "native_solid_indices": {
+    "servo": 304,
+    "stock_plate": 248,
+    "aero_spool": 61
+  },
+  "parts": [
+    {
+      "name": "servo",
+      "sha256": "7ff12281749fe95b450a50b9c342e2b7c93a8de5d382e7cd83bfa6a7ceaf59dc",
+      "raw_tessellation_watertight": false,
+      "volume_mm3": 7840.2260764746425,
+      "extents_mm": [
+        31.999999046325684,
+        31.899999618530273,
+        12.0
+      ]
+    },
+    {
+      "name": "stock_plate",
+      "sha256": "692434844dab1829fd814c7fb5731d3b359896fddddb3c0808a3b08ed72a7e86",
+      "raw_tessellation_watertight": true,
+      "volume_mm3": 482.5884418474011,
+      "extents_mm": [
+        17.999113082885742,
+        4.500000476837158,
+        17.99911403656006
+      ]
+    },
+    {
+      "name": "aero_spool",
+      "sha256": "82185620277583d9d48d473270347b1b7954dc774ec5ef4331071676a503e71b",
+      "raw_tessellation_watertight": false,
+      "volume_mm3": 735.4163672382298,
+      "extents_mm": [
+        19.999014854431152,
+        3.25,
+        19.999014854431152
+      ]
+    }
+  ],
+  "note": "Raw servo/spool tessellations contain seam defects. OpenSCAD Manifold import resolves servo seams; exported motor and plate meshes used by collision checks are watertight."
+}

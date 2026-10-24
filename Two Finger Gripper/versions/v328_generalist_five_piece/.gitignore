@@ -1,0 +1,4 @@
+__pycache__/
+!*.stl
+!exports/**/*.stl
+!reference/*.stl

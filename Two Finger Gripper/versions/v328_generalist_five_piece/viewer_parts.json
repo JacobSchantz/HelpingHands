@@ -1,0 +1,150 @@
+{
+  "no_handles": true,
+  "parts": [
+    {
+      "path": "exports/parts/left.stl",
+      "name": "Left finger integral jaw \u2014 Base 27, Gripper 31",
+      "color": "#efb83b",
+      "explode": [
+        -30,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right.stl",
+      "name": "Right finger integral jaw \u2014 Base 27, Gripper 31",
+      "color": "#efb83b",
+      "explode": [
+        30,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 Base 27, Gripper 31",
+      "color": "#28776e",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Top motor frame \u2014 Base 27, Gripper 31",
+      "color": "#28776e",
+      "explode": [
+        0,
+        60,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/retaining_plate.stl",
+      "name": "Bottom retaining plate \u2014 Base 27, Gripper 31",
+      "color": "#28776e",
+      "explode": [
+        0,
+        -40,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor HLS3606M \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        35
+      ]
+    },
+    {
+      "path": "exports/parts/stock_plate.stl",
+      "name": "Stock aluminum spline plate \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/plate_screws.stl",
+      "name": "Plate screws (2) \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/plate_washers.stl",
+      "name": "Plate washers (2) \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/case_screws.stl",
+      "name": "Case screws (4) \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/center_screw.stl",
+      "name": "Center screw \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/capture_washer.stl",
+      "name": "Metal capture washer \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_screws.stl",
+      "name": "M2 tie rods (2) \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        -70,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_nuts.stl",
+      "name": "Pivot nuts (4) \u2014 Base 27, Gripper 31",
+      "color": "#718096",
+      "explode": [
+        0,
+        80,
+        0
+      ]
+    }
+  ],
+  "finger_lineage": {
+    "builds_on": "Gripper 30",
+    "gist": "Integral tapered gear supports; five support-free printed pieces"
+  },
+  "preview": "previews/comparison.png"
+}

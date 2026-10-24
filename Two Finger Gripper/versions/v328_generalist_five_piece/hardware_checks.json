@@ -1,0 +1,166 @@
+{
+  "plate": {
+    "hole_count": 8,
+    "used_screws": 2,
+    "diameter_mm": 18,
+    "pcd_mm": 12.00761876244592,
+    "modeled_hole_diameter_mm": 2,
+    "modeled_disk_thickness_mm": 2.0,
+    "holes": [
+      {
+        "radius": 1.0,
+        "x": 4.2453341901999995,
+        "z": 4.245333930748001,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": 4.2453342663,
+        "z": -4.245334722080997,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": 6.003809283058999,
+        "z": -3.799059982156905e-07,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": -4.43529994953451e-08,
+        "z": -6.00380981494,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": -1.5197500147223764e-07,
+        "z": 6.003808947506002,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": -4.245334386528,
+        "z": -4.245334798181,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": -4.245334462628001,
+        "z": 4.245333854647001,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      },
+      {
+        "radius": 1.0,
+        "x": -6.003809479387,
+        "z": -4.87528000192583e-07,
+        "y0": 9.099999996619996,
+        "y1": 11.099999996619996
+      }
+    ],
+    "thread": "BOM specifies M2x4; STEP has smooth diameter-2 cylinders, not threads. Actual production thread/minor diameter/pitch and four-hole recollection remain unverified."
+  },
+  "alignment": {
+    "passed": true,
+    "used": [
+      {
+        "native_angle_deg": 0,
+        "posed_x_z_mm": [
+          5.91898178675446,
+          -9.650777989019682
+        ],
+        "axis_error_mm": 3.180477839248029e-07
+      },
+      {
+        "native_angle_deg": 180,
+        "posed_x_z_mm": [
+          -5.91898178675446,
+          -11.662128898591874
+        ],
+        "axis_error_mm": 5.730148502440172e-07
+      }
+    ],
+    "radial_clearance_mm": 0.10000000000000009,
+    "sts_14mm_pcd_control_passed": false,
+    "sts_control_error_mm": 0.9961910524940089
+  },
+  "center_stack": {
+    "passed": true,
+    "manufacturer_screw": "M2.3x5",
+    "spline": "Manufacturer 25T / OD4.95; STEP smooth spline envelope diameter4.93, no tooth geometry",
+    "screw_underhead_length_assumed_mm": 5.0,
+    "separate_capture_ring_mm": 1,
+    "head_seat_y_mm": 27.600000381469727,
+    "thread_mouth_y_mm": 29.800001244409184,
+    "bore_floor_y_mm": 32.80000124440919,
+    "thread_engagement_mm": 2.799999137060542,
+    "bore_floor_clearance_mm": 0.2000008629394614,
+    "old_unseated_stack_passed": false,
+    "old_margin_mm": -0.799999899999996,
+    "qualification": "Nominal under-head length interpreted as5mm; supplier screw head/length tolerance and real bore depth must be measured. Cylinders are not real threads. Purchased flat steel capture washer preserves original head seat and engagement; bought spline plate unchanged."
+  },
+  "plate_screws": {
+    "count": 2,
+    "spec": "Replacement M2x8 socket screws + DIN125 M2 washers, 0.3mm; original BOM M2x4 cannot span new unrecessed stack.",
+    "actual_seat_to_plate_grip_mm": 6.2000015258789105,
+    "modeled_engagement_mm": 1.7999984741210895,
+    "nominal_disk_mm": 2.0,
+    "passes_nominal_stack": true
+  },
+  "case": {
+    "hole_count": 4,
+    "modeled_diameter_mm": 2.5,
+    "cad_centers": [
+      [
+        19.53999990183,
+        -3.5000004337169965
+      ],
+      [
+        -7.9600000981640004,
+        3.499999566283001
+      ],
+      [
+        -7.9600000981640004,
+        -3.500000433717
+      ],
+      [
+        19.53999990183,
+        3.4999995662830035
+      ]
+    ],
+    "cad_alignment_error_mm": 4.4468840963521176e-07,
+    "manufacturer_u_mm": [
+      -8.21,
+      19.79
+    ],
+    "cad_u_mm": [
+      -7.96,
+      19.54
+    ],
+    "pilot_slot_travel_mm": 0.5,
+    "source": "Manufacturer p6 and pinned STEP; 0.25mm longitudinal discrepancy captured by existing 0.5mm pilot slots. Transverse7mm from STEP, not dimensioned in drawing.",
+    "screws": "Four M2x6 self-tapping ear screws into printed posts from the gear side before the spline plate/pinion are installed; separate from rotating plate screws. Exact drive/head dimensions unverified; guide calls them flanged Torx, not assumed Phillips."
+  },
+  "sources": {
+    "manufacturer": "https://www.feetechrc.com/Data/feetechrc/upload/file/20240807/6385862508379674057566108.pdf",
+    "edition": "A/0 2024-04-22, pages4/6/7",
+    "bom": "https://raw.githubusercontent.com/Chestnut-Robotics/aero-hand-open/7bb2f23485a7d440960c21046da642de132b7745/hardware/Assembly/BOM.csv",
+    "cad": "Pinned Aero STEP extracted servo304 and aluminum plate248; reference/provenance.json"
+  },
+  "qualification": "CAD/source agreement and explicit discrepancies only; exact plate revision Jake owns, actual threads, supplied screw dimensions, reversed screw-drive access and physical fit remain unverified.",
+  "passed": true,
+  "input_sha256": {
+    "params.json": "bd08b221f5e275addde9c779c8fbba40c6601112f3169cd6fc5879891b0bf3e9",
+    "reference/servo.step": "7ff12281749fe95b450a50b9c342e2b7c93a8de5d382e7cd83bfa6a7ceaf59dc",
+    "reference/stock_plate.step": "692434844dab1829fd814c7fb5731d3b359896fddddb3c0808a3b08ed72a7e86",
+    "reference/HLS3606M-C001.pdf": "6cca14ae1478a3ef60122c872475ce8f53c195a7c0a02b0d7a77da2a6974c1d2",
+    "compact_source.scad": "c339e1f210e573d4797239bd6a25edbaee70d7d3f294188a45f7a032d62ab1a7",
+    "gripper.scad": "18c4600a2b64e1fadc0d9794095c7eecf25dea962398fe2088ccceee45dd5919"
+  }
+}

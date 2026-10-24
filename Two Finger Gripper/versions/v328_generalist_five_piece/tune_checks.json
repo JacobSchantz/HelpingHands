@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "overrides": {
+    "fdm_retainer_gap": 0.25
+  },
+  "files": [
+    "base.stl",
+    "capture_washer.stl",
+    "case_screws.stl",
+    "center_screw.stl",
+    "left.stl",
+    "motor.stl",
+    "pinion.stl",
+    "pivot_nuts.stl",
+    "pivot_screws.stl",
+    "plate_screws.stl",
+    "plate_washers.stl",
+    "retaining_plate.stl",
+    "right.stl",
+    "stock_plate.stl"
+  ],
+  "file_count": 14,
+  "motor_dimensions_unchanged": true,
+  "retaining_plate_y_translation_mm": [
+    -0.05000019073486328,
+    -0.04999995231628418
+  ],
+  "runtime": "System Python entry point delegates to cad/blender/.venv for STL normalization",
+  "seconds": 18.818276042002253,
+  "qualification": "Isolated CAD Tune smoke, not manufacturing qualification for overrides."
+}

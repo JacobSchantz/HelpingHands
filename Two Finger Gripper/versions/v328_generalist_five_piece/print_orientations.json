@@ -1,0 +1,82 @@
+[
+  {
+    "part": "base",
+    "plate_bounds_mm": [
+      [
+        12.0,
+        12.0,
+        0.0
+      ],
+      [
+        47.79999923706055,
+        43.90000057220459,
+        68.90000133514404
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "left",
+    "plate_bounds_mm": [
+      [
+        55.79999923706055,
+        12.0,
+        0.0
+      ],
+      [
+        77.36509656906128,
+        81.93169832229614,
+        22.5
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "pinion",
+    "plate_bounds_mm": [
+      [
+        85.36509656906128,
+        12.0,
+        0.0
+      ],
+      [
+        109.3637843132019,
+        35.99868845939636,
+        5.900000095367432
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "retaining_plate",
+    "plate_bounds_mm": [
+      [
+        117.3637843132019,
+        12.0,
+        0.0
+      ],
+      [
+        153.7637858390808,
+        18.40000009536743,
+        3.0
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "right",
+    "plate_bounds_mm": [
+      [
+        161.7637858390808,
+        12.0,
+        0.0
+      ],
+      [
+        183.363507270813,
+        83.34162139892578,
+        29.299999237060547
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  }
+]

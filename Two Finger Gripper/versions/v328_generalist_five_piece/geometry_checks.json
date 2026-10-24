@@ -1,0 +1,436 @@
+{
+  "meshes": {
+    "passed": true,
+    "components": {
+      "left": 1,
+      "right": 1,
+      "pinion": 1,
+      "base": 1,
+      "retaining_plate": 1
+    }
+  },
+  "full_stroke": {
+    "passed": true,
+    "step_deg": 0.25,
+    "angles": 121,
+    "pairs_per_angle": 105,
+    "failures": [],
+    "worst": {
+      "left/right": {
+        "volume_mm3": 6.858638955609859e-10,
+        "angle_deg": 0.0
+      },
+      "pinion/stock_plate": {
+        "volume_mm3": 8.15095634829037e-14,
+        "angle_deg": 20.25
+      },
+      "pinion/capture_washer": {
+        "volume_mm3": 1.339206523454095e-14,
+        "angle_deg": 27.0
+      },
+      "base/motor": {
+        "volume_mm3": 1.3434821075438184e-15,
+        "angle_deg": 0.0
+      },
+      "retaining_plate/pivot_nuts": {
+        "volume_mm3": 9.68084119812307e-16,
+        "angle_deg": 0.0
+      },
+      "motor/stock_plate": {
+        "volume_mm3": 8.510119692273221e-15,
+        "angle_deg": 22.25
+      },
+      "motor/case_screws": {
+        "volume_mm3": 4.16487794230834e-16,
+        "angle_deg": 0.0
+      },
+      "center_screw/capture_washer": {
+        "volume_mm3": 7.932890455641939e-15,
+        "angle_deg": 25.75
+      },
+      "plate_screws/plate_washers": {
+        "volume_mm3": 4.739264536368637e-15,
+        "angle_deg": 5.25
+      },
+      "pinion/plate_washers": {
+        "volume_mm3": 8.213969868858806e-15,
+        "angle_deg": 14.0
+      },
+      "stock_plate/plate_screws": {
+        "volume_mm3": 4.324438214137252e-22,
+        "angle_deg": 0.75
+      },
+      "stock_plate/capture_washer": {
+        "volume_mm3": 2.5599748015858736e-14,
+        "angle_deg": 26.25
+      }
+    },
+    "limitation": "Sampled 0\u201330 degree stroke, not continuous collision proof. Probes omit intentional spline/thread engagement; center probe covers only exposed retaining head. No pair exclusions. Volume tolerance 0.0001 mm^3 covers STL face rounding at seated planes."
+  },
+  "tool_access": {
+    "passed": true,
+    "failures": [],
+    "angles": 121,
+    "shaft_d_mm": 2.5,
+    "nut_driver_outer_d_mm": 6,
+    "length_mm": 45,
+    "assembly_order": "Four case-ear screws install from gear side before spline plate/pinion/jaws; all other tool checks against assembled bodies.",
+    "limitation": "Driver shafts and hollow nut sockets only; actual drives, tool handles and cable bend require physical checks."
+  },
+  "rear_clearance": {
+    "passed": true,
+    "minimum_gap_mm": 10.33022689819336,
+    "angle_deg": 0.0,
+    "right_limiting_point_at_closed_x_z_mm": [
+      5.16511344909668,
+      3.0015125274658203
+    ],
+    "pivot_spacing_mm": 30.0,
+    "budget_mm": 0.8,
+    "manufacturing_budget_mm": 0.3,
+    "deflection_reserve_mm": 0.5,
+    "method": "Continuous extrema of actual clipped finger-band outline vertices from closed rear Z <= 12 mm; mirror-symmetric rear jaws. 0.3 + 0.5 mm are assumed CAD allowances, not measured deflection. Actual candidate re-exports bracket spacing below.",
+    "tighter_candidate_passed": null
+  },
+  "swept_bounds": {
+    "x_y_z_bounds_mm": [
+      [
+        -34.929251940716526,
+        34.929251940716526
+      ],
+      [
+        -8.800000190734863,
+        71.19999694824219
+      ],
+      [
+        -22.65645423818933,
+        63.464077078631064
+      ]
+    ],
+    "width_depth_height_mm": [
+      69.85850388143305,
+      79.99999713897705,
+      86.12053131682039
+    ],
+    "per_part_bounds": {
+      "left": [
+        [
+          -34.929251940716526,
+          0.9999998870007429
+        ],
+        [
+          -3.0,
+          19.5
+        ],
+        [
+          -8.225844526704012,
+          63.464077078631064
+        ]
+      ],
+      "right": [
+        [
+          -0.9999998899148679,
+          34.929251940716526
+        ],
+        [
+          -3.0,
+          26.299999237060547
+        ],
+        [
+          -9.61528224890389,
+          63.464077078631064
+        ]
+      ],
+      "pinion": [
+        [
+          -12.00000014106968,
+          12.000000152888422
+        ],
+        [
+          22.700000762939453,
+          28.600000381469727
+        ],
+        [
+          -22.65645423818933,
+          1.3435465429334013
+        ]
+      ],
+      "base": [
+        [
+          -17.899999618530273,
+          17.899999618530273
+        ],
+        [
+          -3.1999998092651367,
+          65.69999694824219
+        ],
+        [
+          -20.81645393371582,
+          11.08354663848877
+        ]
+      ],
+      "retaining_plate": [
+        [
+          -18.200000762939453,
+          18.200000762939453
+        ],
+        [
+          -6.199999809265137,
+          -3.200000047683716
+        ],
+        [
+          -3.200000047683716,
+          3.200000047683716
+        ]
+      ],
+      "motor": [
+        [
+          -5.999999523162842,
+          6.000000476837158
+        ],
+        [
+          29.80000114440918,
+          61.70000076293945
+        ],
+        [
+          -20.866453170776367,
+          11.133545875549316
+        ]
+      ],
+      "stock_plate": [
+        [
+          -9.000000267740077,
+          9.0000011572255
+        ],
+        [
+          28.600000381469727,
+          33.099998474121094
+        ],
+        [
+          -19.656454774120768,
+          -1.6564531048105757
+        ]
+      ],
+      "plate_screws": [
+        [
+          -7.903809418791867,
+          7.903809523039827
+        ],
+        [
+          20.399999618530273,
+          28.600000381469727
+        ],
+        [
+          -14.53639707080208,
+          -6.776510143449788
+        ]
+      ],
+      "plate_washers": [
+        [
+          -8.503809531560753,
+          8.503809476062338
+        ],
+        [
+          22.399999618530273,
+          22.700000762939453
+        ],
+        [
+          -15.13717359168354,
+          -6.1757331524683945
+        ]
+      ],
+      "case_screws": [
+        [
+          -5.5,
+          5.5
+        ],
+        [
+          37.70000076293945,
+          41.20000076293945
+        ],
+        [
+          -20.616453170776367,
+          10.883546829223633
+        ]
+      ],
+      "center_screw": [
+        [
+          -2.5000000510976332,
+          2.4999999955992185
+        ],
+        [
+          25.540000915527344,
+          27.600000381469727
+        ],
+        [
+          -13.156453395424391,
+          -8.156452979907248
+        ]
+      ],
+      "capture_washer": [
+        [
+          -4.500000174675067,
+          4.5000001572203825
+        ],
+        [
+          27.600000381469727,
+          28.600000381469727
+        ],
+        [
+          -15.156453294520295,
+          -6.1564532360288196
+        ]
+      ],
+      "pivot_screws": [
+        [
+          -16.0,
+          16.0
+        ],
+        [
+          -8.800000190734863,
+          71.19999694824219
+        ],
+        [
+          -1.0,
+          1.0
+        ]
+      ],
+      "pivot_nuts": [
+        [
+          -17.30940055847168,
+          17.30940055847168
+        ],
+        [
+          -7.800000190734863,
+          67.30000305175781
+        ],
+        [
+          -2.0,
+          2.0
+        ]
+      ],
+      "cable": [
+        [
+          -4.0,
+          4.0
+        ],
+        [
+          39.70000076293945,
+          49.70000076293945
+        ],
+        [
+          11.133546829223633,
+          29.133546829223633
+        ]
+      ]
+    },
+    "method": "Analytic continuous X/Z vertex extrema, fixed Y; includes real servo, screw probes and cable clearance."
+  },
+  "bom": {
+    "before_printed": 12,
+    "after_printed": 5,
+    "before_total": 33,
+    "after_total": 23,
+    "per_export": {
+      "left": 1,
+      "right": 1,
+      "pinion": 1,
+      "base": 1,
+      "retaining_plate": 1,
+      "motor": 1,
+      "stock_plate": 1,
+      "plate_screws": 2,
+      "plate_washers": 2,
+      "case_screws": 4,
+      "center_screw": 1,
+      "capture_washer": 1,
+      "pivot_screws": 2,
+      "pivot_nuts": 4
+    }
+  },
+  "motor_center": {
+    "passed": true,
+    "body_x_bounds_mm": [
+      -5.999999523162842,
+      6.000000476837158
+    ]
+  },
+  "retention": {
+    "passed": true,
+    "lower_running_gap_mm": 0.20000004768371582,
+    "upper_free_space_mm": 0.2,
+    "bearing_radial_clearance_mm": 0.25,
+    "sleeve_wall_mm": 1.1,
+    "plate_radial_capture_mm": 0.75,
+    "limitation": "CAD axial capture only; shaft bending, printed creep and thread lock not load qualified."
+  },
+  "axial_escape_controls": {
+    "passed": true,
+    "controls": [
+      {
+        "jaw": "left",
+        "translation_y_mm": -0.5,
+        "blocked_overlap_mm3": 7.936368995539654
+      },
+      {
+        "jaw": "left",
+        "translation_y_mm": 0.5,
+        "blocked_overlap_mm3": 2.2653662460740787
+      },
+      {
+        "jaw": "right",
+        "translation_y_mm": -0.5,
+        "blocked_overlap_mm3": 7.936368995539656
+      },
+      {
+        "jaw": "right",
+        "translation_y_mm": 0.5,
+        "blocked_overlap_mm3": 2.265366246074079
+      }
+    ]
+  },
+  "rod_stack": {
+    "passed": true,
+    "cut_length_mm": 80,
+    "tip_projections_mm": [
+      1.0,
+      3.899993896484375
+    ],
+    "nuts": 4
+  },
+  "support_band": {
+    "area_mm2": 29.04607879891205,
+    "sleeve_only_mm2": 22.78082193697537,
+    "lower_plate_y_bounds_mm": [
+      -6.199999809265137,
+      -3.200000047683716
+    ]
+  },
+  "passed": true,
+  "qualification": "CAD prototype; no physical print, hardware fit, ergonomics or strength acceptance. Full-body motion is sampled, not continuous proof.",
+  "input_sha256": {
+    "params.json": "bd08b221f5e275addde9c779c8fbba40c6601112f3169cd6fc5879891b0bf3e9",
+    "gripper.scad": "18c4600a2b64e1fadc0d9794095c7eecf25dea962398fe2088ccceee45dd5919",
+    "exports/parts/retaining_plate.stl": "cb1e9f95346d34b76dc1f9e21d68473d644b62f62d831efde83497e9316ff56e",
+    "exports/parts/motor.stl": "8d3a01c5b93b90c3f27176dac20f8798b75e1af848dcc36930ecf6a20e0094ac",
+    "exports/parts/left.stl": "d6f9938faf78c86f2bc288e7bf47706f01af401ab473ec09f3be0d5b92dd950f",
+    "exports/parts/base.stl": "bddc0d870394978f7ca5e8adc8b53879e8a9424b038ae800dcf1f70a7953df81",
+    "exports/parts/pinion.stl": "e9106fb1305860f15cb9a0378e60569f02cda1eb84402daac787934c06f3505e",
+    "exports/parts/stock_plate.stl": "3930f92af4fa5769a2d29004f034fd6228d89ae2b52c4aee95e4846df006eff4",
+    "exports/parts/right.stl": "07804d6d109babb0045135a7964b152d37aaa47e8b268b12b69abf6d620d36ee",
+    "exports/reference/pivot_tools.stl": "f9d607ccf5d96e1577feebff10020c1b15d310190cb9e1071993c4c69a567f60",
+    "exports/reference/capture_washer.stl": "264c31218225cf419b58135060e4c503d1716639693c894c9bbf9be786fb3bcd",
+    "exports/reference/case_screws.stl": "4e0234cd64ed8c03f591dbc6a620040b1549ab4be1d655114bb84130b61338e2",
+    "exports/reference/case_tools.stl": "dc3b9c2554ba73e60a748252cb152f7e675bbbf026b43387a71f3bf25fddcf25",
+    "exports/reference/nut_tools.stl": "e08599a86a47f885028384c63c6bfbce6b2e14ab85cdb35e8e65aeab9720cfaa",
+    "exports/reference/pivot_screws.stl": "f09b7bf3a46d4c16207ab9a8cab2df0fa30e4eb2271b32641c16d88ddd535818",
+    "exports/reference/cable.stl": "fa6039b059aaeaae8a7519c53f253e56fde5bfa8a45b28092a56eb2bdd3eeae7",
+    "exports/reference/center_tools.stl": "91aa32c7c5326f2e15b7e10652105edbc9ed0bda27abb7d34c29d02cdc42f5a1",
+    "exports/reference/plate_washers.stl": "a9650549b56a05c5acd2a2fcc3e37d7ecd08a8040c93c165f8b2c59dd2294887",
+    "exports/reference/center_screw.stl": "f60a5be7a7099d0a42f1cff035f0bcbb08a0e9944b58733b76cfbb3e2cc223ee",
+    "exports/reference/pivot_nuts.stl": "a0a68cbe266760971c0ae8297f8b7c0a18b1ce2e4d9eceac47477b6f47b1f246",
+    "exports/reference/plate_screws.stl": "059629bd0ab5daaa29e990ac117dad2e81213e1a165105af91972a5bd482e1be",
+    "exports/reference/plate_tools.stl": "e7873e30ffb1bd16453c2a83b088d86d01ea52f6489441990b3ee92bc8bb184e",
+    "exports/reference/case_straight_tools.stl": "4fb6217dca482b05bb39bd0b70fcbd294eda28a1b78f55f413b72c1ca5c1892c"
+  }
+}

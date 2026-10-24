@@ -1,0 +1,64 @@
+{
+  "nominal_tip_gap_mm": 0.0,
+  "tip_contact_z_mm": [
+    61.398162078857425,
+    61.69816207885742
+  ],
+  "actual_contact_x_z_mm": [
+    [
+      0.0,
+      61.550449148071394
+    ],
+    [
+      0.0,
+      61.550449148071394
+    ]
+  ],
+  "closed_intersection_area_mm2": 8.198354616001191e-10,
+  "closed_jaw_intersection_volume_mm3": 6.855439898503406e-10,
+  "opening_at_point_one_degree_mm": 0.21489371359348297,
+  "overclose_control_detected": true,
+  "overclose_control_volume_mm3": 0.19691467484279138,
+  "uncommanded_control_angle_deg": -0.1,
+  "body_gap_mm": 0.9868788923094672,
+  "rear_minimum_mm": 10.33022689819336,
+  "servo_index_margin_to_wrap_deg": 160.751953125,
+  "jaw_command_limits_deg": [
+    0,
+    30
+  ],
+  "motion_limits": {
+    "mode": "Design/calibration contract only, not executable motor control",
+    "jaw_deg": [
+      0,
+      30
+    ],
+    "closed_tick_nominal": 2048,
+    "open_tick_not_past_limit": 1829,
+    "closed_deg_nominal": 180.0,
+    "open_deg": 160.751953125,
+    "jaw_open_with_integer_ticks_deg": 29.941406249999996,
+    "manufacturer_mechanical_stop": "No limit: no physical servo end stop to rely on",
+    "qualification": "Require real plate/gear phase calibration and gentle contact teaching with limited force/current; do not blindly drive to these absolute ticks or command negative jaw angles. Encoder quantization, gearbox backlash and resin compliance mean nominal CAD contact is not physical fit approval."
+  },
+  "tolerances": {
+    "assumed_print_error_per_side_mm": 0.3,
+    "designed_middle_blade_gap_mm": 0.6,
+    "servo_encoder_step_deg": 0.087890625,
+    "jaw_step_deg": 0.13671875,
+    "half_lsb_tip_separation_mm": 0.14722364661343504,
+    "manufacturer_servo_backlash_bound_deg": 0.5,
+    "compliance": "No stiffness/contact-force model or qualified flexure. Nominal rigid contact faces need physical tolerance/force-limited calibration; never close farther to hide error."
+  },
+  "qualification": "Original untrimmed rounded blade tips contact at jaw0 with 30mm pivots; no distal additions. Whole-hand and physical hardware-fit/strength acceptance are separate and unverified.",
+  "minimum_plan_ligament_mm": 2.047589953111173,
+  "passed": true,
+  "input_sha256": {
+    "params.json": "bd08b221f5e275addde9c779c8fbba40c6601112f3169cd6fc5879891b0bf3e9",
+    "gripper.scad": "18c4600a2b64e1fadc0d9794095c7eecf25dea962398fe2088ccceee45dd5919",
+    "geometry_checks.json": "876467018ed51756d3c8be4591c259963daf265a1a2687e0431798d2ce376774",
+    "hardware_checks.json": "fc9da0632d01f386d83adbc38e364fe16300fbbeaec179e3baf01651d840130c",
+    "exports/parts/left.stl": "d6f9938faf78c86f2bc288e7bf47706f01af401ab473ec09f3be0d5b92dd950f",
+    "exports/parts/right.stl": "07804d6d109babb0045135a7964b152d37aaa47e8b268b12b69abf6d620d36ee"
+  }
+}

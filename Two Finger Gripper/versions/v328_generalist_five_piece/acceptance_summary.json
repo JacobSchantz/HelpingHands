@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "reports": {
+    "geometry_checks.json": true,
+    "manufacturing_checks.json": true,
+    "slicer_checks.json": true,
+    "hardware_checks.json": true,
+    "closure_checks.json": true,
+    "gear_checks.json": true,
+    "topology_checks.json": true,
+    "browser_checks.json": true,
+    "tune_checks.json": true
+  },
+  "printed_parts": 5,
+  "total_physical_parts": 23,
+  "purchased_parts": 17,
+  "fabricated_metal_parts": 1,
+  "regressions": {
+    "distinct_tests": 43,
+    "initial_run": "41 passed; one Chrome timeout and one Chrome teardown/display crash",
+    "retry": "Both affected Chrome tests passed;27 current core/publisher/model regressions also passed"
+  },
+  "limitations": [
+    "No physical print or actuation",
+    "80mm stack instead of52.6mm",
+    "Fabricated steel capture washer required",
+    "Physical ergonomics, load strength, cable routing and real hardware fits unverified",
+    "No SO101/Mount2 interface"
+  ]
+}
