@@ -1,0 +1,194 @@
+[
+  {
+    "part": "base",
+    "plate_bounds_mm": [
+      [
+        12.0,
+        12.0,
+        0.0
+      ],
+      [
+        49.0,
+        55.79875373840332,
+        19.0
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "capture_ring",
+    "plate_bounds_mm": [
+      [
+        57.0,
+        12.0,
+        0.0
+      ],
+      [
+        65.9964599609375,
+        20.996459484100342,
+        1.0
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "ear_spacers1",
+    "plate_bounds_mm": [
+      [
+        73.9964599609375,
+        12.0,
+        0.0
+      ],
+      [
+        81.60899662971497,
+        22.177082061767578,
+        9.100000381469727
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "ear_spacers2",
+    "plate_bounds_mm": [
+      [
+        89.60899662971497,
+        12.0,
+        0.0
+      ],
+      [
+        97.22153329849243,
+        22.177082061767578,
+        9.100000381469727
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "ear_spacers3",
+    "plate_bounds_mm": [
+      [
+        105.22153329849243,
+        12.0,
+        0.0
+      ],
+      [
+        112.0215334892273,
+        22.521670818328857,
+        9.100000381469727
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "ear_spacers4",
+    "plate_bounds_mm": [
+      [
+        120.0215334892273,
+        12.0,
+        0.0
+      ],
+      [
+        126.82153367996216,
+        22.521670818328857,
+        9.100000381469727
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "left_blade",
+    "plate_bounds_mm": [
+      [
+        134.82153367996216,
+        12.0,
+        0.0
+      ],
+      [
+        152.94686555862427,
+        78.51362228393555,
+        14.300000190734863
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "left_gear",
+    "plate_bounds_mm": [
+      [
+        160.94686555862427,
+        12.0,
+        0.0
+      ],
+      [
+        182.511962890625,
+        25.51807975769043,
+        3.5
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "pinion",
+    "plate_bounds_mm": [
+      [
+        190.511962890625,
+        12.0,
+        0.0
+      ],
+      [
+        214.51065063476562,
+        35.99868845939636,
+        5.900000095367432
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "right_blade",
+    "plate_bounds_mm": [
+      [
+        12.0,
+        86.51362228393555,
+        0.0
+      ],
+      [
+        30.12533187866211,
+        153.0272445678711,
+        14.300000190734863
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "right_gear",
+    "plate_bounds_mm": [
+      [
+        38.12533187866211,
+        86.51362228393555,
+        0.0
+      ],
+      [
+        59.72505331039429,
+        101.44162511825562,
+        3.5
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  },
+  {
+    "part": "right_upper",
+    "plate_bounds_mm": [
+      [
+        67.72505331039429,
+        86.51362228393555,
+        0.0
+      ],
+      [
+        79.66622734069824,
+        99.03347110748291,
+        3.5999999046325684
+      ]
+    ],
+    "orientation": "Supplied print STL on its flat Z=0 face; do not auto-orient"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "tests": "29 unit/regression checks passed; current report hashes verified",
+  "sampled_motion": {
+    "poses": 121,
+    "pairs_per_pose": 190,
+    "failed_pairs": []
+  },
+  "supports_off": true,
+  "bridge_segments": 0,
+  "overhang_layers": 0,
+  "print_count": 12,
+  "total_physical_parts": 33,
+  "support_band_area_mm2": 29.046085314950886,
+  "continuous_assembly_xyz_mm": [
+    69.85850388143305,
+    52.60000133514404,
+    90.05761345558419
+  ],
+  "plate_screw_engagement_mm": 1.799999904632564,
+  "physical_print_tested": false,
+  "whole_hand_acceptance": false
+}

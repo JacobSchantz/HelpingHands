@@ -1,0 +1,10 @@
+10 => Processing triangulated mesh
+20 => Generating perimeters
+30 => Preparing infill
+45 => Making infill
+65 => Searching support spots
+69 => Alert if supports needed
+89 => Calculating overhanging perimeters
+88 => Generating skirt and brim
+90 => Exporting G-code to /Users/jakeschantz/HelpingHands/Two Finger Gripper/versions/v327_generalist_support_free/slicing/left_gear.gcode
+Slicing result exported to /Users/jakeschantz/HelpingHands/Two Finger Gripper/versions/v327_generalist_support_free/slicing/left_gear.gcode

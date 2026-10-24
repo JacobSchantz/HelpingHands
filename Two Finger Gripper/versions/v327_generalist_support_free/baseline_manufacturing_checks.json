@@ -1,0 +1,365 @@
+{
+  "passed": false,
+  "layer_height_mm": 0.2,
+  "max_unbridged_growth_mm": 0.225,
+  "parts": [
+    {
+      "part": "base",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 48.22671600931454,
+      "unsupported": [
+        {
+          "z_mm": 4.9,
+          "area_mm2": 1.84,
+          "short_span_mm": 1.25
+        },
+        {
+          "z_mm": 4.9,
+          "area_mm2": 1.84,
+          "short_span_mm": 1.25
+        },
+        {
+          "z_mm": 4.9,
+          "area_mm2": 1.84,
+          "short_span_mm": 1.25
+        },
+        {
+          "z_mm": 4.9,
+          "area_mm2": 1.84,
+          "short_span_mm": 1.25
+        },
+        {
+          "z_mm": 9.3,
+          "area_mm2": 464.424,
+          "short_span_mm": 30.6423
+        },
+        {
+          "z_mm": 9.3,
+          "area_mm2": 4.5766,
+          "short_span_mm": 1.3111
+        }
+      ],
+      "short_bridge_roofs": [],
+      "passed": false,
+      "sha256": "c39b4d7eac403097ae35a2bc1843870e65fde8a9681f9fb401d2853a6cebe5fb"
+    },
+    {
+      "part": "left",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 24.551332914235584,
+      "unsupported": [
+        {
+          "z_mm": 4.3,
+          "area_mm2": 85.9508,
+          "short_span_mm": 11.0747
+        },
+        {
+          "z_mm": 8.5,
+          "area_mm2": 147.7779,
+          "short_span_mm": 11.554
+        },
+        {
+          "z_mm": 8.7,
+          "area_mm2": 18.0804,
+          "short_span_mm": 4.0819
+        },
+        {
+          "z_mm": 8.9,
+          "area_mm2": 7.1439,
+          "short_span_mm": 1.699
+        },
+        {
+          "z_mm": 9.1,
+          "area_mm2": 6.1097,
+          "short_span_mm": 1.1465
+        },
+        {
+          "z_mm": 9.3,
+          "area_mm2": 4.6727,
+          "short_span_mm": 0.927
+        },
+        {
+          "z_mm": 9.5,
+          "area_mm2": 4.4745,
+          "short_span_mm": 0.7938
+        },
+        {
+          "z_mm": 9.7,
+          "area_mm2": 3.0548,
+          "short_span_mm": 0.6993
+        },
+        {
+          "z_mm": 9.9,
+          "area_mm2": 3.4396,
+          "short_span_mm": 0.6199
+        },
+        {
+          "z_mm": 10.1,
+          "area_mm2": 3.0579,
+          "short_span_mm": 0.5609
+        },
+        {
+          "z_mm": 10.3,
+          "area_mm2": 1.0728,
+          "short_span_mm": 0.5893
+        },
+        {
+          "z_mm": 10.3,
+          "area_mm2": 0.9745,
+          "short_span_mm": 0.514
+        },
+        {
+          "z_mm": 10.5,
+          "area_mm2": 2.548,
+          "short_span_mm": 0.6753
+        },
+        {
+          "z_mm": 10.7,
+          "area_mm2": 2.192,
+          "short_span_mm": 0.465
+        },
+        {
+          "z_mm": 10.9,
+          "area_mm2": 1.876,
+          "short_span_mm": 0.5622
+        },
+        {
+          "z_mm": 11.1,
+          "area_mm2": 1.618,
+          "short_span_mm": 0.3842
+        },
+        {
+          "z_mm": 11.3,
+          "area_mm2": 1.5546,
+          "short_span_mm": 0.3613
+        },
+        {
+          "z_mm": 11.5,
+          "area_mm2": 1.3717,
+          "short_span_mm": 0.386
+        },
+        {
+          "z_mm": 11.7,
+          "area_mm2": 1.182,
+          "short_span_mm": 0.4382
+        },
+        {
+          "z_mm": 11.9,
+          "area_mm2": 1.0082,
+          "short_span_mm": 0.458
+        },
+        {
+          "z_mm": 12.1,
+          "area_mm2": 0.8421,
+          "short_span_mm": 0.4431
+        },
+        {
+          "z_mm": 12.3,
+          "area_mm2": 0.6834,
+          "short_span_mm": 0.3001
+        },
+        {
+          "z_mm": 12.5,
+          "area_mm2": 0.5371,
+          "short_span_mm": 0.278
+        },
+        {
+          "z_mm": 12.7,
+          "area_mm2": 0.4486,
+          "short_span_mm": 0.271
+        },
+        {
+          "z_mm": 12.9,
+          "area_mm2": 0.3117,
+          "short_span_mm": 0.2436
+        },
+        {
+          "z_mm": 13.1,
+          "area_mm2": 0.1752,
+          "short_span_mm": 0.2308
+        }
+      ],
+      "short_bridge_roofs": [],
+      "passed": false,
+      "sha256": "834f20ba6668953149627dbc3b7a8ddbadc36bd27426ec635250b76e2f15fb6c"
+    },
+    {
+      "part": "pinion",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 318.3486885894629,
+      "unsupported": [],
+      "short_bridge_roofs": [
+        {
+          "z_mm": 3.7,
+          "area_mm2": 7.1841,
+          "short_span_mm": 3.7478
+        },
+        {
+          "z_mm": 3.7,
+          "area_mm2": 7.1841,
+          "short_span_mm": 3.7478
+        },
+        {
+          "z_mm": 5.1,
+          "area_mm2": 22.4546,
+          "short_span_mm": 5.9495
+        }
+      ],
+      "passed": true,
+      "sha256": "f1ce05fbb34fc5c50675fa0abeb4ed6570f8ee89b7e4557bba0f7cfb09def098"
+    },
+    {
+      "part": "right",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 37.628790427378284,
+      "unsupported": [
+        {
+          "z_mm": 4.3,
+          "area_mm2": 85.9508,
+          "short_span_mm": 11.0687
+        },
+        {
+          "z_mm": 8.5,
+          "area_mm2": 147.7779,
+          "short_span_mm": 11.554
+        },
+        {
+          "z_mm": 8.7,
+          "area_mm2": 18.0804,
+          "short_span_mm": 4.0819
+        },
+        {
+          "z_mm": 8.9,
+          "area_mm2": 7.1439,
+          "short_span_mm": 1.699
+        },
+        {
+          "z_mm": 9.1,
+          "area_mm2": 6.1097,
+          "short_span_mm": 1.1465
+        },
+        {
+          "z_mm": 9.3,
+          "area_mm2": 4.6727,
+          "short_span_mm": 0.927
+        },
+        {
+          "z_mm": 9.5,
+          "area_mm2": 4.4745,
+          "short_span_mm": 0.7938
+        },
+        {
+          "z_mm": 9.7,
+          "area_mm2": 3.0548,
+          "short_span_mm": 0.6993
+        },
+        {
+          "z_mm": 9.9,
+          "area_mm2": 3.4396,
+          "short_span_mm": 0.6199
+        },
+        {
+          "z_mm": 10.1,
+          "area_mm2": 3.0579,
+          "short_span_mm": 0.5609
+        },
+        {
+          "z_mm": 10.3,
+          "area_mm2": 0.9745,
+          "short_span_mm": 0.514
+        },
+        {
+          "z_mm": 10.3,
+          "area_mm2": 1.0728,
+          "short_span_mm": 0.5893
+        },
+        {
+          "z_mm": 10.5,
+          "area_mm2": 2.548,
+          "short_span_mm": 0.6753
+        },
+        {
+          "z_mm": 10.7,
+          "area_mm2": 2.192,
+          "short_span_mm": 0.465
+        },
+        {
+          "z_mm": 10.9,
+          "area_mm2": 1.876,
+          "short_span_mm": 0.5622
+        },
+        {
+          "z_mm": 11.1,
+          "area_mm2": 1.618,
+          "short_span_mm": 0.3842
+        },
+        {
+          "z_mm": 11.3,
+          "area_mm2": 1.5546,
+          "short_span_mm": 0.3613
+        },
+        {
+          "z_mm": 11.5,
+          "area_mm2": 1.3717,
+          "short_span_mm": 0.386
+        },
+        {
+          "z_mm": 11.7,
+          "area_mm2": 1.182,
+          "short_span_mm": 0.4382
+        },
+        {
+          "z_mm": 11.9,
+          "area_mm2": 1.0082,
+          "short_span_mm": 0.458
+        },
+        {
+          "z_mm": 12.1,
+          "area_mm2": 0.8421,
+          "short_span_mm": 0.4431
+        },
+        {
+          "z_mm": 12.3,
+          "area_mm2": 0.6834,
+          "short_span_mm": 0.3001
+        },
+        {
+          "z_mm": 12.5,
+          "area_mm2": 0.5371,
+          "short_span_mm": 0.278
+        },
+        {
+          "z_mm": 12.7,
+          "area_mm2": 0.4486,
+          "short_span_mm": 0.271
+        },
+        {
+          "z_mm": 12.9,
+          "area_mm2": 0.3117,
+          "short_span_mm": 0.2436
+        },
+        {
+          "z_mm": 13.1,
+          "area_mm2": 0.1752,
+          "short_span_mm": 0.2308
+        }
+      ],
+      "short_bridge_roofs": [],
+      "passed": false,
+      "sha256": "ede71e2788eca20efb4bc7d93b0967f82f3f384fed6e910331a72143e032d557"
+    }
+  ],
+  "qualification": "Layer-section manufacturing screen; pinion roof short bridge separately inspected in actual slicer. No physical print/strength evidence."
+}

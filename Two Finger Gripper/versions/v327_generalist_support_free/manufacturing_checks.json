@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "layer_height_mm": 0.1,
+  "max_unbridged_growth_mm": 0.125,
+  "parts": [
+    {
+      "part": "base",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 849.2916789069949,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "9a39cf8648105d0b0eb6dd0ee07915ce266e37ba1eb906420f16d17de179ea53"
+    },
+    {
+      "part": "capture_ring",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 58.22096378492073,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "50725de08d37fd7ec20a5014084924ef5311b3af676ae14894e8419a3bc14191"
+    },
+    {
+      "part": "ear_spacers",
+      "watertight": true,
+      "components": 4,
+      "expected_components": 4,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 196.4414492428205,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "17c495d0f546d309e65fdbc9ddf2770a11bf9df9cd172afac44d18e9ccf40434"
+    },
+    {
+      "part": "left_blade",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 312.6008301850019,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "b053f1421af4cd8cfbe433c5eea3bbd4e781cdb1ea05622cfb9f0e0d1947dfe5"
+    },
+    {
+      "part": "left_gear",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 127.45869343661329,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "4fe017fcfb8a3fee5543c9d5c116976ac96d92b727b461d362aba58c63a666f7"
+    },
+    {
+      "part": "pinion",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 338.3259370244514,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "a8cb874b6fe12272317b90e68b42d29db092540e3fb551367db511e3b92ff08f"
+    },
+    {
+      "part": "right_blade",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 312.6008301850019,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "b053f1421af4cd8cfbe433c5eea3bbd4e781cdb1ea05622cfb9f0e0d1947dfe5"
+    },
+    {
+      "part": "right_gear",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 127.45863833967886,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "a9a25e43abe0f49905495831bc48530e51b5bd51ac747fec0593b21f4cdde000"
+    },
+    {
+      "part": "right_upper",
+      "watertight": true,
+      "components": 1,
+      "expected_components": 1,
+      "bed_z_mm": 0.0,
+      "first_layer_area_mm2": 55.36935341395696,
+      "unsupported": [],
+      "short_bridge_roofs": [],
+      "passed": true,
+      "sha256": "131a3a30d5addf1ac879f2aba28a5ad4c7ae9874d2f468f01c93ba9208fb8a30"
+    }
+  ],
+  "qualification": "Layer-section manufacturing screen; pinion roof short bridge separately inspected in actual slicer. No physical print/strength evidence."
+}

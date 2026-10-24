@@ -198,3 +198,11 @@ Gripper 29 builds on Gripper 28: upper integral sector becomes18 teeth/16mm adde
 Pinion28 teeth/24mm addendum diameter (was42 teeth/44mm); 18:28 ratio means19.286deg servo travel for unchanged0–30deg jaw stroke. Four printed /19 physical parts retained.
 Purchased HLS3606M-C001, 18mm metal spline plate, center capture and real fastener sizes unchanged; plate screws use existing opposed0/180deg holes for access. Hand-held only, no Mount2 interface.
 Full sampled motion, tools, retention, original-band identity and closure checks; analytical gear/load screening is not measured resin strength or physical fit/ergonomic qualification.
+
+
+v327_generalist_support_free — Base 26 (voice-550038ca), Gripper 30: Base 25 with support-free FDM split gear layers and motor spacers.
+Gripper 30 builds on Gripper 29: solid original-outline/grooved blades replace0.405mm lattice webs; original distal tips and30mm pivots retained. Hex shafts key separate flat gear layers. No distal connector/extension.
+Twelve prints /33 physical pieces: two blades, three sectors, pinion, flat capture ring, base, four spacers. New4xM2x5 top spacer screws and2xM2x8 plate screws with0.3mm metal washers replace counterbore roofs. Original HLS3606M/metal spline plate and M2.3x5 center retention retained.
+Bored sleeves grow to4.4mm OD/2.2mm ID (1.1mm walls); only these two supports cross the finger slab, material area29.046mm2. Original gear sizes/ratio/stroke remain compact; outward spacer screws retain tool access.
+Supplied print STL orientations and arranged3MF sliced with0.4mm nozzle,0.1mm layers, supports OFF: zero support/bridge/overhang paths. Actual mesh walls and layer geometry checked. No physical print, fit, strength or ergonomic acceptance. Base25/Gripper29 is not support-free print-ready.
+Hand-held branch, no SO-101/Mount2 interface. Surgical-reference task must build on this manufacturing version and rerun its constraints. Prior versions preserved.

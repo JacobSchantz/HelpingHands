@@ -1,0 +1,200 @@
+{
+  "no_handles": true,
+  "parts": [
+    {
+      "path": "exports/parts/left_blade.stl",
+      "name": "Left finger solid blade \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_blade.stl",
+      "name": "Right finger solid blade \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/left_gear.stl",
+      "name": "Left lower gear \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_gear.stl",
+      "name": "Right lower gear \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/right_upper.stl",
+      "name": "Right upper gear \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/pinion.stl",
+      "name": "Pinion \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/parts/base.stl",
+      "name": "Base \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        35,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/ear_spacers.stl",
+      "name": "Motor spacers (4) \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/capture_ring.stl",
+      "name": "Center screw capture ring \u2014 Base 26, Gripper 30",
+      "color": "#26272b",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/motor.stl",
+      "name": "Motor HLS3606M \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        65,
+        0
+      ]
+    },
+    {
+      "path": "exports/parts/stock_plate.stl",
+      "name": "Stock aluminum spline plate \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/reference/plate_washers.stl",
+      "name": "Plate screws washers (2) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/spacer_screws.stl",
+      "name": "Spacer screws (4) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/plate_screws.stl",
+      "name": "Plate screws (2) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    },
+    {
+      "path": "exports/reference/case_screws.stl",
+      "name": "Case screws (4) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_screws.stl",
+      "name": "Pivot screws (2) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        -35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_washers.stl",
+      "name": "Pivot washers (2) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        -35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/pivot_nuts.stl",
+      "name": "Pivot nuts (2) \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        35,
+        0
+      ]
+    },
+    {
+      "path": "exports/reference/center_screw.stl",
+      "name": "Center screw \u2014 Base 26, Gripper 30",
+      "color": "#718096",
+      "explode": [
+        0,
+        15,
+        -25
+      ]
+    }
+  ],
+  "finger_lineage": {
+    "builds_on": "Gripper 29",
+    "gist": "Solid original-outline blades with keyed separate flat gear layers for support-free FDM"
+  },
+  "preview": "previews/comparison.png"
+}
